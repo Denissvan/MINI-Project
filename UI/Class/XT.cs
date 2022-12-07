@@ -15,6 +15,8 @@ namespace UI
     public  class XT
     {
         public bool Enable = true;
+        int PickTrayChkErrCnt = 0;//取料后复检失败次数用于报警显示
+        int PickTrayChkErrCntLimit = 7;//取料后复检失败次数用于报警显示
         #region 硬件
         /// <summary>
         ///吸头对应下相机
@@ -123,6 +125,7 @@ namespace UI
         public ST_XYZ st_rol;           //旋转中心 
        
         public double cap_offset; //拍照偏移
+        public double DwCapQrCodeoffset; //拍二维码偏移
 
         public double xt_cap_ofs;//吸头飞拍OFS
         public double ws_cap_near_ofs; //工站近端飞拍偏差
@@ -260,6 +263,8 @@ namespace UI
             st_rol.z = inf.ReadDouble(section, "ROL_Z", 0);
 
             cap_offset = inf.ReadDouble(section, "CAP_OFS", 0);
+            DwCapQrCodeoffset = inf.ReadDouble(section, "DwCapQrCodeoffset", 0);
+           
 
             //屏蔽功能
             Enable = inf.ReadBool(section, "ENABLE", true);
@@ -285,8 +290,9 @@ namespace UI
             {
                 string[] backup = File.ReadAllLines(filename);
                 bool ischange = false;
-               
+                
                 inf.WriteDouble(section, "CAP_OFS", cap_offset,ref ischange, true, filename);
+                inf.WriteDouble(section, "DwCapQrCodeoffset", DwCapQrCodeoffset, ref ischange, true, filename);
                 if (ischange)
                 {
                     //创建backup
@@ -301,6 +307,7 @@ namespace UI
             else
             {
                 cap_offset = inf.ReadDouble(section, "CAP_OFS", 0);
+                DwCapQrCodeoffset = inf.ReadDouble(section, "DwCapQrCodeoffset", 0);
                 //飞拍位置
                 st_cap_pos.y = st_rol_cap.y+ cap_offset;
             }
@@ -426,8 +433,10 @@ namespace UI
             //旋转中心 
             inf.WriteDouble(section, "ROL_X", st_rol.x, ref ischange, true, filename);
             inf.WriteDouble(section, "ROL_Y", st_rol.y, ref ischange, true, filename);
+            
             inf.WriteDouble(section, "ROL_Z", st_rol.z, ref ischange, true, filename);
             //拍照偏差
+            inf.WriteDouble(section, "DwCapQrCodeoffset", DwCapQrCodeoffset, ref ischange, true, filename);
             inf.WriteDouble(section, "CAP_OFS", cap_offset, ref ischange, true, filename);
             //飞拍偏差
             inf.WriteDouble(section, "XT_CAP_OFS", xt_cap_ofs, ref ischange, true, filename);
@@ -897,11 +906,7 @@ namespace UI
         public EM_RES PickOrPlace(ref bool bquit, ST_XYZA st_pos, bool bpick = true, bool IsDemo = false,bool DwMov=false,bool bPasteUp=false)
         {
             EM_RES res=EM_RES.OK;
-            EM_RES res1 = EM_RES.OK;
-
-            //检查真空
-            //VAR.msg.AddMsg(Msg.EM_MSGTYPE.DBG, "检查" + disc + "真空!");
-           
+            EM_RES res1 = EM_RES.OK;         
             if (!IsDemo)
             {
                 if (bpick)
@@ -942,12 +947,6 @@ namespace UI
                     res = MT.Move(ref bquit, ref ax_z, 0);
                     if (res != EM_RES.OK) return res;
                 }
-
-                //if (st_pos.y - ax_y.fenc_pos < 150)
-                //{
-                //    res = ax_y.SetToWorkSpd(0.4);
-                //    VAR.msg.AddMsg(Msg.EM_MSGTYPE.DBG, string.Format("{0}速度降为原来的40%:", ax_y.disc));
-                //}
 
                 res = MT.Move(ref bquit, ref ax_x, st_pos.x, ref ax_y, st_pos.y,ref ax_u,st_pos.a);
                 //ax_y.SetToWorkSpd();
@@ -1035,14 +1034,11 @@ namespace UI
 
                         cy_zk.SetOff();
                         gpio_pzk.SetOn();
-                        Thread.Sleep(50);
+                        Thread.Sleep(60);
 
                     }
                 }
-                // Thread.Sleep(10);
-                //z up
-                //ret = MT.Move(ref bquit, ref ax_z, 0);
-                //if (ret != EM_RES.OK) return ret;
+               
             }
             finally
             {
@@ -1056,7 +1052,14 @@ namespace UI
                     Thread.Sleep(20);
                     if (!cy_zk.isONByChkSen)
                     {
+                        PickTrayChkErrCnt++;
+                        if(PickTrayChkErrCnt>PickTrayChkErrCntLimit)
+                        {
+                            PickTrayChkErrCnt = 0;
+                            res = PickTrayChkErrShow();                  
+                        }
                         VAR.msg.AddMsg(Msg.EM_MSGTYPE.ERR, VAR.IsChinese?string.Format("{0} 取料后复检失败!", disc): string.Format("{0} Failure to recheck after picking up!        ({0} 取料后复检失败!)", disc));
+                        if (res == EM_RES.OK)
                         res = EM_RES.PICK_ERR;
                     }
                   
@@ -1245,29 +1248,43 @@ namespace UI
                         res = upcam.FindTaskTriAndWait(CONST.TrayUpFw);
                         if (res != EM_RES.OK)
                         {
-                            VAR.sys_inf.Set(EM_ALM_STA.WAR_YELLOW_FLASH, VAR.IsChinese ? "拍照错误!":"Cam ERR", 20, true);
-                             MT.ST_WARN warn = new MT.ST_WARN();
-                             warning fr_warn= new warning();
-                             warn.ok_txt = VAR.IsChinese?"更换料盘":"Replace tray";
-                             warn.cancle_txt = VAR.IsChinese ? "重新拍照":"Take a photo";
-                             warn.abort_txt = VAR.IsChinese ? "停止运行":"Stop running";
-                             warn.ws = null;
-                            warn.title = VAR.IsChinese ? "提示:拍照错误!": "Tip: Failed to take a picture!";
-                            warn.msg= VAR.IsChinese ? string.Format("{0}拍{1}失败!",upcam.disc,traybox.disc==traybox_ok.disc?"OK料盘":"NG料盘"): string.Format("{0} failed to shoot {3}!\r\n {1}拍{2}失败!",upcam.englishdisc, upcam.disc, traybox.disc == traybox_ok.disc ? "OK料盘" : "NG料盘", traybox.disc == traybox_ok.disc ? "OK tray" : "NG tray");
-                             warn.lb_msg = VAR.IsChinese ? string.Format("提示:{0}拍{1}失败!，请确认!\r\n  1.如果料盘放反或拍照位有异物,请按更换料盘按键\r\n  " +
-                                                     "2.如需重拍确认,请按重新拍照键\r\n  3.如需停止,请按停止运行键", upcam.disc, traybox.disc == traybox_ok.disc ? "OK料盘" : "NG料盘"): string.Format("Tip:{0} failed to shoot {3}!,please comfirm!\r\n 1.If the tray is turned upside down or there is a foreign object in the photo position, press 'Replace tray' button\r\n"+ "2.If you want to take a photo again, press the 'Take a photo' key \r\n 3. If you want to stop, press the stop running key\r\n提示:{1}拍{2}失败!，请确认! \r\n1.如果料盘放反或拍照位有异物,请按更换料盘按键\r\n  " +
-                                                                                                                                                                           "2.如需重拍确认,请按重新拍照键\r\n  3.如需停止,请按停止运行键", upcam.englishdisc, upcam.disc, traybox.disc == traybox_ok.disc ? "OK料盘" : "NG料盘", traybox.disc == traybox_ok.disc ? "OK tray" : "NG tray");
-                             DialogResult logres = MT.Display_frwarn(fr_warn,warn,ERR_ALM.EmErrItem.CaptureAbnomal);
-                             if (DialogResult.OK == logres)
-                             {
-                                 VAR.sys_inf.Set(EM_ALM_STA.NOR_GREEN, VAR.IsChinese ? "运行":"RUN", 0, true);
-                                 return EM_RES.END;
-                             }
-                             else if (DialogResult.Abort == logres)
-                             {
-                                  return EM_RES.ERR;
-                             }
-                             VAR.sys_inf.Set(EM_ALM_STA.NOR_GREEN, VAR.IsChinese ? "运行":"RUN", 0, true);
+                            VAR.sys_inf.Set(EM_ALM_STA.WAR_YELLOW_FLASH, VAR.IsChinese ? "拍照错误!" : "Cam ERR", 20, true);
+                            MT.ST_WARN warn = new MT.ST_WARN();//增加语言
+                            warning fr_warn = new warning();
+                            warn.ok_txt = MultiLanguage.TxtSelct("更换料盘", "Replace tray", "Thay khay");
+                            warn.cancle_txt = MultiLanguage.TxtSelct("重新拍照", "Take a photo", "Chụp ảnh");
+                            warn.abort_txt = MultiLanguage.TxtSelct("停止运行", "Stop running", "Ngừng chạy");
+                            warn.ws = null;
+                            warn.title = MultiLanguage.TxtSelct("提示:拍照错误!", "Tip: Failed to take a picture!", "Mẹo: Không chụp được ảnh!");
+
+                            string tray = traybox.disc == traybox_ok.disc ? "OK料盘" : "NG料盘";
+                            warn.msg = MultiLanguage.TxtSelct($"{upcam.disc}拍{tray}失败!", $"{upcam.englishdisc} failed to shoot {tray}!", $"{upcam.disc} không bắn được {tray}!");
+                            warn.lb_msg = MultiLanguage.TxtSelct(
+                                $"提示:{upcam.disc}拍{tray}失败! 请确认!\r\n" +
+                                $"1.如果料盘放反或拍照位有异物,请按更换料盘按键\r\n" +
+                                $"2.如需重拍确认,请按重新拍照键\r\n" +
+                                $"3.如需停止,请按停止运行键",
+
+                                $"Tip:{upcam.englishdisc} failed to shoot {tray}!,please comfirm!\r\n" +
+                                $"1.If the tray is turned upside down or there is a foreign object in the photo position, press 'Replace tray' button\r\n" +
+                                $"2.If you want to take a photo again, press the 'Take a photo' key\r\n" +
+                                $"3. If you want to stop, press the stop running key",
+
+                                $"{upcam.disc} failed to shoot {tray}!\r\n" +
+                                $"1.Nếu khay bị lật ngược hoặc có vật thể lạ ở vị trí ảnh chụp, hãy nhấn nút 'Thay khay'\r\n" +
+                                $"2.Nếu bạn muốn chụp ảnh lại, hãy nhấn phím 'Chụp ảnh'\r\n" +
+                                $"3. Nếu bạn muốn dừng, hãy bấm phím dừng chạy");
+                            DialogResult logres = MT.Display_frwarn(fr_warn, warn, ERR_ALM.EmErrItem.CaptureAbnomal);
+                            if (DialogResult.OK == logres)
+                            {
+                                VAR.sys_inf.Set(EM_ALM_STA.NOR_GREEN, VAR.IsChinese ? "运行" : "RUN", 0, true);
+                                return EM_RES.END;
+                            }
+                            else if (DialogResult.Abort == logres)
+                            {
+                                return EM_RES.ERR;
+                            }
+                            VAR.sys_inf.Set(EM_ALM_STA.NOR_GREEN, VAR.IsChinese ? "运行" : "RUN", 0, true);
                         }
                         else break;
                     }
@@ -1539,8 +1556,27 @@ namespace UI
             if(showmsg) MessageBox.Show(VAR.IsChinese?string.Format("测高结果:{0}", zref): string.Format("Altimetry results:{0}\r\n测高结果:{0}", zref));
             return EM_RES.OK;
         }
+
+         EM_RES PickTrayChkErrShow()
+        {
+            MT.ST_WARN warn = new MT.ST_WARN();
+            warning fr_warn = new warning();
+            warn.ok_txt = VAR.IsChinese ? "继续" : "GoOn";
+            warn.cancle_txt = VAR.IsChinese ? "停止" : "Stop";
+            warn.title = VAR.IsChinese ? "提示:吸头真空异常" : "Tip: xt State Error";
+            VAR.sys_inf.Set(EM_ALM_STA.WAR_YELLOW_FLASH, warn.title, 10, true);
+            warn.msg = warn.title;
+            warn.lb_msg = string.Format(  $"当前吸头名字：{disc} ，取料后复检真空异常，请确认真空气压阈值，检查吸头有无残胶等" +
+                $"\r\n " + "按继续则运行。否者按停止则停机");
+            DialogResult logres = MT.Display_frwarn(fr_warn, warn, ERR_ALM.EmErrItem.MaterialPosErr);
+            if (logres == DialogResult.OK)
+            {
+                 return EM_RES.OK; 
+            }
+            else return EM_RES.ERR;
+        }
         #endregion
-    
+
         //飞拍(相机1任务列表/位置列表，相机2任务列表/位置列表，相机3任务列表/位置列表，终点位置)
 
         //根据取放位置计算上相机位置

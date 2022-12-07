@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using MotionCtrl;
 using System.Drawing;
 using DevReport;
+using Win32Lib;
 
 namespace UI
 {
@@ -469,11 +470,17 @@ namespace UI
                 VAR.sys_inf.Set(EM_ALM_STA.WAR_YELLOW_FLASH, VAR.IsChinese ? "更换仓储" : "Change Tray", 10, true, ErrCode: Code);
                 MT.ST_WARN warn = new MT.ST_WARN();
                 warning fr_warn = new warning();
-                warn.ok_txt = VAR.IsChinese ? "继续运行" : "Keep running";
-                warn.ws = null;
-                warn.msg = VAR.IsChinese ? disc + "的物料已完成,请更换仓储后按确定继续!" : name + "The materials have been completed, please change the tray box and press 'Keep running' key to continue!\r\n" + disc + "的物料已完成,请更换仓储后按确定继续!";
-                warn.lb_msg = VAR.IsChinese ? "提示:" + disc + "的物料已完成,请更换仓储后按确定继续运行!" : "Tip:" + name + "The materials have been completed, please change the storage and press 'OK' key to continue running!\r\n" + "提示:" + disc + "的物料已完成,请更换仓储后按确定继续运行!";
-                warn.title = VAR.IsChinese ? "提示:更换仓储" : "Tip:Change tray box";
+                warn.ok_txt = MultiLanguage.TxtSelct("继续运行", "Keep running", "tiếp tục chạy");
+                warn.ws = null;//增加语言
+                warn.msg = MultiLanguage.TxtSelct(
+                    disc + "的物料已完成,请更换仓储后按确定继续!",
+                    name + "The materials have been completed, please change the tray box and press 'Keep running' key to continue!",
+                    disc + "Nguyên liệu đã hoàn thành, bạn hãy đổi kho và nhấn OK để tiếp tục nhé!");
+                warn.lb_msg = MultiLanguage.TxtSelct(
+                    disc + "的物料已完成,请更换仓储后按确定继续!",
+                    name + "The materials have been completed, please change the tray box and press 'Keep running' key to continue!",
+                    disc + "Nguyên liệu đã hoàn thành, bạn hãy đổi kho và nhấn OK để tiếp tục nhé!");
+                warn.title = MultiLanguage.TxtSelct("提示:更换仓储", "Tip:Change tray box", "Mẹo: Thay đổi bộ nhớ");
                 MT.Display_frwarn(fr_warn, warn, ERR_ALM.EmErrItem.Null);
                 VAR.sys_inf.Set(EM_ALM_STA.NOR_GREEN, VAR.IsChinese ? "运行" : "RUN", 0, true);
                 // MT.Display_frwarn(Color.Yellow, "提示:当前仓储的物料已完成,请更换仓储后按确定继续!");
@@ -613,15 +620,21 @@ namespace UI
                     VAR.msg.AddMsg(Msg.EM_MSGTYPE.NOR, VAR.IsChinese ? string.Format("{0}出料时料仓未感应!", disc) : string.Format("{0} The magazine is not sensing when tray out!      ({1}出料时料仓未感应!)", name, disc));
                     if (VAR.gsys_set.status == EM_SYS_STA.RUN)
                     {
-                        //界面提示                 
+                        //界面提示         增加语言        
                         VAR.sys_inf.Set(EM_ALM_STA.WAR_YELLOW_FLASH, VAR.IsChinese ? "没有仓储" : "No tray", 10, true);
                         MT.ST_WARN warn = new MT.ST_WARN();
                         warning fr_warn = new warning();
-                        warn.ok_txt = VAR.IsChinese ? "继续运行" : "Keep running";
+                        warn.ok_txt = MultiLanguage.TxtSelct("继续运行", "Keep running", "tiếp tục chạy");
                         warn.ws = null;
-                        warn.title = VAR.IsChinese ? "提示:没有仓储" : "Tip: no tray box";
-                        warn.msg = VAR.IsChinese ? disc + "没有检测到,请确认放好后按确定继续!" : name + "No detection, please confirm it and press OK to continue!\r\n" + disc + "没有检测到,请确认放好后按确定继续!";
-                        warn.lb_msg = VAR.IsChinese ? "提示:" + disc + "没有检测到,请确认放好后按确定继续运行!" : "Tip:" + name + "No detection, please confirm it and press OK to continue running!\r\n" + "提示:" + disc + "没有检测到,请确认放好后按确定继续运行!";
+                        warn.title = MultiLanguage.TxtSelct("提示:没有仓储", "Tip: no tray box", "Gợi ý: không nhập kho");
+                        warn.msg = MultiLanguage.TxtSelct
+                            (disc + "没有检测到,请确认放好后按确定继续!",
+                            name + "No detection, please confirm it and press OK to continue!",
+                            disc + "Nếu nó không được phát hiện, vui lòng xác nhận và nhấn OK để tiếp tục!");
+                        warn.lb_msg = MultiLanguage.TxtSelct
+                            (disc + "没有检测到,请确认放好后按确定继续!",
+                            name + "No detection, please confirm it and press OK to continue!",
+                            disc + "Nếu nó không được phát hiện, vui lòng xác nhận và nhấn OK để tiếp tục!");
                         MT.Display_frwarn(fr_warn, warn, ERR_ALM.EmErrItem.TrayBoxAbnormal);
                         VAR.sys_inf.Set(EM_ALM_STA.NOR_GREEN, VAR.IsChinese ? "运行" : "RUN", 0, true);
                     }
@@ -629,6 +642,9 @@ namespace UI
                     return EM_RES.ERR;
                 }
             }
+
+
+
 
             bchanged = true;
 
@@ -638,6 +654,29 @@ namespace UI
                 VAR.msg.AddMsg(Msg.EM_MSGTYPE.ERR, VAR.IsChinese ? string.Format("{0} 出料时轨道已有料盘!", disc) : string.Format("{0}There is already a tray in the track when tray out!      ({1} 出料时轨道已有料盘!)", name, disc));
                 return EM_RES.ERR;
             }
+
+            if (!PT_SET.IsMesLocal&&disc== COM.traybox_fd.disc)
+            {
+              
+                Msg.secsManager.Send(new BaseInfo() { Id = 5 }, 2);
+                MT.IsAllowStartUpdateByTray = false;
+                MT.IsAllowStartByTray= false;
+                Task mm =new Task(() =>
+                {
+                    VAR.msg.AddMsg(Msg.EM_MSGTYPE.SYS, "正在等待MES上位指令!");
+                    SpinWait.SpinUntil(() => MT.IsAllowStartUpdateByTray, 10000);
+                });
+               
+                mm.Start();
+                mm.Wait();
+                //fr?.Close();
+                if (!MT.IsAllowStartByTray)
+                {
+                   FrRun. Dialog(Color.Yellow, "警告", "被MES禁止继续加工！请联系相关人员。");
+                   return EM_RES.ERR;
+                }
+            }
+
 
             //check idx
             if (idx < 0 || idx >= list_sta.Count) idx = tray_idx;
@@ -739,15 +778,21 @@ namespace UI
                     VAR.msg.AddMsg(Msg.EM_MSGTYPE.NOR, VAR.IsChinese ? string.Format("{0}出料时料仓未感应!", disc) : string.Format("{0}The magazine is not sensing when tray out!       ({1}出料时料仓未感应!)", name, disc));
                     if (VAR.gsys_set.status == EM_SYS_STA.RUN)
                     {
-                        //界面提示                 
+                        //界面提示      增加语言           
                         VAR.sys_inf.Set(EM_ALM_STA.WAR_YELLOW_FLASH, VAR.IsChinese ? "没有仓储" : "No tray", 10, true);
                         MT.ST_WARN warn = new MT.ST_WARN();
                         warning fr_warn = new warning();
-                        warn.ok_txt = VAR.IsChinese ? "继续运行" : "Keep running";
+                        warn.ok_txt = MultiLanguage.TxtSelct("继续运行", "Keep running", "tiếp tục chạy");
                         warn.ws = null;
-                        warn.title = VAR.IsChinese ? "提示:没有仓储" : "Tip:No tray box";
-                        warn.msg = VAR.IsChinese ? disc + "没有检测到,请确认放好后按确定继续!" : name + "No detection, please confirm it and press OK to continue!\r\n" + disc + "没有检测到,请确认放好后按确定继续!";
-                        warn.lb_msg = VAR.IsChinese ? "提示:" + disc + "没有检测到,请确认放好后按确定继续运行!" : "Tip:" + name + "No detection, please confirm it and press OK to continue running!\r\n" + "提示:" + disc + "没有检测到,请确认放好后按确定继续运行!";
+                        warn.title = MultiLanguage.TxtSelct("提示:没有仓储", "Tip:No tray box", "Gợi ý: không nhập kho");
+                        warn.msg = MultiLanguage.TxtSelct(
+                            disc + "没有检测到,请确认放好后按确定继续!",
+                            name + "No detection, please confirm it and press OK to continue!",
+                            disc + "Nếu nó không được phát hiện, vui lòng xác nhận và nhấn OK để tiếp tục!");
+                        warn.lb_msg = MultiLanguage.TxtSelct(
+                            disc + "没有检测到,请确认放好后按确定继续!",
+                            name + "No detection, please confirm it and press OK to continue!",
+                            disc + "Nếu nó không được phát hiện, vui lòng xác nhận và nhấn OK để tiếp tục!");
                         MT.Display_frwarn(fr_warn, warn, ERR_ALM.EmErrItem.TrayBoxAbnormal);
                         VAR.sys_inf.Set(EM_ALM_STA.NOR_GREEN, VAR.IsChinese ? "运行" : "RUN", 0, true);
                     }
@@ -809,14 +854,19 @@ namespace UI
                 VAR.sys_inf.Set(EM_ALM_STA.WAR_YELLOW_FLASH, VAR.IsChinese ? "料仓错误" : "TrayBox ERR", 10, true, ErrCode: Code);
                 MT.ST_WARN warn = new MT.ST_WARN();
                 warning fr_warn = new warning();
-                warn.ok_txt = VAR.IsChinese ? "继续运行" : "Keep running";
+                warn.ok_txt = MultiLanguage.TxtSelct("继续运行", "Keep running", "tiếp tục chạy");
                 warn.ws = null;
-                warn.title = VAR.IsChinese ? "提示:料仓错误" : "Tip:Tray box error";
-                warn.msg = VAR.IsChinese ? string.Format("{0}进料感应已有物料,层数:{1}!", disc, idx + 1) : string.Format("{0}Induction of existing materials, the number of layers:{2}!\r\n{1}进料感应已有物料,层数:{2}!", name, disc, idx + 1);
-                warn.lb_msg = VAR.IsChinese ? "提示:" + warn.msg + "请把当前层的料盘拿掉,按确认键继续运行!" : "Tip:" + warn.msg + "\r\nPlease remove the tray of the current layer and press the confirmation key to continue running!" + "\r\n提示:" + warn.msg + "请把当前层的料盘拿掉,按确认键继续运行!";
+                warn.title = MultiLanguage.TxtSelct("提示:料仓错误", "Tip:Tray box error", "Mẹo: Lỗi Silo");//增加语言
+                warn.msg = MultiLanguage.TxtSelct(
+                    disc + "进料感应已有物料,层数:" + (idx + 1).ToString(),
+                    name + "Induction of existing materials, the number of layers:" + (idx + 1).ToString(),
+                    disc + "Nguồn cấp dữ liệu cảm biến vật liệu hiện có, lớp:" + (idx + 1).ToString());
+                warn.lb_msg = MultiLanguage.TxtSelct(
+                    "提示:" + warn.msg + "请把当前层的料盘拿掉,按确认键继续运行!",
+                    "Tip: " + warn.msg + "\r\nPlease remove the tray of the current layer and press the confirmation key to continue running!",
+                    "dấu hiệu:" + warn.msg + "Vui lòng tháo khay vật liệu của lớp hiện tại và nhấn nút OK để tiếp tục chạy!");
                 MT.Display_frwarn(fr_warn, warn, ERR_ALM.EmErrItem.TrayBoxAbnormal);
                 VAR.sys_inf.Set(EM_ALM_STA.NOR_GREEN, VAR.IsChinese ? "运行" : "RUN", 0, true);
-                //VAR.msg.AddMsg(Msg.EM_MSGTYPE.WAR, string.Format("{0} 进料感应已有物料,层数:{1}!", disc, idx));
                 return EM_RES.NEXT;
             }
             if (res != EM_RES.OK) return res;

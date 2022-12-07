@@ -44,6 +44,8 @@ namespace UI
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.tableLayoutPanel2 = new System.Windows.Forms.TableLayoutPanel();
             this.btn_GetChart = new System.Windows.Forms.Button();
+            this.button1 = new System.Windows.Forms.Button();
+            this.saveFileDialog1 = new System.Windows.Forms.SaveFileDialog();
             ((System.ComponentModel.ISupportInitialize)(this.chart1)).BeginInit();
             this.tableLayoutPanel1.SuspendLayout();
             this.tableLayoutPanel2.SuspendLayout();
@@ -199,6 +201,7 @@ namespace UI
             this.tableLayoutPanel2.Controls.Add(this.rbt_almtime, 2, 0);
             this.tableLayoutPanel2.Controls.Add(this.btn_clear, 5, 1);
             this.tableLayoutPanel2.Controls.Add(this.btn_GetChart, 5, 0);
+            this.tableLayoutPanel2.Controls.Add(this.button1, 3, 1);
             this.tableLayoutPanel2.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayoutPanel2.Location = new System.Drawing.Point(3, 533);
             this.tableLayoutPanel2.Name = "tableLayoutPanel2";
@@ -218,6 +221,17 @@ namespace UI
             this.btn_GetChart.Text = "查询";
             this.btn_GetChart.UseVisualStyleBackColor = true;
             this.btn_GetChart.Click += new System.EventHandler(this.btn_GetChart_Click);
+            // 
+            // button1
+            // 
+            this.button1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.button1.Location = new System.Drawing.Point(313, 40);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(74, 31);
+            this.button1.TabIndex = 6;
+            this.button1.Text = "导出文件";
+            this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
             // SysTimeBarChart
             // 
@@ -247,5 +261,7 @@ namespace UI
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel2;
         private System.Windows.Forms.Button btn_GetChart;
+        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.SaveFileDialog saveFileDialog1;
     }
 }

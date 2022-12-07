@@ -168,6 +168,7 @@ namespace UI
             }
             curTask.ResData.Clear();
             mcurCam.List_vs_task_cur.Clear();
+            mcurCam.inputImageCnt = 0;
             //curTask.ListCaliTool = new List<Cam.CaliTool>();
             mcurCam.List_vs_task_cur.Add(curTask);
             if (mcurCam.mAcqFifo != null && btn_img.BackColor != Color.Gold)

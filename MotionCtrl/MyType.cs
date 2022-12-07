@@ -990,6 +990,21 @@ namespace MotionCtrl
 
         //料盘二维码拍照设置
         public static bool TrayBarcodeEn = false;
+        //马达扫码设置
+        public static bool bmotorphoto = false;
+        //马达扫二维码U1角度
+        public static int MotorAngle1 = 0;
+
+        //马达扫二维码U2角度
+        public static int MotorAngle2 = 0;
+        //马达扫二维码U3角度
+        public static int MotorAngle3 = 0;
+
+        //马达扫二维码U4角度
+        public static int MotorAngle4 = 0;
+
+        //马达二维码位数
+        public static int motorBarcodeDigits;
 
         //吸头1先运动设置
         public static bool xt1firsten = false;
@@ -1093,6 +1108,8 @@ namespace MotionCtrl
 
         //新增上拍二维码位置
         public static bool bAddCapQrcode;
+        //新增下拍二维码位置
+        public static bool bDwAddCapQrcode;
 
         //回检针座管控
         public static double LeftArea;
@@ -1113,6 +1130,14 @@ namespace MotionCtrl
         //设备信息
         public static string EqpSN;
         public static string EqpPos;
+        //上工站后检测二维码是否一直
+        public static bool bUpWsChkQrCodeEn = true;
+        public static int UpWsChkQrCodeCnt = 5;
+
+        //工站NG超数量报警
+        public static bool bWsNgRateShow;
+        //每20个中出现多少个报警
+        public static int CntWsNgRateShow;
         #endregion
 
         #region 参数存取
@@ -1181,7 +1206,12 @@ namespace MotionCtrl
             bSameRowNGTip = inf.ReadBool("OTHER_SET", "BSAMEROWNGTIP", false);
             SameRowNGTipCnt = inf.ReadInteger("OTHER_SET", "SAMEROWNGTIP_CNT", 5);
 
-
+            bmotorphoto = inf.ReadBool("OTHER_SET", "BMOTORPHOTO", false);
+            MotorAngle1 = inf.ReadInteger("OTHER_SET", "MOTORANGLE1", 0);
+            MotorAngle2 = inf.ReadInteger("OTHER_SET", "MOTORANGLE2", 0);
+            MotorAngle3 = inf.ReadInteger("OTHER_SET", "MOTORANGLE3", 0);
+            MotorAngle4 = inf.ReadInteger("OTHER_SET", "MOTORANGLE4", 0);
+            motorBarcodeDigits = inf.ReadInteger("OTHER_SET", "MOTORBARCODEDIGITS", 0);
 
             bUpdateSoft = inf.ReadBool("OTHER_SET", "BUPDATESOFT", true);
             bUploadData = inf.ReadBool("OTHER_SET", "BUPLOADDATA", true);
@@ -1204,9 +1234,11 @@ namespace MotionCtrl
             bG4C = inf.ReadBool("OTHER_SET", "BG4C", false);//OTP光源是G4C或者其他
             bJigSan = inf.ReadBool("OTHER_SET", "bJigSan", true);
             TestTime = inf.ReadInteger("OTHER_SET", "TestTime", 30000);
+
+            
             JigCntSend = inf.ReadInteger("OTHER_SET", "JigCntSend", 30);
             bAddCapQrcode = inf.ReadBool("OTHER_SET", "bAddCapQrcode", false);
-
+            bDwAddCapQrcode = inf.ReadBool("OTHER_SET", "bDwAddCapQrcode", false);
 
             //吸头个数设置
             bUpDn1XtOnlyOne = inf.ReadBool("OTHER_SET", "bUpDn1XtOnlyOne", false);
@@ -1242,6 +1274,10 @@ namespace MotionCtrl
 
             EqpPos = inf.ReadString("OTHER_SET", "EqpPos", "新基地4号楼标杆车间");
             EqpSN = inf.ReadString("OTHER_SET", "EqpSN", "123456");
+            bUpWsChkQrCodeEn = inf.ReadBool("OTHER_SET", "bUpWsChkQrCodeEn", true);
+            UpWsChkQrCodeCnt = inf.ReadInteger("OTHER_SET", "UpWsChkQrCodeCnt", 5);
+            bWsNgRateShow = inf.ReadBool("OTHER_SET", "bWsNgRateShow", false);
+            CntWsNgRateShow = inf.ReadInteger("OTHER_SET", "CntWsNgRateShow", 10);
             return EM_RES.OK;
         }
 
@@ -1295,6 +1331,13 @@ namespace MotionCtrl
             inf.WriteBool("OTHER_SET", "HallEN", HallEn, ref ischange, true, filename);
             inf.WriteBool("OTHER_SET", "XT1FIRSTEN", xt1firsten, ref ischange, true, filename);
             inf.WriteBool("OTHER_SET", "TrayBarcodeEn", TrayBarcodeEn, ref ischange, true, filename);
+
+            inf.WriteBool("OTHER_SET", "BMOTORPHOTO", bmotorphoto, ref ischange, true, filename);
+            inf.WriteInteger("OTHER_SET", "MOTORANGLE1", MotorAngle1, ref ischange, true, filename);
+            inf.WriteInteger("OTHER_SET", "MOTORANGLE2", MotorAngle2, ref ischange, true, filename);
+            inf.WriteInteger("OTHER_SET", "MOTORANGLE3", MotorAngle3, ref ischange, true, filename);
+            inf.WriteInteger("OTHER_SET", "MOTORANGLE4", MotorAngle4, ref ischange, true, filename);
+            inf.WriteInteger("OTHER_SET", "MOTORBARCODEDIGITS", motorBarcodeDigits, ref ischange, true, filename);
             //inf.WriteBool("OTHER_SET", "ISsingle", issingle, ref ischange, true, filename);
             inf.WriteInteger("OTHER_SET", "BITOPENMODE", bitOpenMode, ref ischange, true, filename);
             inf.WriteBool("OTHER_SET", "ISopen_degree", isopen_degree, ref ischange, true, filename);
@@ -1371,9 +1414,14 @@ namespace MotionCtrl
             inf.WriteString("OTHER_SET", "CHECKTIMEEVENING", CheckTimeEvening, ref ischange, true, filename);
             inf.WriteString("OTHER_SET", "EqpPos", EqpPos, ref ischange, true, filename);
             inf.WriteString("OTHER_SET", "EqpSN", EqpSN, ref ischange, true, filename);
-      
 
+            
             inf.WriteBool("OTHER_SET", "bAddCapQrcode", bAddCapQrcode, ref ischange, true, filename);
+            inf.WriteBool("OTHER_SET", "bDwAddCapQrcode", bDwAddCapQrcode, ref ischange, true, filename);
+            inf.WriteBool("OTHER_SET", "bUpWsChkQrCodeEn", bUpWsChkQrCodeEn, ref ischange, true, filename);
+            inf.WriteInteger("OTHER_SET", "UpWsChkQrCodeCnt", UpWsChkQrCodeCnt, ref ischange, true, filename);
+            inf.WriteBool("OTHER_SET", "bWsNgRateShow", bWsNgRateShow, ref ischange, true, filename);
+            inf.WriteInteger("OTHER_SET", "CntWsNgRateShow", CntWsNgRateShow, ref ischange, true, filename);
             if (ischange)
             {
                 //创建backup
@@ -1383,7 +1431,7 @@ namespace MotionCtrl
                 res = SYS_PUD.FileWriteLine("ptcfg.ini", backup, backup_filename);
                 if (res != EM_RES.OK) return res;
             }
-            
+          
             return EM_RES.OK;
         }
 
@@ -1706,6 +1754,9 @@ namespace MotionCtrl
         public static int[] ngcnt = new int[4]; //产出数据
         public static int[] okcnt = new int[4];  //NG数据
 
+        public static int OkTwoTestCnt ; //复测数量
+        public static int NgTwoTestCnt ; //复测数量
+
         public static double runtime;         //运行时间sec
         public static double waittime;        //空闲时间sec
         public static double waitwltime;      //待料时间
@@ -1762,6 +1813,8 @@ namespace MotionCtrl
                 ngcnt[i] = inf.ReadInteger("COUNT", "NGCNT" + i.ToString(), 0);
                 okcnt[i] = inf.ReadInteger("COUNT", "OKCNT" + i.ToString(), 0);
             }
+            NgTwoTestCnt = inf.ReadInteger("COUNT", "NgTwoTestCnt" , 0);
+            OkTwoTestCnt = inf.ReadInteger("COUNT", "OkTwoTestCnt" , 0);
             SuctionAllcnt = inf.ReadInteger("COUNT", "SUCTIONALLTIME", 0);
             SuctionErrcnt = inf.ReadInteger("COUNT", "SUCTIONERRTIME", 0);
             runtime = inf.ReadDouble("CNT", "RUNTIME", runtime);
@@ -1808,6 +1861,8 @@ namespace MotionCtrl
                 inf.WriteInteger("COUNT", "NGCNT" + i.ToString(), ngcnt[i], ref ischange, false);
                 inf.WriteInteger("COUNT", "OKCNT" + i.ToString(), okcnt[i], ref ischange, false);
             }
+            inf.WriteInteger("COUNT", "NgTwoTestCnt", NgTwoTestCnt, ref ischange, false);
+            inf.WriteInteger("COUNT", "OkTwoTestCnt", OkTwoTestCnt, ref ischange, false);
             inf.WriteInteger("COUNT", "SUCTIONALLTIME", SuctionAllcnt, ref ischange, false);
             inf.WriteInteger("COUNT", "SUCTIONERRTIME", SuctionErrcnt, ref ischange, false);
             inf.WriteDouble("CNT", "RUNTIME", runtime, ref ischange, false);
@@ -1842,6 +1897,8 @@ namespace MotionCtrl
                 ngcnt[i] = 0;
                 okcnt[i] = 0;
             }
+            OkTwoTestCnt = 0;
+            NgTwoTestCnt = 0;
             runtime = 0;
             waittime = 0;
             waitwltime = 0;

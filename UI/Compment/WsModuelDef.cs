@@ -674,6 +674,7 @@ namespace UI
                                 return;
                             }
                             COM.List_UDLoad[id].upcam.List_vs_task_cur.Clear();
+                            COM.List_UDLoad[id].upcam.inputImageCnt = 0;
                             StMovPos.x = list_temp.ElementAt(row * 8 + col).st_pos[id].x;
                             StMovPos.y = list_temp.ElementAt(row * 8 + col).st_pos[id].y;
                             Cam.VisionTask VsTask = COM.List_UDLoad[id].upcam.List_vs_task.Find(s => s.TaskName.Equals("WsUp_Shp"));

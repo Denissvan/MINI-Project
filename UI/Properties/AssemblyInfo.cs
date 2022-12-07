@@ -40,8 +40,23 @@ using System.Runtime.InteropServices;
 //2.3.1.0 后开图，优化反转后停止，开始重复上料
 //2312增加远程设备看板数据上传在数据库类增加
 //2322增加模组idx，优化拍照NG放回料盘,增加开机上报夹具
-//统一版本2400，增加远程监控版本
-//2401取料盘尝试次数增加到15
+//2410 增加复测品单独计数，计算除了复测品的良率数据。
+//2410  增加取料后复检真空异常次数超过弹窗报警。增加放料后在放偏检测流程中增加二维码检测对比上料QrCodeChkShow
+//2412增加任务监控和位置
+//增加相机误触发处理，记录输入图像数量  cam.inputImageErrCnt  inputImageCnt++;//输入图像次数计数，防止午误触发！
+//相机取图函数增加出结果后判断防止再次误触发更改
+//优化2417版本打印信息，增加上料二维码检测功能设置和频率设置2418
+//增加257内存失败提示测试软件重新启动
+//2420优化英文版本稼动率异常（运行和run区分状态导致），增加越南语版本
+//增加稼动率按小时导出功能
+//2422增加mes控制，MT.IsAllowStartByTray
+//2421增加稼动率导出功能DatatableToCSV
+//2423增加下拍二维码位置bDwAddCapQrcode
+//2430增加康耐视扫码bmotorphoto
+//轴定位偏差设置0.4
+//屏蔽工位也取料HaveWsPickMd和GetWsPosTeam对屏蔽修改
+//2433增加ng比例PT_SET.CntWsNgRateShow
+//2433封装工站放偏检测函数
 //[assembly: AssemblyVersion("1.0.*")]
-[assembly: AssemblyVersion("2.4.0.1")]
-[assembly: AssemblyFileVersion("2.4.0.1")]
+[assembly: AssemblyVersion("2.4.3.3")]
+[assembly: AssemblyFileVersion("2.4.3.3")]

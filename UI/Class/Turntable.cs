@@ -502,15 +502,18 @@ namespace UI
                 {
                     VAR.msg.AddMsg(Msg.EM_MSGTYPE.ERR, VAR.IsChinese ? string.Format("转盘当前位置[{0}],未转到指定位置[{1}]", cur_pos, pos) : string.Format("Current position [{0}] of the turntable.Turntable did not go to the specified location       (转盘当前位置[{0}],未转到指定位置[{1}])", cur_pos, pos), DReport.EmErrCode.MoveError, (int)DReport.EmHareware.TurnTable, ERR_ALM.EmErrItem.MoveError);
                     VAR.sys_inf.Set(EM_ALM_STA.WAR_YELLOW_FLASH, VAR.IsChinese ? "转盘异常!" : "TurnTable Error", 20, true);
-                    MT.ST_WARN warn = new MT.ST_WARN();
+                    MT.ST_WARN warn = new MT.ST_WARN();//鞥加语言
                     warning fr_warn = new warning();
-                    warn.ok_txt = VAR.IsChinese ? "确认" : "Ok";
-                    warn.abort_txt = VAR.IsChinese ? "不用" : "不用";
-                    warn.cancle_txt = VAR.IsChinese ? "不用" : "不用";
+                    warn.ok_txt = MultiLanguage.TxtSelct("确认", "OK", "xác nhận");
+                    warn.abort_txt = MultiLanguage.TxtSelct("不用", "Need not", "Không cần");
+                    warn.cancle_txt = MultiLanguage.TxtSelct("不用", "Need not", "Không cần");
                     warn.ws = null;
-                    warn.title = VAR.IsChinese ? "提示:转盘异常" : "Tip: TurnTable Error";
-                    warn.msg = VAR.IsChinese ? "转盘异常!" : "TurnTable Error\r\n转盘异常!";
-                    warn.lb_msg = string.Format("转盘当前位置[{0}],未转到指定位置[{1}],请确认转盘到位信号与角度光电开关，确认无误后才能继续运行！", cur_pos, pos);
+                    warn.title = MultiLanguage.TxtSelct("提示:转盘异常", "Tip: TurnTable Error", "Mẹo: Bàn xoay không bình thường");
+                    warn.msg = MultiLanguage.TxtSelct("转盘异常", "TurnTable Error", "Bàn xoay không bình thường");
+                    warn.lb_msg = MultiLanguage.TxtSelct(
+                        "转盘当前位置[" + cur_pos.ToString() + "],未转到指定位置[" + pos.ToString() + "],请确认转盘到位信号与角度光电开关，确认无误后才能继续运行!",
+                        "The current position of the turntable[" + cur_pos.ToString() + "],Did not go to the specified location[" + pos.ToString() + "], Please confirm the turntable in-position signal and the angle photoelectric switch, and continue to run after confirmation! ",
+                        "Vị trí hiện tại của bàn xoay[" + cur_pos.ToString() + "],Đã không đi đến vị trí được chỉ định[" + pos.ToString() + "],Vui lòng xác nhận tín hiệu tại vị trí của bàn xoay và công tắc quang điện góc, và tiếp tục chạy sau khi xác nhận!");
                     DialogResult logres = MT.Display_frwarn(fr_warn, warn, ERR_ALM.EmErrItem.MaterialPosErr);
                     return EM_RES.ERR;
                 }

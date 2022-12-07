@@ -16,12 +16,14 @@ namespace UI
          public WS ws = null;
          public List<int> ws_num =new List<int>();
          public string title="";
+         
         public warning()
         {
             InitializeComponent();
-            btn_cancle.Text = VAR.IsChinese?"取消":"Cancel";
-            btn_ok.Text = VAR.IsChinese ? "确定":"OK";
-            btn_abort.Text = VAR.IsChinese ? "放弃":"Abort";
+            //增加语言
+            btn_cancle.Text = MultiLanguage.TxtSelct("取消", "Cancel", "Hủy bỏ");
+            btn_ok.Text = MultiLanguage.TxtSelct("确定", "OK", "Đảm bảo");
+            btn_abort.Text = MultiLanguage.TxtSelct("放弃", "Abort", "từ bỏ");
             btn_cancle.Visible = false;
             btn_abort.Visible = false;
         }

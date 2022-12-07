@@ -252,6 +252,7 @@ namespace UI.Compment
             GetData();
             //拍照任务
             mcurCam.List_vs_task_cur.Clear();
+            mcurCam.inputImageCnt = 0;
             Cam.VisionTask task = mcurCam.List_vs_task.Find(s => s.TaskName.Equals("NpointTool"));
             mcurCam.List_vs_task_cur.Add(task);
             //移动到上相机拍照位置
@@ -311,6 +312,7 @@ namespace UI.Compment
             VAR.gsys_set.bquit = false;
             //拍照任务            
             mcurCam.List_vs_task_cur.Clear();
+            mcurCam.inputImageCnt = 0;
             Cam.VisionTask task = mcurCam.List_vs_task.Find(s => s.TaskName.Equals("NpointTool"));
             mcurCam.List_vs_task_cur.Add(task);
             EM_RES ret = task.TriAndWaitResult(ref VAR.gsys_set.bquit);

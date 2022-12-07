@@ -551,8 +551,11 @@ namespace UI
         //public static BarcodeScanner COM3 = new BarcodeScanner("模块1扫码器", "COM3", 115200);
         //public static BarcodeScanner COM4 = new BarcodeScanner("模块2扫码器", "COM4", 115200);
         public static IlluminationController COM2 = new IlluminationController("右光箱其他光源", "COM2", 57600);
-        public static IlluminationController COM3 = new IlluminationController("轩十佳OTP光源", "COM6", 19200);
-        public static IlluminationController COM4 = new IlluminationController("轩十佳右光箱", "COM7", 19200);
+        public static IlluminationController COM6 = new IlluminationController("轩十佳OTP光源串口", "COM6", 19200);
+        public static IlluminationController COM7 = new IlluminationController("轩十佳右光箱窗串口", "COM7", 19200);
+
+        public static BarcodeScanner COM3 = new BarcodeScanner("模块1扫码器", "COM3", 115200);
+        public static BarcodeScanner COM4 = new BarcodeScanner("模块2扫码器", "COM4", 115200);
 
         #endregion
 
@@ -796,22 +799,24 @@ namespace UI
         {
             MT.ST_WARN st_warn = new MT.ST_WARN();
             warning fr_warn = new warning();
-            st_warn.ok_txt = VAR.IsChinese ? "确认" : "OK";
+            st_warn.ok_txt = MultiLanguage.TxtSelct("确认", "OK", "Đảm bảo");// VAR.IsChinese ? "确认" : "OK";
             st_warn.ws = null;
             if (MT.DoorAlarmMsg != string.Empty)
             {
-                st_warn.msg = MT.DoorAlarmMsg;
+                st_warn.msg = MT.DoorAlarmMsg;//增加语言
                 //DRpt.Report_Status(DReport.EmStatus.Ready, DReport.EmHareware.Null, DReport.EmStatus.Ready.GetDescription());
-                if (MT.DoorAlarmMsg != string.Format("急停键按下，请确认,系统需重新复位!") || MT.DoorAlarmMsg != "Press the emergency stop button, please confirm, the system needs to be reset!          (急停键按下，请确认,系统需重新复位!)")
+                if (MT.DoorAlarmMsg != string.Format("急停键按下，请确认,系统需重新复位!") || MT.DoorAlarmMsg != "Press the emergency stop button, please confirm, the system needs to be reset!")
                 {
                     VAR.sys_inf.Set(EM_ALM_STA.WAR_YELLOW_FLASH, VAR.IsChinese ? "门禁打开!" : "Door Alarm!", 20, true);
-                    st_warn.title = VAR.IsChinese ? "提示:门禁打开!" : "Tip: The entrance guard is open!";
-                    st_warn.lb_msg = VAR.IsChinese ? "门禁打开提示:\r\n" + MT.DoorAlarmMsg + "请把相关的门关好，按确认键如想继续请按开始键!" : "Access control opening reminder:\r\n" + MT.DoorAlarmMsg + "Please close the relevant doors and press the OK button. If you want to continue, press the Start button!" + "\r\n门禁打开提示:\r\n" + MT.DoorAlarmMsg + "请把相关的门关好，按确认键如想继续请按开始键!";
+                    st_warn.title = MultiLanguage.TxtSelct("提示:门禁打开!", "Tip: The entrance guard is open!", "Gợi ý: Cửa đang mở!");
+                    st_warn.lb_msg = MultiLanguage.TxtSelct("门禁打开提示:\r\n" + MT.DoorAlarmMsg + "请把相关的门关好",
+                                                            "Access control opening reminder:\r\n" + MT.DoorAlarmMsg + "Please close the relevant doors.",
+                                                            "Gợi ý: Cửa đang mở!:\r\n" + MT.DoorAlarmMsg + "Vui lòng đóng cánh cửa liên quan");
                 }
                 else
                 {
                     VAR.sys_inf.Set(EM_ALM_STA.WAR_RED_FLASH, VAR.IsChinese ? "急停按下!" : "EMG", 20, true);
-                    st_warn.title = VAR.IsChinese ? "提示:急停按下!" : "Tip:EMG button was pressed";
+                    st_warn.title = MultiLanguage.TxtSelct("提示:急停按下!", "Tip:EMG button was pressed", "Mẹo: Nhấn dừng khẩn cấp!");
                     st_warn.lb_msg = MT.DoorAlarmMsg;
                 }
                 MT.Display_frwarn(fr_warn, st_warn, ERR_ALM.EmErrItem.Null);
@@ -1913,8 +1918,10 @@ namespace UI
 
         #region SecsParam
         public static bool IsAllowStart = false;
+        public static bool IsAllowStartByTray = false;
 
         public static bool IsAllowStartUpdate = false;
+        public static bool IsAllowStartUpdateByTray = false;
 
         #endregion
     }

@@ -18,16 +18,18 @@ namespace UI
     {
         Chinese,
         English,
+        Vietnamese,
     }
 
-    class MultiLanguage
+    static class MultiLanguage
     {
         //当前默认语言
         public static string DefaultLanguage = "ChineseSimplified";
+        public static enumLanguage CurrentLanguage { set; get; } = enumLanguage.Chinese;
         private static List<string> ListMenu = new List<string>();
         private static Dictionary<string, ToolStripMenuItem> DicMenu = new Dictionary<string, ToolStripMenuItem>();
-        public  static string strRead = "\\Languages\\" + "readme" + ".xml";
-        public static  string strFile = System.Windows.Forms.Application.StartupPath + strRead;
+        public static string strRead = "\\Languages\\" + "readme" + ".xml";
+        public static string strFile = System.Windows.Forms.Application.StartupPath + strRead;
         /// <summary>
         /// 读取当前默认语言
         /// </summary>
@@ -37,7 +39,7 @@ namespace UI
             string defaultLanguage = "ChineseSimplified";
 
             XDocument document = new XDocument();
-            
+
             if (!System.IO.File.Exists(strFile))
             {
                 defaultLanguage = string.Empty;
@@ -162,9 +164,9 @@ namespace UI
                     }
                     else if (control.GetType() == typeof(CTabControl))     //CTabControl
                     {
-                        GetSetSubControls(control.Controls, hashText, hashHeaderText);  
+                        GetSetSubControls(control.Controls, hashText, hashHeaderText);
                     }
-                   else if (control.GetType() == typeof(AffineCail))     //AffineCail
+                    else if (control.GetType() == typeof(AffineCail))     //AffineCail
                     {
                         GetSetSubControls(control.Controls, hashText, hashHeaderText);
                     }
@@ -280,7 +282,7 @@ namespace UI
                     {
                         GetSetSubControls(control.Controls, hashText, hashHeaderText);
                     }
-                    
+
                     else if (control.GetType() == typeof(TabControl))       //TabControl
                     {
                         GetSetSubControls(control.Controls, hashText, hashHeaderText);
@@ -288,7 +290,7 @@ namespace UI
                     else if (control.GetType() == typeof(TabPage))      //TabPage
                     {
                         GetSetSubControls(control.Controls, hashText, hashHeaderText);
-                    }                   
+                    }
                     else if (control.GetType() == typeof(DataGridView))
                     {
                         GetSetHeaderCell((DataGridView)control, hashHeaderText);
@@ -388,108 +390,108 @@ namespace UI
         }
 
         /// <summary>
-         /// 从XML文件中读取需要修改Text的內容
-         /// </summary>
-         /// <param name="frmName">窗口名，用于获取对应窗口的那部分内容</param>
-         /// <param name="xmlName">目标语言</param>
-         /// <returns></returns>
-         private static Hashtable ReadXMLText(string frmName, string xmlName)
-         {
-             try
-             {
-                 Hashtable hashResult = new Hashtable();
-                 XmlReader reader = null;
-                 //判断是否存在该语言的配置文件
-                 if (!(new System.IO.FileInfo(System.Windows.Forms.Application.StartupPath + "\\Languages\\" + xmlName + ".xml")).Exists)
-                 {
-                     return null;
-                 }
-                 else
-                 {
-                     reader = new XmlTextReader(System.Windows.Forms.Application.StartupPath + "\\Languages\\" + xmlName + ".xml");
-                 }
-                 XmlDocument doc = new XmlDocument();
-                 doc.Load(reader);
-                 XmlNode root = doc.DocumentElement;
-                 //获取XML文件中对应该窗口的内容
-                 XmlNodeList nodeList = root.SelectNodes("Form[Name='" + frmName + "']/Controls/Control");
-                 foreach (XmlNode node in nodeList)
-                 {
-                     try
-                     {
-                         //修改内容为控件的Text值
-                         XmlNode node1 = node.SelectSingleNode("@name");
-                         XmlNode node2 = node.SelectSingleNode("@text");
-                         if (node1 != null)
-                         {
-                             hashResult.Add(node1.InnerText, node2.InnerText);
-                         }
-                     }
-                     catch (Exception ex)
-                     {
-                         string s = ex.ToString();
-                     }
-                 }
-                 reader.Close();
-                 reader.Dispose();
-                 return hashResult;
-             }
-             catch(Exception ex)
-             {
-                 return null;
-             }
-         }
+        /// 从XML文件中读取需要修改Text的內容
+        /// </summary>
+        /// <param name="frmName">窗口名，用于获取对应窗口的那部分内容</param>
+        /// <param name="xmlName">目标语言</param>
+        /// <returns></returns>
+        private static Hashtable ReadXMLText(string frmName, string xmlName)
+        {
+            try
+            {
+                Hashtable hashResult = new Hashtable();
+                XmlReader reader = null;
+                //判断是否存在该语言的配置文件
+                if (!(new System.IO.FileInfo(System.Windows.Forms.Application.StartupPath + "\\Languages\\" + xmlName + ".xml")).Exists)
+                {
+                    return null;
+                }
+                else
+                {
+                    reader = new XmlTextReader(System.Windows.Forms.Application.StartupPath + "\\Languages\\" + xmlName + ".xml");
+                }
+                XmlDocument doc = new XmlDocument();
+                doc.Load(reader);
+                XmlNode root = doc.DocumentElement;
+                //获取XML文件中对应该窗口的内容
+                XmlNodeList nodeList = root.SelectNodes("Form[Name='" + frmName + "']/Controls/Control");
+                foreach (XmlNode node in nodeList)
+                {
+                    try
+                    {
+                        //修改内容为控件的Text值
+                        XmlNode node1 = node.SelectSingleNode("@name");
+                        XmlNode node2 = node.SelectSingleNode("@text");
+                        if (node1 != null)
+                        {
+                            hashResult.Add(node1.InnerText, node2.InnerText);
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        string s = ex.ToString();
+                    }
+                }
+                reader.Close();
+                reader.Dispose();
+                return hashResult;
+            }
+            catch (Exception ex)
+            {
+                return null;
+            }
+        }
 
         /// <summary>
-         /// 从XML文件中读取需要修改HeaderText的內容
-         /// </summary>
-         /// <param name="frmName">窗口名，用于获取对应窗口的那部分内容</param>
-         /// <param name="xmlName">目标语言</param>
-         /// <returns></returns>
-         private static Hashtable ReadXMLHeaderText(string frmName, string xmlName)
-         {
-             try
-             {
-                 Hashtable hashResult = new Hashtable();
-                 XmlReader reader = null;
-                 //判断是否存在该语言的配置文件
-                 if (!(new System.IO.FileInfo(System.Windows.Forms.Application.StartupPath + "\\Languages\\" + xmlName + ".xml")).Exists)
-                 {
-                     return null;
-                 }
-                 else
-                 {
-                     reader = new XmlTextReader(System.Windows.Forms.Application.StartupPath + "\\Languages\\" + xmlName + ".xml");
-                 }
+        /// 从XML文件中读取需要修改HeaderText的內容
+        /// </summary>
+        /// <param name="frmName">窗口名，用于获取对应窗口的那部分内容</param>
+        /// <param name="xmlName">目标语言</param>
+        /// <returns></returns>
+        private static Hashtable ReadXMLHeaderText(string frmName, string xmlName)
+        {
+            try
+            {
+                Hashtable hashResult = new Hashtable();
+                XmlReader reader = null;
+                //判断是否存在该语言的配置文件
+                if (!(new System.IO.FileInfo(System.Windows.Forms.Application.StartupPath + "\\Languages\\" + xmlName + ".xml")).Exists)
+                {
+                    return null;
+                }
+                else
+                {
+                    reader = new XmlTextReader(System.Windows.Forms.Application.StartupPath + "\\Languages\\" + xmlName + ".xml");
+                }
 
 
-                 XmlDocument doc = new XmlDocument();
-                 doc.Load(reader);
-                 XmlNode root = doc.DocumentElement;
-                 //获取XML文件中对应该窗口的内容
-                 XmlNodeList nodeList = root.SelectNodes("Form[Name='" + frmName + "']/DataGridViewCells/DataGridViewCell");
-                 foreach (XmlNode node in nodeList)
-                 {
-                     try
-                     {
-                         //修改内容为控件的Text值
-                         XmlNode node1 = node.SelectSingleNode("@name");
-                         XmlNode node2 = node.SelectSingleNode("@HeaderText");
-                         if (node1 != null)
-                         {
-                             hashResult.Add(node1.InnerText.ToLower(), node2.InnerText);
-                         }
-                     }
-                     catch { }
-                 }
-                 reader.Close();
-                 reader.Dispose();
-                 return hashResult;
-             }
-             catch(Exception ex)
-             {
-                 return null;
-             }
+                XmlDocument doc = new XmlDocument();
+                doc.Load(reader);
+                XmlNode root = doc.DocumentElement;
+                //获取XML文件中对应该窗口的内容
+                XmlNodeList nodeList = root.SelectNodes("Form[Name='" + frmName + "']/DataGridViewCells/DataGridViewCell");
+                foreach (XmlNode node in nodeList)
+                {
+                    try
+                    {
+                        //修改内容为控件的Text值
+                        XmlNode node1 = node.SelectSingleNode("@name");
+                        XmlNode node2 = node.SelectSingleNode("@HeaderText");
+                        if (node1 != null)
+                        {
+                            hashResult.Add(node1.InnerText.ToLower(), node2.InnerText);
+                        }
+                    }
+                    catch { }
+                }
+                reader.Close();
+                reader.Dispose();
+                return hashResult;
+            }
+            catch (Exception ex)
+            {
+                return null;
+            }
         }
         /// <summary>
         /// 获取并设置DataGridView的列头
@@ -505,6 +507,17 @@ namespace UI
                     column.HeaderText = (string)hashHeaderText[column.Name.ToLower()];
                 }
             }
+        }
+
+        public static string TxtSelct(string chinese = "", string english = "", string vietnamese = "")
+        {
+            var language = MultiLanguage.CurrentLanguage;
+            if (language == enumLanguage.Chinese)
+                return chinese;
+            else if (language == enumLanguage.English)
+                return english + "\n" + chinese;
+            else
+                return vietnamese + "\n" + chinese;
         }
     }
 }

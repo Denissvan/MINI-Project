@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 using MotionCtrl;
 
 namespace UI
@@ -12,7 +13,7 @@ namespace UI
     public class BarcodeScanner
     {
         //SerialPort
-        SerialCom sCom = new SerialCom();
+      public  SerialCom sCom = new SerialCom();
         /// <summary>
         /// 描述
         /// </summary>
@@ -54,14 +55,31 @@ namespace UI
 
             if (sCom.InitSerialCom(Description, PortName, BaudRate))
             {
-                VAR.msg.AddMsg(Msg.EM_MSGTYPE.SYS, string.Format("{0} 打开串口成功",Description));
+                VAR.msg.AddMsg(Msg.EM_MSGTYPE.SYS, string.Format("{0} 打开串口成功", Description));
                 //Logger.Info($"{Description} 打开串口成功");
                 sCom.ComReceivedEvent += new EventHandler(ComReceivedDo_Com);
                 bComInitOK = true;
             }
             else
             {
-                VAR.msg.AddMsg(Msg.EM_MSGTYPE.SYS, string.Format("{0} 打开串口失败",Description));
+                VAR.msg.AddMsg(Msg.EM_MSGTYPE.SYS, string.Format("{0} 打开串口失败", Description));
+                //Logger.Info($"{Description} 打开串口失败");
+                bComInitOK = false;
+            }
+        }
+
+        public void ReInit()
+        {
+            if (sCom.InitSerialCom(Description, PortName, BaudRate))
+            {
+                VAR.msg.AddMsg(Msg.EM_MSGTYPE.SYS, string.Format("{0} 打开串口成功", Description));
+                //Logger.Info($"{Description} 打开串口成功");
+                sCom.ComReceivedEvent += new EventHandler(ComReceivedDo_Com);
+                bComInitOK = true;
+            }
+            else
+            {
+                VAR.msg.AddMsg(Msg.EM_MSGTYPE.SYS, string.Format("{0} 打开串口失败", Description));
                 //Logger.Info($"{Description} 打开串口失败");
                 bComInitOK = false;
             }
@@ -69,34 +87,49 @@ namespace UI
 
         private void ComReceivedDo_Com(object sender, EventArgs e)
         {
-            byte[] data = sCom.bytReceData;
-            byte[] newdata = new byte[data.Length - 3];
-
-            string str = Encoding.UTF8.GetString(data);
-            string sData = "";
-
-
-            //提取数据
-            int j = 0;
-            for (int i = 0; i < data.Length; i++)
+            try
             {
-                if (data[i] != 0x02 && data[i] != 0x0D && data[i] != 0x0A)
+                byte[] data = sCom.bytReceData;
+                if (data.Length < 5)
                 {
-                    newdata[j] = data[i];
-                    j++;
+                    bReaded = true;
+                    dData = "读码失败";
+                    return;
                 }
+                byte[] newdata = new byte[data.Length - 2];
+
+                string str = Encoding.UTF8.GetString(data);
+                string sData = "";
+
+
+                //提取数据
+                for (int i = 0; i < newdata.Length; i++)
+                {
+                    newdata[i] = data[i];
+                    //if (data[i] != 0x02 && data[i] != 0x0D && data[i] != 0x0A && data[i] != 0x20)
+                    //{
+                    //    newdata[j] = data[i];
+                    //    j++;
+                    //}
+                }
+                sData = System.Text.Encoding.ASCII.GetString(newdata);
+
+                dData = sData;
+
+                bReaded = true;
             }
-            sData = System.Text.Encoding.ASCII.GetString(newdata);
-
-            dData = sData;
-
-            bReaded = true;
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+                MessageBox.Show(ex.StackTrace);
+            }
+            
         }
 
         public bool ReadData(out string data, int timeout = 200)
         {
 
-            bySendData = new byte[] {0x54};
+            bySendData = new byte[] { 0x54 };
 
             data = "";
             bReaded = false;
@@ -112,7 +145,47 @@ namespace UI
                 //if (sw.ElapsedMilliseconds > timeout)       //容易超时
                 if (i > 20)
                 {
-                    VAR.msg.AddMsg(Msg.EM_MSGTYPE.ERR, string.Format("{0} 读取数据,超时{1}ms",Description,timeout));
+                    VAR.msg.AddMsg(Msg.EM_MSGTYPE.ERR, string.Format("{0} 读取数据,超时{1}ms", Description, timeout));
+                    //Logger.Error($"{Description} 读取数据,超时{timeout}ms");
+                    //sw.Stop();
+                    return false;
+                }
+                Thread.Sleep(100);
+                i++;
+            }
+            //sw.Stop();
+
+            //if (dData == double.MaxValue)
+            //{
+            //    VAR.msg.AddMsg(Msg.EM_MSGTYPE.ERR, $"{Description} 读取的数据错误");
+            //    //Logger.Error($"{Description} 读取的数据错误");
+            //    return false;
+            //}
+
+            data = dData;
+            return true;
+        }
+
+        public bool ReadDataByString(out string data, int timeout = 200)
+        {
+
+            var bySendDataStr = "T";
+
+            data = "";
+            bReaded = false;
+            sCom.SendData(bySendDataStr);
+
+            //等待数据
+            //sw.Restart();I
+            int i = 0;
+            while (true)
+            {
+                if (bReaded == true)
+                    break;
+                //if (sw.ElapsedMilliseconds > timeout)       //容易超时
+                if (i > 20)
+                {
+                    VAR.msg.AddMsg(Msg.EM_MSGTYPE.ERR, string.Format("{0} 读取数据,超时{1}ms", Description, timeout));
                     //Logger.Error($"{Description} 读取数据,超时{timeout}ms");
                     //sw.Stop();
                     return false;
@@ -135,8 +208,8 @@ namespace UI
 
         public bool SetChannel(int chset)
         {
-            byte a=0x00;
-            byte b=0x00;
+            byte a = 0x00;
+            byte b = 0x00;
             switch (chset)
             {
                 case 4:
@@ -159,7 +232,7 @@ namespace UI
                     break;
             }
             if (b == 0x00) return false;
-            bySendData =new byte[] { 0x4c,0x47,a,0x00,0x00,b };
+            bySendData = new byte[] { 0x4c, 0x47, a, 0x00, 0x00, b };
             sCom.SendData(bySendData);
             return true;
         }

@@ -209,7 +209,8 @@ namespace UI.Compment
             //if (ret != EM_RES.OK) return ret;
             ret = MT.ZupMove(ref VAR.gsys_set.bquit, ref mcurXt.ax_y, (double)nud_rot_downcam_y.Value, ref mcurXt.ax_u, 0,true);
             if (ret != EM_RES.OK) return EM_RES.ERR;
-            dwcam.List_vs_task_cur.Clear(); 
+            dwcam.List_vs_task_cur.Clear();
+            dwcam.inputImageCnt = 0;
             task = dwcam.List_vs_task.Find(s => s.TaskName.Equals((id+1).ToString()+"_XtSharp"));
             dwcam.List_vs_task_cur.Add(task);
             ret = dwcam.CalRotCenter(ref VAR.gsys_set.bquit, ref RotCenter, task, id == 0 ? true : false, FrMain.frrun.cogDisplayer_run.cogRecordDisplay);

@@ -57,24 +57,20 @@
             this.panel7 = new System.Windows.Forms.Panel();
             this.tableLayoutPanel4 = new System.Windows.Forms.TableLayoutPanel();
             this.panel4 = new System.Windows.Forms.Panel();
+            this.UpLoad1 = new UI.UpLoad();
             this.panel8 = new System.Windows.Forms.Panel();
+            this.upLoad2 = new UI.UpLoad();
             this.panel9 = new System.Windows.Forms.Panel();
             this.lb_tt_n = new System.Windows.Forms.Label();
             this.lb_tt_ct = new System.Windows.Forms.Label();
             this.lb_tt_tmr = new System.Windows.Forms.Label();
-            this.panel6 = new System.Windows.Forms.Panel();
-            this.dgv_msg = new System.Windows.Forms.DataGridView();
-            this.panel3 = new System.Windows.Forms.Panel();
-            this.timer_500ms = new System.Windows.Forms.Timer(this.components);
-            this.timer_key = new System.Windows.Forms.Timer(this.components);
-            this.UpLoad1 = new UI.UpLoad();
-            this.upLoad2 = new UI.UpLoad();
             this.tray_fd = new UI.tray();
             this.traybox_fd = new UI.traybox();
             this.traybox_ok = new UI.traybox();
             this.traybox_ng = new UI.traybox();
             this.tray_ok = new UI.tray();
             this.tray_ng = new UI.tray();
+            this.panel6 = new System.Windows.Forms.Panel();
             this.cogDisplayer_run = new UI.CogDisplayer();
             this.cTabControl1 = new CTabControl();
             this.tp_ws_status = new System.Windows.Forms.TabPage();
@@ -146,6 +142,10 @@
             this.tb_OpenImageRate = new System.Windows.Forms.TextBox();
             this.label20 = new System.Windows.Forms.Label();
             this.tb_SuctionErrRate = new System.Windows.Forms.TextBox();
+            this.dgv_msg = new System.Windows.Forms.DataGridView();
+            this.panel3 = new System.Windows.Forms.Panel();
+            this.timer_500ms = new System.Windows.Forms.Timer(this.components);
+            this.timer_key = new System.Windows.Forms.Timer(this.components);
             this.tableLayoutPanel1.SuspendLayout();
             this.panel2.SuspendLayout();
             this.tableLayoutPanel2.SuspendLayout();
@@ -160,7 +160,6 @@
             this.panel8.SuspendLayout();
             this.panel9.SuspendLayout();
             this.panel6.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dgv_msg)).BeginInit();
             this.cTabControl1.SuspendLayout();
             this.tp_ws_status.SuspendLayout();
             this.tableLayoutPanel5.SuspendLayout();
@@ -175,6 +174,7 @@
             this.tp_count.SuspendLayout();
             this.tableLayoutPanel8.SuspendLayout();
             this.tableLayoutPanel7.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dgv_msg)).BeginInit();
             this.SuspendLayout();
             // 
             // tableLayoutPanel1
@@ -188,7 +188,7 @@
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
             this.tableLayoutPanel1.RowCount = 1;
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel1.Size = new System.Drawing.Size(1300, 880);
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(1300, 788);
             this.tableLayoutPanel1.TabIndex = 1;
             // 
             // panel2
@@ -199,7 +199,7 @@
             this.panel2.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.panel2.Location = new System.Drawing.Point(3, 3);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(1294, 874);
+            this.panel2.Size = new System.Drawing.Size(1294, 782);
             this.panel2.TabIndex = 1;
             // 
             // tableLayoutPanel2
@@ -214,7 +214,7 @@
             this.tableLayoutPanel2.Name = "tableLayoutPanel2";
             this.tableLayoutPanel2.RowCount = 1;
             this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayoutPanel2.Size = new System.Drawing.Size(1294, 874);
+            this.tableLayoutPanel2.Size = new System.Drawing.Size(1294, 782);
             this.tableLayoutPanel2.TabIndex = 8;
             // 
             // panel1
@@ -235,7 +235,7 @@
             this.panel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel1.Location = new System.Drawing.Point(3, 3);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(196, 868);
+            this.panel1.Size = new System.Drawing.Size(196, 776);
             this.panel1.TabIndex = 0;
             // 
             // lb_mod
@@ -440,7 +440,7 @@
             this.panel5.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel5.Location = new System.Drawing.Point(205, 3);
             this.panel5.Name = "panel5";
-            this.panel5.Size = new System.Drawing.Size(1086, 868);
+            this.panel5.Size = new System.Drawing.Size(1086, 776);
             this.panel5.TabIndex = 1;
             // 
             // tableLayoutPanel3
@@ -459,7 +459,7 @@
             this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
             this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
             this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
-            this.tableLayoutPanel3.Size = new System.Drawing.Size(1086, 868);
+            this.tableLayoutPanel3.Size = new System.Drawing.Size(1086, 776);
             this.tableLayoutPanel3.TabIndex = 6;
             // 
             // panel7
@@ -467,9 +467,9 @@
             this.panel7.BackColor = System.Drawing.SystemColors.Control;
             this.panel7.Controls.Add(this.tableLayoutPanel4);
             this.panel7.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panel7.Location = new System.Drawing.Point(3, 437);
+            this.panel7.Location = new System.Drawing.Point(3, 391);
             this.panel7.Name = "panel7";
-            this.panel7.Size = new System.Drawing.Size(656, 428);
+            this.panel7.Size = new System.Drawing.Size(656, 382);
             this.panel7.TabIndex = 2;
             // 
             // tableLayoutPanel4
@@ -477,7 +477,7 @@
             this.tableLayoutPanel4.ColumnCount = 3;
             this.tableLayoutPanel4.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 42.57426F));
             this.tableLayoutPanel4.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 57.42574F));
-            this.tableLayoutPanel4.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 280F));
+            this.tableLayoutPanel4.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 300F));
             this.tableLayoutPanel4.Controls.Add(this.panel4, 2, 0);
             this.tableLayoutPanel4.Controls.Add(this.panel8, 2, 1);
             this.tableLayoutPanel4.Controls.Add(this.panel9, 2, 2);
@@ -501,20 +501,36 @@
             this.panel4.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.panel4.Controls.Add(this.UpLoad1);
             this.panel4.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panel4.Location = new System.Drawing.Point(363, 3);
+            this.panel4.Location = new System.Drawing.Point(343, 3);
             this.panel4.Name = "panel4";
-            this.panel4.Size = new System.Drawing.Size(275, 136);
+            this.panel4.Size = new System.Drawing.Size(295, 136);
             this.panel4.TabIndex = 9;
+            // 
+            // UpLoad1
+            // 
+            this.UpLoad1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.UpLoad1.Location = new System.Drawing.Point(0, 0);
+            this.UpLoad1.Name = "UpLoad1";
+            this.UpLoad1.Size = new System.Drawing.Size(293, 134);
+            this.UpLoad1.TabIndex = 0;
             // 
             // panel8
             // 
             this.panel8.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.panel8.Controls.Add(this.upLoad2);
             this.panel8.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panel8.Location = new System.Drawing.Point(363, 145);
+            this.panel8.Location = new System.Drawing.Point(343, 145);
             this.panel8.Name = "panel8";
-            this.panel8.Size = new System.Drawing.Size(275, 136);
+            this.panel8.Size = new System.Drawing.Size(295, 136);
             this.panel8.TabIndex = 10;
+            // 
+            // upLoad2
+            // 
+            this.upLoad2.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.upLoad2.Location = new System.Drawing.Point(0, 0);
+            this.upLoad2.Name = "upLoad2";
+            this.upLoad2.Size = new System.Drawing.Size(293, 134);
+            this.upLoad2.TabIndex = 1;
             // 
             // panel9
             // 
@@ -523,9 +539,9 @@
             this.panel9.Controls.Add(this.lb_tt_ct);
             this.panel9.Controls.Add(this.lb_tt_tmr);
             this.panel9.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panel9.Location = new System.Drawing.Point(363, 287);
+            this.panel9.Location = new System.Drawing.Point(343, 287);
             this.panel9.Name = "panel9";
-            this.panel9.Size = new System.Drawing.Size(275, 138);
+            this.panel9.Size = new System.Drawing.Size(295, 138);
             this.panel9.TabIndex = 11;
             // 
             // lb_tt_n
@@ -561,95 +577,16 @@
             this.lb_tt_tmr.TabIndex = 0;
             this.lb_tt_tmr.Text = "000.0s";
             // 
-            // panel6
-            // 
-            this.panel6.BackColor = System.Drawing.SystemColors.ControlDarkDark;
-            this.panel6.Controls.Add(this.cogDisplayer_run);
-            this.panel6.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panel6.Location = new System.Drawing.Point(3, 3);
-            this.panel6.Name = "panel6";
-            this.panel6.Size = new System.Drawing.Size(656, 428);
-            this.panel6.TabIndex = 1;
-            // 
-            // dgv_msg
-            // 
-            this.dgv_msg.BackgroundColor = System.Drawing.SystemColors.ControlLightLight;
-            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle1.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            dataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dgv_msg.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
-            this.dgv_msg.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.Window;
-            dataGridViewCellStyle2.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            dataGridViewCellStyle2.ForeColor = System.Drawing.SystemColors.ControlText;
-            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.dgv_msg.DefaultCellStyle = dataGridViewCellStyle2;
-            this.dgv_msg.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.dgv_msg.Location = new System.Drawing.Point(665, 437);
-            this.dgv_msg.Name = "dgv_msg";
-            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle3.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle3.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            dataGridViewCellStyle3.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle3.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle3.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dgv_msg.RowHeadersDefaultCellStyle = dataGridViewCellStyle3;
-            this.dgv_msg.RowTemplate.Height = 23;
-            this.dgv_msg.Size = new System.Drawing.Size(418, 428);
-            this.dgv_msg.TabIndex = 6;
-            // 
-            // panel3
-            // 
-            this.panel3.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
-            this.panel3.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.panel3.Location = new System.Drawing.Point(-10, 1);
-            this.panel3.Name = "panel3";
-            this.panel3.Size = new System.Drawing.Size(1298, 2);
-            this.panel3.TabIndex = 1;
-            // 
-            // timer_500ms
-            // 
-            this.timer_500ms.Interval = 501;
-            this.timer_500ms.Tick += new System.EventHandler(this.timer_500ms_Tick);
-            // 
-            // timer_key
-            // 
-            this.timer_key.Tick += new System.EventHandler(this.timer_key_Tick);
-            // 
-            // UpLoad1
-            // 
-            this.UpLoad1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.UpLoad1.Location = new System.Drawing.Point(0, 0);
-            this.UpLoad1.Name = "UpLoad1";
-            this.UpLoad1.Size = new System.Drawing.Size(273, 134);
-            this.UpLoad1.TabIndex = 0;
-            // 
-            // upLoad2
-            // 
-            this.upLoad2.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.upLoad2.Location = new System.Drawing.Point(0, 0);
-            this.upLoad2.Name = "upLoad2";
-            this.upLoad2.Size = new System.Drawing.Size(273, 134);
-            this.upLoad2.TabIndex = 1;
-            // 
             // tray_fd
             // 
             this.tray_fd.Bordercolor = System.Drawing.Color.DodgerBlue;
             this.tray_fd.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tray_fd.ERRcolor = System.Drawing.Color.Gold;
-            this.tray_fd.Location = new System.Drawing.Point(156, 3);
+            this.tray_fd.Location = new System.Drawing.Point(148, 3);
             this.tray_fd.Name = "tray_fd";
             this.tray_fd.NGcolor = System.Drawing.Color.Red;
             this.tray_fd.OKcolor = System.Drawing.Color.Lime;
-            this.tray_fd.Size = new System.Drawing.Size(201, 136);
+            this.tray_fd.Size = new System.Drawing.Size(189, 136);
             this.tray_fd.TabIndex = 12;
             this.tray_fd.TrayColor = System.Drawing.SystemColors.Control;
             this.tray_fd.TrayName = "DISC";
@@ -666,7 +603,7 @@
             this.traybox_fd.ERRcolor = System.Drawing.Color.Gold;
             this.traybox_fd.Location = new System.Drawing.Point(3, 3);
             this.traybox_fd.Name = "traybox_fd";
-            this.traybox_fd.Size = new System.Drawing.Size(147, 136);
+            this.traybox_fd.Size = new System.Drawing.Size(139, 136);
             this.traybox_fd.TabIndex = 13;
             this.traybox_fd.UNTESTcolor = System.Drawing.Color.SkyBlue;
             // 
@@ -680,7 +617,7 @@
             this.traybox_ok.ERRcolor = System.Drawing.Color.Gold;
             this.traybox_ok.Location = new System.Drawing.Point(3, 145);
             this.traybox_ok.Name = "traybox_ok";
-            this.traybox_ok.Size = new System.Drawing.Size(147, 136);
+            this.traybox_ok.Size = new System.Drawing.Size(139, 136);
             this.traybox_ok.TabIndex = 14;
             this.traybox_ok.UNTESTcolor = System.Drawing.Color.SkyBlue;
             // 
@@ -694,7 +631,7 @@
             this.traybox_ng.ERRcolor = System.Drawing.Color.Gold;
             this.traybox_ng.Location = new System.Drawing.Point(3, 287);
             this.traybox_ng.Name = "traybox_ng";
-            this.traybox_ng.Size = new System.Drawing.Size(147, 138);
+            this.traybox_ng.Size = new System.Drawing.Size(139, 138);
             this.traybox_ng.TabIndex = 15;
             this.traybox_ng.UNTESTcolor = System.Drawing.Color.SkyBlue;
             // 
@@ -703,11 +640,11 @@
             this.tray_ok.Bordercolor = System.Drawing.Color.DodgerBlue;
             this.tray_ok.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tray_ok.ERRcolor = System.Drawing.Color.Gold;
-            this.tray_ok.Location = new System.Drawing.Point(156, 145);
+            this.tray_ok.Location = new System.Drawing.Point(148, 145);
             this.tray_ok.Name = "tray_ok";
             this.tray_ok.NGcolor = System.Drawing.Color.Red;
             this.tray_ok.OKcolor = System.Drawing.Color.Lime;
-            this.tray_ok.Size = new System.Drawing.Size(201, 136);
+            this.tray_ok.Size = new System.Drawing.Size(189, 136);
             this.tray_ok.TabIndex = 16;
             this.tray_ok.TrayColor = System.Drawing.SystemColors.Control;
             this.tray_ok.TrayName = "DISC";
@@ -719,16 +656,26 @@
             this.tray_ng.Bordercolor = System.Drawing.Color.DodgerBlue;
             this.tray_ng.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tray_ng.ERRcolor = System.Drawing.Color.Gold;
-            this.tray_ng.Location = new System.Drawing.Point(156, 287);
+            this.tray_ng.Location = new System.Drawing.Point(148, 287);
             this.tray_ng.Name = "tray_ng";
             this.tray_ng.NGcolor = System.Drawing.Color.Red;
             this.tray_ng.OKcolor = System.Drawing.Color.Lime;
-            this.tray_ng.Size = new System.Drawing.Size(201, 138);
+            this.tray_ng.Size = new System.Drawing.Size(189, 138);
             this.tray_ng.TabIndex = 17;
             this.tray_ng.TrayColor = System.Drawing.SystemColors.Control;
             this.tray_ng.TrayName = "DISC";
             this.tray_ng.UNcolor = System.Drawing.Color.Silver;
             this.tray_ng.UTcolor = System.Drawing.Color.SkyBlue;
+            // 
+            // panel6
+            // 
+            this.panel6.BackColor = System.Drawing.SystemColors.ControlDarkDark;
+            this.panel6.Controls.Add(this.cogDisplayer_run);
+            this.panel6.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.panel6.Location = new System.Drawing.Point(3, 3);
+            this.panel6.Name = "panel6";
+            this.panel6.Size = new System.Drawing.Size(656, 382);
+            this.panel6.TabIndex = 1;
             // 
             // cogDisplayer_run
             // 
@@ -736,7 +683,7 @@
             this.cogDisplayer_run.Dock = System.Windows.Forms.DockStyle.Fill;
             this.cogDisplayer_run.Location = new System.Drawing.Point(0, 0);
             this.cogDisplayer_run.Name = "cogDisplayer_run";
-            this.cogDisplayer_run.Size = new System.Drawing.Size(656, 428);
+            this.cogDisplayer_run.Size = new System.Drawing.Size(656, 382);
             this.cogDisplayer_run.TabIndex = 0;
             // 
             // cTabControl1
@@ -755,7 +702,7 @@
             this.cTabControl1.Location = new System.Drawing.Point(665, 3);
             this.cTabControl1.Name = "cTabControl1";
             this.cTabControl1.SelectedIndex = 0;
-            this.cTabControl1.Size = new System.Drawing.Size(418, 428);
+            this.cTabControl1.Size = new System.Drawing.Size(418, 382);
             this.cTabControl1.TabIndex = 5;
             // 
             // tp_ws_status
@@ -765,7 +712,7 @@
             this.tp_ws_status.Location = new System.Drawing.Point(4, 4);
             this.tp_ws_status.Name = "tp_ws_status";
             this.tp_ws_status.Padding = new System.Windows.Forms.Padding(3);
-            this.tp_ws_status.Size = new System.Drawing.Size(410, 398);
+            this.tp_ws_status.Size = new System.Drawing.Size(410, 352);
             this.tp_ws_status.TabIndex = 0;
             this.tp_ws_status.Text = " 工站状态 ";
             // 
@@ -786,7 +733,7 @@
             this.tableLayoutPanel5.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 25F));
             this.tableLayoutPanel5.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 25F));
             this.tableLayoutPanel5.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
-            this.tableLayoutPanel5.Size = new System.Drawing.Size(404, 392);
+            this.tableLayoutPanel5.Size = new System.Drawing.Size(404, 346);
             this.tableLayoutPanel5.TabIndex = 2;
             // 
             // ws4
@@ -794,12 +741,12 @@
             this.ws4.Bordercolor = System.Drawing.Color.DodgerBlue;
             this.ws4.Dock = System.Windows.Forms.DockStyle.Fill;
             this.ws4.ERRcolor = System.Drawing.Color.Gold;
-            this.ws4.Location = new System.Drawing.Point(4, 298);
+            this.ws4.Location = new System.Drawing.Point(4, 262);
             this.ws4.Margin = new System.Windows.Forms.Padding(4);
             this.ws4.Name = "ws4";
             this.ws4.NGcolor = System.Drawing.Color.DarkOrange;
             this.ws4.OKcolor = System.Drawing.Color.SpringGreen;
-            this.ws4.Size = new System.Drawing.Size(396, 90);
+            this.ws4.Size = new System.Drawing.Size(396, 80);
             this.ws4.TabIndex = 3;
             this.ws4.UNcolor = System.Drawing.Color.Gray;
             this.ws4.UTcolor = System.Drawing.Color.PowderBlue;
@@ -815,7 +762,7 @@
             this.ws1.Name = "ws1";
             this.ws1.NGcolor = System.Drawing.Color.DarkOrange;
             this.ws1.OKcolor = System.Drawing.Color.SpringGreen;
-            this.ws1.Size = new System.Drawing.Size(396, 90);
+            this.ws1.Size = new System.Drawing.Size(396, 78);
             this.ws1.TabIndex = 4;
             this.ws1.UNcolor = System.Drawing.Color.Gray;
             this.ws1.UTcolor = System.Drawing.Color.PowderBlue;
@@ -826,12 +773,12 @@
             this.ws2.Bordercolor = System.Drawing.Color.DodgerBlue;
             this.ws2.Dock = System.Windows.Forms.DockStyle.Fill;
             this.ws2.ERRcolor = System.Drawing.Color.Gold;
-            this.ws2.Location = new System.Drawing.Point(4, 102);
+            this.ws2.Location = new System.Drawing.Point(4, 90);
             this.ws2.Margin = new System.Windows.Forms.Padding(4);
             this.ws2.Name = "ws2";
             this.ws2.NGcolor = System.Drawing.Color.DarkOrange;
             this.ws2.OKcolor = System.Drawing.Color.SpringGreen;
-            this.ws2.Size = new System.Drawing.Size(396, 90);
+            this.ws2.Size = new System.Drawing.Size(396, 78);
             this.ws2.TabIndex = 5;
             this.ws2.UNcolor = System.Drawing.Color.Gray;
             this.ws2.UTcolor = System.Drawing.Color.PowderBlue;
@@ -842,12 +789,12 @@
             this.ws3.Bordercolor = System.Drawing.Color.DodgerBlue;
             this.ws3.Dock = System.Windows.Forms.DockStyle.Fill;
             this.ws3.ERRcolor = System.Drawing.Color.Gold;
-            this.ws3.Location = new System.Drawing.Point(4, 200);
+            this.ws3.Location = new System.Drawing.Point(4, 176);
             this.ws3.Margin = new System.Windows.Forms.Padding(4);
             this.ws3.Name = "ws3";
             this.ws3.NGcolor = System.Drawing.Color.DarkOrange;
             this.ws3.OKcolor = System.Drawing.Color.SpringGreen;
-            this.ws3.Size = new System.Drawing.Size(396, 90);
+            this.ws3.Size = new System.Drawing.Size(396, 78);
             this.ws3.TabIndex = 6;
             this.ws3.UNcolor = System.Drawing.Color.Gray;
             this.ws3.UTcolor = System.Drawing.Color.PowderBlue;
@@ -859,7 +806,7 @@
             this.tp_lightbox.Controls.Add(this.tableLayoutPanel6);
             this.tp_lightbox.Location = new System.Drawing.Point(4, 4);
             this.tp_lightbox.Name = "tp_lightbox";
-            this.tp_lightbox.Size = new System.Drawing.Size(410, 398);
+            this.tp_lightbox.Size = new System.Drawing.Size(410, 352);
             this.tp_lightbox.TabIndex = 2;
             this.tp_lightbox.Text = " 光箱状态 ";
             // 
@@ -1087,7 +1034,7 @@
             this.tp_vision.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.tp_vision.Location = new System.Drawing.Point(4, 4);
             this.tp_vision.Name = "tp_vision";
-            this.tp_vision.Size = new System.Drawing.Size(410, 398);
+            this.tp_vision.Size = new System.Drawing.Size(410, 352);
             this.tp_vision.TabIndex = 3;
             this.tp_vision.Text = "设备信息";
             // 
@@ -1187,7 +1134,7 @@
             this.dgv_vs.Location = new System.Drawing.Point(0, 0);
             this.dgv_vs.Name = "dgv_vs";
             this.dgv_vs.RowTemplate.Height = 23;
-            this.dgv_vs.Size = new System.Drawing.Size(192, 70);
+            this.dgv_vs.Size = new System.Drawing.Size(410, 352);
             this.dgv_vs.TabIndex = 7;
             // 
             // tp_count
@@ -1203,7 +1150,7 @@
             this.tp_count.Location = new System.Drawing.Point(4, 4);
             this.tp_count.Name = "tp_count";
             this.tp_count.Padding = new System.Windows.Forms.Padding(3);
-            this.tp_count.Size = new System.Drawing.Size(410, 398);
+            this.tp_count.Size = new System.Drawing.Size(410, 352);
             this.tp_count.TabIndex = 1;
             this.tp_count.Text = " 统计数据 ";
             // 
@@ -1636,11 +1583,64 @@
             this.tb_SuctionErrRate.Text = "95%";
             this.tb_SuctionErrRate.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
+            // dgv_msg
+            // 
+            this.dgv_msg.BackgroundColor = System.Drawing.SystemColors.ControlLightLight;
+            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle1.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            dataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dgv_msg.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
+            this.dgv_msg.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.Window;
+            dataGridViewCellStyle2.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            dataGridViewCellStyle2.ForeColor = System.Drawing.SystemColors.ControlText;
+            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.dgv_msg.DefaultCellStyle = dataGridViewCellStyle2;
+            this.dgv_msg.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.dgv_msg.Location = new System.Drawing.Point(665, 391);
+            this.dgv_msg.Name = "dgv_msg";
+            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle3.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle3.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            dataGridViewCellStyle3.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle3.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle3.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dgv_msg.RowHeadersDefaultCellStyle = dataGridViewCellStyle3;
+            this.dgv_msg.RowTemplate.Height = 23;
+            this.dgv_msg.Size = new System.Drawing.Size(418, 382);
+            this.dgv_msg.TabIndex = 6;
+            // 
+            // panel3
+            // 
+            this.panel3.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
+            this.panel3.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.panel3.Location = new System.Drawing.Point(-10, 1);
+            this.panel3.Name = "panel3";
+            this.panel3.Size = new System.Drawing.Size(1298, 2);
+            this.panel3.TabIndex = 1;
+            // 
+            // timer_500ms
+            // 
+            this.timer_500ms.Interval = 501;
+            this.timer_500ms.Tick += new System.EventHandler(this.timer_500ms_Tick);
+            // 
+            // timer_key
+            // 
+            this.timer_key.Tick += new System.EventHandler(this.timer_key_Tick);
+            // 
             // FrRun
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1300, 880);
+            this.ClientSize = new System.Drawing.Size(1300, 788);
             this.Controls.Add(this.tableLayoutPanel1);
             this.DoubleBuffered = true;
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
@@ -1662,7 +1662,6 @@
             this.panel9.ResumeLayout(false);
             this.panel9.PerformLayout();
             this.panel6.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.dgv_msg)).EndInit();
             this.cTabControl1.ResumeLayout(false);
             this.tp_ws_status.ResumeLayout(false);
             this.tableLayoutPanel5.ResumeLayout(false);
@@ -1683,6 +1682,7 @@
             this.tableLayoutPanel8.ResumeLayout(false);
             this.tableLayoutPanel7.ResumeLayout(false);
             this.tableLayoutPanel7.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dgv_msg)).EndInit();
             this.ResumeLayout(false);
 
         }

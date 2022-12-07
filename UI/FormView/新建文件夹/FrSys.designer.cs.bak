@@ -65,33 +65,6 @@
             this.tp_sysparm = new System.Windows.Forms.TabPage();
             this.ctb_SetParm = new CTabControl();
             this.tp_setparm_1 = new System.Windows.Forms.TabPage();
-            this.groupBox44 = new System.Windows.Forms.GroupBox();
-            this.nud_TestTime = new System.Windows.Forms.NumericUpDown();
-            this.groupBox39 = new System.Windows.Forms.GroupBox();
-            this.nud_JigSendTime = new System.Windows.Forms.NumericUpDown();
-            this.groupBox38 = new System.Windows.Forms.GroupBox();
-            this.groupBox45 = new System.Windows.Forms.GroupBox();
-            this.rabt_jigscan_ON = new System.Windows.Forms.RadioButton();
-            this.rabt_jigscan_OFF = new System.Windows.Forms.RadioButton();
-            this.groupBox43 = new System.Windows.Forms.GroupBox();
-            this.btnStartJigSan4 = new System.Windows.Forms.RadioButton();
-            this.radioButton6 = new System.Windows.Forms.RadioButton();
-            this.groupBox42 = new System.Windows.Forms.GroupBox();
-            this.btnStartJigSan3 = new System.Windows.Forms.RadioButton();
-            this.radioButton4 = new System.Windows.Forms.RadioButton();
-            this.groupBox41 = new System.Windows.Forms.GroupBox();
-            this.btnStartJigSan2 = new System.Windows.Forms.RadioButton();
-            this.radioButton2 = new System.Windows.Forms.RadioButton();
-            this.groupBox40 = new System.Windows.Forms.GroupBox();
-            this.btnStartJigSan1 = new System.Windows.Forms.RadioButton();
-            this.btnStopJigSan = new System.Windows.Forms.RadioButton();
-            this.groupBox34 = new System.Windows.Forms.GroupBox();
-            this.nud_ngscale = new System.Windows.Forms.NumericUpDown();
-            this.nud_ngcode = new System.Windows.Forms.NumericUpDown();
-            this.label32 = new System.Windows.Forms.Label();
-            this.label30 = new System.Windows.Forms.Label();
-            this.rbtn_ngcontroldis = new System.Windows.Forms.RadioButton();
-            this.rbtn_ngcontrolen = new System.Windows.Forms.RadioButton();
             this.groupBox29 = new System.Windows.Forms.GroupBox();
             this.rbtn_OkCheckDis = new System.Windows.Forms.RadioButton();
             this.rbtn_OkCheckEn = new System.Windows.Forms.RadioButton();
@@ -162,7 +135,6 @@
             this.label9 = new System.Windows.Forms.Label();
             this.label7 = new System.Windows.Forms.Label();
             this.grb_barcode = new System.Windows.Forms.GroupBox();
-            this.rbtn_NoCap = new System.Windows.Forms.RadioButton();
             this.rbtn_dwcode = new System.Windows.Forms.RadioButton();
             this.rbtn_upcode = new System.Windows.Forms.RadioButton();
             this.grb_runmode = new System.Windows.Forms.GroupBox();
@@ -183,54 +155,6 @@
             this.label14 = new System.Windows.Forms.Label();
             this.chk_GTMCheck = new System.Windows.Forms.CheckBox();
             this.tp_setparm_2 = new System.Windows.Forms.TabPage();
-            this.groupBox48 = new System.Windows.Forms.GroupBox();
-            this.cb_ConnectorCheck = new System.Windows.Forms.CheckBox();
-            this.tabControl1 = new System.Windows.Forms.TabControl();
-            this.tabPage1 = new System.Windows.Forms.TabPage();
-            this.nud_Areaofset = new System.Windows.Forms.NumericUpDown();
-            this.label39 = new System.Windows.Forms.Label();
-            this.nud_DownArea = new System.Windows.Forms.NumericUpDown();
-            this.nud_UpArea = new System.Windows.Forms.NumericUpDown();
-            this.nud_RightArea = new System.Windows.Forms.NumericUpDown();
-            this.nud_LeftArea = new System.Windows.Forms.NumericUpDown();
-            this.label34 = new System.Windows.Forms.Label();
-            this.label35 = new System.Windows.Forms.Label();
-            this.label36 = new System.Windows.Forms.Label();
-            this.label37 = new System.Windows.Forms.Label();
-            this.label38 = new System.Windows.Forms.Label();
-            this.tabPage2 = new System.Windows.Forms.TabPage();
-            this.nud_Areaofset2 = new System.Windows.Forms.NumericUpDown();
-            this.label40 = new System.Windows.Forms.Label();
-            this.nud_DownArea2 = new System.Windows.Forms.NumericUpDown();
-            this.nud_UpArea2 = new System.Windows.Forms.NumericUpDown();
-            this.nud_RightArea2 = new System.Windows.Forms.NumericUpDown();
-            this.nud_LeftArea2 = new System.Windows.Forms.NumericUpDown();
-            this.label41 = new System.Windows.Forms.Label();
-            this.label42 = new System.Windows.Forms.Label();
-            this.label43 = new System.Windows.Forms.Label();
-            this.label44 = new System.Windows.Forms.Label();
-            this.groupBox3 = new System.Windows.Forms.GroupBox();
-            this.rad_light_xsj = new System.Windows.Forms.RadioButton();
-            this.rad_G4C = new System.Windows.Forms.RadioButton();
-            this.groupBox7 = new System.Windows.Forms.GroupBox();
-            this.rbtn_Y1dis = new System.Windows.Forms.RadioButton();
-            this.rbtn_Y1en = new System.Windows.Forms.RadioButton();
-            this.groupBox47 = new System.Windows.Forms.GroupBox();
-            this.rbtn_safeoff = new System.Windows.Forms.RadioButton();
-            this.rbtn_safeon = new System.Windows.Forms.RadioButton();
-            this.groupBox46 = new System.Windows.Forms.GroupBox();
-            this.rbtn_AddCapQrcodeDis = new System.Windows.Forms.RadioButton();
-            this.rbtn_AddCapQrcodeEn = new System.Windows.Forms.RadioButton();
-            this.groupBox37 = new System.Windows.Forms.GroupBox();
-            this.rbtn_MesRemote = new System.Windows.Forms.RadioButton();
-            this.rbtn_MesLocal = new System.Windows.Forms.RadioButton();
-            this.groupBox36 = new System.Windows.Forms.GroupBox();
-            this.nud_okRate = new System.Windows.Forms.NumericUpDown();
-            this.rbtn_NgWarningDis = new System.Windows.Forms.RadioButton();
-            this.rbtn_NgWarningEn = new System.Windows.Forms.RadioButton();
-            this.groupBox35 = new System.Windows.Forms.GroupBox();
-            this.rbtn_ContinuousAlarmDis = new System.Windows.Forms.RadioButton();
-            this.rbtn_ContinuousAlarmEn = new System.Windows.Forms.RadioButton();
             this.groupBox33 = new System.Windows.Forms.GroupBox();
             this.rbtn_delaytestdis = new System.Windows.Forms.RadioButton();
             this.rbtn_delaytesten = new System.Windows.Forms.RadioButton();
@@ -246,14 +170,6 @@
             this.label28 = new System.Windows.Forms.Label();
             this.label29 = new System.Windows.Forms.Label();
             this.groupBox28 = new System.Windows.Forms.GroupBox();
-            this.nud_jig_exposure2 = new System.Windows.Forms.NumericUpDown();
-            this.nud_jig_contrast2 = new System.Windows.Forms.NumericUpDown();
-            this.nud_jig_brightness2 = new System.Windows.Forms.NumericUpDown();
-            this.label33 = new System.Windows.Forms.Label();
-            this.nud_jig_exposure1 = new System.Windows.Forms.NumericUpDown();
-            this.nud_jig_contrast1 = new System.Windows.Forms.NumericUpDown();
-            this.nud_jig_brightness1 = new System.Windows.Forms.NumericUpDown();
-            this.label31 = new System.Windows.Forms.Label();
             this.nud_ws_exposure2 = new System.Windows.Forms.NumericUpDown();
             this.nud_tray_exposure2 = new System.Windows.Forms.NumericUpDown();
             this.nud_ws_contrast2 = new System.Windows.Forms.NumericUpDown();
@@ -299,6 +215,12 @@
             this.rbtn_halldis = new System.Windows.Forms.RadioButton();
             this.rbtn_hallen = new System.Windows.Forms.RadioButton();
             this.btn_saveparm2 = new System.Windows.Forms.Button();
+            this.groupBox7 = new System.Windows.Forms.GroupBox();
+            this.rbtn_Y1dis = new System.Windows.Forms.RadioButton();
+            this.rbtn_Y1en = new System.Windows.Forms.RadioButton();
+            this.groupBox3 = new System.Windows.Forms.GroupBox();
+            this.rbtn_safeoff = new System.Windows.Forms.RadioButton();
+            this.rbtn_safeon = new System.Windows.Forms.RadioButton();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.rbtn_CloseVsTray = new System.Windows.Forms.RadioButton();
             this.rbtn_OpenVsTray = new System.Windows.Forms.RadioButton();
@@ -316,58 +238,6 @@
             this.groupBox13 = new System.Windows.Forms.GroupBox();
             this.rbtn_lbdis = new System.Windows.Forms.RadioButton();
             this.rbtn_lben = new System.Windows.Forms.RadioButton();
-            this.tabPage3 = new System.Windows.Forms.TabPage();
-            this.button6 = new System.Windows.Forms.Button();
-            this.groupBox55 = new System.Windows.Forms.GroupBox();
-            this.NumWsNgCntPer20 = new System.Windows.Forms.NumericUpDown();
-            this.label57 = new System.Windows.Forms.Label();
-            this.radWsNgRateShowOff = new System.Windows.Forms.RadioButton();
-            this.radWsNgRateShowEn = new System.Windows.Forms.RadioButton();
-            this.groupBox54 = new System.Windows.Forms.GroupBox();
-            this.button5 = new System.Windows.Forms.Button();
-            this.button4 = new System.Windows.Forms.Button();
-            this.button3 = new System.Windows.Forms.Button();
-            this.nud_MotorbarcodeDigits = new System.Windows.Forms.NumericUpDown();
-            this.button2 = new System.Windows.Forms.Button();
-            this.label52 = new System.Windows.Forms.Label();
-            this.nud_MotorAngle4 = new System.Windows.Forms.NumericUpDown();
-            this.nud_MotorAngle3 = new System.Windows.Forms.NumericUpDown();
-            this.label53 = new System.Windows.Forms.Label();
-            this.label54 = new System.Windows.Forms.Label();
-            this.nud_MotorAngle2 = new System.Windows.Forms.NumericUpDown();
-            this.label55 = new System.Windows.Forms.Label();
-            this.label56 = new System.Windows.Forms.Label();
-            this.nud_MotorAngle1 = new System.Windows.Forms.NumericUpDown();
-            this.rbtn_motordis = new System.Windows.Forms.RadioButton();
-            this.rbtn_motoren = new System.Windows.Forms.RadioButton();
-            this.groupBox53 = new System.Windows.Forms.GroupBox();
-            this.rbtn_DwAddCapQrcodeOff = new System.Windows.Forms.RadioButton();
-            this.rbtn_DwAddCapQrcodeEn = new System.Windows.Forms.RadioButton();
-            this.nud_dwCam_xt4_Qrofs = new System.Windows.Forms.NumericUpDown();
-            this.nud_dwCam_xt3_Qrofs = new System.Windows.Forms.NumericUpDown();
-            this.nud_dwCam_xt2_Qrofs = new System.Windows.Forms.NumericUpDown();
-            this.nud_dwCam_xt1_Qrofs = new System.Windows.Forms.NumericUpDown();
-            this.label47 = new System.Windows.Forms.Label();
-            this.label48 = new System.Windows.Forms.Label();
-            this.label49 = new System.Windows.Forms.Label();
-            this.label50 = new System.Windows.Forms.Label();
-            this.label51 = new System.Windows.Forms.Label();
-            this.groupBox52 = new System.Windows.Forms.GroupBox();
-            this.label46 = new System.Windows.Forms.Label();
-            this.label45 = new System.Windows.Forms.Label();
-            this.tb_eqp_pos = new System.Windows.Forms.TextBox();
-            this.tb_eqp_sn = new System.Windows.Forms.TextBox();
-            this.button1 = new System.Windows.Forms.Button();
-            this.groupBox49 = new System.Windows.Forms.GroupBox();
-            this.tabControl2 = new System.Windows.Forms.TabControl();
-            this.tabPage4 = new System.Windows.Forms.TabPage();
-            this.groupBox50 = new System.Windows.Forms.GroupBox();
-            this.rbtUpDn1OneXtOff = new System.Windows.Forms.RadioButton();
-            this.rbtUpDn1OneXtOn = new System.Windows.Forms.RadioButton();
-            this.tabPage5 = new System.Windows.Forms.TabPage();
-            this.groupBox51 = new System.Windows.Forms.GroupBox();
-            this.rbtUpDn2OneXtOff = new System.Windows.Forms.RadioButton();
-            this.rbtUpDn2OneXtOn = new System.Windows.Forms.RadioButton();
             this.tp_calc = new System.Windows.Forms.TabPage();
             this.tableLayoutPanel4 = new System.Windows.Forms.TableLayoutPanel();
             this.ctb_cali = new CTabControl();
@@ -396,19 +266,6 @@
             this.tp_sysparm.SuspendLayout();
             this.ctb_SetParm.SuspendLayout();
             this.tp_setparm_1.SuspendLayout();
-            this.groupBox44.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.nud_TestTime)).BeginInit();
-            this.groupBox39.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.nud_JigSendTime)).BeginInit();
-            this.groupBox38.SuspendLayout();
-            this.groupBox45.SuspendLayout();
-            this.groupBox43.SuspendLayout();
-            this.groupBox42.SuspendLayout();
-            this.groupBox41.SuspendLayout();
-            this.groupBox40.SuspendLayout();
-            this.groupBox34.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.nud_ngscale)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.nud_ngcode)).BeginInit();
             this.groupBox29.SuspendLayout();
             this.groupBox19.SuspendLayout();
             this.groupBox4.SuspendLayout();
@@ -445,39 +302,11 @@
             this.groupBox10.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nud_GTMOfs)).BeginInit();
             this.tp_setparm_2.SuspendLayout();
-            this.groupBox48.SuspendLayout();
-            this.tabControl1.SuspendLayout();
-            this.tabPage1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.nud_Areaofset)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.nud_DownArea)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.nud_UpArea)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.nud_RightArea)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.nud_LeftArea)).BeginInit();
-            this.tabPage2.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.nud_Areaofset2)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.nud_DownArea2)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.nud_UpArea2)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.nud_RightArea2)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.nud_LeftArea2)).BeginInit();
-            this.groupBox3.SuspendLayout();
-            this.groupBox7.SuspendLayout();
-            this.groupBox47.SuspendLayout();
-            this.groupBox46.SuspendLayout();
-            this.groupBox37.SuspendLayout();
-            this.groupBox36.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.nud_okRate)).BeginInit();
-            this.groupBox35.SuspendLayout();
             this.groupBox33.SuspendLayout();
             this.groupBox32.SuspendLayout();
             this.groupBox31.SuspendLayout();
             this.groupBox30.SuspendLayout();
             this.groupBox28.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.nud_jig_exposure2)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.nud_jig_contrast2)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.nud_jig_brightness2)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.nud_jig_exposure1)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.nud_jig_contrast1)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.nud_jig_brightness1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nud_ws_exposure2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nud_tray_exposure2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nud_ws_contrast2)).BeginInit();
@@ -498,33 +327,14 @@
             this.groupBox23.SuspendLayout();
             this.groupBox22.SuspendLayout();
             this.groupBox21.SuspendLayout();
+            this.groupBox7.SuspendLayout();
+            this.groupBox3.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.groupBox12.SuspendLayout();
             this.groupBox17.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nud_offset_degree)).BeginInit();
             this.groupBox9.SuspendLayout();
             this.groupBox13.SuspendLayout();
-            this.tabPage3.SuspendLayout();
-            this.groupBox55.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.NumWsNgCntPer20)).BeginInit();
-            this.groupBox54.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.nud_MotorbarcodeDigits)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.nud_MotorAngle4)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.nud_MotorAngle3)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.nud_MotorAngle2)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.nud_MotorAngle1)).BeginInit();
-            this.groupBox53.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.nud_dwCam_xt4_Qrofs)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.nud_dwCam_xt3_Qrofs)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.nud_dwCam_xt2_Qrofs)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.nud_dwCam_xt1_Qrofs)).BeginInit();
-            this.groupBox52.SuspendLayout();
-            this.groupBox49.SuspendLayout();
-            this.tabControl2.SuspendLayout();
-            this.tabPage4.SuspendLayout();
-            this.groupBox50.SuspendLayout();
-            this.tabPage5.SuspendLayout();
-            this.groupBox51.SuspendLayout();
             this.tp_calc.SuspendLayout();
             this.tableLayoutPanel4.SuspendLayout();
             this.ctb_cali.SuspendLayout();
@@ -547,7 +357,7 @@
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
             this.tableLayoutPanel1.RowCount = 1;
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel1.Size = new System.Drawing.Size(1294, 788);
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(1294, 880);
             this.tableLayoutPanel1.TabIndex = 1;
             // 
             // panel2
@@ -557,7 +367,7 @@
             this.panel2.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.panel2.Location = new System.Drawing.Point(3, 3);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(1288, 782);
+            this.panel2.Size = new System.Drawing.Size(1288, 874);
             this.panel2.TabIndex = 1;
             // 
             // ctb_sys
@@ -579,7 +389,7 @@
             this.ctb_sys.Multiline = true;
             this.ctb_sys.Name = "ctb_sys";
             this.ctb_sys.SelectedIndex = 0;
-            this.ctb_sys.Size = new System.Drawing.Size(1288, 782);
+            this.ctb_sys.Size = new System.Drawing.Size(1288, 874);
             this.ctb_sys.TabIndex = 2;
             this.ctb_sys.SelectedIndexChanged += new System.EventHandler(this.ctb_sys_SelectedIndexChanged);
             // 
@@ -589,7 +399,7 @@
             this.tp_card.Controls.Add(this.CardTable);
             this.tp_card.Location = new System.Drawing.Point(204, 4);
             this.tp_card.Name = "tp_card";
-            this.tp_card.Size = new System.Drawing.Size(1080, 774);
+            this.tp_card.Size = new System.Drawing.Size(1080, 866);
             this.tp_card.TabIndex = 6;
             this.tp_card.Text = "板卡状态";
             this.tp_card.UseVisualStyleBackColor = true;
@@ -635,7 +445,7 @@
             this.tp_axis.Controls.Add(this.axisTable);
             this.tp_axis.Location = new System.Drawing.Point(204, 4);
             this.tp_axis.Name = "tp_axis";
-            this.tp_axis.Size = new System.Drawing.Size(1080, 774);
+            this.tp_axis.Size = new System.Drawing.Size(1080, 866);
             this.tp_axis.TabIndex = 2;
             this.tp_axis.Text = "轴参数  ";
             this.tp_axis.UseVisualStyleBackColor = true;
@@ -853,7 +663,7 @@
             this.tp_gpio.Location = new System.Drawing.Point(204, 4);
             this.tp_gpio.Name = "tp_gpio";
             this.tp_gpio.Padding = new System.Windows.Forms.Padding(3);
-            this.tp_gpio.Size = new System.Drawing.Size(1080, 774);
+            this.tp_gpio.Size = new System.Drawing.Size(1080, 866);
             this.tp_gpio.TabIndex = 0;
             this.tp_gpio.Text = "输入输出";
             this.tp_gpio.UseVisualStyleBackColor = true;
@@ -956,7 +766,7 @@
             this.tp_sysparm.Controls.Add(this.ctb_SetParm);
             this.tp_sysparm.Location = new System.Drawing.Point(204, 4);
             this.tp_sysparm.Name = "tp_sysparm";
-            this.tp_sysparm.Size = new System.Drawing.Size(1080, 774);
+            this.tp_sysparm.Size = new System.Drawing.Size(1080, 866);
             this.tp_sysparm.TabIndex = 4;
             this.tp_sysparm.Text = "参数设置";
             this.tp_sysparm.UseVisualStyleBackColor = true;
@@ -967,7 +777,6 @@
             this.ctb_SetParm.BorderColor = System.Drawing.SystemColors.Control;
             this.ctb_SetParm.Controls.Add(this.tp_setparm_1);
             this.ctb_SetParm.Controls.Add(this.tp_setparm_2);
-            this.ctb_SetParm.Controls.Add(this.tabPage3);
             this.ctb_SetParm.Dock = System.Windows.Forms.DockStyle.Fill;
             this.ctb_SetParm.HeaderBackColor = System.Drawing.SystemColors.Control;
             this.ctb_SetParm.HeadSelectedBackColor = System.Drawing.Color.MediumOrchid;
@@ -976,15 +785,11 @@
             this.ctb_SetParm.Location = new System.Drawing.Point(0, 0);
             this.ctb_SetParm.Name = "ctb_SetParm";
             this.ctb_SetParm.SelectedIndex = 0;
-            this.ctb_SetParm.Size = new System.Drawing.Size(1080, 774);
+            this.ctb_SetParm.Size = new System.Drawing.Size(1080, 866);
             this.ctb_SetParm.TabIndex = 132;
             // 
             // tp_setparm_1
             // 
-            this.tp_setparm_1.Controls.Add(this.groupBox44);
-            this.tp_setparm_1.Controls.Add(this.groupBox39);
-            this.tp_setparm_1.Controls.Add(this.groupBox38);
-            this.tp_setparm_1.Controls.Add(this.groupBox34);
             this.tp_setparm_1.Controls.Add(this.groupBox29);
             this.tp_setparm_1.Controls.Add(this.groupBox19);
             this.tp_setparm_1.Controls.Add(this.groupBox4);
@@ -1008,437 +813,17 @@
             this.tp_setparm_1.Location = new System.Drawing.Point(4, 44);
             this.tp_setparm_1.Name = "tp_setparm_1";
             this.tp_setparm_1.Padding = new System.Windows.Forms.Padding(3);
-            this.tp_setparm_1.Size = new System.Drawing.Size(1072, 726);
+            this.tp_setparm_1.Size = new System.Drawing.Size(1072, 818);
             this.tp_setparm_1.TabIndex = 0;
             this.tp_setparm_1.Text = "参数1(常用)      ";
             this.tp_setparm_1.UseVisualStyleBackColor = true;
-            // 
-            // groupBox44
-            // 
-            this.groupBox44.Controls.Add(this.nud_TestTime);
-            this.groupBox44.Font = new System.Drawing.Font("宋体", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.groupBox44.Location = new System.Drawing.Point(649, 710);
-            this.groupBox44.Name = "groupBox44";
-            this.groupBox44.Size = new System.Drawing.Size(166, 67);
-            this.groupBox44.TabIndex = 146;
-            this.groupBox44.TabStop = false;
-            this.groupBox44.Text = "最大测试时间（豪秒）";
-            // 
-            // nud_TestTime
-            // 
-            this.nud_TestTime.DecimalPlaces = 1;
-            this.nud_TestTime.Font = new System.Drawing.Font("宋体", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.nud_TestTime.Location = new System.Drawing.Point(6, 30);
-            this.nud_TestTime.Maximum = new decimal(new int[] {
-            90000000,
-            0,
-            0,
-            0});
-            this.nud_TestTime.Minimum = new decimal(new int[] {
-            1000,
-            0,
-            0,
-            0});
-            this.nud_TestTime.Name = "nud_TestTime";
-            this.nud_TestTime.Size = new System.Drawing.Size(144, 32);
-            this.nud_TestTime.TabIndex = 134;
-            this.nud_TestTime.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.nud_TestTime.Value = new decimal(new int[] {
-            30001,
-            0,
-            0,
-            0});
-            // 
-            // groupBox39
-            // 
-            this.groupBox39.Controls.Add(this.nud_JigSendTime);
-            this.groupBox39.Font = new System.Drawing.Font("宋体", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.groupBox39.Location = new System.Drawing.Point(469, 710);
-            this.groupBox39.Name = "groupBox39";
-            this.groupBox39.Size = new System.Drawing.Size(166, 67);
-            this.groupBox39.TabIndex = 145;
-            this.groupBox39.TabStop = false;
-            this.groupBox39.Text = "夹具上报频次（分钟）";
-            // 
-            // nud_JigSendTime
-            // 
-            this.nud_JigSendTime.DecimalPlaces = 1;
-            this.nud_JigSendTime.Font = new System.Drawing.Font("宋体", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.nud_JigSendTime.Location = new System.Drawing.Point(32, 30);
-            this.nud_JigSendTime.Maximum = new decimal(new int[] {
-            200,
-            0,
-            0,
-            0});
-            this.nud_JigSendTime.Minimum = new decimal(new int[] {
-            1,
-            0,
-            0,
-            0});
-            this.nud_JigSendTime.Name = "nud_JigSendTime";
-            this.nud_JigSendTime.Size = new System.Drawing.Size(73, 32);
-            this.nud_JigSendTime.TabIndex = 134;
-            this.nud_JigSendTime.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.nud_JigSendTime.Value = new decimal(new int[] {
-            30,
-            0,
-            0,
-            0});
-            // 
-            // groupBox38
-            // 
-            this.groupBox38.Controls.Add(this.groupBox45);
-            this.groupBox38.Controls.Add(this.groupBox43);
-            this.groupBox38.Controls.Add(this.groupBox42);
-            this.groupBox38.Controls.Add(this.groupBox41);
-            this.groupBox38.Controls.Add(this.groupBox40);
-            this.groupBox38.Font = new System.Drawing.Font("宋体", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.groupBox38.Location = new System.Drawing.Point(30, 706);
-            this.groupBox38.Name = "groupBox38";
-            this.groupBox38.Size = new System.Drawing.Size(399, 117);
-            this.groupBox38.TabIndex = 143;
-            this.groupBox38.TabStop = false;
-            this.groupBox38.Text = "夹具扫二维码设置";
-            // 
-            // groupBox45
-            // 
-            this.groupBox45.Controls.Add(this.rabt_jigscan_ON);
-            this.groupBox45.Controls.Add(this.rabt_jigscan_OFF);
-            this.groupBox45.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.groupBox45.Location = new System.Drawing.Point(317, 20);
-            this.groupBox45.Margin = new System.Windows.Forms.Padding(2);
-            this.groupBox45.Name = "groupBox45";
-            this.groupBox45.Padding = new System.Windows.Forms.Padding(2);
-            this.groupBox45.Size = new System.Drawing.Size(67, 89);
-            this.groupBox45.TabIndex = 132;
-            this.groupBox45.TabStop = false;
-            this.groupBox45.Text = "总开关";
-            // 
-            // rabt_jigscan_ON
-            // 
-            this.rabt_jigscan_ON.Appearance = System.Windows.Forms.Appearance.Button;
-            this.rabt_jigscan_ON.FlatAppearance.CheckedBackColor = System.Drawing.Color.Yellow;
-            this.rabt_jigscan_ON.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.rabt_jigscan_ON.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
-            this.rabt_jigscan_ON.ForeColor = System.Drawing.Color.Black;
-            this.rabt_jigscan_ON.Location = new System.Drawing.Point(5, 22);
-            this.rabt_jigscan_ON.Name = "rabt_jigscan_ON";
-            this.rabt_jigscan_ON.Size = new System.Drawing.Size(53, 30);
-            this.rabt_jigscan_ON.TabIndex = 125;
-            this.rabt_jigscan_ON.Text = "开启";
-            this.rabt_jigscan_ON.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            this.rabt_jigscan_ON.UseVisualStyleBackColor = true;
-            // 
-            // rabt_jigscan_OFF
-            // 
-            this.rabt_jigscan_OFF.Appearance = System.Windows.Forms.Appearance.Button;
-            this.rabt_jigscan_OFF.Checked = true;
-            this.rabt_jigscan_OFF.FlatAppearance.CheckedBackColor = System.Drawing.Color.Yellow;
-            this.rabt_jigscan_OFF.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.rabt_jigscan_OFF.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
-            this.rabt_jigscan_OFF.ForeColor = System.Drawing.Color.Black;
-            this.rabt_jigscan_OFF.Location = new System.Drawing.Point(5, 54);
-            this.rabt_jigscan_OFF.Name = "rabt_jigscan_OFF";
-            this.rabt_jigscan_OFF.Size = new System.Drawing.Size(53, 30);
-            this.rabt_jigscan_OFF.TabIndex = 127;
-            this.rabt_jigscan_OFF.TabStop = true;
-            this.rabt_jigscan_OFF.Text = "关闭";
-            this.rabt_jigscan_OFF.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            this.rabt_jigscan_OFF.UseVisualStyleBackColor = true;
-            // 
-            // groupBox43
-            // 
-            this.groupBox43.Controls.Add(this.btnStartJigSan4);
-            this.groupBox43.Controls.Add(this.radioButton6);
-            this.groupBox43.Location = new System.Drawing.Point(239, 18);
-            this.groupBox43.Margin = new System.Windows.Forms.Padding(2);
-            this.groupBox43.Name = "groupBox43";
-            this.groupBox43.Padding = new System.Windows.Forms.Padding(2);
-            this.groupBox43.Size = new System.Drawing.Size(67, 89);
-            this.groupBox43.TabIndex = 129;
-            this.groupBox43.TabStop = false;
-            this.groupBox43.Text = "ws4";
-            // 
-            // btnStartJigSan4
-            // 
-            this.btnStartJigSan4.Appearance = System.Windows.Forms.Appearance.Button;
-            this.btnStartJigSan4.FlatAppearance.CheckedBackColor = System.Drawing.Color.Yellow;
-            this.btnStartJigSan4.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnStartJigSan4.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
-            this.btnStartJigSan4.ForeColor = System.Drawing.Color.Black;
-            this.btnStartJigSan4.Location = new System.Drawing.Point(5, 22);
-            this.btnStartJigSan4.Name = "btnStartJigSan4";
-            this.btnStartJigSan4.Size = new System.Drawing.Size(53, 30);
-            this.btnStartJigSan4.TabIndex = 125;
-            this.btnStartJigSan4.Text = "开启";
-            this.btnStartJigSan4.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            this.btnStartJigSan4.UseVisualStyleBackColor = true;
-            // 
-            // radioButton6
-            // 
-            this.radioButton6.Appearance = System.Windows.Forms.Appearance.Button;
-            this.radioButton6.Checked = true;
-            this.radioButton6.FlatAppearance.CheckedBackColor = System.Drawing.Color.Yellow;
-            this.radioButton6.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.radioButton6.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
-            this.radioButton6.ForeColor = System.Drawing.Color.Black;
-            this.radioButton6.Location = new System.Drawing.Point(5, 54);
-            this.radioButton6.Name = "radioButton6";
-            this.radioButton6.Size = new System.Drawing.Size(53, 30);
-            this.radioButton6.TabIndex = 127;
-            this.radioButton6.TabStop = true;
-            this.radioButton6.Text = "关闭";
-            this.radioButton6.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            this.radioButton6.UseVisualStyleBackColor = true;
-            // 
-            // groupBox42
-            // 
-            this.groupBox42.Controls.Add(this.btnStartJigSan3);
-            this.groupBox42.Controls.Add(this.radioButton4);
-            this.groupBox42.Location = new System.Drawing.Point(162, 18);
-            this.groupBox42.Margin = new System.Windows.Forms.Padding(2);
-            this.groupBox42.Name = "groupBox42";
-            this.groupBox42.Padding = new System.Windows.Forms.Padding(2);
-            this.groupBox42.Size = new System.Drawing.Size(67, 89);
-            this.groupBox42.TabIndex = 130;
-            this.groupBox42.TabStop = false;
-            this.groupBox42.Text = "ws3";
-            // 
-            // btnStartJigSan3
-            // 
-            this.btnStartJigSan3.Appearance = System.Windows.Forms.Appearance.Button;
-            this.btnStartJigSan3.FlatAppearance.CheckedBackColor = System.Drawing.Color.Yellow;
-            this.btnStartJigSan3.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnStartJigSan3.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
-            this.btnStartJigSan3.ForeColor = System.Drawing.Color.Black;
-            this.btnStartJigSan3.Location = new System.Drawing.Point(5, 22);
-            this.btnStartJigSan3.Name = "btnStartJigSan3";
-            this.btnStartJigSan3.Size = new System.Drawing.Size(53, 30);
-            this.btnStartJigSan3.TabIndex = 125;
-            this.btnStartJigSan3.Text = "开启";
-            this.btnStartJigSan3.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            this.btnStartJigSan3.UseVisualStyleBackColor = true;
-            // 
-            // radioButton4
-            // 
-            this.radioButton4.Appearance = System.Windows.Forms.Appearance.Button;
-            this.radioButton4.Checked = true;
-            this.radioButton4.FlatAppearance.CheckedBackColor = System.Drawing.Color.Yellow;
-            this.radioButton4.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.radioButton4.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
-            this.radioButton4.ForeColor = System.Drawing.Color.Black;
-            this.radioButton4.Location = new System.Drawing.Point(5, 54);
-            this.radioButton4.Name = "radioButton4";
-            this.radioButton4.Size = new System.Drawing.Size(53, 30);
-            this.radioButton4.TabIndex = 127;
-            this.radioButton4.TabStop = true;
-            this.radioButton4.Text = "关闭";
-            this.radioButton4.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            this.radioButton4.UseVisualStyleBackColor = true;
-            // 
-            // groupBox41
-            // 
-            this.groupBox41.Controls.Add(this.btnStartJigSan2);
-            this.groupBox41.Controls.Add(this.radioButton2);
-            this.groupBox41.Location = new System.Drawing.Point(91, 18);
-            this.groupBox41.Margin = new System.Windows.Forms.Padding(2);
-            this.groupBox41.Name = "groupBox41";
-            this.groupBox41.Padding = new System.Windows.Forms.Padding(2);
-            this.groupBox41.Size = new System.Drawing.Size(67, 89);
-            this.groupBox41.TabIndex = 129;
-            this.groupBox41.TabStop = false;
-            this.groupBox41.Text = "ws2";
-            // 
-            // btnStartJigSan2
-            // 
-            this.btnStartJigSan2.Appearance = System.Windows.Forms.Appearance.Button;
-            this.btnStartJigSan2.FlatAppearance.CheckedBackColor = System.Drawing.Color.Yellow;
-            this.btnStartJigSan2.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnStartJigSan2.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
-            this.btnStartJigSan2.ForeColor = System.Drawing.Color.Black;
-            this.btnStartJigSan2.Location = new System.Drawing.Point(5, 22);
-            this.btnStartJigSan2.Name = "btnStartJigSan2";
-            this.btnStartJigSan2.Size = new System.Drawing.Size(53, 30);
-            this.btnStartJigSan2.TabIndex = 125;
-            this.btnStartJigSan2.Text = "开启";
-            this.btnStartJigSan2.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            this.btnStartJigSan2.UseVisualStyleBackColor = true;
-            this.btnStartJigSan2.CheckedChanged += new System.EventHandler(this.radioButton1_CheckedChanged);
-            // 
-            // radioButton2
-            // 
-            this.radioButton2.Appearance = System.Windows.Forms.Appearance.Button;
-            this.radioButton2.Checked = true;
-            this.radioButton2.FlatAppearance.CheckedBackColor = System.Drawing.Color.Yellow;
-            this.radioButton2.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.radioButton2.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
-            this.radioButton2.ForeColor = System.Drawing.Color.Black;
-            this.radioButton2.Location = new System.Drawing.Point(5, 54);
-            this.radioButton2.Name = "radioButton2";
-            this.radioButton2.Size = new System.Drawing.Size(53, 30);
-            this.radioButton2.TabIndex = 127;
-            this.radioButton2.TabStop = true;
-            this.radioButton2.Text = "关闭";
-            this.radioButton2.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            this.radioButton2.UseVisualStyleBackColor = true;
-            // 
-            // groupBox40
-            // 
-            this.groupBox40.Controls.Add(this.btnStartJigSan1);
-            this.groupBox40.Controls.Add(this.btnStopJigSan);
-            this.groupBox40.Location = new System.Drawing.Point(13, 18);
-            this.groupBox40.Margin = new System.Windows.Forms.Padding(2);
-            this.groupBox40.Name = "groupBox40";
-            this.groupBox40.Padding = new System.Windows.Forms.Padding(2);
-            this.groupBox40.Size = new System.Drawing.Size(67, 89);
-            this.groupBox40.TabIndex = 128;
-            this.groupBox40.TabStop = false;
-            this.groupBox40.Text = "ws1";
-            // 
-            // btnStartJigSan1
-            // 
-            this.btnStartJigSan1.Appearance = System.Windows.Forms.Appearance.Button;
-            this.btnStartJigSan1.FlatAppearance.CheckedBackColor = System.Drawing.Color.Yellow;
-            this.btnStartJigSan1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnStartJigSan1.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
-            this.btnStartJigSan1.ForeColor = System.Drawing.Color.Black;
-            this.btnStartJigSan1.Location = new System.Drawing.Point(5, 22);
-            this.btnStartJigSan1.Name = "btnStartJigSan1";
-            this.btnStartJigSan1.Size = new System.Drawing.Size(53, 30);
-            this.btnStartJigSan1.TabIndex = 125;
-            this.btnStartJigSan1.Text = "开启";
-            this.btnStartJigSan1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            this.btnStartJigSan1.UseVisualStyleBackColor = true;
-            this.btnStartJigSan1.CheckedChanged += new System.EventHandler(this.radioButton2_CheckedChanged);
-            // 
-            // btnStopJigSan
-            // 
-            this.btnStopJigSan.Appearance = System.Windows.Forms.Appearance.Button;
-            this.btnStopJigSan.Checked = true;
-            this.btnStopJigSan.FlatAppearance.CheckedBackColor = System.Drawing.Color.Yellow;
-            this.btnStopJigSan.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnStopJigSan.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
-            this.btnStopJigSan.ForeColor = System.Drawing.Color.Black;
-            this.btnStopJigSan.Location = new System.Drawing.Point(5, 54);
-            this.btnStopJigSan.Name = "btnStopJigSan";
-            this.btnStopJigSan.Size = new System.Drawing.Size(53, 30);
-            this.btnStopJigSan.TabIndex = 127;
-            this.btnStopJigSan.TabStop = true;
-            this.btnStopJigSan.Text = "关闭";
-            this.btnStopJigSan.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            this.btnStopJigSan.UseVisualStyleBackColor = true;
-            // 
-            // groupBox34
-            // 
-            this.groupBox34.Controls.Add(this.nud_ngscale);
-            this.groupBox34.Controls.Add(this.nud_ngcode);
-            this.groupBox34.Controls.Add(this.label32);
-            this.groupBox34.Controls.Add(this.label30);
-            this.groupBox34.Controls.Add(this.rbtn_ngcontroldis);
-            this.groupBox34.Controls.Add(this.rbtn_ngcontrolen);
-            this.groupBox34.Font = new System.Drawing.Font("宋体", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.groupBox34.Location = new System.Drawing.Point(640, 589);
-            this.groupBox34.Name = "groupBox34";
-            this.groupBox34.Size = new System.Drawing.Size(393, 110);
-            this.groupBox34.TabIndex = 141;
-            this.groupBox34.TabStop = false;
-            this.groupBox34.Text = "不良比例管控设置";
-            // 
-            // nud_ngscale
-            // 
-            this.nud_ngscale.DecimalPlaces = 1;
-            this.nud_ngscale.Font = new System.Drawing.Font("宋体", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.nud_ngscale.Increment = new decimal(new int[] {
-            1,
-            0,
-            0,
-            65536});
-            this.nud_ngscale.Location = new System.Drawing.Point(218, 60);
-            this.nud_ngscale.Name = "nud_ngscale";
-            this.nud_ngscale.Size = new System.Drawing.Size(73, 32);
-            this.nud_ngscale.TabIndex = 133;
-            this.nud_ngscale.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.nud_ngscale.Value = new decimal(new int[] {
-            3,
-            0,
-            0,
-            0});
-            // 
-            // nud_ngcode
-            // 
-            this.nud_ngcode.Font = new System.Drawing.Font("宋体", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.nud_ngcode.Location = new System.Drawing.Point(181, 20);
-            this.nud_ngcode.Maximum = new decimal(new int[] {
-            100000,
-            0,
-            0,
-            0});
-            this.nud_ngcode.Name = "nud_ngcode";
-            this.nud_ngcode.Size = new System.Drawing.Size(73, 32);
-            this.nud_ngcode.TabIndex = 131;
-            this.nud_ngcode.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.nud_ngcode.Value = new decimal(new int[] {
-            3,
-            0,
-            0,
-            0});
-            // 
-            // label32
-            // 
-            this.label32.AutoSize = true;
-            this.label32.Location = new System.Drawing.Point(135, 70);
-            this.label32.Name = "label32";
-            this.label32.Size = new System.Drawing.Size(77, 14);
-            this.label32.TabIndex = 130;
-            this.label32.Text = "比例（%）:";
-            // 
-            // label30
-            // 
-            this.label30.AutoSize = true;
-            this.label30.Location = new System.Drawing.Point(135, 30);
-            this.label30.Name = "label30";
-            this.label30.Size = new System.Drawing.Size(42, 14);
-            this.label30.TabIndex = 128;
-            this.label30.Text = "NG码:";
-            // 
-            // rbtn_ngcontroldis
-            // 
-            this.rbtn_ngcontroldis.Appearance = System.Windows.Forms.Appearance.Button;
-            this.rbtn_ngcontroldis.FlatAppearance.CheckedBackColor = System.Drawing.Color.Yellow;
-            this.rbtn_ngcontroldis.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.rbtn_ngcontroldis.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
-            this.rbtn_ngcontroldis.ForeColor = System.Drawing.Color.Black;
-            this.rbtn_ngcontroldis.Location = new System.Drawing.Point(15, 62);
-            this.rbtn_ngcontroldis.Name = "rbtn_ngcontroldis";
-            this.rbtn_ngcontroldis.Size = new System.Drawing.Size(97, 30);
-            this.rbtn_ngcontroldis.TabIndex = 127;
-            this.rbtn_ngcontroldis.Text = "关闭";
-            this.rbtn_ngcontroldis.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            this.rbtn_ngcontroldis.UseVisualStyleBackColor = true;
-            // 
-            // rbtn_ngcontrolen
-            // 
-            this.rbtn_ngcontrolen.Appearance = System.Windows.Forms.Appearance.Button;
-            this.rbtn_ngcontrolen.Checked = true;
-            this.rbtn_ngcontrolen.FlatAppearance.CheckedBackColor = System.Drawing.Color.Yellow;
-            this.rbtn_ngcontrolen.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.rbtn_ngcontrolen.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
-            this.rbtn_ngcontrolen.ForeColor = System.Drawing.Color.Black;
-            this.rbtn_ngcontrolen.Location = new System.Drawing.Point(15, 22);
-            this.rbtn_ngcontrolen.Name = "rbtn_ngcontrolen";
-            this.rbtn_ngcontrolen.Size = new System.Drawing.Size(97, 30);
-            this.rbtn_ngcontrolen.TabIndex = 125;
-            this.rbtn_ngcontrolen.TabStop = true;
-            this.rbtn_ngcontrolen.Text = "开启";
-            this.rbtn_ngcontrolen.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            this.rbtn_ngcontrolen.UseVisualStyleBackColor = true;
             // 
             // groupBox29
             // 
             this.groupBox29.Controls.Add(this.rbtn_OkCheckDis);
             this.groupBox29.Controls.Add(this.rbtn_OkCheckEn);
             this.groupBox29.Font = new System.Drawing.Font("宋体", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.groupBox29.Location = new System.Drawing.Point(269, 474);
+            this.groupBox29.Location = new System.Drawing.Point(269, 488);
             this.groupBox29.Name = "groupBox29";
             this.groupBox29.Size = new System.Drawing.Size(209, 108);
             this.groupBox29.TabIndex = 140;
@@ -1482,7 +867,7 @@
             this.groupBox19.Controls.Add(this.chk_UpLoadData);
             this.groupBox19.Controls.Add(this.chk_UpdateSoft);
             this.groupBox19.Font = new System.Drawing.Font("宋体", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.groupBox19.Location = new System.Drawing.Point(512, 474);
+            this.groupBox19.Location = new System.Drawing.Point(512, 488);
             this.groupBox19.Name = "groupBox19";
             this.groupBox19.Size = new System.Drawing.Size(195, 108);
             this.groupBox19.TabIndex = 139;
@@ -1518,7 +903,7 @@
             this.groupBox4.Controls.Add(this.chk_dwcam1);
             this.groupBox4.Controls.Add(this.chk_upcam1);
             this.groupBox4.Font = new System.Drawing.Font("宋体", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.groupBox4.Location = new System.Drawing.Point(753, 474);
+            this.groupBox4.Location = new System.Drawing.Point(753, 487);
             this.groupBox4.Name = "groupBox4";
             this.groupBox4.Size = new System.Drawing.Size(280, 108);
             this.groupBox4.TabIndex = 137;
@@ -1572,7 +957,7 @@
             this.grb_safe.Controls.Add(this.chk_leftlightbox);
             this.grb_safe.Controls.Add(this.chk_updown);
             this.grb_safe.Font = new System.Drawing.Font("宋体", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.grb_safe.Location = new System.Drawing.Point(338, 589);
+            this.grb_safe.Location = new System.Drawing.Point(336, 621);
             this.grb_safe.Name = "grb_safe";
             this.grb_safe.Size = new System.Drawing.Size(280, 110);
             this.grb_safe.TabIndex = 136;
@@ -1626,7 +1011,7 @@
             this.groupBox14.Controls.Add(this.rbtn_next_turnon);
             this.groupBox14.Controls.Add(this.rbtn_pre_turnon);
             this.groupBox14.Font = new System.Drawing.Font("宋体", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.groupBox14.Location = new System.Drawing.Point(30, 589);
+            this.groupBox14.Location = new System.Drawing.Point(30, 621);
             this.groupBox14.Name = "groupBox14";
             this.groupBox14.Size = new System.Drawing.Size(280, 108);
             this.groupBox14.TabIndex = 138;
@@ -1704,7 +1089,7 @@
             this.groupBoxbarcode.Controls.Add(this.rbtn_CloseBarCamBack);
             this.groupBoxbarcode.Controls.Add(this.rbtn_OpenBarCamBack);
             this.groupBoxbarcode.Font = new System.Drawing.Font("宋体", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.groupBoxbarcode.Location = new System.Drawing.Point(30, 474);
+            this.groupBoxbarcode.Location = new System.Drawing.Point(30, 487);
             this.groupBoxbarcode.Name = "groupBoxbarcode";
             this.groupBoxbarcode.Size = new System.Drawing.Size(209, 108);
             this.groupBoxbarcode.TabIndex = 135;
@@ -1924,7 +1309,7 @@
             // btn_ptset_save
             // 
             this.btn_ptset_save.BackColor = System.Drawing.SystemColors.ButtonFace;
-            this.btn_ptset_save.Location = new System.Drawing.Point(898, 743);
+            this.btn_ptset_save.Location = new System.Drawing.Point(911, 753);
             this.btn_ptset_save.Name = "btn_ptset_save";
             this.btn_ptset_save.Size = new System.Drawing.Size(134, 71);
             this.btn_ptset_save.TabIndex = 20;
@@ -2439,7 +1824,6 @@
             // 
             // grb_barcode
             // 
-            this.grb_barcode.Controls.Add(this.rbtn_NoCap);
             this.grb_barcode.Controls.Add(this.rbtn_dwcode);
             this.grb_barcode.Controls.Add(this.rbtn_upcode);
             this.grb_barcode.Font = new System.Drawing.Font("宋体", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
@@ -2450,23 +1834,6 @@
             this.grb_barcode.TabStop = false;
             this.grb_barcode.Text = "二维码扫码方式";
             // 
-            // rbtn_NoCap
-            // 
-            this.rbtn_NoCap.Appearance = System.Windows.Forms.Appearance.Button;
-            this.rbtn_NoCap.Checked = true;
-            this.rbtn_NoCap.FlatAppearance.CheckedBackColor = System.Drawing.Color.Yellow;
-            this.rbtn_NoCap.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.rbtn_NoCap.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
-            this.rbtn_NoCap.ForeColor = System.Drawing.Color.Black;
-            this.rbtn_NoCap.Location = new System.Drawing.Point(137, 42);
-            this.rbtn_NoCap.Name = "rbtn_NoCap";
-            this.rbtn_NoCap.Size = new System.Drawing.Size(66, 30);
-            this.rbtn_NoCap.TabIndex = 126;
-            this.rbtn_NoCap.TabStop = true;
-            this.rbtn_NoCap.Text = "不扫码";
-            this.rbtn_NoCap.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            this.rbtn_NoCap.UseVisualStyleBackColor = true;
-            // 
             // rbtn_dwcode
             // 
             this.rbtn_dwcode.Appearance = System.Windows.Forms.Appearance.Button;
@@ -2476,7 +1843,7 @@
             this.rbtn_dwcode.ForeColor = System.Drawing.Color.Black;
             this.rbtn_dwcode.Location = new System.Drawing.Point(27, 63);
             this.rbtn_dwcode.Name = "rbtn_dwcode";
-            this.rbtn_dwcode.Size = new System.Drawing.Size(93, 30);
+            this.rbtn_dwcode.Size = new System.Drawing.Size(155, 30);
             this.rbtn_dwcode.TabIndex = 125;
             this.rbtn_dwcode.Text = "下相机扫码";
             this.rbtn_dwcode.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -2492,7 +1859,7 @@
             this.rbtn_upcode.ForeColor = System.Drawing.Color.Black;
             this.rbtn_upcode.Location = new System.Drawing.Point(26, 23);
             this.rbtn_upcode.Name = "rbtn_upcode";
-            this.rbtn_upcode.Size = new System.Drawing.Size(94, 30);
+            this.rbtn_upcode.Size = new System.Drawing.Size(155, 30);
             this.rbtn_upcode.TabIndex = 124;
             this.rbtn_upcode.TabStop = true;
             this.rbtn_upcode.Text = "上相机扫码";
@@ -2757,14 +2124,6 @@
             // 
             // tp_setparm_2
             // 
-            this.tp_setparm_2.Controls.Add(this.groupBox48);
-            this.tp_setparm_2.Controls.Add(this.groupBox3);
-            this.tp_setparm_2.Controls.Add(this.groupBox7);
-            this.tp_setparm_2.Controls.Add(this.groupBox47);
-            this.tp_setparm_2.Controls.Add(this.groupBox46);
-            this.tp_setparm_2.Controls.Add(this.groupBox37);
-            this.tp_setparm_2.Controls.Add(this.groupBox36);
-            this.tp_setparm_2.Controls.Add(this.groupBox35);
             this.tp_setparm_2.Controls.Add(this.groupBox33);
             this.tp_setparm_2.Controls.Add(this.groupBox32);
             this.tp_setparm_2.Controls.Add(this.groupBox31);
@@ -2778,6 +2137,8 @@
             this.tp_setparm_2.Controls.Add(this.groupBox22);
             this.tp_setparm_2.Controls.Add(this.groupBox21);
             this.tp_setparm_2.Controls.Add(this.btn_saveparm2);
+            this.tp_setparm_2.Controls.Add(this.groupBox7);
+            this.tp_setparm_2.Controls.Add(this.groupBox3);
             this.tp_setparm_2.Controls.Add(this.groupBox2);
             this.tp_setparm_2.Controls.Add(this.groupBox12);
             this.tp_setparm_2.Controls.Add(this.groupBox17);
@@ -2791,776 +2152,14 @@
             this.tp_setparm_2.Text = "参数2          ";
             this.tp_setparm_2.UseVisualStyleBackColor = true;
             // 
-            // groupBox48
-            // 
-            this.groupBox48.Controls.Add(this.cb_ConnectorCheck);
-            this.groupBox48.Controls.Add(this.tabControl1);
-            this.groupBox48.Font = new System.Drawing.Font("宋体", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.groupBox48.Location = new System.Drawing.Point(27, 694);
-            this.groupBox48.Name = "groupBox48";
-            this.groupBox48.Size = new System.Drawing.Size(758, 131);
-            this.groupBox48.TabIndex = 153;
-            this.groupBox48.TabStop = false;
-            this.groupBox48.Text = "连接器回检指标";
-            // 
-            // cb_ConnectorCheck
-            // 
-            this.cb_ConnectorCheck.AutoSize = true;
-            this.cb_ConnectorCheck.Location = new System.Drawing.Point(642, 22);
-            this.cb_ConnectorCheck.Name = "cb_ConnectorCheck";
-            this.cb_ConnectorCheck.Size = new System.Drawing.Size(110, 18);
-            this.cb_ConnectorCheck.TabIndex = 48;
-            this.cb_ConnectorCheck.Text = "多链接器管控";
-            this.cb_ConnectorCheck.UseVisualStyleBackColor = true;
-            // 
-            // tabControl1
-            // 
-            this.tabControl1.Controls.Add(this.tabPage1);
-            this.tabControl1.Controls.Add(this.tabPage2);
-            this.tabControl1.Location = new System.Drawing.Point(9, 22);
-            this.tabControl1.Name = "tabControl1";
-            this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(627, 97);
-            this.tabControl1.TabIndex = 49;
-            // 
-            // tabPage1
-            // 
-            this.tabPage1.Controls.Add(this.nud_Areaofset);
-            this.tabPage1.Controls.Add(this.label39);
-            this.tabPage1.Controls.Add(this.nud_DownArea);
-            this.tabPage1.Controls.Add(this.nud_UpArea);
-            this.tabPage1.Controls.Add(this.nud_RightArea);
-            this.tabPage1.Controls.Add(this.nud_LeftArea);
-            this.tabPage1.Controls.Add(this.label34);
-            this.tabPage1.Controls.Add(this.label35);
-            this.tabPage1.Controls.Add(this.label36);
-            this.tabPage1.Controls.Add(this.label37);
-            this.tabPage1.Controls.Add(this.label38);
-            this.tabPage1.Location = new System.Drawing.Point(4, 24);
-            this.tabPage1.Name = "tabPage1";
-            this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage1.Size = new System.Drawing.Size(619, 69);
-            this.tabPage1.TabIndex = 0;
-            this.tabPage1.Text = "1号上下料";
-            this.tabPage1.UseVisualStyleBackColor = true;
-            // 
-            // nud_Areaofset
-            // 
-            this.nud_Areaofset.DecimalPlaces = 2;
-            this.nud_Areaofset.Font = new System.Drawing.Font("宋体", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.nud_Areaofset.Increment = new decimal(new int[] {
-            1,
-            0,
-            0,
-            131072});
-            this.nud_Areaofset.Location = new System.Drawing.Point(463, 30);
-            this.nud_Areaofset.Maximum = new decimal(new int[] {
-            50,
-            0,
-            0,
-            0});
-            this.nud_Areaofset.Minimum = new decimal(new int[] {
-            50,
-            0,
-            0,
-            -2147483648});
-            this.nud_Areaofset.Name = "nud_Areaofset";
-            this.nud_Areaofset.Size = new System.Drawing.Size(100, 32);
-            this.nud_Areaofset.TabIndex = 58;
-            this.nud_Areaofset.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            // 
-            // label39
-            // 
-            this.label39.AutoSize = true;
-            this.label39.Font = new System.Drawing.Font("宋体", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.label39.Location = new System.Drawing.Point(460, 7);
-            this.label39.Name = "label39";
-            this.label39.Size = new System.Drawing.Size(56, 16);
-            this.label39.TabIndex = 57;
-            this.label39.Text = "管控：";
-            // 
-            // nud_DownArea
-            // 
-            this.nud_DownArea.DecimalPlaces = 2;
-            this.nud_DownArea.Font = new System.Drawing.Font("宋体", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.nud_DownArea.Increment = new decimal(new int[] {
-            1,
-            0,
-            0,
-            131072});
-            this.nud_DownArea.Location = new System.Drawing.Point(349, 30);
-            this.nud_DownArea.Maximum = new decimal(new int[] {
-            50,
-            0,
-            0,
-            0});
-            this.nud_DownArea.Minimum = new decimal(new int[] {
-            50,
-            0,
-            0,
-            -2147483648});
-            this.nud_DownArea.Name = "nud_DownArea";
-            this.nud_DownArea.Size = new System.Drawing.Size(100, 32);
-            this.nud_DownArea.TabIndex = 56;
-            this.nud_DownArea.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            // 
-            // nud_UpArea
-            // 
-            this.nud_UpArea.DecimalPlaces = 2;
-            this.nud_UpArea.Font = new System.Drawing.Font("宋体", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.nud_UpArea.Increment = new decimal(new int[] {
-            1,
-            0,
-            0,
-            131072});
-            this.nud_UpArea.Location = new System.Drawing.Point(237, 29);
-            this.nud_UpArea.Maximum = new decimal(new int[] {
-            50,
-            0,
-            0,
-            0});
-            this.nud_UpArea.Minimum = new decimal(new int[] {
-            50,
-            0,
-            0,
-            -2147483648});
-            this.nud_UpArea.Name = "nud_UpArea";
-            this.nud_UpArea.Size = new System.Drawing.Size(100, 32);
-            this.nud_UpArea.TabIndex = 55;
-            this.nud_UpArea.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            // 
-            // nud_RightArea
-            // 
-            this.nud_RightArea.DecimalPlaces = 2;
-            this.nud_RightArea.Font = new System.Drawing.Font("宋体", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.nud_RightArea.Increment = new decimal(new int[] {
-            1,
-            0,
-            0,
-            131072});
-            this.nud_RightArea.Location = new System.Drawing.Point(123, 30);
-            this.nud_RightArea.Maximum = new decimal(new int[] {
-            50,
-            0,
-            0,
-            0});
-            this.nud_RightArea.Minimum = new decimal(new int[] {
-            50,
-            0,
-            0,
-            -2147483648});
-            this.nud_RightArea.Name = "nud_RightArea";
-            this.nud_RightArea.Size = new System.Drawing.Size(100, 32);
-            this.nud_RightArea.TabIndex = 54;
-            this.nud_RightArea.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            // 
-            // nud_LeftArea
-            // 
-            this.nud_LeftArea.DecimalPlaces = 2;
-            this.nud_LeftArea.Font = new System.Drawing.Font("宋体", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.nud_LeftArea.Increment = new decimal(new int[] {
-            1,
-            0,
-            0,
-            131072});
-            this.nud_LeftArea.Location = new System.Drawing.Point(11, 28);
-            this.nud_LeftArea.Maximum = new decimal(new int[] {
-            50,
-            0,
-            0,
-            0});
-            this.nud_LeftArea.Minimum = new decimal(new int[] {
-            50,
-            0,
-            0,
-            -2147483648});
-            this.nud_LeftArea.Name = "nud_LeftArea";
-            this.nud_LeftArea.Size = new System.Drawing.Size(100, 32);
-            this.nud_LeftArea.TabIndex = 53;
-            this.nud_LeftArea.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            // 
-            // label34
-            // 
-            this.label34.AutoSize = true;
-            this.label34.Font = new System.Drawing.Font("宋体", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.label34.Location = new System.Drawing.Point(341, 6);
-            this.label34.Name = "label34";
-            this.label34.Size = new System.Drawing.Size(72, 16);
-            this.label34.TabIndex = 52;
-            this.label34.Text = "下面积：";
-            // 
-            // label35
-            // 
-            this.label35.AutoSize = true;
-            this.label35.Font = new System.Drawing.Font("宋体", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.label35.Location = new System.Drawing.Point(228, 7);
-            this.label35.Name = "label35";
-            this.label35.Size = new System.Drawing.Size(72, 16);
-            this.label35.TabIndex = 51;
-            this.label35.Text = "上面积：";
-            // 
-            // label36
-            // 
-            this.label36.AutoSize = true;
-            this.label36.Font = new System.Drawing.Font("宋体", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.label36.Location = new System.Drawing.Point(118, 7);
-            this.label36.Name = "label36";
-            this.label36.Size = new System.Drawing.Size(72, 16);
-            this.label36.TabIndex = 50;
-            this.label36.Text = "右面积：";
-            // 
-            // label37
-            // 
-            this.label37.AutoSize = true;
-            this.label37.Font = new System.Drawing.Font("宋体", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.label37.Location = new System.Drawing.Point(151, 29);
-            this.label37.Name = "label37";
-            this.label37.Size = new System.Drawing.Size(0, 16);
-            this.label37.TabIndex = 49;
-            // 
-            // label38
-            // 
-            this.label38.AutoSize = true;
-            this.label38.Font = new System.Drawing.Font("宋体", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.label38.Location = new System.Drawing.Point(5, 7);
-            this.label38.Name = "label38";
-            this.label38.Size = new System.Drawing.Size(72, 16);
-            this.label38.TabIndex = 48;
-            this.label38.Text = "左面积：";
-            // 
-            // tabPage2
-            // 
-            this.tabPage2.Controls.Add(this.nud_Areaofset2);
-            this.tabPage2.Controls.Add(this.label40);
-            this.tabPage2.Controls.Add(this.nud_DownArea2);
-            this.tabPage2.Controls.Add(this.nud_UpArea2);
-            this.tabPage2.Controls.Add(this.nud_RightArea2);
-            this.tabPage2.Controls.Add(this.nud_LeftArea2);
-            this.tabPage2.Controls.Add(this.label41);
-            this.tabPage2.Controls.Add(this.label42);
-            this.tabPage2.Controls.Add(this.label43);
-            this.tabPage2.Controls.Add(this.label44);
-            this.tabPage2.Location = new System.Drawing.Point(4, 24);
-            this.tabPage2.Name = "tabPage2";
-            this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage2.Size = new System.Drawing.Size(619, 69);
-            this.tabPage2.TabIndex = 1;
-            this.tabPage2.Text = "2号上下料";
-            this.tabPage2.UseVisualStyleBackColor = true;
-            // 
-            // nud_Areaofset2
-            // 
-            this.nud_Areaofset2.DecimalPlaces = 2;
-            this.nud_Areaofset2.Font = new System.Drawing.Font("宋体", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.nud_Areaofset2.Increment = new decimal(new int[] {
-            1,
-            0,
-            0,
-            131072});
-            this.nud_Areaofset2.Location = new System.Drawing.Point(460, 30);
-            this.nud_Areaofset2.Maximum = new decimal(new int[] {
-            50,
-            0,
-            0,
-            0});
-            this.nud_Areaofset2.Minimum = new decimal(new int[] {
-            50,
-            0,
-            0,
-            -2147483648});
-            this.nud_Areaofset2.Name = "nud_Areaofset2";
-            this.nud_Areaofset2.Size = new System.Drawing.Size(100, 32);
-            this.nud_Areaofset2.TabIndex = 68;
-            this.nud_Areaofset2.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            // 
-            // label40
-            // 
-            this.label40.AutoSize = true;
-            this.label40.Font = new System.Drawing.Font("宋体", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.label40.Location = new System.Drawing.Point(457, 7);
-            this.label40.Name = "label40";
-            this.label40.Size = new System.Drawing.Size(56, 16);
-            this.label40.TabIndex = 67;
-            this.label40.Text = "管控：";
-            // 
-            // nud_DownArea2
-            // 
-            this.nud_DownArea2.DecimalPlaces = 2;
-            this.nud_DownArea2.Font = new System.Drawing.Font("宋体", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.nud_DownArea2.Increment = new decimal(new int[] {
-            1,
-            0,
-            0,
-            131072});
-            this.nud_DownArea2.Location = new System.Drawing.Point(349, 30);
-            this.nud_DownArea2.Maximum = new decimal(new int[] {
-            50,
-            0,
-            0,
-            0});
-            this.nud_DownArea2.Minimum = new decimal(new int[] {
-            50,
-            0,
-            0,
-            -2147483648});
-            this.nud_DownArea2.Name = "nud_DownArea2";
-            this.nud_DownArea2.Size = new System.Drawing.Size(100, 32);
-            this.nud_DownArea2.TabIndex = 66;
-            this.nud_DownArea2.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            // 
-            // nud_UpArea2
-            // 
-            this.nud_UpArea2.DecimalPlaces = 2;
-            this.nud_UpArea2.Font = new System.Drawing.Font("宋体", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.nud_UpArea2.Increment = new decimal(new int[] {
-            1,
-            0,
-            0,
-            131072});
-            this.nud_UpArea2.Location = new System.Drawing.Point(237, 29);
-            this.nud_UpArea2.Maximum = new decimal(new int[] {
-            50,
-            0,
-            0,
-            0});
-            this.nud_UpArea2.Minimum = new decimal(new int[] {
-            50,
-            0,
-            0,
-            -2147483648});
-            this.nud_UpArea2.Name = "nud_UpArea2";
-            this.nud_UpArea2.Size = new System.Drawing.Size(100, 32);
-            this.nud_UpArea2.TabIndex = 65;
-            this.nud_UpArea2.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            // 
-            // nud_RightArea2
-            // 
-            this.nud_RightArea2.DecimalPlaces = 2;
-            this.nud_RightArea2.Font = new System.Drawing.Font("宋体", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.nud_RightArea2.Increment = new decimal(new int[] {
-            1,
-            0,
-            0,
-            131072});
-            this.nud_RightArea2.Location = new System.Drawing.Point(123, 30);
-            this.nud_RightArea2.Maximum = new decimal(new int[] {
-            50,
-            0,
-            0,
-            0});
-            this.nud_RightArea2.Minimum = new decimal(new int[] {
-            50,
-            0,
-            0,
-            -2147483648});
-            this.nud_RightArea2.Name = "nud_RightArea2";
-            this.nud_RightArea2.Size = new System.Drawing.Size(100, 32);
-            this.nud_RightArea2.TabIndex = 64;
-            this.nud_RightArea2.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            // 
-            // nud_LeftArea2
-            // 
-            this.nud_LeftArea2.DecimalPlaces = 2;
-            this.nud_LeftArea2.Font = new System.Drawing.Font("宋体", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.nud_LeftArea2.Increment = new decimal(new int[] {
-            1,
-            0,
-            0,
-            131072});
-            this.nud_LeftArea2.Location = new System.Drawing.Point(11, 28);
-            this.nud_LeftArea2.Maximum = new decimal(new int[] {
-            50,
-            0,
-            0,
-            0});
-            this.nud_LeftArea2.Minimum = new decimal(new int[] {
-            50,
-            0,
-            0,
-            -2147483648});
-            this.nud_LeftArea2.Name = "nud_LeftArea2";
-            this.nud_LeftArea2.Size = new System.Drawing.Size(100, 32);
-            this.nud_LeftArea2.TabIndex = 63;
-            this.nud_LeftArea2.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            // 
-            // label41
-            // 
-            this.label41.AutoSize = true;
-            this.label41.Font = new System.Drawing.Font("宋体", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.label41.Location = new System.Drawing.Point(341, 6);
-            this.label41.Name = "label41";
-            this.label41.Size = new System.Drawing.Size(72, 16);
-            this.label41.TabIndex = 62;
-            this.label41.Text = "下面积：";
-            // 
-            // label42
-            // 
-            this.label42.AutoSize = true;
-            this.label42.Font = new System.Drawing.Font("宋体", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.label42.Location = new System.Drawing.Point(228, 7);
-            this.label42.Name = "label42";
-            this.label42.Size = new System.Drawing.Size(72, 16);
-            this.label42.TabIndex = 61;
-            this.label42.Text = "上面积：";
-            // 
-            // label43
-            // 
-            this.label43.AutoSize = true;
-            this.label43.Font = new System.Drawing.Font("宋体", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.label43.Location = new System.Drawing.Point(118, 7);
-            this.label43.Name = "label43";
-            this.label43.Size = new System.Drawing.Size(72, 16);
-            this.label43.TabIndex = 60;
-            this.label43.Text = "右面积：";
-            // 
-            // label44
-            // 
-            this.label44.AutoSize = true;
-            this.label44.Font = new System.Drawing.Font("宋体", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.label44.Location = new System.Drawing.Point(5, 7);
-            this.label44.Name = "label44";
-            this.label44.Size = new System.Drawing.Size(72, 16);
-            this.label44.TabIndex = 59;
-            this.label44.Text = "左面积：";
-            // 
-            // groupBox3
-            // 
-            this.groupBox3.Controls.Add(this.rad_light_xsj);
-            this.groupBox3.Controls.Add(this.rad_G4C);
-            this.groupBox3.Font = new System.Drawing.Font("宋体", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.groupBox3.Location = new System.Drawing.Point(349, 21);
-            this.groupBox3.Name = "groupBox3";
-            this.groupBox3.Size = new System.Drawing.Size(143, 110);
-            this.groupBox3.TabIndex = 152;
-            this.groupBox3.TabStop = false;
-            this.groupBox3.Text = "光源切换";
-            // 
-            // rad_light_xsj
-            // 
-            this.rad_light_xsj.Appearance = System.Windows.Forms.Appearance.Button;
-            this.rad_light_xsj.FlatAppearance.CheckedBackColor = System.Drawing.Color.Yellow;
-            this.rad_light_xsj.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.rad_light_xsj.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
-            this.rad_light_xsj.ForeColor = System.Drawing.Color.Black;
-            this.rad_light_xsj.Location = new System.Drawing.Point(25, 74);
-            this.rad_light_xsj.Name = "rad_light_xsj";
-            this.rad_light_xsj.Size = new System.Drawing.Size(87, 30);
-            this.rad_light_xsj.TabIndex = 126;
-            this.rad_light_xsj.Text = "轩仕佳";
-            this.rad_light_xsj.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            this.rad_light_xsj.UseVisualStyleBackColor = true;
-            // 
-            // rad_G4C
-            // 
-            this.rad_G4C.Appearance = System.Windows.Forms.Appearance.Button;
-            this.rad_G4C.Checked = true;
-            this.rad_G4C.FlatAppearance.CheckedBackColor = System.Drawing.Color.Yellow;
-            this.rad_G4C.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.rad_G4C.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
-            this.rad_G4C.ForeColor = System.Drawing.Color.Black;
-            this.rad_G4C.Location = new System.Drawing.Point(25, 31);
-            this.rad_G4C.Name = "rad_G4C";
-            this.rad_G4C.Size = new System.Drawing.Size(87, 30);
-            this.rad_G4C.TabIndex = 124;
-            this.rad_G4C.TabStop = true;
-            this.rad_G4C.Text = "G4C";
-            this.rad_G4C.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            this.rad_G4C.UseVisualStyleBackColor = true;
-            // 
-            // groupBox7
-            // 
-            this.groupBox7.Controls.Add(this.rbtn_Y1dis);
-            this.groupBox7.Controls.Add(this.rbtn_Y1en);
-            this.groupBox7.Font = new System.Drawing.Font("宋体", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.groupBox7.Location = new System.Drawing.Point(27, 21);
-            this.groupBox7.Name = "groupBox7";
-            this.groupBox7.Size = new System.Drawing.Size(146, 110);
-            this.groupBox7.TabIndex = 151;
-            this.groupBox7.TabStop = false;
-            this.groupBox7.Text = "增距镜Y1开启设置(不能变更)";
-            // 
-            // rbtn_Y1dis
-            // 
-            this.rbtn_Y1dis.Appearance = System.Windows.Forms.Appearance.Button;
-            this.rbtn_Y1dis.FlatAppearance.CheckedBackColor = System.Drawing.Color.Yellow;
-            this.rbtn_Y1dis.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.rbtn_Y1dis.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
-            this.rbtn_Y1dis.ForeColor = System.Drawing.Color.Black;
-            this.rbtn_Y1dis.Location = new System.Drawing.Point(27, 74);
-            this.rbtn_Y1dis.Name = "rbtn_Y1dis";
-            this.rbtn_Y1dis.Size = new System.Drawing.Size(83, 30);
-            this.rbtn_Y1dis.TabIndex = 126;
-            this.rbtn_Y1dis.Text = "关闭Y1";
-            this.rbtn_Y1dis.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            this.rbtn_Y1dis.UseVisualStyleBackColor = true;
-            // 
-            // rbtn_Y1en
-            // 
-            this.rbtn_Y1en.Appearance = System.Windows.Forms.Appearance.Button;
-            this.rbtn_Y1en.Checked = true;
-            this.rbtn_Y1en.FlatAppearance.CheckedBackColor = System.Drawing.Color.Yellow;
-            this.rbtn_Y1en.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.rbtn_Y1en.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
-            this.rbtn_Y1en.ForeColor = System.Drawing.Color.Black;
-            this.rbtn_Y1en.Location = new System.Drawing.Point(27, 38);
-            this.rbtn_Y1en.Name = "rbtn_Y1en";
-            this.rbtn_Y1en.Size = new System.Drawing.Size(83, 30);
-            this.rbtn_Y1en.TabIndex = 124;
-            this.rbtn_Y1en.TabStop = true;
-            this.rbtn_Y1en.Text = "开启Y1";
-            this.rbtn_Y1en.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            this.rbtn_Y1en.UseVisualStyleBackColor = true;
-            // 
-            // groupBox47
-            // 
-            this.groupBox47.Controls.Add(this.rbtn_safeoff);
-            this.groupBox47.Controls.Add(this.rbtn_safeon);
-            this.groupBox47.Font = new System.Drawing.Font("宋体", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.groupBox47.Location = new System.Drawing.Point(200, 21);
-            this.groupBox47.Name = "groupBox47";
-            this.groupBox47.Size = new System.Drawing.Size(143, 110);
-            this.groupBox47.TabIndex = 150;
-            this.groupBox47.TabStop = false;
-            this.groupBox47.Text = "上下料移动保护(针对转盘)";
-            // 
-            // rbtn_safeoff
-            // 
-            this.rbtn_safeoff.Appearance = System.Windows.Forms.Appearance.Button;
-            this.rbtn_safeoff.FlatAppearance.CheckedBackColor = System.Drawing.Color.Yellow;
-            this.rbtn_safeoff.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.rbtn_safeoff.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
-            this.rbtn_safeoff.ForeColor = System.Drawing.Color.Black;
-            this.rbtn_safeoff.Location = new System.Drawing.Point(27, 74);
-            this.rbtn_safeoff.Name = "rbtn_safeoff";
-            this.rbtn_safeoff.Size = new System.Drawing.Size(87, 30);
-            this.rbtn_safeoff.TabIndex = 126;
-            this.rbtn_safeoff.Text = "关闭保护";
-            this.rbtn_safeoff.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            this.rbtn_safeoff.UseVisualStyleBackColor = true;
-            // 
-            // rbtn_safeon
-            // 
-            this.rbtn_safeon.Appearance = System.Windows.Forms.Appearance.Button;
-            this.rbtn_safeon.Checked = true;
-            this.rbtn_safeon.FlatAppearance.CheckedBackColor = System.Drawing.Color.Yellow;
-            this.rbtn_safeon.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.rbtn_safeon.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
-            this.rbtn_safeon.ForeColor = System.Drawing.Color.Black;
-            this.rbtn_safeon.Location = new System.Drawing.Point(27, 31);
-            this.rbtn_safeon.Name = "rbtn_safeon";
-            this.rbtn_safeon.Size = new System.Drawing.Size(87, 30);
-            this.rbtn_safeon.TabIndex = 124;
-            this.rbtn_safeon.TabStop = true;
-            this.rbtn_safeon.Text = "开启保护";
-            this.rbtn_safeon.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            this.rbtn_safeon.UseVisualStyleBackColor = true;
-            // 
-            // groupBox46
-            // 
-            this.groupBox46.Controls.Add(this.rbtn_AddCapQrcodeDis);
-            this.groupBox46.Controls.Add(this.rbtn_AddCapQrcodeEn);
-            this.groupBox46.Font = new System.Drawing.Font("宋体", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.groupBox46.Location = new System.Drawing.Point(949, 554);
-            this.groupBox46.Name = "groupBox46";
-            this.groupBox46.Size = new System.Drawing.Size(117, 134);
-            this.groupBox46.TabIndex = 149;
-            this.groupBox46.TabStop = false;
-            this.groupBox46.Text = "新增上拍扫二维码位";
-            // 
-            // rbtn_AddCapQrcodeDis
-            // 
-            this.rbtn_AddCapQrcodeDis.Appearance = System.Windows.Forms.Appearance.Button;
-            this.rbtn_AddCapQrcodeDis.FlatAppearance.CheckedBackColor = System.Drawing.Color.Yellow;
-            this.rbtn_AddCapQrcodeDis.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.rbtn_AddCapQrcodeDis.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
-            this.rbtn_AddCapQrcodeDis.ForeColor = System.Drawing.Color.Black;
-            this.rbtn_AddCapQrcodeDis.Location = new System.Drawing.Point(18, 86);
-            this.rbtn_AddCapQrcodeDis.Name = "rbtn_AddCapQrcodeDis";
-            this.rbtn_AddCapQrcodeDis.Size = new System.Drawing.Size(84, 30);
-            this.rbtn_AddCapQrcodeDis.TabIndex = 126;
-            this.rbtn_AddCapQrcodeDis.Text = "关闭";
-            this.rbtn_AddCapQrcodeDis.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            this.rbtn_AddCapQrcodeDis.UseVisualStyleBackColor = true;
-            // 
-            // rbtn_AddCapQrcodeEn
-            // 
-            this.rbtn_AddCapQrcodeEn.Appearance = System.Windows.Forms.Appearance.Button;
-            this.rbtn_AddCapQrcodeEn.Checked = true;
-            this.rbtn_AddCapQrcodeEn.FlatAppearance.CheckedBackColor = System.Drawing.Color.Yellow;
-            this.rbtn_AddCapQrcodeEn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.rbtn_AddCapQrcodeEn.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
-            this.rbtn_AddCapQrcodeEn.ForeColor = System.Drawing.Color.Black;
-            this.rbtn_AddCapQrcodeEn.Location = new System.Drawing.Point(18, 45);
-            this.rbtn_AddCapQrcodeEn.Name = "rbtn_AddCapQrcodeEn";
-            this.rbtn_AddCapQrcodeEn.Size = new System.Drawing.Size(84, 30);
-            this.rbtn_AddCapQrcodeEn.TabIndex = 124;
-            this.rbtn_AddCapQrcodeEn.TabStop = true;
-            this.rbtn_AddCapQrcodeEn.Text = "开启";
-            this.rbtn_AddCapQrcodeEn.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            this.rbtn_AddCapQrcodeEn.UseVisualStyleBackColor = true;
-            // 
-            // groupBox37
-            // 
-            this.groupBox37.Controls.Add(this.rbtn_MesRemote);
-            this.groupBox37.Controls.Add(this.rbtn_MesLocal);
-            this.groupBox37.Font = new System.Drawing.Font("宋体", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.groupBox37.Location = new System.Drawing.Point(949, 275);
-            this.groupBox37.Name = "groupBox37";
-            this.groupBox37.Size = new System.Drawing.Size(114, 110);
-            this.groupBox37.TabIndex = 148;
-            this.groupBox37.TabStop = false;
-            this.groupBox37.Text = "Mes模式";
-            // 
-            // rbtn_MesRemote
-            // 
-            this.rbtn_MesRemote.Appearance = System.Windows.Forms.Appearance.Button;
-            this.rbtn_MesRemote.FlatAppearance.CheckedBackColor = System.Drawing.Color.Yellow;
-            this.rbtn_MesRemote.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.rbtn_MesRemote.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
-            this.rbtn_MesRemote.ForeColor = System.Drawing.Color.Black;
-            this.rbtn_MesRemote.Location = new System.Drawing.Point(27, 64);
-            this.rbtn_MesRemote.Name = "rbtn_MesRemote";
-            this.rbtn_MesRemote.Size = new System.Drawing.Size(73, 30);
-            this.rbtn_MesRemote.TabIndex = 126;
-            this.rbtn_MesRemote.Text = "Remote";
-            this.rbtn_MesRemote.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            this.rbtn_MesRemote.UseVisualStyleBackColor = true;
-            // 
-            // rbtn_MesLocal
-            // 
-            this.rbtn_MesLocal.Appearance = System.Windows.Forms.Appearance.Button;
-            this.rbtn_MesLocal.Checked = true;
-            this.rbtn_MesLocal.FlatAppearance.CheckedBackColor = System.Drawing.Color.Yellow;
-            this.rbtn_MesLocal.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.rbtn_MesLocal.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
-            this.rbtn_MesLocal.ForeColor = System.Drawing.Color.Black;
-            this.rbtn_MesLocal.Location = new System.Drawing.Point(27, 24);
-            this.rbtn_MesLocal.Name = "rbtn_MesLocal";
-            this.rbtn_MesLocal.Size = new System.Drawing.Size(73, 30);
-            this.rbtn_MesLocal.TabIndex = 124;
-            this.rbtn_MesLocal.TabStop = true;
-            this.rbtn_MesLocal.Text = "Local";
-            this.rbtn_MesLocal.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            this.rbtn_MesLocal.UseVisualStyleBackColor = true;
-            // 
-            // groupBox36
-            // 
-            this.groupBox36.Controls.Add(this.nud_okRate);
-            this.groupBox36.Controls.Add(this.rbtn_NgWarningDis);
-            this.groupBox36.Controls.Add(this.rbtn_NgWarningEn);
-            this.groupBox36.Font = new System.Drawing.Font("宋体", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.groupBox36.Location = new System.Drawing.Point(798, 535);
-            this.groupBox36.Name = "groupBox36";
-            this.groupBox36.Size = new System.Drawing.Size(139, 153);
-            this.groupBox36.TabIndex = 147;
-            this.groupBox36.TabStop = false;
-            this.groupBox36.Text = "良率报警设置";
-            // 
-            // nud_okRate
-            // 
-            this.nud_okRate.BackColor = System.Drawing.SystemColors.Window;
-            this.nud_okRate.DecimalPlaces = 1;
-            this.nud_okRate.Font = new System.Drawing.Font("宋体", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.nud_okRate.Increment = new decimal(new int[] {
-            1,
-            0,
-            0,
-            65536});
-            this.nud_okRate.Location = new System.Drawing.Point(27, 108);
-            this.nud_okRate.Name = "nud_okRate";
-            this.nud_okRate.Size = new System.Drawing.Size(82, 32);
-            this.nud_okRate.TabIndex = 131;
-            this.nud_okRate.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.nud_okRate.Value = new decimal(new int[] {
-            100,
-            0,
-            0,
-            0});
-            // 
-            // rbtn_NgWarningDis
-            // 
-            this.rbtn_NgWarningDis.Appearance = System.Windows.Forms.Appearance.Button;
-            this.rbtn_NgWarningDis.FlatAppearance.CheckedBackColor = System.Drawing.Color.Yellow;
-            this.rbtn_NgWarningDis.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.rbtn_NgWarningDis.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
-            this.rbtn_NgWarningDis.ForeColor = System.Drawing.Color.Black;
-            this.rbtn_NgWarningDis.Location = new System.Drawing.Point(27, 64);
-            this.rbtn_NgWarningDis.Name = "rbtn_NgWarningDis";
-            this.rbtn_NgWarningDis.Size = new System.Drawing.Size(71, 30);
-            this.rbtn_NgWarningDis.TabIndex = 126;
-            this.rbtn_NgWarningDis.Text = "关闭";
-            this.rbtn_NgWarningDis.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            this.rbtn_NgWarningDis.UseVisualStyleBackColor = true;
-            // 
-            // rbtn_NgWarningEn
-            // 
-            this.rbtn_NgWarningEn.Appearance = System.Windows.Forms.Appearance.Button;
-            this.rbtn_NgWarningEn.Checked = true;
-            this.rbtn_NgWarningEn.FlatAppearance.CheckedBackColor = System.Drawing.Color.Yellow;
-            this.rbtn_NgWarningEn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.rbtn_NgWarningEn.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
-            this.rbtn_NgWarningEn.ForeColor = System.Drawing.Color.Black;
-            this.rbtn_NgWarningEn.Location = new System.Drawing.Point(27, 24);
-            this.rbtn_NgWarningEn.Name = "rbtn_NgWarningEn";
-            this.rbtn_NgWarningEn.Size = new System.Drawing.Size(71, 30);
-            this.rbtn_NgWarningEn.TabIndex = 124;
-            this.rbtn_NgWarningEn.TabStop = true;
-            this.rbtn_NgWarningEn.Text = "开启";
-            this.rbtn_NgWarningEn.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            this.rbtn_NgWarningEn.UseVisualStyleBackColor = true;
-            // 
-            // groupBox35
-            // 
-            this.groupBox35.Controls.Add(this.rbtn_ContinuousAlarmDis);
-            this.groupBox35.Controls.Add(this.rbtn_ContinuousAlarmEn);
-            this.groupBox35.Font = new System.Drawing.Font("宋体", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.groupBox35.Location = new System.Drawing.Point(949, 149);
-            this.groupBox35.Name = "groupBox35";
-            this.groupBox35.Size = new System.Drawing.Size(114, 110);
-            this.groupBox35.TabIndex = 146;
-            this.groupBox35.TabStop = false;
-            this.groupBox35.Text = "持续报警设置";
-            // 
-            // rbtn_ContinuousAlarmDis
-            // 
-            this.rbtn_ContinuousAlarmDis.Appearance = System.Windows.Forms.Appearance.Button;
-            this.rbtn_ContinuousAlarmDis.FlatAppearance.CheckedBackColor = System.Drawing.Color.Yellow;
-            this.rbtn_ContinuousAlarmDis.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.rbtn_ContinuousAlarmDis.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
-            this.rbtn_ContinuousAlarmDis.ForeColor = System.Drawing.Color.Black;
-            this.rbtn_ContinuousAlarmDis.Location = new System.Drawing.Point(27, 64);
-            this.rbtn_ContinuousAlarmDis.Name = "rbtn_ContinuousAlarmDis";
-            this.rbtn_ContinuousAlarmDis.Size = new System.Drawing.Size(65, 30);
-            this.rbtn_ContinuousAlarmDis.TabIndex = 126;
-            this.rbtn_ContinuousAlarmDis.Text = "关闭";
-            this.rbtn_ContinuousAlarmDis.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            this.rbtn_ContinuousAlarmDis.UseVisualStyleBackColor = true;
-            // 
-            // rbtn_ContinuousAlarmEn
-            // 
-            this.rbtn_ContinuousAlarmEn.Appearance = System.Windows.Forms.Appearance.Button;
-            this.rbtn_ContinuousAlarmEn.Checked = true;
-            this.rbtn_ContinuousAlarmEn.FlatAppearance.CheckedBackColor = System.Drawing.Color.Yellow;
-            this.rbtn_ContinuousAlarmEn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.rbtn_ContinuousAlarmEn.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
-            this.rbtn_ContinuousAlarmEn.ForeColor = System.Drawing.Color.Black;
-            this.rbtn_ContinuousAlarmEn.Location = new System.Drawing.Point(27, 24);
-            this.rbtn_ContinuousAlarmEn.Name = "rbtn_ContinuousAlarmEn";
-            this.rbtn_ContinuousAlarmEn.Size = new System.Drawing.Size(65, 30);
-            this.rbtn_ContinuousAlarmEn.TabIndex = 124;
-            this.rbtn_ContinuousAlarmEn.TabStop = true;
-            this.rbtn_ContinuousAlarmEn.Text = "开启";
-            this.rbtn_ContinuousAlarmEn.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            this.rbtn_ContinuousAlarmEn.UseVisualStyleBackColor = true;
-            // 
             // groupBox33
             // 
             this.groupBox33.Controls.Add(this.rbtn_delaytestdis);
             this.groupBox33.Controls.Add(this.rbtn_delaytesten);
             this.groupBox33.Font = new System.Drawing.Font("宋体", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.groupBox33.Location = new System.Drawing.Point(641, 535);
+            this.groupBox33.Location = new System.Drawing.Point(27, 694);
             this.groupBox33.Name = "groupBox33";
-            this.groupBox33.Size = new System.Drawing.Size(146, 110);
+            this.groupBox33.Size = new System.Drawing.Size(209, 110);
             this.groupBox33.TabIndex = 145;
             this.groupBox33.TabStop = false;
             this.groupBox33.Text = "DCC数据处理移至上下料";
@@ -3574,7 +2173,7 @@
             this.rbtn_delaytestdis.ForeColor = System.Drawing.Color.Black;
             this.rbtn_delaytestdis.Location = new System.Drawing.Point(27, 64);
             this.rbtn_delaytestdis.Name = "rbtn_delaytestdis";
-            this.rbtn_delaytestdis.Size = new System.Drawing.Size(83, 30);
+            this.rbtn_delaytestdis.Size = new System.Drawing.Size(155, 30);
             this.rbtn_delaytestdis.TabIndex = 126;
             this.rbtn_delaytestdis.Text = "关闭";
             this.rbtn_delaytestdis.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -3590,7 +2189,7 @@
             this.rbtn_delaytesten.ForeColor = System.Drawing.Color.Black;
             this.rbtn_delaytesten.Location = new System.Drawing.Point(27, 24);
             this.rbtn_delaytesten.Name = "rbtn_delaytesten";
-            this.rbtn_delaytesten.Size = new System.Drawing.Size(83, 30);
+            this.rbtn_delaytesten.Size = new System.Drawing.Size(155, 30);
             this.rbtn_delaytesten.TabIndex = 124;
             this.rbtn_delaytesten.TabStop = true;
             this.rbtn_delaytesten.Text = "开启";
@@ -3602,9 +2201,9 @@
             this.groupBox32.Controls.Add(this.rbtn_cooldis);
             this.groupBox32.Controls.Add(this.rbtn_coolen);
             this.groupBox32.Font = new System.Drawing.Font("宋体", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.groupBox32.Location = new System.Drawing.Point(949, 404);
+            this.groupBox32.Location = new System.Drawing.Point(760, 535);
             this.groupBox32.Name = "groupBox32";
-            this.groupBox32.Size = new System.Drawing.Size(117, 110);
+            this.groupBox32.Size = new System.Drawing.Size(209, 110);
             this.groupBox32.TabIndex = 144;
             this.groupBox32.TabStop = false;
             this.groupBox32.Text = "降温设置";
@@ -3618,7 +2217,7 @@
             this.rbtn_cooldis.ForeColor = System.Drawing.Color.Black;
             this.rbtn_cooldis.Location = new System.Drawing.Point(27, 64);
             this.rbtn_cooldis.Name = "rbtn_cooldis";
-            this.rbtn_cooldis.Size = new System.Drawing.Size(75, 30);
+            this.rbtn_cooldis.Size = new System.Drawing.Size(155, 30);
             this.rbtn_cooldis.TabIndex = 126;
             this.rbtn_cooldis.Text = "关闭";
             this.rbtn_cooldis.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -3634,7 +2233,7 @@
             this.rbtn_coolen.ForeColor = System.Drawing.Color.Black;
             this.rbtn_coolen.Location = new System.Drawing.Point(27, 24);
             this.rbtn_coolen.Name = "rbtn_coolen";
-            this.rbtn_coolen.Size = new System.Drawing.Size(75, 30);
+            this.rbtn_coolen.Size = new System.Drawing.Size(155, 30);
             this.rbtn_coolen.TabIndex = 124;
             this.rbtn_coolen.TabStop = true;
             this.rbtn_coolen.Text = "开启";
@@ -3646,7 +2245,7 @@
             this.groupBox31.Controls.Add(this.rbtn_CycleDis);
             this.groupBox31.Controls.Add(this.rbtn_CycleEn);
             this.groupBox31.Font = new System.Drawing.Font("宋体", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.groupBox31.Location = new System.Drawing.Point(728, 404);
+            this.groupBox31.Location = new System.Drawing.Point(760, 404);
             this.groupBox31.Name = "groupBox31";
             this.groupBox31.Size = new System.Drawing.Size(209, 110);
             this.groupBox31.TabIndex = 143;
@@ -3741,14 +2340,6 @@
             // 
             // groupBox28
             // 
-            this.groupBox28.Controls.Add(this.nud_jig_exposure2);
-            this.groupBox28.Controls.Add(this.nud_jig_contrast2);
-            this.groupBox28.Controls.Add(this.nud_jig_brightness2);
-            this.groupBox28.Controls.Add(this.label33);
-            this.groupBox28.Controls.Add(this.nud_jig_exposure1);
-            this.groupBox28.Controls.Add(this.nud_jig_contrast1);
-            this.groupBox28.Controls.Add(this.nud_jig_brightness1);
-            this.groupBox28.Controls.Add(this.label31);
             this.groupBox28.Controls.Add(this.nud_ws_exposure2);
             this.groupBox28.Controls.Add(this.nud_tray_exposure2);
             this.groupBox28.Controls.Add(this.nud_ws_contrast2);
@@ -3778,182 +2369,6 @@
             this.groupBox28.TabStop = false;
             this.groupBox28.Text = "相机多种参数设置";
             // 
-            // nud_jig_exposure2
-            // 
-            this.nud_jig_exposure2.BackColor = System.Drawing.SystemColors.Window;
-            this.nud_jig_exposure2.DecimalPlaces = 3;
-            this.nud_jig_exposure2.Font = new System.Drawing.Font("宋体", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.nud_jig_exposure2.Increment = new decimal(new int[] {
-            1,
-            0,
-            0,
-            196608});
-            this.nud_jig_exposure2.Location = new System.Drawing.Point(453, 44);
-            this.nud_jig_exposure2.Maximum = new decimal(new int[] {
-            1000,
-            0,
-            0,
-            0});
-            this.nud_jig_exposure2.Name = "nud_jig_exposure2";
-            this.nud_jig_exposure2.Size = new System.Drawing.Size(62, 26);
-            this.nud_jig_exposure2.TabIndex = 156;
-            this.nud_jig_exposure2.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.nud_jig_exposure2.Value = new decimal(new int[] {
-            1,
-            0,
-            0,
-            0});
-            // 
-            // nud_jig_contrast2
-            // 
-            this.nud_jig_contrast2.BackColor = System.Drawing.SystemColors.Window;
-            this.nud_jig_contrast2.DecimalPlaces = 3;
-            this.nud_jig_contrast2.Font = new System.Drawing.Font("宋体", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.nud_jig_contrast2.Increment = new decimal(new int[] {
-            1,
-            0,
-            0,
-            196608});
-            this.nud_jig_contrast2.Location = new System.Drawing.Point(453, 108);
-            this.nud_jig_contrast2.Maximum = new decimal(new int[] {
-            1,
-            0,
-            0,
-            0});
-            this.nud_jig_contrast2.Name = "nud_jig_contrast2";
-            this.nud_jig_contrast2.Size = new System.Drawing.Size(62, 26);
-            this.nud_jig_contrast2.TabIndex = 155;
-            this.nud_jig_contrast2.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.nud_jig_contrast2.Value = new decimal(new int[] {
-            1,
-            0,
-            0,
-            0});
-            // 
-            // nud_jig_brightness2
-            // 
-            this.nud_jig_brightness2.BackColor = System.Drawing.SystemColors.Window;
-            this.nud_jig_brightness2.DecimalPlaces = 3;
-            this.nud_jig_brightness2.Font = new System.Drawing.Font("宋体", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.nud_jig_brightness2.Increment = new decimal(new int[] {
-            1,
-            0,
-            0,
-            196608});
-            this.nud_jig_brightness2.Location = new System.Drawing.Point(453, 76);
-            this.nud_jig_brightness2.Maximum = new decimal(new int[] {
-            1,
-            0,
-            0,
-            0});
-            this.nud_jig_brightness2.Name = "nud_jig_brightness2";
-            this.nud_jig_brightness2.Size = new System.Drawing.Size(62, 26);
-            this.nud_jig_brightness2.TabIndex = 154;
-            this.nud_jig_brightness2.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.nud_jig_brightness2.Value = new decimal(new int[] {
-            1,
-            0,
-            0,
-            0});
-            // 
-            // label33
-            // 
-            this.label33.AutoSize = true;
-            this.label33.Font = new System.Drawing.Font("宋体", 7.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.label33.Location = new System.Drawing.Point(451, 19);
-            this.label33.Name = "label33";
-            this.label33.Size = new System.Drawing.Size(45, 10);
-            this.label33.TabIndex = 153;
-            this.label33.Text = "夹具拍2:";
-            // 
-            // nud_jig_exposure1
-            // 
-            this.nud_jig_exposure1.BackColor = System.Drawing.SystemColors.Window;
-            this.nud_jig_exposure1.DecimalPlaces = 3;
-            this.nud_jig_exposure1.Font = new System.Drawing.Font("宋体", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.nud_jig_exposure1.Increment = new decimal(new int[] {
-            1,
-            0,
-            0,
-            196608});
-            this.nud_jig_exposure1.Location = new System.Drawing.Point(236, 44);
-            this.nud_jig_exposure1.Maximum = new decimal(new int[] {
-            1000,
-            0,
-            0,
-            0});
-            this.nud_jig_exposure1.Name = "nud_jig_exposure1";
-            this.nud_jig_exposure1.Size = new System.Drawing.Size(62, 26);
-            this.nud_jig_exposure1.TabIndex = 152;
-            this.nud_jig_exposure1.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.nud_jig_exposure1.Value = new decimal(new int[] {
-            1,
-            0,
-            0,
-            0});
-            // 
-            // nud_jig_contrast1
-            // 
-            this.nud_jig_contrast1.BackColor = System.Drawing.SystemColors.Window;
-            this.nud_jig_contrast1.DecimalPlaces = 3;
-            this.nud_jig_contrast1.Font = new System.Drawing.Font("宋体", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.nud_jig_contrast1.Increment = new decimal(new int[] {
-            1,
-            0,
-            0,
-            196608});
-            this.nud_jig_contrast1.Location = new System.Drawing.Point(236, 107);
-            this.nud_jig_contrast1.Maximum = new decimal(new int[] {
-            1,
-            0,
-            0,
-            0});
-            this.nud_jig_contrast1.Name = "nud_jig_contrast1";
-            this.nud_jig_contrast1.Size = new System.Drawing.Size(62, 26);
-            this.nud_jig_contrast1.TabIndex = 151;
-            this.nud_jig_contrast1.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.nud_jig_contrast1.Value = new decimal(new int[] {
-            1,
-            0,
-            0,
-            0});
-            // 
-            // nud_jig_brightness1
-            // 
-            this.nud_jig_brightness1.BackColor = System.Drawing.SystemColors.Window;
-            this.nud_jig_brightness1.DecimalPlaces = 3;
-            this.nud_jig_brightness1.Font = new System.Drawing.Font("宋体", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.nud_jig_brightness1.Increment = new decimal(new int[] {
-            1,
-            0,
-            0,
-            196608});
-            this.nud_jig_brightness1.Location = new System.Drawing.Point(236, 76);
-            this.nud_jig_brightness1.Maximum = new decimal(new int[] {
-            1,
-            0,
-            0,
-            0});
-            this.nud_jig_brightness1.Name = "nud_jig_brightness1";
-            this.nud_jig_brightness1.Size = new System.Drawing.Size(62, 26);
-            this.nud_jig_brightness1.TabIndex = 150;
-            this.nud_jig_brightness1.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.nud_jig_brightness1.Value = new decimal(new int[] {
-            1,
-            0,
-            0,
-            0});
-            // 
-            // label31
-            // 
-            this.label31.AutoSize = true;
-            this.label31.Font = new System.Drawing.Font("宋体", 7.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.label31.Location = new System.Drawing.Point(241, 19);
-            this.label31.Name = "label31";
-            this.label31.Size = new System.Drawing.Size(45, 10);
-            this.label31.TabIndex = 149;
-            this.label31.Text = "夹具拍1:";
-            // 
             // nud_ws_exposure2
             // 
             this.nud_ws_exposure2.BackColor = System.Drawing.SystemColors.Window;
@@ -3964,7 +2379,7 @@
             0,
             0,
             196608});
-            this.nud_ws_exposure2.Location = new System.Drawing.Point(372, 44);
+            this.nud_ws_exposure2.Location = new System.Drawing.Point(400, 46);
             this.nud_ws_exposure2.Maximum = new decimal(new int[] {
             1000,
             0,
@@ -4016,7 +2431,7 @@
             0,
             0,
             196608});
-            this.nud_ws_contrast2.Location = new System.Drawing.Point(372, 108);
+            this.nud_ws_contrast2.Location = new System.Drawing.Point(400, 110);
             this.nud_ws_contrast2.Maximum = new decimal(new int[] {
             1,
             0,
@@ -4042,7 +2457,7 @@
             0,
             0,
             196608});
-            this.nud_ws_brightness2.Location = new System.Drawing.Point(372, 76);
+            this.nud_ws_brightness2.Location = new System.Drawing.Point(400, 78);
             this.nud_ws_brightness2.Maximum = new decimal(new int[] {
             1,
             0,
@@ -4087,10 +2502,10 @@
             // label26
             // 
             this.label26.AutoSize = true;
-            this.label26.Font = new System.Drawing.Font("宋体", 7.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.label26.Location = new System.Drawing.Point(370, 19);
+            this.label26.Font = new System.Drawing.Font("宋体", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.label26.Location = new System.Drawing.Point(382, 19);
             this.label26.Name = "label26";
-            this.label26.Size = new System.Drawing.Size(55, 10);
+            this.label26.Size = new System.Drawing.Size(88, 16);
             this.label26.TabIndex = 143;
             this.label26.Text = "工站拍照2:";
             // 
@@ -4123,10 +2538,10 @@
             // label27
             // 
             this.label27.AutoSize = true;
-            this.label27.Font = new System.Drawing.Font("宋体", 7.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.label27.Location = new System.Drawing.Point(302, 19);
+            this.label27.Font = new System.Drawing.Font("宋体", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.label27.Location = new System.Drawing.Point(286, 19);
             this.label27.Name = "label27";
-            this.label27.Size = new System.Drawing.Size(55, 10);
+            this.label27.Size = new System.Drawing.Size(88, 16);
             this.label27.TabIndex = 141;
             this.label27.Text = "料盘拍照2:";
             // 
@@ -4140,7 +2555,7 @@
             0,
             0,
             196608});
-            this.nud_ws_exposure1.Location = new System.Drawing.Point(173, 46);
+            this.nud_ws_exposure1.Location = new System.Drawing.Point(201, 46);
             this.nud_ws_exposure1.Maximum = new decimal(new int[] {
             1000,
             0,
@@ -4192,7 +2607,7 @@
             0,
             0,
             196608});
-            this.nud_ws_contrast1.Location = new System.Drawing.Point(173, 109);
+            this.nud_ws_contrast1.Location = new System.Drawing.Point(201, 110);
             this.nud_ws_contrast1.Maximum = new decimal(new int[] {
             1,
             0,
@@ -4218,7 +2633,7 @@
             0,
             0,
             196608});
-            this.nud_ws_brightness1.Location = new System.Drawing.Point(173, 78);
+            this.nud_ws_brightness1.Location = new System.Drawing.Point(201, 78);
             this.nud_ws_brightness1.Maximum = new decimal(new int[] {
             1,
             0,
@@ -4293,12 +2708,12 @@
             // label22
             // 
             this.label22.AutoSize = true;
-            this.label22.Font = new System.Drawing.Font("宋体", 7.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.label22.Location = new System.Drawing.Point(170, 19);
+            this.label22.Font = new System.Drawing.Font("宋体", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.label22.Location = new System.Drawing.Point(183, 19);
             this.label22.Name = "label22";
-            this.label22.Size = new System.Drawing.Size(45, 10);
+            this.label22.Size = new System.Drawing.Size(88, 16);
             this.label22.TabIndex = 132;
-            this.label22.Text = "工站拍1:";
+            this.label22.Text = "工站拍照1:";
             // 
             // nud_tray_brightness1
             // 
@@ -4329,10 +2744,10 @@
             // label21
             // 
             this.label21.AutoSize = true;
-            this.label21.Font = new System.Drawing.Font("宋体", 7.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.label21.Location = new System.Drawing.Point(103, 19);
+            this.label21.Font = new System.Drawing.Font("宋体", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.label21.Location = new System.Drawing.Point(87, 19);
             this.label21.Name = "label21";
-            this.label21.Size = new System.Drawing.Size(55, 10);
+            this.label21.Size = new System.Drawing.Size(88, 16);
             this.label21.TabIndex = 130;
             this.label21.Text = "料盘拍照1:";
             // 
@@ -4343,7 +2758,7 @@
             this.rbtn_camcfgsetdis.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.rbtn_camcfgsetdis.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
             this.rbtn_camcfgsetdis.ForeColor = System.Drawing.Color.Black;
-            this.rbtn_camcfgsetdis.Location = new System.Drawing.Point(530, 104);
+            this.rbtn_camcfgsetdis.Location = new System.Drawing.Point(495, 105);
             this.rbtn_camcfgsetdis.Name = "rbtn_camcfgsetdis";
             this.rbtn_camcfgsetdis.Size = new System.Drawing.Size(71, 30);
             this.rbtn_camcfgsetdis.TabIndex = 126;
@@ -4359,7 +2774,7 @@
             this.rbtn_camcfgseten.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.rbtn_camcfgseten.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
             this.rbtn_camcfgseten.ForeColor = System.Drawing.Color.Black;
-            this.rbtn_camcfgseten.Location = new System.Drawing.Point(530, 44);
+            this.rbtn_camcfgseten.Location = new System.Drawing.Point(495, 46);
             this.rbtn_camcfgseten.Name = "rbtn_camcfgseten";
             this.rbtn_camcfgseten.Size = new System.Drawing.Size(71, 30);
             this.rbtn_camcfgseten.TabIndex = 124;
@@ -4375,7 +2790,7 @@
             this.groupBox25.Controls.Add(this.rbtn_cleandis);
             this.groupBox25.Controls.Add(this.rbtn_cleanen);
             this.groupBox25.Font = new System.Drawing.Font("宋体", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.groupBox25.Location = new System.Drawing.Point(728, 275);
+            this.groupBox25.Location = new System.Drawing.Point(760, 275);
             this.groupBox25.Name = "groupBox25";
             this.groupBox25.Size = new System.Drawing.Size(209, 110);
             this.groupBox25.TabIndex = 140;
@@ -4449,7 +2864,7 @@
             this.groupBox27.Controls.Add(this.rbtn_nonparalleldis);
             this.groupBox27.Controls.Add(this.rbtn_nonparallelen);
             this.groupBox27.Font = new System.Drawing.Font("宋体", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.groupBox27.Location = new System.Drawing.Point(728, 149);
+            this.groupBox27.Location = new System.Drawing.Point(760, 149);
             this.groupBox27.Name = "groupBox27";
             this.groupBox27.Size = new System.Drawing.Size(209, 110);
             this.groupBox27.TabIndex = 139;
@@ -4711,13 +3126,101 @@
             // btn_saveparm2
             // 
             this.btn_saveparm2.BackColor = System.Drawing.SystemColors.ButtonFace;
-            this.btn_saveparm2.Location = new System.Drawing.Point(885, 731);
+            this.btn_saveparm2.Location = new System.Drawing.Point(911, 753);
             this.btn_saveparm2.Name = "btn_saveparm2";
             this.btn_saveparm2.Size = new System.Drawing.Size(134, 71);
             this.btn_saveparm2.TabIndex = 130;
             this.btn_saveparm2.Text = "保存";
             this.btn_saveparm2.UseVisualStyleBackColor = false;
             this.btn_saveparm2.Click += new System.EventHandler(this.btn_ptset_save_Click);
+            // 
+            // groupBox7
+            // 
+            this.groupBox7.Controls.Add(this.rbtn_Y1dis);
+            this.groupBox7.Controls.Add(this.rbtn_Y1en);
+            this.groupBox7.Font = new System.Drawing.Font("宋体", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.groupBox7.Location = new System.Drawing.Point(27, 21);
+            this.groupBox7.Name = "groupBox7";
+            this.groupBox7.Size = new System.Drawing.Size(209, 110);
+            this.groupBox7.TabIndex = 30;
+            this.groupBox7.TabStop = false;
+            this.groupBox7.Text = "增距镜Y1开启设置(不能变更)";
+            // 
+            // rbtn_Y1dis
+            // 
+            this.rbtn_Y1dis.Appearance = System.Windows.Forms.Appearance.Button;
+            this.rbtn_Y1dis.FlatAppearance.CheckedBackColor = System.Drawing.Color.Yellow;
+            this.rbtn_Y1dis.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.rbtn_Y1dis.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
+            this.rbtn_Y1dis.ForeColor = System.Drawing.Color.Black;
+            this.rbtn_Y1dis.Location = new System.Drawing.Point(27, 64);
+            this.rbtn_Y1dis.Name = "rbtn_Y1dis";
+            this.rbtn_Y1dis.Size = new System.Drawing.Size(155, 30);
+            this.rbtn_Y1dis.TabIndex = 126;
+            this.rbtn_Y1dis.Text = "关闭Y1";
+            this.rbtn_Y1dis.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.rbtn_Y1dis.UseVisualStyleBackColor = true;
+            // 
+            // rbtn_Y1en
+            // 
+            this.rbtn_Y1en.Appearance = System.Windows.Forms.Appearance.Button;
+            this.rbtn_Y1en.Checked = true;
+            this.rbtn_Y1en.FlatAppearance.CheckedBackColor = System.Drawing.Color.Yellow;
+            this.rbtn_Y1en.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.rbtn_Y1en.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
+            this.rbtn_Y1en.ForeColor = System.Drawing.Color.Black;
+            this.rbtn_Y1en.Location = new System.Drawing.Point(27, 25);
+            this.rbtn_Y1en.Name = "rbtn_Y1en";
+            this.rbtn_Y1en.Size = new System.Drawing.Size(155, 30);
+            this.rbtn_Y1en.TabIndex = 124;
+            this.rbtn_Y1en.TabStop = true;
+            this.rbtn_Y1en.Text = "开启Y1";
+            this.rbtn_Y1en.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.rbtn_Y1en.UseVisualStyleBackColor = true;
+            // 
+            // groupBox3
+            // 
+            this.groupBox3.Controls.Add(this.rbtn_safeoff);
+            this.groupBox3.Controls.Add(this.rbtn_safeon);
+            this.groupBox3.Font = new System.Drawing.Font("宋体", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.groupBox3.Location = new System.Drawing.Point(270, 21);
+            this.groupBox3.Name = "groupBox3";
+            this.groupBox3.Size = new System.Drawing.Size(209, 110);
+            this.groupBox3.TabIndex = 24;
+            this.groupBox3.TabStop = false;
+            this.groupBox3.Text = "上下料移动保护(针对转盘)";
+            // 
+            // rbtn_safeoff
+            // 
+            this.rbtn_safeoff.Appearance = System.Windows.Forms.Appearance.Button;
+            this.rbtn_safeoff.FlatAppearance.CheckedBackColor = System.Drawing.Color.Yellow;
+            this.rbtn_safeoff.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.rbtn_safeoff.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
+            this.rbtn_safeoff.ForeColor = System.Drawing.Color.Black;
+            this.rbtn_safeoff.Location = new System.Drawing.Point(27, 64);
+            this.rbtn_safeoff.Name = "rbtn_safeoff";
+            this.rbtn_safeoff.Size = new System.Drawing.Size(155, 30);
+            this.rbtn_safeoff.TabIndex = 126;
+            this.rbtn_safeoff.Text = "关闭保护";
+            this.rbtn_safeoff.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.rbtn_safeoff.UseVisualStyleBackColor = true;
+            // 
+            // rbtn_safeon
+            // 
+            this.rbtn_safeon.Appearance = System.Windows.Forms.Appearance.Button;
+            this.rbtn_safeon.Checked = true;
+            this.rbtn_safeon.FlatAppearance.CheckedBackColor = System.Drawing.Color.Yellow;
+            this.rbtn_safeon.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.rbtn_safeon.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
+            this.rbtn_safeon.ForeColor = System.Drawing.Color.Black;
+            this.rbtn_safeon.Location = new System.Drawing.Point(27, 25);
+            this.rbtn_safeon.Name = "rbtn_safeon";
+            this.rbtn_safeon.Size = new System.Drawing.Size(155, 30);
+            this.rbtn_safeon.TabIndex = 124;
+            this.rbtn_safeon.TabStop = true;
+            this.rbtn_safeon.Text = "开启保护";
+            this.rbtn_safeon.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.rbtn_safeon.UseVisualStyleBackColor = true;
             // 
             // groupBox2
             // 
@@ -4814,7 +3317,7 @@
             this.groupBox17.Controls.Add(this.rbtn_close_degree);
             this.groupBox17.Controls.Add(this.rbtn_open_degree);
             this.groupBox17.Font = new System.Drawing.Font("宋体", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.groupBox17.Location = new System.Drawing.Point(728, 21);
+            this.groupBox17.Location = new System.Drawing.Point(760, 21);
             this.groupBox17.Name = "groupBox17";
             this.groupBox17.Size = new System.Drawing.Size(209, 108);
             this.groupBox17.TabIndex = 129;
@@ -4975,739 +3478,12 @@
             this.rbtn_lben.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             this.rbtn_lben.UseVisualStyleBackColor = true;
             // 
-            // tabPage3
-            // 
-            this.tabPage3.Controls.Add(this.button6);
-            this.tabPage3.Controls.Add(this.groupBox55);
-            this.tabPage3.Controls.Add(this.groupBox54);
-            this.tabPage3.Controls.Add(this.groupBox53);
-            this.tabPage3.Controls.Add(this.groupBox52);
-            this.tabPage3.Controls.Add(this.button1);
-            this.tabPage3.Controls.Add(this.groupBox49);
-            this.tabPage3.Location = new System.Drawing.Point(4, 44);
-            this.tabPage3.Name = "tabPage3";
-            this.tabPage3.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage3.Size = new System.Drawing.Size(74, 44);
-            this.tabPage3.TabIndex = 2;
-            this.tabPage3.Text = "参数3";
-            this.tabPage3.UseVisualStyleBackColor = true;
-            // 
-            // button6
-            // 
-            this.button6.Location = new System.Drawing.Point(884, 202);
-            this.button6.Name = "button6";
-            this.button6.Size = new System.Drawing.Size(75, 58);
-            this.button6.TabIndex = 140;
-            this.button6.Text = "button6";
-            this.button6.UseVisualStyleBackColor = true;
-            this.button6.Click += new System.EventHandler(this.button6_Click);
-            // 
-            // groupBox55
-            // 
-            this.groupBox55.Controls.Add(this.NumWsNgCntPer20);
-            this.groupBox55.Controls.Add(this.label57);
-            this.groupBox55.Controls.Add(this.radWsNgRateShowOff);
-            this.groupBox55.Controls.Add(this.radWsNgRateShowEn);
-            this.groupBox55.Font = new System.Drawing.Font("宋体", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.groupBox55.Location = new System.Drawing.Point(824, 26);
-            this.groupBox55.Name = "groupBox55";
-            this.groupBox55.Size = new System.Drawing.Size(209, 108);
-            this.groupBox55.TabIndex = 139;
-            this.groupBox55.TabStop = false;
-            this.groupBox55.Text = "工位NG比例报警";
-            // 
-            // NumWsNgCntPer20
-            // 
-            this.NumWsNgCntPer20.Font = new System.Drawing.Font("宋体", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.NumWsNgCntPer20.Location = new System.Drawing.Point(113, 62);
-            this.NumWsNgCntPer20.Maximum = new decimal(new int[] {
-            20,
-            0,
-            0,
-            0});
-            this.NumWsNgCntPer20.Minimum = new decimal(new int[] {
-            1,
-            0,
-            0,
-            0});
-            this.NumWsNgCntPer20.Name = "NumWsNgCntPer20";
-            this.NumWsNgCntPer20.Size = new System.Drawing.Size(82, 32);
-            this.NumWsNgCntPer20.TabIndex = 130;
-            this.NumWsNgCntPer20.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.NumWsNgCntPer20.Value = new decimal(new int[] {
-            20,
-            0,
-            0,
-            0});
-            // 
-            // label57
-            // 
-            this.label57.AutoSize = true;
-            this.label57.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.label57.Location = new System.Drawing.Point(104, 43);
-            this.label57.Name = "label57";
-            this.label57.Size = new System.Drawing.Size(89, 12);
-            this.label57.TabIndex = 129;
-            this.label57.Text = "20个中出现个数";
-            // 
-            // radWsNgRateShowOff
-            // 
-            this.radWsNgRateShowOff.Appearance = System.Windows.Forms.Appearance.Button;
-            this.radWsNgRateShowOff.FlatAppearance.CheckedBackColor = System.Drawing.Color.Yellow;
-            this.radWsNgRateShowOff.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.radWsNgRateShowOff.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
-            this.radWsNgRateShowOff.ForeColor = System.Drawing.Color.Black;
-            this.radWsNgRateShowOff.Location = new System.Drawing.Point(21, 64);
-            this.radWsNgRateShowOff.Name = "radWsNgRateShowOff";
-            this.radWsNgRateShowOff.Size = new System.Drawing.Size(77, 30);
-            this.radWsNgRateShowOff.TabIndex = 126;
-            this.radWsNgRateShowOff.Text = "关闭";
-            this.radWsNgRateShowOff.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            this.radWsNgRateShowOff.UseVisualStyleBackColor = true;
-            // 
-            // radWsNgRateShowEn
-            // 
-            this.radWsNgRateShowEn.Appearance = System.Windows.Forms.Appearance.Button;
-            this.radWsNgRateShowEn.Checked = true;
-            this.radWsNgRateShowEn.FlatAppearance.CheckedBackColor = System.Drawing.Color.Yellow;
-            this.radWsNgRateShowEn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.radWsNgRateShowEn.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
-            this.radWsNgRateShowEn.ForeColor = System.Drawing.Color.Black;
-            this.radWsNgRateShowEn.Location = new System.Drawing.Point(21, 25);
-            this.radWsNgRateShowEn.Name = "radWsNgRateShowEn";
-            this.radWsNgRateShowEn.Size = new System.Drawing.Size(77, 30);
-            this.radWsNgRateShowEn.TabIndex = 124;
-            this.radWsNgRateShowEn.TabStop = true;
-            this.radWsNgRateShowEn.Text = "开启";
-            this.radWsNgRateShowEn.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            this.radWsNgRateShowEn.UseVisualStyleBackColor = true;
-            // 
-            // groupBox54
-            // 
-            this.groupBox54.Controls.Add(this.button5);
-            this.groupBox54.Controls.Add(this.button4);
-            this.groupBox54.Controls.Add(this.button3);
-            this.groupBox54.Controls.Add(this.nud_MotorbarcodeDigits);
-            this.groupBox54.Controls.Add(this.button2);
-            this.groupBox54.Controls.Add(this.label52);
-            this.groupBox54.Controls.Add(this.nud_MotorAngle4);
-            this.groupBox54.Controls.Add(this.nud_MotorAngle3);
-            this.groupBox54.Controls.Add(this.label53);
-            this.groupBox54.Controls.Add(this.label54);
-            this.groupBox54.Controls.Add(this.nud_MotorAngle2);
-            this.groupBox54.Controls.Add(this.label55);
-            this.groupBox54.Controls.Add(this.label56);
-            this.groupBox54.Controls.Add(this.nud_MotorAngle1);
-            this.groupBox54.Controls.Add(this.rbtn_motordis);
-            this.groupBox54.Controls.Add(this.rbtn_motoren);
-            this.groupBox54.Font = new System.Drawing.Font("宋体", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.groupBox54.Location = new System.Drawing.Point(334, 293);
-            this.groupBox54.Name = "groupBox54";
-            this.groupBox54.Size = new System.Drawing.Size(304, 272);
-            this.groupBox54.TabIndex = 138;
-            this.groupBox54.TabStop = false;
-            this.groupBox54.Text = "马达扫码设置";
-            // 
-            // button5
-            // 
-            this.button5.Location = new System.Drawing.Point(160, 230);
-            this.button5.Name = "button5";
-            this.button5.Size = new System.Drawing.Size(75, 36);
-            this.button5.TabIndex = 145;
-            this.button5.Text = "COM4打开";
-            this.button5.UseVisualStyleBackColor = true;
-            this.button5.Click += new System.EventHandler(this.button5_Click);
-            // 
-            // button4
-            // 
-            this.button4.Location = new System.Drawing.Point(39, 230);
-            this.button4.Name = "button4";
-            this.button4.Size = new System.Drawing.Size(75, 36);
-            this.button4.TabIndex = 144;
-            this.button4.Text = "COM3打开";
-            this.button4.UseVisualStyleBackColor = true;
-            this.button4.Click += new System.EventHandler(this.button4_Click);
-            // 
-            // button3
-            // 
-            this.button3.Location = new System.Drawing.Point(160, 189);
-            this.button3.Name = "button3";
-            this.button3.Size = new System.Drawing.Size(75, 36);
-            this.button3.TabIndex = 140;
-            this.button3.Text = "COM4扫码";
-            this.button3.UseVisualStyleBackColor = true;
-            this.button3.Click += new System.EventHandler(this.button3_Click);
-            // 
-            // nud_MotorbarcodeDigits
-            // 
-            this.nud_MotorbarcodeDigits.Font = new System.Drawing.Font("宋体", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.nud_MotorbarcodeDigits.Location = new System.Drawing.Point(172, 111);
-            this.nud_MotorbarcodeDigits.Name = "nud_MotorbarcodeDigits";
-            this.nud_MotorbarcodeDigits.Size = new System.Drawing.Size(82, 32);
-            this.nud_MotorbarcodeDigits.TabIndex = 143;
-            this.nud_MotorbarcodeDigits.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            // 
-            // button2
-            // 
-            this.button2.Location = new System.Drawing.Point(39, 189);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(75, 36);
-            this.button2.TabIndex = 139;
-            this.button2.Text = "COM3扫码";
-            this.button2.UseVisualStyleBackColor = true;
-            this.button2.Click += new System.EventHandler(this.button2_Click_1);
-            // 
-            // label52
-            // 
-            this.label52.AutoSize = true;
-            this.label52.Font = new System.Drawing.Font("微软雅黑", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.label52.Location = new System.Drawing.Point(26, 116);
-            this.label52.Name = "label52";
-            this.label52.Size = new System.Drawing.Size(110, 20);
-            this.label52.TabIndex = 142;
-            this.label52.Text = "马达二维码位数:";
-            // 
-            // nud_MotorAngle4
-            // 
-            this.nud_MotorAngle4.Font = new System.Drawing.Font("宋体", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.nud_MotorAngle4.Location = new System.Drawing.Point(181, 65);
-            this.nud_MotorAngle4.Maximum = new decimal(new int[] {
-            5000,
-            0,
-            0,
-            0});
-            this.nud_MotorAngle4.Minimum = new decimal(new int[] {
-            1000,
-            0,
-            0,
-            -2147483648});
-            this.nud_MotorAngle4.Name = "nud_MotorAngle4";
-            this.nud_MotorAngle4.Size = new System.Drawing.Size(82, 32);
-            this.nud_MotorAngle4.TabIndex = 141;
-            this.nud_MotorAngle4.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            // 
-            // nud_MotorAngle3
-            // 
-            this.nud_MotorAngle3.Font = new System.Drawing.Font("宋体", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.nud_MotorAngle3.Location = new System.Drawing.Point(51, 65);
-            this.nud_MotorAngle3.Maximum = new decimal(new int[] {
-            5000,
-            0,
-            0,
-            0});
-            this.nud_MotorAngle3.Minimum = new decimal(new int[] {
-            1000,
-            0,
-            0,
-            -2147483648});
-            this.nud_MotorAngle3.Name = "nud_MotorAngle3";
-            this.nud_MotorAngle3.Size = new System.Drawing.Size(82, 32);
-            this.nud_MotorAngle3.TabIndex = 140;
-            this.nud_MotorAngle3.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            // 
-            // label53
-            // 
-            this.label53.AutoSize = true;
-            this.label53.Location = new System.Drawing.Point(144, 75);
-            this.label53.Name = "label53";
-            this.label53.Size = new System.Drawing.Size(28, 14);
-            this.label53.TabIndex = 139;
-            this.label53.Text = "U4:";
-            // 
-            // label54
-            // 
-            this.label54.AutoSize = true;
-            this.label54.Location = new System.Drawing.Point(22, 75);
-            this.label54.Name = "label54";
-            this.label54.Size = new System.Drawing.Size(28, 14);
-            this.label54.TabIndex = 138;
-            this.label54.Text = "U3:";
-            // 
-            // nud_MotorAngle2
-            // 
-            this.nud_MotorAngle2.Font = new System.Drawing.Font("宋体", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.nud_MotorAngle2.Location = new System.Drawing.Point(180, 24);
-            this.nud_MotorAngle2.Maximum = new decimal(new int[] {
-            5000,
-            0,
-            0,
-            0});
-            this.nud_MotorAngle2.Minimum = new decimal(new int[] {
-            1000,
-            0,
-            0,
-            -2147483648});
-            this.nud_MotorAngle2.Name = "nud_MotorAngle2";
-            this.nud_MotorAngle2.Size = new System.Drawing.Size(82, 32);
-            this.nud_MotorAngle2.TabIndex = 137;
-            this.nud_MotorAngle2.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            // 
-            // label55
-            // 
-            this.label55.AutoSize = true;
-            this.label55.Location = new System.Drawing.Point(143, 34);
-            this.label55.Name = "label55";
-            this.label55.Size = new System.Drawing.Size(28, 14);
-            this.label55.TabIndex = 136;
-            this.label55.Text = "U2:";
-            // 
-            // label56
-            // 
-            this.label56.AutoSize = true;
-            this.label56.Location = new System.Drawing.Point(22, 34);
-            this.label56.Name = "label56";
-            this.label56.Size = new System.Drawing.Size(28, 14);
-            this.label56.TabIndex = 135;
-            this.label56.Text = "U1:";
-            // 
-            // nud_MotorAngle1
-            // 
-            this.nud_MotorAngle1.Font = new System.Drawing.Font("宋体", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.nud_MotorAngle1.Location = new System.Drawing.Point(51, 23);
-            this.nud_MotorAngle1.Maximum = new decimal(new int[] {
-            5000,
-            0,
-            0,
-            0});
-            this.nud_MotorAngle1.Minimum = new decimal(new int[] {
-            1000,
-            0,
-            0,
-            -2147483648});
-            this.nud_MotorAngle1.Name = "nud_MotorAngle1";
-            this.nud_MotorAngle1.Size = new System.Drawing.Size(82, 32);
-            this.nud_MotorAngle1.TabIndex = 134;
-            this.nud_MotorAngle1.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            // 
-            // rbtn_motordis
-            // 
-            this.rbtn_motordis.Appearance = System.Windows.Forms.Appearance.Button;
-            this.rbtn_motordis.FlatAppearance.CheckedBackColor = System.Drawing.Color.Yellow;
-            this.rbtn_motordis.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.rbtn_motordis.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
-            this.rbtn_motordis.ForeColor = System.Drawing.Color.Black;
-            this.rbtn_motordis.Location = new System.Drawing.Point(160, 153);
-            this.rbtn_motordis.Name = "rbtn_motordis";
-            this.rbtn_motordis.Size = new System.Drawing.Size(94, 30);
-            this.rbtn_motordis.TabIndex = 126;
-            this.rbtn_motordis.Text = "关闭";
-            this.rbtn_motordis.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            this.rbtn_motordis.UseVisualStyleBackColor = true;
-            // 
-            // rbtn_motoren
-            // 
-            this.rbtn_motoren.Appearance = System.Windows.Forms.Appearance.Button;
-            this.rbtn_motoren.Checked = true;
-            this.rbtn_motoren.FlatAppearance.CheckedBackColor = System.Drawing.Color.Yellow;
-            this.rbtn_motoren.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.rbtn_motoren.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
-            this.rbtn_motoren.ForeColor = System.Drawing.Color.Black;
-            this.rbtn_motoren.Location = new System.Drawing.Point(39, 153);
-            this.rbtn_motoren.Name = "rbtn_motoren";
-            this.rbtn_motoren.Size = new System.Drawing.Size(94, 30);
-            this.rbtn_motoren.TabIndex = 124;
-            this.rbtn_motoren.TabStop = true;
-            this.rbtn_motoren.Text = "开启";
-            this.rbtn_motoren.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            this.rbtn_motoren.UseVisualStyleBackColor = true;
-            // 
-            // groupBox53
-            // 
-            this.groupBox53.Controls.Add(this.rbtn_DwAddCapQrcodeOff);
-            this.groupBox53.Controls.Add(this.rbtn_DwAddCapQrcodeEn);
-            this.groupBox53.Controls.Add(this.nud_dwCam_xt4_Qrofs);
-            this.groupBox53.Controls.Add(this.nud_dwCam_xt3_Qrofs);
-            this.groupBox53.Controls.Add(this.nud_dwCam_xt2_Qrofs);
-            this.groupBox53.Controls.Add(this.nud_dwCam_xt1_Qrofs);
-            this.groupBox53.Controls.Add(this.label47);
-            this.groupBox53.Controls.Add(this.label48);
-            this.groupBox53.Controls.Add(this.label49);
-            this.groupBox53.Controls.Add(this.label50);
-            this.groupBox53.Controls.Add(this.label51);
-            this.groupBox53.Font = new System.Drawing.Font("宋体", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.groupBox53.Location = new System.Drawing.Point(29, 293);
-            this.groupBox53.Name = "groupBox53";
-            this.groupBox53.Size = new System.Drawing.Size(293, 219);
-            this.groupBox53.TabIndex = 132;
-            this.groupBox53.TabStop = false;
-            this.groupBox53.Text = "吸头下相机拍二维码偏移";
-            // 
-            // rbtn_DwAddCapQrcodeOff
-            // 
-            this.rbtn_DwAddCapQrcodeOff.Appearance = System.Windows.Forms.Appearance.Button;
-            this.rbtn_DwAddCapQrcodeOff.FlatAppearance.CheckedBackColor = System.Drawing.Color.Yellow;
-            this.rbtn_DwAddCapQrcodeOff.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.rbtn_DwAddCapQrcodeOff.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
-            this.rbtn_DwAddCapQrcodeOff.ForeColor = System.Drawing.Color.Black;
-            this.rbtn_DwAddCapQrcodeOff.Location = new System.Drawing.Point(161, 31);
-            this.rbtn_DwAddCapQrcodeOff.Name = "rbtn_DwAddCapQrcodeOff";
-            this.rbtn_DwAddCapQrcodeOff.Size = new System.Drawing.Size(87, 30);
-            this.rbtn_DwAddCapQrcodeOff.TabIndex = 128;
-            this.rbtn_DwAddCapQrcodeOff.Text = "关闭";
-            this.rbtn_DwAddCapQrcodeOff.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            this.rbtn_DwAddCapQrcodeOff.UseVisualStyleBackColor = true;
-            // 
-            // rbtn_DwAddCapQrcodeEn
-            // 
-            this.rbtn_DwAddCapQrcodeEn.Appearance = System.Windows.Forms.Appearance.Button;
-            this.rbtn_DwAddCapQrcodeEn.Checked = true;
-            this.rbtn_DwAddCapQrcodeEn.FlatAppearance.CheckedBackColor = System.Drawing.Color.Yellow;
-            this.rbtn_DwAddCapQrcodeEn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.rbtn_DwAddCapQrcodeEn.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
-            this.rbtn_DwAddCapQrcodeEn.ForeColor = System.Drawing.Color.Black;
-            this.rbtn_DwAddCapQrcodeEn.Location = new System.Drawing.Point(37, 31);
-            this.rbtn_DwAddCapQrcodeEn.Name = "rbtn_DwAddCapQrcodeEn";
-            this.rbtn_DwAddCapQrcodeEn.Size = new System.Drawing.Size(87, 30);
-            this.rbtn_DwAddCapQrcodeEn.TabIndex = 127;
-            this.rbtn_DwAddCapQrcodeEn.TabStop = true;
-            this.rbtn_DwAddCapQrcodeEn.Text = "开启";
-            this.rbtn_DwAddCapQrcodeEn.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            this.rbtn_DwAddCapQrcodeEn.UseVisualStyleBackColor = true;
-            // 
-            // nud_dwCam_xt4_Qrofs
-            // 
-            this.nud_dwCam_xt4_Qrofs.DecimalPlaces = 2;
-            this.nud_dwCam_xt4_Qrofs.Font = new System.Drawing.Font("宋体", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.nud_dwCam_xt4_Qrofs.Increment = new decimal(new int[] {
-            1,
-            0,
-            0,
-            131072});
-            this.nud_dwCam_xt4_Qrofs.Location = new System.Drawing.Point(164, 173);
-            this.nud_dwCam_xt4_Qrofs.Maximum = new decimal(new int[] {
-            50,
-            0,
-            0,
-            0});
-            this.nud_dwCam_xt4_Qrofs.Minimum = new decimal(new int[] {
-            50,
-            0,
-            0,
-            -2147483648});
-            this.nud_dwCam_xt4_Qrofs.Name = "nud_dwCam_xt4_Qrofs";
-            this.nud_dwCam_xt4_Qrofs.Size = new System.Drawing.Size(100, 32);
-            this.nud_dwCam_xt4_Qrofs.TabIndex = 45;
-            this.nud_dwCam_xt4_Qrofs.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            // 
-            // nud_dwCam_xt3_Qrofs
-            // 
-            this.nud_dwCam_xt3_Qrofs.DecimalPlaces = 2;
-            this.nud_dwCam_xt3_Qrofs.Font = new System.Drawing.Font("宋体", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.nud_dwCam_xt3_Qrofs.Increment = new decimal(new int[] {
-            1,
-            0,
-            0,
-            131072});
-            this.nud_dwCam_xt3_Qrofs.Location = new System.Drawing.Point(24, 172);
-            this.nud_dwCam_xt3_Qrofs.Maximum = new decimal(new int[] {
-            50,
-            0,
-            0,
-            0});
-            this.nud_dwCam_xt3_Qrofs.Minimum = new decimal(new int[] {
-            50,
-            0,
-            0,
-            -2147483648});
-            this.nud_dwCam_xt3_Qrofs.Name = "nud_dwCam_xt3_Qrofs";
-            this.nud_dwCam_xt3_Qrofs.Size = new System.Drawing.Size(100, 32);
-            this.nud_dwCam_xt3_Qrofs.TabIndex = 44;
-            this.nud_dwCam_xt3_Qrofs.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            // 
-            // nud_dwCam_xt2_Qrofs
-            // 
-            this.nud_dwCam_xt2_Qrofs.DecimalPlaces = 2;
-            this.nud_dwCam_xt2_Qrofs.Font = new System.Drawing.Font("宋体", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.nud_dwCam_xt2_Qrofs.Increment = new decimal(new int[] {
-            1,
-            0,
-            0,
-            131072});
-            this.nud_dwCam_xt2_Qrofs.Location = new System.Drawing.Point(164, 113);
-            this.nud_dwCam_xt2_Qrofs.Maximum = new decimal(new int[] {
-            50,
-            0,
-            0,
-            0});
-            this.nud_dwCam_xt2_Qrofs.Minimum = new decimal(new int[] {
-            50,
-            0,
-            0,
-            -2147483648});
-            this.nud_dwCam_xt2_Qrofs.Name = "nud_dwCam_xt2_Qrofs";
-            this.nud_dwCam_xt2_Qrofs.Size = new System.Drawing.Size(100, 32);
-            this.nud_dwCam_xt2_Qrofs.TabIndex = 43;
-            this.nud_dwCam_xt2_Qrofs.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            // 
-            // nud_dwCam_xt1_Qrofs
-            // 
-            this.nud_dwCam_xt1_Qrofs.DecimalPlaces = 2;
-            this.nud_dwCam_xt1_Qrofs.Font = new System.Drawing.Font("宋体", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.nud_dwCam_xt1_Qrofs.Increment = new decimal(new int[] {
-            1,
-            0,
-            0,
-            131072});
-            this.nud_dwCam_xt1_Qrofs.Location = new System.Drawing.Point(24, 111);
-            this.nud_dwCam_xt1_Qrofs.Maximum = new decimal(new int[] {
-            50,
-            0,
-            0,
-            0});
-            this.nud_dwCam_xt1_Qrofs.Minimum = new decimal(new int[] {
-            50,
-            0,
-            0,
-            -2147483648});
-            this.nud_dwCam_xt1_Qrofs.Name = "nud_dwCam_xt1_Qrofs";
-            this.nud_dwCam_xt1_Qrofs.Size = new System.Drawing.Size(100, 32);
-            this.nud_dwCam_xt1_Qrofs.TabIndex = 39;
-            this.nud_dwCam_xt1_Qrofs.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            // 
-            // label47
-            // 
-            this.label47.AutoSize = true;
-            this.label47.Font = new System.Drawing.Font("宋体", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.label47.Location = new System.Drawing.Point(156, 149);
-            this.label47.Name = "label47";
-            this.label47.Size = new System.Drawing.Size(120, 16);
-            this.label47.TabIndex = 8;
-            this.label47.Text = "吸头4偏移(mm):";
-            // 
-            // label48
-            // 
-            this.label48.AutoSize = true;
-            this.label48.Font = new System.Drawing.Font("宋体", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.label48.Location = new System.Drawing.Point(15, 150);
-            this.label48.Name = "label48";
-            this.label48.Size = new System.Drawing.Size(120, 16);
-            this.label48.TabIndex = 7;
-            this.label48.Text = "吸头3偏移(mm):";
-            // 
-            // label49
-            // 
-            this.label49.AutoSize = true;
-            this.label49.Font = new System.Drawing.Font("宋体", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.label49.Location = new System.Drawing.Point(159, 90);
-            this.label49.Name = "label49";
-            this.label49.Size = new System.Drawing.Size(120, 16);
-            this.label49.TabIndex = 6;
-            this.label49.Text = "吸头2偏移(mm):";
-            // 
-            // label50
-            // 
-            this.label50.AutoSize = true;
-            this.label50.Font = new System.Drawing.Font("宋体", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.label50.Location = new System.Drawing.Point(155, 31);
-            this.label50.Name = "label50";
-            this.label50.Size = new System.Drawing.Size(0, 16);
-            this.label50.TabIndex = 4;
-            // 
-            // label51
-            // 
-            this.label51.AutoSize = true;
-            this.label51.Font = new System.Drawing.Font("宋体", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.label51.Location = new System.Drawing.Point(18, 90);
-            this.label51.Name = "label51";
-            this.label51.Size = new System.Drawing.Size(120, 16);
-            this.label51.TabIndex = 3;
-            this.label51.Text = "吸头1偏移(mm):";
-            // 
-            // groupBox52
-            // 
-            this.groupBox52.Controls.Add(this.label46);
-            this.groupBox52.Controls.Add(this.label45);
-            this.groupBox52.Controls.Add(this.tb_eqp_pos);
-            this.groupBox52.Controls.Add(this.tb_eqp_sn);
-            this.groupBox52.Location = new System.Drawing.Point(334, 22);
-            this.groupBox52.Name = "groupBox52";
-            this.groupBox52.Size = new System.Drawing.Size(474, 254);
-            this.groupBox52.TabIndex = 1;
-            this.groupBox52.TabStop = false;
-            this.groupBox52.Text = "设备信息";
-            // 
-            // label46
-            // 
-            this.label46.AutoSize = true;
-            this.label46.Location = new System.Drawing.Point(51, 128);
-            this.label46.Name = "label46";
-            this.label46.Size = new System.Drawing.Size(373, 22);
-            this.label46.TabIndex = 3;
-            this.label46.Text = "所在位置（如新基地4号楼标杆车间）";
-            // 
-            // label45
-            // 
-            this.label45.AutoSize = true;
-            this.label45.Location = new System.Drawing.Point(51, 39);
-            this.label45.Name = "label45";
-            this.label45.Size = new System.Drawing.Size(142, 22);
-            this.label45.TabIndex = 2;
-            this.label45.Text = "设备铭牌编号";
-            // 
-            // tb_eqp_pos
-            // 
-            this.tb_eqp_pos.Location = new System.Drawing.Point(55, 167);
-            this.tb_eqp_pos.Name = "tb_eqp_pos";
-            this.tb_eqp_pos.Size = new System.Drawing.Size(329, 32);
-            this.tb_eqp_pos.TabIndex = 1;
-            this.tb_eqp_pos.Text = "t";
-            // 
-            // tb_eqp_sn
-            // 
-            this.tb_eqp_sn.Location = new System.Drawing.Point(55, 80);
-            this.tb_eqp_sn.Name = "tb_eqp_sn";
-            this.tb_eqp_sn.Size = new System.Drawing.Size(329, 32);
-            this.tb_eqp_sn.TabIndex = 0;
-            this.tb_eqp_sn.Text = "123456";
-            // 
-            // button1
-            // 
-            this.button1.BackColor = System.Drawing.SystemColors.ButtonFace;
-            this.button1.Location = new System.Drawing.Point(873, 419);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(134, 71);
-            this.button1.TabIndex = 131;
-            this.button1.Text = "保存";
-            this.button1.UseVisualStyleBackColor = false;
-            this.button1.Click += new System.EventHandler(this.btn_ptset_save_Click);
-            // 
-            // groupBox49
-            // 
-            this.groupBox49.Controls.Add(this.tabControl2);
-            this.groupBox49.Location = new System.Drawing.Point(23, 22);
-            this.groupBox49.Name = "groupBox49";
-            this.groupBox49.Size = new System.Drawing.Size(288, 254);
-            this.groupBox49.TabIndex = 0;
-            this.groupBox49.TabStop = false;
-            this.groupBox49.Text = "NPI专用吸头启用";
-            this.groupBox49.Visible = false;
-            // 
-            // tabControl2
-            // 
-            this.tabControl2.Controls.Add(this.tabPage4);
-            this.tabControl2.Controls.Add(this.tabPage5);
-            this.tabControl2.Location = new System.Drawing.Point(6, 49);
-            this.tabControl2.Name = "tabControl2";
-            this.tabControl2.SelectedIndex = 0;
-            this.tabControl2.Size = new System.Drawing.Size(264, 189);
-            this.tabControl2.TabIndex = 0;
-            // 
-            // tabPage4
-            // 
-            this.tabPage4.Controls.Add(this.groupBox50);
-            this.tabPage4.Location = new System.Drawing.Point(4, 31);
-            this.tabPage4.Name = "tabPage4";
-            this.tabPage4.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage4.Size = new System.Drawing.Size(256, 154);
-            this.tabPage4.TabIndex = 0;
-            this.tabPage4.Text = "上下料1";
-            this.tabPage4.UseVisualStyleBackColor = true;
-            // 
-            // groupBox50
-            // 
-            this.groupBox50.Controls.Add(this.rbtUpDn1OneXtOff);
-            this.groupBox50.Controls.Add(this.rbtUpDn1OneXtOn);
-            this.groupBox50.Font = new System.Drawing.Font("宋体", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.groupBox50.Location = new System.Drawing.Point(20, 15);
-            this.groupBox50.Name = "groupBox50";
-            this.groupBox50.Size = new System.Drawing.Size(183, 110);
-            this.groupBox50.TabIndex = 154;
-            this.groupBox50.TabStop = false;
-            this.groupBox50.Text = "只用一个吸头";
-            // 
-            // rbtUpDn1OneXtOff
-            // 
-            this.rbtUpDn1OneXtOff.Appearance = System.Windows.Forms.Appearance.Button;
-            this.rbtUpDn1OneXtOff.FlatAppearance.CheckedBackColor = System.Drawing.Color.Yellow;
-            this.rbtUpDn1OneXtOff.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.rbtUpDn1OneXtOff.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
-            this.rbtUpDn1OneXtOff.ForeColor = System.Drawing.Color.Black;
-            this.rbtUpDn1OneXtOff.Location = new System.Drawing.Point(25, 74);
-            this.rbtUpDn1OneXtOff.Name = "rbtUpDn1OneXtOff";
-            this.rbtUpDn1OneXtOff.Size = new System.Drawing.Size(87, 30);
-            this.rbtUpDn1OneXtOff.TabIndex = 126;
-            this.rbtUpDn1OneXtOff.Text = "关闭";
-            this.rbtUpDn1OneXtOff.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            this.rbtUpDn1OneXtOff.UseVisualStyleBackColor = true;
-            // 
-            // rbtUpDn1OneXtOn
-            // 
-            this.rbtUpDn1OneXtOn.Appearance = System.Windows.Forms.Appearance.Button;
-            this.rbtUpDn1OneXtOn.Checked = true;
-            this.rbtUpDn1OneXtOn.FlatAppearance.CheckedBackColor = System.Drawing.Color.Yellow;
-            this.rbtUpDn1OneXtOn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.rbtUpDn1OneXtOn.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
-            this.rbtUpDn1OneXtOn.ForeColor = System.Drawing.Color.Black;
-            this.rbtUpDn1OneXtOn.Location = new System.Drawing.Point(25, 31);
-            this.rbtUpDn1OneXtOn.Name = "rbtUpDn1OneXtOn";
-            this.rbtUpDn1OneXtOn.Size = new System.Drawing.Size(87, 30);
-            this.rbtUpDn1OneXtOn.TabIndex = 124;
-            this.rbtUpDn1OneXtOn.TabStop = true;
-            this.rbtUpDn1OneXtOn.Text = "开启";
-            this.rbtUpDn1OneXtOn.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            this.rbtUpDn1OneXtOn.UseVisualStyleBackColor = true;
-            // 
-            // tabPage5
-            // 
-            this.tabPage5.Controls.Add(this.groupBox51);
-            this.tabPage5.Location = new System.Drawing.Point(4, 31);
-            this.tabPage5.Name = "tabPage5";
-            this.tabPage5.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage5.Size = new System.Drawing.Size(256, 154);
-            this.tabPage5.TabIndex = 1;
-            this.tabPage5.Text = "上下料2";
-            this.tabPage5.UseVisualStyleBackColor = true;
-            // 
-            // groupBox51
-            // 
-            this.groupBox51.Controls.Add(this.rbtUpDn2OneXtOff);
-            this.groupBox51.Controls.Add(this.rbtUpDn2OneXtOn);
-            this.groupBox51.Font = new System.Drawing.Font("宋体", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.groupBox51.Location = new System.Drawing.Point(16, 17);
-            this.groupBox51.Name = "groupBox51";
-            this.groupBox51.Size = new System.Drawing.Size(195, 131);
-            this.groupBox51.TabIndex = 155;
-            this.groupBox51.TabStop = false;
-            this.groupBox51.Text = "只用一个吸头";
-            // 
-            // rbtUpDn2OneXtOff
-            // 
-            this.rbtUpDn2OneXtOff.Appearance = System.Windows.Forms.Appearance.Button;
-            this.rbtUpDn2OneXtOff.FlatAppearance.CheckedBackColor = System.Drawing.Color.Yellow;
-            this.rbtUpDn2OneXtOff.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.rbtUpDn2OneXtOff.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
-            this.rbtUpDn2OneXtOff.ForeColor = System.Drawing.Color.Black;
-            this.rbtUpDn2OneXtOff.Location = new System.Drawing.Point(25, 74);
-            this.rbtUpDn2OneXtOff.Name = "rbtUpDn2OneXtOff";
-            this.rbtUpDn2OneXtOff.Size = new System.Drawing.Size(87, 30);
-            this.rbtUpDn2OneXtOff.TabIndex = 126;
-            this.rbtUpDn2OneXtOff.Text = "关闭";
-            this.rbtUpDn2OneXtOff.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            this.rbtUpDn2OneXtOff.UseVisualStyleBackColor = true;
-            // 
-            // rbtUpDn2OneXtOn
-            // 
-            this.rbtUpDn2OneXtOn.Appearance = System.Windows.Forms.Appearance.Button;
-            this.rbtUpDn2OneXtOn.Checked = true;
-            this.rbtUpDn2OneXtOn.FlatAppearance.CheckedBackColor = System.Drawing.Color.Yellow;
-            this.rbtUpDn2OneXtOn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.rbtUpDn2OneXtOn.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
-            this.rbtUpDn2OneXtOn.ForeColor = System.Drawing.Color.Black;
-            this.rbtUpDn2OneXtOn.Location = new System.Drawing.Point(25, 31);
-            this.rbtUpDn2OneXtOn.Name = "rbtUpDn2OneXtOn";
-            this.rbtUpDn2OneXtOn.Size = new System.Drawing.Size(87, 30);
-            this.rbtUpDn2OneXtOn.TabIndex = 124;
-            this.rbtUpDn2OneXtOn.TabStop = true;
-            this.rbtUpDn2OneXtOn.Text = "开启";
-            this.rbtUpDn2OneXtOn.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            this.rbtUpDn2OneXtOn.UseVisualStyleBackColor = true;
-            // 
             // tp_calc
             // 
             this.tp_calc.Controls.Add(this.tableLayoutPanel4);
             this.tp_calc.Location = new System.Drawing.Point(204, 4);
             this.tp_calc.Name = "tp_calc";
-            this.tp_calc.Size = new System.Drawing.Size(1080, 774);
+            this.tp_calc.Size = new System.Drawing.Size(1080, 866);
             this.tp_calc.TabIndex = 5;
             this.tp_calc.Text = "系统校准";
             this.tp_calc.UseVisualStyleBackColor = true;
@@ -5725,7 +3501,7 @@
             this.tableLayoutPanel4.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 64.61039F));
             this.tableLayoutPanel4.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 35.38961F));
             this.tableLayoutPanel4.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 8F));
-            this.tableLayoutPanel4.Size = new System.Drawing.Size(1080, 774);
+            this.tableLayoutPanel4.Size = new System.Drawing.Size(1080, 866);
             this.tableLayoutPanel4.TabIndex = 2;
             // 
             // ctb_cali
@@ -5745,11 +3521,11 @@
             this.ctb_cali.HeadSelectedBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(43)))), ((int)(((byte)(144)))), ((int)(((byte)(217)))));
             this.ctb_cali.HeadSelectedBorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(217)))), ((int)(((byte)(225)))), ((int)(((byte)(232)))));
             this.ctb_cali.ItemSize = new System.Drawing.Size(44, 210);
-            this.ctb_cali.Location = new System.Drawing.Point(3, 497);
+            this.ctb_cali.Location = new System.Drawing.Point(3, 557);
             this.ctb_cali.Multiline = true;
             this.ctb_cali.Name = "ctb_cali";
             this.ctb_cali.SelectedIndex = 0;
-            this.ctb_cali.Size = new System.Drawing.Size(1074, 265);
+            this.ctb_cali.Size = new System.Drawing.Size(1074, 297);
             this.ctb_cali.SizeMode = System.Windows.Forms.TabSizeMode.Fixed;
             this.ctb_cali.TabIndex = 130;
             // 
@@ -5761,7 +3537,7 @@
             this.tb_upcam1_npoint.Location = new System.Drawing.Point(214, 4);
             this.tb_upcam1_npoint.Name = "tb_upcam1_npoint";
             this.tb_upcam1_npoint.Padding = new System.Windows.Forms.Padding(3);
-            this.tb_upcam1_npoint.Size = new System.Drawing.Size(856, 257);
+            this.tb_upcam1_npoint.Size = new System.Drawing.Size(856, 289);
             this.tb_upcam1_npoint.TabIndex = 0;
             this.tb_upcam1_npoint.Text = "上相机1标定";
             // 
@@ -5773,7 +3549,7 @@
             this.npointCail1.Location = new System.Drawing.Point(3, 3);
             this.npointCail1.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.npointCail1.Name = "npointCail1";
-            this.npointCail1.Size = new System.Drawing.Size(850, 251);
+            this.npointCail1.Size = new System.Drawing.Size(850, 283);
             this.npointCail1.TabIndex = 0;
             // 
             // tb_dwcam1_to_upcam1
@@ -5792,7 +3568,6 @@
             this.affineCail_Dw1ToUp1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(217)))), ((int)(((byte)(225)))), ((int)(((byte)(232)))));
             this.affineCail_Dw1ToUp1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.affineCail_Dw1ToUp1.Location = new System.Drawing.Point(0, 0);
-            this.affineCail_Dw1ToUp1.Margin = new System.Windows.Forms.Padding(4);
             this.affineCail_Dw1ToUp1.Name = "affineCail_Dw1ToUp1";
             this.affineCail_Dw1ToUp1.Size = new System.Drawing.Size(0, 15);
             this.affineCail_Dw1ToUp1.TabIndex = 0;
@@ -5813,7 +3588,6 @@
             this.affineCail_Dw2ToUp2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(217)))), ((int)(((byte)(225)))), ((int)(((byte)(232)))));
             this.affineCail_Dw2ToUp2.Dock = System.Windows.Forms.DockStyle.Fill;
             this.affineCail_Dw2ToUp2.Location = new System.Drawing.Point(0, 0);
-            this.affineCail_Dw2ToUp2.Margin = new System.Windows.Forms.Padding(4);
             this.affineCail_Dw2ToUp2.Name = "affineCail_Dw2ToUp2";
             this.affineCail_Dw2ToUp2.Size = new System.Drawing.Size(0, 15);
             this.affineCail_Dw2ToUp2.TabIndex = 1;
@@ -5882,7 +3656,7 @@
             this.tableLayoutPanel5.Name = "tableLayoutPanel5";
             this.tableLayoutPanel5.RowCount = 1;
             this.tableLayoutPanel5.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayoutPanel5.Size = new System.Drawing.Size(1074, 488);
+            this.tableLayoutPanel5.Size = new System.Drawing.Size(1074, 548);
             this.tableLayoutPanel5.TabIndex = 0;
             // 
             // CogRecordDisplay_sys
@@ -5891,7 +3665,7 @@
             this.CogRecordDisplay_sys.Dock = System.Windows.Forms.DockStyle.Fill;
             this.CogRecordDisplay_sys.Location = new System.Drawing.Point(3, 3);
             this.CogRecordDisplay_sys.Name = "CogRecordDisplay_sys";
-            this.CogRecordDisplay_sys.Size = new System.Drawing.Size(1068, 482);
+            this.CogRecordDisplay_sys.Size = new System.Drawing.Size(1068, 542);
             this.CogRecordDisplay_sys.TabIndex = 0;
             // 
             // tmr_update
@@ -5903,7 +3677,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1294, 788);
+            this.ClientSize = new System.Drawing.Size(1294, 880);
             this.Controls.Add(this.tableLayoutPanel1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Name = "FrSys";
@@ -5923,20 +3697,6 @@
             this.tp_sysparm.ResumeLayout(false);
             this.ctb_SetParm.ResumeLayout(false);
             this.tp_setparm_1.ResumeLayout(false);
-            this.groupBox44.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.nud_TestTime)).EndInit();
-            this.groupBox39.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.nud_JigSendTime)).EndInit();
-            this.groupBox38.ResumeLayout(false);
-            this.groupBox45.ResumeLayout(false);
-            this.groupBox43.ResumeLayout(false);
-            this.groupBox42.ResumeLayout(false);
-            this.groupBox41.ResumeLayout(false);
-            this.groupBox40.ResumeLayout(false);
-            this.groupBox34.ResumeLayout(false);
-            this.groupBox34.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.nud_ngscale)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.nud_ngcode)).EndInit();
             this.groupBox29.ResumeLayout(false);
             this.groupBox19.ResumeLayout(false);
             this.groupBox19.PerformLayout();
@@ -5985,31 +3745,6 @@
             this.groupBox10.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nud_GTMOfs)).EndInit();
             this.tp_setparm_2.ResumeLayout(false);
-            this.groupBox48.ResumeLayout(false);
-            this.groupBox48.PerformLayout();
-            this.tabControl1.ResumeLayout(false);
-            this.tabPage1.ResumeLayout(false);
-            this.tabPage1.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.nud_Areaofset)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.nud_DownArea)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.nud_UpArea)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.nud_RightArea)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.nud_LeftArea)).EndInit();
-            this.tabPage2.ResumeLayout(false);
-            this.tabPage2.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.nud_Areaofset2)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.nud_DownArea2)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.nud_UpArea2)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.nud_RightArea2)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.nud_LeftArea2)).EndInit();
-            this.groupBox3.ResumeLayout(false);
-            this.groupBox7.ResumeLayout(false);
-            this.groupBox47.ResumeLayout(false);
-            this.groupBox46.ResumeLayout(false);
-            this.groupBox37.ResumeLayout(false);
-            this.groupBox36.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.nud_okRate)).EndInit();
-            this.groupBox35.ResumeLayout(false);
             this.groupBox33.ResumeLayout(false);
             this.groupBox32.ResumeLayout(false);
             this.groupBox31.ResumeLayout(false);
@@ -6017,12 +3752,6 @@
             this.groupBox30.PerformLayout();
             this.groupBox28.ResumeLayout(false);
             this.groupBox28.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.nud_jig_exposure2)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.nud_jig_contrast2)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.nud_jig_brightness2)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.nud_jig_exposure1)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.nud_jig_contrast1)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.nud_jig_brightness1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.nud_ws_exposure2)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.nud_tray_exposure2)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.nud_ws_contrast2)).EndInit();
@@ -6044,6 +3773,8 @@
             this.groupBox23.ResumeLayout(false);
             this.groupBox22.ResumeLayout(false);
             this.groupBox21.ResumeLayout(false);
+            this.groupBox7.ResumeLayout(false);
+            this.groupBox3.ResumeLayout(false);
             this.groupBox2.ResumeLayout(false);
             this.groupBox12.ResumeLayout(false);
             this.groupBox17.ResumeLayout(false);
@@ -6051,31 +3782,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.nud_offset_degree)).EndInit();
             this.groupBox9.ResumeLayout(false);
             this.groupBox13.ResumeLayout(false);
-            this.tabPage3.ResumeLayout(false);
-            this.groupBox55.ResumeLayout(false);
-            this.groupBox55.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.NumWsNgCntPer20)).EndInit();
-            this.groupBox54.ResumeLayout(false);
-            this.groupBox54.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.nud_MotorbarcodeDigits)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.nud_MotorAngle4)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.nud_MotorAngle3)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.nud_MotorAngle2)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.nud_MotorAngle1)).EndInit();
-            this.groupBox53.ResumeLayout(false);
-            this.groupBox53.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.nud_dwCam_xt4_Qrofs)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.nud_dwCam_xt3_Qrofs)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.nud_dwCam_xt2_Qrofs)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.nud_dwCam_xt1_Qrofs)).EndInit();
-            this.groupBox52.ResumeLayout(false);
-            this.groupBox52.PerformLayout();
-            this.groupBox49.ResumeLayout(false);
-            this.tabControl2.ResumeLayout(false);
-            this.tabPage4.ResumeLayout(false);
-            this.groupBox50.ResumeLayout(false);
-            this.tabPage5.ResumeLayout(false);
-            this.groupBox51.ResumeLayout(false);
             this.tp_calc.ResumeLayout(false);
             this.tableLayoutPanel4.ResumeLayout(false);
             this.ctb_cali.ResumeLayout(false);
@@ -6153,6 +3859,9 @@
         private System.Windows.Forms.GroupBox groupBox2;
         private System.Windows.Forms.RadioButton rbtn_CloseVsTray;
         private System.Windows.Forms.RadioButton rbtn_OpenVsTray;
+        private System.Windows.Forms.GroupBox groupBox3;
+        private System.Windows.Forms.RadioButton rbtn_safeoff;
+        private System.Windows.Forms.RadioButton rbtn_safeon;
         private System.Windows.Forms.GroupBox groupBox5;
         private System.Windows.Forms.CheckBox chk_grr;
         private System.Windows.Forms.Label label2;
@@ -6171,6 +3880,9 @@
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.CheckBox Chk_ModPasteUp;
+        private System.Windows.Forms.GroupBox groupBox7;
+        private System.Windows.Forms.RadioButton rbtn_Y1dis;
+        private System.Windows.Forms.RadioButton rbtn_Y1en;
         private System.Windows.Forms.GroupBox groupBox8;
         private System.Windows.Forms.NumericUpDown nud_dwCam_xt1_ofs;
         private System.Windows.Forms.Label label11;
@@ -6312,141 +4024,5 @@
         private System.Windows.Forms.GroupBox groupBox33;
         private System.Windows.Forms.RadioButton rbtn_delaytestdis;
         private System.Windows.Forms.RadioButton rbtn_delaytesten;
-        private System.Windows.Forms.GroupBox groupBox34;
-        private System.Windows.Forms.NumericUpDown nud_ngscale;
-        private System.Windows.Forms.NumericUpDown nud_ngcode;
-        private System.Windows.Forms.Label label32;
-        private System.Windows.Forms.Label label30;
-        private System.Windows.Forms.RadioButton rbtn_ngcontroldis;
-        private System.Windows.Forms.RadioButton rbtn_ngcontrolen;
-        private System.Windows.Forms.GroupBox groupBox35;
-        private System.Windows.Forms.RadioButton rbtn_ContinuousAlarmDis;
-        private System.Windows.Forms.RadioButton rbtn_ContinuousAlarmEn;
-        private System.Windows.Forms.GroupBox groupBox36;
-        private System.Windows.Forms.NumericUpDown nud_okRate;
-        private System.Windows.Forms.RadioButton rbtn_NgWarningDis;
-        private System.Windows.Forms.RadioButton rbtn_NgWarningEn;
-        private System.Windows.Forms.GroupBox groupBox37;
-        private System.Windows.Forms.RadioButton rbtn_MesRemote;
-        private System.Windows.Forms.RadioButton rbtn_MesLocal;
-        private System.Windows.Forms.GroupBox groupBox38;
-        private System.Windows.Forms.RadioButton btnStopJigSan;
-        private System.Windows.Forms.RadioButton btnStartJigSan1;
-        private System.Windows.Forms.GroupBox groupBox39;
-        private System.Windows.Forms.NumericUpDown nud_JigSendTime;
-        private System.Windows.Forms.GroupBox groupBox43;
-        private System.Windows.Forms.RadioButton btnStartJigSan4;
-        private System.Windows.Forms.RadioButton radioButton6;
-        private System.Windows.Forms.GroupBox groupBox42;
-        private System.Windows.Forms.RadioButton btnStartJigSan3;
-        private System.Windows.Forms.RadioButton radioButton4;
-        private System.Windows.Forms.GroupBox groupBox41;
-        private System.Windows.Forms.RadioButton btnStartJigSan2;
-        private System.Windows.Forms.RadioButton radioButton2;
-        private System.Windows.Forms.GroupBox groupBox40;
-        private System.Windows.Forms.GroupBox groupBox45;
-        private System.Windows.Forms.RadioButton rabt_jigscan_ON;
-        private System.Windows.Forms.RadioButton rabt_jigscan_OFF;
-        private System.Windows.Forms.GroupBox groupBox44;
-        private System.Windows.Forms.NumericUpDown nud_TestTime;
-        private System.Windows.Forms.NumericUpDown nud_jig_exposure2;
-        private System.Windows.Forms.NumericUpDown nud_jig_contrast2;
-        private System.Windows.Forms.NumericUpDown nud_jig_brightness2;
-        private System.Windows.Forms.Label label33;
-        private System.Windows.Forms.NumericUpDown nud_jig_exposure1;
-        private System.Windows.Forms.NumericUpDown nud_jig_contrast1;
-        private System.Windows.Forms.NumericUpDown nud_jig_brightness1;
-        private System.Windows.Forms.Label label31;
-        private System.Windows.Forms.GroupBox groupBox46;
-        private System.Windows.Forms.RadioButton rbtn_AddCapQrcodeDis;
-        private System.Windows.Forms.RadioButton rbtn_AddCapQrcodeEn;
-        private System.Windows.Forms.GroupBox groupBox3;
-        private System.Windows.Forms.RadioButton rad_light_xsj;
-        private System.Windows.Forms.RadioButton rad_G4C;
-        private System.Windows.Forms.GroupBox groupBox7;
-        private System.Windows.Forms.RadioButton rbtn_Y1dis;
-        private System.Windows.Forms.RadioButton rbtn_Y1en;
-        private System.Windows.Forms.GroupBox groupBox47;
-        private System.Windows.Forms.RadioButton rbtn_safeoff;
-        private System.Windows.Forms.RadioButton rbtn_safeon;
-        private System.Windows.Forms.RadioButton rbtn_NoCap;
-        private System.Windows.Forms.GroupBox groupBox48;
-        private System.Windows.Forms.CheckBox cb_ConnectorCheck;
-        private System.Windows.Forms.TabControl tabControl1;
-        private System.Windows.Forms.TabPage tabPage1;
-        private System.Windows.Forms.NumericUpDown nud_Areaofset;
-        private System.Windows.Forms.Label label39;
-        private System.Windows.Forms.NumericUpDown nud_DownArea;
-        private System.Windows.Forms.NumericUpDown nud_UpArea;
-        private System.Windows.Forms.NumericUpDown nud_RightArea;
-        private System.Windows.Forms.NumericUpDown nud_LeftArea;
-        private System.Windows.Forms.Label label34;
-        private System.Windows.Forms.Label label35;
-        private System.Windows.Forms.Label label36;
-        private System.Windows.Forms.Label label37;
-        private System.Windows.Forms.Label label38;
-        private System.Windows.Forms.TabPage tabPage2;
-        private System.Windows.Forms.NumericUpDown nud_Areaofset2;
-        private System.Windows.Forms.Label label40;
-        private System.Windows.Forms.NumericUpDown nud_DownArea2;
-        private System.Windows.Forms.NumericUpDown nud_UpArea2;
-        private System.Windows.Forms.NumericUpDown nud_RightArea2;
-        private System.Windows.Forms.NumericUpDown nud_LeftArea2;
-        private System.Windows.Forms.Label label41;
-        private System.Windows.Forms.Label label42;
-        private System.Windows.Forms.Label label43;
-        private System.Windows.Forms.Label label44;
-        private System.Windows.Forms.TabPage tabPage3;
-        private System.Windows.Forms.GroupBox groupBox49;
-        private System.Windows.Forms.TabControl tabControl2;
-        private System.Windows.Forms.TabPage tabPage4;
-        private System.Windows.Forms.GroupBox groupBox50;
-        private System.Windows.Forms.RadioButton rbtUpDn1OneXtOff;
-        private System.Windows.Forms.RadioButton rbtUpDn1OneXtOn;
-        private System.Windows.Forms.TabPage tabPage5;
-        private System.Windows.Forms.Button button1;
-        private System.Windows.Forms.GroupBox groupBox51;
-        private System.Windows.Forms.RadioButton rbtUpDn2OneXtOff;
-        private System.Windows.Forms.RadioButton rbtUpDn2OneXtOn;
-        private System.Windows.Forms.GroupBox groupBox52;
-        private System.Windows.Forms.Label label46;
-        private System.Windows.Forms.Label label45;
-        private System.Windows.Forms.TextBox tb_eqp_pos;
-        private System.Windows.Forms.TextBox tb_eqp_sn;
-        private System.Windows.Forms.GroupBox groupBox53;
-        private System.Windows.Forms.RadioButton rbtn_DwAddCapQrcodeOff;
-        private System.Windows.Forms.RadioButton rbtn_DwAddCapQrcodeEn;
-        private System.Windows.Forms.NumericUpDown nud_dwCam_xt4_Qrofs;
-        private System.Windows.Forms.NumericUpDown nud_dwCam_xt3_Qrofs;
-        private System.Windows.Forms.NumericUpDown nud_dwCam_xt2_Qrofs;
-        private System.Windows.Forms.NumericUpDown nud_dwCam_xt1_Qrofs;
-        private System.Windows.Forms.Label label47;
-        private System.Windows.Forms.Label label48;
-        private System.Windows.Forms.Label label49;
-        private System.Windows.Forms.Label label50;
-        private System.Windows.Forms.Label label51;
-        private System.Windows.Forms.GroupBox groupBox54;
-        private System.Windows.Forms.NumericUpDown nud_MotorbarcodeDigits;
-        private System.Windows.Forms.Label label52;
-        private System.Windows.Forms.NumericUpDown nud_MotorAngle4;
-        private System.Windows.Forms.NumericUpDown nud_MotorAngle3;
-        private System.Windows.Forms.Label label53;
-        private System.Windows.Forms.Label label54;
-        private System.Windows.Forms.NumericUpDown nud_MotorAngle2;
-        private System.Windows.Forms.Label label55;
-        private System.Windows.Forms.Label label56;
-        private System.Windows.Forms.NumericUpDown nud_MotorAngle1;
-        private System.Windows.Forms.RadioButton rbtn_motordis;
-        private System.Windows.Forms.RadioButton rbtn_motoren;
-        private System.Windows.Forms.Button button3;
-        private System.Windows.Forms.Button button2;
-        private System.Windows.Forms.Button button5;
-        private System.Windows.Forms.Button button4;
-        private System.Windows.Forms.GroupBox groupBox55;
-        private System.Windows.Forms.NumericUpDown NumWsNgCntPer20;
-        private System.Windows.Forms.Label label57;
-        private System.Windows.Forms.RadioButton radWsNgRateShowOff;
-        private System.Windows.Forms.RadioButton radWsNgRateShowEn;
-        private System.Windows.Forms.Button button6;
     }
 }

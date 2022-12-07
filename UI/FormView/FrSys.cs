@@ -201,6 +201,8 @@ namespace UI
             nud_TestTime.Enabled = en;
             //新增拍二维码位置
             rbtn_AddCapQrcodeEn.Enabled = en;
+            rbtn_DwAddCapQrcodeEn.Enabled = en;
+            rbtn_DwAddCapQrcodeOff.Enabled = en;
             rbtn_AddCapQrcodeDis.Enabled = en;
             //光源选择
             rad_G4C.Enabled = en;
@@ -632,6 +634,11 @@ namespace UI
             nud_dwCam_xt3_ofs.Value = (decimal)COM.xt3.cap_offset;
             nud_dwCam_xt4_ofs.Value = (decimal)COM.xt4.cap_offset;
 
+            nud_dwCam_xt1_Qrofs.Value = (decimal)COM.xt1.DwCapQrCodeoffset;
+            nud_dwCam_xt2_Qrofs.Value = (decimal)COM.xt2.DwCapQrCodeoffset;
+            nud_dwCam_xt3_Qrofs.Value = (decimal)COM.xt3.DwCapQrCodeoffset;
+            nud_dwCam_xt4_Qrofs.Value = (decimal)COM.xt4.DwCapQrCodeoffset;
+
             //模组带起
             Chk_ModPasteUp.Checked = PT_SET.bModPasteUp;
             nud_PlaceDly.Value = PT_SET.PlaceDly;
@@ -769,8 +776,11 @@ namespace UI
             //新增上拍二维码
             rbtn_AddCapQrcodeDis.Checked = false;
             rbtn_AddCapQrcodeEn.Checked = false;
-            if (PT_SET.bAddCapQrcode) rbtn_AddCapQrcodeEn.Checked = true;
+            if (PT_SET.bAddCapQrcode) rbtn_AddCapQrcodeEn.Checked = true;       
             else rbtn_AddCapQrcodeDis.Checked = true;
+
+            rbtn_DwAddCapQrcodeEn.Checked = PT_SET.bDwAddCapQrcode;
+            rbtn_DwAddCapQrcodeOff.Checked= !PT_SET.bDwAddCapQrcode;
 
             //回检管控
             nud_LeftArea.Value = (decimal)PT_SET.LeftArea;
@@ -790,6 +800,22 @@ namespace UI
                 tb_eqp_pos.Text = PT_SET.EqpPos ;
             if (PT_SET.EqpSN.Length > 0)
                 tb_eqp_sn.Text= PT_SET.EqpSN ;
+
+
+            //马达扫码设置
+            rbtn_motoren.Checked = false;
+            rbtn_motordis.Checked = false;
+            if (PT_SET.bmotorphoto) rbtn_motoren.Checked = true;
+            else rbtn_motordis.Checked = true;
+            nud_MotorAngle1.Value = (decimal)PT_SET.MotorAngle1;
+            nud_MotorAngle2.Value = (decimal)PT_SET.MotorAngle2;
+            nud_MotorAngle3.Value = (decimal)PT_SET.MotorAngle3;
+            nud_MotorAngle4.Value = (decimal)PT_SET.MotorAngle4;
+            nud_MotorbarcodeDigits.Value = (decimal)PT_SET.motorBarcodeDigits;
+
+            radWsNgRateShowEn.Checked = PT_SET.bWsNgRateShow;
+            radWsNgRateShowOff.Checked=!PT_SET.bWsNgRateShow;
+            NumWsNgCntPer20.Value = (decimal)PT_SET.CntWsNgRateShow ;
         }
         public void GetData()
         {
@@ -824,6 +850,11 @@ namespace UI
             COM.xt2.cap_offset = (double)nud_dwCam_xt2_ofs.Value;
             COM.xt3.cap_offset = (double)nud_dwCam_xt3_ofs.Value;
             COM.xt4.cap_offset = (double)nud_dwCam_xt4_ofs.Value;
+
+            COM.xt1.DwCapQrCodeoffset = (double)nud_dwCam_xt1_Qrofs.Value;
+            COM.xt2.DwCapQrCodeoffset = (double)nud_dwCam_xt2_Qrofs.Value;
+            COM.xt3.DwCapQrCodeoffset = (double)nud_dwCam_xt3_Qrofs.Value;
+            COM.xt4.DwCapQrCodeoffset = (double)nud_dwCam_xt4_Qrofs.Value;
             //料盘位置检测
             if (rbtn_OpenVsTray.Checked) PT_SET.bEnVsTray = true;
             else if (rbtn_CloseVsTray.Checked) PT_SET.bEnVsTray = false;
@@ -1001,6 +1032,8 @@ namespace UI
             //新增上拍二维码
             if (rbtn_AddCapQrcodeEn.Checked) PT_SET.bAddCapQrcode = true;
             else if (rbtn_AddCapQrcodeDis.Checked) PT_SET.bAddCapQrcode = false;
+            PT_SET.bDwAddCapQrcode = rbtn_DwAddCapQrcodeEn.Checked;
+      
             //回检管控
             PT_SET.Area = (double)nud_Areaofset.Value;
             PT_SET.LeftArea = (double)nud_LeftArea.Value;
@@ -1018,6 +1051,19 @@ namespace UI
             PT_SET.EqpPos = tb_eqp_pos.Text;
             if (tb_eqp_sn.Text.Length > 0)
                 PT_SET.EqpSN = tb_eqp_sn.Text;
+            //马达扫码设置
+            if (rbtn_motoren.Checked) PT_SET.bmotorphoto = true;
+            else if (rbtn_motordis.Checked) PT_SET.bmotorphoto = false;
+            PT_SET.MotorAngle1 = (int)nud_MotorAngle1.Value;
+            PT_SET.MotorAngle2 = (int)nud_MotorAngle2.Value;
+            PT_SET.MotorAngle3 = (int)nud_MotorAngle3.Value;
+            PT_SET.MotorAngle4 = (int)nud_MotorAngle4.Value;
+            PT_SET.motorBarcodeDigits = (int)nud_MotorbarcodeDigits.Value;
+
+            PT_SET.bWsNgRateShow = radWsNgRateShowEn.Checked;
+            PT_SET.CntWsNgRateShow = (int)NumWsNgCntPer20.Value;
+
+
 
         }
 
@@ -1122,9 +1168,10 @@ namespace UI
                 string vv = "0";
                 if (PT_SET.bJigSan) vv = "1";
                 Msg.secsManager.Send(new BaseInfo() { Id = 9, Value = vv });
-                if (PT_SET.EqpSN == "123456")
+
+                if(PT_SET.EqpSN=="123456")
                 {
-                    MessageBox.Show(VAR.IsChinese ? "请在设置参数3界面填写设备编号和厂区!" : "please write the information of eqpument on SefForm Set3\r\n请在设置参数3界面填写设备编号和厂区!",
+                    MessageBox.Show(VAR.IsChinese ? "请在设置参数3界面填写设备编号和厂区!" : "please write the information of eqpument on SefForm Set3\r\n请在设置参数3界面填写设备编号和厂区!", 
                         VAR.IsChinese ? "提示" : "Prompt");
                     return;
                 }
@@ -1197,6 +1244,85 @@ namespace UI
             md.cnt_ok = 0;
             UpDownLoad mupd = new UpDownLoad();
             mupd.  GetModJigData(1, md);//发送更新之后的数据清零
+        }
+
+        private void button2_Click_1(object sender, EventArgs e)
+        {
+            try
+            {
+                string barcode;
+                button2.Enabled = false;
+                bool bOK = MT.COM3.ReadDataByString(out barcode);
+                if (bOK) MessageBox.Show("扫码成功，结果是：" + barcode);
+                else MessageBox.Show("扫码失败，结果是：" + barcode);
+            }
+            finally
+            {
+                button2.Enabled = true;
+            }
+        }
+
+        private void button3_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                string barcode;
+                button3.Enabled = false;
+                bool bOK = MT.COM4.ReadDataByString(out barcode);
+                if (bOK) MessageBox.Show("扫码成功，结果是：" + barcode);
+                else MessageBox.Show("扫码失败，结果是：" + barcode);
+            }
+            finally
+            {
+                button3.Enabled = true;
+            }
+        }
+
+        private void button4_Click(object sender, EventArgs e)
+        {          
+            MT.COM3.ReInit();
+            if(MT.COM3.bComInitOK) MessageBox.Show("打开成功" );
+          else  MessageBox.Show("打开失败");
+        }
+
+        private void button5_Click(object sender, EventArgs e)
+        {
+            MT.COM4.ReInit();
+            if (MT.COM4.bComInitOK) MessageBox.Show("打开成功");
+            else MessageBox.Show("打开失败");
+        }
+
+        private void button6_Click(object sender, EventArgs e)
+        {
+            string objdata = " 0,0,0,0,0";
+            string PosInfo = "WS2-3";
+            var resList = objdata.Split(',');
+            if (resList.Length > 20)
+            {
+                resList = resList.Skip(resList.Length - 20).Take(20).ToArray();
+                objdata = string.Join(",", resList);
+            }
+            List<int> listMres = new List<int>();
+            foreach (var mres in resList)
+            {
+                listMres.Add(int.Parse(mres));
+            }
+            var ngMresList = listMres.FindAll(s => s > 0).ToList();
+            string ngStr = string.Join(",", ngMresList);
+            if (ngMresList.Count > PT_SET.CntWsNgRateShow)
+            {
+                var msg = string.Format($"工位NG超比例, \r\n 当前位置{PosInfo}NG比例超过设置, \r\n，" +
+                    $"近20个模组中有以下ng类型 \r\n" +
+                    $"{ngStr}，\r\n，请选择是否清除记录!");
+                VAR.msg.AddMsg(Msg.EM_MSGTYPE.ERR, msg);
+                VAR.sys_inf.Set(EM_ALM_STA.WAR_YELLOW_FLASH, msg, 20, true);
+                DialogResult dr = FrRun.Dialog(Color.Yellow, "警告", msg, "清除", "不清除");
+                if(dr== DialogResult.OK)
+                {
+                    objdata = "";
+                }
+                VAR.sys_inf.Set(EM_ALM_STA.NOR_GREEN, VAR.IsChinese ? "运行" : "RUN", 0, true);
+            }
         }
     }
 }

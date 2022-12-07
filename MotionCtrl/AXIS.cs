@@ -2130,7 +2130,7 @@ namespace MotionCtrl
         }
         #endregion
         #region 等待定位完成
-        public EM_RES WaitForMoveDone(ref bool pbquit, double targetpos ,int timeout_ms, bool bdoevent = false)
+        public EM_RES WaitForMoveDone(ref bool pbquit, double targetpos, int timeout_ms, bool bdoevent = false)
         {
             //wait stop
             res = WaitForStop(ref pbquit, timeout_ms, bdoevent);
@@ -2139,28 +2139,42 @@ namespace MotionCtrl
             //check pos
             //double tol = (1.0 / pul_per_mm * 2);
             //if (tol < 0.01) tol = 0.01;
-            if (Math.Abs(targetpos* pul_per_mm - cmd_pos) > 3)
+            double curDisPos = 0;
+            double objDis = 4;
+            Thread.Sleep(10);
+            if (mt_type == MT_TYPE.SEVER)
             {
-                //wait and check agin
-                Thread.Sleep(10);
-                res = WaitForStop(ref pbquit, timeout_ms, bdoevent);
-                if (res != EM_RES.OK) return res;
+                curDisPos = Math.Abs(targetpos * pul_per_mm - enc_pos);
+                objDis = 500;
+            }
+            else
+            {
+                curDisPos = Math.Abs(targetpos * pul_per_mm - cmd_pos);
+                objDis = 60;
+            }
 
-#if ZMOTION
-                //通信更新速度不够快，延迟更新再判断
-                if (card.brand == CARD.BRAND.ZMOTION)
-                {
-                    Thread.Sleep(50);
-                    if (Math.Abs(targetpos * pul_per_mm - cmd_pos) > 3) return EM_RES.OK;
-                }
-#endif
 
-                VAR.msg.AddMsg(Msg.EM_MSGTYPE.WAR, VAR.IsChinese?string.Format("{0} 定位偏差:{1:0.000}", disc ,fcmd_pos - targetpos): string.Format("{0} Positioning bias:{1:0.000}   ({0} 定位偏差:{1:0.000})",  disc, fcmd_pos - targetpos));
+            if (curDisPos > objDis)
+            {
+              
+                //res = WaitForStop(ref pbquit, timeout_ms, bdoevent);
+                //if (res != EM_RES.OK) return res;
                 Thread.Sleep(50);
 
-                if (Math.Abs(targetpos * pul_per_mm - cmd_pos) > 3)
-                {                    
-                    VAR.msg.AddMsg(Msg.EM_MSGTYPE.WAR, VAR.IsChinese?string.Format("{0}异常停止,MtIO:0x{1:X8},tag:{2:F3},cmd:{3:F3},enc:{4:F3}", disc, mt_io,targetpos,fcmd_pos,fenc_pos): string.Format("{0} ERROE:Stop,MtIO:0x{1:X8},tag:{2:F3},cmd:{3:F3},enc:{4:F3}  ({0}异常停止,MtIO:0x{1:X8},tag:{2:F3},cmd:{3:F3},enc:{4:F3})",  disc, mt_io, targetpos, fcmd_pos, fenc_pos), DReport.EmErrCode.MoveError, (int)DReport.EmHareware.Axis + m_id);
+
+                VAR.msg.AddMsg(Msg.EM_MSGTYPE.WAR, VAR.IsChinese ? string.Format("{0} 定位偏差:{1:0.000}超过目标{2}", disc, curDisPos, objDis) : string.Format("{0} Positioning bias:{1:0.000}   ({0} 定位偏差:{1:0.000})", disc, fcmd_pos - targetpos));
+                if (mt_type == MT_TYPE.SEVER)
+                {
+                    curDisPos = Math.Abs(targetpos * pul_per_mm - enc_pos);
+                }
+                else
+                {
+                    curDisPos = Math.Abs(targetpos * pul_per_mm - cmd_pos);
+                }
+                if (curDisPos <= objDis) return EM_RES.OK;
+                else
+                {
+                    VAR.msg.AddMsg(Msg.EM_MSGTYPE.WAR, VAR.IsChinese ? string.Format("{0} 定位偏差:{1:0.000}超过目标{2}", disc, curDisPos, objDis) : string.Format("{0} Positioning bias:{1:0.000}   ({0} 定位偏差:{1:0.000})", disc, fcmd_pos - targetpos));
                     res = EM_RES.RETRY;
                     return res;
                 }

@@ -128,6 +128,7 @@ namespace UI
         private void SysTimeCntData_Select(object sender, EventArgs e)
         {
             var TmeCntList= SQLData.SysTimeCntDataSelect(sysTimeBarChart1);
+
             foreach(var sectCnt in TmeCntList)
             {
                 foreach (var aaCnt in sysTimeBarChart1.ListAllTime)
@@ -370,8 +371,15 @@ namespace UI
         {
 
         }
+
+
         bool bInitSysTimeCnt = true;
         SysTimeCnt CurTimeCnt = null;
+        /// <summary>
+        /// 系统运行状态记录
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void timer_sysTimeCnt_Tick(object sender, EventArgs e)
         {
         
@@ -397,7 +405,7 @@ namespace UI
             {
                 if (CurTimeCnt == null)
                 { bInitSysTimeCnt = true; return; }
-                if (VAR.sys_inf.info.Contains("运行"))
+                if (VAR.sys_inf.info.Contains("运行")|| VAR.sys_inf.info.Contains("RUN"))
                 {
                     CurTimeCnt.RunTime++;
                 }else

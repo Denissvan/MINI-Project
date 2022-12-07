@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -17,6 +18,7 @@ namespace UI
         
         public EventHandler HandlerSelect = null;
         public List<SysTimeCnt> ListAllTime=new List<SysTimeCnt>();
+        public DataTable ListAllTimeTable = new DataTable();
         public SysTimeBarChart()
         {
             InitializeComponent();
@@ -241,9 +243,95 @@ namespace UI
             }
             return true;
         }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            var bSuccessd = InitDataList();
+            ListAllTimeTable = new DataTable();
+            if (bSuccessd)
+            {
+                if (HandlerSelect != null)
+                {
+                    HandlerSelect(sender, e);
+                    ShowData();
+                    if (ListAllTimeTable != null)
+                    {
+                        DatatableToCSV(ListAllTimeTable);
+                    }
+                }
+                else
+                    MessageBox.Show("数据未更新！仅显示初始数据", "警告", MessageBoxButtons.OK);
+               
+            }
+        }
+
+
+
+        public static bool DatatableToCSV(DataTable dt)
+        {
+            bool createFLAG = false;
+
+            try
+            {
+                StringBuilder sb = new StringBuilder();
+                string line = "";
+
+                if (dt != null && dt.Rows.Count > 0)
+                {
+                    //table head
+                    for (int i = 0; i < dt.Columns.Count; i++)
+                    {
+                        line += string.Format("\"{0}\",", dt.Columns[i].ColumnName);
+                    }
+
+                    line = line.TrimEnd(',');
+                    sb.AppendLine(line);
+                    //every row
+                    foreach (DataRow row in dt.Rows)
+                    {
+                        line = "";
+                        for (int j = 0; j < dt.Columns.Count; j++)
+                        {
+                            line += string.Format("\"{0}\",", row[j].ToString().Replace("\"", "\"\""));
+                        }
+
+                        line = line.TrimEnd(',');
+                        sb.AppendLine(line);
+                    }
+                  
+                        SaveFileDialog mopen = new SaveFileDialog();
+                    mopen.Title = "保存csv文件";
+                    mopen.Filter = "csv文件(*.csv)|*.csv";
+                    if (mopen.ShowDialog() == DialogResult.OK)
+                    {
+                        //write file
+                        //日志文件夹路径
+                        var path = mopen.FileName;
+
+
+
+                        //日志TXT文件
+                        string csvName = path;
+
+                        File.WriteAllText(csvName, sb.ToString(), Encoding.UTF8);
+                    }
+                }else
+                {
+                    MessageBox.Show("数据为空,保存失败");
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+
+            return createFLAG;
+        }
+
+
     }
 
- 
+
     public class SysTimeCnt
     {
         public string InSertTime ;

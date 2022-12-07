@@ -16,7 +16,6 @@ using Cognex.VisionPro.Exceptions;
 using Cognex.VisionPro.ImageProcessing;
 using Cognex.VisionPro.ToolBlock;
 using Cognex.VisionPro.CalibFix;
-using DCCK_Vision.Common;
 using Cognex.VisionPro.PMAlign;
 using Cognex.VisionPro.Display;
 using Cognex.VisionPro.ImageFile;
@@ -622,6 +621,8 @@ namespace UI
             bool busy;
             CogAcqInfo info = new CogAcqInfo();
             VisionTask vstask = curTask;
+            var  taskid = -1;
+            CogImage8Grey curImage = null;
             try
             {
                 //get FIFO status and run image
@@ -640,57 +641,59 @@ namespace UI
                         TransForm.Scaling = 1;
                         TransForm.Rotation = 0;
                         Image.PixelFromRootTransform = TransForm;
+                        inputImageCnt++;//输入图像次数计数，防止午误触发！
                         bNewImage = true;
                         if (!bRunImage) return;
-
-                        //using (MemoryStream memoryStream = new MemoryStream())
-                        //{
-                        //    Image img = mAcqFifo.CompleteAcquireEx(info) as Image;
-                        //    img.Save(memoryStream, ImageFormat.Jpeg);
-                        //    byte[] back = null;
-                        //    back = memoryStream.GetBuffer();
-                        //    string str = Convert.ToBase64String(back);
-                        //    char[] charr = str.ToCharArray();
-                        //    //调接口发送
-                        //}
-
-
                         //current task
                         vstask = curTask;
+                        taskid = curTaskIdx;
                         //next task
                         NextTask();
-                        vstask.Image = new CogImage8Grey(Image);
+                        curImage=  new CogImage8Grey(Image);
+                        curImage.SetPixel(0, 0, (byte)taskid);
+                        curImage.SetPixel(1, 0, (byte)(info.TriggerNumber&0xFF));
+                        if(vstask.ResData.bOK&& vstask.ResData.bUpdate)
+                        {
+                            VAR.msg.AddMsg(Msg.EM_MSGTYPE.ERR, string.Format("当前相机任务已经更新且有结果可能是误触发{0},Pe:{1},Re:{2},{3},{4},TimeSamp:{5},TriNum:{6}", VAR.IsChinese ? disc : englishdisc, numPending, numReady, busy, vstask != null ? vstask.TaskName : "null", info.TimeStamp, info.TriggerNumber));
+                            return;
+                        }
+                        vstask.Image = curImage;
                         vstask.ResData.TimeStamp = info.TimeStamp;
                         vstask.ResData.TriNum = info.TriggerNumber;
-                        VAR.msg.AddMsg(Msg.EM_MSGTYPE.DBG, string.Format("{0},Pe:{1},Re:{2},{3},{4},TimeSamp:{5},TriNum:{6}", VAR.IsChinese ? disc : englishdisc, numPending, numReady, busy, vstask != null ? vstask.TaskName : "null", info.TimeStamp, info.TriggerNumber));
+                        VAR.msg.AddMsg(Msg.EM_MSGTYPE.DBG, string.Format("相机接收图片{0},Pe:{1},Re:{2},{3},{4},TimeSamp:{5},TriNum:{6}", VAR.IsChinese ? disc : englishdisc, numPending, numReady, busy, vstask != null ? vstask.TaskName : "null", info.TimeStamp, info.TriggerNumber));
                     }
+                    
+                    TaskRunImage(taskid, curImage);
+
+
                     //Thread.Sleep(100);
-                    Task t = new Task(() =>
-                    {
-                        lock (obj1)
-                        {
-                            //CogImage8Grey Img = new CogImage8Grey(Image);
-                            ////current task
-                            //vstask = curTask;
-                            ////next task
-                            //NextTask();
-                            //run task                            
-                            if (vstask != null)
-                            {
-                                string str = string.Empty;//= string.Format("{0}/{1}:{2} Run...", disc, vstask.TaskName, vstask.Image.GetHashCode());
-                                // VAR.msg.AddMsg(Msg.EM_MSGTYPE.DBG, str);
-                                vstask.RunImage(vstask.Image);
-                                if (CompeletedEventHandler != null)
-                                    CompeletedEventHandler(vstask, new EventArgs());
-                                //display
-                                RecordDisplay(vstask.ResData.OutputImg, vstask.ResData.bOK, vstask.DrawResultToGraphic(), null, vstask.Block.CreateLastRunRecord(), bSaveImage);
-                                str = string.Format("{0}/{1}:{2}", VAR.IsChinese ? disc : englishdisc, vstask.TaskName, vstask.ResData.ToString());
-                                // Utility.WriteStrToCSV(VAR.gsys_set.GetCurProductPath + "camdata.csv", string.Format("{0},{1},{2},{3},{4:F3},{5:F3},{6:F3}", DateTime.Now.ToString("hh:mm:ss:fff"), disc, vstask.TaskName, vstask.ResData.BarCode!=null?vstask.ResData.BarCode:"", vstask.ResData.PosMM.x, vstask.ResData.PosMM.y, vstask.ResData.PosMM.a));
-                                VAR.msg.AddMsg(vstask.ResData.bOK ? Msg.EM_MSGTYPE.DBG : Msg.EM_MSGTYPE.ERR, str);
-                            }
-                        }
-                    });
-                    t.Start();
+                    //Task t = new Task(() =>
+                    //{
+                    //    lock (obj1)
+                    //    {
+                    //        //CogImage8Grey Img = new CogImage8Grey(Image);
+                    //        ////current task
+                    //        //vstask = curTask;
+                    //        ////next task
+                    //        //NextTask();
+                    //        //run task                            
+                    //        if (vstask != null)
+                    //        {
+                    //            string str = string.Empty;//= string.Format("{0}/{1}:{2} Run...", disc, vstask.TaskName, vstask.Image.GetHashCode());
+                    //            // VAR.msg.AddMsg(Msg.EM_MSGTYPE.DBG, str);
+                    //            vstask.RunImage(vstask.Image);
+                    //            if (CompeletedEventHandler != null)
+                    //                CompeletedEventHandler(vstask, new EventArgs());
+                    //            //display
+                    //            RecordDisplay(vstask.ResData.OutputImg, vstask.ResData.bOK, vstask.DrawResultToGraphic(), null, vstask.Block.CreateLastRunRecord(), bSaveImage);
+                    //            str = string.Format("{0}/{1}:{2}", VAR.IsChinese ? disc : englishdisc, vstask.TaskName, vstask.ResData.ToString());
+                    //            // Utility.WriteStrToCSV(VAR.gsys_set.GetCurProductPath + "camdata.csv", string.Format("{0},{1},{2},{3},{4:F3},{5:F3},{6:F3}", DateTime.Now.ToString("hh:mm:ss:fff"), disc, vstask.TaskName, vstask.ResData.BarCode!=null?vstask.ResData.BarCode:"", vstask.ResData.PosMM.x, vstask.ResData.PosMM.y, vstask.ResData.PosMM.a));
+                    //            VAR.msg.AddMsg(vstask.ResData.bOK ? Msg.EM_MSGTYPE.DBG : Msg.EM_MSGTYPE.ERR, str);
+                    //        }
+                    //    }
+                    //});
+                    //t.Start();
+
                 }
                 numAcqs++;
                 if (numAcqs > 16)
@@ -715,6 +718,73 @@ namespace UI
 
             //t.Start();
         }
+
+
+        void TaskRunImage(int taskidx, CogImage8Grey myImage)
+        {                    
+
+            Task t = new Task(() =>
+            {
+                lock (obj1)
+                {
+                    if (myImage == null)
+                    {
+                        VAR.msg.AddMsg(Msg.EM_MSGTYPE.ERR, $"相机{disc}任务[{taskidx}],图像为空");
+                        return;
+                    }
+
+                    if (taskidx < 0 || taskidx >= List_vs_task_cur.Count)
+                    {
+                        VAR.msg.AddMsg(Msg.EM_MSGTYPE.ERR, $"相机{disc}未找到任务[{taskidx}],参数异常");
+                        return;
+                    }
+                    var id = myImage.GetPixel(0, 0);
+                    var num = myImage.GetPixel(1, 0);
+                    {
+                        //if(id != taskidx)
+                        {
+                            VAR.msg.AddMsg(Msg.EM_MSGTYPE.DBG, $"相机{disc}任务[{taskidx}],图片序号[{id}]/[{num}]");
+                        }
+                    }
+
+                    var mTask = List_vs_task_cur.ElementAt(taskidx);
+                    if (mTask != null)
+                    {
+                        if(mTask.ResData.bUpdate)
+                        {
+                            foreach (var tsk in List_vs_task_cur)
+                            {
+                                tsk.ResData.bUpdate = true;
+                                tsk.ResData.bOK = false;
+                            }
+                            mTask.ResData.bUpdate = true;
+                            mTask.ResData.bOK = false;
+                            return;
+                        }
+
+                        string str = string.Empty;//= string.Format("{0}/{1}:{2} Run...", disc, vstask.TaskName, vstask.Image.GetHashCode());
+                                                  // VAR.msg.AddMsg(Msg.EM_MSGTYPE.DBG, str);
+                        mTask.Image = myImage;
+                        mTask.RunImage(myImage);
+                        if (CompeletedEventHandler != null)
+                            CompeletedEventHandler(mTask, new EventArgs());
+                        //str = $"当前任务名称：{mTask.TaskName}";
+                        //str += $"--触发位置：X{mTask.TriPos.x}Y{mTask.TriPos.y}";
+                        //str += $"--模组位置：X{mTask.TriPos.n}";
+                        //VAR.msg.AddMsg(Msg.EM_MSGTYPE.DBG , str);
+                        //display
+                        RecordDisplay(mTask.ResData.OutputImg, mTask.ResData.bOK, mTask.DrawResultToGraphic(), null, mTask.Block.CreateLastRunRecord(), bSaveImage);
+                        str = string.Format("相机处理图片结果{0}/{1}:{2}", VAR.IsChinese ? disc : englishdisc, mTask.TaskName, mTask.ResData.ToString());
+                        // Utility.WriteStrToCSV(VAR.gsys_set.GetCurProductPath + "camdata.csv", string.Format("{0},{1},{2},{3},{4:F3},{5:F3},{6:F3}", DateTime.Now.ToString("hh:mm:ss:fff"), disc, vstask.TaskName, vstask.ResData.BarCode!=null?vstask.ResData.BarCode:"", vstask.ResData.PosMM.x, vstask.ResData.PosMM.y, vstask.ResData.PosMM.a));
+                        VAR.msg.AddMsg(mTask.ResData.bOK ? Msg.EM_MSGTYPE.DBG : Msg.EM_MSGTYPE.ERR, str);
+                    }
+                }
+            });
+            t.Start();
+        }
+
+
+
         #endregion
         #region 触发        
         public EM_RES Triger(bool bcontinue = false, bool bWaitImg = false)
@@ -1164,7 +1234,7 @@ namespace UI
             /// <returns></returns>
             public override string ToString()
             {
-                return string.Format("{0} X:{1:F3},Y{2:F3},A{3:F3},S{4:F3},T{5},{6}", bOK ? "OK" : "NG", PosMM.x, PosMM.y, PosMM.a, Score, CTms, BarCode != null && BarCode.Length > 0 ? BarCode : Message);
+                return string.Format("{0} X:{1:F3},Y{2:F3},A{3:F3},S{4:F3},T{5},{6},{7}", bOK ? "OK" : "NG", PosMM.x, PosMM.y, PosMM.a, Score, CTms, BarCode != null && BarCode.Length > 0 ? BarCode : Message, TriNum);
             }
         }
         #endregion
@@ -1468,7 +1538,7 @@ namespace UI
                     //run tool
                     ResData.bUpdate = false;
                     ResData.bOK = false;
-                    string str = string.Format("{0}/{1}:{2} Run...", VAR.IsChinese ? Camera.disc : Camera.englishdisc, TaskName, Image.GetHashCode());
+                    string str = string.Format("相机开始处理图片{0}/{1}:{2} Run...", VAR.IsChinese ? Camera.disc : Camera.englishdisc, TaskName, Image.GetHashCode());
                     VAR.msg.AddMsg(Msg.EM_MSGTYPE.DBG, str);
                     Block.Run();
 
@@ -1653,6 +1723,14 @@ namespace UI
         /// </summary>
         public List<VisionTask> List_vs_task_cur = new List<VisionTask>();
         /// <summary>
+        /// //相机接收图像次数计数，防止误触发！
+        /// </summary>
+        public int inputImageCnt = 0;
+        /// <summary>
+        /// 误触发计数记录，大于4次弹窗提示
+        /// </summary>
+        public int inputImageErrCnt = 0;
+        /// <summary>
         /// 复制任务
         /// </summary>
         public List<VisionTask> List_vs_copytask = new List<VisionTask>();
@@ -1784,6 +1862,7 @@ namespace UI
             try
             {
                 List_vs_task_cur.Clear();
+                inputImageCnt = 0;
                 curTaskIdx = 0;
                 VisionTask task = List_vs_task.Find(s => s.TaskName.Equals(name));
                 if (task == null)
@@ -1872,7 +1951,10 @@ namespace UI
                 VAR.msg.AddMsg(Msg.EM_MSGTYPE.ERR, VAR.IsChinese ? string.Format("{0}配置飞拍任务的名称列表为空!", mName) : string.Format("{0} Configure the name list of the aerial task to be empty!   ({0}配置飞拍任务的名称列表为空!)", mName), DReport.EmErrCode.GetParamError, (int)DReport.EmHareware.Cam);
                 return EM_RES.CAM_PARA_ERR;
             }
-            if (IfClear) List_vs_task_cur.Clear();
+            if (IfClear)
+            { List_vs_task_cur.Clear();
+                inputImageCnt = 0;
+            }
             curTaskIdx = 0;
             //foreach (string TaskName in ListTaskName)
             for (int i = 0; i < ListTaskName.Count; i++)
@@ -2833,6 +2915,7 @@ namespace UI
             if (DialogResult.Yes == MessageBox.Show(VAR.IsChinese ? "是否画面对中?" : "Whether the screen is centered?\r\n是否画面对中", VAR.IsChinese ? "提示" : "Prompt", MessageBoxButtons.YesNo, MessageBoxIcon.Question))
             {
                 List_vs_task_cur.Clear();
+                inputImageCnt = 0;
                 curTaskIdx = 0;
                 VsTask = List_vs_task.Find(s => s.TaskName.Equals("NpointTool"));
                 List_vs_task_cur.Add(VsTask);
@@ -2840,6 +2923,7 @@ namespace UI
                 if (res != EM_RES.OK) return res;
             }
             List_vs_task_cur.Clear();
+            inputImageCnt = 0;
             curTaskIdx = 0;
             VsTask = List_vs_task.Find(s => s.TaskName.Equals("AffTransTool"));
             List_vs_task_cur.Add(VsTask);

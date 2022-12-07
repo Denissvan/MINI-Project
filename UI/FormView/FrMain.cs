@@ -95,6 +95,7 @@ namespace UI
                     {
                         //停止操作
                         frrun.btn_stop_Click(null, null);
+                        VAR.sys_inf.Set(EM_ALM_STA.WAR_YELLOW, VAR.IsChinese ? "MES命令停机!" : "MES STOP");
                         result = 4;
                     }
                     else if (msg.Infos[0].Value.ToLower() == "startcheck")
@@ -106,6 +107,23 @@ namespace UI
                             MT.IsAllowStart = true;
                         result = 0;
                     }
+                    else if (msg.Infos[0].Value.ToLower() == "stripstartcheck")
+                    {
+                        //停止操作
+                        result = 0;
+                        if (msg.Infos[2].Value == "1")
+                        {
+                            MT.IsAllowStartByTray = true;
+                            //允许
+                        }
+                        else if (msg.Infos[2].Value == "0")
+                        {
+                            MT.IsAllowStartByTray = false;
+                            //不允许，停止加工，重新开始
+                        }
+                        MT.IsAllowStartUpdateByTray = true;
+                    }
+
                     List<BaseInfo> msgs = new List<BaseInfo>();
                     msgs.Add(new BaseInfo() { Id = 1, Value = $"{result}" });
                     msgs.Add(new BaseInfo() { Id = 2, Value = msg.Infos[1].Value });
@@ -479,28 +497,7 @@ namespace UI
             }
             MT.AxList_BOX_RIGHT = new List<AXIS> { MT.AXIS_BOX_R_X1, MT.AXIS_BOX_R_X2, MT.AXIS_BOX_R_Y1, MT.AXIS_BOX_R_Z1, MT.AXIS_BOX_R_Z2 };
             COM.RightLightBox = new LightBox("RightLightBox", "右光箱", "RightLightBox", MT.AXIS_BOX_R_X1, MT.AXIS_BOX_R_X2, MT.AXIS_BOX_R_Y1, MT.AXIS_BOX_R_Z1, MT.AXIS_BOX_R_Z2);
-            //);
-            //TaskHWInit.Start();
-            //COM.CamInit();
 
-            //create form   
-            //Task TaskFormInit = new Task(() =>
-            //{
-            //    if (frsys == null) frsys = new FrSys();
-            //    frsys.bupdate = false;
-            //    if (frrst == null) frrst = new FrRst();
-            //    frrst.bupdate = false;
-            //    if (frproduct == null) frproduct = new FrProduct();
-            //    frproduct.bupdate = false;
-            //    if (frrun == null) frrun = new FrRun();
-            //    frrun.bupdate = false;
-
-            //    pnl_sub.Controls.Clear();
-            //    frrun.TopLevel = false;
-            //    frrun.FormBorderStyle = FormBorderStyle.None;                
-            //}
-            //);
-            //TaskFormInit.Start();
 
             Application.DoEvents();
             Thread.Sleep(10);
@@ -600,6 +597,7 @@ namespace UI
         SysTimeCnt CurSysTimeCnt = new SysTimeCnt();
         List<SysTimeCnt> ListSysTimeCnt = new List<SysTimeCnt>();
         string CurHourStr = "";
+        bool bEditionUpdate = false;//更新版本信息
         private void timer_update_Tick(object sender, EventArgs e)
         {
 
@@ -677,43 +675,7 @@ namespace UI
                         rbtn_user.Enabled = true;
                     }
                 }
-                //if (MT.isReady == false)
-                //{
-                //    timer_key.Enabled = false;
-                //    return;
-                //}
-                //timer_key.Enabled = true;
-
-                //if (MT.GPIO_IN_EMG.isOFF)
-                //{
-                //    if (VAR.gsys_set.status != CONST.SYS_STATUS_EMG)
-                //    {
-                //        VAR.gsys_set.status = CONST.SYS_STATUS_EMG;
-                //        Action.VAR.sys_inf.Set(CONST.EM_ALM_STA.WAR_RED_FLASH, "EMG");
-                //    }
-                //}
-                //else
-                //{
-                //    foreach (AXIS ax in MT.AxisListExceptFd)
-                //    {
-                //        if (!ax.isSVRON)
-                //        {
-                //            if (VAR.gsys_set.status != CONST.SYS_STATUS_UNKOWN)
-                //            {
-                //                VAR.gsys_set.status = CONST.SYS_STATUS_UNKOWN;
-                //                Action.VAR.sys_inf.Set(CONST.EM_ALM_STA.WAR_RED_FLASH, ax.disc + "未使能");
-                //            }
-                //        }
-                //        else if (ax.isALM)
-                //        {
-                //            if (VAR.gsys_set.status != CONST.SYS_STATUS_ERR)
-                //            {
-                //                VAR.gsys_set.status = CONST.SYS_STATUS_ERR;
-                //                Action.VAR.sys_inf.Set(CONST.EM_ALM_STA.WAR_RED_FLASH, ax.disc + "ALM", 0);
-                //            }
-                //        }
-                //    }
-                //}
+               
                 if (DateTime.Now.ToString("HH:mm:ss") == PT_SET.CheckTimeMorning ||
                     DateTime.Now.ToString("HH:mm:ss") == PT_SET.CheckTimeEvening)
                 {
@@ -733,15 +695,18 @@ namespace UI
                         Thread.Sleep(1000);
                         MessageBox.Show("请进行点检，并在主界面设备信息界面点击点检上传信息！");
                     }
-
-                    //if (PT_SET.bCycle)
-                    //{
-                    //    var path = VAR.gsys_set.GetCurProductPath + string.Format("turninterval\\");
-                    //    if (path != null && !Directory.Exists(path)) Directory.CreateDirectory(path);
-                    //    Utility.WriteToXml(VAR.dttt, VAR.gsys_set.GetCurProductPath + string.Format("turninterval\\{0}转盘.xml", DateTime.Now.ToString("HHmmss")));
-                    //    VAR.dttt.Rows.Clear();
-                    //}
+              
                 }
+                if (DateTime.Now.Hour%2==1&& bEditionUpdate==false)
+                {
+                    bEditionUpdate = true;
+                    VAR.msg.AddMsg(Msg.EM_MSGTYPE.NOR, VAR.IsChinese ? ("设备当前版本:" + lbVer.Text) : ("Device current version:        (设备当前版本:)" + lbVer.Text));
+                }
+               else if (DateTime.Now.Hour % 2 != 1&& bEditionUpdate==true)
+                {
+                    bEditionUpdate = false;
+                }
+              
             }
             catch
             {
@@ -763,7 +728,7 @@ namespace UI
             var curHour = DateTime.Now.Hour;
             if (curHour == 9 )
             {
-                if (bhavesend==false)
+                if (!bhavesend)
                 {
                     bhavesend = true;
                     string vv = "0";
@@ -976,7 +941,8 @@ namespace UI
             if (tck == -1) tck = DateTime.Now.Ticks;
             double addtime = (DateTime.Now.Ticks - tck) / 10000000.0;
             tck = DateTime.Now.Ticks;
-            if (VAR.gsys_set.status == EM_SYS_STA.RUN && !VAR.IsErrAlm && !COM.traybox_fd.ChgML && !COM.traybox_ng.ChgML && !COM.traybox_ok.ChgML)
+          //  if (VAR.gsys_set.status == EM_SYS_STA.RUN && !VAR.IsErrAlm && !COM.traybox_fd.ChgML && !COM.traybox_ng.ChgML && !COM.traybox_ok.ChgML)
+             if (BaseAction.bRuning && (VAR.sys_inf.info.Contains("运行")|| VAR.sys_inf.info.Contains("RUN")))
             {
 
                 COUNT_DATA.runtime += addtime;
@@ -1384,12 +1350,16 @@ namespace UI
             VAR.gsys_set.status = EM_SYS_STA.REPAIR;
             VAR.sys_inf.Set(EM_ALM_STA.WAR_YELLOW_FLASH, VAR.IsChinese ? "设备维修!" : "Equ upkeep", 20, true);
             MT.ST_WARN warn = new MT.ST_WARN();
-            warning fr_warn = new warning();
-            warn.ok_txt = VAR.IsChinese ? "确定" : "OK";
+            warning fr_warn = new warning();//增加语言
+            warn.ok_txt = MultiLanguage.TxtSelct("确定", "OK", "VÂNG");
             warn.ws = null;
-            warn.title = VAR.IsChinese ? "提示:设备维修!" : "Tip: Equipment maintenance!";
-            warn.msg = VAR.IsChinese ? "当前设备在维修状态！" : "The current equipment is in maintenance status!\r\n当前设备在维修状态！";
-            warn.lb_msg = VAR.IsChinese ? "提示:当前设备正在维修，请确认设备内没有维修人员后再关闭此对话框!" : "Tip: The current equipment is being repaired, please confirm that there are no maintenance personnel in the equipment before closing this dialog box!\r\n提示:当前设备正在维修，请确认设备内没有维修人员后再关闭此对话框!";
+            warn.title = MultiLanguage.TxtSelct("提示:设备维修!", "Tip: Equipment maintenance!", "Mẹo: Bảo trì thiết bị!");
+            warn.msg = MultiLanguage.TxtSelct("当前设备在维修状态", "The current equipment is in maintenance status!", "Thiết bị hiện tại đang trong tình trạng bảo trì!");
+            
+            warn.lb_msg = MultiLanguage.TxtSelct(
+                "提示：当前设备正在维修，请确认设备内没有维修人员或QC巡检确认人员后再关闭此对话框",
+                "Tip: The current equipment is being repaired, please confirm that there are no maintenance personnel in the equipment before closing this dialog box!",
+                "Mẹo: Thiết bị hiện tại đang được sửa chữa, vui lòng xác nhận rằng không có nhân viên bảo trì trong thiết bị trước khi đóng hộp thoại này! ");
             MT.Display_frwarn(fr_warn, warn, ERR_ALM.EmErrItem.Null, false);
             VAR.gsys_set.status = sys_status;
         }
@@ -1405,7 +1375,11 @@ namespace UI
             LanguageSwitch(frsuser, lang);
             LanguageSwitch(frsys, lang);
         }
-
+        /// <summary>
+        /// 语言选择
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void languageToolStripMenuItem_Click(object sender, EventArgs e)
         {
             if (VAR.gsys_set.status == EM_SYS_STA.RUN || frsuser.user1.cur_user.pms < User.PERMISSION.SuperAdmin) return;
@@ -1417,6 +1391,8 @@ namespace UI
                 lang = Enum.GetName(typeof(enumLanguage), 0);
                 chineseToolStripMenuItem.Checked = true;
                 englishToolStripMenuItem.Checked = false;
+                vietnameseToolStripMenuItem.Checked = false;
+
                 frrun.cogDisplayer_run.toolStripLabel4.Text = "显示模式";
                 frrun.cogDisplayer_run.tsb_cam_list.Text = "相机列表";
                 frrun.cogDisplayer_run.tsb_block_edit.Text = "流程编辑";
@@ -1443,6 +1419,8 @@ namespace UI
                 lang = Enum.GetName(typeof(enumLanguage), 1);
                 chineseToolStripMenuItem.Checked = false;
                 englishToolStripMenuItem.Checked = true;
+                vietnameseToolStripMenuItem.Checked = false;
+
                 frrun.cogDisplayer_run.toolStripLabel4.Text = "Display mode";
                 frrun.cogDisplayer_run.tsb_cam_list.Text = "Cam list";
                 frrun.cogDisplayer_run.tsb_block_edit.Text = "Edit";
@@ -1464,6 +1442,34 @@ namespace UI
                 frproduct.cogDisplayer_product.tsb_save_screen.Text = "Save img";
                 frproduct.cogDisplayer_product.tsb_continue.Text = "Live";
             }
+            else if (menu == vietnameseToolStripMenuItem)
+            {
+                lang = Enum.GetName(typeof(enumLanguage), 2);
+                chineseToolStripMenuItem.Checked = false;
+                englishToolStripMenuItem.Checked = false;
+                vietnameseToolStripMenuItem.Checked = true;
+                frrun.cogDisplayer_run.toolStripLabel4.Text = "显示模式";
+                frrun.cogDisplayer_run.tsb_cam_list.Text = "相机列表";
+                frrun.cogDisplayer_run.tsb_block_edit.Text = "流程编辑";
+                frrun.cogDisplayer_run.toolStripLabel5.Text = "曝光(ms)";
+                frrun.cogDisplayer_run.toolStripLabel2.Text = "亮度(0-1)";
+                frrun.cogDisplayer_run.toolStripLabel3.Text = "对比度(0-1)";
+                frrun.cogDisplayer_run.tsb_save.Text = "保存参数";
+                frrun.cogDisplayer_run.tsb_GoCenter.Text = "图像对中";
+                frrun.cogDisplayer_run.tsb_save_screen.Text = "保存图片";
+                frrun.cogDisplayer_run.tsb_continue.Text = "连续测量";
+                frproduct.cogDisplayer_product.toolStripLabel4.Text = "显示模式";
+                frproduct.cogDisplayer_product.tsb_cam_list.Text = "相机列表";
+                frproduct.cogDisplayer_product.tsb_block_edit.Text = "流程编辑";
+                frproduct.cogDisplayer_product.toolStripLabel5.Text = "曝光(ms)";
+                frproduct.cogDisplayer_product.toolStripLabel2.Text = "亮度(0-1)";
+                frproduct.cogDisplayer_product.toolStripLabel3.Text = "对比度(0-1)";
+                frproduct.cogDisplayer_product.tsb_save.Text = "保存参数";
+                frproduct.cogDisplayer_product.tsb_GoCenter.Text = "图像对中";
+                frproduct.cogDisplayer_product.tsb_save_screen.Text = "保存图片";
+                frproduct.cogDisplayer_product.tsb_continue.Text = "连续测量";
+            }
+
             LanguageSwitch(this, lang);
             LanguageSwitch(frrun, lang);
             LanguageSwitch(frcount, lang);
@@ -1474,6 +1480,7 @@ namespace UI
 
 
         }
+
 
         private void LanguageSwitch(Form form, string lang)
         {
@@ -1486,7 +1493,10 @@ namespace UI
             {
                 chineseToolStripMenuItem.Checked = true;
                 englishToolStripMenuItem.Checked = false;
+                vietnameseToolStripMenuItem.Checked = false;
+
                 VAR.IsChinese = true;
+                MultiLanguage.CurrentLanguage = enumLanguage.Chinese;
                 frsys.affineCail_Dw1ToUp1.lbl_affine_place.Text = "吸头1放料位";
                 frsys.affineCail_Dw1ToUp1.lbl_affine_upcam.Text = "上相机1拍照位";
                 frsys.affineCail_Dw1ToUp1.lbl_affine_downcam.Text = "下相机1拍照位";
@@ -1516,13 +1526,52 @@ namespace UI
                 frproduct.cogDisplayer_product.tsb_save_screen.Text = "保存图片";
                 frproduct.cogDisplayer_product.tsb_continue.Text = "连续测量";
 
-
             }
             else if (lang == Enum.GetName(typeof(enumLanguage), 1))
             {
                 chineseToolStripMenuItem.Checked = false;
                 englishToolStripMenuItem.Checked = true;
+                vietnameseToolStripMenuItem.Checked = false;
+
                 VAR.IsChinese = false;
+                MultiLanguage.CurrentLanguage = enumLanguage.English;
+                frsys.affineCail_Dw1ToUp1.lbl_affine_place.Text = "XT1 Place";
+                frsys.affineCail_Dw1ToUp1.lbl_affine_upcam.Text = "UpCam1";
+                frsys.affineCail_Dw1ToUp1.lbl_affine_downcam.Text = "DwCam1";
+                frsys.affineCail_Dw2ToUp2.lbl_affine_place.Text = "XT3 Place";
+                frsys.affineCail_Dw2ToUp2.lbl_affine_upcam.Text = "UpCam2";
+                frsys.affineCail_Dw2ToUp2.lbl_affine_downcam.Text = "DwCam2";
+                frsys.npointCail1.lbl_unit_cam.Text =
+                frsys.npointCail1.cb_UDload.SelectedIndex == 0 ? "UpCam1" : "UpCam2";
+                frrun.cogDisplayer_run.toolStripLabel4.Text = "Display mode";
+                frrun.cogDisplayer_run.tsb_cam_list.Text = "Cam list";
+                frrun.cogDisplayer_run.tsb_block_edit.Text = "Edit";
+                frrun.cogDisplayer_run.toolStripLabel5.Text = "Exposure(ms)";
+                frrun.cogDisplayer_run.toolStripLabel2.Text = "Brightness(0-1)";
+                frrun.cogDisplayer_run.toolStripLabel3.Text = "Contrast(0-1)";
+                frrun.cogDisplayer_run.tsb_save.Text = "Save cfg";
+                frrun.cogDisplayer_run.tsb_GoCenter.Text = "Center";
+                frrun.cogDisplayer_run.tsb_save_screen.Text = "Save img";
+                frrun.cogDisplayer_run.tsb_continue.Text = "Live";
+                frproduct.cogDisplayer_product.toolStripLabel4.Text = "Display mode";
+                frproduct.cogDisplayer_product.tsb_cam_list.Text = "Cam list";
+                frproduct.cogDisplayer_product.tsb_block_edit.Text = "Edit";
+                frproduct.cogDisplayer_product.toolStripLabel5.Text = "Exposure(ms)";
+                frproduct.cogDisplayer_product.toolStripLabel2.Text = "Brightness(0-1)";
+                frproduct.cogDisplayer_product.toolStripLabel3.Text = "Contrast(0-1)";
+                frproduct.cogDisplayer_product.tsb_save.Text = "Save cfg";
+                frproduct.cogDisplayer_product.tsb_GoCenter.Text = "Center";
+                frproduct.cogDisplayer_product.tsb_save_screen.Text = "Save img";
+                frproduct.cogDisplayer_product.tsb_continue.Text = "Live";
+            }
+            else if (lang == Enum.GetName(typeof(enumLanguage), 2))
+            {
+                chineseToolStripMenuItem.Checked = false;
+                englishToolStripMenuItem.Checked = false;
+                vietnameseToolStripMenuItem.Checked = true;
+
+                VAR.IsChinese = false;
+                MultiLanguage.CurrentLanguage = enumLanguage.Vietnamese;
                 frsys.affineCail_Dw1ToUp1.lbl_affine_place.Text = "XT1 Place";
                 frsys.affineCail_Dw1ToUp1.lbl_affine_upcam.Text = "UpCam1";
                 frsys.affineCail_Dw1ToUp1.lbl_affine_downcam.Text = "DwCam1";
@@ -1553,9 +1602,11 @@ namespace UI
                 frproduct.cogDisplayer_product.tsb_continue.Text = "Live";
             }
 
+
         }
-      
-    
+
+
+
 
         protected override void WndProc(ref System.Windows.Forms.Message m)
         {

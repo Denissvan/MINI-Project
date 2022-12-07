@@ -1159,6 +1159,7 @@ namespace UI
             } 
             Cam cam_up= COM.List_UDLoad[id].upcam;
             cam_up.List_vs_task_cur.Clear();
+            cam_up.inputImageCnt = 0;
             Cam.VisionTask VsTask = cam_up.List_vs_task.Find(s => s.TaskName.Equals(CONST.TrayUpFw));
             cam_up.List_vs_task_cur.Add(VsTask);
             pos_temp = pos;
@@ -1284,6 +1285,7 @@ namespace UI
 
                 Cam cam_up = COM.UDLoad1.upcam;
                 cam_up.List_vs_task_cur.Clear();
+                cam_up.inputImageCnt = 0;
                 Cam.VisionTask VsTask = cam_up.List_vs_task.Find(s => s.TaskName.Equals(CONST.LiZhuFw));
                 cam_up.List_vs_task_cur.Add(VsTask);
                 pos_temp = pos.ToXYZA();

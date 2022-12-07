@@ -5,11 +5,12 @@ using System.Linq;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 using MotionCtrl;
 
 namespace UI
 {
-    class SerialCom
+    public class SerialCom
     {
         public SerialPort ComDevice = new SerialPort();
         /// <summary>
@@ -66,7 +67,7 @@ namespace UI
             ComDevice.DataReceived += new SerialDataReceivedEventHandler(SerialCom_DataReceived);
             if (SerialPort.GetPortNames().Length == 0)
             {
-                VAR.msg.AddMsg(Msg.EM_MSGTYPE.ERR, string.Format("{0}未发现可用串口",Description));
+                VAR.msg.AddMsg(Msg.EM_MSGTYPE.ERR, string.Format("{0}未发现可用串口", Description));
                 //Logger.Error($"{Description}未发现可用串口!");
                 return false;
             }
@@ -97,6 +98,9 @@ namespace UI
             }
             return true;
         }
+
+        readonly object obj = new object();
+
         /// <summary>
         /// 串口接收数据
         /// </summary>
@@ -104,19 +108,31 @@ namespace UI
         /// <param name="e"></param>
         public void SerialCom_DataReceived(object sender, SerialDataReceivedEventArgs e)
         {
-            if (bIsReadBuffer)
-                Thread.Sleep(200);
+            try
+            {
+                lock (obj)
+                {
+                    if (bIsReadBuffer)
+                        Thread.Sleep(200);
 
-            bytReceData = null;
-            //开辟接收缓冲区
-            Thread.Sleep(200);
-            byte[] ReDatas = new byte[ComDevice.BytesToRead];
-            //从串口读取数据
-            ComDevice.Read(ReDatas, 0, ReDatas.Length);
-            //实现数据的解码与显示
-            DecodeASCIIData(ReDatas);
-            DecodeHexData(ReDatas);
-            ComReceivedEvent(this, null);
+                    bytReceData = null;
+                    //开辟接收缓冲区
+                    Thread.Sleep(200);
+                    byte[] ReDatas = new byte[ComDevice.BytesToRead];
+                    //从串口读取数据
+                    ComDevice.Read(ReDatas, 0, ReDatas.Length);
+                    //实现数据的解码与显示
+                    DecodeASCIIData(ReDatas);
+                    DecodeHexData(ReDatas);
+                    ComReceivedEvent(this, null);
+                }
+            }
+            catch(Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+                MessageBox.Show(ex.StackTrace);
+            }
+            
         }
 
         /// <summary>
@@ -137,6 +153,8 @@ namespace UI
         {
             lock (Locker)
             {
+                bool bfrist = true;
+            Retry:
                 if (ComDevice.IsOpen)
                 {
                     try
@@ -148,20 +166,68 @@ namespace UI
                     }
                     catch (Exception ex)
                     {
-                        VAR.msg.AddMsg(Msg.EM_MSGTYPE.ERR, string.Format("{0}发送失败: {1}",Description,ex.ToString()));
+                        VAR.msg.AddMsg(Msg.EM_MSGTYPE.ERR, string.Format("{0}发送失败: {1}", Description, ex.ToString()));
                         //Logger.Error($"{Description}发送失败: {ex.ToString()}");
                     }
                 }
                 else
                 {
-                    VAR.msg.AddMsg(Msg.EM_MSGTYPE.ERR, string.Format("{0}串口没打开",Description));
-                    //Logger.Error($"{Description}串口没打开");
+                    VAR.msg.AddMsg(Msg.EM_MSGTYPE.ERR, string.Format("{0}串口没打开", Description));
+                    if (bfrist)
+                    {
+                        ComDevice.Open();
+                        goto Retry;
+                        bfrist = false;
+                    }
                 }
                 return false;
             }
         }
 
+        public bool SendData(string data, bool bIsReadBuffer = false)
+        {
+            lock (Locker)
+            {
+                bool bfrist = true;
+                Retry:
+                if (ComDevice.IsOpen)
+                {
+                    try
+                    {
+                        this.bIsReadBuffer = bIsReadBuffer;
+                        //发送信息
+                        ComDevice.Write(data);
+                        return true;
+                    }
+                    catch (Exception ex)
+                    {
+                        VAR.msg.AddMsg(Msg.EM_MSGTYPE.ERR, string.Format("{0}发送失败: {1}", Description, ex.ToString()));
+                        //Logger.Error($"{Description}发送失败: {ex.ToString()}");
+                    }
+                }
+                else 
+                {
 
+                    VAR.msg.AddMsg(Msg.EM_MSGTYPE.ERR, string.Format("{0}串口没打开", Description));
+                    if (bfrist)
+                    {
+                        try
+                        {
+                            ComDevice.Open();
+                        }
+                        catch(Exception ee)
+                        {
+                            bfrist = false;
+                            return false;
+                        }
+                        goto Retry;
+                        bfrist = false;
+                    }
+                    //Logger.Error($"{Description}串口没打开");
+                }
+                return false;
+            }
+        }
         /// <summary>
         /// 十进制的字符串转为十六进制的字符串
         /// </summary>

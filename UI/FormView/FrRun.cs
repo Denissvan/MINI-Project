@@ -222,7 +222,8 @@ namespace UI
                 if (!PT_SET.IsMesLocal)
                 {
                     Msg.secsManager.Send(new BaseInfo() { Id =1,Value= Convert.ToInt32(DReport.EmStatus.Run).ToString() });
-                    Msg.secsManager.Send(new BaseInfo() {Id = 1}, 2);
+                    Msg.secsManager.Send(new BaseInfo() { Id = 1 }, 2);
+                    Msg.secsManager.Send(new BaseInfo() { Id = 3 }, 2);
                     await Task.Run(() =>
                     {
                         VAR.msg.AddMsg(Msg.EM_MSGTYPE.SYS, "正在等待MES上位指令!");
@@ -527,10 +528,7 @@ namespace UI
             lb_set_grrudlcnt.Text = PT_SET.GRRUdlCnt.ToString();
             lb_EquipmentMT.Text = COUNT_DATA.CurEquipmentMT.ToString();
             lb_FixtrueMT.Text = COUNT_DATA.CurFixtrueMT.ToString();
-            //if(COM.LeftLightBox.CurPosDef!=null)
-            //lb_lightbox_left_posref.Text = string.Format("位置信息：{0}", COM.LeftLightBox.CurPosDef.Name);
-            //if (COM.RightLightBox.CurPosDef != null)
-            //lb_lightbox_right_posref.Text = string.Format("位置信息：{0}", COM.RightLightBox.CurPosDef.Name);
+           
 
 
 
@@ -539,16 +537,26 @@ namespace UI
             double ng_cnt = COUNT_DATA.ngcnt[0] + COUNT_DATA.ngcnt[1] + COUNT_DATA.ngcnt[2] + COUNT_DATA.ngcnt[3];
             double hour = COUNT_DATA.runtime + COUNT_DATA.waittime;
             double uph = all_cnt / (hour==0?0.001:hour) * 3600;
-
-
-
+            double ok_cntNormal = ok_cnt - COUNT_DATA.OkTwoTestCnt;
+            double ng_cntNormal = ng_cnt - COUNT_DATA.NgTwoTestCnt;
+            double uphNormal = (ok_cntNormal+ ng_cntNormal) / (hour == 0 ? 0.001 : hour) * 3600;
             if (tb_all_cnt.Text != all_cnt.ToString("f0") || tb_ok_cnt.Text != ok_cnt.ToString("f0") ||
                 tb_uph.Text != uph.ToString("f0") || lastngcnt != ng_cnt)
             {
                 Msg.secsManager.Send((new BaseInfo() { Id = 3, Value = all_cnt.ToString("f0") }));
                 Msg.secsManager.Send((new BaseInfo() { Id = 4, Value = ok_cnt.ToString("f0") }));
                 Msg.secsManager.Send((new BaseInfo() { Id = 5, Value = ng_cnt.ToString("f0") }));
+              
+
                 Msg.secsManager.Send((new BaseInfo() { Id = 6, Value = uph.ToString("f0") }));
+                if (ok_cntNormal >= 0)
+                    Msg.secsManager.Send((new BaseInfo() { Id = 10, Value = ok_cntNormal.ToString("f0") }));
+                if (ng_cntNormal >= 0)
+
+                {
+                    Msg.secsManager.Send((new BaseInfo() { Id = 11, Value = ng_cntNormal.ToString("f0") }));
+                    Msg.secsManager.Send((new BaseInfo() { Id =12, Value = uphNormal.ToString("f0") }));
+                }
                 Msg.secsManager.Send(new BaseInfo() { Id = 2 }, TypeId: 2);
             }
             lastngcnt = COUNT_DATA.ngcnt[0] + COUNT_DATA.ngcnt[1] + COUNT_DATA.ngcnt[2] + COUNT_DATA.ngcnt[3];

@@ -963,19 +963,24 @@ namespace UI
             {
                 VAR.sys_inf.Set(EM_ALM_STA.WAR_YELLOW_FLASH, VAR.IsChinese ? "保养提示!" : "Upkeep", 20, true);
                 MT.ST_WARN st_warn = new MT.ST_WARN();
-                warning fr_warn = new warning();
-                st_warn.ok_txt = VAR.IsChinese ? "确认返回" : "Confirm return";
+                warning fr_warn = new warning();//增加语言
+                st_warn.ok_txt = MultiLanguage.TxtSelct("确认返回", "Confirm return", "xác nhận trở lại");
                 st_warn.ws = null;
-                st_warn.title = VAR.IsChinese ? "提示:保养提示!" : "Tip: Maintenance tips!";
-                st_warn.msg = VAR.IsChinese ? string.Format("{0}次数已到,当前次数:{1},设定次数{2}", IsFixtrue == true ? "夹具保养:运行" : "设备保养:运行", curVal, LimVal) : string.Format("{0} times have arrived, current times: {2}, set times {3}\r\n{1}次数已到,当前次数:{2},设定次数{3}", IsFixtrue == true ? "Fixture maintenance: running" : "Equipment maintenance: running", IsFixtrue == true ? "夹具保养:运行" : "设备保养:运行", curVal, LimVal);
-                st_warn.lb_msg = VAR.IsChinese ? "提示:" + st_warn.msg + "\r\n请确认!\r\n  请按'确认返回'键进行相应的保养，保养后把当前次数清零，再按'运行'键进行生产!" : "Tip:" + st_warn.msg + "\r\nPlease confirm! \r\n Please press the 'Confirm Back' button to perform the corresponding maintenance. After maintenance, clear the current number to zero, and then press the 'Run' button to produce!" + "\r\n提示:" + st_warn.msg + "\r\n请确认!\r\n  请按'确认返回'键进行相应的保养，保养后把当前次数清零，再按'运行'键进行生产!";
+                st_warn.title = MultiLanguage.TxtSelct("提示:保养提示!", "Tip: Maintenance tips!", "Mẹo: Mẹo bảo trì!");
+                st_warn.msg = MultiLanguage.TxtSelct(
+                    "提示:" + st_warn.msg + "\r\n请确认!\r\n  请按'确认返回'键进行相应的保养，保养后把当前次数清零，再按'运行'键进行生产!",
+                    "Tip:" + st_warn.msg + "\r\nPlease confirm! \r\n Please press the 'Confirm Back' button to perform the corresponding maintenance. After maintenance, clear the current number to zero, and then press the 'Run' button to produce!",
+                    "dấu hiệu:" + st_warn.msg + "\r\n Vui lòng xác nhận!\r\n Vui lòng nhấn phím xác nhận và quay lại để thực hiện bảo trì tương ứng, sau khi bảo trì, đặt lại số lần hiện tại, sau đó nhấn phím 'chạy' để bắt đầu sản xuất!");
+                st_warn.lb_msg = MultiLanguage.TxtSelct(
+                    "提示:" + st_warn.msg + "\r\n请确认!\r\n  请按'确认返回'键进行相应的保养，保养后把当前次数清零，再按'运行'键进行生产!",
+                    "Tip:" + st_warn.msg + "\r\nPlease confirm! \r\n Please press the 'Confirm Back' button to perform the corresponding maintenance. After maintenance, clear the current number to zero, and then press the 'Run' button to produce!",
+                    "dấu hiệu:" + st_warn.msg + "\r\n Vui lòng xác nhận!\r\n Vui lòng nhấn phím xác nhận và quay lại để thực hiện bảo trì tương ứng, sau khi bảo trì, đặt lại số lần hiện tại, sau đó nhấn phím 'chạy' để bắt đầu sản xuất!");
                 DialogResult logres1 = MT.Display_frwarn(fr_warn, st_warn, ERR_ALM.EmErrItem.Null);
                 ret = EM_RES.PARA_OUTOFRANG;
             }
 
             return ret;
         }
-
         #endregion
 
         public static void run()
@@ -1322,12 +1327,12 @@ namespace UI
                 //确认是否重工
                 DRpt.Report_Product(VAR.gsys_set.cur_product_name, !VAR.Isnormal);
                 DRpt.Report_Status(DReport.EmStatus.Run, DReport.EmHareware.Null, DReport.EmStatus.Run.GetDescription(VAR.IsChinese));
-                int i = 2000;
+                int i = 3000;
                 while (true)
                 {
                     Thread.Sleep(10);
                     i++;
-                    if(i>2000)
+                    if(i>=3000)
                     {
                         i = 0;
                         Msg.secsManager.Send(new BaseInfo() { Id = 1, Value = Convert.ToInt32(DReport.EmStatus.Run).ToString() });
@@ -1339,6 +1344,8 @@ namespace UI
                         if (UpDownLoad.status == UpDownLoad.EM_STA.WAIT)
                             UpDownLoad.bquit = true;
                     }
+                    if( VAR.sys_inf.info.Contains("运行"))
+                        VAR.gsys_set.status = EM_SYS_STA.RUN;
                     if (UpDownLoad.brun || brun)
                     {
                         // VAR.sys_inf.Set(EM_ALM_STA.NOR_BLUE, "运行", 0, false);
@@ -1388,21 +1395,7 @@ namespace UI
                         break;
                     }
 
-                    //#region 安全保护
-
-                    //if (!MT.isSafeSen)
-                    //{
-                    //    if (bsafe == false) VAR.msg.AddMsg(Msg.EM_MSGTYPE.WAR, "安全光栅/门锁触发1");
-                    //    bsafe = true;
-                    //    if (VAR.gsys_set.status == EM_SYS_STA.RUN)
-                    //    {
-                    //        VAR.sys_inf.Set(EM_ALM_STA.WAR_YELLOW_FLASH, "安全防护");
-                    //        VAR.gsys_set.bpause = true;
-                    //    }
-                    //}
-                    //else bsafe = false;
-
-                    //#endregion
+                   
                 }
                 //归位
                 foreach (UpDownLoad ud in COM.List_UDLoad)

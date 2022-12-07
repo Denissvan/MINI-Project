@@ -756,6 +756,7 @@ namespace UI
                             Time = mm
                         }) ;
                     }
+                    Selector.ListAllTimeTable = dt;
 
 
 
@@ -766,8 +767,15 @@ namespace UI
             return SysTimeCntList;
         }
 
+       
+        /// <summary>
+        /// 判断是否存在某月的表，工作时间记录
+        /// </summary>
+        /// <param name="Selector"></param>
+        /// <returns></returns>
         public static bool SysTimeCntDataChkExitTable(SysTimeCnt Selector)
         {
+            return false;
             int ct = Environment.TickCount;
             DataTable dt = new DataTable();
             DataTable dataTable = new DataTable();
@@ -793,6 +801,11 @@ namespace UI
 
             return false;
         }
+        /// <summary>
+        /// 判断是否存在对应插入时间的记录，系统运行时间查询
+        /// </summary>
+        /// <param name="Selector"></param>
+        /// <returns></returns>
         public static List<SysTimeCnt> SysTimeCntDataChkExit(SysTimeCnt Selector)
         {
            if( !SysTimeCntDataChkExitTable(Selector))
@@ -812,9 +825,7 @@ namespace UI
                     conn.Open();
                     SQLiteHelper sh = new SQLiteHelper(cmd);
                     string select = "";
-                    // select = string.Format("select * from {0} ;", SysTimeCnttableName);
                     select = string.Format("select * from {0} where InSertTime = '{1}';", SysTimeCnttableName, Selector.InSertTime);
-                    // select = string.Format("select * from {0} where TIME between '2019-1-1 00:00:00' and '2028-1-1 00:00:00'order by time;", SysTimeCnttableName);
                     dt = sh.Select(select);
                     foreach (DataRow row in dt.Rows)
                     {
@@ -936,8 +947,10 @@ namespace UI
                     foreach (DataRow row in dtall.Rows)
                     {
                         res = int.Parse(row["RES"].ToString());
+                        //if (res > 0&&(res==2938||res==768||res==1024))
                         if (res > 0)
                         {
+
                             // if (chart.Series["NG"].Points.Count > 20)
                             if (chart.Series["NG"].Points.Count > 20)
                             {
@@ -955,8 +968,6 @@ namespace UI
                                         try
                                         {
                                             ng_cnt = int.Parse(dtall.Compute("sum(CNT)", "RES=" + a).ToString());
-                                            //ng_cnt = int.Parse(row["CNT"].ToString());
-                                            // all_cnt= int.Parse(dtall.Compute("sum(CNT)", "RES >= 0").ToString());
                                             per = ng_cnt;
                                             if (allcnt > 0) per = per / allcnt * 100;
                                             else per = 0;
@@ -1222,7 +1233,37 @@ namespace UI
                 tablcecnt > 0 ? tablcecnt.ToString() : "", Environment.TickCount - ct,
                 new DataTable() == null ? -1 : cnt_ng, cnt_ng * 100.0 / cnt_ttl);
         }
+        private static void NGRateShow(string PosInfo, ref string objdata)
+        {
 
+            var resList = objdata.Split(',');
+            if (resList.Length > 20)
+            {
+                resList = resList.Skip(resList.Length - 20).Take(20).ToArray();
+                objdata = string.Join(",", resList);
+            }
+            List<int> listMres = new List<int>();
+            foreach (var mres in resList)
+            {
+                listMres.Add(int.Parse(mres));
+            }
+            var ngMresList = listMres.FindAll(s => s > 0).ToList();
+            string ngStr = string.Join(",", ngMresList);
+            if (ngMresList.Count > PT_SET.CntWsNgRateShow)
+            {
+                var msg = string.Format($"工位NG超比例, \r\n 当前位置{PosInfo}NG比例超过设置, \r\n，" +
+                    $"近20个模组中有以下ng类型 \r\n" +
+                    $"{ngStr}，\r\n，请选择是否清除记录!");
+                VAR.msg.AddMsg(Msg.EM_MSGTYPE.ERR, msg);
+                VAR.sys_inf.Set(EM_ALM_STA.WAR_YELLOW_FLASH, msg, 20, true);
+                DialogResult dr = FrRun.Dialog(Color.Yellow, "警告", msg, "清除", "不清除");
+                if (dr == DialogResult.OK)
+                {
+                    objdata = "";
+                }
+                VAR.sys_inf.Set(EM_ALM_STA.NOR_GREEN, VAR.IsChinese ? "运行" : "RUN", 0, true);
+            }
+        }
         // static List<string> DataSaveRecordList = new List<string>();
         //public static EM_RES TestDataAdd(List<WS.MdDat> ListMd)
         public static EM_RES TestDataAdd(WS ws)
@@ -1242,13 +1283,26 @@ namespace UI
                         var dic = new Dictionary<string, object>();
                         sh.BeginTransaction();
                         bool bNgOrder = true;
+                        bool bNgNeiCun = true;
+                        int NgNeiCunCnt = 0;
                         foreach (WS.MdDat md in ws.list_md)
                         {
                             if (!md.benable) continue;
                             if (md.res < 0) continue;
                             if ((md.bardcode == null || md.bardcode.Length < 1) && PT_SET.BarcodeMode != (int)PT_SET.BAR_SCAN.NO_SCAN) continue;
+                            if (PT_SET.bWsNgRateShow)
+                            {
+                                 if (md.cntNgRateFor20.Length>0)
+                                md.cntNgRateFor20 += ','+ md.res.ToString();
+                                else
+                                    md.cntNgRateFor20 +=  md.res.ToString();
+                                NGRateShow(ws.disc +"-"+ md.test_idx,ref md.cntNgRateFor20);
+                            }
                             if (md.res > 0)
                             {
+                                
+                                
+                                if (!VAR.Isnormal) COUNT_DATA.NgTwoTestCnt++;
                                 if (PT_SET.bNgControl && md.res == PT_SET.ngCode) COUNT_DATA.ngctrlngcnt++;
                                 COUNT_DATA.ngcnt[ws.num]++;
 
@@ -1276,6 +1330,21 @@ namespace UI
                                     DialogResult dr = FrRun.Dialog(Color.Yellow, "警告", msg, "确定", "取消");
                                     VAR.sys_inf.Set(EM_ALM_STA.NOR_GREEN, VAR.IsChinese ? "运行" : "RUN", 0, true);
                                 }
+                                else if (md.res == (int)WS.Md_RES.NG_NeiCun )
+                                {
+                                    NgNeiCunCnt++;
+                                    COUNT_DATA.cnt_ng_other++;
+                                    if (NgNeiCunCnt > 3&& bNgNeiCun)
+                                    {
+                                        NgNeiCunCnt = 0;
+                                        bNgNeiCun = false;
+                                        var msg = string.Format(ws.disc+"模组异常代码257, \r\n 请停机重启测试软件!");
+                                        VAR.msg.AddMsg(Msg.EM_MSGTYPE.ERR, msg, ErrCode: ShowErrMsg.Change3333Code);
+                                        VAR.sys_inf.Set(EM_ALM_STA.WAR_YELLOW_FLASH, msg, 20, true);
+                                        DialogResult dr = FrRun.Dialog(Color.Yellow, "警告", msg, "确定", "取消");
+                                        VAR.sys_inf.Set(EM_ALM_STA.NOR_GREEN, VAR.IsChinese ? "运行" : "RUN", 0, true);
+                                    }
+                                }
                                 else
                                     COUNT_DATA.cnt_ng_other++;
                                 //NG数据上传
@@ -1284,6 +1353,7 @@ namespace UI
                             else if (md.res == 0)
                             {
                                 okcnt++;
+                                if (!VAR.Isnormal) COUNT_DATA.OkTwoTestCnt++;
                                 COUNT_DATA.okcnt[ws.num]++;
                             }
 
@@ -1293,9 +1363,9 @@ namespace UI
                                 else md.NgSameRes_cnt = 1;
                                 md.last_res = md.res;
                             }
-
                             dic["TIME"] = DateTime.Now.ToString("s");
-                            dic["BARCODE"] = md.bardcode == null ? "" : md.bardcode;
+                            dic["BARCODE"] = md.bardcode == null ? "" : md.bardcode ;
+                            //dic["MOTORBARCODE"] = md.motor_barcode == null ? "" : md.motor_barcode;
                             dic["NUM"] = md.Num;
                             dic["WS_ID"] = md.WS_ID;
                             dic["PC_ID"] = md.PC_ID;
@@ -1360,6 +1430,11 @@ namespace UI
         }
 
         static string SysTimeCnttableName = "SysTimeCnt";
+        /// <summary>
+        /// 插入系统运行时间数据，每小时一个。
+        /// </summary>
+        /// <param name="timeCnt"></param>
+        /// <returns></returns>
         public static EM_RES SysTimeCntDataAdd(SysTimeCnt timeCnt)
         {
             var fileName = timeCnt.Time.ToString("yyyy_MM");
@@ -1409,7 +1484,7 @@ namespace UI
             var uploadData = new MiniDataDto()
             {
                 //表名，不存在新建表
-                DeviceCode = PT_SET.EqpPos+PT_SET.EqpSN + "版本" + System.Reflection.Assembly.GetExecutingAssembly().GetName().Version.ToString(),
+                DeviceCode = PT_SET.EqpPos+PT_SET.EqpSN+"版本"+ System.Reflection.Assembly.GetExecutingAssembly().GetName().Version.ToString(),
 
                 Time = Convert.ToDateTime(dic["TIME"]),
                 Barcode = dic["BARCODE"].ToString(),

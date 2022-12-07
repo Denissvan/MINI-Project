@@ -696,10 +696,10 @@ namespace UI
                     if (!PT_SET.bG4C && pos.Channel <= 6)//轩十佳光源OTP
                     {
                         VAR.msg.AddMsg(Msg.EM_MSGTYPE.DBG, "进入轩仕佳");
-                        MT.COM3.XSJSatrt();
+                        MT.COM6.XSJSatrt();
                         Thread.Sleep(200);
                         Application.DoEvents();
-                        ret = MT.COM3.SetChannelXSJ(pos.Channel);
+                        ret = MT.COM6.SetChannelXSJ(pos.Channel);
 
                     }
                     else
@@ -707,10 +707,10 @@ namespace UI
                     {
                         var idx = pos.Channel - 3;
                         VAR.msg.AddMsg(Msg.EM_MSGTYPE.DBG, "进入轩仕佳");
-                        MT.COM4.XSJSatrt();
+                        MT.COM7.XSJSatrt();
                         Thread.Sleep(200);
                         Application.DoEvents();
-                        ret = MT.COM4.SetChannelXSJ(idx);
+                        ret = MT.COM7.SetChannelXSJ(idx);
 
                     }
                     else

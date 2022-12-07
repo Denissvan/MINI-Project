@@ -173,7 +173,7 @@ namespace UI
 
             }
             lb_status.Text = Utility.GetDescription(box.status, VAR.IsChinese);
-            lb_z_pos.Text = string.Format("{0:F3}",box.ax_z._fcmd_pos);
+            lb_z_pos.Text = string.Format("{0:F3}",box.ax_z?._fcmd_pos);
 
             //必要时涮新
             if (box.bchanged)

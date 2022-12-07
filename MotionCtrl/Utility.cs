@@ -58,14 +58,19 @@ namespace MotionCtrl
         /// <param name="freeSpace" >保留空间(G)，小于此值才进行删除动作,默认10G</param>
         public static void CatchDiskAndDeleteFile(string HardDiskName, string DeletePath, int DeleteDay,bool isfile=true, int freeSpace = 10)
         {
+          
             long FreeSpace = new long();
+            if (HardDiskName==null|| HardDiskName.Length>1)
+            {
+                HardDiskName = DeletePath.Substring(0, 1);
+            }
             System.IO.DriveInfo[] drives = System.IO.DriveInfo.GetDrives();
             DirectoryInfo DyInfo = new DirectoryInfo(DeletePath);
             if (HardDiskName != null && HardDiskName.Length > 0)
             {
                 foreach (System.IO.DriveInfo drive in drives)
                 {
-                    if (drive.Name == HardDiskName)
+                    if (drive.Name .Contains( HardDiskName))
                     {
                         FreeSpace = drive.TotalFreeSpace / (1024 * 1024 * 1024);
                         break;
