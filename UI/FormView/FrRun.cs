@@ -598,9 +598,15 @@ namespace UI
             traybox_fd.TrayBoxName= VAR.IsChinese ? "供料" : "Feed";
             traybox_ok.TrayBoxName = VAR.IsChinese ? "OK" : "OK";
             traybox_ng.TrayBoxName = VAR.IsChinese ? "NG" : "NG";
-            //cogDisplayer_run.btn_img.Text = VAR.IsChinese ? "图片" : "Img";
-            //cogDisplayer_run.btn_live.Text = VAR.IsChinese ? "实况" : "Live";
-            //cogDisplayer_run.btn_triger.Text = VAR.IsChinese ? "触发" : "Triger";
+
+            bool bSound = NewSysInf.NoneRunPosInfo.UserNormalSet.RedLightSund;
+            if (bSound&& MT.GPIO_OUT_ALM_RED.isON)
+            {
+                MT.GPIO_OUT_ALM_BEEPER.SetOn();
+                Thread.Sleep(250);
+                MT.GPIO_OUT_ALM_BEEPER.SetOff();
+            }
+     
         }
 
         private void btn_faf_Click(object sender, EventArgs e)

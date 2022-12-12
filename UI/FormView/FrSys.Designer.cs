@@ -368,6 +368,12 @@
             this.groupBox51 = new System.Windows.Forms.GroupBox();
             this.rbtUpDn2OneXtOff = new System.Windows.Forms.RadioButton();
             this.rbtUpDn2OneXtOn = new System.Windows.Forms.RadioButton();
+            this.tpPara4 = new System.Windows.Forms.TabPage();
+            this.tableLayoutPanel2 = new System.Windows.Forms.TableLayoutPanel();
+            this.dataGrideSysInfo1 = new UI.DataGrideSysInfo();
+            this.panel1 = new System.Windows.Forms.Panel();
+            this.button8 = new System.Windows.Forms.Button();
+            this.button7 = new System.Windows.Forms.Button();
             this.tp_calc = new System.Windows.Forms.TabPage();
             this.tableLayoutPanel4 = new System.Windows.Forms.TableLayoutPanel();
             this.ctb_cali = new CTabControl();
@@ -525,6 +531,9 @@
             this.groupBox50.SuspendLayout();
             this.tabPage5.SuspendLayout();
             this.groupBox51.SuspendLayout();
+            this.tpPara4.SuspendLayout();
+            this.tableLayoutPanel2.SuspendLayout();
+            this.panel1.SuspendLayout();
             this.tp_calc.SuspendLayout();
             this.tableLayoutPanel4.SuspendLayout();
             this.ctb_cali.SuspendLayout();
@@ -968,6 +977,7 @@
             this.ctb_SetParm.Controls.Add(this.tp_setparm_1);
             this.ctb_SetParm.Controls.Add(this.tp_setparm_2);
             this.ctb_SetParm.Controls.Add(this.tabPage3);
+            this.ctb_SetParm.Controls.Add(this.tpPara4);
             this.ctb_SetParm.Dock = System.Windows.Forms.DockStyle.Fill;
             this.ctb_SetParm.HeaderBackColor = System.Drawing.SystemColors.Control;
             this.ctb_SetParm.HeadSelectedBackColor = System.Drawing.Color.MediumOrchid;
@@ -5702,6 +5712,72 @@
             this.rbtUpDn2OneXtOn.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             this.rbtUpDn2OneXtOn.UseVisualStyleBackColor = true;
             // 
+            // tpPara4
+            // 
+            this.tpPara4.Controls.Add(this.tableLayoutPanel2);
+            this.tpPara4.Location = new System.Drawing.Point(4, 44);
+            this.tpPara4.Name = "tpPara4";
+            this.tpPara4.Padding = new System.Windows.Forms.Padding(3);
+            this.tpPara4.Size = new System.Drawing.Size(74, 44);
+            this.tpPara4.TabIndex = 3;
+            this.tpPara4.Text = "参数4";
+            this.tpPara4.UseVisualStyleBackColor = true;
+            // 
+            // tableLayoutPanel2
+            // 
+            this.tableLayoutPanel2.ColumnCount = 2;
+            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 100F));
+            this.tableLayoutPanel2.Controls.Add(this.dataGrideSysInfo1, 0, 0);
+            this.tableLayoutPanel2.Controls.Add(this.panel1, 1, 0);
+            this.tableLayoutPanel2.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tableLayoutPanel2.Location = new System.Drawing.Point(3, 3);
+            this.tableLayoutPanel2.Name = "tableLayoutPanel2";
+            this.tableLayoutPanel2.RowCount = 1;
+            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.tableLayoutPanel2.Size = new System.Drawing.Size(68, 38);
+            this.tableLayoutPanel2.TabIndex = 1;
+            // 
+            // dataGrideSysInfo1
+            // 
+            this.dataGrideSysInfo1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.dataGrideSysInfo1.Location = new System.Drawing.Point(6, 5);
+            this.dataGrideSysInfo1.Margin = new System.Windows.Forms.Padding(6, 5, 6, 5);
+            this.dataGrideSysInfo1.Name = "dataGrideSysInfo1";
+            this.dataGrideSysInfo1.Size = new System.Drawing.Size(1, 28);
+            this.dataGrideSysInfo1.TabIndex = 0;
+            // 
+            // panel1
+            // 
+            this.panel1.Controls.Add(this.button8);
+            this.panel1.Controls.Add(this.button7);
+            this.panel1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.panel1.Location = new System.Drawing.Point(-29, 3);
+            this.panel1.Name = "panel1";
+            this.panel1.Size = new System.Drawing.Size(94, 32);
+            this.panel1.TabIndex = 1;
+            // 
+            // button8
+            // 
+            this.button8.BackColor = System.Drawing.SystemColors.ButtonFace;
+            this.button8.Location = new System.Drawing.Point(0, 79);
+            this.button8.Name = "button8";
+            this.button8.Size = new System.Drawing.Size(88, 51);
+            this.button8.TabIndex = 133;
+            this.button8.Text = "加载";
+            this.button8.UseVisualStyleBackColor = false;
+            // 
+            // button7
+            // 
+            this.button7.BackColor = System.Drawing.SystemColors.ButtonFace;
+            this.button7.Location = new System.Drawing.Point(3, 13);
+            this.button7.Name = "button7";
+            this.button7.Size = new System.Drawing.Size(88, 51);
+            this.button7.TabIndex = 132;
+            this.button7.Text = "保存";
+            this.button7.UseVisualStyleBackColor = false;
+            this.button7.Click += new System.EventHandler(this.btn_ptset_save_Click);
+            // 
             // tp_calc
             // 
             this.tp_calc.Controls.Add(this.tableLayoutPanel4);
@@ -6076,6 +6152,9 @@
             this.groupBox50.ResumeLayout(false);
             this.tabPage5.ResumeLayout(false);
             this.groupBox51.ResumeLayout(false);
+            this.tpPara4.ResumeLayout(false);
+            this.tableLayoutPanel2.ResumeLayout(false);
+            this.panel1.ResumeLayout(false);
             this.tp_calc.ResumeLayout(false);
             this.tableLayoutPanel4.ResumeLayout(false);
             this.ctb_cali.ResumeLayout(false);
@@ -6448,5 +6527,11 @@
         private System.Windows.Forms.RadioButton radWsNgRateShowOff;
         private System.Windows.Forms.RadioButton radWsNgRateShowEn;
         private System.Windows.Forms.Button button6;
+        private System.Windows.Forms.TabPage tpPara4;
+        private System.Windows.Forms.TableLayoutPanel tableLayoutPanel2;
+        private DataGrideSysInfo dataGrideSysInfo1;
+        private System.Windows.Forms.Panel panel1;
+        private System.Windows.Forms.Button button7;
+        private System.Windows.Forms.Button button8;
     }
 }

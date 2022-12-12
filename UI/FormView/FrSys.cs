@@ -260,6 +260,7 @@ namespace UI
             affineCail_Dw2ToUp2.Init(ref COM.UDLoad2);
             rotAndFly1.AddUDLoad(COM.List_UDLoad);
             taskNpoint1.AddCam(COM.ListCam);
+            NewSysInf.LoadSysInfCfg( out var msg);
             ShowData();
 
 
@@ -460,6 +461,7 @@ namespace UI
 
         public void ShowData()
         {
+            dataGrideSysInfo1.ShowDataToGride();
             //光源选择
             rad_G4C.Checked = false;
             rad_light_xsj.Checked = false;
@@ -1089,6 +1091,8 @@ namespace UI
             int bitOpenMode_temp = 1;
             try
             {
+
+
                 //判断是否要重新加载任务
                 btn_ptset_save.Enabled = false;
                 if ((rbtn_upcode.Checked && PT_SET.BarcodeMode == (int)PT_SET.BAR_SCAN.DW_SCAN) ||
@@ -1138,6 +1142,8 @@ namespace UI
                 
 
                 GetData();
+              var bgetOk=  dataGrideSysInfo1.GetDataFromGride();
+             
                 PT_SET.SavePtCfg(VAR.gsys_set.cur_product_name);
                 PT_SET.LoadPtCfg(VAR.gsys_set.cur_product_name);
                 foreach (Cam cam in COM.ListCam)
@@ -1227,8 +1233,7 @@ namespace UI
                 {
                     DRpt.Report_Opration(1000, 0, "归位按键按下!");
                     
-                }
-                
+                }           
             }
         }
 

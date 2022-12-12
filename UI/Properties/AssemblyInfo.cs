@@ -56,7 +56,7 @@ using System.Runtime.InteropServices;
 //轴定位偏差设置0.4
 //屏蔽工位也取料HaveWsPickMd和GetWsPosTeam对屏蔽修改
 //2433增加ng比例PT_SET.CntWsNgRateShow
-//2433封装工站放偏检测函数
+//2434封装工站放偏检测函数
 //[assembly: AssemblyVersion("1.0.*")]
-[assembly: AssemblyVersion("2.4.3.3")]
-[assembly: AssemblyFileVersion("2.4.3.3")]
+[assembly: AssemblyVersion("2.4.3.4")]
+[assembly: AssemblyFileVersion("2.4.3.4")]

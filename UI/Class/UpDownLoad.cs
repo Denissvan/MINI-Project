@@ -1477,14 +1477,16 @@ namespace UI
                 bool bANg = Math.Abs(task.ResData.PosMM.a) > PT_SET.Vs_Rofs;
                 bool bAreaNg= (Math.Abs(left - PT_SET.LeftArea) > PT_SET.Area && id == 0)
                             || (Math.Abs(right - PT_SET.RightArea) > PT_SET.Area && id == 0)
-                            || (Math.Abs(up - PT_SET.UpArea) > PT_SET.Area && PT_SET.bConnectorCheck && id == 0)
-                            || (Math.Abs(down - PT_SET.DownArea) > PT_SET.Area && PT_SET.bConnectorCheck && id == 0)
+                            || (up != 0) && (Math.Abs(up - PT_SET.UpArea) > PT_SET.Area && PT_SET.bConnectorCheck && id == 0)
+                            || (down != 0)&&(Math.Abs(down - PT_SET.DownArea) > PT_SET.Area && PT_SET.bConnectorCheck && id == 0)
                             || (Math.Abs(left - PT_SET.LeftArea2) > PT_SET.Area2 && id == 1)
                             || (Math.Abs(right - PT_SET.RightArea2) > PT_SET.Area2 && id == 1)
-                            || (Math.Abs(up - PT_SET.UpArea2) > PT_SET.Area2 && PT_SET.bConnectorCheck && id == 1)
-                            || (Math.Abs(down - PT_SET.DownArea2) > PT_SET.Area2 && PT_SET.bConnectorCheck && id == 1);
+                            || (up!=0)&&(Math.Abs(up - PT_SET.UpArea2) > PT_SET.Area2 && PT_SET.bConnectorCheck && id == 1)
+                            || (down!=0)&&(Math.Abs(down - PT_SET.DownArea2) > PT_SET.Area2 && PT_SET.bConnectorCheck && id == 1);
                 NgType = bXYNg ? 1 : bANg ? 2 : bAreaNg ? 3 : 0;
-                return ret = !task.ResData.bOK    || bXYNg  || bANg  || bAreaNg;
+                var bNG = !task.ResData.bOK    || bXYNg  || bANg  || bAreaNg;
+                return ret = !bNG;
+
             }
             catch(Exception ee)
             {
@@ -1585,7 +1587,7 @@ namespace UI
                     VAR.sys_inf.Set(EM_ALM_STA.WAR_YELLOW_FLASH, VAR.IsChinese ? "物料放偏!" : "Place deflected", 20, true, ErrCode: ShowErrMsg.WsPutDivErr);
                     MT.ST_WARN warn = new MT.ST_WARN();
                     warning fr_warn = new warning();
-                    string ngString = ngtype == 1 ? "XY偏移超限制" : ngtype == 2 ? "角度超限制" : ngtype == 3 ? "面积检测超标" : "";
+                    string ngString = ngtype == 1 ? "XY偏移超限制" : ngtype == 2 ? "角度超限制" : ngtype == 3 ? "面积检测超标" : "放偏检测拍照失败";
                     if (PT_SET.bBackerrcontinue)
                     {
                         warn.ok_txt = MultiLanguage.TxtSelct("继续运行", "Keep running", "tiếp tục chạy");
@@ -1595,7 +1597,7 @@ namespace UI
                         warn.title = MultiLanguage.TxtSelct("提示:物料放偏", "Tip: Material is biased", "Mẹo: bù đắp vật liệu");
                         warn.msg = MultiLanguage.TxtSelct("当前工站有物料放偏!", "There is material deviation in the current station!", "Có sự sai lệch vật liệu ở trạm hiện tại");
                         warn.lb_msg = MultiLanguage.TxtSelct(
-                           $"提示:当前工站有物料放偏-{ngString}，请确认!\r\n" +
+                           $"提示:{disc}工站位置{posid}放偏检测异常-{ngString}，请确认!\r\n" +
                             "1.如果没有物料放偏,请按继续运行键!\r\n" +
                             "2.如有物料放偏请按停止运行键退出运行，待界面左上角显示就绪后再按运行键!",
 
@@ -1630,7 +1632,7 @@ namespace UI
                         warn.title = MultiLanguage.TxtSelct("提示:物料放偏", "Tip: Material is biased", "Mẹo: bù đắp vật liệu");
                         warn.msg = MultiLanguage.TxtSelct("当前工站有物料放偏!", "There is material deviation in the current station!", "Có sự sai lệch vật liệu ở trạm hiện tại");
                         warn.lb_msg = MultiLanguage.TxtSelct(
-                              $"提示:当前工站有物料放偏-{ngString}，请确认!\r\n" +
+                                $"提示:{disc}工站位置{posid}放偏检测异常-{ngString}，请确认!\r\n" +
                             "1.如果没有物料放偏,请按继续运行键!\r\n" +
                             "2.如有物料放偏请按停止运行键退出运行，待界面左上角显示就绪后再按运行键!",
 
