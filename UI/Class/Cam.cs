@@ -1512,7 +1512,16 @@ namespace UI
                     }
                     else if(TaskName.Contains("ModUp"))
                     {
-                        if(PT_SET.BarcodeMode == 0) RunCfg = RunCfg & (~0x01);
+                        if (PT_SET.BarcodeMode == 0)
+                        {
+
+                            bool bGetOrcodOnWs = NewSysInf.NoneRunPosInfo.UserNormalSet.bGetOrcodOnWs;
+                            if (!bGetOrcodOnWs)
+                            RunCfg = RunCfg & (~0x01);
+                            else
+                            RunCfg = RunCfg | 0x01;
+
+                        }
                         else RunCfg = RunCfg | 0x01;
                     }
                     else if (TaskName.Contains("WsMod"))

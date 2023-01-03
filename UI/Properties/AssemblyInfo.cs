@@ -57,6 +57,8 @@ using System.Runtime.InteropServices;
 //屏蔽工位也取料HaveWsPickMd和GetWsPosTeam对屏蔽修改
 //2433增加ng比例PT_SET.CntWsNgRateShow
 //2434封装工站放偏检测函数
+//增加参数表格保存
+//2436增加单独在工站扫码，必须是上相机扫码开启二维码回检。bGetOrcodOnWs
 //[assembly: AssemblyVersion("1.0.*")]
-[assembly: AssemblyVersion("2.4.3.4")]
-[assembly: AssemblyFileVersion("2.4.3.4")]
+[assembly: AssemblyVersion("2.4.3.6")]
+[assembly: AssemblyFileVersion("2.4.3.6")]

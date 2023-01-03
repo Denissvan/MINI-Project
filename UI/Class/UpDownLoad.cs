@@ -1278,7 +1278,14 @@ namespace UI
             var QrCode = task.ResData.BarCode;
             if (QrCode == null || QrCode.Length < 3 )
             {
-                if(QrCodeChkErrCnt<PT_SET.UpWsChkQrCodeCnt)
+                bool bGetOrcodOnWs = NewSysInf.NoneRunPosInfo.UserNormalSet.bGetOrcodOnWs;
+                if (bGetOrcodOnWs)
+                {
+                    md.res = 3342;
+                    VAR.msg.AddMsg(Msg.EM_MSGTYPE.ERR, disc + $"当前模组{md.test_idx}拍二维码失败将取回重新上料");
+                    return EM_RES.OK;
+                }
+                 if (QrCodeChkErrCnt<PT_SET.UpWsChkQrCodeCnt)
                 {
                     QrCodeChkErrCnt++;
                     md.res = 3342;
@@ -1302,8 +1309,14 @@ namespace UI
             }
             else if (QrCode != md.bardcode)
             {
-                if (md.bardcode==null||md.bardcode.Length<3)
+                bool bGetOrcodOnWs = NewSysInf.NoneRunPosInfo.UserNormalSet.bGetOrcodOnWs;
+                if (bGetOrcodOnWs)
                 {
+                    md.bardcode = QrCode;
+                    return EM_RES.OK;
+                }
+                if (md.bardcode==null||md.bardcode.Length<3)
+                {                   
                     md.bardcode = QrCode;
                     VAR.msg.AddMsg(Msg.EM_MSGTYPE.DBG, disc + $"当前模组无二维码，自动更新二维码{QrCode}");
                     VAR.sys_inf.Set(EM_ALM_STA.NOR_GREEN, VAR.IsChinese ? "运行" : "RUN", 0, true);

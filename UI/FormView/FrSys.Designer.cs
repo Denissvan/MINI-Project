@@ -317,7 +317,6 @@
             this.rbtn_lbdis = new System.Windows.Forms.RadioButton();
             this.rbtn_lben = new System.Windows.Forms.RadioButton();
             this.tabPage3 = new System.Windows.Forms.TabPage();
-            this.button6 = new System.Windows.Forms.Button();
             this.groupBox55 = new System.Windows.Forms.GroupBox();
             this.NumWsNgCntPer20 = new System.Windows.Forms.NumericUpDown();
             this.label57 = new System.Windows.Forms.Label();
@@ -4987,7 +4986,6 @@
             // 
             // tabPage3
             // 
-            this.tabPage3.Controls.Add(this.button6);
             this.tabPage3.Controls.Add(this.groupBox55);
             this.tabPage3.Controls.Add(this.groupBox54);
             this.tabPage3.Controls.Add(this.groupBox53);
@@ -4997,20 +4995,10 @@
             this.tabPage3.Location = new System.Drawing.Point(4, 44);
             this.tabPage3.Name = "tabPage3";
             this.tabPage3.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage3.Size = new System.Drawing.Size(74, 44);
+            this.tabPage3.Size = new System.Drawing.Size(1072, 726);
             this.tabPage3.TabIndex = 2;
             this.tabPage3.Text = "参数3";
             this.tabPage3.UseVisualStyleBackColor = true;
-            // 
-            // button6
-            // 
-            this.button6.Location = new System.Drawing.Point(884, 202);
-            this.button6.Name = "button6";
-            this.button6.Size = new System.Drawing.Size(75, 58);
-            this.button6.TabIndex = 140;
-            this.button6.Text = "button6";
-            this.button6.UseVisualStyleBackColor = true;
-            this.button6.Click += new System.EventHandler(this.button6_Click);
             // 
             // groupBox55
             // 
@@ -5718,7 +5706,7 @@
             this.tpPara4.Location = new System.Drawing.Point(4, 44);
             this.tpPara4.Name = "tpPara4";
             this.tpPara4.Padding = new System.Windows.Forms.Padding(3);
-            this.tpPara4.Size = new System.Drawing.Size(74, 44);
+            this.tpPara4.Size = new System.Drawing.Size(1072, 726);
             this.tpPara4.TabIndex = 3;
             this.tpPara4.Text = "参数4";
             this.tpPara4.UseVisualStyleBackColor = true;
@@ -5735,7 +5723,7 @@
             this.tableLayoutPanel2.Name = "tableLayoutPanel2";
             this.tableLayoutPanel2.RowCount = 1;
             this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel2.Size = new System.Drawing.Size(68, 38);
+            this.tableLayoutPanel2.Size = new System.Drawing.Size(1066, 720);
             this.tableLayoutPanel2.TabIndex = 1;
             // 
             // dataGrideSysInfo1
@@ -5744,7 +5732,7 @@
             this.dataGrideSysInfo1.Location = new System.Drawing.Point(6, 5);
             this.dataGrideSysInfo1.Margin = new System.Windows.Forms.Padding(6, 5, 6, 5);
             this.dataGrideSysInfo1.Name = "dataGrideSysInfo1";
-            this.dataGrideSysInfo1.Size = new System.Drawing.Size(1, 28);
+            this.dataGrideSysInfo1.Size = new System.Drawing.Size(954, 710);
             this.dataGrideSysInfo1.TabIndex = 0;
             // 
             // panel1
@@ -5752,9 +5740,9 @@
             this.panel1.Controls.Add(this.button8);
             this.panel1.Controls.Add(this.button7);
             this.panel1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panel1.Location = new System.Drawing.Point(-29, 3);
+            this.panel1.Location = new System.Drawing.Point(969, 3);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(94, 32);
+            this.panel1.Size = new System.Drawing.Size(94, 714);
             this.panel1.TabIndex = 1;
             // 
             // button8
@@ -6526,7 +6514,6 @@
         private System.Windows.Forms.Label label57;
         private System.Windows.Forms.RadioButton radWsNgRateShowOff;
         private System.Windows.Forms.RadioButton radWsNgRateShowEn;
-        private System.Windows.Forms.Button button6;
         private System.Windows.Forms.TabPage tpPara4;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel2;
         private DataGrideSysInfo dataGrideSysInfo1;

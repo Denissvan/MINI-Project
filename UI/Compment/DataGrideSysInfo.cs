@@ -71,23 +71,6 @@ namespace UI
                         curobj = JsonConvert.DeserializeObject<NewSysInf.UserSet>(StrDataobj);
                     }
                     else
-                   if (fieldTypeName == "NoneRunAa")
-                    {
-                        curobj = JsonConvert.DeserializeObject<NewSysInf.NoneRunAa>(StrDataobj);
-                    }
-                    else if (fieldTypeName == "NoneRunSenUpDownLens")
-                    {
-                        curobj = JsonConvert.DeserializeObject<NewSysInf.NoneRunSenUpDownLens>(StrDataobj);
-                    }
-                    else if (fieldTypeName == "NoneRunSenUpDownSens")
-                    {
-                        curobj = JsonConvert.DeserializeObject<NewSysInf.NoneRunSenUpDownSens>(StrDataobj);
-                    }
-                    else if (fieldTypeName == "NoneRuntrayUnit")
-                    {
-                        curobj = JsonConvert.DeserializeObject<NewSysInf.NoneRuntrayUnit>(StrDataobj);
-                    }
-                    else
                     {
                         continue;
                     }
@@ -95,10 +78,29 @@ namespace UI
                     FieldInfo[] mfields = temp.GetFields(BindingFlags.Public | BindingFlags.Instance | BindingFlags.Static);
                     foreach (FieldInfo mfield in mfields)
                     {
-                        int mInsertFieldId = MyDge.Rows.Add(new DataGridViewGroupCell(), new DataGridViewTextBoxCell(), new DataGridViewButtonCell());
+                        bool bbool = mfield.FieldType.Name.Contains("ool");
+                        
+                        int mInsertFieldId = 0;
+
+                        if (bbool)
+                        {
+                            mInsertFieldId = MyDge.Rows.Add(new DataGridViewGroupCell(), new DataGridViewTextBoxCell(), new DataGridViewCheckBoxCell());
+                        }
+                        else
+                        {
+                            mInsertFieldId = MyDge.Rows.Add(new DataGridViewGroupCell(), new DataGridViewTextBoxCell(), new DataGridViewTextBoxCell());
+                        }
                         MyDge.Rows[mInsertFieldId].Cells[0].Value = fieldName + "-" + mfield.Name;
                         MyDge.Rows[mInsertFieldId].Cells[1].Value = GetEnumDescrip(mfield);
-                        MyDge.Rows[mInsertFieldId].Cells[2].Value = mobj[mfield.Name].ToString();
+                      
+                        if (bbool)                  
+                        {
+                            MyDge.Rows[mInsertFieldId].Cells[2] = new DataGridViewCheckBoxCell() { Value = mobj[mfield.Name].ToString().Contains("rue") };
+                           
+                        }else
+                        {
+                            MyDge.Rows[mInsertFieldId].Cells[2].Value = mobj[mfield.Name].ToString();
+                        }
                         ((DataGridViewGroupCell)MyDge.Rows[InsertFieldId].Cells[0]).AddChildCell((DataGridViewGroupCell)MyDge.Rows[mInsertFieldId].Cells[0]);
                     }
                 }
@@ -133,23 +135,6 @@ namespace UI
                         curobj = JsonConvert.DeserializeObject<NewSysInf.UserSet>(StrDataobj);
                     }
                     else
-                   if (fieldTypeName == "NoneRunAa")
-                    {
-                        curobj = JsonConvert.DeserializeObject<NewSysInf.NoneRunAa>(StrDataobj);
-                    }
-                    else if (fieldTypeName == "NoneRunSenUpDownLens")
-                    {
-                        curobj = JsonConvert.DeserializeObject<NewSysInf.NoneRunSenUpDownLens>(StrDataobj);
-                    }
-                    else if (fieldTypeName == "NoneRunSenUpDownSens")
-                    {
-                        curobj = JsonConvert.DeserializeObject<NewSysInf.NoneRunSenUpDownSens>(StrDataobj);
-                    }
-                    else if (fieldTypeName == "NoneRuntrayUnit")
-                    {
-                        curobj = JsonConvert.DeserializeObject<NewSysInf.NoneRuntrayUnit>(StrDataobj);
-                    }
-                    else
                     {
                         continue;
                     }
@@ -161,11 +146,12 @@ namespace UI
 
                         for (int i = 0; i < MyDge.Rows.Count; i++)
                         {
+                            
                             var row = MyDge.Rows[i];
                             if (row.Cells[0].Value.ToString() == fieldName + "-" + mfield.Name)
-                            {
-                                mobj[mfield.Name] = row.Cells[2].Value.ToString();
-
+                            {                         
+                                    mobj[mfield.Name] = row.Cells[2].Value.ToString();
+                                                          
                             }
                         }
                     }
@@ -206,101 +192,122 @@ namespace UI
             }
 
         }
+
+
+        private void PasteData()
+        {
+            string clipboardText = Clipboard.GetText(); //获取剪贴板中的内容
+            if (clipboardText.Substring(clipboardText.Length - 1, 1) != "\n")
+            {
+                clipboardText += "\n";
+            }
+            if (string.IsNullOrEmpty(clipboardText))
+            {
+                return;
+            }
+            int colnum = 0;
+            int rownum = 0;
+            for (int i = 0; i < clipboardText.Length; i++)
+            {
+                if (clipboardText.Substring(i, 1) == "\t")
+                {
+                    colnum++;
+                }
+                if (clipboardText.Substring(i, 1) == "\n")
+                {
+                    rownum++;
+                }
+            }
+            colnum = colnum / rownum + 1;
+            int selectedRowIndex, selectedColIndex;
+            selectedRowIndex = this.MyDge.CurrentRow.Index;
+            selectedColIndex = this.MyDge.CurrentCell.ColumnIndex;
+            if (selectedRowIndex + rownum > MyDge.RowCount || selectedColIndex + colnum > MyDge.ColumnCount)
+            {
+                MessageBox.Show("粘贴区域大小不一致");
+                return;
+            }
+            String[][] temp = new String[rownum][];
+            for (int i = 0; i < rownum; i++)
+            {
+                temp[i] = new String[colnum];
+            }
+            int m = 0, n = 0, len = 0;
+            while (len != clipboardText.Length)
+            {
+                String str = clipboardText.Substring(len, 1);
+                if (str == "\t")
+                {
+                    n++;
+                }
+                else if (str == "\n")
+                {
+                    m++;
+                    n = 0;
+                }
+                else
+                {
+                    temp[m][n] += str;
+                }
+                len++;
+            }
+            for (int i = selectedRowIndex; i < selectedRowIndex + rownum; i++)
+            {
+                for (int j = selectedColIndex; j < selectedColIndex + colnum; j++)
+                {
+                    this.MyDge.Rows[i].Cells[j].Value = temp[i - selectedRowIndex][j - selectedColIndex];
+                }
+            }
+        }
+
+        protected override bool ProcessCmdKey(ref Message msg, Keys keyData)
+        {
+            //在检测到按Ctrl+V键后，系统无法复制多单元格数据，重写ProcessCmdKey方法，屏蔽系统粘贴事件，使用自定义粘贴事件，在事件中对剪贴板的HTML格式进行处理，获取表数据，更新DataGrid控件内容
+            if (keyData == (Keys.V | Keys.Control))  // &&
+            {
+                IDataObject idataObject = Clipboard.GetDataObject();
+                string[] s = idataObject.GetFormats();
+                string data;
+                if (!s.Any(f => f == "OEMText"))
+                {
+                    if (!s.Any(f => f == "HTML Format"))
+                    {
+                    }
+                    else
+                    {
+                        //data = idataObject.GetData("HTML Format").ToString();//多个单元格
+                        //copyClipboardHtmltoGrid(data);
+                        PasteData();
+                        //msg = Message.;
+                        msg = new Message();
+                        return base.ProcessCmdKey(ref msg, Keys.Control);
+                    }
+                }
+                else
+                    data = idataObject.GetData("OEMText").ToString();//单个单元格,使用系统功能，无需处理
+            }
+            MyDge.Update();
+            return base.ProcessCmdKey(ref msg, keyData);
+        }
     }
 
     public class NewSysInf
     {
-        public class NoneRunAa
-        {
-            [Description("Aa大Xx位置")]
-            public double AaXx;
-            [Description("Aa1小x位置")]
-            public double x1;
-            [Description("Aa1小y位置")]
-            public double y1;
-            [Description("Aa2小x位置")]
-            public double x2;
-            [Description("Aa2小y位置")]
-            public double y2;
-            [Description("Aa小z位置")]
-            public double z;
-            [Description("AaU位置")]
-            public double u;
-            [Description("AaV位置")]
-            public double v;
-        }
-        public class NoneRunSenUpDownSens
-        {
-            [Description("Y拍照位置")]
-            public double YPhoto;
-            [Description("吸头Z1下降位")]
-            public double Z1;
-            [Description("吸头Z2下降位")]
-            public double Z2;
-            [Description("Y取料位置")]
-            public double YPick;
-        }
-        public class NoneRunSenUpDownLens
-        {
-            [Description("Y拍照位置")]
-            public double YPhoto;
-            [Description("吸头Z1下降位")]
-            public double Z1;
-            [Description("吸头Z2下降位")]
-            public double Z2;
-            [Description("Y取料位置")]
-            public double YPick;
-        }
-        public class NoneRuntrayUnit
-        {
-            [Description("大Xx工作位置")]
-            public double XxUp;
-            [Description("大Xx下料盘位置")]
-            public double XxDown;
-            [Description("小x上料工作位置")]
-            public double x;
-            [Description("料盘z上升位置")]
-            public double z;
-        }
+ 
+        // 类型设置
         public class UserSet
         {
             [Description("红灯亮蜂鸣响")]
             public bool RedLightSund;
+            [Description("仅在工站扫二维码")]
+            public bool bGetOrcodOnWs;
 
         }
-
         public class NoneRunAll
         {
-            [Description("常见用户设置")]
+            [Description("常见设置开启关闭")]
             public UserSet UserNormalSet = new UserSet();
-            //[Description("Raa工作位置")]
-            //public NoneRunAa Raa = new NoneRunAa();
-            //[Description("A左Lens上下料单元")]
-            //public NoneRunSenUpDownLens AlLens = new NoneRunSenUpDownLens();
-            //[Description("A右Lens上下料单元")]
-            //public NoneRunSenUpDownLens ARLens = new NoneRunSenUpDownLens();
-            //[Description("B左Lens上下料单元")]
-            //public NoneRunSenUpDownLens BRLens = new NoneRunSenUpDownLens();
-            //[Description("B右Lens上下料单元")]
-            //public NoneRunSenUpDownLens BLLens = new NoneRunSenUpDownLens();
 
-            //[Description("A左Sens上下料单元")]
-            //public NoneRunSenUpDownSens AlSens = new NoneRunSenUpDownSens();
-            //[Description("A右Sens上下料单元")]
-            //public NoneRunSenUpDownSens ARSens = new NoneRunSenUpDownSens();
-            //[Description("B左Sens上下料单元")]
-            //public NoneRunSenUpDownSens BRSens = new NoneRunSenUpDownSens();
-            //[Description("B右Sens上下料单元")]
-            //public NoneRunSenUpDownSens BLSens = new NoneRunSenUpDownSens();
-
-            //[Description("tray单元1")]
-            //public NoneRuntrayUnit uint1 = new NoneRuntrayUnit();
-            //[Description("tray单元2")]
-            //public NoneRuntrayUnit uint2 = new NoneRuntrayUnit();
-            //[Description("tray单元3")]
-            //public NoneRuntrayUnit uint3 = new NoneRuntrayUnit();
-            //[Description("tray单元4")]
-            //public NoneRuntrayUnit uint4 = new NoneRuntrayUnit();
         }
 
         [Description("空跑位置参数")]
