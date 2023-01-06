@@ -408,14 +408,14 @@
             this.toolStripMenuItem1.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.toolStripMenuItem1.ForeColor = System.Drawing.Color.Gray;
             this.toolStripMenuItem1.Name = "toolStripMenuItem1";
-            this.toolStripMenuItem1.Size = new System.Drawing.Size(49, 26);
+            this.toolStripMenuItem1.Size = new System.Drawing.Size(50, 26);
             this.toolStripMenuItem1.Text = "语言";
             // 
             // chineseToolStripMenuItem
             // 
             this.chineseToolStripMenuItem.ForeColor = System.Drawing.Color.Gray;
             this.chineseToolStripMenuItem.Name = "chineseToolStripMenuItem";
-            this.chineseToolStripMenuItem.Size = new System.Drawing.Size(138, 22);
+            this.chineseToolStripMenuItem.Size = new System.Drawing.Size(140, 22);
             this.chineseToolStripMenuItem.Text = "中文";
             this.chineseToolStripMenuItem.Click += new System.EventHandler(this.languageToolStripMenuItem_Click);
             // 
@@ -423,14 +423,14 @@
             // 
             this.englishToolStripMenuItem.ForeColor = System.Drawing.Color.Gray;
             this.englishToolStripMenuItem.Name = "englishToolStripMenuItem";
-            this.englishToolStripMenuItem.Size = new System.Drawing.Size(138, 22);
+            this.englishToolStripMenuItem.Size = new System.Drawing.Size(140, 22);
             this.englishToolStripMenuItem.Text = "英语";
             this.englishToolStripMenuItem.Click += new System.EventHandler(this.languageToolStripMenuItem_Click);
             // 
             // vietnameseToolStripMenuItem
             // 
             this.vietnameseToolStripMenuItem.Name = "vietnameseToolStripMenuItem";
-            this.vietnameseToolStripMenuItem.Size = new System.Drawing.Size(138, 22);
+            this.vietnameseToolStripMenuItem.Size = new System.Drawing.Size(140, 22);
             this.vietnameseToolStripMenuItem.Text = "Tiếng Việt ";
             this.vietnameseToolStripMenuItem.Click += new System.EventHandler(this.languageToolStripMenuItem_Click);
             // 

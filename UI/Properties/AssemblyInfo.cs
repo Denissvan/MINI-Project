@@ -53,12 +53,12 @@ using System.Runtime.InteropServices;
 //2421增加稼动率导出功能DatatableToCSV
 //2423增加下拍二维码位置bDwAddCapQrcode
 //2430增加康耐视扫码bmotorphoto
-//轴定位偏差设置0.4
 //屏蔽工位也取料HaveWsPickMd和GetWsPosTeam对屏蔽修改
 //2433增加ng比例PT_SET.CntWsNgRateShow
 //2434封装工站放偏检测函数
 //增加参数表格保存
 //2436增加单独在工站扫码，必须是上相机扫码开启二维码回检。bGetOrcodOnWs
+//使用编码器位置监控轴定位偏差，解决光箱轴定位偏差导致的偶发风险
 //[assembly: AssemblyVersion("1.0.*")]
 [assembly: AssemblyVersion("2.4.3.6")]
 [assembly: AssemblyFileVersion("2.4.3.6")]

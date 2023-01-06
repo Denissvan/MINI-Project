@@ -1272,7 +1272,7 @@ namespace UI
         public EM_RES QrCodeChkShow(Cam.VisionTask task,WS.MdDat md)
         {
 
-            if (PT_SET.BarcodeMode != (int)PT_SET.BAR_SCAN.UP_SCAN||PT_SET.bUpWsChkQrCodeEn==false)
+            if (PT_SET.BarcodeMode != (int)PT_SET.BAR_SCAN.UP_SCAN)
                 return EM_RES.OK;
             VAR.msg.AddMsg(Msg.EM_MSGTYPE.DBG, $"开始二维码对比检测,流程{task.TaskName},模组二维码{md.bardcode}");
             var QrCode = task.ResData.BarCode;
@@ -1282,7 +1282,7 @@ namespace UI
                 if (bGetOrcodOnWs)
                 {
                     md.res = 3342;
-                    VAR.msg.AddMsg(Msg.EM_MSGTYPE.ERR, disc + $"当前模组{md.test_idx}拍二维码失败将取回重新上料");
+                    VAR.msg.AddMsg(Msg.EM_MSGTYPE.ERR, disc + $"当前设置仅在工站扫码，模组{md.test_idx}拍二维码失败将取回重新上料");
                     return EM_RES.OK;
                 }
                  if (QrCodeChkErrCnt<PT_SET.UpWsChkQrCodeCnt)
@@ -1313,6 +1313,7 @@ namespace UI
                 if (bGetOrcodOnWs)
                 {
                     md.bardcode = QrCode;
+                    VAR.msg.AddMsg(Msg.EM_MSGTYPE.DBG, disc + $"当前设置在工站扫码，工站{md.WS_ID}-{md.test_idx}自动更新二维码{QrCode}");
                     return EM_RES.OK;
                 }
                 if (md.bardcode==null||md.bardcode.Length<3)

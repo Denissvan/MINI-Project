@@ -1251,17 +1251,27 @@ namespace UI
             string ngStr = string.Join(",", ngMresList);
             if (ngMresList.Count > PT_SET.CntWsNgRateShow)
             {
-                var msg = string.Format($"工位NG超比例, \r\n 当前位置{PosInfo}NG比例超过设置, \r\n，" +
+                var msg = string.Format($" \r\n 当前位置{PosInfo}NG比例超过设置, \r\n，" +
                     $"近20个模组中有以下ng类型 \r\n" +
                     $"{ngStr}，\r\n，请选择是否清除记录!");
                 VAR.msg.AddMsg(Msg.EM_MSGTYPE.ERR, msg);
-                VAR.sys_inf.Set(EM_ALM_STA.WAR_YELLOW_FLASH, msg, 20, true);
-                DialogResult dr = FrRun.Dialog(Color.Yellow, "警告", msg, "清除", "不清除");
-                if (dr == DialogResult.OK)
+
+                MT.ST_WARN warn = new MT.ST_WARN();
+                warning fr_warn = new warning();
+                warn.ok_txt = MultiLanguage.TxtSelct("清除", "ClearData", "ClearData");
+                warn.cancle_txt = MultiLanguage.TxtSelct("不清除", "NotClearData", "NotClearDatay");
+                warn.ws = null;//增加语言
+                warn.title = "NG超比例";
+                warn.msg = "NG超比例";
+                warn.lb_msg = msg;
+                VAR.sys_inf.Set(EM_ALM_STA.WAR_RED_FLASH, VAR.IsChinese ? "NG超比例!" : "NgRateOverLimit", 20, true);
+                DialogResult logres = MT.Display_frwarn(fr_warn, warn, ERR_ALM.EmErrItem.MaterialPosErr);
+
+                if (logres == DialogResult.OK)
                 {
                     objdata = "";
                 }
-                VAR.sys_inf.Set(EM_ALM_STA.NOR_GREEN, VAR.IsChinese ? "运行" : "RUN", 0, true);
+                VAR.sys_inf.Set(EM_ALM_STA.NOR_GREEN, VAR.IsChinese ? "运行!" : "RUN", 0, true);
             }
         }
         // static List<string> DataSaveRecordList = new List<string>();
@@ -1296,7 +1306,7 @@ namespace UI
                                 md.cntNgRateFor20 += ','+ md.res.ToString();
                                 else
                                     md.cntNgRateFor20 +=  md.res.ToString();
-                                NGRateShow(ws.disc +"-"+ md.test_idx,ref md.cntNgRateFor20);
+                                NGRateShow(ws.disc +"-"+ md.Num,ref md.cntNgRateFor20);
                             }
                             if (md.res > 0)
                             {

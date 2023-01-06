@@ -1449,7 +1449,7 @@
             this.groupBox29.Font = new System.Drawing.Font("宋体", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.groupBox29.Location = new System.Drawing.Point(269, 474);
             this.groupBox29.Name = "groupBox29";
-            this.groupBox29.Size = new System.Drawing.Size(209, 108);
+            this.groupBox29.Size = new System.Drawing.Size(211, 108);
             this.groupBox29.TabIndex = 140;
             this.groupBox29.TabStop = false;
             this.groupBox29.Text = "下料OK品检测设置";
@@ -2795,7 +2795,7 @@
             this.tp_setparm_2.Location = new System.Drawing.Point(4, 44);
             this.tp_setparm_2.Name = "tp_setparm_2";
             this.tp_setparm_2.Padding = new System.Windows.Forms.Padding(3);
-            this.tp_setparm_2.Size = new System.Drawing.Size(74, 44);
+            this.tp_setparm_2.Size = new System.Drawing.Size(1072, 726);
             this.tp_setparm_2.TabIndex = 1;
             this.tp_setparm_2.Text = "参数2          ";
             this.tp_setparm_2.UseVisualStyleBackColor = true;
@@ -5112,7 +5112,7 @@
             this.button5.Name = "button5";
             this.button5.Size = new System.Drawing.Size(75, 36);
             this.button5.TabIndex = 145;
-            this.button5.Text = "COM4打开";
+            this.button5.Text = "COM4Open";
             this.button5.UseVisualStyleBackColor = true;
             this.button5.Click += new System.EventHandler(this.button5_Click);
             // 
@@ -5122,7 +5122,7 @@
             this.button4.Name = "button4";
             this.button4.Size = new System.Drawing.Size(75, 36);
             this.button4.TabIndex = 144;
-            this.button4.Text = "COM3打开";
+            this.button4.Text = "COM3Open";
             this.button4.UseVisualStyleBackColor = true;
             this.button4.Click += new System.EventHandler(this.button4_Click);
             // 
@@ -5132,7 +5132,7 @@
             this.button3.Name = "button3";
             this.button3.Size = new System.Drawing.Size(75, 36);
             this.button3.TabIndex = 140;
-            this.button3.Text = "COM4扫码";
+            this.button3.Text = "COM4";
             this.button3.UseVisualStyleBackColor = true;
             this.button3.Click += new System.EventHandler(this.button3_Click);
             // 
@@ -5151,7 +5151,7 @@
             this.button2.Name = "button2";
             this.button2.Size = new System.Drawing.Size(75, 36);
             this.button2.TabIndex = 139;
-            this.button2.Text = "COM3扫码";
+            this.button2.Text = "COM3";
             this.button2.UseVisualStyleBackColor = true;
             this.button2.Click += new System.EventHandler(this.button2_Click_1);
             // 
@@ -5252,7 +5252,7 @@
             // label56
             // 
             this.label56.AutoSize = true;
-            this.label56.Location = new System.Drawing.Point(22, 34);
+            this.label56.Location = new System.Drawing.Point(17, 34);
             this.label56.Name = "label56";
             this.label56.Size = new System.Drawing.Size(28, 14);
             this.label56.TabIndex = 135;
@@ -5466,7 +5466,7 @@
             // 
             this.label47.AutoSize = true;
             this.label47.Font = new System.Drawing.Font("宋体", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.label47.Location = new System.Drawing.Point(156, 149);
+            this.label47.Location = new System.Drawing.Point(155, 148);
             this.label47.Name = "label47";
             this.label47.Size = new System.Drawing.Size(120, 16);
             this.label47.TabIndex = 8;
