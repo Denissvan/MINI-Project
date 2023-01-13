@@ -301,6 +301,10 @@ namespace UI
             public bool RedLightSund;
             [Description("仅在工站扫二维码")]
             public bool bGetOrcodOnWs;
+            [Description("NG比例仅特定代码")]
+            public bool bNgRateBySet;
+            [Description("NG比例代码(用#间隔)")]
+            public string NgRateCodes;
 
         }
         public class NoneRunAll

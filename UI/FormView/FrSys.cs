@@ -1299,35 +1299,7 @@ namespace UI
 
         private void button6_Click(object sender, EventArgs e)
         {
-            string objdata = " 0,0,0,0,0";
-            string PosInfo = "WS2-3";
-            var resList = objdata.Split(',');
-            if (resList.Length > 20)
-            {
-                resList = resList.Skip(resList.Length - 20).Take(20).ToArray();
-                objdata = string.Join(",", resList);
-            }
-            List<int> listMres = new List<int>();
-            foreach (var mres in resList)
-            {
-                listMres.Add(int.Parse(mres));
-            }
-            var ngMresList = listMres.FindAll(s => s > 0).ToList();
-            string ngStr = string.Join(",", ngMresList);
-            if (ngMresList.Count > PT_SET.CntWsNgRateShow)
-            {
-                var msg = string.Format($"工位NG超比例, \r\n 当前位置{PosInfo}NG比例超过设置, \r\n，" +
-                    $"近20个模组中有以下ng类型 \r\n" +
-                    $"{ngStr}，\r\n，请选择是否清除记录!");
-                VAR.msg.AddMsg(Msg.EM_MSGTYPE.ERR, msg);
-                VAR.sys_inf.Set(EM_ALM_STA.WAR_YELLOW_FLASH, msg, 20, true);
-                DialogResult dr = FrRun.Dialog(Color.Yellow, "警告", msg, "清除", "不清除");
-                if(dr== DialogResult.OK)
-                {
-                    objdata = "";
-                }
-                VAR.sys_inf.Set(EM_ALM_STA.NOR_GREEN, VAR.IsChinese ? "运行" : "RUN", 0, true);
-            }
+           
         }
     }
 }

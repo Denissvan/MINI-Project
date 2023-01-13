@@ -552,10 +552,10 @@ namespace UI
                     md.st_CapQrcodePos[i].z = inf.ReadDouble(str_section, "CapQrcodeZ" + (i + 1).ToString(), double.MaxValue);
                 }
 
-                md.cntNgRateFor20 = inf.ReadString(str_section, "cntNgRateFor20", "");
+                // md.cntNgRateFor20 = inf.ReadString(str_section, "cntNgRateFor20", "");
                 //夹具二维码gy0123
                 md.jig_ID = inf.ReadString(str_section, "JIG_ID", "null");
-                
+
                 md.cnt_ok = inf.ReadInteger(str_section, "CNT_OK", 0);
                 md.cnt_ng_exposure = inf.ReadInteger(str_section, "CNT_EXSPOSURE", 0);
                 md.cnt_ng_iic = inf.ReadInteger(str_section, "CNT_IIC", 0);
@@ -567,7 +567,7 @@ namespace UI
                 md.PC_ID = pc_id[num, n - 1];
                 md.TestBox_ID = testbox_id[num, n - 1];
                 md.SN = md_sn[num, n - 1];
-               
+
                 if (md.PC_ID != inf.ReadInteger(str_section, "PC_ID", -1))
                 {
                     VAR.msg.AddMsg(Msg.EM_MSGTYPE.DBG, VAR.IsChinese ? string.Format("{0}第{1}模组PC_ID信息有误,软件:{2},读取:{3}", disc, n, md.PC_ID, inf.ReadInteger(str_section, "PC_ID", -1)) : string.Format("{0} mod {1} PC_ID err! PC_ID:{2},but now PC_ID:{3}             ({0}第{1}模组PC_ID信息有误,软件:{2},读取:{3})", disc, n, md.PC_ID, inf.ReadInteger(str_section, "PC_ID", -1)));
@@ -691,9 +691,9 @@ namespace UI
                     inf.WriteDouble(str_section, "CapQrcodeZ" + (i + 1).ToString(), md.st_CapQrcodePos[i].z, ref ischange, true, filename);
                 }
 
-                inf.WriteString(str_section, "cntNgRateFor20", md.cntNgRateFor20, ref ischange, true, filename);
+                // inf.WriteString(str_section, "cntNgRateFor20", md.cntNgRateFor20, ref ischange, true, filename);
                 //夹具二维码gy0123和夹具统计
-                inf.WriteString(str_section, "JIG_ID", md.jig_ID, ref ischange, true, filename);     
+                inf.WriteString(str_section, "JIG_ID", md.jig_ID, ref ischange, true, filename);
                 inf.WriteInteger(str_section, "CNT_OK", md.cnt_ok, ref ischange, true, filename);
                 inf.WriteInteger(str_section, "CNT_EXSPOSURE", md.cnt_ng_exposure, ref ischange, true, filename);
                 inf.WriteInteger(str_section, "CNT_IIC", md.cnt_ng_iic, ref ischange, true, filename);
@@ -708,9 +708,9 @@ namespace UI
                 inf.WriteInteger(str_section, "TESTBOX_ID", md.TestBox_ID, ref ischange, true, filename);
                 inf.WriteInteger(str_section, "SN", md.SN, ref ischange, true, filename);
 
-                
 
-               
+
+
                 //if (!PT_SET.LbEn && (num == 0 || num == 2))
                 //    inf.WriteBool(str_section, "EN", false, ref ischange, true, filename);
                 //else
@@ -2383,7 +2383,7 @@ namespace UI
             return EM_RES.OK;
         }
         //是否上下料开始
-      public  bool bUpDnStart = false;
+        public bool bUpDnStart = false;
 
         void RunTest()
         {
@@ -2549,7 +2549,7 @@ namespace UI
                     }
 
                     Thread.Sleep(PT_SET.OpenDly);
-                    if (bUpDnStart&& !PT_SET.turnon)//后开图且已经上料停止启动测试
+                    if (bUpDnStart && !PT_SET.turnon)//后开图且已经上料停止启动测试
                     {
                         res = EM_RES.OK;
                         Status = EM_STA.REDAY;

@@ -59,6 +59,8 @@ using System.Runtime.InteropServices;
 //增加参数表格保存
 //2436增加单独在工站扫码，必须是上相机扫码开启二维码回检。bGetOrcodOnWs
 //使用编码器位置监控轴定位偏差，解决光箱轴定位偏差导致的偶发风险
+//2437优化定位偏差等待时间至50ms到100ms
+//2438优化ng比例部分异常+消息打印，注销工位NG连续记录数据保存功能
 //[assembly: AssemblyVersion("1.0.*")]
-[assembly: AssemblyVersion("2.4.3.6")]
-[assembly: AssemblyFileVersion("2.4.3.6")]
+[assembly: AssemblyVersion("2.4.3.8")]
+[assembly: AssemblyFileVersion("2.4.3.8")]

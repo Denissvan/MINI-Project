@@ -2795,7 +2795,7 @@
             this.tp_setparm_2.Location = new System.Drawing.Point(4, 44);
             this.tp_setparm_2.Name = "tp_setparm_2";
             this.tp_setparm_2.Padding = new System.Windows.Forms.Padding(3);
-            this.tp_setparm_2.Size = new System.Drawing.Size(1072, 726);
+            this.tp_setparm_2.Size = new System.Drawing.Size(74, 44);
             this.tp_setparm_2.TabIndex = 1;
             this.tp_setparm_2.Text = "参数2          ";
             this.tp_setparm_2.UseVisualStyleBackColor = true;
@@ -4995,7 +4995,7 @@
             this.tabPage3.Location = new System.Drawing.Point(4, 44);
             this.tabPage3.Name = "tabPage3";
             this.tabPage3.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage3.Size = new System.Drawing.Size(1072, 726);
+            this.tabPage3.Size = new System.Drawing.Size(74, 44);
             this.tabPage3.TabIndex = 2;
             this.tabPage3.Text = "参数3";
             this.tabPage3.UseVisualStyleBackColor = true;
@@ -5706,7 +5706,7 @@
             this.tpPara4.Location = new System.Drawing.Point(4, 44);
             this.tpPara4.Name = "tpPara4";
             this.tpPara4.Padding = new System.Windows.Forms.Padding(3);
-            this.tpPara4.Size = new System.Drawing.Size(1072, 726);
+            this.tpPara4.Size = new System.Drawing.Size(74, 44);
             this.tpPara4.TabIndex = 3;
             this.tpPara4.Text = "参数4";
             this.tpPara4.UseVisualStyleBackColor = true;
@@ -5723,7 +5723,7 @@
             this.tableLayoutPanel2.Name = "tableLayoutPanel2";
             this.tableLayoutPanel2.RowCount = 1;
             this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel2.Size = new System.Drawing.Size(1066, 720);
+            this.tableLayoutPanel2.Size = new System.Drawing.Size(68, 38);
             this.tableLayoutPanel2.TabIndex = 1;
             // 
             // dataGrideSysInfo1
@@ -5732,7 +5732,7 @@
             this.dataGrideSysInfo1.Location = new System.Drawing.Point(6, 5);
             this.dataGrideSysInfo1.Margin = new System.Windows.Forms.Padding(6, 5, 6, 5);
             this.dataGrideSysInfo1.Name = "dataGrideSysInfo1";
-            this.dataGrideSysInfo1.Size = new System.Drawing.Size(954, 710);
+            this.dataGrideSysInfo1.Size = new System.Drawing.Size(1, 28);
             this.dataGrideSysInfo1.TabIndex = 0;
             // 
             // panel1
@@ -5740,9 +5740,9 @@
             this.panel1.Controls.Add(this.button8);
             this.panel1.Controls.Add(this.button7);
             this.panel1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panel1.Location = new System.Drawing.Point(969, 3);
+            this.panel1.Location = new System.Drawing.Point(-29, 3);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(94, 714);
+            this.panel1.Size = new System.Drawing.Size(94, 32);
             this.panel1.TabIndex = 1;
             // 
             // button8
