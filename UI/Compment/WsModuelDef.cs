@@ -441,47 +441,12 @@ namespace UI
         }
 
         private void btn_next_flow_Click(object sender, EventArgs e)
-        {
-            //int status = 0;
-            //int num = 0;
-            //int[] res = new int[16];
-            //TestPC.DeviceStruct dev = new TestPC.DeviceStruct();
-            //int ret = TestPC.WaitTestResult(ref status, res, ref num, ref dev, 1);
-
-            //if (ret == 0)
-            //{
-            //    string str = string.Format("status={0},n={1}", status, num);
-            //    for (int n = 0; n < num && n < res.Length; n++)
-            //        str = str + string.Format(",{0}", res[n]);
-            //    VAR.msg.AddMsg(Msg.EM_MSGTYPE.DBG, str);
-            //    if (status > 0)
-            //        TestPC.NextTest(status, 1);
-            //    else
-            //        MessageBox.Show(str);
-            //}
-
-
+        {          
             int status = 0;
             VAR.gsys_set.bquit = false;
-            //ws.WaitTestResult(ref status, ws.TestDelay); PT_SET.TestTime
             ws.WaitTestResult(ref status, PT_SET.TestTime); 
             ws.NextTest(status);
-
-            //string str;
-            //int status = 0;
-            //int[] res = new int[100];
-            //int num = 0;
-            //TestPC.DeviceStruct DeviceParam = new TestPC.DeviceStruct();
-            //int ret = TestPC.WaitTestResult(ref status, res, ref num, ref DeviceParam, 1);
-            //if (ret != 0)
-            //{
-            //    return;
-            //}
-
-            //if (status > -1)
-            //{
-            //    TestPC.NextTest(status, 1);
-            //}
+      
         }
 
         private void dgv_CellPainting(object sender, DataGridViewCellPaintingEventArgs e)

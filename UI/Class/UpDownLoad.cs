@@ -1104,7 +1104,7 @@ namespace UI
 
                     FlyCfg(EM_FLY_CFG.MOD_DW, new List<ST_XYN>(), xt_cnt, Dir);
                 }
-                VAR.msg.AddMsg(Msg.EM_MSGTYPE.NOR, upcam.disc + $"当前上下料位置：Y{ax_y.fenc_pos}");
+             //   VAR.msg.AddMsg(Msg.EM_MSGTYPE.NOR, upcam.disc + $"当前上下料位置：Y{ax_y.fenc_pos}");
                 //加载料盘拍照点
                 FlyCfg(EM_FLY_CFG.MOD_UP, TrayTriPos, TrayTriPos.Count, Dir, true, WsTriPos.Count > 0 ? false : true, TrayCapQrcodeTriPos);
                 //foreach( var mtrayTriPos in TrayTriPos)
@@ -1271,11 +1271,12 @@ namespace UI
         /// <returns></returns>
         public EM_RES QrCodeChkShow(Cam.VisionTask task,WS.MdDat md)
         {
-
-            if (PT_SET.BarcodeMode != (int)PT_SET.BAR_SCAN.UP_SCAN)
+           //取消判断，强制开启 bUpWsChkQrCodeEn
+            if (PT_SET.BarcodeMode != (int)PT_SET.BAR_SCAN.UP_SCAN||NewSysInf.NoneRunPosInfo.UserNormalSet.bUpWsChkQrCodeOff)
                 return EM_RES.OK;
-            VAR.msg.AddMsg(Msg.EM_MSGTYPE.DBG, $"开始二维码对比检测,流程{task.TaskName},模组二维码{md.bardcode}");
             var QrCode = task.ResData.BarCode;
+            VAR.msg.AddMsg(Msg.EM_MSGTYPE.DBG,disc+ $"开始二维码对比,检出二维码{QrCode},模组二维码{md.bardcode}");
+         
             if (QrCode == null || QrCode.Length < 3 )
             {
                 bool bGetOrcodOnWs = NewSysInf.NoneRunPosInfo.UserNormalSet.bGetOrcodOnWs;
@@ -1285,7 +1286,7 @@ namespace UI
                     VAR.msg.AddMsg(Msg.EM_MSGTYPE.ERR, disc + $"当前设置仅在工站扫码，模组{md.test_idx}拍二维码失败将取回重新上料");
                     return EM_RES.OK;
                 }
-                 if (QrCodeChkErrCnt<PT_SET.UpWsChkQrCodeCnt)
+                if (QrCodeChkErrCnt<PT_SET.UpWsChkQrCodeCnt)
                 {
                     QrCodeChkErrCnt++;
                     md.res = 3342;
@@ -2259,9 +2260,9 @@ namespace UI
                                     XT.EM_XTFLOW.PLACEMOD, false, PT_SET.bModPasteUp);
                                 if (res == EM_RES.OK)
                                 {
-                                    WsPickmd[0].bardcode = xt.XtMd.bardcode;
-                                    WsPickmd[0].motor_barcode = xt.XtMd.motor_barcode;
+                                    WsPickmd[0].bardcode = xt.XtMd.bardcode;                               
                                     WsPickmd[0].res = -1;
+                                    WsPickmd[0].motor_barcode = xt.XtMd.motor_barcode;
                                     xt.XtMd = null;
                                 }
                                 else return res;
@@ -2615,7 +2616,9 @@ namespace UI
                     VAR.msg.AddMsg(Msg.EM_MSGTYPE.DBG, VAR.IsChinese ? string.Format("{0}工站取料: X:{1} Y:{2}", disc, pickpos.x, pickpos.y) : string.Format("{0}WS pickmod: X:{2} Y:{3}            ({1}工站取料: X:{2} Y:{3})", englishdisc, disc, pickpos.x, pickpos.y));
                     for (int i = 0; i < 2; i++)
                     {
-                        res = list_xt[xtid].Pick(ref bquit, pickpos, true, Demo, true);
+                        bool bmove = NewSysInf.NoneRunPosInfo.UserNormalSet.bPickWsDis;//取料后偏移运动
+                       // bmove = true;//临时测试强制开启
+                        res = list_xt[xtid].Pick(ref bquit, pickpos, true, Demo, true, bmove);
                         if (res != EM_RES.PICK_ERR || !PT_SET.bWsPickAgain) break;
                         else
                             VAR.msg.AddMsg(Msg.EM_MSGTYPE.DBG, VAR.IsChinese ? string.Format("{0}工站重取物料: X:{1} Y:{2}", disc, pickpos.x, pickpos.y) : string.Format("{0} WS retry to pick mod: X:{2} Y:{3}           ({1}工站重取物料: X:{2} Y:{3})", englishdisc, disc, pickpos.x, pickpos.y));
@@ -2793,10 +2796,19 @@ namespace UI
         {
             //List<Product.Tray.PosInf> ListPickMod = new List<Product.Tray.PosInf>();
             //ListPickMod = traybox_fd.tray_cur.GetPosList();
+
+             VAR.msg.AddMsg(Msg.EM_MSGTYPE.NOR, $"进入马达二维码失败放回");
+
             EM_RES res = EM_RES.OK;
             for (int i = 0; i < 2; i++)
             {
-                if ((list_xt[i].cy_zk.isONByChkSen && list_xt[i].bUpdate && list_xt[i].bOk == false)/*|| (ListPickMod.Count<2)&& list_xt[i].cy_zk.isONByChkSen*/)
+                //var barcod = list_xt[i].XtMd.motor_barcode;
+                bool bMdMotoHaveScan = list_xt[i].XtMd != null && list_xt[i].XtMd.bhaveMotoScan;
+                
+                string barcode = list_xt[i].XtMd.motor_barcode;
+                bool bErrBar= barcode.Length != PT_SET.motorBarcodeDigits || barcode.Length < 5;
+                VAR.msg.AddMsg(Msg.EM_MSGTYPE.NOR, $"{list_xt[i].disc}+马达二维码失败放回bErrBar{bErrBar}bMdMotoHaveScan{bMdMotoHaveScan}");
+                if ( bMdMotoHaveScan && bErrBar/*|| (ListPickMod.Count<2)&& list_xt[i].cy_zk.isONByChkSen*/)
                 {
                     try
                     {
@@ -2823,8 +2835,6 @@ namespace UI
                         if (res == EM_RES.OK)
                         {
                             list_xt[i].XtMd = null;
-                            list_xt[i].bUpdate = false;
-                            list_xt[i].bOk = false;
                         }
                         else if (res != EM_RES.OK) break;
                     }
@@ -2870,7 +2880,7 @@ namespace UI
                 FlyCfg(EM_FLY_CFG.WS_UP, TriPos, WsTriPos.Count, true, Ofs_On);
 
                 //定位飞拍
-                VAR.msg.AddMsg(Msg.EM_MSGTYPE.NOR, VAR.IsChinese ? string.Format("{0}Y轴飞拍前其它轴定位!", disc) : string.Format("other axes move before {0}Y axis flyshot!          ({1}Y轴飞拍前其它轴定位!)", englishdisc, disc));
+              //  VAR.msg.AddMsg(Msg.EM_MSGTYPE.NOR, VAR.IsChinese ? string.Format("{0}Y轴飞拍前其它轴定位!", disc) : string.Format("other axes move before {0}Y axis flyshot!          ({1}Y轴飞拍前其它轴定位!)", englishdisc, disc));
                 if (Math.Abs(pos_flystop.x - ax_x.fenc_pos) > 50 || ax_y.fenc_pos > fly_safepos)
                 {
                     AXIS axisy = null;
@@ -2884,7 +2894,7 @@ namespace UI
                     res = MT.ZupMove(ref bquit, ref ax_u1, 0, ref ax_u2, 0);
                     if (res != EM_RES.OK) return res;
                 }
-                VAR.msg.AddMsg(Msg.EM_MSGTYPE.NOR, VAR.IsChinese ? string.Format("{0}定位到飞拍放料起飞", disc) : string.Format("{0}  move to flyshot end pos         ({1}定位到飞拍放料起飞)", englishdisc, disc));
+                //VAR.msg.AddMsg(Msg.EM_MSGTYPE.NOR, VAR.IsChinese ? string.Format("{0}定位到飞拍放料起飞", disc) : string.Format("{0}  move to flyshot end pos         ({1}定位到飞拍放料起飞)", englishdisc, disc));
                 res = MT.ZupMove(ref bquit, ref ax_x, pos_flystop.x, ref ax_y, pos_flystop.y, ref ax_u1, 0, ref ax_u2, 0);
                 if (res != EM_RES.OK) return res;
 
@@ -2902,7 +2912,78 @@ namespace UI
             }
 
         }
+        /// <summary>
+        /// 马达扫二维码
+        /// </summary>
+        /// <param name="xtid"></param>
+        /// <returns></returns>
+     public   EM_RES MotoScan(int xtid)
+        {
+            var posu1 = id == 1 ? PT_SET.MotorAngle3 : PT_SET.MotorAngle1;
+            var posu2 = id == 1 ? PT_SET.MotorAngle4 : PT_SET.MotorAngle2;
+            var xt = list_xt[xtid];
+            var ax_y_pos = traybox_fd.motor_barcode_pos[xt.id];
+            string barcode = "";
+            EM_RES res = EM_RES.OK;
+            try
+            {
 
+                var com = id == 0 ? MT.COM3 : MT.COM4;
+
+                if (!xt.bNeedMotoScan)
+                {
+                    if (xt.XtMd == null)
+                    {
+                        VAR.msg.AddMsg(Msg.EM_MSGTYPE.NOR, xt.disc + "不需要扫马达二维码吸头空");
+                    }
+                    else
+                    {
+                        VAR.msg.AddMsg(Msg.EM_MSGTYPE.NOR, xt.disc + "不需要扫马达二维码:" + xt.XtMd.motor_barcode);
+                    }
+                    return EM_RES.OK;
+                }
+                 res = MT.ZupMove(ref bquit, ref ax_y, ax_y_pos, ref ax_u1, posu1, ref ax_u2, posu2);
+                if (res != EM_RES.OK)
+                {
+                    VAR.msg.AddMsg(Msg.EM_MSGTYPE.ERR, xt.disc + "定位马达二维码失败");
+                    return res;
+                }
+                if(com.bComInitOK==false)
+                {
+                    com.ReInit();
+                    if (com.bComInitOK == false)
+                    {
+                        VAR.msg.AddMsg(Msg.EM_MSGTYPE.ERR, xt.disc + "马达二维码串口初始化失败");
+                        return EM_RES.ERR;
+                    }
+                }
+                bool bok = com.ReadDataByString(out barcode, 200, 3);
+
+                xt.XtMd.bhaveMotoScan = true;//已经马达扫码
+                xt.XtMd.motor_barcode = barcode;
+                if (!bok)
+                {
+                    VAR.msg.AddMsg(Msg.EM_MSGTYPE.ERR, xt.disc + "马达二维码NG" + barcode);
+                    return EM_RES.MOTOR_CAM_ERR_PLACE_BACK;
+                }
+                else
+                {
+                    VAR.msg.AddMsg(Msg.EM_MSGTYPE.NOR, xt.disc + $"马达二维码成功{barcode}");
+                    return EM_RES.OK;
+                }
+            }
+            catch (Exception ee)
+            {
+                VAR.msg.AddMsg(Msg.EM_MSGTYPE.ERR, xt.disc + "马达二维码异常" + ee.ToString());
+                return EM_RES.ERR;
+            }
+            finally
+            {
+                bool mbquit = false;
+                var res2 = MT.ZupMove(ref mbquit, ref ax_u1, 0, ref ax_u2, 0);
+            }
+            return res;
+        }
         /// <summary>
         /// 放料于工站
         /// </summary>
@@ -2936,187 +3017,35 @@ namespace UI
             //进行马达二维码扫描
             if (PT_SET.bmotorphoto)
             {
-                if (WsTriPos.Count > 0)
+                try
                 {
-                    if (WsTriPos.Count == 1)
-                    {
-                        double ax_y_pos = 0;
-                        XT xt = new XT();
-                        if (list_xt[0].cy_zk.isON && list_xt[0].cy_zk.isONByChkSen)
-                        {
-                            ax_y_pos = traybox_fd.motor_barcode_pos[id];
-                            xt = list_xt[0];
-                        }
-                        else if (list_xt[1].cy_zk.isON && list_xt[1].cy_zk.isONByChkSen)
-                        {
-                            ax_y_pos = traybox_fd.motor_barcode_pos[id] - 50;
-                            xt = list_xt[1];
-                        }
-                        if (id == 1)
-                        {
-                            res = MT.ZupMove(ref bquit, ref ax_y, ax_y_pos, ref ax_u1, PT_SET.MotorAngle3, ref ax_u2, PT_SET.MotorAngle4);
-                            if (res != EM_RES.OK)
-                            {
-                                return res;
-                            }
-                        }
-                        else
-                        {
-                            res = MT.ZupMove(ref bquit, ref ax_y, ax_y_pos, ref ax_u1, PT_SET.MotorAngle1, ref ax_u2, PT_SET.MotorAngle2);
-                            if (res != EM_RES.OK)
-                            {
-                                return res;
-                            }
-                        }
-
-
-                        string barcode = "";
-                        for (int i = 0; i < 3; i++)
-                        {
-                            if (id == 0 ? MT.COM3.ReadDataByString(out barcode) != true : MT.COM4.ReadDataByString(out barcode) != true)
-                            {
-                                continue;
-                            }
-                            else
-                            {
-                                xt.bUpdate = true;
-                            }
-                            if (barcode != "读码失败")
-                            {
-                                break;
-                            }
-                        }
-                        if (barcode.Length != PT_SET.motorBarcodeDigits)
-                        {
-                            VAR.msg.AddMsg(Msg.EM_MSGTYPE.ERR, "马达二维码识别失败");
-                            xt.bOk = false;
-                            return EM_RES.MOTOR_CAM_ERR_PLACE_BACK;
-                        }
-                        xt.bOk = true;
-                        xt.XtMd.motor_barcode = barcode;
-                        res = MT.ZupMove(ref bquit, ref ax_u1, 0, ref ax_u2, 0);
+                    VAR.msg.AddMsg(Msg.EM_MSGTYPE.NOR, disc + "放工站前先马达扫二维码");
+                    int i = 0;
+                    foreach(var xt in list_xt)
+                    {                      
+                        res = MotoScan(i);
                         if (res != EM_RES.OK)
                         {
                             return res;
                         }
+                        i++;
                     }
-                    else
-                    {
-                        string barcode = "";
-                        if (!list_xt[1].bOk)
-                        {
-                            if (id == 1)
-                            {
-                                res = MT.ZupMove(ref bquit, ref ax_y, traybox_fd.motor_barcode_pos[id] - 50, ref ax_u1, PT_SET.MotorAngle3, ref ax_u2, PT_SET.MotorAngle4);
-                                if (res != EM_RES.OK)
-                                {
-                                    return res;
-                                }
-                            }
-                            else
-                            {
-                                res = MT.ZupMove(ref bquit, ref ax_y, traybox_fd.motor_barcode_pos[id] - 50, ref ax_u1, PT_SET.MotorAngle1, ref ax_u2, PT_SET.MotorAngle2);
-                                if (res != EM_RES.OK)
-                                {
-                                    return res;
-                                }
-                            }
-
-
-                            for (int i = 0; i < 3; i++)
-                            {
-                                if (id == 0 ? MT.COM3.ReadDataByString(out barcode) != true : MT.COM4.ReadDataByString(out barcode) != true)
-                                {
-                                    continue;
-                                }
-                                else
-                                {
-                                    list_xt[1].bUpdate = true;
-                                }
-
-                                if (barcode != "读码失败")
-                                {
-                                    break;
-                                }
-                            }
-                            if (barcode.Length != PT_SET.motorBarcodeDigits)
-                            {
-                                VAR.msg.AddMsg(Msg.EM_MSGTYPE.ERR, "马达二维码识别失败");
-                                list_xt[1].bOk = false;
-                                return EM_RES.MOTOR_CAM_ERR_PLACE_BACK;
-                            }
-                            list_xt[1].bOk = true;
-                            list_xt[1].XtMd.motor_barcode = barcode;
-                        }
-
-                        res = MT.ZupMove(ref bquit, ref ax_y, traybox_fd.motor_barcode_pos[id]);
-                        if (res != EM_RES.OK)
-                        {
-                            return res;
-                        }
-                        barcode = "";
-                        if (!list_xt[0].bOk)
-                        {
-
-                            if (id == 1)
-                            {
-                                res = MT.ZupMove(ref bquit, ref ax_y, traybox_fd.motor_barcode_pos[id], ref ax_u1, PT_SET.MotorAngle3, ref ax_u2, PT_SET.MotorAngle4);
-                                if (res != EM_RES.OK)
-                                {
-                                    return res;
-                                }
-                            }
-                            else
-                            {
-                                res = MT.ZupMove(ref bquit, ref ax_y, traybox_fd.motor_barcode_pos[id], ref ax_u1, PT_SET.MotorAngle1, ref ax_u2, PT_SET.MotorAngle2);
-                                if (res != EM_RES.OK)
-                                {
-                                    return res;
-                                }
-                            }
-                            for (int i = 0; i < 3; i++)
-                            {
-                                if (id == 0 ? MT.COM3.ReadDataByString(out barcode) != true : MT.COM4.ReadDataByString(out barcode) != true)
-                                {
-                                    continue;
-                                }
-                                else
-                                {
-                                    list_xt[0].bUpdate = true;
-                                }
-                                if (barcode != "读码失败")
-                                {
-                                    break;
-                                }
-
-                            }
-
-                            if (barcode.Length != PT_SET.motorBarcodeDigits)
-                            {
-                                VAR.msg.AddMsg(Msg.EM_MSGTYPE.ERR, "马达二维码识别失败");
-                                list_xt[0].bOk = false;
-                                return EM_RES.MOTOR_CAM_ERR_PLACE_BACK;
-                            }
-                            list_xt[0].bOk = true;
-                            list_xt[0].XtMd.motor_barcode = barcode;
-                        }
-
-                        //马达二维码绑定成功要将U轴转回来
-                        res = MT.ZupMove(ref bquit, ref ax_u1, 0, ref ax_u2, 0);
-                        if (res != EM_RES.OK)
-                        {
-                            return res;
-                        }
-                        list_xt[0].bOk = false;
-                        list_xt[1].bOk = false;
-                    }
+                    
+                }
+                catch(Exception ee)
+                {
+                    VAR.msg.AddMsg(Msg.EM_MSGTYPE.ERR, disc+"马达二维码异常" + ee.ToString());
+                    return EM_RES.ERR;
+                }
+                finally
+                {
+                    //马达二维码绑定成功要将U轴转回来
+                    bool mbquit = false;
+                    var res1 = MT.ZupMove(ref mbquit, ref ax_u1, 0, ref ax_u2, 0);
+                   
                 }
             }
-
-
-
-
-
+            VAR.msg.AddMsg(Msg.EM_MSGTYPE.NOR, disc + "开始进行下飞拍到工站");
             //bool dwcam_recap_err = false;
             for (int n = 0; n < 2; n++)
             {
@@ -3245,10 +3174,10 @@ namespace UI
                 tak.Start();
             }
 
-            #region 先放吸头2后放吸头1              
+            #region 先放吸头2后放吸头1    
+            VAR.msg.AddMsg(Msg.EM_MSGTYPE.NOR, disc + "开始进行吸头放工站");
             foreach (Cam.VisionTask dw_task in dwcam.List_vs_task_cur)
-            {
-                
+            {               
                 xtnum = dw_task.TriPos.n;
                 if (dw_task.ResData.bOK && dw_task.ResData.bUpdate)
                 {
@@ -3271,14 +3200,28 @@ namespace UI
                                     {
                                         WsTriPos[j].bardcode = list_xt[xtnum].XtMd.bardcode;
                                     }
-                                    else if (PT_SET.BarcodeMode == (int)PT_SET.BAR_SCAN.DW_SCAN && !PT_SET.bDwAddCapQrcode) WsTriPos[j].bardcode = dw_task.ResData.BarCode;
-                                    if (PT_SET.bmotorphoto)
-                                    {
-                                        WsTriPos[j].motor_barcode = list_xt[xtnum].XtMd.motor_barcode;
-                                    }
-                                    list_xt[xtnum].XtMd = null;
+                                    else if (PT_SET.BarcodeMode == (int)PT_SET.BAR_SCAN.DW_SCAN && !PT_SET.bDwAddCapQrcode)
+                                        WsTriPos[j].bardcode = dw_task.ResData.BarCode;
+                                   
+                                   
                                     WsTriPos[j].res = -1;
                                     WsTriPos[j].IsNormal = VAR.Isnormal;
+                                    
+                                    if (PT_SET.bmotorphoto)
+                                    {
+                                        var bqrcod = list_xt[xtnum].XtMd.motor_barcode;
+                                        if (bqrcod.Length != PT_SET.motorBarcodeDigits|| bqrcod.Length<5)
+                                        {
+                                            VAR.msg.AddMsg(Msg.EM_MSGTYPE.ERR, string.Format("{0}放工站的马达二维码啊异常，强制下料！", list_xt[xtnum].disc));
+                                            WsTriPos[j].res = 1;
+                                        }
+                                        else
+                                        {
+                                            WsTriPos[j].motor_barcode = bqrcod;
+                                        }
+
+                                    }
+                                    list_xt[xtnum].XtMd = null;
                                     COUNT_DATA.allcnt[ws.num]++;
                                     if (PT_SET.bNgControl) COUNT_DATA.ngctrlallcnt++;
                                     if (PT_SET.EquipmentMT != 0) COUNT_DATA.CurEquipmentMT++;
@@ -3320,7 +3263,7 @@ namespace UI
             //}
             //放料
             res = FlyPlaceWsMod(ref bquit, placemd, ws);
-            VAR.msg.AddMsg(Msg.EM_MSGTYPE.DBG, VAR.IsChinese ? string.Format("{0}结束,{1}", disc, res.ToString()) : string.Format("{0} end,{2} ({1}结束,{2})", englishdisc, disc, res.ToString()));
+           // VAR.msg.AddMsg(Msg.EM_MSGTYPE.DBG, VAR.IsChinese ? string.Format("{0}结束,{1}", disc, res.ToString()) : string.Format("{0} end,{2} ({1}结束,{2})", englishdisc, disc, res.ToString()));
             if (res == EM_RES.OK)
             {
                 ErrTryPickCnt = 0;
@@ -3423,7 +3366,7 @@ namespace UI
                                     Pos_Upcam.y = uptask.TriPos.y;
                                     var curBarCode = uptask.ResData.BarCode;
                                     var curTaskName = uptask.TaskName;
-                                    VAR.msg.AddMsg(Msg.EM_MSGTYPE.DBG, disc + $"{list_xt[i].disc}取料前任务名称{curTaskName}二维码{curBarCode}模组序号{uptask.TriPos.n}!");
+                                  //  VAR.msg.AddMsg(Msg.EM_MSGTYPE.DBG, disc + $"{list_xt[i].disc}取料前任务名称{curTaskName}二维码{curBarCode}模组序号{uptask.TriPos.n}!");
                                     res = list_xt[i].XtPickOrPlaceMod(ref bquit, Pos_Upcam, uptask.ResData.PosMM, xt_vs_dat, posinf.Pos[id].z, Demo);
                                     if (res == EM_RES.OK)
                                     {
@@ -3435,7 +3378,7 @@ namespace UI
                                             VAR.msg.AddMsg(Msg.EM_MSGTYPE.NOR, string.Format("{0}飞拍取料------barcode---{1}!", list_xt[i].disc, list_xt[i].XtMd.bardcode));
                                         }
                                         posinf.md = null;
-                                        VAR.msg.AddMsg(Msg.EM_MSGTYPE.DBG, disc + $"{list_xt[i].disc}取料后任务名称{uptask.TaskName}二维码{ uptask.ResData.BarCode}模组序号{uptask.TriPos.n}!");
+                                       // VAR.msg.AddMsg(Msg.EM_MSGTYPE.DBG, disc + $"{list_xt[i].disc}取料后任务名称{uptask.TaskName}二维码{ uptask.ResData.BarCode}模组序号{uptask.TriPos.n}!");
                                     }
                                     else return res;
                                     uptask.ResData.bUpdate = false;
@@ -4181,21 +4124,20 @@ namespace UI
                             if (ErrMotorTryPickCnt > 4)
                             {
                                 ErrMotorTryPickCnt = 0;
-                                msg = VAR.IsChinese ? string.Format("重取物料,马达拍照失败,请确认原因!") : string.Format("Retry to pick, motor cam failed,please check!         (重取物料,马达拍照失败,请确认原因!)");
+                                msg = VAR.IsChinese ? string.Format("重取物料,马达扫码失败,请确认原因!") : string.Format("Retry to pick, motor cam failed,please check!         (重取物料,马达拍照失败,请确认原因!)");
                                 res = EM_RES.ERR;
                             }
                             else
                             {
-                                msg = VAR.IsChinese ? string.Format("马达拍照失败,重取物料!") : string.Format("motor cam failed,retry to pick mod!          (马达拍照失败,重取物料!)");
+                                msg = VAR.IsChinese ? string.Format("马达扫码失败,重取物料!") : string.Format("motor cam failed,retry to pick mod!          (马达拍照失败,重取物料!)");
                                 Proc = EM_STA.PICKTRAY;
 
                             }
                             VAR.msg.AddMsg(Msg.EM_MSGTYPE.ERR, msg, DReport.EmErrCode.CaptureFailed, (int)DReport.EmHareware.Cam);
                         }
-
-                        if (res != EM_RES.OK)
+                        else
                         {
-                            VAR.sys_inf.Set(EM_ALM_STA.WAR_YELLOW_FLASH, VAR.IsChinese ? "拍照失败!" : "Cam ERR", 20, true);
+                            VAR.sys_inf.Set(EM_ALM_STA.WAR_YELLOW_FLASH, VAR.IsChinese ? "马达扫码失败!" : "moto ERR", 20, true);
                             return res;
                         }
                     }
@@ -4247,29 +4189,39 @@ namespace UI
                             if (res == EM_RES.OK)
                             {
                                 Proc = EM_STA.CHECK;
+                                VAR.msg.AddMsg(Msg.EM_MSGTYPE.DBG, disc + "工站放料成功后跳转到步骤检测流程,开启bflycam");
                                 bflycam = true;
                             }
                             else if (res == EM_RES.CAM_ERR_PLACE_BACK)
                             {
                                 bflycam = false;
+                                VAR.msg.AddMsg(Msg.EM_MSGTYPE.ERR, disc + "工站放料失败(拍照)跳转到飞拍失败放回料盘流程,关闭bflycam");
                                 Proc = EM_STA.FLYERRPLACE;
                             }
                             else if (res == EM_RES.RETRY)
                             {
                                 Proc = EM_STA.CHECK;
+                                VAR.msg.AddMsg(Msg.EM_MSGTYPE.ERR, disc + "工站放料失败后（retry）跳转到步骤检测流程,bflycam=false");
                                 bflycam = false;
                             }
                             else if (res == EM_RES.MOTOR_CAM_ERR_PLACE_BACK)
                             {
                                 bflycam = false;
+                                VAR.msg.AddMsg(Msg.EM_MSGTYPE.ERR, disc + "工站放料失败（马达扫码）跳转到放料流程,bflycam=false");
                                 Proc = EM_STA.MOTORCAMERRPLACE;
                             }
-                            else if (res != EM_RES.OK) return res;
+                            else if (res != EM_RES.OK)
+                            {
+                                VAR.msg.AddMsg(Msg.EM_MSGTYPE.ERR, disc + "工站放料失败严重异常:"+res);
+                                return res;
+                            }
                         }
                         else
                         {
                             Proc = EM_STA.CHECK;
                         }
+
+                        
                         //VAR.msg.AddMsg(Msg.EM_MSGTYPE.ERR, string.Format("{0}工站放料退出!", disc));
                     }
                 }

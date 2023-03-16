@@ -2486,7 +2486,7 @@ namespace UI
                         if (!Demo)
                         {
                             int _sta = 0;
-                            WaitTestResult(ref _sta, 300);
+                            WaitTestResult(ref _sta, PT_SET.TestTime);
                         }
                         res = EM_RES.OK;
                         Status = EM_STA.REDAY;
@@ -2556,7 +2556,7 @@ namespace UI
                         TestStatus = EM_TEST_STA.COMPLETED;
                         break;
                     }
-                    res = WaitTestResult(ref sta, TestDelay, Demo, lb);
+                    res = WaitTestResult(ref sta, PT_SET.TestTime, Demo, lb);
                     if (res == EM_RES.PARA_ERR || res == EM_RES.QUIT)
                     {
                         //不同步等异常

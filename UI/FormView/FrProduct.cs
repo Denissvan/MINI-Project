@@ -263,6 +263,8 @@ namespace UI
             nud_tray_barcode_a2.Value = (decimal)COM.traybox_fd.tray_barcode_a2;
             nud_motor_y1.Value = (decimal)COM.traybox_fd.motor_barcode_pos[0];
             nud_motor_y2.Value = (decimal)COM.traybox_fd.motor_barcode_pos[1];
+            nud_motor_y3.Value = (decimal)COM.traybox_fd.motor_barcode_pos[2];
+            nud_motor_y4.Value = (decimal)COM.traybox_fd.motor_barcode_pos[3];
         }
 
         void GetTrayData(Product.Tray tray,bool bgetpos = true)
@@ -329,6 +331,8 @@ namespace UI
             COM.traybox_fd.tray_barcode_a2 = (double)nud_tray_barcode_a2.Value;
             COM.traybox_fd.motor_barcode_pos[0] = (double)nud_motor_y1.Value;
             COM.traybox_fd.motor_barcode_pos[1] = (double)nud_motor_y2.Value;
+            COM.traybox_fd.motor_barcode_pos[2] = (double)nud_motor_y3.Value;
+            COM.traybox_fd.motor_barcode_pos[3] = (double)nud_motor_y4.Value;
         }
 
 
@@ -1486,18 +1490,40 @@ namespace UI
             }
             else
             {
-                DialogResult ret = MessageBox.Show("1.按'是'键选择Y1学习。\n 2.按'否'键选择Y2学习。", "提示", MessageBoxButtons.YesNo, MessageBoxIcon.Information);
+                DialogResult ret = MessageBox.Show("1.按'是'键选择模块1学习。\n 2.按'否'键模块2学习。", "提示", MessageBoxButtons.YesNo, MessageBoxIcon.Information);
                 if (ret == DialogResult.Yes) id = 0;
                 else if (ret == DialogResult.No) id = 1;
                 if (id == 0)
                 {
-                    COM.traybox_fd.motor_barcode_pos[0] = COM.UDLoad1.ax_y.fenc_pos;
-                    nud_motor_y1.Value = (decimal)COM.traybox_fd.motor_barcode_pos[0];
+                    DialogResult ret2 = MessageBox.Show("1.按'是'键选吸头1学习。\n 2.按'否'键选择吸头2学习。", "提示", MessageBoxButtons.YesNo, MessageBoxIcon.Information);
+                    if (ret2 == DialogResult.Yes) id = 0;
+                    else if (ret2 == DialogResult.No) id = 1;
+                    if (id == 0)
+                    {
+                        COM.traybox_fd.motor_barcode_pos[0] = COM.UDLoad1.ax_y.fenc_pos;
+                        nud_motor_y1.Value = (decimal)COM.traybox_fd.motor_barcode_pos[0];
+                    }else
+                    {
+                        COM.traybox_fd.motor_barcode_pos[1] = COM.UDLoad1.ax_y.fenc_pos;
+                        nud_motor_y2.Value = (decimal)COM.traybox_fd.motor_barcode_pos[1];
+                    }
                 }
                 else
                 {
-                    COM.traybox_fd.motor_barcode_pos[1] = COM.UDLoad2.ax_y.fenc_pos;
-                    nud_motor_y2.Value = (decimal)COM.traybox_fd.motor_barcode_pos[1];
+                   
+                    DialogResult ret2 = MessageBox.Show("1.按'是'键选吸头3学习。\n 2.按'否'键选择吸头4学习。", "提示", MessageBoxButtons.YesNo, MessageBoxIcon.Information);
+                    if (ret2 == DialogResult.Yes) id = 0;
+                    else if (ret2 == DialogResult.No) id = 1;
+                    if (id == 0)
+                    {
+                        COM.traybox_fd.motor_barcode_pos[2] = COM.UDLoad2.ax_y.fenc_pos;
+                        nud_motor_y3.Value = (decimal)COM.traybox_fd.motor_barcode_pos[3];
+                    }
+                    else
+                    {
+                        COM.traybox_fd.motor_barcode_pos[3] = COM.UDLoad2.ax_y.fenc_pos;
+                        nud_motor_y4.Value = (decimal)COM.traybox_fd.motor_barcode_pos[4];
+                    }
                 }
             }
         }

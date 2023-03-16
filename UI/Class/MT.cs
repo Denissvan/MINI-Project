@@ -1587,10 +1587,10 @@ namespace UI
             AXIS ax_null = null;
             return Move(ref bquit, ref ax_x, xpos, ref ax_null, 0, ref ax_null, 0, ref ax_null, 0, ref ax_null, 0, ref ax_null, 0, time_out_ms, bdoevent);
         }
-        public static EM_RES Move(ref bool bquit, ref AXIS ax_x, double xpos, ref AXIS ax_y, double ypos, int time_out_ms = 20000, bool bdoevent = false)
+        public static EM_RES Move(ref bool bquit, ref AXIS ax_x, double xpos, ref AXIS ax_y, double ypos, int time_out_ms = 20000, bool bdoevent = false,bool bchkps=true)
         {
             AXIS ax_null = null;
-            return Move(ref bquit, ref ax_x, xpos, ref ax_y, ypos, ref ax_null, 0, ref ax_null, 0, ref ax_null, 0, ref ax_null, 0, time_out_ms, bdoevent);
+            return Move(ref bquit, ref ax_x, xpos, ref ax_y, ypos, ref ax_null, 0, ref ax_null, 0, ref ax_null, 0, ref ax_null, 0, time_out_ms, bdoevent, bchkps);
         }
         public static EM_RES Move(ref bool bquit, ref AXIS ax_x, double xpos, ref AXIS ax_y, double ypos, ref AXIS ax_z, double zpos, int time_out_ms = 20000, bool bdoevent = false)
         {
@@ -1607,25 +1607,25 @@ namespace UI
             AXIS ax_null = null;
             return Move(ref bquit, ref ax_x, xpos, ref ax_y, ypos, ref ax_z, zpos, ref ax_r, rpos, ref ax_w, wpos, ref ax_null, 0, time_out_ms, bdoevent);
         }
-        public static EM_RES Move(ref bool bquit, ref AXIS ax_x, double xpos, ref AXIS ax_y, double ypos, ref AXIS ax_z, double zpos, ref AXIS ax_r, double rpos, ref AXIS ax_w, double wpos, ref AXIS ax_u, double upos, int time_out_ms = 20000, bool bdoevent = false)
+        public static EM_RES Move(ref bool bquit, ref AXIS ax_x, double xpos, ref AXIS ax_y, double ypos, ref AXIS ax_z, double zpos, ref AXIS ax_r, double rpos, ref AXIS ax_w, double wpos, ref AXIS ax_u, double upos, int time_out_ms = 20000, bool bdoevent = false,bool bchkps=true)
         {
             EM_RES ret = EM_RES.OK;
             //start move
             if (ax_x != null)
             {
-                ret = ax_x.MoveTo(ref bquit, xpos);
+                ret = ax_x.MoveTo(ref bquit, xpos, bchkpos: bchkps);
                 if (ret != EM_RES.OK)
                     goto MOVE_END;
             }
             if (ax_y != null)
             {
-                ret = ax_y.MoveTo(ref bquit, ypos);
+                ret = ax_y.MoveTo(ref bquit, ypos, bchkpos: bchkps);
                 if (ret != EM_RES.OK) goto MOVE_END;
 
             }
             if (ax_z != null)
             {
-                ret = ax_z.MoveTo(ref bquit, zpos);
+                ret = ax_z.MoveTo(ref bquit, zpos, bchkpos: bchkps);
                 if (ret != EM_RES.OK) goto MOVE_END;
             }
             if (ax_r != null)

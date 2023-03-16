@@ -15,6 +15,7 @@ using System.Windows.Documents;
 using System.Windows.Markup.Primitives;
 using DevReport;
 using Win32Lib;
+using System.Diagnostics;
 
 namespace UI
 {
@@ -237,6 +238,27 @@ namespace UI
                         return;
                     }
                 }
+                try
+                {
+                    if (Process.GetProcessesByName("SecsApp").Count() == 0)
+                    {
+                        var path = @"Release\SecsApp.exe";
+                        if (File.Exists(path)) Process.Start(path);
+                    }
+                }
+                catch(Exception ee)
+                {
+                    VAR.msg.AddMsg(Msg.EM_MSGTYPE.ERR, "启动SECE失败请手动开启!");
+                    MessageBox.Show("启动SECE失败请重启软件或手动开启secs");
+                    return;
+                }finally
+                {
+                    if (Process.GetProcessesByName("SecsApp").Count() == 0)
+                    {
+                        VAR.msg.AddMsg(Msg.EM_MSGTYPE.ERR, "启动SECE失败请手动开启!");
+                        MessageBox.Show("启动SECE失败请停机重启软件或手动开启secs");
+                    }
+                }
 
                 if (VAR.gsys_set.status == EM_SYS_STA.REPAIR)
                 {
@@ -315,6 +337,7 @@ namespace UI
             finally
             {
                 MT.IsAllowStart = false;
+                COUNT_DATA.SaveCountCfg(VAR.gsys_set.cur_product_name);
             }
             
         }
@@ -528,15 +551,19 @@ namespace UI
             lb_set_grrudlcnt.Text = PT_SET.GRRUdlCnt.ToString();
             lb_EquipmentMT.Text = COUNT_DATA.CurEquipmentMT.ToString();
             lb_FixtrueMT.Text = COUNT_DATA.CurFixtrueMT.ToString();
-           
 
 
 
+            if (COUNT_DATA.OkTwoTestCnt > 50000|| COUNT_DATA.NgTwoTestCnt > 50000)
+            {
+                COUNT_DATA.Clear();
+            }
             double all_cnt = COUNT_DATA.allcnt[0] + COUNT_DATA.allcnt[1] + COUNT_DATA.allcnt[2] + COUNT_DATA.allcnt[3];
             double ok_cnt = COUNT_DATA.okcnt[0] + COUNT_DATA.okcnt[1] + COUNT_DATA.okcnt[2] + COUNT_DATA.okcnt[3];
             double ng_cnt = COUNT_DATA.ngcnt[0] + COUNT_DATA.ngcnt[1] + COUNT_DATA.ngcnt[2] + COUNT_DATA.ngcnt[3];
             double hour = COUNT_DATA.runtime + COUNT_DATA.waittime;
             double uph = all_cnt / (hour==0?0.001:hour) * 3600;
+
             double ok_cntNormal = ok_cnt - COUNT_DATA.OkTwoTestCnt;
             double ng_cntNormal = ng_cnt - COUNT_DATA.NgTwoTestCnt;
             double uphNormal = (ok_cntNormal+ ng_cntNormal) / (hour == 0 ? 0.001 : hour) * 3600;
@@ -960,7 +987,7 @@ namespace UI
 
         private void btn_SetZero_Click(object sender, EventArgs e)
         {
-            DRpt.Report_Opration(1000, 0, "归位按键按下!");
+            DRpt.Report_Opration(1000, 0, "清零按键按下!");
             COUNT_DATA.Clear();
         }
 
@@ -1212,5 +1239,9 @@ namespace UI
             }
         }
 
+        private void button1_Click(object sender, EventArgs e)
+        {
+         var vi=   NewSysInf.NoneRunPosInfo.UserNormalSet.bPickWsDis;
+        }
     }
 }

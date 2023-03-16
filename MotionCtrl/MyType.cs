@@ -1275,7 +1275,7 @@ namespace MotionCtrl
             EqpPos = inf.ReadString("OTHER_SET", "EqpPos", "新基地4号楼标杆车间");
             EqpSN = inf.ReadString("OTHER_SET", "EqpSN", "123456");
             bUpWsChkQrCodeEn = inf.ReadBool("OTHER_SET", "bUpWsChkQrCodeEn", true);
-            UpWsChkQrCodeCnt = inf.ReadInteger("OTHER_SET", "UpWsChkQrCodeCnt", 5);
+         //   UpWsChkQrCodeCnt = inf.ReadInteger("OTHER_SET", "UpWsChkQrCodeCnt", 5);
             bWsNgRateShow = inf.ReadBool("OTHER_SET", "bWsNgRateShow", false);
             CntWsNgRateShow = inf.ReadInteger("OTHER_SET", "CntWsNgRateShow", 10);
             return EM_RES.OK;
@@ -1419,7 +1419,7 @@ namespace MotionCtrl
             inf.WriteBool("OTHER_SET", "bAddCapQrcode", bAddCapQrcode, ref ischange, true, filename);
             inf.WriteBool("OTHER_SET", "bDwAddCapQrcode", bDwAddCapQrcode, ref ischange, true, filename);
             inf.WriteBool("OTHER_SET", "bUpWsChkQrCodeEn", bUpWsChkQrCodeEn, ref ischange, true, filename);
-            inf.WriteInteger("OTHER_SET", "UpWsChkQrCodeCnt", UpWsChkQrCodeCnt, ref ischange, true, filename);
+        //    inf.WriteInteger("OTHER_SET", "UpWsChkQrCodeCnt", UpWsChkQrCodeCnt, ref ischange, true, filename);
             inf.WriteBool("OTHER_SET", "bWsNgRateShow", bWsNgRateShow, ref ischange, true, filename);
             inf.WriteInteger("OTHER_SET", "CntWsNgRateShow", CntWsNgRateShow, ref ischange, true, filename);
             if (ischange)

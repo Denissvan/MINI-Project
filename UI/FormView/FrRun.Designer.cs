@@ -146,6 +146,7 @@
             this.panel3 = new System.Windows.Forms.Panel();
             this.timer_500ms = new System.Windows.Forms.Timer(this.components);
             this.timer_key = new System.Windows.Forms.Timer(this.components);
+            this.button1 = new System.Windows.Forms.Button();
             this.tableLayoutPanel1.SuspendLayout();
             this.panel2.SuspendLayout();
             this.tableLayoutPanel2.SuspendLayout();
@@ -477,7 +478,7 @@
             this.tableLayoutPanel4.ColumnCount = 3;
             this.tableLayoutPanel4.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 42.57426F));
             this.tableLayoutPanel4.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 57.42574F));
-            this.tableLayoutPanel4.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 300F));
+            this.tableLayoutPanel4.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 303F));
             this.tableLayoutPanel4.Controls.Add(this.panel4, 2, 0);
             this.tableLayoutPanel4.Controls.Add(this.panel8, 2, 1);
             this.tableLayoutPanel4.Controls.Add(this.panel9, 2, 2);
@@ -501,9 +502,9 @@
             this.panel4.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.panel4.Controls.Add(this.UpLoad1);
             this.panel4.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panel4.Location = new System.Drawing.Point(343, 3);
+            this.panel4.Location = new System.Drawing.Point(340, 3);
             this.panel4.Name = "panel4";
-            this.panel4.Size = new System.Drawing.Size(295, 136);
+            this.panel4.Size = new System.Drawing.Size(298, 136);
             this.panel4.TabIndex = 9;
             // 
             // UpLoad1
@@ -511,7 +512,7 @@
             this.UpLoad1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.UpLoad1.Location = new System.Drawing.Point(0, 0);
             this.UpLoad1.Name = "UpLoad1";
-            this.UpLoad1.Size = new System.Drawing.Size(293, 134);
+            this.UpLoad1.Size = new System.Drawing.Size(296, 134);
             this.UpLoad1.TabIndex = 0;
             // 
             // panel8
@@ -519,9 +520,9 @@
             this.panel8.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.panel8.Controls.Add(this.upLoad2);
             this.panel8.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panel8.Location = new System.Drawing.Point(343, 145);
+            this.panel8.Location = new System.Drawing.Point(340, 145);
             this.panel8.Name = "panel8";
-            this.panel8.Size = new System.Drawing.Size(295, 136);
+            this.panel8.Size = new System.Drawing.Size(298, 136);
             this.panel8.TabIndex = 10;
             // 
             // upLoad2
@@ -529,7 +530,7 @@
             this.upLoad2.Dock = System.Windows.Forms.DockStyle.Fill;
             this.upLoad2.Location = new System.Drawing.Point(0, 0);
             this.upLoad2.Name = "upLoad2";
-            this.upLoad2.Size = new System.Drawing.Size(293, 134);
+            this.upLoad2.Size = new System.Drawing.Size(296, 134);
             this.upLoad2.TabIndex = 1;
             // 
             // panel9
@@ -539,9 +540,9 @@
             this.panel9.Controls.Add(this.lb_tt_ct);
             this.panel9.Controls.Add(this.lb_tt_tmr);
             this.panel9.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panel9.Location = new System.Drawing.Point(343, 287);
+            this.panel9.Location = new System.Drawing.Point(340, 287);
             this.panel9.Name = "panel9";
-            this.panel9.Size = new System.Drawing.Size(295, 138);
+            this.panel9.Size = new System.Drawing.Size(298, 138);
             this.panel9.TabIndex = 11;
             // 
             // lb_tt_n
@@ -582,11 +583,11 @@
             this.tray_fd.Bordercolor = System.Drawing.Color.DodgerBlue;
             this.tray_fd.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tray_fd.ERRcolor = System.Drawing.Color.Gold;
-            this.tray_fd.Location = new System.Drawing.Point(148, 3);
+            this.tray_fd.Location = new System.Drawing.Point(146, 3);
             this.tray_fd.Name = "tray_fd";
             this.tray_fd.NGcolor = System.Drawing.Color.Red;
             this.tray_fd.OKcolor = System.Drawing.Color.Lime;
-            this.tray_fd.Size = new System.Drawing.Size(189, 136);
+            this.tray_fd.Size = new System.Drawing.Size(188, 136);
             this.tray_fd.TabIndex = 12;
             this.tray_fd.TrayColor = System.Drawing.SystemColors.Control;
             this.tray_fd.TrayName = "DISC";
@@ -603,7 +604,7 @@
             this.traybox_fd.ERRcolor = System.Drawing.Color.Gold;
             this.traybox_fd.Location = new System.Drawing.Point(3, 3);
             this.traybox_fd.Name = "traybox_fd";
-            this.traybox_fd.Size = new System.Drawing.Size(139, 136);
+            this.traybox_fd.Size = new System.Drawing.Size(137, 136);
             this.traybox_fd.TabIndex = 13;
             this.traybox_fd.UNTESTcolor = System.Drawing.Color.SkyBlue;
             // 
@@ -617,7 +618,7 @@
             this.traybox_ok.ERRcolor = System.Drawing.Color.Gold;
             this.traybox_ok.Location = new System.Drawing.Point(3, 145);
             this.traybox_ok.Name = "traybox_ok";
-            this.traybox_ok.Size = new System.Drawing.Size(139, 136);
+            this.traybox_ok.Size = new System.Drawing.Size(137, 136);
             this.traybox_ok.TabIndex = 14;
             this.traybox_ok.UNTESTcolor = System.Drawing.Color.SkyBlue;
             // 
@@ -631,7 +632,7 @@
             this.traybox_ng.ERRcolor = System.Drawing.Color.Gold;
             this.traybox_ng.Location = new System.Drawing.Point(3, 287);
             this.traybox_ng.Name = "traybox_ng";
-            this.traybox_ng.Size = new System.Drawing.Size(139, 138);
+            this.traybox_ng.Size = new System.Drawing.Size(137, 138);
             this.traybox_ng.TabIndex = 15;
             this.traybox_ng.UNTESTcolor = System.Drawing.Color.SkyBlue;
             // 
@@ -640,11 +641,11 @@
             this.tray_ok.Bordercolor = System.Drawing.Color.DodgerBlue;
             this.tray_ok.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tray_ok.ERRcolor = System.Drawing.Color.Gold;
-            this.tray_ok.Location = new System.Drawing.Point(148, 145);
+            this.tray_ok.Location = new System.Drawing.Point(146, 145);
             this.tray_ok.Name = "tray_ok";
             this.tray_ok.NGcolor = System.Drawing.Color.Red;
             this.tray_ok.OKcolor = System.Drawing.Color.Lime;
-            this.tray_ok.Size = new System.Drawing.Size(189, 136);
+            this.tray_ok.Size = new System.Drawing.Size(188, 136);
             this.tray_ok.TabIndex = 16;
             this.tray_ok.TrayColor = System.Drawing.SystemColors.Control;
             this.tray_ok.TrayName = "DISC";
@@ -656,11 +657,11 @@
             this.tray_ng.Bordercolor = System.Drawing.Color.DodgerBlue;
             this.tray_ng.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tray_ng.ERRcolor = System.Drawing.Color.Gold;
-            this.tray_ng.Location = new System.Drawing.Point(148, 287);
+            this.tray_ng.Location = new System.Drawing.Point(146, 287);
             this.tray_ng.Name = "tray_ng";
             this.tray_ng.NGcolor = System.Drawing.Color.Red;
             this.tray_ng.OKcolor = System.Drawing.Color.Lime;
-            this.tray_ng.Size = new System.Drawing.Size(189, 138);
+            this.tray_ng.Size = new System.Drawing.Size(188, 138);
             this.tray_ng.TabIndex = 17;
             this.tray_ng.TrayColor = System.Drawing.SystemColors.Control;
             this.tray_ng.TrayName = "DISC";
@@ -1023,6 +1024,7 @@
             // tp_vision
             // 
             this.tp_vision.BackColor = System.Drawing.SystemColors.Control;
+            this.tp_vision.Controls.Add(this.button1);
             this.tp_vision.Controls.Add(this.updatecheck);
             this.tp_vision.Controls.Add(this.dtexport);
             this.tp_vision.Controls.Add(this.label12);
@@ -1636,6 +1638,16 @@
             // 
             this.timer_key.Tick += new System.EventHandler(this.timer_key_Tick);
             // 
+            // button1
+            // 
+            this.button1.Location = new System.Drawing.Point(144, 232);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(75, 23);
+            this.button1.TabIndex = 385;
+            this.button1.Text = "button1";
+            this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
+            // 
             // FrRun
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
@@ -1803,5 +1815,6 @@
         public traybox traybox_ng;
         private System.Windows.Forms.Button dtexport;
         private System.Windows.Forms.Button updatecheck;
+        private System.Windows.Forms.Button button1;
     }
 }

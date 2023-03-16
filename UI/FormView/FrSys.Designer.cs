@@ -317,17 +317,20 @@
             this.rbtn_lbdis = new System.Windows.Forms.RadioButton();
             this.rbtn_lben = new System.Windows.Forms.RadioButton();
             this.tabPage3 = new System.Windows.Forms.TabPage();
+            this.button6 = new System.Windows.Forms.Button();
             this.groupBox55 = new System.Windows.Forms.GroupBox();
             this.NumWsNgCntPer20 = new System.Windows.Forms.NumericUpDown();
             this.label57 = new System.Windows.Forms.Label();
             this.radWsNgRateShowOff = new System.Windows.Forms.RadioButton();
             this.radWsNgRateShowEn = new System.Windows.Forms.RadioButton();
             this.groupBox54 = new System.Windows.Forms.GroupBox();
+            this.btnMotoScan4 = new System.Windows.Forms.Button();
+            this.btnMotoScan2 = new System.Windows.Forms.Button();
             this.button5 = new System.Windows.Forms.Button();
             this.button4 = new System.Windows.Forms.Button();
-            this.button3 = new System.Windows.Forms.Button();
+            this.btnMotoScan3 = new System.Windows.Forms.Button();
             this.nud_MotorbarcodeDigits = new System.Windows.Forms.NumericUpDown();
-            this.button2 = new System.Windows.Forms.Button();
+            this.btnMotoScan1 = new System.Windows.Forms.Button();
             this.label52 = new System.Windows.Forms.Label();
             this.nud_MotorAngle4 = new System.Windows.Forms.NumericUpDown();
             this.nud_MotorAngle3 = new System.Windows.Forms.NumericUpDown();
@@ -335,7 +338,7 @@
             this.label54 = new System.Windows.Forms.Label();
             this.nud_MotorAngle2 = new System.Windows.Forms.NumericUpDown();
             this.label55 = new System.Windows.Forms.Label();
-            this.label56 = new System.Windows.Forms.Label();
+            this.labelAngle56 = new System.Windows.Forms.Label();
             this.nud_MotorAngle1 = new System.Windows.Forms.NumericUpDown();
             this.rbtn_motordis = new System.Windows.Forms.RadioButton();
             this.rbtn_motoren = new System.Windows.Forms.RadioButton();
@@ -389,6 +392,8 @@
             this.taskNpoint1 = new UI.Compment.TaskNpoint();
             this.tableLayoutPanel5 = new System.Windows.Forms.TableLayoutPanel();
             this.CogRecordDisplay_sys = new UI.CogDisplayer();
+            this.tbpgVinfo = new System.Windows.Forms.TabPage();
+            this.textBoVinfo = new System.Windows.Forms.TextBox();
             this.tmr_update = new System.Windows.Forms.Timer(this.components);
             this.tableLayoutPanel1.SuspendLayout();
             this.panel2.SuspendLayout();
@@ -542,6 +547,7 @@
             this.Tb_ComputeCenter.SuspendLayout();
             this.tb_task_npoint.SuspendLayout();
             this.tableLayoutPanel5.SuspendLayout();
+            this.tbpgVinfo.SuspendLayout();
             this.SuspendLayout();
             // 
             // tableLayoutPanel1
@@ -555,7 +561,7 @@
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
             this.tableLayoutPanel1.RowCount = 1;
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel1.Size = new System.Drawing.Size(1294, 788);
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(1320, 944);
             this.tableLayoutPanel1.TabIndex = 1;
             // 
             // panel2
@@ -565,7 +571,7 @@
             this.panel2.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.panel2.Location = new System.Drawing.Point(3, 3);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(1288, 782);
+            this.panel2.Size = new System.Drawing.Size(1314, 938);
             this.panel2.TabIndex = 1;
             // 
             // ctb_sys
@@ -578,6 +584,7 @@
             this.ctb_sys.Controls.Add(this.tp_gpio);
             this.ctb_sys.Controls.Add(this.tp_sysparm);
             this.ctb_sys.Controls.Add(this.tp_calc);
+            this.ctb_sys.Controls.Add(this.tbpgVinfo);
             this.ctb_sys.Dock = System.Windows.Forms.DockStyle.Fill;
             this.ctb_sys.Font = new System.Drawing.Font("宋体", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.ctb_sys.HeaderBackColor = System.Drawing.Color.Transparent;
@@ -587,7 +594,7 @@
             this.ctb_sys.Multiline = true;
             this.ctb_sys.Name = "ctb_sys";
             this.ctb_sys.SelectedIndex = 0;
-            this.ctb_sys.Size = new System.Drawing.Size(1288, 782);
+            this.ctb_sys.Size = new System.Drawing.Size(1314, 938);
             this.ctb_sys.TabIndex = 2;
             this.ctb_sys.SelectedIndexChanged += new System.EventHandler(this.ctb_sys_SelectedIndexChanged);
             // 
@@ -597,7 +604,7 @@
             this.tp_card.Controls.Add(this.CardTable);
             this.tp_card.Location = new System.Drawing.Point(204, 4);
             this.tp_card.Name = "tp_card";
-            this.tp_card.Size = new System.Drawing.Size(1080, 774);
+            this.tp_card.Size = new System.Drawing.Size(1106, 930);
             this.tp_card.TabIndex = 6;
             this.tp_card.Text = "板卡状态";
             this.tp_card.UseVisualStyleBackColor = true;
@@ -643,7 +650,7 @@
             this.tp_axis.Controls.Add(this.axisTable);
             this.tp_axis.Location = new System.Drawing.Point(204, 4);
             this.tp_axis.Name = "tp_axis";
-            this.tp_axis.Size = new System.Drawing.Size(1080, 774);
+            this.tp_axis.Size = new System.Drawing.Size(1106, 930);
             this.tp_axis.TabIndex = 2;
             this.tp_axis.Text = "轴参数  ";
             this.tp_axis.UseVisualStyleBackColor = true;
@@ -861,7 +868,7 @@
             this.tp_gpio.Location = new System.Drawing.Point(204, 4);
             this.tp_gpio.Name = "tp_gpio";
             this.tp_gpio.Padding = new System.Windows.Forms.Padding(3);
-            this.tp_gpio.Size = new System.Drawing.Size(1080, 774);
+            this.tp_gpio.Size = new System.Drawing.Size(1106, 930);
             this.tp_gpio.TabIndex = 0;
             this.tp_gpio.Text = "输入输出";
             this.tp_gpio.UseVisualStyleBackColor = true;
@@ -964,7 +971,7 @@
             this.tp_sysparm.Controls.Add(this.ctb_SetParm);
             this.tp_sysparm.Location = new System.Drawing.Point(204, 4);
             this.tp_sysparm.Name = "tp_sysparm";
-            this.tp_sysparm.Size = new System.Drawing.Size(1080, 774);
+            this.tp_sysparm.Size = new System.Drawing.Size(1106, 930);
             this.tp_sysparm.TabIndex = 4;
             this.tp_sysparm.Text = "参数设置";
             this.tp_sysparm.UseVisualStyleBackColor = true;
@@ -985,7 +992,7 @@
             this.ctb_SetParm.Location = new System.Drawing.Point(0, 0);
             this.ctb_SetParm.Name = "ctb_SetParm";
             this.ctb_SetParm.SelectedIndex = 0;
-            this.ctb_SetParm.Size = new System.Drawing.Size(1080, 774);
+            this.ctb_SetParm.Size = new System.Drawing.Size(1106, 930);
             this.ctb_SetParm.TabIndex = 132;
             // 
             // tp_setparm_1
@@ -1017,7 +1024,7 @@
             this.tp_setparm_1.Location = new System.Drawing.Point(4, 44);
             this.tp_setparm_1.Name = "tp_setparm_1";
             this.tp_setparm_1.Padding = new System.Windows.Forms.Padding(3);
-            this.tp_setparm_1.Size = new System.Drawing.Size(1072, 726);
+            this.tp_setparm_1.Size = new System.Drawing.Size(1098, 882);
             this.tp_setparm_1.TabIndex = 0;
             this.tp_setparm_1.Text = "参数1(常用)      ";
             this.tp_setparm_1.UseVisualStyleBackColor = true;
@@ -2795,7 +2802,7 @@
             this.tp_setparm_2.Location = new System.Drawing.Point(4, 44);
             this.tp_setparm_2.Name = "tp_setparm_2";
             this.tp_setparm_2.Padding = new System.Windows.Forms.Padding(3);
-            this.tp_setparm_2.Size = new System.Drawing.Size(1072, 726);
+            this.tp_setparm_2.Size = new System.Drawing.Size(52, 44);
             this.tp_setparm_2.TabIndex = 1;
             this.tp_setparm_2.Text = "参数2          ";
             this.tp_setparm_2.UseVisualStyleBackColor = true;
@@ -4986,6 +4993,7 @@
             // 
             // tabPage3
             // 
+            this.tabPage3.Controls.Add(this.button6);
             this.tabPage3.Controls.Add(this.groupBox55);
             this.tabPage3.Controls.Add(this.groupBox54);
             this.tabPage3.Controls.Add(this.groupBox53);
@@ -4995,10 +5003,20 @@
             this.tabPage3.Location = new System.Drawing.Point(4, 44);
             this.tabPage3.Name = "tabPage3";
             this.tabPage3.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage3.Size = new System.Drawing.Size(1072, 726);
+            this.tabPage3.Size = new System.Drawing.Size(1098, 882);
             this.tabPage3.TabIndex = 2;
             this.tabPage3.Text = "参数3";
             this.tabPage3.UseVisualStyleBackColor = true;
+            // 
+            // button6
+            // 
+            this.button6.Location = new System.Drawing.Point(746, 345);
+            this.button6.Name = "button6";
+            this.button6.Size = new System.Drawing.Size(90, 37);
+            this.button6.TabIndex = 140;
+            this.button6.Text = "button6";
+            this.button6.UseVisualStyleBackColor = true;
+            this.button6.Click += new System.EventHandler(this.button6_Click_1);
             // 
             // groupBox55
             // 
@@ -5082,11 +5100,13 @@
             // 
             // groupBox54
             // 
+            this.groupBox54.Controls.Add(this.btnMotoScan4);
+            this.groupBox54.Controls.Add(this.btnMotoScan2);
             this.groupBox54.Controls.Add(this.button5);
             this.groupBox54.Controls.Add(this.button4);
-            this.groupBox54.Controls.Add(this.button3);
+            this.groupBox54.Controls.Add(this.btnMotoScan3);
             this.groupBox54.Controls.Add(this.nud_MotorbarcodeDigits);
-            this.groupBox54.Controls.Add(this.button2);
+            this.groupBox54.Controls.Add(this.btnMotoScan1);
             this.groupBox54.Controls.Add(this.label52);
             this.groupBox54.Controls.Add(this.nud_MotorAngle4);
             this.groupBox54.Controls.Add(this.nud_MotorAngle3);
@@ -5094,7 +5114,7 @@
             this.groupBox54.Controls.Add(this.label54);
             this.groupBox54.Controls.Add(this.nud_MotorAngle2);
             this.groupBox54.Controls.Add(this.label55);
-            this.groupBox54.Controls.Add(this.label56);
+            this.groupBox54.Controls.Add(this.labelAngle56);
             this.groupBox54.Controls.Add(this.nud_MotorAngle1);
             this.groupBox54.Controls.Add(this.rbtn_motordis);
             this.groupBox54.Controls.Add(this.rbtn_motoren);
@@ -5106,11 +5126,31 @@
             this.groupBox54.TabStop = false;
             this.groupBox54.Text = "马达扫码设置";
             // 
+            // btnMotoScan4
+            // 
+            this.btnMotoScan4.Location = new System.Drawing.Point(147, 230);
+            this.btnMotoScan4.Name = "btnMotoScan4";
+            this.btnMotoScan4.Size = new System.Drawing.Size(75, 36);
+            this.btnMotoScan4.TabIndex = 147;
+            this.btnMotoScan4.Text = "吸头4";
+            this.btnMotoScan4.UseVisualStyleBackColor = true;
+            this.btnMotoScan4.Click += new System.EventHandler(this.btnmotoScanClick);
+            // 
+            // btnMotoScan2
+            // 
+            this.btnMotoScan2.Location = new System.Drawing.Point(61, 230);
+            this.btnMotoScan2.Name = "btnMotoScan2";
+            this.btnMotoScan2.Size = new System.Drawing.Size(75, 36);
+            this.btnMotoScan2.TabIndex = 146;
+            this.btnMotoScan2.Text = "吸头2";
+            this.btnMotoScan2.UseVisualStyleBackColor = true;
+            this.btnMotoScan2.Click += new System.EventHandler(this.btnmotoScanClick);
+            // 
             // button5
             // 
-            this.button5.Location = new System.Drawing.Point(160, 230);
+            this.button5.Location = new System.Drawing.Point(255, 189);
             this.button5.Name = "button5";
-            this.button5.Size = new System.Drawing.Size(75, 36);
+            this.button5.Size = new System.Drawing.Size(49, 78);
             this.button5.TabIndex = 145;
             this.button5.Text = "COM4Open";
             this.button5.UseVisualStyleBackColor = true;
@@ -5118,23 +5158,23 @@
             // 
             // button4
             // 
-            this.button4.Location = new System.Drawing.Point(39, 230);
+            this.button4.Location = new System.Drawing.Point(6, 189);
             this.button4.Name = "button4";
-            this.button4.Size = new System.Drawing.Size(75, 36);
+            this.button4.Size = new System.Drawing.Size(44, 77);
             this.button4.TabIndex = 144;
             this.button4.Text = "COM3Open";
             this.button4.UseVisualStyleBackColor = true;
             this.button4.Click += new System.EventHandler(this.button4_Click);
             // 
-            // button3
+            // btnMotoScan3
             // 
-            this.button3.Location = new System.Drawing.Point(160, 189);
-            this.button3.Name = "button3";
-            this.button3.Size = new System.Drawing.Size(75, 36);
-            this.button3.TabIndex = 140;
-            this.button3.Text = "COM4";
-            this.button3.UseVisualStyleBackColor = true;
-            this.button3.Click += new System.EventHandler(this.button3_Click);
+            this.btnMotoScan3.Location = new System.Drawing.Point(146, 189);
+            this.btnMotoScan3.Name = "btnMotoScan3";
+            this.btnMotoScan3.Size = new System.Drawing.Size(75, 36);
+            this.btnMotoScan3.TabIndex = 140;
+            this.btnMotoScan3.Text = "吸头3";
+            this.btnMotoScan3.UseVisualStyleBackColor = true;
+            this.btnMotoScan3.Click += new System.EventHandler(this.btnmotoScanClick);
             // 
             // nud_MotorbarcodeDigits
             // 
@@ -5145,15 +5185,15 @@
             this.nud_MotorbarcodeDigits.TabIndex = 143;
             this.nud_MotorbarcodeDigits.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
-            // button2
+            // btnMotoScan1
             // 
-            this.button2.Location = new System.Drawing.Point(39, 189);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(75, 36);
-            this.button2.TabIndex = 139;
-            this.button2.Text = "COM3";
-            this.button2.UseVisualStyleBackColor = true;
-            this.button2.Click += new System.EventHandler(this.button2_Click_1);
+            this.btnMotoScan1.Location = new System.Drawing.Point(61, 189);
+            this.btnMotoScan1.Name = "btnMotoScan1";
+            this.btnMotoScan1.Size = new System.Drawing.Size(75, 36);
+            this.btnMotoScan1.TabIndex = 139;
+            this.btnMotoScan1.Text = "吸头1";
+            this.btnMotoScan1.UseVisualStyleBackColor = true;
+            this.btnMotoScan1.Click += new System.EventHandler(this.btnmotoScanClick);
             // 
             // label52
             // 
@@ -5249,14 +5289,14 @@
             this.label55.TabIndex = 136;
             this.label55.Text = "U2:";
             // 
-            // label56
+            // labelAngle56
             // 
-            this.label56.AutoSize = true;
-            this.label56.Location = new System.Drawing.Point(17, 34);
-            this.label56.Name = "label56";
-            this.label56.Size = new System.Drawing.Size(28, 14);
-            this.label56.TabIndex = 135;
-            this.label56.Text = "U1:";
+            this.labelAngle56.AutoSize = true;
+            this.labelAngle56.Location = new System.Drawing.Point(17, 34);
+            this.labelAngle56.Name = "labelAngle56";
+            this.labelAngle56.Size = new System.Drawing.Size(28, 14);
+            this.labelAngle56.TabIndex = 135;
+            this.labelAngle56.Text = "U1:";
             // 
             // nud_MotorAngle1
             // 
@@ -5706,7 +5746,7 @@
             this.tpPara4.Location = new System.Drawing.Point(4, 44);
             this.tpPara4.Name = "tpPara4";
             this.tpPara4.Padding = new System.Windows.Forms.Padding(3);
-            this.tpPara4.Size = new System.Drawing.Size(1072, 726);
+            this.tpPara4.Size = new System.Drawing.Size(52, 44);
             this.tpPara4.TabIndex = 3;
             this.tpPara4.Text = "参数4";
             this.tpPara4.UseVisualStyleBackColor = true;
@@ -5723,7 +5763,7 @@
             this.tableLayoutPanel2.Name = "tableLayoutPanel2";
             this.tableLayoutPanel2.RowCount = 1;
             this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel2.Size = new System.Drawing.Size(1066, 720);
+            this.tableLayoutPanel2.Size = new System.Drawing.Size(46, 38);
             this.tableLayoutPanel2.TabIndex = 1;
             // 
             // dataGrideSysInfo1
@@ -5732,7 +5772,7 @@
             this.dataGrideSysInfo1.Location = new System.Drawing.Point(6, 5);
             this.dataGrideSysInfo1.Margin = new System.Windows.Forms.Padding(6, 5, 6, 5);
             this.dataGrideSysInfo1.Name = "dataGrideSysInfo1";
-            this.dataGrideSysInfo1.Size = new System.Drawing.Size(954, 710);
+            this.dataGrideSysInfo1.Size = new System.Drawing.Size(1, 28);
             this.dataGrideSysInfo1.TabIndex = 0;
             // 
             // panel1
@@ -5740,9 +5780,9 @@
             this.panel1.Controls.Add(this.button8);
             this.panel1.Controls.Add(this.button7);
             this.panel1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panel1.Location = new System.Drawing.Point(969, 3);
+            this.panel1.Location = new System.Drawing.Point(-51, 3);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(94, 714);
+            this.panel1.Size = new System.Drawing.Size(94, 32);
             this.panel1.TabIndex = 1;
             // 
             // button8
@@ -5771,7 +5811,7 @@
             this.tp_calc.Controls.Add(this.tableLayoutPanel4);
             this.tp_calc.Location = new System.Drawing.Point(204, 4);
             this.tp_calc.Name = "tp_calc";
-            this.tp_calc.Size = new System.Drawing.Size(1080, 774);
+            this.tp_calc.Size = new System.Drawing.Size(1106, 930);
             this.tp_calc.TabIndex = 5;
             this.tp_calc.Text = "系统校准";
             this.tp_calc.UseVisualStyleBackColor = true;
@@ -5789,7 +5829,7 @@
             this.tableLayoutPanel4.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 64.61039F));
             this.tableLayoutPanel4.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 35.38961F));
             this.tableLayoutPanel4.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 8F));
-            this.tableLayoutPanel4.Size = new System.Drawing.Size(1080, 774);
+            this.tableLayoutPanel4.Size = new System.Drawing.Size(1106, 930);
             this.tableLayoutPanel4.TabIndex = 2;
             // 
             // ctb_cali
@@ -5809,11 +5849,11 @@
             this.ctb_cali.HeadSelectedBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(43)))), ((int)(((byte)(144)))), ((int)(((byte)(217)))));
             this.ctb_cali.HeadSelectedBorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(217)))), ((int)(((byte)(225)))), ((int)(((byte)(232)))));
             this.ctb_cali.ItemSize = new System.Drawing.Size(44, 210);
-            this.ctb_cali.Location = new System.Drawing.Point(3, 497);
+            this.ctb_cali.Location = new System.Drawing.Point(3, 598);
             this.ctb_cali.Multiline = true;
             this.ctb_cali.Name = "ctb_cali";
             this.ctb_cali.SelectedIndex = 0;
-            this.ctb_cali.Size = new System.Drawing.Size(1074, 265);
+            this.ctb_cali.Size = new System.Drawing.Size(1100, 320);
             this.ctb_cali.SizeMode = System.Windows.Forms.TabSizeMode.Fixed;
             this.ctb_cali.TabIndex = 130;
             // 
@@ -5825,7 +5865,7 @@
             this.tb_upcam1_npoint.Location = new System.Drawing.Point(214, 4);
             this.tb_upcam1_npoint.Name = "tb_upcam1_npoint";
             this.tb_upcam1_npoint.Padding = new System.Windows.Forms.Padding(3);
-            this.tb_upcam1_npoint.Size = new System.Drawing.Size(856, 257);
+            this.tb_upcam1_npoint.Size = new System.Drawing.Size(882, 312);
             this.tb_upcam1_npoint.TabIndex = 0;
             this.tb_upcam1_npoint.Text = "上相机1标定";
             // 
@@ -5837,7 +5877,7 @@
             this.npointCail1.Location = new System.Drawing.Point(3, 3);
             this.npointCail1.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.npointCail1.Name = "npointCail1";
-            this.npointCail1.Size = new System.Drawing.Size(850, 251);
+            this.npointCail1.Size = new System.Drawing.Size(876, 306);
             this.npointCail1.TabIndex = 0;
             // 
             // tb_dwcam1_to_upcam1
@@ -5946,7 +5986,7 @@
             this.tableLayoutPanel5.Name = "tableLayoutPanel5";
             this.tableLayoutPanel5.RowCount = 1;
             this.tableLayoutPanel5.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayoutPanel5.Size = new System.Drawing.Size(1074, 488);
+            this.tableLayoutPanel5.Size = new System.Drawing.Size(1100, 589);
             this.tableLayoutPanel5.TabIndex = 0;
             // 
             // CogRecordDisplay_sys
@@ -5955,8 +5995,28 @@
             this.CogRecordDisplay_sys.Dock = System.Windows.Forms.DockStyle.Fill;
             this.CogRecordDisplay_sys.Location = new System.Drawing.Point(3, 3);
             this.CogRecordDisplay_sys.Name = "CogRecordDisplay_sys";
-            this.CogRecordDisplay_sys.Size = new System.Drawing.Size(1068, 482);
+            this.CogRecordDisplay_sys.Size = new System.Drawing.Size(1094, 583);
             this.CogRecordDisplay_sys.TabIndex = 0;
+            // 
+            // tbpgVinfo
+            // 
+            this.tbpgVinfo.Controls.Add(this.textBoVinfo);
+            this.tbpgVinfo.Location = new System.Drawing.Point(204, 4);
+            this.tbpgVinfo.Name = "tbpgVinfo";
+            this.tbpgVinfo.Padding = new System.Windows.Forms.Padding(3);
+            this.tbpgVinfo.Size = new System.Drawing.Size(1106, 930);
+            this.tbpgVinfo.TabIndex = 7;
+            this.tbpgVinfo.Text = "版本信息";
+            this.tbpgVinfo.UseVisualStyleBackColor = true;
+            // 
+            // textBoVinfo
+            // 
+            this.textBoVinfo.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.textBoVinfo.Location = new System.Drawing.Point(3, 3);
+            this.textBoVinfo.Multiline = true;
+            this.textBoVinfo.Name = "textBoVinfo";
+            this.textBoVinfo.Size = new System.Drawing.Size(1100, 924);
+            this.textBoVinfo.TabIndex = 0;
             // 
             // tmr_update
             // 
@@ -5967,7 +6027,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1294, 788);
+            this.ClientSize = new System.Drawing.Size(1320, 944);
             this.Controls.Add(this.tableLayoutPanel1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Name = "FrSys";
@@ -6152,6 +6212,8 @@
             this.Tb_ComputeCenter.ResumeLayout(false);
             this.tb_task_npoint.ResumeLayout(false);
             this.tableLayoutPanel5.ResumeLayout(false);
+            this.tbpgVinfo.ResumeLayout(false);
+            this.tbpgVinfo.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -6501,12 +6563,12 @@
         private System.Windows.Forms.Label label54;
         private System.Windows.Forms.NumericUpDown nud_MotorAngle2;
         private System.Windows.Forms.Label label55;
-        private System.Windows.Forms.Label label56;
+        private System.Windows.Forms.Label labelAngle56;
         private System.Windows.Forms.NumericUpDown nud_MotorAngle1;
         private System.Windows.Forms.RadioButton rbtn_motordis;
         private System.Windows.Forms.RadioButton rbtn_motoren;
-        private System.Windows.Forms.Button button3;
-        private System.Windows.Forms.Button button2;
+        private System.Windows.Forms.Button btnMotoScan3;
+        private System.Windows.Forms.Button btnMotoScan1;
         private System.Windows.Forms.Button button5;
         private System.Windows.Forms.Button button4;
         private System.Windows.Forms.GroupBox groupBox55;
@@ -6520,5 +6582,10 @@
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.Button button7;
         private System.Windows.Forms.Button button8;
+        private System.Windows.Forms.Button button6;
+        private System.Windows.Forms.TabPage tbpgVinfo;
+        private System.Windows.Forms.TextBox textBoVinfo;
+        private System.Windows.Forms.Button btnMotoScan4;
+        private System.Windows.Forms.Button btnMotoScan2;
     }
 }

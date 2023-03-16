@@ -64,7 +64,8 @@ namespace UI
             public string tray_barcode;
             //对应tray的坐标
             public ST_XYZA pos;
-
+            //马达是否已经扫码
+            public bool bhaveMotoScan;
             public MdDat Clone()
             {
                 MdDat md = new MdDat();
@@ -83,7 +84,7 @@ namespace UI
                 md.test_idx = test_idx;
                 md.TestBox_ID = TestBox_ID;
                 md.SN = SN;
-
+                md.bhaveMotoScan = bhaveMotoScan;
                 md.res = res;
                 md.ct = ct;
                 md.bardcode = bardcode;

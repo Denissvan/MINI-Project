@@ -401,9 +401,10 @@ namespace UI
             VAR.gsys_set.LoadSysCfg();
             VAR.gsys_set.status = EM_SYS_STA.UNKOWN;
             VAR.gsys_set.bclose = false;
-
+        
             VAR.sys_inf.Set(EM_ALM_STA.WAR_YELLOW_FLASH, VAR.IsChinese ? "正在加载" : "Loading", 2, true);
             PT_SET.LoadPtCfg(VAR.gsys_set.cur_product_name);
+            NewSysInf.LoadSysInfCfg(out var msg);
 
             //加载产品
             try
@@ -723,8 +724,6 @@ namespace UI
         {
             timer_key.Interval = 100;
             int i;
-            cnt++;
-    
             var curHour = DateTime.Now.Hour;
             if (curHour == 9 )
             {
@@ -915,8 +914,10 @@ namespace UI
             //}
             // else
             //{
-            if (VAR.gsys_set.status != EM_SYS_STA.RUN)
+
+             if (VAR.gsys_set.status != EM_SYS_STA.RUN)
             {
+                cnt++;
                 if (cnt >= 10)
                 {
                     cnt = 0;

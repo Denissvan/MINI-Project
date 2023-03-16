@@ -2130,6 +2130,7 @@ namespace MotionCtrl
         }
         #endregion
         #region 等待定位完成
+        double tempDis = 0;
         public EM_RES WaitForMoveDone(ref bool pbquit, double targetpos, int timeout_ms, bool bdoevent = false)
         {
             //wait stop
@@ -2146,6 +2147,14 @@ namespace MotionCtrl
             {
                 curDisPos = Math.Abs(targetpos * pul_per_mm - enc_pos);
                 objDis = pul_per_mm*0.5;
+                if (tempDis > objDis)
+                {
+                    objDis = tempDis;
+                }
+                else
+                {
+                    tempDis=objDis;
+                }
             }
             else
             {
@@ -2155,17 +2164,21 @@ namespace MotionCtrl
 
 
             if (curDisPos > objDis)
-            {
-              
-                //res = WaitForStop(ref pbquit, timeout_ms, bdoevent);
-                //if (res != EM_RES.OK) return res;
-              
-               // VAR.msg.AddMsg(Msg.EM_MSGTYPE.WAR, VAR.IsChinese ? string.Format("{0} 定位偏差:{1:0.000}超过目标{2}", disc, curDisPos, objDis) : string.Format("{0} Positioning bias:{1:0.000}   ({0} 定位偏差:{1:0.000})", disc, fcmd_pos - targetpos));
-                Thread.Sleep(500);
+            {            
+                Thread.Sleep(100);
                 if (mt_type == MT_TYPE.SEVER)
                 {
                     curDisPos = Math.Abs(targetpos * pul_per_mm - enc_pos);
-                    objDis = pul_per_mm * 1;
+                    objDis = pul_per_mm * 0.8;
+                    if (tempDis > objDis)
+                    {
+                        objDis = tempDis;
+                    }
+                    else
+                    {
+                        tempDis = objDis;
+                    }
+
                 }
                 else
                 {
@@ -2174,9 +2187,32 @@ namespace MotionCtrl
                 if (curDisPos <= objDis) return EM_RES.OK;
                 else
                 {
-                    VAR.msg.AddMsg(Msg.EM_MSGTYPE.WAR, VAR.IsChinese ? string.Format("{0} 定位偏差:{1:0.000}脉冲，超过目标脉冲{2}", disc, curDisPos, objDis) : string.Format("{0} Positioning bias:{1:0.000}   ({0} 定位偏差:{1:0.000})", disc, fcmd_pos - targetpos));
-                    res = EM_RES.RETRY;
-                    return res;
+                    Thread.Sleep(100);
+                    if (mt_type == MT_TYPE.SEVER)
+                    {
+                        curDisPos = Math.Abs(targetpos * pul_per_mm - enc_pos);
+                        objDis = pul_per_mm * 1.3;
+                        if (tempDis > objDis)
+                        {
+                            objDis = tempDis;
+                        }
+                        else
+                        {
+                            tempDis = objDis;
+                        }
+                        VAR.msg.AddMsg(Msg.EM_MSGTYPE.WAR, disc + "轴定位偏差巨大范围值1。3mm");
+                    }
+                    else
+                    {
+                        curDisPos = Math.Abs(targetpos * pul_per_mm - cmd_pos);
+                    }
+                    if (curDisPos <= objDis) return EM_RES.OK;
+                    else
+                    {
+                        VAR.msg.AddMsg(Msg.EM_MSGTYPE.WAR, VAR.IsChinese ? string.Format("{0} 定位偏差:{1:0.000}脉冲，超过目标脉冲{2}", disc, curDisPos, objDis) : string.Format("{0} Positioning bias:{1:0.000}   ({0} 定位偏差:{1:0.000})", disc, fcmd_pos - targetpos));
+                        res = EM_RES.RETRY;
+                        return res;
+                    }
                 }
             }
             res = EM_RES.OK;
@@ -2596,7 +2632,7 @@ namespace MotionCtrl
                     }
 
                     //check safe pos
-                    if (ChkSafePos != null)
+                    if (bchkpos && ChkSafePos != null)
                     {
                         ret = ChkSafePos(id, pos);
                         if (ret != EM_RES.OK) return res = ret;

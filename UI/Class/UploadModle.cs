@@ -209,48 +209,7 @@ namespace UI
                 //if (res != EM_RES.OK) return res;
                 VAR.msg.AddMsg(Msg.EM_MSGTYPE.NOR, string.Format("上料轴定位到飞拍放料结束位置X:{0:f3},Y:{1:f3}", pos_flystop.x, pos_flystop.y));
                 ////启动Y轴
-                //i = 0;
-                //if (Math.Abs(pos_flystop.x - ax_x.fenc_pos) > 50)
-                //{
-                //    res = ax_u1.MoveTo(ref bquit ,0);
-                //    if (res != EM_RES.OK) return res;
-                //    res = ax_u2.MoveTo(ref bquit, 0);
-                //    if (res != EM_RES.OK) return res;
-                //    res = ax_x.MoveTo(ref bquit, pos_flystop.x);
-                //    if (res != EM_RES.OK) return res;
-                //    while (true)
-                //    {
-                //        if (bquit) return EM_RES.QUIT;
-                //        Thread.Sleep(1);
-                //        i++;
-                //        if (i > 5000)
-                //        {
-                //            VAR.msg.AddMsg(Msg.EM_MSGTYPE.WAR, string.Format("{0}定位超时,位置{1}", ax_x.disc, WsTriPos[1].st_pos.x));
-                //            return EM_RES.ERR;
-                //        }
-                //        if (Math.Abs(pos_flystop.x - ax_x.fenc_pos) < 50)
-                //        {
-                //            res = ax_y.MoveTo(ref bquit, pos_flystop.y);
-                //            if (res != EM_RES.OK) return res;
-                //            break;
-                //        }
-                //    }
-                //    //等待停止
-                //    res = ax_u1.WaitForMoveDone(ref bquit, 0, 10000);
-                //    if (res != EM_RES.OK) return res;
-                //    res = ax_u2.WaitForMoveDone(ref bquit, 0, 10000);
-                //    if (res != EM_RES.OK) return res;
-                //    res = ax_x.WaitForMoveDone(ref bquit, pos_flystop.x, 10000);
-                //    if (res != EM_RES.OK) return res;
-                //    res = ax_y.WaitForMoveDone(ref bquit, pos_flystop.y, 10000);
-                //    if (res != EM_RES.OK) return res;
-                //}
-                //else
-                //{
-                //    res = MT.Move(ref bquit, ref ax_x, pos_flystop.x, ref ax_y, pos_flystop.y);
-                //    if (res != EM_RES.OK) return res;
-                //}
-
+   
 
 
             }

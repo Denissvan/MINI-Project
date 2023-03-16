@@ -808,7 +808,7 @@ namespace UI
         /// <returns></returns>
         public static List<SysTimeCnt> SysTimeCntDataChkExit(SysTimeCnt Selector)
         {
-           if( !SysTimeCntDataChkExitTable(Selector))
+           if(!SysTimeCntDataChkExitTable(Selector))
             {
                 SysTimeCntDataAdd(Selector);
             }
@@ -848,6 +848,10 @@ namespace UI
         public static bool SysTimeCntDataDelete(SysTimeCnt Selector)
         {
             int ct = Environment.TickCount;
+            if (!SysTimeCntDataChkExitTable(Selector))
+            {
+                SysTimeCntDataAdd(Selector);
+            }
             DataTable dt = new DataTable();
             DataTable dataTable = new DataTable();
             List<SysTimeCnt> SysTimeCntList = new List<SysTimeCnt>();
@@ -1233,7 +1237,7 @@ namespace UI
                 tablcecnt > 0 ? tablcecnt.ToString() : "", Environment.TickCount - ct,
                 new DataTable() == null ? -1 : cnt_ng, cnt_ng * 100.0 / cnt_ttl);
         }
-        private static void NGRateShow(string PosInfo, ref string objdata)
+        public static void NGRateShow(string PosInfo, ref string objdata)
         {
 
             var resList = objdata.Split(',');
@@ -1300,13 +1304,44 @@ namespace UI
                             if (!md.benable) continue;
                             if (md.res < 0) continue;
                             if ((md.bardcode == null || md.bardcode.Length < 1) && PT_SET.BarcodeMode != (int)PT_SET.BAR_SCAN.NO_SCAN) continue;
-                            if (PT_SET.bWsNgRateShow)
+                            if (PT_SET.bWsNgRateShow&& md.res > 0)
                             {
-                                 if (md.cntNgRateFor20.Length>0)
-                                md.cntNgRateFor20 += ','+ md.res.ToString();
-                                else
-                                    md.cntNgRateFor20 +=  md.res.ToString();
-                                NGRateShow(ws.disc +"-"+ md.Num,ref md.cntNgRateFor20);
+                                bool bNgRateBySet = NewSysInf.NoneRunPosInfo.UserNormalSet.bNgRateBySet;
+                                var ngcodes = NewSysInf.NoneRunPosInfo.UserNormalSet.NgRateCodes;
+                                VAR.msg.AddMsg(Msg.EM_MSGTYPE.DBG, "bNgRateBySet:" + bNgRateBySet + "ngcodes:" + ngcodes  );
+                                try
+                                {
+                                   
+                                    if (bNgRateBySet)
+                                    {                                      
+                                        string[] ngCodeList = new string[20];
+                                        if (ngcodes.Length > 0)
+                                            ngCodeList = ngcodes.Split('#');
+                                        foreach (var code in ngCodeList)
+                                        {
+                                            var mdCode = md.res.ToString();
+                                            if (mdCode == code)
+                                            {
+                                                if (md.cntNgRateFor20.Length > 0)
+                                                    md.cntNgRateFor20 += ',' + mdCode;
+                                                else
+                                                    md.cntNgRateFor20 += mdCode;
+                                            }
+                                        }
+                                    }
+                                    else
+                                    {
+                                        if (md.cntNgRateFor20.Length > 0)
+                                            md.cntNgRateFor20 += ',' + md.res.ToString();
+                                        else
+                                            md.cntNgRateFor20 += md.res.ToString();
+                                    }
+                                    NGRateShow(ws.disc + "-" + md.Num, ref md.cntNgRateFor20);
+                                }catch(Exception ee)
+                                {
+
+                                    VAR.msg.AddMsg(Msg.EM_MSGTYPE.ERR,  "NG比例监控发生异常" + ee.ToString());
+                                }
                             }
                             if (md.res > 0)
                             {
@@ -1447,6 +1482,10 @@ namespace UI
         /// <returns></returns>
         public static EM_RES SysTimeCntDataAdd(SysTimeCnt timeCnt)
         {
+            if (!SysTimeCntDataChkExitTable(timeCnt))
+            {
+                SysTimeCntDataAdd(timeCnt);
+            }
             var fileName = timeCnt.Time.ToString("yyyy_MM");
             SysTimeCntConnectionChk(fileName);          
             using (SQLiteConnection conn = new SQLiteConnection(SysTimeDataSource(fileName)))

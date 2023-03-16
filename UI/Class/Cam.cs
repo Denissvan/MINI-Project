@@ -295,7 +295,7 @@ namespace UI
                     //mAcqFifo.Flush();
                 }
                 //mAcqFifo.Flush();
-                VAR.msg.AddMsg(Msg.EM_MSGTYPE.DBG, VAR.IsChinese ? string.Format("{0}完成CapCfg配置,T={1}ms", disc, Environment.TickCount - t) : string.Format("{0} CapCfg finished,T={1}ms   ({1}完成CapCfg配置,T={2}ms)", englishdisc, disc, Environment.TickCount - t));
+               // VAR.msg.AddMsg(Msg.EM_MSGTYPE.DBG, VAR.IsChinese ? string.Format("{0}完成CapCfg配置,T={1}ms", disc, Environment.TickCount - t) : string.Format("{0} CapCfg finished,T={1}ms   ({1}完成CapCfg配置,T={2}ms)", englishdisc, disc, Environment.TickCount - t));
             }
             catch (Exception ex)
             {
@@ -660,7 +660,7 @@ namespace UI
                         vstask.Image = curImage;
                         vstask.ResData.TimeStamp = info.TimeStamp;
                         vstask.ResData.TriNum = info.TriggerNumber;
-                        VAR.msg.AddMsg(Msg.EM_MSGTYPE.DBG, string.Format("相机接收图片{0},Pe:{1},Re:{2},{3},{4},TimeSamp:{5},TriNum:{6}", VAR.IsChinese ? disc : englishdisc, numPending, numReady, busy, vstask != null ? vstask.TaskName : "null", info.TimeStamp, info.TriggerNumber));
+                       // VAR.msg.AddMsg(Msg.EM_MSGTYPE.DBG, string.Format("相机接收图片{0},Pe:{1},Re:{2},{3},{4},TimeSamp:{5},TriNum:{6}", VAR.IsChinese ? disc : englishdisc, numPending, numReady, busy, vstask != null ? vstask.TaskName : "null", info.TimeStamp, info.TriggerNumber));
                     }
                     
                     TaskRunImage(taskid, curImage);
@@ -742,9 +742,9 @@ namespace UI
                     var num = myImage.GetPixel(1, 0);
                     {
                         //if(id != taskidx)
-                        {
-                            VAR.msg.AddMsg(Msg.EM_MSGTYPE.DBG, $"相机{disc}任务[{taskidx}],图片序号[{id}]/[{num}]");
-                        }
+                        //{
+                        //    VAR.msg.AddMsg(Msg.EM_MSGTYPE.DBG, $"相机{disc}任务[{taskidx}],图片序号[{id}]/[{num}]");
+                        //}
                     }
 
                     var mTask = List_vs_task_cur.ElementAt(taskidx);
@@ -774,9 +774,9 @@ namespace UI
                         //VAR.msg.AddMsg(Msg.EM_MSGTYPE.DBG , str);
                         //display
                         RecordDisplay(mTask.ResData.OutputImg, mTask.ResData.bOK, mTask.DrawResultToGraphic(), null, mTask.Block.CreateLastRunRecord(), bSaveImage);
-                        str = string.Format("相机处理图片结果{0}/{1}:{2}", VAR.IsChinese ? disc : englishdisc, mTask.TaskName, mTask.ResData.ToString());
+                       // str = string.Format("相机处理图片结果{0}/{1}:{2}", VAR.IsChinese ? disc : englishdisc, mTask.TaskName, mTask.ResData.ToString());
                         // Utility.WriteStrToCSV(VAR.gsys_set.GetCurProductPath + "camdata.csv", string.Format("{0},{1},{2},{3},{4:F3},{5:F3},{6:F3}", DateTime.Now.ToString("hh:mm:ss:fff"), disc, vstask.TaskName, vstask.ResData.BarCode!=null?vstask.ResData.BarCode:"", vstask.ResData.PosMM.x, vstask.ResData.PosMM.y, vstask.ResData.PosMM.a));
-                        VAR.msg.AddMsg(mTask.ResData.bOK ? Msg.EM_MSGTYPE.DBG : Msg.EM_MSGTYPE.ERR, str);
+                      //  VAR.msg.AddMsg(mTask.ResData.bOK ? Msg.EM_MSGTYPE.DBG : Msg.EM_MSGTYPE.ERR, str);
                     }
                 }
             });
@@ -1547,8 +1547,8 @@ namespace UI
                     //run tool
                     ResData.bUpdate = false;
                     ResData.bOK = false;
-                    string str = string.Format("相机开始处理图片{0}/{1}:{2} Run...", VAR.IsChinese ? Camera.disc : Camera.englishdisc, TaskName, Image.GetHashCode());
-                    VAR.msg.AddMsg(Msg.EM_MSGTYPE.DBG, str);
+                   // string str = string.Format("相机开始处理图片{0}/{1}:{2} Run...", VAR.IsChinese ? Camera.disc : Camera.englishdisc, TaskName, Image.GetHashCode());
+                   // VAR.msg.AddMsg(Msg.EM_MSGTYPE.DBG, str);
                     Block.Run();
 
                     //get data
@@ -1954,7 +1954,7 @@ namespace UI
 
         public EM_RES ListTaskCfg(List<string> ListTaskName, List<ST_XYN> tripos, bool IfClear = true)
         {
-            VAR.msg.AddMsg(Msg.EM_MSGTYPE.DBG, VAR.IsChinese ? string.Format("{0}配置飞拍任务!", disc) : string.Format("{0} Configure flyshot task!       ({1}配置飞拍任务!)", englishdisc, disc));
+            //VAR.msg.AddMsg(Msg.EM_MSGTYPE.DBG, VAR.IsChinese ? string.Format("{0}配置飞拍任务!", disc) : string.Format("{0} Configure flyshot task!       ({1}配置飞拍任务!)", englishdisc, disc));
             if (ListTaskName.Count == 0)
             {
                 VAR.msg.AddMsg(Msg.EM_MSGTYPE.ERR, VAR.IsChinese ? string.Format("{0}配置飞拍任务的名称列表为空!", mName) : string.Format("{0} Configure the name list of the aerial task to be empty!   ({0}配置飞拍任务的名称列表为空!)", mName), DReport.EmErrCode.GetParamError, (int)DReport.EmHareware.Cam);
@@ -2021,7 +2021,7 @@ namespace UI
                 FlushOk = true;
                 FlushUpdate = false;
             }
-            VAR.msg.AddMsg(Msg.EM_MSGTYPE.DBG, VAR.IsChinese ? string.Format("{0}配置飞拍任务完成,{1}", disc, FlushOk) : string.Format("{0} Configure flyshot successfully,{2}   ({1}配置飞拍任务完成,{2})", englishdisc, disc, FlushOk));
+           // VAR.msg.AddMsg(Msg.EM_MSGTYPE.DBG, VAR.IsChinese ? string.Format("{0}配置飞拍任务完成,{1}", disc, FlushOk) : string.Format("{0} Configure flyshot successfully,{2}   ({1}配置飞拍任务完成,{2})", englishdisc, disc, FlushOk));
             return EM_RES.OK;
         }
         #endregion

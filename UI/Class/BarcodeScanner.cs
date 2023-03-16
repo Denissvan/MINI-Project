@@ -93,7 +93,7 @@ namespace UI
                 if (data.Length < 5)
                 {
                     bReaded = true;
-                    dData = "读码失败";
+                    dData = "";
                     return;
                 }
                 byte[] newdata = new byte[data.Length - 2];
@@ -166,18 +166,17 @@ namespace UI
             return true;
         }
 
-        public bool ReadDataByString(out string data, int timeout = 200)
+        public bool ReadDataByString(out string data, int timeout = 200, int traycnt = 1)
         {
 
             var bySendDataStr = "T";
 
             data = "";
+            bool bok = false;
             bReaded = false;
             sCom.SendData(bySendDataStr);
-
-            //等待数据
-            //sw.Restart();I
             int i = 0;
+            int trayCnt = 0;
             while (true)
             {
                 if (bReaded == true)
@@ -186,23 +185,30 @@ namespace UI
                 if (i > 20)
                 {
                     VAR.msg.AddMsg(Msg.EM_MSGTYPE.ERR, string.Format("{0} 读取数据,超时{1}ms", Description, timeout));
-                    //Logger.Error($"{Description} 读取数据,超时{timeout}ms");
-                    //sw.Stop();
-                    return false;
+                    trayCnt++;
+                    if (trayCnt <= traycnt)
+                    {
+                        i = 0;
+                        sCom.SendData(bySendDataStr);
+                        continue;
+                    }
+                    bok = false;
+                    break;
                 }
                 Thread.Sleep(100);
                 i++;
             }
-            //sw.Stop();
-
-            //if (dData == double.MaxValue)
-            //{
-            //    VAR.msg.AddMsg(Msg.EM_MSGTYPE.ERR, $"{Description} 读取的数据错误");
-            //    //Logger.Error($"{Description} 读取的数据错误");
-            //    return false;
-            //}
 
             data = dData;
+            if (data.Length != PT_SET.motorBarcodeDigits || data.Length < 5)
+            {
+                data = "";               
+                return false;
+            }else
+            {
+               
+            }
+
             return true;
         }
 

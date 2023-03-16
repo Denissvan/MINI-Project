@@ -115,7 +115,7 @@ namespace UI
         public double fd_chk_high_z;
         public EM_DIR direction;
         //0 吸头1Y 1吸头3Y
-        public double[] motor_barcode_pos = new double[2];
+        public double[] motor_barcode_pos = new double[4];
         //硬件
         public AXIS ax_z;
         public AXIS ax_x;
@@ -258,6 +258,8 @@ namespace UI
             tray_barcode_a2 = inf.ReadDouble(str_section, "TRAY_BARCODE_A2", 0);
             motor_barcode_pos[0] = inf.ReadDouble(str_section, "MOTOR_BARCODE_POS1", 0);
             motor_barcode_pos[1] = inf.ReadDouble(str_section, "MOTOR_BARCODE_POS2", 0);
+            motor_barcode_pos[2] = inf.ReadDouble(str_section, "MOTOR_BARCODE_POS3", 0);
+            motor_barcode_pos[3] = inf.ReadDouble(str_section, "MOTOR_BARCODE_POS4", 0);
             //str_section = "TRAY";
             //tray_row = inf.ReadInteger(str_section, "ROW", tray_row);
             //tray_col = inf.ReadInteger(str_section, "COL", tray_col);
@@ -305,8 +307,12 @@ namespace UI
             inf.WriteDouble(str_section, "TRAY_BARCODE_Y2", tray_barcode_y2, ref ischange, true, filename);
             inf.WriteDouble(str_section, "TRAY_BARCODE_A1", tray_barcode_a1, ref ischange, true, filename);
             inf.WriteDouble(str_section, "TRAY_BARCODE_A2", tray_barcode_a2, ref ischange, true, filename);
+
+
             inf.WriteDouble(str_section, "MOTOR_BARCODE_POS1", motor_barcode_pos[0], ref ischange, true, filename);
             inf.WriteDouble(str_section, "MOTOR_BARCODE_POS2", motor_barcode_pos[1], ref ischange, true, filename);
+            inf.WriteDouble(str_section, "MOTOR_BARCODE_POS3", motor_barcode_pos[2], ref ischange, true, filename);
+            inf.WriteDouble(str_section, "MOTOR_BARCODE_POS4", motor_barcode_pos[3], ref ischange, true, filename);
             if (ischange)
             {
                 //创建backup

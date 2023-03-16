@@ -12,6 +12,8 @@ using MotionCtrl;
 using System.Reflection;
 using DevReport;
 using Win32Lib;
+using System.IO;
+
 namespace UI
 {
     public partial class FrSys : Form
@@ -387,6 +389,13 @@ namespace UI
             if (((CTabControl)sender).SelectedIndex != 2)
                 ioTable.ShowCfg(-1);
             if ((((CTabControl)sender).SelectedTab.Name) == "tp_sysparm") ShowData();
+            if(ctb_sys.SelectedIndex>2)
+            {
+              var allline=  File.ReadAllLines(System.Environment.CurrentDirectory + "\\vInfo.ini");
+                textBoVinfo.Clear();
+                foreach (var info in allline)
+                    textBoVinfo.AppendText(info+"\r\n");
+            }
 
         }
 
@@ -1251,19 +1260,63 @@ namespace UI
             mupd.  GetModJigData(1, md);//发送更新之后的数据清零
         }
 
-        private void button2_Click_1(object sender, EventArgs e)
+        private async void btnmotoScanClick(object sender, EventArgs e)
         {
+            Button mbtn = (Button)sender;
+            
             try
             {
-                string barcode;
-                button2.Enabled = false;
-                bool bOK = MT.COM3.ReadDataByString(out barcode);
-                if (bOK) MessageBox.Show("扫码成功，结果是：" + barcode);
-                else MessageBox.Show("扫码失败，结果是：" + barcode);
+                mbtn.Enabled = false;
+                Task mm = new Task(() => {
+                    int xtid = 0;
+                    UpDownLoad mupd= COM.UDLoad2;
+                    if(PT_SET.bmotorphoto==false)
+                    {
+                        MessageBox.Show( "请开启扫码功能：");
+                        return;
+                    }
+                    if(mbtn.Name.Contains("1")|| mbtn.Name.Contains("2"))
+                    {
+                        mupd = COM.UDLoad1;
+                        if (mbtn.Name.Contains("1"))
+                        {
+                            xtid = 0;
+                           
+                        }
+                        else
+                        {
+                            xtid = 1;
+                        }                   
+                    }
+                    if (mbtn.Name.Contains("3") || mbtn.Name.Contains("4"))
+                    {
+                        if (mbtn.Name.Contains("3"))
+                        {
+                            xtid = 0;
+
+                        }
+                        else
+                        {
+                            xtid = 1;
+                        }
+                    }
+                    var xt = mupd.list_xt[xtid];
+                    if (xt.XtMd == null)
+                    {
+                        xt.XtMd = new Product.MdDat();
+                    }
+                    xt.XtMd.motor_barcode = "";
+                    var res = mupd.MotoScan(xtid);
+                    if (res == EM_RES.OK)
+                        MessageBox.Show(xt.disc+"扫码成功，结果是：" + xt.XtMd.motor_barcode);
+                    else MessageBox.Show(xt.disc+"扫码失败：");
+                });
+                mm.Start();
+               await mm;
             }
             finally
             {
-                button2.Enabled = true;
+                mbtn.Enabled = true;
             }
         }
 
@@ -1272,14 +1325,14 @@ namespace UI
             try
             {
                 string barcode;
-                button3.Enabled = false;
+                btnMotoScan3.Enabled = false;
                 bool bOK = MT.COM4.ReadDataByString(out barcode);
                 if (bOK) MessageBox.Show("扫码成功，结果是：" + barcode);
                 else MessageBox.Show("扫码失败，结果是：" + barcode);
             }
             finally
             {
-                button3.Enabled = true;
+                btnMotoScan3.Enabled = true;
             }
         }
 
@@ -1299,34 +1352,39 @@ namespace UI
 
         private void button6_Click(object sender, EventArgs e)
         {
-            string objdata = " 0,0,0,0,0";
-            string PosInfo = "WS2-3";
-            var resList = objdata.Split(',');
-            if (resList.Length > 20)
+           
+        }
+
+        private void button6_Click_1(object sender, EventArgs e)
+        {
+            int i = 0;
+            string cntNgRateFor20 = "";
+            while (i < 10)
             {
-                resList = resList.Skip(resList.Length - 20).Take(20).ToArray();
-                objdata = string.Join(",", resList);
-            }
-            List<int> listMres = new List<int>();
-            foreach (var mres in resList)
-            {
-                listMres.Add(int.Parse(mres));
-            }
-            var ngMresList = listMres.FindAll(s => s > 0).ToList();
-            string ngStr = string.Join(",", ngMresList);
-            if (ngMresList.Count > PT_SET.CntWsNgRateShow)
-            {
-                var msg = string.Format($"工位NG超比例, \r\n 当前位置{PosInfo}NG比例超过设置, \r\n，" +
-                    $"近20个模组中有以下ng类型 \r\n" +
-                    $"{ngStr}，\r\n，请选择是否清除记录!");
-                VAR.msg.AddMsg(Msg.EM_MSGTYPE.ERR, msg);
-                VAR.sys_inf.Set(EM_ALM_STA.WAR_YELLOW_FLASH, msg, 20, true);
-                DialogResult dr = FrRun.Dialog(Color.Yellow, "警告", msg, "清除", "不清除");
-                if(dr== DialogResult.OK)
+
+
+
+
+                var ngcodes = NewSysInf.NoneRunPosInfo.UserNormalSet.NgRateCodes;
+                string[] ngCodeList = new string[20];
+                if (ngcodes.Length > 0)
+                    ngCodeList = ngcodes.Split(',');
+                foreach (var code in ngCodeList)
                 {
-                    objdata = "";
+                    var mdCode = "233";
+                    if (mdCode == code)
+                    {
+                        if (cntNgRateFor20.Length > 0)
+                            cntNgRateFor20 += ',' + mdCode;
+                        else
+                            cntNgRateFor20 += mdCode;
+                    }
                 }
-                VAR.sys_inf.Set(EM_ALM_STA.NOR_GREEN, VAR.IsChinese ? "运行" : "RUN", 0, true);
+
+
+                SQLData.NGRateShow("测试位置", ref cntNgRateFor20);
+                i++;
+
             }
         }
     }

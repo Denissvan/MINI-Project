@@ -63,14 +63,11 @@ namespace UI
         /// </summary>
         public  GPIO gpio_pzk = null;
 
+      
         /// <summary>
-        /// 马达扫二维码标识
+        /// 需要马达扫二维码
         /// </summary>
-        public bool bUpdate = false;
-        /// <summary>
-        /// 马达扫二维码结果
-        /// </summary>
-        public bool bOk = false;
+        public bool bNeedMotoScan =>PT_SET.bmotorphoto&&XtMd!=null&&(!XtMd.bhaveMotoScan|| XtMd.motor_barcode.Length!=PT_SET.motorBarcodeDigits);
         #endregion
 
         #region 枚举--(拍照流程)

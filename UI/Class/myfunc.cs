@@ -1264,9 +1264,15 @@ namespace UI
                         ws.Status = WS.EM_STA.REDAY;
                     if (ws.TestStatus == WS.EM_TEST_STA.ERROR)
                         ws.TestStatus = WS.EM_TEST_STA.UNTEST;
+                    if (NewSysInf.NoneRunPosInfo.UserNormalSet.bClearSetOffWs)//请料后关闭
+                    {
+                            ws.PowerOn(ref VAR.gsys_set.bquit);
+                    }
 
                 }
-                //初始化
+                if (NewSysInf.NoneRunPosInfo.UserNormalSet.bClearSetOffWs)
+                    Thread.Sleep(400);
+                 //初始化
                 VAR.SysErrAlm.ErrItem = ERR_ALM.EmErrItem.Null;
                 VAR.SysErrAlm.ErrStr = string.Empty;
                 MT.DoorAlarmMsg = string.Empty;
@@ -1361,6 +1367,13 @@ namespace UI
                         if (COM.ws1.TestStatus == WS.EM_TEST_STA.EMPTY && COM.ws2.TestStatus == WS.EM_TEST_STA.EMPTY &&
                           COM.ws3.TestStatus == WS.EM_TEST_STA.EMPTY && COM.ws4.TestStatus == WS.EM_TEST_STA.EMPTY && VAR.ClearMt)
                         {
+                            bool bSound = NewSysInf.NoneRunPosInfo.UserNormalSet.bClearSetOffWs;
+                            if(bSound)
+                            {
+                                foreach (var ws in COM.list_ws)
+                                     ws.PowerOff(ref VAR.gsys_set.bquit);
+                            }
+
                             VAR.ClearMt = false;
                             UpDownLoad.bquit = false;
                             //进仓储
@@ -1658,9 +1671,10 @@ namespace UI
                                 int sta = 0;
                                 while (!VAR.gsys_set.bquit)
                                 {
-                                    res = workstation.WaitTestResult(ref sta, workstation.TestDelay, WS.Demo);
+                                    res = workstation.WaitTestResult(ref sta, PT_SET.TestTime, WS.Demo);
                                     if (res == EM_RES.PARA_ERR || res == EM_RES.QUIT)
                                     {
+
                                         //不同步等异常
                                         break;
                                     }
