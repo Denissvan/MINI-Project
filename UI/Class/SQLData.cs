@@ -82,8 +82,8 @@ namespace UI
                 try
                 {
                     Directory.CreateDirectory(filename);
-                    
-                    
+
+
 
 
                 }
@@ -722,7 +722,7 @@ namespace UI
                 RunTime = 0,
                 AlmTime = 0
             };
-          
+
             if (!SysTimeCntDataChkExitTable(TimeCnt))
             {
                 SysTimeCntDataAdd(TimeCnt);
@@ -731,7 +731,7 @@ namespace UI
             DataTable dt = new DataTable();
             DataTable dataTable = new DataTable();
             List<SysTimeCnt> SysTimeCntList = new List<SysTimeCnt>();
-           var fileName= Selector.timeStart.ToString("yyyy_MM");
+            var fileName = Selector.timeStart.ToString("yyyy_MM");
             using (SQLiteConnection conn = new SQLiteConnection(SysTimeDataSource(fileName)))
             {
                 using (SQLiteCommand cmd = new SQLiteCommand())
@@ -740,21 +740,21 @@ namespace UI
                     conn.Open();
                     SQLiteHelper sh = new SQLiteHelper(cmd);
                     string select = "";
-                   // select = string.Format("select * from {0} ;", SysTimeCnttableName);
+                    // select = string.Format("select * from {0} ;", SysTimeCnttableName);
                     select = string.Format("select * from {0} where TIME between '{1}' and '{2}'order by time;", SysTimeCnttableName, Selector.timeStart.ToString("yyyy-MM-dd HH"), Selector.timeEnd.AddHours(1).ToString("yyyy-MM-dd HH"));
-                   // select = string.Format("select * from {0} where TIME between '2019-1-1 00:00:00' and '2028-1-1 00:00:00'order by time;", SysTimeCnttableName);
+                    // select = string.Format("select * from {0} where TIME between '2019-1-1 00:00:00' and '2028-1-1 00:00:00'order by time;", SysTimeCnttableName);
                     dt = sh.Select(select);
                     foreach (DataRow row in dt.Rows)
                     {
-                        DateTime mm ;
-                         DateTime.TryParse(row["TIME"].ToString(),out mm);
+                        DateTime mm;
+                        DateTime.TryParse(row["TIME"].ToString(), out mm);
                         SysTimeCntList.Add(new SysTimeCnt()
                         {
                             InSertTime = row["InSertTime"].ToString(),
                             RunTime = double.Parse(row["RunTime"].ToString()),
                             AlmTime = double.Parse(row["AlmTime"].ToString()),
                             Time = mm
-                        }) ;
+                        });
                     }
                     Selector.ListAllTimeTable = dt;
 
@@ -767,7 +767,7 @@ namespace UI
             return SysTimeCntList;
         }
 
-       
+
         /// <summary>
         /// 判断是否存在某月的表，工作时间记录
         /// </summary>
@@ -1304,49 +1304,18 @@ namespace UI
                             if (!md.benable) continue;
                             if (md.res < 0) continue;
                             if ((md.bardcode == null || md.bardcode.Length < 1) && PT_SET.BarcodeMode != (int)PT_SET.BAR_SCAN.NO_SCAN) continue;
-                            if (PT_SET.bWsNgRateShow&& md.res > 0)
+                            if (PT_SET.bWsNgRateShow)
                             {
-                                bool bNgRateBySet = NewSysInf.NoneRunPosInfo.UserNormalSet.bNgRateBySet;
-                                var ngcodes = NewSysInf.NoneRunPosInfo.UserNormalSet.NgRateCodes;
-                                VAR.msg.AddMsg(Msg.EM_MSGTYPE.DBG, "bNgRateBySet:" + bNgRateBySet + "ngcodes:" + ngcodes  );
-                                try
-                                {
-                                   
-                                    if (bNgRateBySet)
-                                    {                                      
-                                        string[] ngCodeList = new string[20];
-                                        if (ngcodes.Length > 0)
-                                            ngCodeList = ngcodes.Split('#');
-                                        foreach (var code in ngCodeList)
-                                        {
-                                            var mdCode = md.res.ToString();
-                                            if (mdCode == code)
-                                            {
-                                                if (md.cntNgRateFor20.Length > 0)
-                                                    md.cntNgRateFor20 += ',' + mdCode;
-                                                else
-                                                    md.cntNgRateFor20 += mdCode;
-                                            }
-                                        }
-                                    }
-                                    else
-                                    {
-                                        if (md.cntNgRateFor20.Length > 0)
-                                            md.cntNgRateFor20 += ',' + md.res.ToString();
-                                        else
-                                            md.cntNgRateFor20 += md.res.ToString();
-                                    }
-                                    NGRateShow(ws.disc + "-" + md.Num, ref md.cntNgRateFor20);
-                                }catch(Exception ee)
-                                {
-
-                                    VAR.msg.AddMsg(Msg.EM_MSGTYPE.ERR,  "NG比例监控发生异常" + ee.ToString());
-                                }
+                                 if (md.cntNgRateFor20.Length>0)
+                                md.cntNgRateFor20 += ','+ md.res.ToString();
+                                else
+                                    md.cntNgRateFor20 +=  md.res.ToString();
+                                NGRateShow(ws.disc +"-"+ md.Num,ref md.cntNgRateFor20);
                             }
                             if (md.res > 0)
                             {
-                                
-                                
+
+
                                 if (!VAR.Isnormal) COUNT_DATA.NgTwoTestCnt++;
                                 if (PT_SET.bNgControl && md.res == PT_SET.ngCode) COUNT_DATA.ngctrlngcnt++;
                                 COUNT_DATA.ngcnt[ws.num]++;
@@ -1375,15 +1344,15 @@ namespace UI
                                     DialogResult dr = FrRun.Dialog(Color.Yellow, "警告", msg, "确定", "取消");
                                     VAR.sys_inf.Set(EM_ALM_STA.NOR_GREEN, VAR.IsChinese ? "运行" : "RUN", 0, true);
                                 }
-                                else if (md.res == (int)WS.Md_RES.NG_NeiCun )
+                                else if (md.res == (int)WS.Md_RES.NG_NeiCun)
                                 {
                                     NgNeiCunCnt++;
                                     COUNT_DATA.cnt_ng_other++;
-                                    if (NgNeiCunCnt > 3&& bNgNeiCun)
+                                    if (NgNeiCunCnt > 3 && bNgNeiCun)
                                     {
                                         NgNeiCunCnt = 0;
                                         bNgNeiCun = false;
-                                        var msg = string.Format(ws.disc+"模组异常代码257, \r\n 请停机重启测试软件!");
+                                        var msg = string.Format(ws.disc + "模组异常代码257, \r\n 请停机重启测试软件!");
                                         VAR.msg.AddMsg(Msg.EM_MSGTYPE.ERR, msg, ErrCode: ShowErrMsg.Change3333Code);
                                         VAR.sys_inf.Set(EM_ALM_STA.WAR_YELLOW_FLASH, msg, 20, true);
                                         DialogResult dr = FrRun.Dialog(Color.Yellow, "警告", msg, "确定", "取消");
@@ -1409,7 +1378,7 @@ namespace UI
                                 md.last_res = md.res;
                             }
                             dic["TIME"] = DateTime.Now.ToString("s");
-                            dic["BARCODE"] = md.bardcode == null ? "" : md.bardcode ;
+                            dic["BARCODE"] = md.bardcode == null ? "" : md.bardcode;
                             //dic["MOTORBARCODE"] = md.motor_barcode == null ? "" : md.motor_barcode;
                             dic["NUM"] = md.Num;
                             dic["WS_ID"] = md.WS_ID;
@@ -1487,7 +1456,7 @@ namespace UI
                 SysTimeCntDataAdd(timeCnt);
             }
             var fileName = timeCnt.Time.ToString("yyyy_MM");
-            SysTimeCntConnectionChk(fileName);          
+            SysTimeCntConnectionChk(fileName);
             using (SQLiteConnection conn = new SQLiteConnection(SysTimeDataSource(fileName)))
             {
                 using (SQLiteCommand cmd = new SQLiteCommand())
@@ -1495,14 +1464,14 @@ namespace UI
                     cmd.Connection = conn;
                     conn.Open();
                     SQLiteHelper sh = new SQLiteHelper(cmd);
-                    
-              
-                   var  table = SysTimeCntDataTable(sh, SysTimeCnttableName);
+
+
+                    var table = SysTimeCntDataTable(sh, SysTimeCnttableName);
                     lock (AlarmLockObj)
                     {
                         var dic = new Dictionary<string, object>();
                         sh.BeginTransaction();
-                     
+
                         dic["InSertTime"] = timeCnt.InSertTime;
                         dic["RunTime"] = timeCnt.RunTime;
                         dic["AlmTime"] = timeCnt.AlmTime;
@@ -1533,7 +1502,7 @@ namespace UI
             var uploadData = new MiniDataDto()
             {
                 //表名，不存在新建表
-                DeviceCode = PT_SET.EqpPos+PT_SET.EqpSN+"版本"+ System.Reflection.Assembly.GetExecutingAssembly().GetName().Version.ToString(),
+                DeviceCode = PT_SET.EqpPos + PT_SET.EqpSN + "版本" + System.Reflection.Assembly.GetExecutingAssembly().GetName().Version.ToString(),
 
                 Time = Convert.ToDateTime(dic["TIME"]),
                 Barcode = dic["BARCODE"].ToString(),
