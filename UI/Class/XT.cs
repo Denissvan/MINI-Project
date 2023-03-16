@@ -1074,19 +1074,51 @@ namespace UI
 
         #region 物料取放(单独取放函数)
         /// <summary>
+        /// 取料偏移运动
+        /// </summary>
+        /// <param name="bquit"></param>
+        /// <param name="pos"></param>
+        /// <returns></returns>
+        private EM_RES dixmove(ref bool bquit, ST_XYZA pos)
+        {
+            if (bquit) return EM_RES.QUIT;
+            if(Math.Abs( ax_x.fenc_pos-pos.x)>2|| Math.Abs(ax_y.fenc_pos - pos.y) > 2)
+            {
+                VAR.msg.AddMsg(Msg.EM_MSGTYPE.ERR, disc + "工站取料前偏移当前位置和目标位置偏差大:" + pos.ToString());
+                return EM_RES.ERR;
+            }
+            var dispos = new ST_XYZ() { x = NewSysInf.NoneRunPosInfo.UserNormalSet.PickWsDisX, y = NewSysInf.NoneRunPosInfo.UserNormalSet.PickWsDisY, z = NewSysInf.NoneRunPosInfo.UserNormalSet.PickWsDisZ };
+            if (Math.Abs(dispos.z) > 30 || Math.Abs(dispos.y) > 20 || Math.Abs(dispos.x) > 20)
+            {
+                VAR.msg.AddMsg(Msg.EM_MSGTYPE.ERR, disc + "工站取料前偏移超过5mm请重新设置，偏移量:" + dispos.ToString());
+                return EM_RES.ERR;
+            }
+            VAR.msg.AddMsg(Msg.EM_MSGTYPE.NOR, disc + "工站取料前偏移量:" + dispos.ToString());
+           var res = MT.Move(ref bquit, ref ax_z, id % 2 == 0 ? pos.z - dispos.z : pos.z + dispos.z);
+            if (res != EM_RES.OK) return res;
+            res = MT.Move(ref bquit, ref ax_x, pos.x + dispos.x, ref ax_y, pos.y + dispos.y, bchkps: false);
+            if (res != EM_RES.OK)
+            {
+                VAR.msg.AddMsg(Msg.EM_MSGTYPE.ERR, disc + "工站取料前偏移定位失败，偏移量:" + dispos.ToString() + "结果res:" + res.ToString());
+                return res;
+            }
+            return res;
+        }
+        /// <summary>
         /// 取料
         /// </summary>
         /// <param name="bquit">系统退出标志</param>
         /// <param name="pos">取料坐标</param>
         /// <param name="bcheck">取:true 放:false</param>
+        ///   /// <param name="bMoveDis">取起来前偏移部分</param>
         /// <returns></returns>
-        public EM_RES Pick(ref bool bquit, ST_XYZA pos, bool bcheck = true,bool IsDemo=false, bool DwMov = false)
+        public EM_RES Pick(ref bool bquit, ST_XYZA pos, bool bcheck = true,bool IsDemo=false, bool DwMov = false,bool bMoveDis=false)
         {
             EM_RES res = EM_RES.OK;
             EM_RES res1 = EM_RES.OK;
             //演示模式不检查真空
             if (IsDemo) bcheck = false;
-
+           
             //check zk
             if (bcheck && cy_zk.isONByChkSen)
             {
@@ -1144,11 +1176,19 @@ namespace UI
                     if (res != EM_RES.QUIT) return EM_RES.PICK_ERR;
                     else return EM_RES.QUIT;
                 }
+                //工站取料前偏移
+             
+
             }
             finally
             {
+                if (bMoveDis)
+                {
+                    dixmove(ref bquit,pos);
+                }
                 //z up
                 bool b = false;
+           
                 MT.Move(ref b, ref ax_z, 0);
                 if(gpio_pzk.isON)
                 gpio_pzk.SetOff();

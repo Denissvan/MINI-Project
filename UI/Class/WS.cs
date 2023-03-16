@@ -552,7 +552,7 @@ namespace UI
                     md.st_CapQrcodePos[i].z = inf.ReadDouble(str_section, "CapQrcodeZ" + (i + 1).ToString(), double.MaxValue);
                 }
 
-                md.cntNgRateFor20 = inf.ReadString(str_section, "cntNgRateFor20", "");
+               // md.cntNgRateFor20 = inf.ReadString(str_section, "cntNgRateFor20", "");
                 //夹具二维码gy0123
                 md.jig_ID = inf.ReadString(str_section, "JIG_ID", "null");
                 
@@ -691,7 +691,7 @@ namespace UI
                     inf.WriteDouble(str_section, "CapQrcodeZ" + (i + 1).ToString(), md.st_CapQrcodePos[i].z, ref ischange, true, filename);
                 }
 
-                inf.WriteString(str_section, "cntNgRateFor20", md.cntNgRateFor20, ref ischange, true, filename);
+               // inf.WriteString(str_section, "cntNgRateFor20", md.cntNgRateFor20, ref ischange, true, filename);
                 //夹具二维码gy0123和夹具统计
                 inf.WriteString(str_section, "JIG_ID", md.jig_ID, ref ischange, true, filename);     
                 inf.WriteInteger(str_section, "CNT_OK", md.cnt_ok, ref ischange, true, filename);

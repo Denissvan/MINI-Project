@@ -792,7 +792,7 @@ namespace UI
                                     COM.ListXT[i].XtMd = null;
                                 }                                   
                                 WsTriPos[j].res = -1;
-                             
+                               
                             }
                             else return res;
                             COM.CamUp2.List_vs_task_cur[j].ResData.bUpdate = false;
