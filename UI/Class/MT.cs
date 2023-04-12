@@ -780,7 +780,8 @@ namespace UI
                 fr_warn.lb_msg.Text = warn.lb_msg;
                 fr_warn.title = warn.title;
                 fr_warn.TopMost = true;
-                if (!VAR.sys_inf.info.Contains(VAR.IsChinese ? "更换仓储" : "Change Tray")) VAR.IsErrAlm = true;
+                if (!VAR.sys_inf.info.Contains(VAR.IsChinese ? "更换仓储" : "Change Tray")) 
+                    VAR.IsErrAlm = true;
                 DialogResult logres = fr_warn.ShowDialog();
                 return logres;
             }

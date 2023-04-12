@@ -2930,7 +2930,7 @@ namespace UI
 
                 var com = id == 0 ? MT.COM3 : MT.COM4;
 
-                if (!xt.bNeedMotoScan)
+                if (!xt.bCanMotoScan)
                 {
                     if (xt.XtMd == null)
                     {

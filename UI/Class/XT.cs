@@ -65,9 +65,9 @@ namespace UI
 
       
         /// <summary>
-        /// 需要马达扫二维码
+        /// 可以马达扫二维码
         /// </summary>
-        public bool bNeedMotoScan =>PT_SET.bmotorphoto&&XtMd!=null&&(!XtMd.bhaveMotoScan|| XtMd.motor_barcode.Length!=PT_SET.motorBarcodeDigits);
+        public bool bCanMotoScan =>PT_SET.bmotorphoto&&XtMd!=null;
         #endregion
 
         #region 枚举--(拍照流程)

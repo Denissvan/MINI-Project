@@ -582,7 +582,8 @@ namespace MotionCtrl
                 secsManager.Send(new BaseInfo() { Id = (int)ErrCode + 1, Value = "true" }, 1);
                 Msg.AlarmInfo.Add(new Alarm() { Alarmid = (int)ErrCode, StartTime = DateTime.Now });
             }
-            if (VAR.IsErrAlm && !IsHaveForm("warning") && info == "运行") VAR.IsErrAlm = false;
+            if (VAR.IsErrAlm && !IsHaveForm("warning") && info == "运行")
+                VAR.IsErrAlm = false;
             //设置状态
             if (bset)
             {

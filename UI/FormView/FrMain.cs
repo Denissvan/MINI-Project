@@ -720,6 +720,8 @@ namespace UI
         int JisSendTimeCnt = 0;
         public DReport.EmStatus SendStauts = DReport.EmStatus.Run;
         bool bhavesend = false;
+        DateTime curSendNotRunTime= DateTime.Now;//停机状态超过5分钟就发送一次停机
+        DateTime curSendOnRunStaTime = DateTime.Now;//在运行状态但长时间没有产出
         private async void timer_key_Tick(object sender, EventArgs e)
         {
             timer_key.Interval = 100;
@@ -901,19 +903,16 @@ namespace UI
                 MT.GPIO_OUT_ALM_GREEN.SetOff();//gy0123非运行状态亮黄灯，绿灯灭
                 if (MT.GPIO_OUT_ALM_RED.isOFF)
                 MT.GPIO_OUT_ALM_YELLOW.SetOn();
+                var nowtime = DateTime.Now;
+                if((nowtime- curSendNotRunTime).TotalMinutes>5)
+                {
+                    curSendNotRunTime = nowtime;
+                    DRpt.Report_Status(DReport.EmStatus.Wait, DReport.EmHareware.Null, DReport.EmStatus.Wait.GetDescription(VAR.IsChinese));
+                    Msg.secsManager.Send(new BaseInfo() { Id = 1, Value = Convert.ToInt32(DReport.EmStatus.Wait).ToString() });
+                    Msg.secsManager.Send(new BaseInfo() { Id = 1 }, 2);
+                }
             }
             SYS_INF.bRuning = BaseAction.bRuning;
-            //if (VAR.gsys_set.status == EM_SYS_STA.RUN && !MT.IsErrAlm)
-            //{
-            //    if (cnt >= 10)
-            //    {
-            //        cnt = 0;
-            //        COUNT_DATA.runtime++;
-            //    }
-
-            //}
-            // else
-            //{
 
              if (VAR.gsys_set.status != EM_SYS_STA.RUN)
             {
@@ -986,28 +985,42 @@ namespace UI
                         Msg.AlarmInfo.Clear();
                     }
                 }
-
-                if (SendStauts != DReport.EmStatus.Wait &&
-                    (COM.traybox_fd.ChgML || COM.traybox_ng.ChgML || COM.traybox_ok.ChgML))
+                var nowtime = DateTime.Now;
+                if ((nowtime - WS.CurOutProductTime).TotalMinutes > 10)
                 {
-                    SendStauts = DReport.EmStatus.Wait;
-                    DRpt.Report_Status(DReport.EmStatus.Wait, DReport.EmHareware.Null, DReport.EmStatus.Wait.GetDescription(VAR.IsChinese));
-                    Msg.secsManager.Send(new BaseInfo() { Id = 1, Value = Convert.ToInt32(DReport.EmStatus.Wait).ToString() });
-                    Msg.secsManager.Send(new BaseInfo() { Id = 1 }, 2);
+                    if((nowtime - curSendOnRunStaTime).TotalMinutes >5)
+                    {
+                        curSendOnRunStaTime = nowtime;
+                        DRpt.Report_Status(DReport.EmStatus.Wait, DReport.EmHareware.Null, DReport.EmStatus.Wait.GetDescription(VAR.IsChinese));
+                        Msg.secsManager.Send(new BaseInfo() { Id = 1, Value = Convert.ToInt32(DReport.EmStatus.Wait).ToString() });
+                        Msg.secsManager.Send(new BaseInfo() { Id = 1 }, 2);
+                    }
+                   
                 }
-                else if (SendStauts != DReport.EmStatus.Error && VAR.IsErrAlm && !COM.traybox_fd.ChgML && !COM.traybox_ng.ChgML && !COM.traybox_ok.ChgML)
+                else
                 {
-                    SendStauts = DReport.EmStatus.Error;
-                    DRpt.Report_Status(DReport.EmStatus.Error, DReport.EmHareware.Null, DReport.EmStatus.Error.GetDescription(VAR.IsChinese));
-                    Msg.secsManager.Send(new BaseInfo() { Id = 1, Value = Convert.ToInt32(DReport.EmStatus.Error).ToString() });
-                    Msg.secsManager.Send(new BaseInfo() { Id = 1 }, 2);
-                }
-                else if (SendStauts != DReport.EmStatus.Run && !VAR.IsErrAlm && !COM.traybox_fd.ChgML && !COM.traybox_ng.ChgML && !COM.traybox_ok.ChgML)
-                {
-                    SendStauts = DReport.EmStatus.Run;
-                    DRpt.Report_Status(DReport.EmStatus.Run, DReport.EmHareware.Null, DReport.EmStatus.Run.GetDescription(VAR.IsChinese));
-                    Msg.secsManager.Send(new BaseInfo() { Id = 1, Value = Convert.ToInt32(DReport.EmStatus.Run).ToString() });
-                    Msg.secsManager.Send(new BaseInfo() { Id = 1 }, 2);
+                    if (SendStauts != DReport.EmStatus.Wait &&
+                        (COM.traybox_fd.ChgML || COM.traybox_ng.ChgML || COM.traybox_ok.ChgML))
+                    {
+                        SendStauts = DReport.EmStatus.Wait;
+                        DRpt.Report_Status(DReport.EmStatus.Wait, DReport.EmHareware.Null, DReport.EmStatus.Wait.GetDescription(VAR.IsChinese));
+                        Msg.secsManager.Send(new BaseInfo() { Id = 1, Value = Convert.ToInt32(DReport.EmStatus.Wait).ToString() });
+                        Msg.secsManager.Send(new BaseInfo() { Id = 1 }, 2);
+                    }
+                    else if (SendStauts != DReport.EmStatus.Error && VAR.IsErrAlm && !COM.traybox_fd.ChgML && !COM.traybox_ng.ChgML && !COM.traybox_ok.ChgML)
+                    {
+                        SendStauts = DReport.EmStatus.Error;
+                        DRpt.Report_Status(DReport.EmStatus.Error, DReport.EmHareware.Null, DReport.EmStatus.Error.GetDescription(VAR.IsChinese));
+                        Msg.secsManager.Send(new BaseInfo() { Id = 1, Value = Convert.ToInt32(DReport.EmStatus.Error).ToString() });
+                        Msg.secsManager.Send(new BaseInfo() { Id = 1 }, 2);
+                    }
+                    else if (SendStauts != DReport.EmStatus.Run && !VAR.IsErrAlm && !COM.traybox_fd.ChgML && !COM.traybox_ng.ChgML && !COM.traybox_ok.ChgML)
+                    {
+                        SendStauts = DReport.EmStatus.Run;
+                        DRpt.Report_Status(DReport.EmStatus.Run, DReport.EmHareware.Null, DReport.EmStatus.Run.GetDescription(VAR.IsChinese));
+                        Msg.secsManager.Send(new BaseInfo() { Id = 1, Value = Convert.ToInt32(DReport.EmStatus.Run).ToString() });
+                        Msg.secsManager.Send(new BaseInfo() { Id = 1 }, 2);
+                    }
                 }
                 JisSendTimeCnt++;
                 if (JisSendTimeCnt > (PT_SET.JigCntSend * (60000 / timer_key.Interval)))//半个小时发一次工站夹具生产数据gy0123

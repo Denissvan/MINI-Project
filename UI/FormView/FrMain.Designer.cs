@@ -126,7 +126,7 @@
             this.tbl_main.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 80F));
             this.tbl_main.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.tbl_main.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
-            this.tbl_main.Size = new System.Drawing.Size(1300, 1000);
+            this.tbl_main.Size = new System.Drawing.Size(1320, 1000);
             this.tbl_main.TabIndex = 0;
             // 
             // pnl_top_menu
@@ -149,7 +149,7 @@
             this.pnl_top_menu.Dock = System.Windows.Forms.DockStyle.Fill;
             this.pnl_top_menu.Location = new System.Drawing.Point(3, 3);
             this.pnl_top_menu.Name = "pnl_top_menu";
-            this.pnl_top_menu.Size = new System.Drawing.Size(1294, 74);
+            this.pnl_top_menu.Size = new System.Drawing.Size(1314, 74);
             this.pnl_top_menu.TabIndex = 0;
             // 
             // lbl_update
@@ -442,7 +442,7 @@
             this.pnl_sub.Dock = System.Windows.Forms.DockStyle.Fill;
             this.pnl_sub.Location = new System.Drawing.Point(3, 83);
             this.pnl_sub.Name = "pnl_sub";
-            this.pnl_sub.Size = new System.Drawing.Size(1294, 938);
+            this.pnl_sub.Size = new System.Drawing.Size(1314, 938);
             this.pnl_sub.TabIndex = 1;
             // 
             // timer_update
@@ -1070,7 +1070,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1300, 1000);
+            this.ClientSize = new System.Drawing.Size(1320, 1000);
             this.Controls.Add(this.ts_manual);
             this.Controls.Add(this.ts_manual2);
             this.Controls.Add(this.tbl_main);

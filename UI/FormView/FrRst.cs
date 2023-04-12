@@ -356,7 +356,12 @@ namespace UI
                         Enablebtn(btn_lightbox_left_home, false);
                     Enablebtn(sender, false);
                     EM_RES res = COM.Home();
-                    if(res==EM_RES.OK) DRpt.Report_Opration(1000, 0, "整体回零成功!");
+                    if (res == EM_RES.OK)
+                    {
+                        DRpt.Report_Opration(1000, 0, "整体回零成功!");
+                       
+
+                    }
                     else DRpt.Report_Opration(1000, 0, "整体回零失败!");
                     ShowMessage(VAR.IsChinese?string.Format("【{0}】 复位 {1}", "系统", res == EM_RES.OK ? "成功" : "失败"): string.Format("【{0}】 reset {1} \r\n【{2}】 复位 {3}", "system", res == EM_RES.OK ? "Successful" : "Failed", "系统", res == EM_RES.OK ? "成功" : "失败"), VAR.IsChinese ? "提示" : "prompt", MessageBoxButtons.OK);
                 }

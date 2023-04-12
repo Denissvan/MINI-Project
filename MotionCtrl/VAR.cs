@@ -36,7 +36,7 @@ namespace MotionCtrl
         public static string CurUserName = "";
         //系统错误信息
         public static ERR_ALM SysErrAlm=new ERR_ALM();
-        //错误报警标志
+        //错误弹窗报警标志
         public static bool IsErrAlm = false;
         //语言
         public static bool IsChinese = false;

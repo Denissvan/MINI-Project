@@ -64,8 +64,8 @@ using System.Runtime.InteropServices;
 //2439增加UserNormalSet.bClearSetOffWs清料后关闭工装
 //2440增加设置工站取料偏移 NoneRunPosInfo.UserNormalSet.bPickWsDis
 //2441运行开始增加secs程序启动检测，增加数据超过5万自动清零功能，运行停止生产数据自动保存，开放工站检二维码关闭功能
- 
 //2443 优化马达扫码
+//2444 优化设备状态上报逻辑，停机超过五分中上报停机，运行超过10分钟没产出上报停机
 //[assembly: AssemblyVersion("1.0.*")]
-[assembly: AssemblyVersion("2.4.4.3")]
-[assembly: AssemblyFileVersion("2.4.4.3")]
+[assembly: AssemblyVersion("2.4.4.4")]
+[assembly: AssemblyFileVersion("2.4.4.4")]
