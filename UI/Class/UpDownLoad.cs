@@ -14,6 +14,7 @@ using Cognex.VisionPro.Implementation.Internal;
 using DevReport;
 using Microsoft.SqlServer.Server;
 using MotionCtrl;
+using UI.Class;
 using Win32Lib;
 using static UI.Product.Tray;
 
@@ -560,6 +561,16 @@ namespace UI
                 {
                     WS.MdDat WsMod = ws.list_md[n];
                     if (!WsMod.benable) continue;
+                    if (VAR.isAutoChkMode)
+                    {
+                        if (WsMod.bAutoChkOk && res == Product.EM_CM_RES.EMPTY)
+                            continue;//点检已经ok的不上料
+                        if (!VAR.ClearMt)//自动点检模式
+                        {
+                            if (WsMod.res == -1 && (int)res != -1)
+                                continue;//对待测的忽略
+                        }
+                    }
                     // if (VAR.gsys_set.isChkMode && VAR.ChkPC != WsMod.PC_ID) continue;
                     if ((WsMod.res != (int)res && res < Product.EM_CM_RES.OK) || (WsMod.res < (int)res && res == Product.EM_CM_RES.OK)) continue;
                     PlaceMod.Add(WsMod);
@@ -835,6 +846,35 @@ namespace UI
                     return EM_RES.OK;
                 }
             }
+
+            if (NewSysInf.UserParams.bPicCntForSafe&&  cam.ListResultTemp.Count != cam.List_vs_task_cur.Count)
+            {
+                VAR.msg.AddMsg(Msg.EM_MSGTYPE.WAR, string.Format("当前工站{0}相机{1}输入图片计数和相机任务数不等，所有任务设置拍照失败!", disc, cam.mName)
+                    , DReport.EmErrCode.Timeout, (int)DReport.EmHareware.Cam);
+                foreach (Cam.VisionTask task in cam.List_vs_task_cur)
+                {
+                    task.ResData.bOK = false;
+                    task.ResData.bUpdate = true;
+                }
+                cam.inputImageErrCnt++;
+                if (cam.inputImageErrCnt > 2)
+                {
+                    cam.inputImageErrCnt = 0;
+
+                    VAR.sys_inf.Set(EM_ALM_STA.WAR_YELLOW_FLASH, VAR.IsChinese ? "相机异常!" : "Cam Err", 20, true, ErrCode: ShowErrMsg.WsPhotoErr);
+                    MT.ST_WARN warn = new MT.ST_WARN();
+                    warning fr_warn = new warning();
+                    warn.ok_txt = VAR.IsChinese ? "确定" : "Keep running";
+                    warn.ws = null;
+                    warn.title = VAR.IsChinese ? "提示:相机异常" : "Tip: Material is biased";
+                    warn.msg = VAR.IsChinese ? $"当前相机{cam.disc}发生多次误触发，请确认相机" : "Cam has abnormal tri Err,pls check the cam !\r\n当前相机发生多次误触发，请确认相机!";
+                    warn.lb_msg = warn.msg + "\r\n  1.请检查相机，按确定将继续生产!\r\n  ";
+                    DialogResult logres = MT.Display_frwarn(fr_warn, warn, ERR_ALM.EmErrItem.BarcodeAbnormal);
+                    VAR.sys_inf.Set(EM_ALM_STA.NOR_GREEN, VAR.IsChinese ? "运行" : "RUN", 0, true);
+                    return EM_RES.OK;
+                }
+            }
+
             return EM_RES.OK;
         }
 
@@ -1272,14 +1312,14 @@ namespace UI
         public EM_RES QrCodeChkShow(Cam.VisionTask task,WS.MdDat md)
         {
            //取消判断，强制开启 bUpWsChkQrCodeEn
-            if (PT_SET.BarcodeMode != (int)PT_SET.BAR_SCAN.UP_SCAN||NewSysInf.NoneRunPosInfo.UserNormalSet.bUpWsChkQrCodeOff)
+            if (PT_SET.BarcodeMode != (int)PT_SET.BAR_SCAN.UP_SCAN||NewSysInf.UserParams.bUpWsChkQrCodeOff)
                 return EM_RES.OK;
             var QrCode = task.ResData.BarCode;
             VAR.msg.AddMsg(Msg.EM_MSGTYPE.DBG,disc+ $"开始二维码对比,检出二维码{QrCode},模组二维码{md.bardcode}");
          
             if (QrCode == null || QrCode.Length < 3 )
             {
-                bool bGetOrcodOnWs = NewSysInf.NoneRunPosInfo.UserNormalSet.bGetOrcodOnWs;
+                bool bGetOrcodOnWs = NewSysInf.UserParams.bGetOrcodOnWs;
                 if (bGetOrcodOnWs)
                 {
                     md.res = 3342;
@@ -1310,7 +1350,7 @@ namespace UI
             }
             else if (QrCode != md.bardcode)
             {
-                bool bGetOrcodOnWs = NewSysInf.NoneRunPosInfo.UserNormalSet.bGetOrcodOnWs;
+                bool bGetOrcodOnWs = NewSysInf.UserParams.bGetOrcodOnWs;
                 if (bGetOrcodOnWs)
                 {
                     md.bardcode = QrCode;
@@ -2355,8 +2395,24 @@ namespace UI
                 //        }
                 //    }
                 //}
-
+                List<XT> tempXt = new List<XT>();
                 foreach (XT xt in list_xt)
+                    tempXt.Add(xt);
+                if (NewSysInf.UserParams.bXtPrePlaceTrayByBigId)//先放大编号
+                {                   
+                   if(tempXt.Count>1&& tempXt[0].id < tempXt[1].id)
+                    {
+                        tempXt.Reverse();
+                    }                  
+                }
+                else
+                {
+                    if (tempXt.Count > 1 && tempXt[0].id > tempXt[1].id)
+                    {
+                        tempXt.Reverse();
+                    }
+                }
+                foreach (XT xt in tempXt)
                 {
                     if ((!xt.cy_zk.isONByChkSen && !Demo) || xt.XtMd == null)
                     {
@@ -2366,7 +2422,7 @@ namespace UI
                     }
                     if (traybox.disc == traybox_ok.disc && xt.XtMd.res != 0) continue;
                     if (traybox.disc == traybox_ng.disc && xt.XtMd.res < 1) continue;
-                   
+
                     EM_RES res = xt.PlaceMd(ref bquit, traybox, ws, Demo);
                     if (res != EM_RES.OK) return res;
 
@@ -2616,7 +2672,7 @@ namespace UI
                     VAR.msg.AddMsg(Msg.EM_MSGTYPE.DBG, VAR.IsChinese ? string.Format("{0}工站取料: X:{1} Y:{2}", disc, pickpos.x, pickpos.y) : string.Format("{0}WS pickmod: X:{2} Y:{3}            ({1}工站取料: X:{2} Y:{3})", englishdisc, disc, pickpos.x, pickpos.y));
                     for (int i = 0; i < 2; i++)
                     {
-                        bool bmove = NewSysInf.NoneRunPosInfo.UserNormalSet.bPickWsDis;//取料后偏移运动
+                        bool bmove = NewSysInf.UserParams.bPickWsDis;//取料后偏移运动
                        // bmove = true;//临时测试强制开启
                         res = list_xt[xtid].Pick(ref bquit, pickpos, true, Demo, true, bmove);
                         if (res != EM_RES.PICK_ERR || !PT_SET.bWsPickAgain) break;
@@ -3192,8 +3248,9 @@ namespace UI
                                 //Pos_Upcam.y = WsTriPos[j].st_pos[id].y;  
                                 Pos_Upcam.x = up_task.TriPos.x;
                                 Pos_Upcam.y = up_task.TriPos.y;
-                                res = list_xt[xtnum].XtPickOrPlaceMod(ref bquit, Pos_Upcam, up_task.ResData.PosMM,
-                                         dw_task.ResData.PosMM, WsTriPos[j].st_pos[id].z, Demo, XT.EM_XTFLOW.PLACEMOD, false, PT_SET.bModPasteUp);
+
+                                bool bdismove = NewSysInf.UserParams.bPlaceWsDis;
+                                res = list_xt[xtnum].XtPickOrPlaceMod(ref bquit, Pos_Upcam, up_task.ResData.PosMM, dw_task.ResData.PosMM, WsTriPos[j].st_pos[id].z, Demo, XT.EM_XTFLOW.PLACEMOD, false, PT_SET.bModPasteUp, bdismove);
                                 if (res == EM_RES.OK)
                                 {
                                     if (PT_SET.BarcodeMode == (int)PT_SET.BAR_SCAN.UP_SCAN)
@@ -4441,7 +4498,7 @@ namespace UI
                 status = EM_STA.UPDOWNLOADEND;
                 bool bSame = false;
                 //同一工位同样NG是否超范围
-                if (PT_SET.bSameNGTip && VAR.bSameNGTip_Temp)
+                if (PT_SET.bSameNGTip && VAR.bSameNGTip_Temp&&!VAR.isAutoChkMode)
                 {
                     try
                     {

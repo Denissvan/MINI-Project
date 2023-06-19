@@ -25,6 +25,7 @@ using System.Reflection;
 using System.ComponentModel;
 using System.Drawing.Imaging;
 using DevReport;
+using UI.Class;
 
 namespace UI
 {
@@ -641,7 +642,7 @@ namespace UI
                         TransForm.Scaling = 1;
                         TransForm.Rotation = 0;
                         Image.PixelFromRootTransform = TransForm;
-                        inputImageCnt++;//输入图像次数计数，防止午误触发！
+                        inputImageCnt++;//输入图像次数计数，防止误触发！
                         bNewImage = true;
                         if (!bRunImage) return;
                         //current task
@@ -719,7 +720,31 @@ namespace UI
             //t.Start();
         }
 
+        public void ResultTaskTempListAdd(VisionOutPutData vsres)
+        {
+            if (ListResultTemp == null)
+            {
+                ListResultTemp = new List<VisionOutPutData>();
+                if (vsres == null)
+                {
+                    VAR.msg.AddMsg( Msg.EM_MSGTYPE.ERR,disc+"当前ResultTaskTempListAdd传入数据为空");
+                    return;
+                }
 
+                ListResultTemp.Add(vsres.Clone());
+            }
+            else
+            {
+                if (ListResultTemp.Count > 50)
+                {
+                    VAR.msg.AddMsg(Msg.EM_MSGTYPE.WAR, disc + "当前相机缓存结果大于5，自动清零");
+
+                    ListResultTemp.Clear();
+                }
+
+                ListResultTemp.Add(vsres.Clone());
+            }
+        }
         void TaskRunImage(int taskidx, CogImage8Grey myImage)
         {                    
 
@@ -766,6 +791,7 @@ namespace UI
                                                   // VAR.msg.AddMsg(Msg.EM_MSGTYPE.DBG, str);
                         mTask.Image = myImage;
                         mTask.RunImage(myImage);
+                        ResultTaskTempListAdd(mTask.ResData.Clone());
                         if (CompeletedEventHandler != null)
                             CompeletedEventHandler(mTask, new EventArgs());
                         //str = $"当前任务名称：{mTask.TaskName}";
@@ -1236,6 +1262,27 @@ namespace UI
             {
                 return string.Format("{0} X:{1:F3},Y{2:F3},A{3:F3},S{4:F3},T{5},{6},{7}", bOK ? "OK" : "NG", PosMM.x, PosMM.y, PosMM.a, Score, CTms, BarCode != null && BarCode.Length > 0 ? BarCode : Message, TriNum);
             }
+            public VisionOutPutData Clone()
+            {
+                return new VisionOutPutData()
+                {
+
+
+                    TaskName = TaskName,
+                    CamName = CamName,
+                    CamId = CamId,
+                    TriNum = TriNum,
+                    PosPix = PosPix,
+                    PosMM = PosMM,
+                    Offset = Offset,
+                    CentOfs = CentOfs,
+                    BarCode = BarCode,
+                    Message = Message,
+                    Score = Score,
+                    bOK = bOK,
+                    bUpdate = bUpdate
+                };
+            }
         }
         #endregion
         #region 任务
@@ -1515,7 +1562,7 @@ namespace UI
                         if (PT_SET.BarcodeMode == 0)
                         {
 
-                            bool bGetOrcodOnWs = NewSysInf.NoneRunPosInfo.UserNormalSet.bGetOrcodOnWs;
+                            bool bGetOrcodOnWs = NewSysInf.UserParams.bGetOrcodOnWs;
                             if (!bGetOrcodOnWs)
                             RunCfg = RunCfg & (~0x01);
                             else
@@ -1731,6 +1778,8 @@ namespace UI
         /// 当前使用的任务清单
         /// </summary>
         public List<VisionTask> List_vs_task_cur = new List<VisionTask>();
+
+        public List<VisionOutPutData> ListResultTemp = new List<VisionOutPutData>();
         /// <summary>
         /// //相机接收图像次数计数，防止误触发！
         /// </summary>
@@ -1961,7 +2010,9 @@ namespace UI
                 return EM_RES.CAM_PARA_ERR;
             }
             if (IfClear)
-            { List_vs_task_cur.Clear();
+            {
+                List_vs_task_cur.Clear();
+                ListResultTemp.Clear();
                 inputImageCnt = 0;
             }
             curTaskIdx = 0;

@@ -13,6 +13,7 @@ using System.Reflection;
 using DevReport;
 using Win32Lib;
 using System.IO;
+using UI.Class;
 
 namespace UI
 {
@@ -827,16 +828,122 @@ namespace UI
             radWsNgRateShowEn.Checked = PT_SET.bWsNgRateShow;
             radWsNgRateShowOff.Checked=!PT_SET.bWsNgRateShow;
             NumWsNgCntPer20.Value = (decimal)PT_SET.CntWsNgRateShow ;
+
+
+            //自动点检
+            rbt_autoChkOff.Checked = !PT_SET.AutoChkEn;
+            rbt_autoChkOn.Checked = PT_SET.AutoChkEn;
+
+
+            rbt_ws1.Checked = PT_SET.AutoChkSelectWs == (int)PT_SET.AutoChkWs.WS1;
+            rbt_ws2.Checked = PT_SET.AutoChkSelectWs == (int)PT_SET.AutoChkWs.WS2;
+            rbt_ws3.Checked = PT_SET.AutoChkSelectWs == (int)PT_SET.AutoChkWs.WS3;
+            rbt_ws4.Checked = PT_SET.AutoChkSelectWs == (int)PT_SET.AutoChkWs.WS4;
+
+            rbt_modeV.Checked = PT_SET.AutoChkMode == (int)PT_SET.AutoChkMod.Vivo;
+            rbt_modeM.Checked = PT_SET.AutoChkMode == (int)PT_SET.AutoChkMod.Mi;
+            rbt_modeO.Checked = PT_SET.AutoChkMode == (int)PT_SET.AutoChkMod.Oppo;
+            rbt_modeS.Checked = PT_SET.AutoChkMode == (int)PT_SET.AutoChkMod.Sum;
+            rbt_modeH.Checked = PT_SET.AutoChkMode == (int)PT_SET.AutoChkMod.Huawei;
+            rbt_modeL.Checked = PT_SET.AutoChkMode == (int)PT_SET.AutoChkMod.Lenov;
+
+            rbt_modeM_CheckedChanged(rbt_modeL, null);
+
         }
+        private void rbt_modeM_CheckedChanged(object sender, EventArgs e)
+        {
+            int poscnt = 1;
+
+            if (rbt_modeM.Checked) poscnt = 16;
+            else if (rbt_modeO.Checked)
+            {
+                poscnt = 8;
+            }
+            else if (rbt_modeV.Checked)
+            {
+                poscnt = 8;
+            }
+            else poscnt = 1;
+            if (poscnt == 1)
+                lbAutoChkShowMsg.Text = $"请选择1个点检模组的上料位置";
+            else
+                lbAutoChkShowMsg.Text = $"当前模式固定了放置点检模组的位置";
+            if (poscnt == 16)
+            {
+                for (int Num = 1; Num <= 16; Num++)
+                {
+                    object btn = this.panel_autoChkSet.Controls.Find("btn" + Num, true)[0];
+                    if (btn != null)
+                    {
+                        ((Button)btn).BackColor = Color.Green;
+                        ((Button)btn).Enabled = false;
+                    }
+                }
+            }
+            else
+            if (poscnt == 8)
+            {
+                for (int Num = 1; Num <= 16; Num++)
+                {
+                    object btn = this.panel_autoChkSet.Controls.Find("btn" + Num, true)[0];
+                    if (btn != null)
+                    {
+                        if (Num <= 8)
+                            ((Button)btn).BackColor = Color.Green;
+                        else
+                            ((Button)btn).BackColor = Color.Gray;
+                        ((Button)btn).Enabled = false;
+                    }
+                }
+
+            }
+            else
+            {
+                bool ben = false;
+                bool bfrist = true;
+                for (int Num = 1; Num <= 16; Num++)
+                {
+                    object btn = this.panel_autoChkSet.Controls.Find("btn" + Num, true)[0];
+
+                    if (btn != null)
+                    {
+
+                        if (Num <= 8)
+                        {
+                            var mm = (1 << (Num - 1));
+                            var obj = (int)(PT_SET.AutoChkSmallMdEn & mm);
+                            ben = obj != 0;
+                        }
+                        else if (Num > 8)
+                        {
+                            var mm = (1 << (Num - 9));
+                            var obj = (int)(PT_SET.AutoChkMaxMdEn & mm);
+                            ben = obj != 0;
+                        }
+
+                        if (ben && bfrist)
+                        {
+                            ((Button)btn).BackColor = Color.Green;
+                            bfrist = false;
+                        }
+                        else ((Button)btn).BackColor = Color.Gray;
+
+                        ((Button)btn).Enabled = true;
+
+                    }
+                }
+            }
+        }
+
         public void GetData()
         {
             //光源选择
             PT_SET.bG4C = rad_G4C.Checked;
             //夹具扫码gy0123
             COM.ws1.bjigSan = btnStartJigSan1.Checked;
-            COM.ws2.bjigSan = btnStartJigSan2.Checked; 
-            COM.ws3.bjigSan = btnStartJigSan3.Checked; 
-            COM.ws4.bjigSan = btnStartJigSan4.Checked; 
+            COM.ws2.bjigSan = btnStartJigSan2.Checked;
+            COM.ws3.bjigSan = btnStartJigSan3.Checked;
+            COM.ws4.bjigSan = btnStartJigSan4.Checked;
             PT_SET.bJigSan = rabt_jigscan_ON.Checked;
             //二维码扫码方式
             if (rbtn_upcode.Checked) PT_SET.BarcodeMode = (int)PT_SET.BAR_SCAN.UP_SCAN;
@@ -1001,10 +1108,10 @@ namespace UI
             PT_SET.JigContrast[1] = (double)nud_jig_contrast2.Value;
             PT_SET.WsExposure[0] = (double)nud_ws_exposure1.Value;
             PT_SET.WsExposure[1] = (double)nud_ws_exposure2.Value;
-            
+
             PT_SET.WsBrightness[0] = (double)nud_ws_brightness1.Value;
             PT_SET.WsBrightness[1] = (double)nud_ws_brightness2.Value;
-            
+
             PT_SET.WsContrast[0] = (double)nud_ws_contrast1.Value;
             PT_SET.WsContrast[1] = (double)nud_ws_contrast2.Value;
             //点检时间设置
@@ -1044,7 +1151,7 @@ namespace UI
             if (rbtn_AddCapQrcodeEn.Checked) PT_SET.bAddCapQrcode = true;
             else if (rbtn_AddCapQrcodeDis.Checked) PT_SET.bAddCapQrcode = false;
             PT_SET.bDwAddCapQrcode = rbtn_DwAddCapQrcodeEn.Checked;
-      
+
             //回检管控
             PT_SET.Area = (double)nud_Areaofset.Value;
             PT_SET.LeftArea = (double)nud_LeftArea.Value;
@@ -1059,7 +1166,7 @@ namespace UI
             PT_SET.bConnectorCheck = cb_ConnectorCheck.Checked;
             //设备信息
             if (tb_eqp_pos.Text.Length > 0)
-            PT_SET.EqpPos = tb_eqp_pos.Text;
+                PT_SET.EqpPos = tb_eqp_pos.Text;
             if (tb_eqp_sn.Text.Length > 0)
                 PT_SET.EqpSN = tb_eqp_sn.Text;
             //马达扫码设置
@@ -1075,9 +1182,91 @@ namespace UI
             PT_SET.CntWsNgRateShow = (int)NumWsNgCntPer20.Value;
 
 
+            PT_SET.AutoChkEn = rbt_autoChkOn.Checked;
+            if (rbt_ws1.Checked) PT_SET.AutoChkSelectWs = (int)PT_SET.AutoChkWs.WS1;
+            else if (rbt_ws2.Checked) PT_SET.AutoChkSelectWs = (int)PT_SET.AutoChkWs.WS2;
+            else if (rbt_ws3.Checked) PT_SET.AutoChkSelectWs = (int)PT_SET.AutoChkWs.WS3;
+            else if (rbt_ws4.Checked) PT_SET.AutoChkSelectWs = (int)PT_SET.AutoChkWs.WS4;
+            int PosCnt = 1;
+            PT_SET.AutoChkMod mod = PT_SET.AutoChkMod.Oppo;
+            if (rbt_modeM.Checked)
+            { mod = PT_SET.AutoChkMod.Mi; PosCnt = 16; }
+            else if (rbt_modeO.Checked)
+            { mod = PT_SET.AutoChkMod.Oppo; PosCnt = 8; }
+            else if (rbt_modeS.Checked) mod = PT_SET.AutoChkMod.Sum;
+            else if (rbt_modeH.Checked) mod = PT_SET.AutoChkMod.Huawei;
+            else if (rbt_modeL.Checked) mod = PT_SET.AutoChkMod.Lenov;
+            else if (rbt_modeV.Checked)
+            {
+                mod = PT_SET.AutoChkMod.Vivo;
+                PosCnt = 8;
+            }
+            PT_SET.AutoChkMode = (int)mod;
+
+            int cnt = 0;
+            if (PT_SET.AutoChkEn)
+            {
+                for (int Num = 1; Num <= 16; Num++)
+                {
+                    object btn = this.panel_autoChkSet.Controls.Find("btn" + Num, true)[0];
+                    if (btn != null)
+                    {
+                        if (((Button)btn).BackColor == Color.Green)
+                            cnt++;
+                    }
+                }
+                if (cnt != PosCnt)
+                {
+                    MessageBox.Show("当前设置点检位置不符合要求,\r\n,/r/n,请重新按要求选择位置");
+                }
+                else
+                {
+
+                    if (PT_SET.AutoChkMode == (int)PT_SET.AutoChkMod.Mi)
+                    {
+                        PT_SET.AutoChkMaxMdEn = 255;
+                        PT_SET.AutoChkSmallMdEn = 255;
+                    }
+                    else if (PT_SET.AutoChkMode == (int)PT_SET.AutoChkMod.Oppo)
+                    {
+                        PT_SET.AutoChkMaxMdEn = 0;
+                        PT_SET.AutoChkSmallMdEn = 255;
+
+                    }
+                    else if (PT_SET.AutoChkMode == (int)PT_SET.AutoChkMod.Vivo)
+                    {
+                        PT_SET.AutoChkMaxMdEn = 0;
+                        PT_SET.AutoChkSmallMdEn = 255;
+                    }
+                    else
+                    {
+
+
+                        int maxposEn = 0;
+                        int minposEn = 0;
+                        for (int Num = 1; Num <= 16; Num++)
+                        {
+                            object btn = this.panel_autoChkSet.Controls.Find("btn" + Num, true)[0];
+                            if (btn != null)
+                            {
+                                bool en = ((Button)btn).BackColor == Color.Green;
+                                int obj = 0;
+                                if (en) obj = 1;
+                                if (Num > 8 && Num <= 16)
+                                {
+                                    maxposEn = (maxposEn | (obj << (Num - 9)));
+                                }
+                                else if (Num > 0 && Num <= 8)
+                                    minposEn = (minposEn | (obj << (Num - 1)));
+                            }
+                        }
+                        PT_SET.AutoChkMaxMdEn = maxposEn;
+                        PT_SET.AutoChkSmallMdEn = minposEn;
+                    }
+                }
+            }
 
         }
-
         public bool ReloadUpcamTask(string tskname)
         {
             bool res = true;
@@ -1322,18 +1511,7 @@ namespace UI
 
         private void button3_Click(object sender, EventArgs e)
         {
-            try
-            {
-                string barcode;
-                btnMotoScan3.Enabled = false;
-                bool bOK = MT.COM4.ReadDataByString(out barcode);
-                if (bOK) MessageBox.Show("扫码成功，结果是：" + barcode);
-                else MessageBox.Show("扫码失败，结果是：" + barcode);
-            }
-            finally
-            {
-                btnMotoScan3.Enabled = true;
-            }
+
         }
 
         private void button4_Click(object sender, EventArgs e)
@@ -1361,11 +1539,7 @@ namespace UI
             string cntNgRateFor20 = "";
             while (i < 10)
             {
-
-
-
-
-                var ngcodes = NewSysInf.NoneRunPosInfo.UserNormalSet.NgRateCodes;
+                var ngcodes = NewSysInf.UserParams.NgRateCodes;
                 string[] ngCodeList = new string[20];
                 if (ngcodes.Length > 0)
                     ngCodeList = ngcodes.Split(',');
@@ -1385,6 +1559,237 @@ namespace UI
                 SQLData.NGRateShow("测试位置", ref cntNgRateFor20);
                 i++;
 
+            }
+        }
+
+        private async void btnChkInfoGet_Click(object sender, EventArgs e)
+        {
+            var oldstr = btnChkInfoGet.Text;
+            btnChkInfoGet.Text = "测试中";
+            string errmsg = "";
+            string okmsg = "";
+            Task mm = new Task(() =>
+            {
+                try
+                {
+
+                    foreach (var ws in COM.list_ws)
+                    {
+                        int[] temp1List = new int[16], temp2List = new int[16];
+                        var res1 = ws.GetPcChkInfo(out var pUCFFactoryMode1, out var pUCFFactoryMode2, temp1List, temp2List, false);
+                        if (!res1)
+                        {
+                            errmsg += ws.disc + ",";
+                        }
+
+                    }
+                }
+                finally
+                {
+
+                    btnChkInfoGet.Text = oldstr;
+                }
+
+            });
+            mm.Start();
+            Thread.Sleep(100);
+            await mm;
+
+            if (errmsg.Length > 1)
+            {
+                MessageBox.Show($"获取工位点检信息失败{errmsg}");
+            }
+            else
+            {
+                MessageBox.Show($"获取工位点检信息成功:{okmsg}");
+            }
+        }
+
+        private async void btnChkGet_Click(object sender, EventArgs e)
+        {
+            var oldstr = btnChkGet.Text;
+            btnChkGet.Text = "测试中";
+            string errmsg = "";
+            string okmsg = "";
+            Task mm = new Task(() =>
+            {
+                try
+                {
+
+                    foreach (var ws in COM.list_ws)
+                    {
+                        var res1 = ws.GetPcChkMod(out var pUCFFactoryMode1, out var pUCFFactoryMode2, out var temp1, out var temp2, false);
+                        if (!res1)
+                        {
+                            errmsg += ws.disc + ",";
+                        }
+
+                    }
+                }
+                finally
+                {
+
+                    btnChkGet.Text = oldstr;
+                }
+
+            });
+            mm.Start();
+            Thread.Sleep(100);
+            await mm;
+
+            if (errmsg.Length > 1)
+            {
+                MessageBox.Show($"获取工位点检状态失败{errmsg}");
+            }
+            else
+            {
+                MessageBox.Show($"获取工位点检状态成功:{okmsg}");
+            }
+        }
+
+        private async void btnChkSetChk_Click(object sender, EventArgs e)
+        {
+            var oldstr = btnChkSetChk.Text;
+            btnChkSetChk.Text = "测试中";
+            btnChkSetChk.Enabled = false;
+            string errmsg = "";
+            string okmsg = "";
+            Task mm = new Task(() =>
+            {
+                try
+                {
+                    foreach (var ws in COM.list_ws)
+                    {
+
+                        var res1 = ws.SetPcAutoChk(0, false);
+                        if (res1)
+                        {
+                            okmsg += ws.disc + ",";
+                            VAR.msg.AddMsg(Msg.EM_MSGTYPE.DBG, $"切换工位{ws.disc}点检模式成功");
+                        }
+                        else
+                        {
+                            errmsg += ws.disc + ",";
+                            VAR.msg.AddMsg(Msg.EM_MSGTYPE.ERR, $"切换工位{ws.disc}点检模式失败");
+                        }
+
+                    }
+                }
+                finally
+                {
+                    btnChkSetChk.Enabled = true;
+                    btnChkSetChk.Text = oldstr;
+                }
+            });
+            mm.Start();
+            Thread.Sleep(100);
+            await mm;
+            if (errmsg.Length > 1)
+            {
+                MessageBox.Show($"切换工位{errmsg}点检模式失败");
+            }
+            else
+            {
+                MessageBox.Show($"切换工位{okmsg}点检模式成功");
+            }
+        }
+
+        private async void btnChkSetProduct_Click(object sender, EventArgs e)
+        {
+            var oldstr = btnChkSetProduct.Text;
+            btnChkSetProduct.Text = "测试中";
+            btnChkSetProduct.Enabled = false;
+            string errmsg = "";
+            string okmsg = "";
+            Task mm = new Task(() =>
+            {
+                try
+                {
+                    foreach (var ws in COM.list_ws)
+                    {
+                        var res1 = ws.SetPcPrductMod(false);
+                        if (res1)
+                        {
+                            okmsg += ws.disc + ",";
+                            VAR.msg.AddMsg(Msg.EM_MSGTYPE.DBG, $"切换工位{ws.disc}生产模式成功");
+                        }
+                        else
+                        {
+                            errmsg += ws.disc + ",";
+                            VAR.msg.AddMsg(Msg.EM_MSGTYPE.ERR, $"切换工位{ws.disc}生产模式失败");
+                        }
+
+                    }
+                }
+                finally
+                {
+                    btnChkSetProduct.Enabled = true;
+                    btnChkSetProduct.Text = oldstr;
+                }
+            });
+            mm.Start();
+            Thread.Sleep(100);
+            await mm;
+            if (errmsg.Length > 1)
+            {
+                MessageBox.Show($"切换工位{errmsg}生产模式失败");
+            }
+            else
+            {
+                MessageBox.Show($"切换工位{okmsg}生产模式成功");
+            }
+        }
+
+        private async void btnGetChkResult_Click(object sender, EventArgs e)
+        {
+            var curbtn = (Button)sender;
+            var oldstr = curbtn.Text;
+            curbtn.Text = "测试中";
+            string errmsg = "";
+            string okmsg = "";
+            Task mm = new Task(() =>
+            {
+                try
+                {
+
+                    foreach (var ws in COM.list_ws)
+                    {
+                        var res1 = ws.GetPcChkResult(out var temp1, out var temp2, false);
+                        if (res1)
+                        {
+
+                            string msg = "点检结果1：" + temp1 + "点检结果2：" + temp2;
+
+                            VAR.msg.AddMsg(Msg.EM_MSGTYPE.DBG, $"获取工位{ws.disc}点检结果成功");
+                            VAR.msg.AddMsg(Msg.EM_MSGTYPE.DBG, $"获取工位{ws.disc}+{msg}");
+
+                        }
+                        else
+                        {
+                            errmsg += ws.disc + ",";
+                            VAR.msg.AddMsg(Msg.EM_MSGTYPE.ERR, $"获取工位{ws.disc}点检结果失败");
+                        }
+
+                    }
+                }
+                finally
+                {
+
+                    curbtn.Text = oldstr;
+                }
+
+            });
+            mm.Start();
+            Thread.Sleep(100);
+            await mm;
+
+            if (errmsg.Length > 1)
+            {
+                MessageBox.Show($"{oldstr}失败{errmsg}");
+            }
+            else
+            {
+                MessageBox.Show($"{oldstr}成功:{okmsg}");
             }
         }
     }

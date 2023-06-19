@@ -317,6 +317,49 @@
             this.rbtn_lbdis = new System.Windows.Forms.RadioButton();
             this.rbtn_lben = new System.Windows.Forms.RadioButton();
             this.tabPage3 = new System.Windows.Forms.TabPage();
+            this.panel_autoChkSet = new System.Windows.Forms.Panel();
+            this.btnGetChkResult = new System.Windows.Forms.Button();
+            this.btnChkInfoGet = new System.Windows.Forms.Button();
+            this.btnChkSetProduct = new System.Windows.Forms.Button();
+            this.btnChkSetChk = new System.Windows.Forms.Button();
+            this.pnl_ws = new System.Windows.Forms.Panel();
+            this.label59 = new System.Windows.Forms.Label();
+            this.pnl_ut = new System.Windows.Forms.Panel();
+            this.label60 = new System.Windows.Forms.Label();
+            this.pnl_un = new System.Windows.Forms.Panel();
+            this.btn16 = new System.Windows.Forms.Button();
+            this.btn15 = new System.Windows.Forms.Button();
+            this.btn14 = new System.Windows.Forms.Button();
+            this.btn13 = new System.Windows.Forms.Button();
+            this.btn12 = new System.Windows.Forms.Button();
+            this.btn11 = new System.Windows.Forms.Button();
+            this.btn10 = new System.Windows.Forms.Button();
+            this.btn8 = new System.Windows.Forms.Button();
+            this.btn7 = new System.Windows.Forms.Button();
+            this.btn6 = new System.Windows.Forms.Button();
+            this.btn5 = new System.Windows.Forms.Button();
+            this.btn4 = new System.Windows.Forms.Button();
+            this.btn3 = new System.Windows.Forms.Button();
+            this.btn2 = new System.Windows.Forms.Button();
+            this.btn1 = new System.Windows.Forms.Button();
+            this.btn9 = new System.Windows.Forms.Button();
+            this.groupBox56 = new System.Windows.Forms.GroupBox();
+            this.rbt_ws3 = new System.Windows.Forms.RadioButton();
+            this.rbt_ws4 = new System.Windows.Forms.RadioButton();
+            this.rbt_ws2 = new System.Windows.Forms.RadioButton();
+            this.rbt_ws1 = new System.Windows.Forms.RadioButton();
+            this.btnChkGet = new System.Windows.Forms.Button();
+            this.groupBox58 = new System.Windows.Forms.GroupBox();
+            this.rbt_modeV = new System.Windows.Forms.RadioButton();
+            this.rbt_modeL = new System.Windows.Forms.RadioButton();
+            this.rbt_modeS = new System.Windows.Forms.RadioButton();
+            this.rbt_modeH = new System.Windows.Forms.RadioButton();
+            this.rbt_modeO = new System.Windows.Forms.RadioButton();
+            this.rbt_modeM = new System.Windows.Forms.RadioButton();
+            this.lbAutoChkShowMsg = new System.Windows.Forms.Label();
+            this.groupBox59 = new System.Windows.Forms.GroupBox();
+            this.rbt_autoChkOff = new System.Windows.Forms.RadioButton();
+            this.rbt_autoChkOn = new System.Windows.Forms.RadioButton();
             this.button6 = new System.Windows.Forms.Button();
             this.groupBox55 = new System.Windows.Forms.GroupBox();
             this.NumWsNgCntPer20 = new System.Windows.Forms.NumericUpDown();
@@ -515,6 +558,11 @@
             this.groupBox9.SuspendLayout();
             this.groupBox13.SuspendLayout();
             this.tabPage3.SuspendLayout();
+            this.panel_autoChkSet.SuspendLayout();
+            this.pnl_ws.SuspendLayout();
+            this.groupBox56.SuspendLayout();
+            this.groupBox58.SuspendLayout();
+            this.groupBox59.SuspendLayout();
             this.groupBox55.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.NumWsNgCntPer20)).BeginInit();
             this.groupBox54.SuspendLayout();
@@ -4993,6 +5041,7 @@
             // 
             // tabPage3
             // 
+            this.tabPage3.Controls.Add(this.panel_autoChkSet);
             this.tabPage3.Controls.Add(this.button6);
             this.tabPage3.Controls.Add(this.groupBox55);
             this.tabPage3.Controls.Add(this.groupBox54);
@@ -5008,9 +5057,579 @@
             this.tabPage3.Text = "参数3";
             this.tabPage3.UseVisualStyleBackColor = true;
             // 
+            // panel_autoChkSet
+            // 
+            this.panel_autoChkSet.Controls.Add(this.btnGetChkResult);
+            this.panel_autoChkSet.Controls.Add(this.btnChkInfoGet);
+            this.panel_autoChkSet.Controls.Add(this.btnChkSetProduct);
+            this.panel_autoChkSet.Controls.Add(this.btnChkSetChk);
+            this.panel_autoChkSet.Controls.Add(this.pnl_ws);
+            this.panel_autoChkSet.Controls.Add(this.groupBox56);
+            this.panel_autoChkSet.Controls.Add(this.btnChkGet);
+            this.panel_autoChkSet.Controls.Add(this.groupBox58);
+            this.panel_autoChkSet.Controls.Add(this.lbAutoChkShowMsg);
+            this.panel_autoChkSet.Controls.Add(this.groupBox59);
+            this.panel_autoChkSet.Location = new System.Drawing.Point(20, 284);
+            this.panel_autoChkSet.Name = "panel_autoChkSet";
+            this.panel_autoChkSet.Size = new System.Drawing.Size(718, 402);
+            this.panel_autoChkSet.TabIndex = 164;
+            // 
+            // btnGetChkResult
+            // 
+            this.btnGetChkResult.Font = new System.Drawing.Font("宋体", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.btnGetChkResult.Location = new System.Drawing.Point(612, 167);
+            this.btnGetChkResult.Name = "btnGetChkResult";
+            this.btnGetChkResult.Size = new System.Drawing.Size(70, 52);
+            this.btnGetChkResult.TabIndex = 171;
+            this.btnGetChkResult.Text = "获取点检结果";
+            this.btnGetChkResult.UseVisualStyleBackColor = true;
+            this.btnGetChkResult.Click += new System.EventHandler(this.btnGetChkResult_Click);
+            // 
+            // btnChkInfoGet
+            // 
+            this.btnChkInfoGet.Font = new System.Drawing.Font("宋体", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.btnChkInfoGet.Location = new System.Drawing.Point(304, 166);
+            this.btnChkInfoGet.Name = "btnChkInfoGet";
+            this.btnChkInfoGet.Size = new System.Drawing.Size(70, 52);
+            this.btnChkInfoGet.TabIndex = 170;
+            this.btnChkInfoGet.Text = "获取点检要求";
+            this.btnChkInfoGet.UseVisualStyleBackColor = true;
+            this.btnChkInfoGet.Click += new System.EventHandler(this.btnChkInfoGet_Click);
+            // 
+            // btnChkSetProduct
+            // 
+            this.btnChkSetProduct.Font = new System.Drawing.Font("宋体", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.btnChkSetProduct.Location = new System.Drawing.Point(533, 167);
+            this.btnChkSetProduct.Name = "btnChkSetProduct";
+            this.btnChkSetProduct.Size = new System.Drawing.Size(73, 51);
+            this.btnChkSetProduct.TabIndex = 165;
+            this.btnChkSetProduct.Text = "测试切换生产";
+            this.btnChkSetProduct.UseVisualStyleBackColor = true;
+            this.btnChkSetProduct.Click += new System.EventHandler(this.btnChkSetProduct_Click);
+            // 
+            // btnChkSetChk
+            // 
+            this.btnChkSetChk.Font = new System.Drawing.Font("宋体", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.btnChkSetChk.Location = new System.Drawing.Point(452, 167);
+            this.btnChkSetChk.Name = "btnChkSetChk";
+            this.btnChkSetChk.Size = new System.Drawing.Size(75, 51);
+            this.btnChkSetChk.TabIndex = 166;
+            this.btnChkSetChk.Text = "测试切换点检";
+            this.btnChkSetChk.UseVisualStyleBackColor = true;
+            this.btnChkSetChk.Click += new System.EventHandler(this.btnChkSetChk_Click);
+            // 
+            // pnl_ws
+            // 
+            this.pnl_ws.Controls.Add(this.label59);
+            this.pnl_ws.Controls.Add(this.pnl_ut);
+            this.pnl_ws.Controls.Add(this.label60);
+            this.pnl_ws.Controls.Add(this.pnl_un);
+            this.pnl_ws.Controls.Add(this.btn16);
+            this.pnl_ws.Controls.Add(this.btn15);
+            this.pnl_ws.Controls.Add(this.btn14);
+            this.pnl_ws.Controls.Add(this.btn13);
+            this.pnl_ws.Controls.Add(this.btn12);
+            this.pnl_ws.Controls.Add(this.btn11);
+            this.pnl_ws.Controls.Add(this.btn10);
+            this.pnl_ws.Controls.Add(this.btn8);
+            this.pnl_ws.Controls.Add(this.btn7);
+            this.pnl_ws.Controls.Add(this.btn6);
+            this.pnl_ws.Controls.Add(this.btn5);
+            this.pnl_ws.Controls.Add(this.btn4);
+            this.pnl_ws.Controls.Add(this.btn3);
+            this.pnl_ws.Controls.Add(this.btn2);
+            this.pnl_ws.Controls.Add(this.btn1);
+            this.pnl_ws.Controls.Add(this.btn9);
+            this.pnl_ws.Location = new System.Drawing.Point(23, 223);
+            this.pnl_ws.Name = "pnl_ws";
+            this.pnl_ws.Size = new System.Drawing.Size(671, 157);
+            this.pnl_ws.TabIndex = 5;
+            // 
+            // label59
+            // 
+            this.label59.AutoSize = true;
+            this.label59.Location = new System.Drawing.Point(51, 57);
+            this.label59.Name = "label59";
+            this.label59.Size = new System.Drawing.Size(54, 22);
+            this.label59.TabIndex = 41;
+            this.label59.Text = "启用";
+            // 
+            // pnl_ut
+            // 
+            this.pnl_ut.BackColor = System.Drawing.Color.Green;
+            this.pnl_ut.Location = new System.Drawing.Point(15, 54);
+            this.pnl_ut.Name = "pnl_ut";
+            this.pnl_ut.Size = new System.Drawing.Size(30, 18);
+            this.pnl_ut.TabIndex = 40;
+            // 
+            // label60
+            // 
+            this.label60.AutoSize = true;
+            this.label60.Location = new System.Drawing.Point(51, 24);
+            this.label60.Name = "label60";
+            this.label60.Size = new System.Drawing.Size(54, 22);
+            this.label60.TabIndex = 39;
+            this.label60.Text = "屏蔽";
+            // 
+            // pnl_un
+            // 
+            this.pnl_un.BackColor = System.Drawing.Color.DarkGray;
+            this.pnl_un.Location = new System.Drawing.Point(15, 21);
+            this.pnl_un.Name = "pnl_un";
+            this.pnl_un.Size = new System.Drawing.Size(30, 18);
+            this.pnl_un.TabIndex = 38;
+            // 
+            // btn16
+            // 
+            this.btn16.BackColor = System.Drawing.Color.DarkGray;
+            this.btn16.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btn16.Font = new System.Drawing.Font("宋体", 18F, System.Drawing.FontStyle.Bold);
+            this.btn16.Location = new System.Drawing.Point(603, 19);
+            this.btn16.Name = "btn16";
+            this.btn16.Size = new System.Drawing.Size(50, 50);
+            this.btn16.TabIndex = 37;
+            this.btn16.Text = "16";
+            this.btn16.UseVisualStyleBackColor = false;
+            // 
+            // btn15
+            // 
+            this.btn15.BackColor = System.Drawing.Color.DarkGray;
+            this.btn15.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btn15.Font = new System.Drawing.Font("宋体", 18F, System.Drawing.FontStyle.Bold);
+            this.btn15.Location = new System.Drawing.Point(533, 19);
+            this.btn15.Name = "btn15";
+            this.btn15.Size = new System.Drawing.Size(50, 50);
+            this.btn15.TabIndex = 36;
+            this.btn15.Text = "15";
+            this.btn15.UseVisualStyleBackColor = false;
+            // 
+            // btn14
+            // 
+            this.btn14.BackColor = System.Drawing.Color.DarkGray;
+            this.btn14.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btn14.Font = new System.Drawing.Font("宋体", 18F, System.Drawing.FontStyle.Bold);
+            this.btn14.Location = new System.Drawing.Point(466, 19);
+            this.btn14.Name = "btn14";
+            this.btn14.Size = new System.Drawing.Size(50, 50);
+            this.btn14.TabIndex = 35;
+            this.btn14.Text = "14";
+            this.btn14.UseVisualStyleBackColor = false;
+            // 
+            // btn13
+            // 
+            this.btn13.BackColor = System.Drawing.Color.DarkGray;
+            this.btn13.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btn13.Font = new System.Drawing.Font("宋体", 18F, System.Drawing.FontStyle.Bold);
+            this.btn13.Location = new System.Drawing.Point(394, 19);
+            this.btn13.Name = "btn13";
+            this.btn13.Size = new System.Drawing.Size(50, 50);
+            this.btn13.TabIndex = 34;
+            this.btn13.Text = "13";
+            this.btn13.UseVisualStyleBackColor = false;
+            // 
+            // btn12
+            // 
+            this.btn12.BackColor = System.Drawing.Color.DarkGray;
+            this.btn12.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btn12.Font = new System.Drawing.Font("宋体", 18F, System.Drawing.FontStyle.Bold);
+            this.btn12.Location = new System.Drawing.Point(327, 19);
+            this.btn12.Name = "btn12";
+            this.btn12.Size = new System.Drawing.Size(50, 50);
+            this.btn12.TabIndex = 33;
+            this.btn12.Text = "12";
+            this.btn12.UseVisualStyleBackColor = false;
+            // 
+            // btn11
+            // 
+            this.btn11.BackColor = System.Drawing.Color.DarkGray;
+            this.btn11.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btn11.Font = new System.Drawing.Font("宋体", 18F, System.Drawing.FontStyle.Bold);
+            this.btn11.Location = new System.Drawing.Point(259, 19);
+            this.btn11.Name = "btn11";
+            this.btn11.Size = new System.Drawing.Size(50, 50);
+            this.btn11.TabIndex = 32;
+            this.btn11.Text = "11";
+            this.btn11.UseVisualStyleBackColor = false;
+            // 
+            // btn10
+            // 
+            this.btn10.BackColor = System.Drawing.Color.DarkGray;
+            this.btn10.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btn10.Font = new System.Drawing.Font("宋体", 18F, System.Drawing.FontStyle.Bold);
+            this.btn10.Location = new System.Drawing.Point(188, 19);
+            this.btn10.Name = "btn10";
+            this.btn10.Size = new System.Drawing.Size(50, 50);
+            this.btn10.TabIndex = 31;
+            this.btn10.Text = "10";
+            this.btn10.UseVisualStyleBackColor = false;
+            // 
+            // btn8
+            // 
+            this.btn8.BackColor = System.Drawing.Color.DarkGray;
+            this.btn8.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btn8.Font = new System.Drawing.Font("宋体", 18F, System.Drawing.FontStyle.Bold);
+            this.btn8.Location = new System.Drawing.Point(603, 87);
+            this.btn8.Name = "btn8";
+            this.btn8.Size = new System.Drawing.Size(50, 50);
+            this.btn8.TabIndex = 30;
+            this.btn8.Text = "8";
+            this.btn8.UseVisualStyleBackColor = false;
+            // 
+            // btn7
+            // 
+            this.btn7.BackColor = System.Drawing.Color.DarkGray;
+            this.btn7.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btn7.Font = new System.Drawing.Font("宋体", 18F, System.Drawing.FontStyle.Bold);
+            this.btn7.Location = new System.Drawing.Point(532, 87);
+            this.btn7.Name = "btn7";
+            this.btn7.Size = new System.Drawing.Size(50, 50);
+            this.btn7.TabIndex = 29;
+            this.btn7.Text = "7";
+            this.btn7.UseVisualStyleBackColor = false;
+            // 
+            // btn6
+            // 
+            this.btn6.BackColor = System.Drawing.Color.DarkGray;
+            this.btn6.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btn6.Font = new System.Drawing.Font("宋体", 18F, System.Drawing.FontStyle.Bold);
+            this.btn6.Location = new System.Drawing.Point(466, 87);
+            this.btn6.Name = "btn6";
+            this.btn6.Size = new System.Drawing.Size(50, 50);
+            this.btn6.TabIndex = 28;
+            this.btn6.Text = "6";
+            this.btn6.UseVisualStyleBackColor = false;
+            // 
+            // btn5
+            // 
+            this.btn5.BackColor = System.Drawing.Color.DarkGray;
+            this.btn5.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btn5.Font = new System.Drawing.Font("宋体", 18F, System.Drawing.FontStyle.Bold);
+            this.btn5.Location = new System.Drawing.Point(394, 87);
+            this.btn5.Name = "btn5";
+            this.btn5.Size = new System.Drawing.Size(50, 50);
+            this.btn5.TabIndex = 27;
+            this.btn5.Text = "5";
+            this.btn5.UseVisualStyleBackColor = false;
+            // 
+            // btn4
+            // 
+            this.btn4.BackColor = System.Drawing.Color.DarkGray;
+            this.btn4.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btn4.Font = new System.Drawing.Font("宋体", 18F, System.Drawing.FontStyle.Bold);
+            this.btn4.Location = new System.Drawing.Point(327, 87);
+            this.btn4.Name = "btn4";
+            this.btn4.Size = new System.Drawing.Size(50, 50);
+            this.btn4.TabIndex = 26;
+            this.btn4.Text = "4";
+            this.btn4.UseVisualStyleBackColor = false;
+            // 
+            // btn3
+            // 
+            this.btn3.BackColor = System.Drawing.Color.DarkGray;
+            this.btn3.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btn3.Font = new System.Drawing.Font("宋体", 18F, System.Drawing.FontStyle.Bold);
+            this.btn3.Location = new System.Drawing.Point(259, 87);
+            this.btn3.Name = "btn3";
+            this.btn3.Size = new System.Drawing.Size(50, 50);
+            this.btn3.TabIndex = 25;
+            this.btn3.Text = "3";
+            this.btn3.UseVisualStyleBackColor = false;
+            // 
+            // btn2
+            // 
+            this.btn2.BackColor = System.Drawing.Color.DarkGray;
+            this.btn2.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btn2.Font = new System.Drawing.Font("宋体", 18F, System.Drawing.FontStyle.Bold);
+            this.btn2.Location = new System.Drawing.Point(188, 87);
+            this.btn2.Name = "btn2";
+            this.btn2.Size = new System.Drawing.Size(50, 50);
+            this.btn2.TabIndex = 24;
+            this.btn2.Text = "2";
+            this.btn2.UseVisualStyleBackColor = false;
+            // 
+            // btn1
+            // 
+            this.btn1.BackColor = System.Drawing.Color.DarkGray;
+            this.btn1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btn1.Font = new System.Drawing.Font("宋体", 18F, System.Drawing.FontStyle.Bold);
+            this.btn1.Location = new System.Drawing.Point(119, 87);
+            this.btn1.Name = "btn1";
+            this.btn1.Size = new System.Drawing.Size(50, 50);
+            this.btn1.TabIndex = 23;
+            this.btn1.Text = "1";
+            this.btn1.UseVisualStyleBackColor = false;
+            // 
+            // btn9
+            // 
+            this.btn9.BackColor = System.Drawing.Color.DarkGray;
+            this.btn9.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btn9.Font = new System.Drawing.Font("宋体", 18F, System.Drawing.FontStyle.Bold);
+            this.btn9.Location = new System.Drawing.Point(119, 19);
+            this.btn9.Name = "btn9";
+            this.btn9.Size = new System.Drawing.Size(50, 50);
+            this.btn9.TabIndex = 22;
+            this.btn9.Text = "9";
+            this.btn9.UseVisualStyleBackColor = false;
+            // 
+            // groupBox56
+            // 
+            this.groupBox56.Controls.Add(this.rbt_ws3);
+            this.groupBox56.Controls.Add(this.rbt_ws4);
+            this.groupBox56.Controls.Add(this.rbt_ws2);
+            this.groupBox56.Controls.Add(this.rbt_ws1);
+            this.groupBox56.Font = new System.Drawing.Font("宋体", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.groupBox56.Location = new System.Drawing.Point(157, 17);
+            this.groupBox56.Name = "groupBox56";
+            this.groupBox56.Size = new System.Drawing.Size(402, 73);
+            this.groupBox56.TabIndex = 156;
+            this.groupBox56.TabStop = false;
+            this.groupBox56.Text = "点检工位选择";
+            // 
+            // rbt_ws3
+            // 
+            this.rbt_ws3.Appearance = System.Windows.Forms.Appearance.Button;
+            this.rbt_ws3.FlatAppearance.CheckedBackColor = System.Drawing.Color.Yellow;
+            this.rbt_ws3.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.rbt_ws3.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
+            this.rbt_ws3.ForeColor = System.Drawing.Color.Black;
+            this.rbt_ws3.Location = new System.Drawing.Point(202, 22);
+            this.rbt_ws3.Name = "rbt_ws3";
+            this.rbt_ws3.Size = new System.Drawing.Size(87, 30);
+            this.rbt_ws3.TabIndex = 128;
+            this.rbt_ws3.Text = "WS3";
+            this.rbt_ws3.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.rbt_ws3.UseVisualStyleBackColor = true;
+            // 
+            // rbt_ws4
+            // 
+            this.rbt_ws4.Appearance = System.Windows.Forms.Appearance.Button;
+            this.rbt_ws4.FlatAppearance.CheckedBackColor = System.Drawing.Color.Yellow;
+            this.rbt_ws4.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.rbt_ws4.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
+            this.rbt_ws4.ForeColor = System.Drawing.Color.Black;
+            this.rbt_ws4.Location = new System.Drawing.Point(295, 22);
+            this.rbt_ws4.Name = "rbt_ws4";
+            this.rbt_ws4.Size = new System.Drawing.Size(87, 30);
+            this.rbt_ws4.TabIndex = 127;
+            this.rbt_ws4.Text = "WS4";
+            this.rbt_ws4.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.rbt_ws4.UseVisualStyleBackColor = true;
+            // 
+            // rbt_ws2
+            // 
+            this.rbt_ws2.Appearance = System.Windows.Forms.Appearance.Button;
+            this.rbt_ws2.FlatAppearance.CheckedBackColor = System.Drawing.Color.Yellow;
+            this.rbt_ws2.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.rbt_ws2.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
+            this.rbt_ws2.ForeColor = System.Drawing.Color.Black;
+            this.rbt_ws2.Location = new System.Drawing.Point(109, 22);
+            this.rbt_ws2.Name = "rbt_ws2";
+            this.rbt_ws2.Size = new System.Drawing.Size(87, 30);
+            this.rbt_ws2.TabIndex = 126;
+            this.rbt_ws2.Text = "WS2";
+            this.rbt_ws2.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.rbt_ws2.UseVisualStyleBackColor = true;
+            // 
+            // rbt_ws1
+            // 
+            this.rbt_ws1.Appearance = System.Windows.Forms.Appearance.Button;
+            this.rbt_ws1.Checked = true;
+            this.rbt_ws1.FlatAppearance.CheckedBackColor = System.Drawing.Color.Yellow;
+            this.rbt_ws1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.rbt_ws1.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
+            this.rbt_ws1.ForeColor = System.Drawing.Color.Black;
+            this.rbt_ws1.Location = new System.Drawing.Point(6, 22);
+            this.rbt_ws1.Name = "rbt_ws1";
+            this.rbt_ws1.Size = new System.Drawing.Size(87, 30);
+            this.rbt_ws1.TabIndex = 124;
+            this.rbt_ws1.TabStop = true;
+            this.rbt_ws1.Text = "WS1";
+            this.rbt_ws1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.rbt_ws1.UseVisualStyleBackColor = true;
+            // 
+            // btnChkGet
+            // 
+            this.btnChkGet.Font = new System.Drawing.Font("宋体", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.btnChkGet.Location = new System.Drawing.Point(376, 166);
+            this.btnChkGet.Name = "btnChkGet";
+            this.btnChkGet.Size = new System.Drawing.Size(70, 52);
+            this.btnChkGet.TabIndex = 164;
+            this.btnChkGet.Text = "获取状态测试";
+            this.btnChkGet.UseVisualStyleBackColor = true;
+            this.btnChkGet.Click += new System.EventHandler(this.btnChkGet_Click);
+            // 
+            // groupBox58
+            // 
+            this.groupBox58.Controls.Add(this.rbt_modeV);
+            this.groupBox58.Controls.Add(this.rbt_modeL);
+            this.groupBox58.Controls.Add(this.rbt_modeS);
+            this.groupBox58.Controls.Add(this.rbt_modeH);
+            this.groupBox58.Controls.Add(this.rbt_modeO);
+            this.groupBox58.Controls.Add(this.rbt_modeM);
+            this.groupBox58.Font = new System.Drawing.Font("宋体", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.groupBox58.Location = new System.Drawing.Point(157, 96);
+            this.groupBox58.Name = "groupBox58";
+            this.groupBox58.Size = new System.Drawing.Size(494, 73);
+            this.groupBox58.TabIndex = 157;
+            this.groupBox58.TabStop = false;
+            this.groupBox58.Text = "客户模式选择";
+            // 
+            // rbt_modeV
+            // 
+            this.rbt_modeV.Appearance = System.Windows.Forms.Appearance.Button;
+            this.rbt_modeV.FlatAppearance.CheckedBackColor = System.Drawing.Color.Yellow;
+            this.rbt_modeV.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.rbt_modeV.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
+            this.rbt_modeV.ForeColor = System.Drawing.Color.Black;
+            this.rbt_modeV.Location = new System.Drawing.Point(420, 22);
+            this.rbt_modeV.Name = "rbt_modeV";
+            this.rbt_modeV.Size = new System.Drawing.Size(68, 30);
+            this.rbt_modeV.TabIndex = 130;
+            this.rbt_modeV.Text = "V";
+            this.rbt_modeV.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.rbt_modeV.UseVisualStyleBackColor = true;
+            this.rbt_modeV.Click += new System.EventHandler(this.rbt_modeM_CheckedChanged);
+            // 
+            // rbt_modeL
+            // 
+            this.rbt_modeL.Appearance = System.Windows.Forms.Appearance.Button;
+            this.rbt_modeL.FlatAppearance.CheckedBackColor = System.Drawing.Color.Yellow;
+            this.rbt_modeL.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.rbt_modeL.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
+            this.rbt_modeL.ForeColor = System.Drawing.Color.Black;
+            this.rbt_modeL.Location = new System.Drawing.Point(341, 22);
+            this.rbt_modeL.Name = "rbt_modeL";
+            this.rbt_modeL.Size = new System.Drawing.Size(68, 30);
+            this.rbt_modeL.TabIndex = 129;
+            this.rbt_modeL.Text = "L";
+            this.rbt_modeL.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.rbt_modeL.UseVisualStyleBackColor = true;
+            this.rbt_modeL.Click += new System.EventHandler(this.rbt_modeM_CheckedChanged);
+            // 
+            // rbt_modeS
+            // 
+            this.rbt_modeS.Appearance = System.Windows.Forms.Appearance.Button;
+            this.rbt_modeS.FlatAppearance.CheckedBackColor = System.Drawing.Color.Yellow;
+            this.rbt_modeS.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.rbt_modeS.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
+            this.rbt_modeS.ForeColor = System.Drawing.Color.Black;
+            this.rbt_modeS.Location = new System.Drawing.Point(260, 22);
+            this.rbt_modeS.Name = "rbt_modeS";
+            this.rbt_modeS.Size = new System.Drawing.Size(68, 30);
+            this.rbt_modeS.TabIndex = 128;
+            this.rbt_modeS.Text = "S";
+            this.rbt_modeS.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.rbt_modeS.UseVisualStyleBackColor = true;
+            this.rbt_modeS.Click += new System.EventHandler(this.rbt_modeM_CheckedChanged);
+            // 
+            // rbt_modeH
+            // 
+            this.rbt_modeH.Appearance = System.Windows.Forms.Appearance.Button;
+            this.rbt_modeH.FlatAppearance.CheckedBackColor = System.Drawing.Color.Yellow;
+            this.rbt_modeH.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.rbt_modeH.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
+            this.rbt_modeH.ForeColor = System.Drawing.Color.Black;
+            this.rbt_modeH.Location = new System.Drawing.Point(171, 22);
+            this.rbt_modeH.Name = "rbt_modeH";
+            this.rbt_modeH.Size = new System.Drawing.Size(72, 30);
+            this.rbt_modeH.TabIndex = 127;
+            this.rbt_modeH.Text = "H";
+            this.rbt_modeH.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.rbt_modeH.UseVisualStyleBackColor = true;
+            this.rbt_modeH.Click += new System.EventHandler(this.rbt_modeM_CheckedChanged);
+            // 
+            // rbt_modeO
+            // 
+            this.rbt_modeO.Appearance = System.Windows.Forms.Appearance.Button;
+            this.rbt_modeO.FlatAppearance.CheckedBackColor = System.Drawing.Color.Yellow;
+            this.rbt_modeO.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.rbt_modeO.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
+            this.rbt_modeO.ForeColor = System.Drawing.Color.Black;
+            this.rbt_modeO.Location = new System.Drawing.Point(92, 22);
+            this.rbt_modeO.Name = "rbt_modeO";
+            this.rbt_modeO.Size = new System.Drawing.Size(66, 30);
+            this.rbt_modeO.TabIndex = 126;
+            this.rbt_modeO.Text = "O";
+            this.rbt_modeO.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.rbt_modeO.UseVisualStyleBackColor = true;
+            this.rbt_modeO.Click += new System.EventHandler(this.rbt_modeM_CheckedChanged);
+            // 
+            // rbt_modeM
+            // 
+            this.rbt_modeM.Appearance = System.Windows.Forms.Appearance.Button;
+            this.rbt_modeM.Checked = true;
+            this.rbt_modeM.FlatAppearance.CheckedBackColor = System.Drawing.Color.Yellow;
+            this.rbt_modeM.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.rbt_modeM.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
+            this.rbt_modeM.ForeColor = System.Drawing.Color.Black;
+            this.rbt_modeM.Location = new System.Drawing.Point(6, 22);
+            this.rbt_modeM.Name = "rbt_modeM";
+            this.rbt_modeM.Size = new System.Drawing.Size(67, 30);
+            this.rbt_modeM.TabIndex = 124;
+            this.rbt_modeM.TabStop = true;
+            this.rbt_modeM.Text = "M";
+            this.rbt_modeM.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.rbt_modeM.UseVisualStyleBackColor = true;
+            this.rbt_modeM.Click += new System.EventHandler(this.rbt_modeM_CheckedChanged);
+            // 
+            // lbAutoChkShowMsg
+            // 
+            this.lbAutoChkShowMsg.AutoSize = true;
+            this.lbAutoChkShowMsg.Font = new System.Drawing.Font("宋体", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.lbAutoChkShowMsg.ForeColor = System.Drawing.Color.DarkRed;
+            this.lbAutoChkShowMsg.Location = new System.Drawing.Point(72, 192);
+            this.lbAutoChkShowMsg.Name = "lbAutoChkShowMsg";
+            this.lbAutoChkShowMsg.Size = new System.Drawing.Size(199, 19);
+            this.lbAutoChkShowMsg.TabIndex = 159;
+            this.lbAutoChkShowMsg.Text = "提示信息具体怎么选择";
+            // 
+            // groupBox59
+            // 
+            this.groupBox59.Controls.Add(this.rbt_autoChkOff);
+            this.groupBox59.Controls.Add(this.rbt_autoChkOn);
+            this.groupBox59.Font = new System.Drawing.Font("宋体", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.groupBox59.Location = new System.Drawing.Point(23, 22);
+            this.groupBox59.Name = "groupBox59";
+            this.groupBox59.Size = new System.Drawing.Size(128, 147);
+            this.groupBox59.TabIndex = 158;
+            this.groupBox59.TabStop = false;
+            this.groupBox59.Text = "自动点检模式";
+            // 
+            // rbt_autoChkOff
+            // 
+            this.rbt_autoChkOff.Appearance = System.Windows.Forms.Appearance.Button;
+            this.rbt_autoChkOff.FlatAppearance.CheckedBackColor = System.Drawing.Color.Yellow;
+            this.rbt_autoChkOff.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.rbt_autoChkOff.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
+            this.rbt_autoChkOff.ForeColor = System.Drawing.Color.Black;
+            this.rbt_autoChkOff.Location = new System.Drawing.Point(15, 86);
+            this.rbt_autoChkOff.Name = "rbt_autoChkOff";
+            this.rbt_autoChkOff.Size = new System.Drawing.Size(87, 30);
+            this.rbt_autoChkOff.TabIndex = 126;
+            this.rbt_autoChkOff.Text = "关闭";
+            this.rbt_autoChkOff.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.rbt_autoChkOff.UseVisualStyleBackColor = true;
+            // 
+            // rbt_autoChkOn
+            // 
+            this.rbt_autoChkOn.Appearance = System.Windows.Forms.Appearance.Button;
+            this.rbt_autoChkOn.Checked = true;
+            this.rbt_autoChkOn.FlatAppearance.CheckedBackColor = System.Drawing.Color.Yellow;
+            this.rbt_autoChkOn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.rbt_autoChkOn.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
+            this.rbt_autoChkOn.ForeColor = System.Drawing.Color.Black;
+            this.rbt_autoChkOn.Location = new System.Drawing.Point(15, 38);
+            this.rbt_autoChkOn.Name = "rbt_autoChkOn";
+            this.rbt_autoChkOn.Size = new System.Drawing.Size(87, 30);
+            this.rbt_autoChkOn.TabIndex = 124;
+            this.rbt_autoChkOn.TabStop = true;
+            this.rbt_autoChkOn.Text = "开启";
+            this.rbt_autoChkOn.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.rbt_autoChkOn.UseVisualStyleBackColor = true;
+            // 
             // button6
             // 
-            this.button6.Location = new System.Drawing.Point(746, 345);
+            this.button6.Location = new System.Drawing.Point(830, 673);
             this.button6.Name = "button6";
             this.button6.Size = new System.Drawing.Size(90, 37);
             this.button6.TabIndex = 140;
@@ -5025,9 +5644,9 @@
             this.groupBox55.Controls.Add(this.radWsNgRateShowOff);
             this.groupBox55.Controls.Add(this.radWsNgRateShowEn);
             this.groupBox55.Font = new System.Drawing.Font("宋体", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.groupBox55.Location = new System.Drawing.Point(824, 26);
+            this.groupBox55.Location = new System.Drawing.Point(791, 292);
             this.groupBox55.Name = "groupBox55";
-            this.groupBox55.Size = new System.Drawing.Size(209, 108);
+            this.groupBox55.Size = new System.Drawing.Size(293, 108);
             this.groupBox55.TabIndex = 139;
             this.groupBox55.TabStop = false;
             this.groupBox55.Text = "工位NG比例报警";
@@ -5035,7 +5654,7 @@
             // NumWsNgCntPer20
             // 
             this.NumWsNgCntPer20.Font = new System.Drawing.Font("宋体", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.NumWsNgCntPer20.Location = new System.Drawing.Point(113, 62);
+            this.NumWsNgCntPer20.Location = new System.Drawing.Point(172, 58);
             this.NumWsNgCntPer20.Maximum = new decimal(new int[] {
             20,
             0,
@@ -5060,7 +5679,7 @@
             // 
             this.label57.AutoSize = true;
             this.label57.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.label57.Location = new System.Drawing.Point(104, 43);
+            this.label57.Location = new System.Drawing.Point(163, 39);
             this.label57.Name = "label57";
             this.label57.Size = new System.Drawing.Size(89, 12);
             this.label57.TabIndex = 129;
@@ -5119,16 +5738,16 @@
             this.groupBox54.Controls.Add(this.rbtn_motordis);
             this.groupBox54.Controls.Add(this.rbtn_motoren);
             this.groupBox54.Font = new System.Drawing.Font("宋体", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.groupBox54.Location = new System.Drawing.Point(334, 293);
+            this.groupBox54.Location = new System.Drawing.Point(787, 6);
             this.groupBox54.Name = "groupBox54";
-            this.groupBox54.Size = new System.Drawing.Size(304, 272);
+            this.groupBox54.Size = new System.Drawing.Size(297, 272);
             this.groupBox54.TabIndex = 138;
             this.groupBox54.TabStop = false;
             this.groupBox54.Text = "马达扫码设置";
             // 
             // btnMotoScan4
             // 
-            this.btnMotoScan4.Location = new System.Drawing.Point(147, 230);
+            this.btnMotoScan4.Location = new System.Drawing.Point(112, 230);
             this.btnMotoScan4.Name = "btnMotoScan4";
             this.btnMotoScan4.Size = new System.Drawing.Size(75, 36);
             this.btnMotoScan4.TabIndex = 147;
@@ -5138,7 +5757,7 @@
             // 
             // btnMotoScan2
             // 
-            this.btnMotoScan2.Location = new System.Drawing.Point(61, 230);
+            this.btnMotoScan2.Location = new System.Drawing.Point(26, 230);
             this.btnMotoScan2.Name = "btnMotoScan2";
             this.btnMotoScan2.Size = new System.Drawing.Size(75, 36);
             this.btnMotoScan2.TabIndex = 146;
@@ -5148,9 +5767,9 @@
             // 
             // button5
             // 
-            this.button5.Location = new System.Drawing.Point(255, 189);
+            this.button5.Location = new System.Drawing.Point(193, 230);
             this.button5.Name = "button5";
-            this.button5.Size = new System.Drawing.Size(49, 78);
+            this.button5.Size = new System.Drawing.Size(76, 37);
             this.button5.TabIndex = 145;
             this.button5.Text = "COM4Open";
             this.button5.UseVisualStyleBackColor = true;
@@ -5158,9 +5777,9 @@
             // 
             // button4
             // 
-            this.button4.Location = new System.Drawing.Point(6, 189);
+            this.button4.Location = new System.Drawing.Point(192, 189);
             this.button4.Name = "button4";
-            this.button4.Size = new System.Drawing.Size(44, 77);
+            this.button4.Size = new System.Drawing.Size(81, 34);
             this.button4.TabIndex = 144;
             this.button4.Text = "COM3Open";
             this.button4.UseVisualStyleBackColor = true;
@@ -5168,7 +5787,7 @@
             // 
             // btnMotoScan3
             // 
-            this.btnMotoScan3.Location = new System.Drawing.Point(146, 189);
+            this.btnMotoScan3.Location = new System.Drawing.Point(111, 189);
             this.btnMotoScan3.Name = "btnMotoScan3";
             this.btnMotoScan3.Size = new System.Drawing.Size(75, 36);
             this.btnMotoScan3.TabIndex = 140;
@@ -5187,7 +5806,7 @@
             // 
             // btnMotoScan1
             // 
-            this.btnMotoScan1.Location = new System.Drawing.Point(61, 189);
+            this.btnMotoScan1.Location = new System.Drawing.Point(26, 189);
             this.btnMotoScan1.Name = "btnMotoScan1";
             this.btnMotoScan1.Size = new System.Drawing.Size(75, 36);
             this.btnMotoScan1.TabIndex = 139;
@@ -5363,7 +5982,7 @@
             this.groupBox53.Controls.Add(this.label50);
             this.groupBox53.Controls.Add(this.label51);
             this.groupBox53.Font = new System.Drawing.Font("宋体", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.groupBox53.Location = new System.Drawing.Point(29, 293);
+            this.groupBox53.Location = new System.Drawing.Point(791, 416);
             this.groupBox53.Name = "groupBox53";
             this.groupBox53.Size = new System.Drawing.Size(293, 219);
             this.groupBox53.TabIndex = 132;
@@ -5557,9 +6176,9 @@
             this.groupBox52.Controls.Add(this.label45);
             this.groupBox52.Controls.Add(this.tb_eqp_pos);
             this.groupBox52.Controls.Add(this.tb_eqp_sn);
-            this.groupBox52.Location = new System.Drawing.Point(334, 22);
+            this.groupBox52.Location = new System.Drawing.Point(325, 10);
             this.groupBox52.Name = "groupBox52";
-            this.groupBox52.Size = new System.Drawing.Size(474, 254);
+            this.groupBox52.Size = new System.Drawing.Size(413, 250);
             this.groupBox52.TabIndex = 1;
             this.groupBox52.TabStop = false;
             this.groupBox52.Text = "设备信息";
@@ -5601,7 +6220,7 @@
             // button1
             // 
             this.button1.BackColor = System.Drawing.SystemColors.ButtonFace;
-            this.button1.Location = new System.Drawing.Point(873, 419);
+            this.button1.Location = new System.Drawing.Point(943, 656);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(134, 71);
             this.button1.TabIndex = 131;
@@ -5612,7 +6231,7 @@
             // groupBox49
             // 
             this.groupBox49.Controls.Add(this.tabControl2);
-            this.groupBox49.Location = new System.Drawing.Point(23, 22);
+            this.groupBox49.Location = new System.Drawing.Point(20, 6);
             this.groupBox49.Name = "groupBox49";
             this.groupBox49.Size = new System.Drawing.Size(288, 254);
             this.groupBox49.TabIndex = 0;
@@ -6176,6 +6795,13 @@
             this.groupBox9.ResumeLayout(false);
             this.groupBox13.ResumeLayout(false);
             this.tabPage3.ResumeLayout(false);
+            this.panel_autoChkSet.ResumeLayout(false);
+            this.panel_autoChkSet.PerformLayout();
+            this.pnl_ws.ResumeLayout(false);
+            this.pnl_ws.PerformLayout();
+            this.groupBox56.ResumeLayout(false);
+            this.groupBox58.ResumeLayout(false);
+            this.groupBox59.ResumeLayout(false);
             this.groupBox55.ResumeLayout(false);
             this.groupBox55.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.NumWsNgCntPer20)).EndInit();
@@ -6587,5 +7213,48 @@
         private System.Windows.Forms.TextBox textBoVinfo;
         private System.Windows.Forms.Button btnMotoScan4;
         private System.Windows.Forms.Button btnMotoScan2;
+        private System.Windows.Forms.Panel panel_autoChkSet;
+        private System.Windows.Forms.Button btnGetChkResult;
+        private System.Windows.Forms.Button btnChkInfoGet;
+        private System.Windows.Forms.Button btnChkSetProduct;
+        private System.Windows.Forms.Button btnChkSetChk;
+        public System.Windows.Forms.Panel pnl_ws;
+        private System.Windows.Forms.Label label59;
+        private System.Windows.Forms.Panel pnl_ut;
+        private System.Windows.Forms.Label label60;
+        private System.Windows.Forms.Panel pnl_un;
+        private System.Windows.Forms.Button btn16;
+        private System.Windows.Forms.Button btn15;
+        private System.Windows.Forms.Button btn14;
+        private System.Windows.Forms.Button btn13;
+        private System.Windows.Forms.Button btn12;
+        private System.Windows.Forms.Button btn11;
+        private System.Windows.Forms.Button btn10;
+        private System.Windows.Forms.Button btn8;
+        private System.Windows.Forms.Button btn7;
+        private System.Windows.Forms.Button btn6;
+        private System.Windows.Forms.Button btn5;
+        private System.Windows.Forms.Button btn4;
+        private System.Windows.Forms.Button btn3;
+        private System.Windows.Forms.Button btn2;
+        private System.Windows.Forms.Button btn1;
+        private System.Windows.Forms.Button btn9;
+        private System.Windows.Forms.GroupBox groupBox56;
+        private System.Windows.Forms.RadioButton rbt_ws3;
+        private System.Windows.Forms.RadioButton rbt_ws4;
+        private System.Windows.Forms.RadioButton rbt_ws2;
+        private System.Windows.Forms.RadioButton rbt_ws1;
+        private System.Windows.Forms.Button btnChkGet;
+        private System.Windows.Forms.GroupBox groupBox58;
+        private System.Windows.Forms.RadioButton rbt_modeV;
+        private System.Windows.Forms.RadioButton rbt_modeL;
+        private System.Windows.Forms.RadioButton rbt_modeS;
+        private System.Windows.Forms.RadioButton rbt_modeH;
+        private System.Windows.Forms.RadioButton rbt_modeO;
+        private System.Windows.Forms.RadioButton rbt_modeM;
+        private System.Windows.Forms.Label lbAutoChkShowMsg;
+        private System.Windows.Forms.GroupBox groupBox59;
+        private System.Windows.Forms.RadioButton rbt_autoChkOff;
+        private System.Windows.Forms.RadioButton rbt_autoChkOn;
     }
 }

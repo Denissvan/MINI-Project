@@ -45,6 +45,27 @@ namespace MotionCtrl
         //设备运行时间监控
         public static DataTable dttt = new DataTable();
 
+        static bool _isAutoChkMode;
+        /// <summary>
+        /// 是否在自动点检生产模式
+        /// </summary>
+        public static bool isAutoChkMode
+        {
+            get
+            {
+                if (!PT_SET.AutoChkEn)
+                    _isAutoChkMode = false;
+                return _isAutoChkMode;
+            }
+            set
+            {
+                if (!PT_SET.AutoChkEn)
+                    _isAutoChkMode = false;
+                else
+                    _isAutoChkMode = value;
+            }
+        }
+
 
     }
 }

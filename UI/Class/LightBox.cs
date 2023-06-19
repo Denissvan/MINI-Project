@@ -692,7 +692,8 @@ namespace UI
                 if (pos.Channel > 3)
                 {
                     bool ret;
-
+                    //如果非G4C，设置COM6对应通道（456），设置COM7对应通道（789）
+                    //如果设置选择了G4C光源，串口使用COM2名字，通道设置大于3
                     if (!PT_SET.bG4C && pos.Channel <= 6)//轩十佳光源OTP
                     {
                         VAR.msg.AddMsg(Msg.EM_MSGTYPE.DBG, "进入轩仕佳");

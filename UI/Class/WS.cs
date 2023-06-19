@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Threading;
@@ -57,6 +58,12 @@ namespace UI
             NG_ORDER = 3333,
             [Description("内存申请失败")]
             NG_NeiCun = 257,
+            [Description("点检时间到")]
+            NGLightChk = 279,
+            [Description("点检继续")]
+            GoOnChk = 289,
+            [Description("点检时间到2")]
+            NGLightChk2 = 276,
 
         }
         public bool bjigSan = true;//夹具二维码扫码gy0123
@@ -185,7 +192,58 @@ namespace UI
             //马达二维码
             public string motor_barcode;
             //使用
-            public bool benable;
+            public bool _benable;
+            public bool bAutoChkOk;
+            //使用
+            public bool benable
+            {
+                get
+                {
+                    if (VAR.isAutoChkMode && !VAR.ClearMt)
+                    {
+                        bool bAutoSfrCheck = false;
+                        if (ListChkTemp != null && ListChkTemp.Count > 0 && AutoChkCnt < ListChkTemp.Count && AutoChkCnt >= 0)
+                        {
+                            bAutoSfrCheck = NoChangCheckModList.Contains(ListChkTemp[AutoChkCnt]);  // 
+                        }
+                        var maxen = PT_SET.AutoChkMaxMdEn;
+                        var minen = PT_SET.AutoChkSmallMdEn;
+                        if (bAutoSfrCheck)
+                        {
+                            maxen = PT_SET.issmall ? 0 : 255;
+                            minen = 255;
+                        }
+                        if (PT_SET.AutoChkSelectWs != WS_ID)
+                            return false;
+                        else if (!PT_SET.issmall && ((PT_SET.bitOpenMode == 1 && Num % 2 == 0) ||
+                             (PT_SET.bitOpenMode == 2 && Num % 2 == 1) ||
+                             (PT_SET.bitOpenMode == 3 && Num < 9) ||
+                             (PT_SET.bitOpenMode == 4 && Num > 8)))
+                        {
+                            return false;
+                        }
+                        else if (Num <= 8)
+                        {
+                            var mm = (1 << (Num - 1));
+                            var obj = (int)(minen & mm);
+                            return obj != 0;
+                        }
+                        else
+                        {
+                            var mm = 1 << (Num - 9);
+                            var obj = (int)(maxen & mm);
+                            return obj != 0;
+                        }
+                    }
+                    else
+                        return _benable;
+
+                }
+                set
+                {
+                    _benable = value;
+                }
+            }
             //类型
             public bool IsNormal;
             //gy0123夹具生产信息统计
@@ -2084,6 +2142,40 @@ namespace UI
                         status = status >= (int)sta ? status : (int)sta;
                         //sta 光箱的位置  
                         string str = string.Format("{0} PC{1},sta={2},n={3}", disc, list[0].PC_ID, sta, num);
+
+
+                        if (PT_SET.AutoChkEn)
+                        {
+                            foreach (var mres in res)
+                            {
+                                if ((mres == (int)WS.Md_RES.NGLightChk || mres == (int)WS.Md_RES.NGLightChk2) && !VAR.isAutoChkMode)
+                                {
+                                    COUNT_DATA.cnt_ng_other++;
+                                    var msg = string.Format("工站点检时间到, \r\n 请确认是否开始清料后进行自动点检!");
+                                    VAR.msg.AddMsg(Msg.EM_MSGTYPE.ERR, msg);
+                                    VAR.sys_inf.Set(EM_ALM_STA.WAR_YELLOW_FLASH, msg, 20, true);
+                                    DialogResult dr = FrRun.Dialog(Color.Yellow, "警告", msg, "确定", "取消");
+                                    if (dr == DialogResult.OK)
+                                    {
+                                        VAR.ClearMt = true;
+                                        VAR.isAutoChkMode = true;
+                                        WS.AutoChkCnt = 0;
+                                        foreach (var ws in COM.list_ws)
+                                        {
+                                            WS.TempAutoChkCnt = -1;
+                                            WS.ListChkTemp.Clear();
+                                            foreach (var md in ws.list_md)
+                                            {
+                                                md.bAutoChkOk = false;
+                                            }
+
+                                        }
+                                    }
+                                    VAR.sys_inf.Set(EM_ALM_STA.NOR_GREEN, VAR.IsChinese ? "运行" : "RUN", 0, true);
+                                    break;
+                                }
+                            }
+                        }
                         //测试结束，更新结果
                         if (sta == 0)
                         {
@@ -2426,6 +2518,54 @@ namespace UI
                     {
                         lb = COM.LightBox;
                     }
+
+                    string ip1 = list_md[0].PC_IP;
+                    string ip2 = list_md[10].PC_IP;
+                    UI.Class.PUCFFactoryMode ProductMod1;
+                    UI.Class.PUCFFactoryMode ProductMod2;
+                    int Temper1;
+                    int Temper2;
+                    if (PT_SET.AutoChkEn && !VAR.ClearMt && VAR.isAutoChkMode && num == (int)PT_SET.AutoChkSelectWs)
+                    {
+                        var bok = GetPcChkMod(out ProductMod1, out ProductMod2, out Temper1, out Temper2); // 获取点检模式
+                        if (!bok)
+                        {
+                            VAR.msg.AddMsg(Msg.EM_MSGTYPE.ERR, $"{disc}WS内获取点检模式失败");
+                            return;
+                        }
+                        int[] temp1List = new int[16], temp2List = new int[16];
+                        bok = GetPcChkInfo(out var pUCFFac1, out var pUCFFac2, temp1List, temp2List);  // 获取点检要求
+                        if (!bok)
+                        {
+                            VAR.msg.AddMsg(Msg.EM_MSGTYPE.ERR, $"{disc}WS内获取点检信息失败");
+                            return;
+                        }
+                        bok = AutoChkCntOkShow(); // 判断点检是否ok
+                        if (!bok)
+                        {
+                            VAR.msg.AddMsg(Msg.EM_MSGTYPE.ERR, $"{disc}WS内获取点检信息失败");
+                            return;
+                        }
+                        if (!VAR.isAutoChkMode)
+                        {
+                            continue;
+                        }
+                        bok = PcIsChkModShow(ProductMod1, ProductMod2); // 判断点检模式
+                        if (!bok)
+                        {
+                            VAR.msg.AddMsg(Msg.EM_MSGTYPE.ERR, $"{disc}WS内PcIsChkModShow弹窗后停机");
+                            return;
+                        }
+
+                        var bOkTemper = AutoChkTemperShow(Temper1, Temper2, AutoChkCnt); // 判断色温是否对
+                        if (!bOkTemper)
+                        {
+                            VAR.msg.AddMsg(Msg.EM_MSGTYPE.ERR, $"{disc}WS内色温比对失败");
+                            return;
+                        }
+                    }
+
+
                     //获取测试软件状态
                     List<TestPC.InfoData> list_info = new List<TestPC.InfoData>();
                     res = GetTestInfo(ref list_info, Demo);
@@ -2571,42 +2711,144 @@ namespace UI
 
                     if (sta == 0)
                     {
-                        if (PT_SET.bGrrFlow || VAR.gsys_set.isChkMode)
+                        if (!VAR.ClearMt&& VAR.isAutoChkMode && num == (int)PT_SET.AutoChkSelectWs)
                         {
-                            if (PT_SET.bGrrFlow) GrrTestCnt++;
-                            if (VAR.gsys_set.isChkMode) ChkCnt++;
-                        }
-                        //夹具使用计数
-                        if (num == 0 && PT_SET.FixtrueMT != 0) COUNT_DATA.CurEquipmentMT++;
+                            bool bAllOk = true;
+                            List<MdDat> NgMdList = new List<MdDat>();
+                            List<MdDat> OkMdList = new List<MdDat>();
 
-                        if (!VAR.gsys_set.isChkMode)
-                        {
-                            //保存结果
-                            int t = System.Environment.TickCount - tmr;
-                            foreach (MdDat md in list_md)
+                            var resok = GetPcChkResult(out var temp1, out var temp2);
+                            if (!resok)
                             {
-                                md.ct = t;
-                                md.test_idx = 0;
+                                VAR.msg.AddMsg(Msg.EM_MSGTYPE.ERR, $"{disc}获取工位点检结果失败");
+                                return;
                             }
-                            VAR.msg.AddMsg(Msg.EM_MSGTYPE.DBG, VAR.IsChinese ? string.Format("{0} 存储结果", disc) : string.Format("{0} save result       ({0} 存储结果)", disc));
-                            //gy0123夹具数据记录
-                            JigProductionCnt(ref list_md);
-                            SQLData.TestDataAdd(this);
-                            CurOutProductTime = DateTime.Now;
+                            bAllOk = temp1 == 0 && temp2 == 0;
+                            VAR.msg.AddMsg(Msg.EM_MSGTYPE.DBG, $"{disc}测试软件判断结果{bAllOk}");
+                            if (!bAllOk)
+                            {
+                                string NgMdNums = "";
+                                foreach (WS.MdDat md in list_md)
+                                {
+                                    var curtempMod = ListChkTemp[AutoChkCnt];
+                                    int nextChkCnt = AutoChkCnt + 1;
+
+                                    bool NoChang = NoChangCheckModList.Contains(curtempMod);
+                                    NoChang = false;
+                                    if (NoChang)
+                                    {
+                                        if (temp1 == 0 && md.PC_IP == list_md[0].PC_IP)
+                                        {
+                                            if (md.res != -2)
+                                            {
+                                                md.res = -1;
+                                            }
+                                        }
+                                        if (temp2 == 0 && md.PC_IP == list_md[9].PC_IP)
+                                        {
+                                            if (md.res != -2)
+                                            {
+                                                md.res = -1;
+                                            }
+                                        }
+                                    }
+
+                                    if (!md.benable) continue;
+                                    if (md.res == 0)
+                                    {
+                                        if (!NoChang)
+                                            md.bAutoChkOk = true;
+                                    }
+                                    else
+                                    {
+                                        if (!NoChang)
+                                        {
+                                            if (temp1 == 0 && md.PC_IP == list_md[0].PC_IP)
+                                            {
+                                                md.bAutoChkOk = true;
+                                            }
+                                            if (temp2 == 0 && md.PC_IP == list_md[9].PC_IP)
+                                            {
+                                                md.bAutoChkOk = true;
+                                            }
+                                        }
+                                        if (!md.bAutoChkOk)
+                                            NgMdNums += md.Num + "_";
+                                    }
+                                }
+                                VAR.msg.AddMsg(Msg.EM_MSGTYPE.DBG, disc + "自动点检失败模组编号：" + NgMdNums);
+                            }
+                            else
+                            {
+                                var curtempMod = ListChkTemp[AutoChkCnt];
+                                VAR.msg.AddMsg(Msg.EM_MSGTYPE.DBG, disc + $"自动点检一次成功色温{curtempMod}，计数{AutoChkCnt}");
+                                AutoChkCnt++;
+                                //var NextTempMod = ListChkTemp[AutoChkCnt];
+                                //if (NoChangCheckModList.Contains(curtempMod) && NoChangCheckModList.Contains(NextTempMod))
+                                //{
+                                //    VAR.msg.AddMsg(Msg.EM_MSGTYPE.DBG, disc + $"当前点检色温{curtempMod}下次点检色温{NextTempMod}不需要上料");
+                                //    // 不需要更换物料,非空的物料改为待测
+                                //    foreach (var md in list_md)
+                                //    {
+                                //        if (md.res != -2)
+                                //        {
+                                //            md.res = -1;
+                                //        }
+                                //    }
+                                //}
+
+                                foreach (WS.MdDat md in list_md)
+                                    md.bAutoChkOk = false;
+                                var bok = AutoChkCntOkShow();
+                                if (!bok) return;
+                                if (VAR.isAutoChkMode)
+                                {
+                                    var bSetOk = SetPcAutoChk(AutoChkCnt);
+                                    if (!bSetOk)
+                                    {
+                                        VAR.msg.AddMsg(Msg.EM_MSGTYPE.ERR, disc + $"当前点检色温{AutoChkCnt}下次点检色温异常");
+                                        return;
+                                    }
+                                }
+                            }
+
                         }
-                        //if (VAR.gsys_set.bquit || bquit)
-                        //{
-                        //    VAR.msg.AddMsg(Msg.EM_MSGTYPE.DBG, VAR.IsChinese ? string.Format("{0} 取消", disc) : string.Format("{0} cancel!        ({0} 取消)", disc));
-                        //    res = EM_RES.QUIT;
-                        //    break;
-                        //}
+                        else
+                        {
+
+
+                            if (PT_SET.bGrrFlow || VAR.gsys_set.isChkMode)
+                            {
+                                if (PT_SET.bGrrFlow) GrrTestCnt++;
+                                if (VAR.gsys_set.isChkMode) ChkCnt++;
+                            }
+                            //夹具使用计数
+                            if (num == 0 && PT_SET.FixtrueMT != 0) COUNT_DATA.CurEquipmentMT++;
+
+                            if (!VAR.gsys_set.isChkMode)
+                            {
+                                //保存结果
+                                int t = System.Environment.TickCount - tmr;
+                                foreach (MdDat md in list_md)
+                                {
+                                    md.ct = t;
+                                    md.test_idx = 0;
+                                }
+                                VAR.msg.AddMsg(Msg.EM_MSGTYPE.DBG, VAR.IsChinese ? string.Format("{0} 存储结果", disc) : string.Format("{0} save result       ({0} 存储结果)", disc));
+                                //gy0123夹具数据记录
+                                JigProductionCnt(ref list_md);
+                                SQLData.TestDataAdd(this);
+                                CurOutProductTime = DateTime.Now;
+                            }
+                        }
+                       
                         if (lb != null && lb != COM.LightBox)
                         {
                             res = lb.MoveTo(ref VAR.gsys_set.bquit, 0);
                             if (res != EM_RES.OK) break;
                         }
 
-                        if (Iserrfirstbox)
+                        if (Iserrfirstbox && !VAR.gsys_set.isChkMode && !VAR.isAutoChkMode)
                         {
 
                             Iserrfirstbox = false;
@@ -2839,5 +3081,615 @@ namespace UI
             SaveCfg();//保存数据
 
         }
+
+
+        #region 自动点检
+        /// <summary>
+        /// 点检模组色温要求列表
+        /// </summary>
+        public static List<int> ListChkTemp = new List<int>();
+        //自动点检测试次数
+        public static int AutoChkCnt;
+        public static int TempAutoChkCnt;
+        private bool Pc1Enable => (list_md.Find(s => s.benable && (s.PC_IP == list_md[0].PC_IP))) != null;
+
+        private bool Pc2Enable => (list_md.Find(s => s.benable && (s.PC_IP == list_md[9].PC_IP))) != null;
+
+        /// <summary>
+        /// 判断自动点检次数，并弹窗提示是否重新点检
+        /// </summary>
+        /// <param name="ip1"></param>
+        /// <param name="ip2"></param>
+        /// <returns></returns>
+        public bool AutoChkCntOkShow()
+        {
+            string ip1 = list_md[0].PC_IP;
+            string ip2 = list_md[10].PC_IP;
+            if (AutoChkCnt >= ListChkTemp.Count)
+            {
+                VAR.sys_inf.Set(EM_ALM_STA.WAR_YELLOW_FLASH, VAR.IsChinese ? "自动点检提示" : "AutoChkShowmsg", 0);
+                MT.ST_WARN warn = new MT.ST_WARN();
+                warning fr_warn = new warning();
+                warn.cancle_txt = VAR.IsChinese ? "重新点检" : "Keep running";
+                warn.ok_txt = VAR.IsChinese ? "停止点检" : "Stop running";
+                warn.ws = null;
+                warn.title = VAR.IsChinese ? "提示:自动点检" : "Tip: Data File  Err";
+                warn.msg = "当前点检次数达到要求，是否继续点检或停止点检开始清料!";
+                warn.lb_msg = warn.msg + "请确认!\r\n  1.如果继续点检,请按重新点检!\r\n  " +
+                                              "2.如果停止点检开始清料请按停止点检!";
+                DialogResult logres = MT.Display_frwarn(fr_warn, warn, ERR_ALM.EmErrItem.MaterialPosErr);
+                if (DialogResult.OK == logres)
+                {
+                    // 停止点检
+                    SetPcPrductMod();
+                    int errid = 111;
+                    foreach (var md in list_md)
+                    {
+                        md.bAutoChkOk = false;
+                        if (md.benable)
+                        {
+                            md.benable = true;//设置_enbale
+                        }
+                        if (md.res != -2)//空料
+                        {
+                            md.res = errid;
+                            errid++;
+                        }
+                    }
+                    VAR.isAutoChkMode = false;
+                    ListChkTemp.Clear();
+                    VAR.ClearMt = true;
+                   
+                }
+                else
+                {
+                    AutoChkCnt = 0;
+                    TempAutoChkCnt = -1;
+                    int i = 0;
+                    foreach (var md in list_md)
+                    {
+                        md.bAutoChkOk = false;
+                        i++;
+                        if (md.benable)
+                            md.res = 222 + i;
+                    }
+                }
+                VAR.sys_inf.Set(EM_ALM_STA.NOR_GREEN, VAR.IsChinese ? "运行" : "RUN", 0, true);
+
+            }
+            return true;
+        }
+        /// <summary>
+        /// 判断测试软件的色温是否正常
+        /// </summary>
+        /// <param name="Temper1"></param>
+        /// <param name="Temper2"></param>
+        /// <returns></returns>
+        public bool AutoChkTemperShow(int Temper1, int Temper2, int TestCnt = 0)
+        {
+            bool TemperErr = false;
+            int CurTemper = 0, res1 = 0, res2 = 0;
+            if (ListChkTemp == null || ListChkTemp.Count < 1)
+            {
+                VAR.msg.AddMsg(Msg.EM_MSGTYPE.ERR, disc + "测试软件点检色温列表为空");
+                return false;
+            }
+            else
+            {
+                if (TestCnt <= ListChkTemp.Count - 1)
+                {
+                    if ((Pc1Enable && Temper1 != ListChkTemp[TestCnt]) || (Pc2Enable && Temper2 != ListChkTemp[TestCnt]))
+                    {
+                        TemperErr = true;
+                        CurTemper = ListChkTemp[TestCnt];
+                    }
+
+                }
+                else
+                {
+                    VAR.msg.AddMsg(Msg.EM_MSGTYPE.ERR, disc + "当前点检次数达到要求");
+                    return false;
+
+                }
+
+            }
+
+            if (TemperErr)
+            {
+                VAR.msg.AddMsg(Msg.EM_MSGTYPE.ERR, disc + "测试软件色温参数异常");
+                VAR.sys_inf.Set(EM_ALM_STA.WAR_YELLOW_FLASH, VAR.IsChinese ? "测试软件异常!" : "Test Soft NG", 20, true, ErrCode: ShowErrMsg.WaitTestErr);
+                MT.ST_WARN st_warn = new MT.ST_WARN();
+                warning fr_warn = new warning();
+                st_warn.ok_txt = VAR.IsChinese ? "继续运行" : "Keep running";
+                st_warn.cancle_txt = VAR.IsChinese ? "停止运行" : "Stop running";
+                st_warn.ws = null;
+                st_warn.title = VAR.IsChinese ? "点检色温参数异常" : "Tip: The  PC Test Softerware is abnormal in the ProductMod!";
+                st_warn.msg = string.Format($"当前测试软件色温{Temper1}和{Temper2}参数和电控记录参数{CurTemper}不一致");
+                st_warn.lb_msg = "提示:" + st_warn.msg + $"请确认!\r\n  1.按'继续运行'键则切换测试软件到色温{CurTemper}继续运行!\r\n  " +
+                                 "2.如需确认问题请按'停止运行'键退出运行，待界面左上角显示就绪后再按'运行'键!\r\n";
+                DialogResult logres = MT.Display_frwarn(fr_warn, st_warn, ERR_ALM.EmErrItem.UpDownLoadAbnormal);
+                if (logres == DialogResult.OK)
+                {
+                    var bSetOk = SetPcAutoChk(TestCnt);
+                    if (!bSetOk) return false;
+                    VAR.sys_inf.Set(EM_ALM_STA.NOR_GREEN, VAR.IsChinese ? "运行" : "RUN", 0, true);
+                }
+                else
+                {
+                    VAR.gsys_set.bquit = true;
+                    return false;
+                }
+            }
+            return true;
+        }
+        /// <summary>
+        /// 判断测试电脑是否在生产模式，弹窗提示
+        /// </summary>
+        /// <param name="ProductMod1"></param>
+        /// <param name="ProductMod2"></param>
+        /// <returns></returns>
+        public bool PcIsProductModShow(Class.PUCFFactoryMode ProductMod1, Class.PUCFFactoryMode ProductMod2)
+        {
+            var bPc1Err = Pc1Enable && ProductMod1 != Class.PUCFFactoryMode.PUCFFactoryMode_Product;
+            var bPc2Err = Pc2Enable && ProductMod2 != Class.PUCFFactoryMode.PUCFFactoryMode_Product;
+            if (bPc1Err || bPc2Err)
+            {
+                VAR.msg.AddMsg(Msg.EM_MSGTYPE.ERR, disc + "测试软件在非生产模式");
+                VAR.sys_inf.Set(EM_ALM_STA.WAR_YELLOW_FLASH, VAR.IsChinese ? "测试软件异常!" : "Test Soft NG", 20, true, ErrCode: ShowErrMsg.WaitTestErr);
+                MT.ST_WARN st_warn = new MT.ST_WARN();
+                warning fr_warn = new warning();
+                st_warn.ok_txt = VAR.IsChinese ? "继续运行" : "Keep running";
+                st_warn.cancle_txt = VAR.IsChinese ? "停止运行" : "Stop running";
+                st_warn.ws = null;
+                st_warn.title = VAR.IsChinese ? "测试软件模式异常" : "Tip: The  PC Test Softerware is abnormal in the ProductMod!";
+                st_warn.msg = string.Format("当前在生产模式，但是测试软件在非生产模式");
+                st_warn.lb_msg = "提示:" + st_warn.msg + "请确认!\r\n  1.按'继续运行'键则切换测试软件到生产模式继续运行!\r\n  " +
+                                 "2.如需确认问题请按'停止运行'键退出运行，待界面左上角显示就绪后再按'运行'键!\r\n";
+                DialogResult logres = MT.Display_frwarn(fr_warn, st_warn, ERR_ALM.EmErrItem.UpDownLoadAbnormal);
+                if (logres == DialogResult.OK)
+                {
+                    var bSetOk = SetPcPrductMod();
+                    if (!bSetOk)
+                    {
+                        VAR.msg.AddMsg(Msg.EM_MSGTYPE.ERR, disc + "PcIsProductModShow切换测试软件到生产模式失败");
+                        return false;
+                    }
+                    VAR.sys_inf.Set(EM_ALM_STA.NOR_GREEN, VAR.IsChinese ? "运行" : "RUN", 0, true);
+                }
+                else
+                {
+                    return false;
+                }
+
+            }
+            return true;
+        }
+        /// <summary>
+        /// 判断测试软件是否在点检模式
+        /// </summary>
+        /// <param name="ProductMod1"></param>
+        /// <param name="ProductMod2"></param>
+        /// <returns></returns>
+        public bool PcIsChkModShow(Class.PUCFFactoryMode ProductMod1, Class.PUCFFactoryMode ProductMod2)
+        {
+            int res1 = 0, res2 = 0;
+            bool bPc1ErrShow = Pc1Enable && ProductMod1 != Class.PUCFFactoryMode.PUCFFactoryMode_Check;
+            bool bPc2ErrShow = Pc2Enable && ProductMod2 != Class.PUCFFactoryMode.PUCFFactoryMode_Check;
+            if (bPc1ErrShow || bPc2ErrShow)
+            {
+                VAR.msg.AddMsg(Msg.EM_MSGTYPE.ERR, disc + "测试软件在非点检模式");
+                VAR.sys_inf.Set(EM_ALM_STA.WAR_YELLOW_FLASH, VAR.IsChinese ? "测试软件异常!" : "Test Soft NG", 20, true, ErrCode: ShowErrMsg.WaitTestErr);
+                MT.ST_WARN st_warn = new MT.ST_WARN();
+                warning fr_warn = new warning();
+                st_warn.ok_txt = VAR.IsChinese ? "继续运行" : "Keep running";
+                st_warn.cancle_txt = VAR.IsChinese ? "停止运行" : "Stop running";
+                st_warn.ws = null;
+                st_warn.title = VAR.IsChinese ? "测试软件模式异常" : "Tip: The  PC Test Softerware is abnormal in the ProductMod!";
+                st_warn.msg = string.Format($"当前在点检模式，但是测试软件在非点检模式Pc1State={ProductMod1},Pc2State={ProductMod2}");
+                st_warn.lb_msg = "提示:" + st_warn.msg + "请确认!\r\n  1.按'继续运行'键则切换测试软件到点检模式继续运行!\r\n  " +
+                                 "2.如需确认问题请按'停止运行'键退出运行，待界面左上角显示就绪后再按'运行'键!\r\n";
+                DialogResult logres = MT.Display_frwarn(fr_warn, st_warn, ERR_ALM.EmErrItem.UpDownLoadAbnormal);
+                if (logres == DialogResult.OK)
+                {
+                    AutoChkCnt = 0;
+                    TempAutoChkCnt = -1;
+                    var bSetOk = SetPcAutoChk(0);
+                    if (!bSetOk) return false;
+                    foreach (var md in list_md)
+                    {
+                        md.bAutoChkOk = false;
+                    }
+                    VAR.sys_inf.Set(EM_ALM_STA.NOR_GREEN, VAR.IsChinese ? "运行" : "RUN", 0, true);
+                }
+                else
+                {
+                   
+                    return false;
+                }
+            }
+            return true;
+        }
+        public bool SetPcPrductMod(bool bcheckEnable = true)
+        {
+            string ip1 = list_md[0].PC_IP;
+            string ip2 = list_md[10].PC_IP;
+            var curMod = Class.PUCFFactoryMode.PUCFFactoryMode_Product;
+            int CurTemper = 0;
+            ListChkTemp.Clear();
+
+            int res1 = 0, res2 = 0;
+            string actionname = "切换生产模式";
+            if (Pc1Enable || !bcheckEnable)
+            {
+                var pcname = "pc1";
+                res1 = UI.Class.AutoChkDLL.iPUCFTestServiceSetFactoryMode(ip1, curMod, CurTemper);
+                if (res1 < 0)
+                {
+                    VAR.msg.AddMsg(Msg.EM_MSGTYPE.ERR, disc + $"与测试软件通信{pcname}{actionname}失败");
+                    return false;
+                }
+                else
+                {
+                    VAR.msg.AddMsg(Msg.EM_MSGTYPE.DBG, disc + $"与测试软件通信{pcname}{actionname}成功");
+                }
+
+            }
+
+            if (Pc2Enable || !bcheckEnable)
+            {
+                res2 = UI.Class.AutoChkDLL.iPUCFTestServiceSetFactoryMode(ip2, curMod, CurTemper);
+                var pcname = "pc2";
+                if (res2 < 0)
+                {
+                    VAR.msg.AddMsg(Msg.EM_MSGTYPE.ERR, disc + $"与测试软件通信{pcname}{actionname}失败");
+                    return false;
+                }
+                else
+                {
+                    VAR.msg.AddMsg(Msg.EM_MSGTYPE.DBG, disc + $"与测试软件通信{pcname}{actionname}成功");
+                }
+            }
+            return true;
+
+        }
+        public bool GetPcChkInfo(out int ProductMod1, out int ProductMod2, int[] Temper1, int[] Temper2, bool benableChk = true)
+        {
+            string ip1 = list_md[0].PC_IP;
+            string ip2 = list_md[10].PC_IP;
+            ProductMod1 = 0; ProductMod2 = 0;
+            Temper1 = new int[16];
+            Temper2 = new int[16];
+            int res1 = 0, res2 = 0;
+            string actionname = "获取测试信息";
+            if (Pc1Enable || !benableChk)
+            {
+                var pcname = "pc1";
+                res1 = UI.Class.AutoChkDLL.iPUCFTestServiceGetAutoCheckInfo(ip1, out ProductMod1, Temper1);
+                if (res1 < 0)
+                {
+                    VAR.msg.AddMsg(Msg.EM_MSGTYPE.ERR, disc + $"与测试软件通信{pcname}{actionname}失败");
+                    return false;
+                }
+                else
+                {
+                    if (ProductMod1 > 0)
+                    {
+                        string tempinfo = "";
+                        WS.ListChkTemp.Clear();
+                        foreach (var m in Temper1)
+                        {
+                            if (m > 0)
+                            {
+                                WS.ListChkTemp.Add(m);
+                                tempinfo += m + ",";
+                            }
+                        }
+                        VAR.msg.AddMsg(Msg.EM_MSGTYPE.DBG, $"{disc}{pcname}{actionname}点检次数{ProductMod1}");
+                        VAR.msg.AddMsg(Msg.EM_MSGTYPE.DBG, $"{disc}获取{pcname}{actionname}色温列表{tempinfo}");
+                    }
+
+                }
+
+            }
+
+            if (Pc2Enable || !benableChk)
+            {
+                res2 = UI.Class.AutoChkDLL.iPUCFTestServiceGetAutoCheckInfo(ip2, out ProductMod2, Temper2);
+                var pcname = "pc2";
+                if (res2 < 0)
+                {
+                    VAR.msg.AddMsg(Msg.EM_MSGTYPE.ERR, disc + $"与测试软件通信{pcname}{actionname}失败");
+                    return false;
+                }
+                else
+                {
+                    if (ProductMod2 > 0)
+                    {
+                        string tempinfo = "";
+                        WS.ListChkTemp.Clear();
+                        foreach (var m in Temper2)
+                        {
+                            if (m > 0)
+                            {
+                                WS.ListChkTemp.Add(m);
+                                tempinfo += m + ",";
+                            }
+                        }
+                        VAR.msg.AddMsg(Msg.EM_MSGTYPE.DBG, $"{disc}{pcname}{actionname}点检次数{ProductMod2}");
+                        VAR.msg.AddMsg(Msg.EM_MSGTYPE.DBG, $"{disc}{pcname}{actionname}色温列表{tempinfo}");
+                    }
+
+                }
+            }
+            return true;
+        }
+        public bool GetPcChkResult(out int Temper1, out int Temper2, bool benableChk = true)
+        {
+            string ip1 = list_md[0].PC_IP;
+            string ip2 = list_md[10].PC_IP;
+            int res1 = 0, res2 = 0;
+            Temper1 = 0;
+            Temper2 = 0;
+            string actionname = "获取测试结果";
+            if (Pc1Enable || !benableChk)
+            {
+                var pcname = "pc1";
+                res1 = UI.Class.AutoChkDLL.iPUCFTestServiceGetCheckModeResult(ip1, out Temper1);
+                if (res1 < 0)
+                {
+                    VAR.msg.AddMsg(Msg.EM_MSGTYPE.ERR, disc + $"与测试软件通信{pcname}{actionname}失败");
+                    return false;
+                }
+                else
+                {
+                    VAR.msg.AddMsg(Msg.EM_MSGTYPE.DBG, $"{disc}获取{pcname}第{AutoChkCnt}{actionname}结果{Temper1 == 0}");
+                }
+
+            }
+
+            if (Pc2Enable || !benableChk)
+            {
+                res2 = UI.Class.AutoChkDLL.iPUCFTestServiceGetCheckModeResult(ip2, out Temper2);
+                var pcname = "pc2";
+                if (res2 < 0)
+                {
+                    VAR.msg.AddMsg(Msg.EM_MSGTYPE.ERR, disc + $"与测试软件通信{pcname}获取测试结果失败");
+                    return false;
+                }
+                else
+                {
+                    VAR.msg.AddMsg(Msg.EM_MSGTYPE.DBG, $"{disc}获取{pcname}第{AutoChkCnt}次点检结果{Temper2 == 0}");
+                }
+            }
+            return true;
+        }
+        public bool GetPcChkMod(out UI.Class.PUCFFactoryMode ProductMod1, out UI.Class.PUCFFactoryMode ProductMod2, out int Temper1, out int Temper2, bool bchkenable = true)
+        {
+            string ip1 = list_md[0].PC_IP;
+            string ip2 = list_md[10].PC_IP;
+
+            ProductMod1 = Class.PUCFFactoryMode.PUCFFactoryMode_Product;
+            ProductMod2 = Class.PUCFFactoryMode.PUCFFactoryMode_Product;
+            int res1 = 0, res2 = 0;
+            Temper1 = 0;
+            Temper2 = 0;
+            string actionname = "获取点检模式";
+            if (Pc1Enable || !bchkenable)
+            {
+                var pcname = "pc1";
+                res1 = UI.Class.AutoChkDLL.iPUCFTestServiceGetFactoryMode(ip1, out ProductMod1, out Temper1);
+                if (res1 < 0)
+                {
+                    VAR.msg.AddMsg(Msg.EM_MSGTYPE.ERR, disc + $"与测试软件通信{pcname}{actionname}失败");
+                    return false;
+                }
+                else
+                {
+                    bool bchk = ProductMod1 == Class.PUCFFactoryMode.PUCFFactoryMode_Check;
+                    string msg = bchk ? "点检模式" : "非点检模式";
+                    VAR.msg.AddMsg(Msg.EM_MSGTYPE.DBG, $"{disc}{pcname}{actionname}结果{msg}");
+                }
+
+            }
+
+            if (Pc2Enable || !bchkenable)
+            {
+                res2 = UI.Class.AutoChkDLL.iPUCFTestServiceGetFactoryMode(ip2, out ProductMod2, out Temper2);
+                var pcname = "pc2";
+                if (res2 < 0)
+                {
+                    VAR.msg.AddMsg(Msg.EM_MSGTYPE.ERR, disc + $"与测试软件通信{pcname}{actionname}失败");
+                    return false;
+                }
+                else
+                {
+                    bool bchk = ProductMod2 == Class.PUCFFactoryMode.PUCFFactoryMode_Check;
+                    string msg = bchk ? "点检模式" : "非点检模式";
+                    VAR.msg.AddMsg(Msg.EM_MSGTYPE.DBG, $"{disc}{pcname}{actionname}结果{msg}");
+                }
+            }
+
+            return true;
+        }
+        /// <summary>
+        /// 设置测试软件工作模式
+        /// </summary>
+        /// <param name="CurTemper"></param>
+        /// <param name="bSetChk"></param>
+        /// <returns></returns>
+        public bool SetPcAutoChk(int TestCnt = 0, bool bSetChk = true, bool bcheckEnable = true)
+        {
+            int[] temp1List = new int[16], temp2List = new int[16];
+            var res1 = GetPcChkInfo(out var pUCFFactoryMode1, out var pUCFFactoryMode2, temp1List, temp2List, bcheckEnable);
+            if (!res1)
+            {
+                return false;
+            }
+
+            return mSetPcAutoChk(TestCnt, bcheckEnable);
+        }
+        bool mSetPcAutoChk(int TestCnt = 0, bool bcheckEnable = true)
+        {
+            int res1, res2;
+            string ip1 = list_md[0].PC_IP;
+            string ip2 = list_md[10].PC_IP;
+            UI.Class.PUCFFactoryMode curMod = Class.PUCFFactoryMode.PUCFFactoryMode_Check;
+            string actionname = "切换到点检模式";
+            if (!VAR.isAutoChkMode)
+                return true;
+            int CurTemper = 0;
+            if (ListChkTemp == null || ListChkTemp.Count < 1)
+            {
+                VAR.msg.AddMsg(Msg.EM_MSGTYPE.ERR, disc + $"mSetPcAutoChk当前色温列表数据为空{actionname}失败");
+                return false;
+            }
+            else
+            {
+                if (TestCnt < ListChkTemp.Count)
+                    CurTemper = ListChkTemp[TestCnt];
+                else
+                {
+                    VAR.msg.AddMsg(Msg.EM_MSGTYPE.ERR, disc + $"mSetPcAutoChk当前点检色温序号参数大于色温列表数量{actionname}失败");
+                    return false;
+                }
+            }
+            if (Pc1Enable || !bcheckEnable)
+            {
+                var pcname = "pc1";
+                res1 = UI.Class.AutoChkDLL.iPUCFTestServiceSetFactoryMode(ip1, curMod, CurTemper);
+                if (res1 < 0)
+                {
+                    VAR.msg.AddMsg(Msg.EM_MSGTYPE.ERR, disc + $"与测试软件通信{pcname}{actionname}失败");
+                    return false;
+                }
+                else
+                {
+                    VAR.msg.AddMsg(Msg.EM_MSGTYPE.DBG, disc + $"与测试软件通信{pcname}{actionname}成功");
+                }
+
+            }
+
+            if (Pc2Enable || !bcheckEnable)
+            {
+                res2 = UI.Class.AutoChkDLL.iPUCFTestServiceSetFactoryMode(ip2, curMod, CurTemper);
+                var pcname = "pc2";
+                if (res2 < 0)
+                {
+                    VAR.msg.AddMsg(Msg.EM_MSGTYPE.ERR, disc + $"与测试软件通信{pcname}{actionname}失败");
+                    return false;
+                }
+                else
+                {
+                    VAR.msg.AddMsg(Msg.EM_MSGTYPE.DBG, disc + $"与测试软件通信{pcname}{actionname}成功");
+                }
+            }
+
+            return true;
+        }
+
+        private string GetChkModName
+        {
+            get
+            {
+                if (AutoChkCnt < ListChkTemp.Count)
+                {
+                    int curtemp = ListChkTemp[AutoChkCnt];
+                    switch (curtemp)
+                    {
+                        case 3000:
+                            return "3000K色温点检";
+                        case 4000:
+                            return "4000K色温点检";
+                        case 5000:
+                            return "5000K色温点检";
+                        case 10001:
+                            return "AFC近焦点检";
+                        case 10002:
+                            return "AFC中距点检";
+                        case 10003:
+                            return "AFC远焦点检";
+                        case 20001:
+                            return "OTP光源点检数据生成";
+                        case 20002:
+                            return "OTP光源点检";
+                    }
+
+                }
+                return "";
+            }
+
+        }
+        /// <summary>
+        /// 放料前提示准备好点检模组
+        /// </summary>
+        /// <param name="bShowMsg"></param>
+        /// <returns></returns>
+        public bool PutModShowMsg(bool bShowMsg = true)
+        {
+            if (!VAR.isAutoChkMode)
+                return true;
+
+            if (AutoChkCnt < ListChkTemp.Count && bShowMsg)
+            {
+                if(GetChkModName.Length<2)
+                {
+                    VAR.msg.AddMsg(Msg.EM_MSGTYPE.ERR, $"{disc}PutModShowMsg当前点检参数异常GetChkModName{AutoChkCnt}信息异常实际色温{ListChkTemp[AutoChkCnt]}");
+                    return false;
+                }
+                MT.ST_WARN warn = new MT.ST_WARN();
+                VAR.sys_inf.Set(EM_ALM_STA.WAR_YELLOW_FLASH, VAR.IsChinese ? "自动点检提示" : "AutoChkShowMsg", 0);
+                warning fr_warn = new warning();
+                warn.ok_txt = VAR.IsChinese ? "点检模式继续" : "Keep running";
+                warn.cancle_txt = VAR.IsChinese ? "停止运行" : "Stop running";
+                warn.abort_txt = VAR.IsChinese ? "生产模式继续" : "Stop running";
+                warn.ws = null;
+                warn.title = VAR.IsChinese ? "提示:自动点检开始" : "Tip: Data File  Err";
+
+                warn.msg = $"请确认上料是专用色温{GetChkModName}的点检模组!";
+                warn.lb_msg = warn.msg + "请确认!\r\n  1.如果确认点检，请上料专用的点检模组,请按继续运行键!\r\n  " +
+                                              "2.如果上料错误或其他确认，请停止运行，!\r\n " +
+                                              "3.如果想切换生产模式运行，请按切换生产按钮";
+                DialogResult logres = MT.Display_frwarn(fr_warn, warn, ERR_ALM.EmErrItem.MaterialPosErr);
+                if (DialogResult.Cancel == logres)
+                {
+                    VAR.gsys_set.bquit = true;
+                    return false;
+                }
+                else if (DialogResult.OK == logres)
+                {
+                    var bSetOk = SetPcAutoChk(AutoChkCnt);
+                    if (!bSetOk)
+                    {
+                        VAR.gsys_set.bquit = true;
+                        return false;
+                    }
+                    VAR.sys_inf.Set(EM_ALM_STA.NOR_GREEN, VAR.IsChinese ? "运行" : "RUN", 0, true);
+                }
+                else
+                {
+                    VAR.isAutoChkMode = false;
+                    var bSetOk = SetPcPrductMod();
+                    if (!bSetOk)
+                    {
+                        bquit = true;
+                        return false;
+                    }
+
+                    VAR.sys_inf.Set(EM_ALM_STA.NOR_GREEN, VAR.IsChinese ? "运行" : "RUN", 0, true);
+                }
+            }else
+            {
+                VAR.msg.AddMsg(Msg.EM_MSGTYPE.ERR, $"{disc}PutModShowMsg当前点检参数异常AutoChkCnt{AutoChkCnt}大于点检要求数量{ListChkTemp.Count}");
+                return false;
+            }
+            return true;
+        }
+        /// <summary>
+        /// 不需要更换模组的色温
+        /// </summary>
+        public static List<int> NoChangCheckModList => new List<int>() { 10001, 10002, 10003 };
+
+
+        #endregion
     }
 }

@@ -1205,7 +1205,9 @@ namespace UI
 
         public CogImage8Grey InputImage
         {
-            get { return (CogImage8Grey)m_CogPMAlignTool.InputImage; }
+            get {
+                if (m_CogPMAlignTool == null) return null;                              
+                return (CogImage8Grey)m_CogPMAlignTool.InputImage; }
             set { m_CogPMAlignTool.InputImage = value; }
         }
 

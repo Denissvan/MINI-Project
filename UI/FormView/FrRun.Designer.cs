@@ -29,9 +29,9 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle6 = new System.Windows.Forms.DataGridViewCellStyle();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.panel2 = new System.Windows.Forms.Panel();
             this.tableLayoutPanel2 = new System.Windows.Forms.TableLayoutPanel();
@@ -100,6 +100,7 @@
             this.label8 = new System.Windows.Forms.Label();
             this.label6 = new System.Windows.Forms.Label();
             this.tp_vision = new System.Windows.Forms.TabPage();
+            this.button1 = new System.Windows.Forms.Button();
             this.updatecheck = new System.Windows.Forms.Button();
             this.dtexport = new System.Windows.Forms.Button();
             this.label12 = new System.Windows.Forms.Label();
@@ -146,7 +147,7 @@
             this.panel3 = new System.Windows.Forms.Panel();
             this.timer_500ms = new System.Windows.Forms.Timer(this.components);
             this.timer_key = new System.Windows.Forms.Timer(this.components);
-            this.button1 = new System.Windows.Forms.Button();
+            this.cbCheckModEn = new System.Windows.Forms.CheckBox();
             this.tableLayoutPanel1.SuspendLayout();
             this.panel2.SuspendLayout();
             this.tableLayoutPanel2.SuspendLayout();
@@ -478,7 +479,7 @@
             this.tableLayoutPanel4.ColumnCount = 3;
             this.tableLayoutPanel4.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 42.57426F));
             this.tableLayoutPanel4.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 57.42574F));
-            this.tableLayoutPanel4.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 303F));
+            this.tableLayoutPanel4.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 307F));
             this.tableLayoutPanel4.Controls.Add(this.panel4, 2, 0);
             this.tableLayoutPanel4.Controls.Add(this.panel8, 2, 1);
             this.tableLayoutPanel4.Controls.Add(this.panel9, 2, 2);
@@ -502,9 +503,9 @@
             this.panel4.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.panel4.Controls.Add(this.UpLoad1);
             this.panel4.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panel4.Location = new System.Drawing.Point(340, 3);
+            this.panel4.Location = new System.Drawing.Point(336, 3);
             this.panel4.Name = "panel4";
-            this.panel4.Size = new System.Drawing.Size(298, 136);
+            this.panel4.Size = new System.Drawing.Size(302, 136);
             this.panel4.TabIndex = 9;
             // 
             // UpLoad1
@@ -512,7 +513,7 @@
             this.UpLoad1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.UpLoad1.Location = new System.Drawing.Point(0, 0);
             this.UpLoad1.Name = "UpLoad1";
-            this.UpLoad1.Size = new System.Drawing.Size(296, 134);
+            this.UpLoad1.Size = new System.Drawing.Size(300, 134);
             this.UpLoad1.TabIndex = 0;
             // 
             // panel8
@@ -520,9 +521,9 @@
             this.panel8.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.panel8.Controls.Add(this.upLoad2);
             this.panel8.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panel8.Location = new System.Drawing.Point(340, 145);
+            this.panel8.Location = new System.Drawing.Point(336, 145);
             this.panel8.Name = "panel8";
-            this.panel8.Size = new System.Drawing.Size(298, 136);
+            this.panel8.Size = new System.Drawing.Size(302, 136);
             this.panel8.TabIndex = 10;
             // 
             // upLoad2
@@ -530,7 +531,7 @@
             this.upLoad2.Dock = System.Windows.Forms.DockStyle.Fill;
             this.upLoad2.Location = new System.Drawing.Point(0, 0);
             this.upLoad2.Name = "upLoad2";
-            this.upLoad2.Size = new System.Drawing.Size(296, 134);
+            this.upLoad2.Size = new System.Drawing.Size(300, 134);
             this.upLoad2.TabIndex = 1;
             // 
             // panel9
@@ -540,9 +541,9 @@
             this.panel9.Controls.Add(this.lb_tt_ct);
             this.panel9.Controls.Add(this.lb_tt_tmr);
             this.panel9.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panel9.Location = new System.Drawing.Point(340, 287);
+            this.panel9.Location = new System.Drawing.Point(336, 287);
             this.panel9.Name = "panel9";
-            this.panel9.Size = new System.Drawing.Size(298, 138);
+            this.panel9.Size = new System.Drawing.Size(302, 138);
             this.panel9.TabIndex = 11;
             // 
             // lb_tt_n
@@ -583,11 +584,11 @@
             this.tray_fd.Bordercolor = System.Drawing.Color.DodgerBlue;
             this.tray_fd.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tray_fd.ERRcolor = System.Drawing.Color.Gold;
-            this.tray_fd.Location = new System.Drawing.Point(146, 3);
+            this.tray_fd.Location = new System.Drawing.Point(145, 3);
             this.tray_fd.Name = "tray_fd";
             this.tray_fd.NGcolor = System.Drawing.Color.Red;
             this.tray_fd.OKcolor = System.Drawing.Color.Lime;
-            this.tray_fd.Size = new System.Drawing.Size(188, 136);
+            this.tray_fd.Size = new System.Drawing.Size(185, 136);
             this.tray_fd.TabIndex = 12;
             this.tray_fd.TrayColor = System.Drawing.SystemColors.Control;
             this.tray_fd.TrayName = "DISC";
@@ -604,7 +605,7 @@
             this.traybox_fd.ERRcolor = System.Drawing.Color.Gold;
             this.traybox_fd.Location = new System.Drawing.Point(3, 3);
             this.traybox_fd.Name = "traybox_fd";
-            this.traybox_fd.Size = new System.Drawing.Size(137, 136);
+            this.traybox_fd.Size = new System.Drawing.Size(136, 136);
             this.traybox_fd.TabIndex = 13;
             this.traybox_fd.UNTESTcolor = System.Drawing.Color.SkyBlue;
             // 
@@ -618,7 +619,7 @@
             this.traybox_ok.ERRcolor = System.Drawing.Color.Gold;
             this.traybox_ok.Location = new System.Drawing.Point(3, 145);
             this.traybox_ok.Name = "traybox_ok";
-            this.traybox_ok.Size = new System.Drawing.Size(137, 136);
+            this.traybox_ok.Size = new System.Drawing.Size(136, 136);
             this.traybox_ok.TabIndex = 14;
             this.traybox_ok.UNTESTcolor = System.Drawing.Color.SkyBlue;
             // 
@@ -632,7 +633,7 @@
             this.traybox_ng.ERRcolor = System.Drawing.Color.Gold;
             this.traybox_ng.Location = new System.Drawing.Point(3, 287);
             this.traybox_ng.Name = "traybox_ng";
-            this.traybox_ng.Size = new System.Drawing.Size(137, 138);
+            this.traybox_ng.Size = new System.Drawing.Size(136, 138);
             this.traybox_ng.TabIndex = 15;
             this.traybox_ng.UNTESTcolor = System.Drawing.Color.SkyBlue;
             // 
@@ -641,11 +642,11 @@
             this.tray_ok.Bordercolor = System.Drawing.Color.DodgerBlue;
             this.tray_ok.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tray_ok.ERRcolor = System.Drawing.Color.Gold;
-            this.tray_ok.Location = new System.Drawing.Point(146, 145);
+            this.tray_ok.Location = new System.Drawing.Point(145, 145);
             this.tray_ok.Name = "tray_ok";
             this.tray_ok.NGcolor = System.Drawing.Color.Red;
             this.tray_ok.OKcolor = System.Drawing.Color.Lime;
-            this.tray_ok.Size = new System.Drawing.Size(188, 136);
+            this.tray_ok.Size = new System.Drawing.Size(185, 136);
             this.tray_ok.TabIndex = 16;
             this.tray_ok.TrayColor = System.Drawing.SystemColors.Control;
             this.tray_ok.TrayName = "DISC";
@@ -657,11 +658,11 @@
             this.tray_ng.Bordercolor = System.Drawing.Color.DodgerBlue;
             this.tray_ng.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tray_ng.ERRcolor = System.Drawing.Color.Gold;
-            this.tray_ng.Location = new System.Drawing.Point(146, 287);
+            this.tray_ng.Location = new System.Drawing.Point(145, 287);
             this.tray_ng.Name = "tray_ng";
             this.tray_ng.NGcolor = System.Drawing.Color.Red;
             this.tray_ng.OKcolor = System.Drawing.Color.Lime;
-            this.tray_ng.Size = new System.Drawing.Size(188, 138);
+            this.tray_ng.Size = new System.Drawing.Size(185, 138);
             this.tray_ng.TabIndex = 17;
             this.tray_ng.TrayColor = System.Drawing.SystemColors.Control;
             this.tray_ng.TrayName = "DISC";
@@ -1024,6 +1025,7 @@
             // tp_vision
             // 
             this.tp_vision.BackColor = System.Drawing.SystemColors.Control;
+            this.tp_vision.Controls.Add(this.cbCheckModEn);
             this.tp_vision.Controls.Add(this.button1);
             this.tp_vision.Controls.Add(this.updatecheck);
             this.tp_vision.Controls.Add(this.dtexport);
@@ -1039,6 +1041,16 @@
             this.tp_vision.Size = new System.Drawing.Size(410, 352);
             this.tp_vision.TabIndex = 3;
             this.tp_vision.Text = "设备信息";
+            // 
+            // button1
+            // 
+            this.button1.Location = new System.Drawing.Point(144, 232);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(75, 23);
+            this.button1.TabIndex = 385;
+            this.button1.Text = "button1";
+            this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
             // updatecheck
             // 
@@ -1588,34 +1600,34 @@
             // dgv_msg
             // 
             this.dgv_msg.BackgroundColor = System.Drawing.SystemColors.ControlLightLight;
-            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle1.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            dataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dgv_msg.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
+            dataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle4.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle4.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            dataGridViewCellStyle4.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle4.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle4.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle4.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dgv_msg.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle4;
             this.dgv_msg.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.Window;
-            dataGridViewCellStyle2.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            dataGridViewCellStyle2.ForeColor = System.Drawing.SystemColors.ControlText;
-            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.dgv_msg.DefaultCellStyle = dataGridViewCellStyle2;
+            dataGridViewCellStyle5.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle5.BackColor = System.Drawing.SystemColors.Window;
+            dataGridViewCellStyle5.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            dataGridViewCellStyle5.ForeColor = System.Drawing.SystemColors.ControlText;
+            dataGridViewCellStyle5.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle5.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle5.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.dgv_msg.DefaultCellStyle = dataGridViewCellStyle5;
             this.dgv_msg.Dock = System.Windows.Forms.DockStyle.Fill;
             this.dgv_msg.Location = new System.Drawing.Point(665, 391);
             this.dgv_msg.Name = "dgv_msg";
-            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle3.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle3.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            dataGridViewCellStyle3.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle3.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle3.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dgv_msg.RowHeadersDefaultCellStyle = dataGridViewCellStyle3;
+            dataGridViewCellStyle6.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle6.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle6.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            dataGridViewCellStyle6.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle6.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle6.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle6.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dgv_msg.RowHeadersDefaultCellStyle = dataGridViewCellStyle6;
             this.dgv_msg.RowTemplate.Height = 23;
             this.dgv_msg.Size = new System.Drawing.Size(418, 382);
             this.dgv_msg.TabIndex = 6;
@@ -1638,15 +1650,17 @@
             // 
             this.timer_key.Tick += new System.EventHandler(this.timer_key_Tick);
             // 
-            // button1
+            // cbCheckModEn
             // 
-            this.button1.Location = new System.Drawing.Point(144, 232);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(75, 23);
-            this.button1.TabIndex = 385;
-            this.button1.Text = "button1";
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
+            this.cbCheckModEn.AutoSize = true;
+            this.cbCheckModEn.Font = new System.Drawing.Font("宋体", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.cbCheckModEn.Location = new System.Drawing.Point(22, 184);
+            this.cbCheckModEn.Name = "cbCheckModEn";
+            this.cbCheckModEn.Size = new System.Drawing.Size(142, 23);
+            this.cbCheckModEn.TabIndex = 386;
+            this.cbCheckModEn.Text = "启动自动点检";
+            this.cbCheckModEn.UseVisualStyleBackColor = true;
+            this.cbCheckModEn.CheckedChanged += new System.EventHandler(this.cbCheckModEn_CheckedChanged);
             // 
             // FrRun
             // 
@@ -1816,5 +1830,6 @@
         private System.Windows.Forms.Button dtexport;
         private System.Windows.Forms.Button updatecheck;
         private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.CheckBox cbCheckModEn;
     }
 }

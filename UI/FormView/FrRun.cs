@@ -16,6 +16,7 @@ using System.Windows.Markup.Primitives;
 using DevReport;
 using Win32Lib;
 using System.Diagnostics;
+using UI.Class;
 
 namespace UI
 {
@@ -214,6 +215,7 @@ namespace UI
             cogDisplayer_run.AddCam(COM.ListCam);
             VAR.dttt.Columns.Add("DateTime", typeof(string));
             VAR.dttt.Columns.Add("TickCount", typeof(string));
+            cbCheckModEn.Checked = VAR.isAutoChkMode == true;
         }
 
         public async void btn_run_Click(object sender, EventArgs e)
@@ -472,6 +474,7 @@ namespace UI
             if (PT_SET.RunPattern == (int) PT_SET.RUN_PATTERN.RUN_NORMAL && PT_SET.bGrrFlow) lb_mod.Text = VAR.IsChinese?"<正常GRR测试>":"Normal GRR";
             else if(PT_SET.RunPattern != (int)PT_SET.RUN_PATTERN.RUN_NORMAL && PT_SET.bGrrFlow) lb_mod.Text = VAR.IsChinese ? "<空跑GRR测试>":"Empty GRR";
             else if (PT_SET.RunPattern == (int)PT_SET.RUN_PATTERN.RUN_NORMAL && VAR.gsys_set.mode == EM_SYS_MODE.CHK) lb_mod.Text = VAR.IsChinese ? "<正常点检模式>":"Normal Chk";
+            else if (PT_SET.RunPattern == (int)PT_SET.RUN_PATTERN.RUN_NORMAL && VAR.isAutoChkMode) lb_mod.Text = VAR.IsChinese ? "<自动点检模式>" : "Auto Chk";
             else if (PT_SET.RunPattern != (int)PT_SET.RUN_PATTERN.RUN_NORMAL && VAR.gsys_set.mode == EM_SYS_MODE.CHK) lb_mod.Text = VAR.IsChinese ? "<空跑点检模式>": "UpDwLoad Chk";
             else if (PT_SET.RunPattern == (int) PT_SET.RUN_PATTERN.RUN_NORMAL)lb_mod.Text =  VAR.IsChinese ? "<正常生产模式>" : "Normal";
             else if (PT_SET.RunPattern == (int)PT_SET.RUN_PATTERN.RUN_UPDW) lb_mod.Text =  VAR.IsChinese ? "<有料空跑模式>": "UpDwLoad";
@@ -626,7 +629,7 @@ namespace UI
             traybox_ok.TrayBoxName = VAR.IsChinese ? "OK" : "OK";
             traybox_ng.TrayBoxName = VAR.IsChinese ? "NG" : "NG";
 
-            bool bSound = NewSysInf.NoneRunPosInfo.UserNormalSet.RedLightSund;
+            bool bSound = NewSysInf.UserParams.RedLightSund;
             if (bSound&& MT.GPIO_OUT_ALM_RED.isON)
             {
                 MT.GPIO_OUT_ALM_BEEPER.SetOn();
@@ -1241,7 +1244,43 @@ namespace UI
 
         private void button1_Click(object sender, EventArgs e)
         {
-         var vi=   NewSysInf.NoneRunPosInfo.UserNormalSet.bPickWsDis;
+         var vi=   NewSysInf.UserParams.bPickWsDis;
+        }
+
+        private void cbCheckModEn_CheckedChanged(object sender, EventArgs e)
+        {
+            if (!PT_SET.AutoChkEn)
+            {
+                MessageBox.Show("设置中未开启自动点检功能不能设置");
+                return;
+            }
+
+            if (cbCheckModEn.Checked)
+            {
+                if (MessageBox.Show("是否直接开启自动点检并清空点检次数记录，必须确保已经清料才可以开始", "点检提醒", MessageBoxButtons.OKCancel) == DialogResult.OK)
+                {
+                    WS.AutoChkCnt = 0;
+                    foreach (var ws in COM.list_ws)
+                    {
+                        WS.TempAutoChkCnt = -1;
+                        foreach (var md in ws.list_md)
+                        {
+                            md.bAutoChkOk = false;
+                        }
+                    }
+                    VAR.isAutoChkMode = true;
+                    VAR.msg.AddMsg(Msg.EM_MSGTYPE.NOR, string.Format("手动直接重新开启自动点检"));
+
+                }
+                else
+                {
+                    cbCheckModEn.Checked = false;
+                }
+            }
+            else
+            {
+                VAR.isAutoChkMode = false;
+            }
         }
     }
 }

@@ -211,6 +211,7 @@
     <Reference Include="WindowsFormsIntegration" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Class\AutoChkDll.cs" />
     <Compile Include="Class\AXICMP.cs" />
     <Compile Include="Class\Cam.cs" />
     <Compile Include="Class\DataBase.cs" />
@@ -224,6 +225,7 @@
     <Compile Include="Class\MultiLanguage.cs" />
     <Compile Include="Class\myfunc.cs" />
     <Compile Include="Class\mysql.cs" />
+    <Compile Include="Class\NewSysInfo.cs" />
     <Compile Include="Class\NGCodeDef.cs" />
     <Compile Include="Class\PMAlignTool.cs" />
     <Compile Include="Class\Product.cs" />

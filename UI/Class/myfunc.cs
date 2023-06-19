@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 using Cognex.VisionPro;
 using DevReport;
 using Win32Lib;
+using UI.Class;
 
 namespace UI
 {
@@ -1264,13 +1265,13 @@ namespace UI
                         ws.Status = WS.EM_STA.REDAY;
                     if (ws.TestStatus == WS.EM_TEST_STA.ERROR)
                         ws.TestStatus = WS.EM_TEST_STA.UNTEST;
-                    if (NewSysInf.NoneRunPosInfo.UserNormalSet.bClearSetOffWs)//请料后关闭
+                    if (NewSysInf.UserParams.bClearSetOffWs)//请料后关闭
                     {
                             ws.PowerOn(ref VAR.gsys_set.bquit);
                     }
 
                 }
-                if (NewSysInf.NoneRunPosInfo.UserNormalSet.bClearSetOffWs)
+                if (NewSysInf.UserParams.bClearSetOffWs)
                     Thread.Sleep(400);
                  //初始化
                 VAR.SysErrAlm.ErrItem = ERR_ALM.EmErrItem.Null;
@@ -1283,7 +1284,59 @@ namespace UI
                 //      res = ud.GoZero(ref VAR.gsys_set.bquit);
                 //      if (res != EM_RES.OK) return;
                 //  }
+                if (PT_SET.AutoChkEn && VAR.isAutoChkMode && !VAR.ClearMt)
+                {
+                    var ws = COM.list_ws.Find(s => s.num == (int)PT_SET.AutoChkSelectWs);
 
+                    var res1 = ws.GetPcChkMod(out var pUCFFactoryMode1, out var pUCFFactoryMode2, out var temp1, out var temp2);
+                    if (res1)
+                    {
+                        VAR.msg.AddMsg(Msg.EM_MSGTYPE.DBG, $"func获取工位{ws.disc}是否点检模式成功");
+                        var bAutoChkMod = ws.PcIsChkModShow(pUCFFactoryMode1, pUCFFactoryMode2);
+                        if (!bAutoChkMod)
+                        {
+                            VAR.msg.AddMsg(Msg.EM_MSGTYPE.ERR, $"func提示点检模式后选择停机");
+                            return;
+                        }
+                    }
+                    else
+                    {
+                        var errmsg = ws.disc + ",";
+                        VAR.msg.AddMsg(Msg.EM_MSGTYPE.ERR, $"func获取工位{ws.disc}点检模式失败");
+                        return;
+                    }
+
+                    int[] temp1List = new int[16], temp2List = new int[16];
+                    res1 = ws.GetPcChkInfo(out var pUCFFac1, out var pUCFFac2, temp1List, temp2List);
+                    if (!res1)
+                    {
+                        VAR.msg.AddMsg(Msg.EM_MSGTYPE.ERR, $"func获取工位{ws.disc}获取点检要求信息失败");
+                        return;
+                    }
+                    VAR.msg.AddMsg(Msg.EM_MSGTYPE.DBG, $"func获取工位{ws.disc}获取点检要求信息成功");
+                }
+                if (PT_SET.AutoChkEn && !VAR.isAutoChkMode && !VAR.ClearMt)
+                {
+                    var ws = COM.list_ws.Find(s => s.num == (int)PT_SET.AutoChkSelectWs);
+
+                    var res1 = ws.GetPcChkMod(out var pUCFFactoryMode1, out var pUCFFactoryMode2, out var temp1, out var temp2);
+                    if (res1)
+                    {
+                        VAR.msg.AddMsg(Msg.EM_MSGTYPE.DBG, $"func获取工位{ws.disc}是否在生产模式成功");
+                        var bAutoChkMod = ws.PcIsProductModShow(pUCFFactoryMode1, pUCFFactoryMode2);
+                        if (!bAutoChkMod)
+                        {
+                            VAR.msg.AddMsg(Msg.EM_MSGTYPE.ERR, $"func提示生产模式后选择停机");
+                            return;
+                        }
+                    }
+                    else
+                    {
+                        var errmsg = ws.disc + ",";
+                        VAR.msg.AddMsg(Msg.EM_MSGTYPE.ERR, $"func获取工位{ws.disc}点检模式失败");
+                        return;
+                    }          
+                }
                 //启动线程
                 Task TskTest = new Task(() => { test_th(); });
                 TskTest.Start();
@@ -1367,13 +1420,23 @@ namespace UI
                         if (COM.ws1.TestStatus == WS.EM_TEST_STA.EMPTY && COM.ws2.TestStatus == WS.EM_TEST_STA.EMPTY &&
                           COM.ws3.TestStatus == WS.EM_TEST_STA.EMPTY && COM.ws4.TestStatus == WS.EM_TEST_STA.EMPTY && VAR.ClearMt)
                         {
-                            bool bSound = NewSysInf.NoneRunPosInfo.UserNormalSet.bClearSetOffWs;
+                            bool bSound = NewSysInf.UserParams.bClearSetOffWs;
                             if(bSound)
                             {
                                 foreach (var ws in COM.list_ws)
                                      ws.PowerOff(ref VAR.gsys_set.bquit);
                             }
-
+                            if (PT_SET.AutoChkEn)
+                            {
+                                WS.AutoChkCnt = 0;
+                                WS.ListChkTemp.Clear();
+                                foreach (var ws in COM.list_ws)
+                                {
+                                    WS.TempAutoChkCnt = -1;
+                                    foreach (WS.MdDat md in ws.list_md)
+                                        md.bAutoChkOk = false;
+                                }
+                            }
                             VAR.ClearMt = false;
                             UpDownLoad.bquit = false;
                             //进仓储
@@ -1562,10 +1625,45 @@ namespace UI
                             break;
                         }
 
-                        //if (workstation.TestStatus == WS.EM_TEST_STA.EMPTY && !VAR.ClearMt && workstation.FeedStatus != WS.EM_STA.REDAYFORDOWNLOAD)
-                        //{
-                        //    workstation.FeedStatus = WS.EM_STA.REDAYFORUPLOAD;
-                        //}
+                        if (VAR.isAutoChkMode && (workstation.num == PT_SET.AutoChkSelectWs) && !VAR.ClearMt)
+                        {
+
+                            var tempOldCnt = WS.TempAutoChkCnt;
+                            var tempNewCnt = WS.AutoChkCnt;
+                            if (tempOldCnt != tempNewCnt)
+                            {
+                                //int curtempMod = 0, NextTempMod = 0;
+                                //if (tempOldCnt >= 0 && tempOldCnt < WS.ListChkTemp.Count)
+                                //{
+                                //    curtempMod = WS.ListChkTemp[tempOldCnt];
+                                //}
+                                //if (tempNewCnt >= 0 && tempNewCnt < WS.ListChkTemp.Count)
+                                //{
+                                //    NextTempMod = WS.ListChkTemp[tempOldCnt];
+                                //}
+
+                                //if (WS.NoChangCheckModList.Contains(curtempMod) && WS.NoChangCheckModList.Contains(NextTempMod))
+                                //{
+                                //    // 不用更换模组提示
+                                //}
+                                //else
+                                //{
+                                //    var bok = workstation.PutModShowMsg();
+                                //    if (!bok) return;
+                                //}
+
+                                VAR.msg.AddMsg(Msg.EM_MSGTYPE.DBG, "提示点检模组上料");
+
+                               var bok = workstation.PutModShowMsg();
+                                if (!bok)
+                                {
+                                    return;
+                                }
+                                WS.TempAutoChkCnt = WS.AutoChkCnt;
+                            }
+
+
+                        }
                         workstation.FeedStatus = WS.EM_STA.REDAYFORUPDOWNLOAD;
                         ////通知上下料
                         //if(workstation.FeedStatus != WS.EM_STA.REDAYFORUPLOAD)

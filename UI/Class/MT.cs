@@ -546,7 +546,18 @@ namespace UI
         //压盖检测光幕
         public static GPIO GPIO_IN_LIGHT = new GPIO(13, CARD_ECI2400_0, GPIO.IO_DIR.IN, GPIO.IO_TYPE.MT_CARD, "压盖检测光幕", "Close fixture check light curtain");
         #endregion
+        #region AGV
+        public static GPIO GPIO_CallAGVBox = new GPIO(48, CARD_ECI2400_3, GPIO.IO_DIR.OUT, GPIO.IO_TYPE.MT_CARD, "AGV料仓叫料", "AgvCallBox");
+        public static GPIO GPIO_AGV_ChangeUnTestBox = new GPIO(49, CARD_ECI2400_3, GPIO.IO_DIR.OUT, GPIO.IO_TYPE.MT_CARD, "待测料仓换料", "AgvChangeUntestBox");
+        //public static GPIO GPIO_CallAGV_OkBox = new GPIO(50, CARD_DMC3C00_4, GPIO.IO_DIR.OUT, GPIO.IO_TYPE.MT_CARD, "OK料仓叫料", "AgvCallOkBox");
+        public static GPIO GPIO_AGV_ChangeOkBox = new GPIO(50, CARD_ECI2400_3, GPIO.IO_DIR.OUT, GPIO.IO_TYPE.MT_CARD, "OK料仓换料", "AgvChangeOkBox");
 
+       // public static GPIO GPIO_AGV_ChangeUnTestBoxReady = new GPIO(50, CARD_DMC3C00_4, GPIO.IO_DIR.IN, GPIO.IO_TYPE.MT_CARD, "待测料仓换料准备就绪", "AgvChangeUntestBoxReady");
+       // public static GPIO GPIO_AGV_ChangeOkBoxReady = new GPIO(51, CARD_DMC3C00_4, GPIO.IO_DIR.IN, GPIO.IO_TYPE.MT_CARD, "OK料仓换料准备就绪", "AgvChangeOkBoxReady");
+        public static GPIO GPIO_AGV_ChangeUnTestBoxDone = new GPIO(48, CARD_ECI2400_3, GPIO.IO_DIR.IN, GPIO.IO_TYPE.MT_CARD, "待测料仓换料完成", "AgvChangeUntestBoxDone");
+        public static GPIO GPIO_AGV_ChangeOkBoxDone = new GPIO(49, CARD_ECI2400_3, GPIO.IO_DIR.IN, GPIO.IO_TYPE.MT_CARD, "OK料仓换料完成", "AgvChangeOkBoxDone");
+
+        #endregion
         #region 串口定义
         //public static BarcodeScanner COM3 = new BarcodeScanner("模块1扫码器", "COM3", 115200);
         //public static BarcodeScanner COM4 = new BarcodeScanner("模块2扫码器", "COM4", 115200);
@@ -1593,10 +1604,10 @@ namespace UI
             AXIS ax_null = null;
             return Move(ref bquit, ref ax_x, xpos, ref ax_y, ypos, ref ax_null, 0, ref ax_null, 0, ref ax_null, 0, ref ax_null, 0, time_out_ms, bdoevent, bchkps);
         }
-        public static EM_RES Move(ref bool bquit, ref AXIS ax_x, double xpos, ref AXIS ax_y, double ypos, ref AXIS ax_z, double zpos, int time_out_ms = 20000, bool bdoevent = false)
+        public static EM_RES Move(ref bool bquit, ref AXIS ax_x, double xpos, ref AXIS ax_y, double ypos, ref AXIS ax_z, double zpos, int time_out_ms = 20000, bool bdoevent = false,bool bchkps=true)
         {
             AXIS ax_null = null;
-            return Move(ref bquit, ref ax_x, xpos, ref ax_y, ypos, ref ax_z, zpos, ref ax_null, 0, ref ax_null, 0, ref ax_null, 0, time_out_ms, bdoevent);
+            return Move(ref bquit, ref ax_x, xpos, ref ax_y, ypos, ref ax_z, zpos, ref ax_null, 0, ref ax_null, 0, ref ax_null, 0, time_out_ms, bdoevent, bchkps);
         }
         public static EM_RES Move(ref bool bquit, ref AXIS ax_x, double xpos, ref AXIS ax_y, double ypos, ref AXIS ax_z, double zpos, ref AXIS ax_r, double rpos, int time_out_ms = 20000, bool bdoevent = false)
         {

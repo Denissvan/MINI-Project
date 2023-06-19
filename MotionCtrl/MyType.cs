@@ -927,7 +927,8 @@ namespace MotionCtrl
             [Description("正常上下料")] RUN_UPDW,
             [Description("空运行模式")] RUN_EMPTY,
         }
-
+        public enum AutoChkWs { WS1 = 0, WS2 = 1, WS3 = 2, WS4 = 3 };
+        public enum AutoChkMod { Mi, Oppo, Vivo, Sum, Huawei, Lenov };
         #region 参数
 
         //上下料门禁使能
@@ -1138,6 +1139,26 @@ namespace MotionCtrl
         public static bool bWsNgRateShow;
         //每20个中出现多少个报警
         public static int CntWsNgRateShow;
+        //自动光源点检
+
+        public static int AutoChkMode = 0;
+        /// <summary>
+        /// 自动点检选择的工站编号，只能一个工站（工站1到4）
+        /// </summary>
+        public static int AutoChkSelectWs = 1;
+        /// <summary>
+        /// 自动点检功能是否开启
+        /// </summary>
+        public static bool AutoChkEn;
+
+        /// <summary>
+        /// 位置选择，位运算计算（9-16位置是否启用）
+        /// </summary>
+        public static int AutoChkMaxMdEn = 0;
+        /// <summary>
+        /// 位置选择，位运算计算（1-8位置是否启用）
+        /// </summary>
+        public static int AutoChkSmallMdEn = 0;
         #endregion
 
         #region 参数存取
@@ -1278,6 +1299,15 @@ namespace MotionCtrl
          //   UpWsChkQrCodeCnt = inf.ReadInteger("OTHER_SET", "UpWsChkQrCodeCnt", 5);
             bWsNgRateShow = inf.ReadBool("OTHER_SET", "bWsNgRateShow", false);
             CntWsNgRateShow = inf.ReadInteger("OTHER_SET", "CntWsNgRateShow", 10);
+
+
+            AutoChkEn = inf.ReadBool("OTHER_SET", "AutoChkEn", false);
+            AutoChkSelectWs = inf.ReadInteger("OTHER_SET", "AutoChkSelectWs", 1);
+            AutoChkMode = inf.ReadInteger("OTHER_SET", "AutoChkMode", 1);
+            AutoChkMaxMdEn = inf.ReadInteger("OTHER_SET", "AutoChkMaxMdEn", 0);
+            AutoChkSmallMdEn = inf.ReadInteger("OTHER_SET", "AutoChkSmallMdEn", 0);
+ 
+
             return EM_RES.OK;
         }
 
@@ -1422,6 +1452,19 @@ namespace MotionCtrl
         //    inf.WriteInteger("OTHER_SET", "UpWsChkQrCodeCnt", UpWsChkQrCodeCnt, ref ischange, true, filename);
             inf.WriteBool("OTHER_SET", "bWsNgRateShow", bWsNgRateShow, ref ischange, true, filename);
             inf.WriteInteger("OTHER_SET", "CntWsNgRateShow", CntWsNgRateShow, ref ischange, true, filename);
+
+            inf.WriteBool("OTHER_SET", "AutoChkEn", AutoChkEn, ref ischange, true, filename);
+            inf.WriteInteger("OTHER_SET", "AutoChkSelectWs", AutoChkSelectWs, ref ischange, true, filename);
+            inf.WriteInteger("OTHER_SET", "AutoChkMode", (int)AutoChkMode, ref ischange, true, filename);
+            inf.WriteInteger("OTHER_SET", "AutoChkMaxMdEn", AutoChkMaxMdEn, ref ischange, true, filename);
+
+
+            inf.WriteInteger("OTHER_SET", "AutoChkSmallMdEn", AutoChkSmallMdEn, ref ischange, true, filename);
+            inf.WriteBool("OTHER_SET", "bAddCapQrcode", bAddCapQrcode, ref ischange, true, filename);
+
+
+
+
             if (ischange)
             {
                 //创建backup

@@ -15,7 +15,7 @@ using System.Threading;
 using DevReport;
 using MySql.Data.MySqlClient;
 using Win32Lib;
-
+using UI.Class;
 
 namespace UI
 {

@@ -8,7 +8,7 @@ using System.Collections.Generic;
 using System.Windows.Forms;
 using System.Linq;
 using DevReport;
-
+using UI.Class;
 
 namespace UI
 {
@@ -856,7 +856,7 @@ namespace UI
         /// <param name="UpCamFlow"></param>
         /// <param name="IsPick"></param>
         /// <returns></returns>
-        public EM_RES XtPickOrPlaceMod(ref bool bquit, ST_XY pos_mod_upcam, ST_XYA cam_up_vs, ST_XYA cam_dw_vs, double zpos, bool IsDemo = false, EM_XTFLOW xt_flow = EM_XTFLOW.PICKMOD, bool IsPick = true, bool bPasteUp = false)
+        public EM_RES XtPickOrPlaceMod(ref bool bquit, ST_XY pos_mod_upcam, ST_XYA cam_up_vs, ST_XYA cam_dw_vs, double zpos, bool IsDemo = false, EM_XTFLOW xt_flow = EM_XTFLOW.PICKMOD, bool IsPick = true, bool bPasteUp = false,bool bdismove=false)
         {
             ST_XYZA st_pos_place;
             //如果下相机数据为0,数据为空吸头数据
@@ -882,7 +882,7 @@ namespace UI
             //string filename= string.Format("VAR.gsys_set.GetCurProductPath + //CsvData//{0}{1}{2}data.csv",VAR.gsys_set.GetCurProductPath,disc ,IsPick?"Pick":"Place");
             //Utility.WriteStrToCSV(filename, string.Format("{0},{1:F3},{2:F3},{3:F3},{4:F3}", DateTime.Now.ToString("hh:mm:ss:fff"), st_pos_place.x, st_pos_place.y, st_pos_place.z, st_pos_place.a));
             //取料
-            EM_RES ret = PickOrPlace(ref bquit, st_pos_place, IsPick,IsDemo,true, bPasteUp);
+            EM_RES ret = PickOrPlace(ref bquit, st_pos_place, IsPick,IsDemo,true, bPasteUp, bdismove);
             VAR.msg.AddMsg(Msg.EM_MSGTYPE.DBG, VAR.IsChinese ? string.Format("{0},{1}结束", disc, IsPick == true ? "取料" : "放料"): string.Format("{0},{1} end           ({0},{2}结束)", disc, IsPick == true ? "PICK" : "PLACE", IsPick == true ? "取料" : "放料"));
             if (ret != EM_RES.OK) return ret;
             MT.Move(ref bquit, ref ax_u, 0);
@@ -900,7 +900,7 @@ namespace UI
         /// <param name="st_pos">取料坐标</param>
         /// <param name="bpick">取:true 放:false</param>
         /// <returns></returns>
-        public EM_RES PickOrPlace(ref bool bquit, ST_XYZA st_pos, bool bpick = true, bool IsDemo = false,bool DwMov=false,bool bPasteUp=false)
+        public EM_RES PickOrPlace(ref bool bquit, ST_XYZA st_pos, bool bpick = true, bool IsDemo = false,bool DwMov=false,bool bPasteUp=false,bool bDisMove=false)
         {
             EM_RES res=EM_RES.OK;
             EM_RES res1 = EM_RES.OK;         
@@ -944,8 +944,17 @@ namespace UI
                     res = MT.Move(ref bquit, ref ax_z, 0);
                     if (res != EM_RES.OK) return res;
                 }
-
-                res = MT.Move(ref bquit, ref ax_x, st_pos.x, ref ax_y, st_pos.y,ref ax_u,st_pos.a);
+                if( bDisMove)
+                {
+                    res = MT.Move(ref bquit, ref ax_x, st_pos.x, ref ax_y, st_pos.y, ref ax_u, st_pos.a);
+                    if (res != EM_RES.OK) return res;
+                    res = disMove(ref bquit, st_pos, bpick);
+                }
+                else
+                {
+                    res = MT.Move(ref bquit, ref ax_x, st_pos.x, ref ax_y, st_pos.y, ref ax_u, st_pos.a);
+                }
+               
                 //ax_y.SetToWorkSpd();
                 if (res != EM_RES.OK) return res;
 
@@ -1071,35 +1080,61 @@ namespace UI
 
         #region 物料取放(单独取放函数)
         /// <summary>
-        /// 取料偏移运动
+        /// 偏移运动
         /// </summary>
         /// <param name="bquit"></param>
         /// <param name="pos"></param>
+        /// <param name="bpick"></param>
+        /// <param name="bAfterDisMove">先定位到位再偏移</param>
         /// <returns></returns>
-        private EM_RES dixmove(ref bool bquit, ST_XYZA pos)
+        private EM_RES disMove(ref bool bquit, ST_XYZA pos, bool bpick=true,bool bAfterDisMove=true)
         {
             if (bquit) return EM_RES.QUIT;
-            if(Math.Abs( ax_x.fenc_pos-pos.x)>2|| Math.Abs(ax_y.fenc_pos - pos.y) > 2)
+            string newdesc = disc +( bpick ? "工站取料" : "工站放料");
+            if (bAfterDisMove) // 先定位到位再偏移
             {
-                VAR.msg.AddMsg(Msg.EM_MSGTYPE.ERR, disc + "工站取料前偏移当前位置和目标位置偏差大:" + pos.ToString());
-                return EM_RES.ERR;
+                if (Math.Abs(ax_x.fenc_pos - pos.x) > 2 || Math.Abs(ax_y.fenc_pos - pos.y) > 2)
+                {
+                    VAR.msg.AddMsg(Msg.EM_MSGTYPE.ERR, newdesc + "前偏移当前位置和目标位置偏差大:" + pos.ToString());
+                    return EM_RES.ERR;
+                }
             }
-            var dispos = new ST_XYZ() { x = NewSysInf.NoneRunPosInfo.UserNormalSet.PickWsDisX, y = NewSysInf.NoneRunPosInfo.UserNormalSet.PickWsDisY, z = NewSysInf.NoneRunPosInfo.UserNormalSet.PickWsDisZ };
+            var dispos =bpick? new ST_XYZ() { x = NewSysInf.UserParams.PickWsDisX, y = NewSysInf.UserParams.PickWsDisY, z = NewSysInf.UserParams.PickWsDisZ }:
+                new ST_XYZ() { x = NewSysInf.UserParams.PlaceWsDisX, y = NewSysInf.UserParams.PlaceWsDisY, z = NewSysInf.UserParams.PlaceWsDisZ }; ;
             if (Math.Abs(dispos.z) > 30 || Math.Abs(dispos.y) > 20 || Math.Abs(dispos.x) > 20)
             {
-                VAR.msg.AddMsg(Msg.EM_MSGTYPE.ERR, disc + "工站取料前偏移超过5mm请重新设置，偏移量:" + dispos.ToString());
+                VAR.msg.AddMsg(Msg.EM_MSGTYPE.ERR, newdesc + "前偏移超过20mm请重新设置，偏移量:" + dispos.ToString());
                 return EM_RES.ERR;
             }
-            VAR.msg.AddMsg(Msg.EM_MSGTYPE.NOR, disc + "工站取料前偏移量:" + dispos.ToString());
-           var res = MT.Move(ref bquit, ref ax_z, id % 2 == 0 ? pos.z - dispos.z : pos.z + dispos.z);
-            if (res != EM_RES.OK) return res;
-            res = MT.Move(ref bquit, ref ax_x, pos.x + dispos.x, ref ax_y, pos.y + dispos.y, bchkps: false);
-            if (res != EM_RES.OK)
+            VAR.msg.AddMsg(Msg.EM_MSGTYPE.NOR, newdesc + "前偏移量:" + dispos.ToString());
+            if (bAfterDisMove)
             {
-                VAR.msg.AddMsg(Msg.EM_MSGTYPE.ERR, disc + "工站取料前偏移定位失败，偏移量:" + dispos.ToString() + "结果res:" + res.ToString());
+                var res = MT.Move(ref bquit, ref ax_z, id % 2 == 0 ? pos.z - dispos.z : pos.z + dispos.z);
+                if (res != EM_RES.OK) return res;
+                res = MT.Move(ref bquit, ref ax_x, pos.x + dispos.x, ref ax_y, pos.y + dispos.y, bchkps: false);
+                if (res != EM_RES.OK)
+                {
+                    VAR.msg.AddMsg(Msg.EM_MSGTYPE.ERR, newdesc + "前偏移定位失败，偏移量:" + dispos.ToString() + "结果res:" + res.ToString());
+                    return res;
+                }
+                return res;
+            }else
+            {
+                var res = MT.Move(ref bquit, ref ax_x, pos.x + dispos.x, ref ax_y, pos.y + dispos.y);
+                if (res != EM_RES.OK)
+                {
+                    VAR.msg.AddMsg(Msg.EM_MSGTYPE.ERR, newdesc + "前偏移定位失败，偏移量:" + dispos.ToString() + "结果res:" + res.ToString());
+                    return res;
+                }
+                 res = MT.Move(ref bquit, ref ax_z, id % 2 == 0 ? pos.z - dispos.z : pos.z + dispos.z);
+                if (res != EM_RES.OK) return res;
+
+                res = MT.Move(ref bquit, ref ax_x, pos.x, ref ax_y, pos.y, ref ax_u, pos.a,bchkps:false);
+                if (res != EM_RES.OK) return res;
                 return res;
             }
-            return res;
+          
+          
         }
         /// <summary>
         /// 取料
@@ -1181,7 +1216,7 @@ namespace UI
             {
                 if (bMoveDis)
                 {
-                    dixmove(ref bquit,pos);
+                   res = disMove(ref bquit,pos);
                 }
                 //z up
                 bool b = false;

@@ -12,6 +12,7 @@ using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using UI.Class;
 
 namespace UI
 {
@@ -291,118 +292,6 @@ namespace UI
         }
     }
 
-    public class NewSysInf
-    {
- 
-        // 类型设置
-        public class UserSet
-        {
-            [Description("红灯亮蜂鸣响")]
-            public bool RedLightSund;
-            [Description("仅在工站扫二维码")]
-            public bool bGetOrcodOnWs;
-            [Description("NG比例仅特定代码")]
-            public bool bNgRateBySet;
-            [Description("NG比例代码(用英文逗号间隔)")]
-            public string NgRateCodes;
-            [Description("清料后关闭工装")]
-            public bool bClearSetOffWs;
-            [Description("工站取料偏移")]
-            public bool bPickWsDis;
-            [Description("取料偏移Z")]
-            public double PickWsDisZ;
-            [Description("取料偏移X")]
-            public double PickWsDisX;
-            [Description("取料偏移Y")]
-            public double PickWsDisY;
-            [Description("关闭工站上检二维码")]
-            public bool bUpWsChkQrCodeOff;
-
-        }
-        public class NoneRunAll
-        {
-            [Description("常见设置开启关闭")]
-            public UserSet UserNormalSet = new UserSet();
-
-        }
-
-        [Description("空跑位置参数")]
-        public static NoneRunAll NoneRunPosInfo = new NoneRunAll();
-
-
-        public static bool LoadSysInfCfg( out string errMsg)
-        {
-            errMsg = "";
-            try
-            {
-                //产品参数
-                string filename = string.Format("{0}\\product\\NewSysInf.ini", Path.GetFullPath(".."));
-
-                if (!File.Exists(filename))
-                {
-                    errMsg = string.Format("{0}加载NewSysInf配置文件不存在!", "LoadSysInfCfg");
-                    return false;
-                }
-
-                IniFile inf = new IniFile(filename);
-
-                var AllPosStr = inf.ReadString("OTHER_SET", "NoneRunPosInfo", "");
-                if (AllPosStr.Length > 10)
-                {
-                    NewSysInf.NoneRunPosInfo = JsonConvert.DeserializeObject<NewSysInf.NoneRunAll>(AllPosStr);
-                    return true;
-                }
-
-                return false;
-            }
-            catch (Exception ee)
-            {
-                return false;
-            }
-        }
-
-        public static bool SaveSysInf( out string errmsg)
-        {
-            errmsg = "";
-            try
-            {
-                EM_RES res = EM_RES.OK;
-                //产品参数
-                string filename = string.Format("{0}\\product\\NewSysInf.ini", Path.GetFullPath(".."));
-            
-                if (!File.Exists(filename))
-                {
-                     new FileStream(filename, FileMode.Create);
-                }
-               
-                string[] backup = File.ReadAllLines(filename);
-                bool ischange = false;
-                //if (!File.Exists(filename))
-                //{
-                //    VAR.msg.AddMsg(Msg.EM_MSGTYPE.ERR, string.Format("{0}保存异常对应产品名{1}配置文件不存在!", "SavePtCfg", productname));
-                //    return EM_RES.PARA_ERR;
-                //}
-                IniFile inf = new IniFile(filename);
-                //门禁
-
-                var EqpPos = JsonConvert.SerializeObject(NewSysInf.NoneRunPosInfo);
-                inf.WriteString("OTHER_SET", "NoneRunPosInfo", EqpPos, ref ischange, true, filename);
-                if (ischange)
-                {
-                    //创建backup
-                    string backup_filename = string.Format("{0}\\product\\backup", Path.GetFullPath(".."));
-                    res = SYS_PUD.CopyFile2(backup_filename);
-                    if (res != EM_RES.OK) return false;
-                    res = SYS_PUD.FileWriteLine("NewSysInf.ini", backup, backup_filename);
-                    if (res != EM_RES.OK) return false;
-                }
-
-                return true;
-            }catch(Exception ee)
-            {
-                return false;
-            }
-        }
-    }
+   
 
 }

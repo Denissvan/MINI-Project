@@ -42,8 +42,6 @@
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle8 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle9 = new System.Windows.Forms.DataGridViewCellStyle();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FrProduct));
-            this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
-            this.panel2 = new System.Windows.Forms.Panel();
             this.ctb_product = new CTabControl();
             this.tp_file = new System.Windows.Forms.TabPage();
             this.label27 = new System.Windows.Forms.Label();
@@ -240,11 +238,8 @@
             this.groupBox12 = new System.Windows.Forms.GroupBox();
             this.button1 = new System.Windows.Forms.Button();
             this.btn_help = new System.Windows.Forms.Button();
-            this.panel3 = new System.Windows.Forms.Panel();
             this.button44 = new System.Windows.Forms.Button();
             this.tmr_update = new System.Windows.Forms.Timer(this.components);
-            this.tableLayoutPanel1.SuspendLayout();
-            this.panel2.SuspendLayout();
             this.ctb_product.SuspendLayout();
             this.tp_file.SuspendLayout();
             this.tp_light_box.SuspendLayout();
@@ -308,31 +303,6 @@
             this.groupBox12.SuspendLayout();
             this.SuspendLayout();
             // 
-            // tableLayoutPanel1
-            // 
-            this.tableLayoutPanel1.ColumnCount = 1;
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20F));
-            this.tableLayoutPanel1.Controls.Add(this.panel2, 0, 0);
-            this.tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tableLayoutPanel1.Location = new System.Drawing.Point(0, 0);
-            this.tableLayoutPanel1.Name = "tableLayoutPanel1";
-            this.tableLayoutPanel1.RowCount = 1;
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel1.Size = new System.Drawing.Size(1320, 896);
-            this.tableLayoutPanel1.TabIndex = 1;
-            // 
-            // panel2
-            // 
-            this.panel2.Controls.Add(this.ctb_product);
-            this.panel2.Controls.Add(this.panel3);
-            this.panel2.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panel2.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.panel2.Location = new System.Drawing.Point(3, 3);
-            this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(1317, 890);
-            this.panel2.TabIndex = 1;
-            // 
             // ctb_product
             // 
             this.ctb_product.Alignment = System.Windows.Forms.TabAlignment.Left;
@@ -348,12 +318,12 @@
             this.ctb_product.Font = new System.Drawing.Font("宋体", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.ctb_product.HeaderBackColor = System.Drawing.Color.Transparent;
             this.ctb_product.HeadSelectedBorderColor = System.Drawing.Color.Transparent;
-            this.ctb_product.ItemSize = new System.Drawing.Size(120, 120);
+            this.ctb_product.ItemSize = new System.Drawing.Size(200, 200);
             this.ctb_product.Location = new System.Drawing.Point(0, 0);
             this.ctb_product.Multiline = true;
             this.ctb_product.Name = "ctb_product";
             this.ctb_product.SelectedIndex = 0;
-            this.ctb_product.Size = new System.Drawing.Size(1317, 890);
+            this.ctb_product.Size = new System.Drawing.Size(1320, 896);
             this.ctb_product.TabIndex = 2;
             this.ctb_product.SelectedIndexChanged += new System.EventHandler(this.ctb_product_SelectedIndexChanged);
             // 
@@ -369,9 +339,9 @@
             this.tp_file.Controls.Add(this.label11);
             this.tp_file.Controls.Add(this.edt_cur_product);
             this.tp_file.Controls.Add(this.ltb_product);
-            this.tp_file.Location = new System.Drawing.Point(124, 4);
+            this.tp_file.Location = new System.Drawing.Point(204, 4);
             this.tp_file.Name = "tp_file";
-            this.tp_file.Size = new System.Drawing.Size(1189, 882);
+            this.tp_file.Size = new System.Drawing.Size(1112, 888);
             this.tp_file.TabIndex = 3;
             this.tp_file.Text = "产品    ";
             this.tp_file.UseVisualStyleBackColor = true;
@@ -479,10 +449,10 @@
             this.tp_light_box.Controls.Add(this.lb_cur_pos_idx);
             this.tp_light_box.Controls.Add(this.ctb_lightbox);
             this.tp_light_box.Controls.Add(this.lightBoxDef);
-            this.tp_light_box.Location = new System.Drawing.Point(124, 4);
+            this.tp_light_box.Location = new System.Drawing.Point(204, 4);
             this.tp_light_box.Name = "tp_light_box";
             this.tp_light_box.Padding = new System.Windows.Forms.Padding(3);
-            this.tp_light_box.Size = new System.Drawing.Size(1189, 882);
+            this.tp_light_box.Size = new System.Drawing.Size(1112, 888);
             this.tp_light_box.TabIndex = 1;
             this.tp_light_box.Text = "光箱    ";
             this.tp_light_box.UseVisualStyleBackColor = true;
@@ -563,9 +533,9 @@
             // tp_vision
             // 
             this.tp_vision.Controls.Add(this.tableLayoutPanel2);
-            this.tp_vision.Location = new System.Drawing.Point(124, 4);
+            this.tp_vision.Location = new System.Drawing.Point(204, 4);
             this.tp_vision.Name = "tp_vision";
-            this.tp_vision.Size = new System.Drawing.Size(1189, 882);
+            this.tp_vision.Size = new System.Drawing.Size(1112, 888);
             this.tp_vision.TabIndex = 4;
             this.tp_vision.Text = "视觉    ";
             this.tp_vision.UseVisualStyleBackColor = true;
@@ -583,7 +553,7 @@
             this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 63.74134F));
             this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 36.25866F));
             this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
-            this.tableLayoutPanel2.Size = new System.Drawing.Size(1189, 882);
+            this.tableLayoutPanel2.Size = new System.Drawing.Size(1112, 888);
             this.tableLayoutPanel2.TabIndex = 1;
             // 
             // ctb_cali
@@ -602,12 +572,12 @@
             this.ctb_cali.HeaderBackColor = System.Drawing.SystemColors.ButtonFace;
             this.ctb_cali.HeadSelectedBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(43)))), ((int)(((byte)(144)))), ((int)(((byte)(217)))));
             this.ctb_cali.HeadSelectedBorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(217)))), ((int)(((byte)(225)))), ((int)(((byte)(232)))));
-            this.ctb_cali.ItemSize = new System.Drawing.Size(60, 100);
-            this.ctb_cali.Location = new System.Drawing.Point(3, 565);
+            this.ctb_cali.ItemSize = new System.Drawing.Size(60, 210);
+            this.ctb_cali.Location = new System.Drawing.Point(3, 569);
             this.ctb_cali.Multiline = true;
             this.ctb_cali.Name = "ctb_cali";
             this.ctb_cali.SelectedIndex = 0;
-            this.ctb_cali.Size = new System.Drawing.Size(1183, 314);
+            this.ctb_cali.Size = new System.Drawing.Size(1106, 316);
             this.ctb_cali.SizeMode = System.Windows.Forms.TabSizeMode.Fixed;
             this.ctb_cali.TabIndex = 131;
             // 
@@ -616,10 +586,10 @@
             this.Tb_ComputeCenter.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(217)))), ((int)(((byte)(225)))), ((int)(((byte)(232)))));
             this.Tb_ComputeCenter.Controls.Add(this.xtOfsAdj1);
             this.Tb_ComputeCenter.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.Tb_ComputeCenter.Location = new System.Drawing.Point(104, 4);
+            this.Tb_ComputeCenter.Location = new System.Drawing.Point(214, 4);
             this.Tb_ComputeCenter.Name = "Tb_ComputeCenter";
             this.Tb_ComputeCenter.Padding = new System.Windows.Forms.Padding(3);
-            this.Tb_ComputeCenter.Size = new System.Drawing.Size(1075, 306);
+            this.Tb_ComputeCenter.Size = new System.Drawing.Size(888, 308);
             this.Tb_ComputeCenter.TabIndex = 1;
             this.Tb_ComputeCenter.Text = "放置检查";
             // 
@@ -631,7 +601,7 @@
             this.xtOfsAdj1.Location = new System.Drawing.Point(3, 3);
             this.xtOfsAdj1.Margin = new System.Windows.Forms.Padding(5);
             this.xtOfsAdj1.Name = "xtOfsAdj1";
-            this.xtOfsAdj1.Size = new System.Drawing.Size(1069, 300);
+            this.xtOfsAdj1.Size = new System.Drawing.Size(882, 302);
             this.xtOfsAdj1.TabIndex = 2;
             // 
             // Tb_CameraCheckboard
@@ -649,7 +619,7 @@
             this.Tb_CameraCheckboard.Controls.Add(this.checkBox9);
             this.Tb_CameraCheckboard.Controls.Add(this.checkBox10);
             this.Tb_CameraCheckboard.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.Tb_CameraCheckboard.Location = new System.Drawing.Point(104, 4);
+            this.Tb_CameraCheckboard.Location = new System.Drawing.Point(214, 4);
             this.Tb_CameraCheckboard.Name = "Tb_CameraCheckboard";
             this.Tb_CameraCheckboard.Size = new System.Drawing.Size(0, 20);
             this.Tb_CameraCheckboard.TabIndex = 2;
@@ -830,7 +800,7 @@
             // 
             this.Tb_CameraNpiont.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(217)))), ((int)(((byte)(225)))), ((int)(((byte)(232)))));
             this.Tb_CameraNpiont.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.Tb_CameraNpiont.Location = new System.Drawing.Point(104, 4);
+            this.Tb_CameraNpiont.Location = new System.Drawing.Point(214, 4);
             this.Tb_CameraNpiont.Name = "Tb_CameraNpiont";
             this.Tb_CameraNpiont.Padding = new System.Windows.Forms.Padding(3);
             this.Tb_CameraNpiont.Size = new System.Drawing.Size(0, 20);
@@ -840,7 +810,7 @@
             // Tb_DDCali
             // 
             this.Tb_DDCali.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(217)))), ((int)(((byte)(225)))), ((int)(((byte)(232)))));
-            this.Tb_DDCali.Location = new System.Drawing.Point(104, 4);
+            this.Tb_DDCali.Location = new System.Drawing.Point(214, 4);
             this.Tb_DDCali.Name = "Tb_DDCali";
             this.Tb_DDCali.Size = new System.Drawing.Size(0, 20);
             this.Tb_DDCali.TabIndex = 3;
@@ -848,7 +818,7 @@
             // 
             // tabPage1
             // 
-            this.tabPage1.Location = new System.Drawing.Point(104, 4);
+            this.tabPage1.Location = new System.Drawing.Point(214, 4);
             this.tabPage1.Name = "tabPage1";
             this.tabPage1.Size = new System.Drawing.Size(0, 20);
             this.tabPage1.TabIndex = 4;
@@ -862,7 +832,7 @@
             this.panel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel1.Location = new System.Drawing.Point(3, 3);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(1183, 556);
+            this.panel1.Size = new System.Drawing.Size(1106, 560);
             this.panel1.TabIndex = 132;
             // 
             // cogDisplayer_product
@@ -871,7 +841,7 @@
             this.cogDisplayer_product.Dock = System.Windows.Forms.DockStyle.Fill;
             this.cogDisplayer_product.Location = new System.Drawing.Point(0, 0);
             this.cogDisplayer_product.Name = "cogDisplayer_product";
-            this.cogDisplayer_product.Size = new System.Drawing.Size(1183, 556);
+            this.cogDisplayer_product.Size = new System.Drawing.Size(1106, 560);
             this.cogDisplayer_product.TabIndex = 134;
             // 
             // maskDisplay1
@@ -879,7 +849,7 @@
             this.maskDisplay1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.maskDisplay1.Location = new System.Drawing.Point(0, 0);
             this.maskDisplay1.Name = "maskDisplay1";
-            this.maskDisplay1.Size = new System.Drawing.Size(1183, 556);
+            this.maskDisplay1.Size = new System.Drawing.Size(1106, 560);
             this.maskDisplay1.TabIndex = 0;
             // 
             // tp_tray
@@ -896,9 +866,9 @@
             this.tp_tray.Controls.Add(this.rbtn_tray_tr);
             this.tp_tray.Controls.Add(this.rbtn_tray_bl);
             this.tp_tray.Controls.Add(this.pic_pallet);
-            this.tp_tray.Location = new System.Drawing.Point(124, 4);
+            this.tp_tray.Location = new System.Drawing.Point(204, 4);
             this.tp_tray.Name = "tp_tray";
-            this.tp_tray.Size = new System.Drawing.Size(1189, 882);
+            this.tp_tray.Size = new System.Drawing.Size(1112, 888);
             this.tp_tray.TabIndex = 2;
             this.tp_tray.Text = "料盘    ";
             this.tp_tray.UseVisualStyleBackColor = true;
@@ -2507,9 +2477,9 @@
             this.tp_ws.Controls.Add(this.cmb_tt_pos);
             this.tp_ws.Controls.Add(this.ctb_gz);
             this.tp_ws.Controls.Add(this.ws_status);
-            this.tp_ws.Location = new System.Drawing.Point(124, 4);
+            this.tp_ws.Location = new System.Drawing.Point(204, 4);
             this.tp_ws.Name = "tp_ws";
-            this.tp_ws.Size = new System.Drawing.Size(1189, 882);
+            this.tp_ws.Size = new System.Drawing.Size(1112, 888);
             this.tp_ws.TabIndex = 5;
             this.tp_ws.Text = "工装    ";
             this.tp_ws.UseVisualStyleBackColor = true;
@@ -2957,9 +2927,9 @@
             this.tp_Adj.Controls.Add(this.groupBox4);
             this.tp_Adj.Controls.Add(this.groupBox3);
             this.tp_Adj.Controls.Add(this.groupBox12);
-            this.tp_Adj.Location = new System.Drawing.Point(124, 4);
+            this.tp_Adj.Location = new System.Drawing.Point(204, 4);
             this.tp_Adj.Name = "tp_Adj";
-            this.tp_Adj.Size = new System.Drawing.Size(1189, 882);
+            this.tp_Adj.Size = new System.Drawing.Size(1112, 888);
             this.tp_Adj.TabIndex = 6;
             this.tp_Adj.Text = "调试    ";
             this.tp_Adj.UseVisualStyleBackColor = true;
@@ -3144,15 +3114,6 @@
             this.btn_help.Text = "帮助";
             this.btn_help.UseVisualStyleBackColor = false;
             // 
-            // panel3
-            // 
-            this.panel3.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
-            this.panel3.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.panel3.Location = new System.Drawing.Point(-10, 1);
-            this.panel3.Name = "panel3";
-            this.panel3.Size = new System.Drawing.Size(1298, 2);
-            this.panel3.TabIndex = 1;
-            // 
             // button44
             // 
             this.button44.Location = new System.Drawing.Point(869, 842);
@@ -3173,13 +3134,11 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1320, 896);
-            this.Controls.Add(this.tableLayoutPanel1);
+            this.Controls.Add(this.ctb_product);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Name = "FrProduct";
             this.Text = "FrProduct";
             this.Load += new System.EventHandler(this.FrProduct_Load);
-            this.tableLayoutPanel1.ResumeLayout(false);
-            this.panel2.ResumeLayout(false);
             this.ctb_product.ResumeLayout(false);
             this.tp_file.ResumeLayout(false);
             this.tp_file.PerformLayout();
@@ -3253,10 +3212,6 @@
         }
 
         #endregion
-
-        private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
-        private System.Windows.Forms.Panel panel2;
-        private System.Windows.Forms.Panel panel3;
         private System.Windows.Forms.TabPage tp_light_box;
         private System.Windows.Forms.TabPage tp_file;
         private System.Windows.Forms.TabPage tp_tray;

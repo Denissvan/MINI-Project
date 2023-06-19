@@ -12,6 +12,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Newtonsoft.Json;
 using Flurl.Http;
+using UI.Class;
 
 namespace UI
 {
@@ -1314,8 +1315,8 @@ namespace UI
                             if ((md.bardcode == null || md.bardcode.Length < 1) && PT_SET.BarcodeMode != (int)PT_SET.BAR_SCAN.NO_SCAN) continue;
                             if (PT_SET.bWsNgRateShow&& md.res > 0)
                             {
-                                bool bNgRateBySet = NewSysInf.NoneRunPosInfo.UserNormalSet.bNgRateBySet;
-                                var ngcodes = NewSysInf.NoneRunPosInfo.UserNormalSet.NgRateCodes;
+                                bool bNgRateBySet = NewSysInf.UserParams.bNgRateBySet;
+                                var ngcodes = NewSysInf.UserParams.NgRateCodes;
                                 VAR.msg.AddMsg(Msg.EM_MSGTYPE.DBG, "bNgRateBySet:" + bNgRateBySet + "ngcodes:" + ngcodes  );
                                 try
                                 {
@@ -1353,12 +1354,11 @@ namespace UI
                             }
                             if (md.res > 0)
                             {
-                                
-                                
+
+
                                 if (!VAR.Isnormal) COUNT_DATA.NgTwoTestCnt++;
                                 if (PT_SET.bNgControl && md.res == PT_SET.ngCode) COUNT_DATA.ngctrlngcnt++;
-                                COUNT_DATA.ngcnt[ws.num]++;
-
+                                 COUNT_DATA.ngcnt[ws.num]++;
                                 if (Math.Round((double)COUNT_DATA.ngctrlngcnt / COUNT_DATA.ngctrlallcnt, 4) >=
                                     PT_SET.ngScale / 100)
                                 {
@@ -1383,15 +1383,15 @@ namespace UI
                                     DialogResult dr = FrRun.Dialog(Color.Yellow, "警告", msg, "确定", "取消");
                                     VAR.sys_inf.Set(EM_ALM_STA.NOR_GREEN, VAR.IsChinese ? "运行" : "RUN", 0, true);
                                 }
-                                else if (md.res == (int)WS.Md_RES.NG_NeiCun )
+                                else if (md.res == (int)WS.Md_RES.NG_NeiCun)
                                 {
                                     NgNeiCunCnt++;
                                     COUNT_DATA.cnt_ng_other++;
-                                    if (NgNeiCunCnt > 3&& bNgNeiCun)
+                                    if (NgNeiCunCnt > 3 && bNgNeiCun)
                                     {
                                         NgNeiCunCnt = 0;
                                         bNgNeiCun = false;
-                                        var msg = string.Format(ws.disc+"模组异常代码257, \r\n 请停机重启测试软件!");
+                                        var msg = string.Format(ws.disc + "模组异常代码257, \r\n 请停机重启测试软件!");
                                         VAR.msg.AddMsg(Msg.EM_MSGTYPE.ERR, msg, ErrCode: ShowErrMsg.Change3333Code);
                                         VAR.sys_inf.Set(EM_ALM_STA.WAR_YELLOW_FLASH, msg, 20, true);
                                         DialogResult dr = FrRun.Dialog(Color.Yellow, "警告", msg, "确定", "取消");
@@ -1408,6 +1408,8 @@ namespace UI
                                 okcnt++;
                                 if (!VAR.Isnormal) COUNT_DATA.OkTwoTestCnt++;
                                 COUNT_DATA.okcnt[ws.num]++;
+
+
                             }
 
                             if (PT_SET.bSameNGTip && VAR.bSameNGTip_Temp)
