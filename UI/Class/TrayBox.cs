@@ -8,6 +8,7 @@ using MotionCtrl;
 using System.Drawing;
 using DevReport;
 using Win32Lib;
+using UI.Class;
 
 namespace UI
 {
@@ -474,20 +475,32 @@ namespace UI
                 Code = disc.Contains("供") ? ShowErrMsg.ChangeFedBox : disc.Contains("OK") ? ShowErrMsg.ChangeOKBox : ShowErrMsg.ChangeSenNGBox;
                 //界面提示
                 VAR.sys_inf.Set(EM_ALM_STA.WAR_YELLOW_FLASH, VAR.IsChinese ? "更换仓储" : "Change Tray", 10, true, ErrCode: Code);
-                MT.ST_WARN warn = new MT.ST_WARN();
-                warning fr_warn = new warning();
-                warn.ok_txt = MultiLanguage.TxtSelct("继续运行", "Keep running", "tiếp tục chạy");
-                warn.ws = null;//增加语言
-                warn.msg = MultiLanguage.TxtSelct(
-                    disc + "的物料已完成,请更换仓储后按确定继续!",
-                    name + "The materials have been completed, please change the tray box and press 'Keep running' key to continue!",
-                    disc + "Nguyên liệu đã hoàn thành, bạn hãy đổi kho và nhấn OK để tiếp tục nhé!");
-                warn.lb_msg = MultiLanguage.TxtSelct(
-                    disc + "的物料已完成,请更换仓储后按确定继续!",
-                    name + "The materials have been completed, please change the tray box and press 'Keep running' key to continue!",
-                    disc + "Nguyên liệu đã hoàn thành, bạn hãy đổi kho và nhấn OK để tiếp tục nhé!");
-                warn.title = MultiLanguage.TxtSelct("提示:更换仓储", "Tip:Change tray box", "Mẹo: Thay đổi bộ nhớ");
-                MT.Display_frwarn(fr_warn, warn, ERR_ALM.EmErrItem.Null);
+
+                if (NewSysInf.UserParams.bAGVCallBox && (disc.Contains("供") || disc.Contains("OK")))
+                {
+                    res = TrayBoxFullCallAgv(ref bquit);
+                    if (res != EM_RES.OK)
+                    {
+                        return res;
+                    }
+                }
+                else
+                {
+                    MT.ST_WARN warn = new MT.ST_WARN();
+                    warning fr_warn = new warning();
+                    warn.ok_txt = MultiLanguage.TxtSelct("继续运行", "Keep running", "tiếp tục chạy");
+                    warn.ws = null;//增加语言
+                    warn.msg = MultiLanguage.TxtSelct(
+                        disc + "的物料已完成,请更换仓储后按确定继续!",
+                        name + "The materials have been completed, please change the tray box and press 'Keep running' key to continue!",
+                        disc + "Nguyên liệu đã hoàn thành, bạn hãy đổi kho và nhấn OK để tiếp tục nhé!");
+                    warn.lb_msg = MultiLanguage.TxtSelct(
+                        disc + "的物料已完成,请更换仓储后按确定继续!",
+                        name + "The materials have been completed, please change the tray box and press 'Keep running' key to continue!",
+                        disc + "Nguyên liệu đã hoàn thành, bạn hãy đổi kho và nhấn OK để tiếp tục nhé!");
+                    warn.title = MultiLanguage.TxtSelct("提示:更换仓储", "Tip:Change tray box", "Mẹo: Thay đổi bộ nhớ");
+                    MT.Display_frwarn(fr_warn, warn, ERR_ALM.EmErrItem.Null);
+                }
                 VAR.sys_inf.Set(EM_ALM_STA.NOR_GREEN, VAR.IsChinese ? "运行" : "RUN", 0, true);
                 // MT.Display_frwarn(Color.Yellow, "提示:当前仓储的物料已完成,请更换仓储后按确定继续!");
                 tray_idx = 0;
@@ -500,6 +513,92 @@ namespace UI
                 ChgML = false;
             }
 
+        }
+
+        object LockAGvCall = new object();
+        public EM_RES TrayBoxFullCallAgv(ref bool bquit)
+        {
+
+            try
+            {
+                EM_RES res;
+
+                lock (LockAGvCall)
+                {
+                    bool bUntestBox = disc.Contains("供") ? true : false;
+                    var gpiscall = MT.GPIO_CallAGVBox;
+                    var gpioAction = bUntestBox ? MT.GPIO_AGV_ChangeUnTestBox : MT.GPIO_AGV_ChangeOkBox;
+                    var gpioDone = bUntestBox ? MT.GPIO_AGV_ChangeUnTestBoxDone : MT.GPIO_AGV_ChangeOkBoxDone;
+                    gpiscall.SetOn();
+                    DateTime nowtime = DateTime.Now;
+                    gpioAction.SetOn();
+                    nowtime = DateTime.Now;
+                    bool boxSensChange = false;
+                    bool boxSenState = in_box_sen.AssertOFF();
+
+                    while (true)
+                    {
+                        if (bquit)
+                            return EM_RES.QUIT;
+                        var secmods = (DateTime.Now - nowtime).TotalSeconds;
+                        if (gpioDone.AssertON())
+                        {
+                            break;
+                        }
+                        if (boxSenState != in_box_sen.AssertOFF())
+                        {
+                            boxSensChange = true;
+                        }
+
+                        if (secmods % 5 == 0)
+                        {
+                            VAR.msg.AddMsg(Msg.EM_MSGTYPE.NOR, disc + "等待AGV上料中，时间" + secmods);
+                        }
+                        if (secmods > NewSysInf.UserParams.WaitAGVToSeconds)
+                        {
+                            VAR.msg.AddMsg(Msg.EM_MSGTYPE.NOR, disc + "等待AGV上料动作超时（秒）" + secmods);
+                            return EM_RES.TIMEOUT;
+                        }
+                    }
+
+                    if (!boxSensChange)
+                    {
+                        VAR.msg.AddMsg(Msg.EM_MSGTYPE.NOR, disc + "AGV上料动作后没有料仓信号变化，上料失败！");
+                        return EM_RES.ERR;
+                    }
+
+                    if (in_box_sen.AssertOFF())
+                    {
+                        VAR.msg.AddMsg(Msg.EM_MSGTYPE.NOR, disc + "AGV上料动作后没有感应到料仓，上料失败！");
+                        return EM_RES.ERR;
+                    }
+
+                    gpiscall.SetOff();
+                    gpioAction.SetOff();
+
+                }
+                return EM_RES.OK;
+            }
+            finally
+            {
+                ChgML = false;
+            }
+
+        }
+
+        private void preCallAgv()
+        {
+            if (NewSysInf.UserParams.bAGVCallBox && (disc.Contains("供") || disc.Contains("OK")))
+            {
+                var precnt = NewSysInf.UserParams.AgvPreCallBox;
+                if (precnt >= 1 && precnt <= tray_cnt - 2)
+                {
+                    if (tray_idx >= tray_cnt - precnt)
+                    {
+                        MT.GPIO_CallAGVBox.SetOn();
+                    }
+                }
+            }
         }
         //仓储
         public EM_RES Tray_Action(bool Demo, EM_DIR _dir = EM_DIR.IN_OUT)
@@ -585,6 +684,7 @@ namespace UI
             }
             else if (dir == EM_DIR.ONLY_OUT)
             {
+                preCallAgv();
                 if (tray_idx == tray_cnt - 1)
                 {
                     res = TrayBoxFull(ref bquit);
@@ -598,7 +698,7 @@ namespace UI
             {
                 res = In(ref bquit, Demo);
                 if (res != EM_RES.OK) return res;
-
+                preCallAgv();
                 if (tray_idx++ == tray_cnt - 1)
                 {
 
@@ -606,6 +706,7 @@ namespace UI
                     if (res != EM_RES.OK) return res;
                     //return EM_RES.END;
                 }
+             
 
                 res = Out(ref bquit, Demo);
                 if (res != EM_RES.OK) return res;
