@@ -312,14 +312,107 @@ namespace MotionCtrl
         {
             lock (objCSV)
             {
-                StreamWriter writer1 = new StreamWriter(filename, true, System.Text.Encoding.GetEncoding("UTF-8"));
+                string str1 = Path.GetFullPath("..") + "\\111Data\\";
+                if (!Directory.Exists(str1))
+                {
+                    //文件夹不存在则创建
+                    Directory.CreateDirectory(str1);
+                }
+
+                filename = VAR.gsys_set.cur_product_name + DateTime.Now.ToString("(yyyy-MM-dd)") + ".csv";
+                str1 += filename;
+                if (!File.Exists(str1))
+                    File.Delete(str1);
+
+                StreamWriter writer1 = new StreamWriter(str1, true, System.Text.Encoding.GetEncoding("UTF-8"));
+                str = DateTime.Now.ToString() + str;
                 writer1.WriteLine(str);
                 writer1.Close();
                 writer1.Dispose();
                 return true;
             }
-           
+
         }
+        #region 存字符串到CSV文件
+        /// <summary>
+        /// 存字符串到CSV文件
+        /// </summary>
+        /// <param name="filename">csv文件路径</param>
+        /// <param name="str">要存的字符串</param>
+        /// <returns></returns>
+        public static bool WriteStrToCSV(string str)
+        {
+            lock (objCSV)
+            {
+                string str1 = Path.GetFullPath("..") + "\\SunnyQrData\\";
+                if (!Directory.Exists(str1))
+                {
+                    //文件夹不存在则创建
+                    Directory.CreateDirectory(str1);
+                }
+
+                string filename = VAR.gsys_set.cur_product_name + DateTime.Now.ToString("(yyyy-MM-dd)") + ".csv";
+                str1 += filename;
+                if (!File.Exists(str1))
+                    File.Delete(str1);
+
+                StreamWriter writer1 = new StreamWriter(str1, true, System.Text.Encoding.GetEncoding("UTF-8"));
+                str = DateTime.Now.ToString() + str;
+                writer1.WriteLine(str);
+                writer1.Close();
+                writer1.Dispose();
+                return true;
+            }
+
+        }
+       
+        public static bool WriteStrToCSVPre(string str)
+        {
+            lock (objCSV)
+            {
+                string str1 = Path.GetFullPath("..") + "\\TestTimeData\\";
+                if (!Directory.Exists(str1))
+                {
+                    //文件夹不存在则创建
+                    Directory.CreateDirectory(str1);
+                }
+
+                string filename = VAR.gsys_set.cur_product_name + DateTime.Now.ToString("(yyyy-MM-dd)") + ".csv";
+                str1 += filename;
+                if (!File.Exists(str1))
+                    File.Delete(str1);
+
+                StreamWriter writer1 = new StreamWriter(str1, true, System.Text.Encoding.GetEncoding("UTF-8"));
+                str = DateTime.Now.ToString() + str;
+                writer1.WriteLine(str);
+                writer1.Close();
+                writer1.Dispose();
+                return true;
+            }
+
+        }
+        public static void WriteToCSV(string filePath, List<string> data)
+        {
+            // 确保文件路径有效且可以写入  
+            if (string.IsNullOrEmpty(filePath) || !File.Exists(filePath))
+            {
+                MessageBox.Show("File path is invalid or file does not exist.");
+                return;
+            }
+
+            // 使用 StreamWriter 将数据写入 CSV 文件  
+            using (StreamWriter writer = new StreamWriter(filePath))
+            {
+                foreach (string row in data)
+                {
+                    // 使用逗号分隔每个字段，并在每行的末尾添加换行符  
+                    string line = string.Join(",", row);
+                    writer.WriteLine(line);
+                }
+            }
+        }
+
+        #endregion
         #endregion
         #region DataGridView表格输出CSV
         public static bool DataGridViewToCSV(string filename,DataGridView dataGridView)

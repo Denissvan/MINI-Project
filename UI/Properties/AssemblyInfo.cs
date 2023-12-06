@@ -68,7 +68,9 @@ using System.Runtime.InteropServices;
 //2444 优化设备状态上报逻辑，停机超过五分中上报停机，运行超过10分钟没产出上报停机
 // 2445 增加放工站前偏移，增加相机飞拍结果数量监控
 // 2446 增加自动点检，增加放料盘吸嘴顺序
+//2447 霍尔测试提前翻转
+//2448 增加开图延时时间
 
 //[assembly: AssemblyVersion("1.0.*")]
-[assembly: AssemblyVersion("2.4.4.6")]
-[assembly: AssemblyFileVersion("2.4.4.6")]
+[assembly: AssemblyVersion("2.4.4.17")]
+[assembly: AssemblyFileVersion("2.4.4.17")]

@@ -9,6 +9,7 @@ using System.Windows.Forms;
 using System.Linq;
 using DevReport;
 using UI.Class;
+using static UI.Cam;
 
 namespace UI
 {
@@ -510,6 +511,28 @@ namespace UI
             return EM_RES.OK;
         }
 
+        /// <summary>
+        /// 相机拍照(没有料盘移动)
+        /// </summary>
+        /// <param name="pos_mod_upcam">上相机的拍照位置</param>
+        /// <param name="upcam">上相机</param>
+        /// <param name="CapFlow">拍照流程</param>
+        /// <returns></returns>
+        public EM_RES UpCam(ref bool bquit, ST_XY pos_mod_upcam, string CapFlow, ref VisionOutPutData ResData, bool Demo = false)
+        {
+
+            EM_RES ret;
+            //移到拍照位
+            ret = MT.ZupMove(ref bquit, ref ax_x, pos_mod_upcam.x, ref ax_y, pos_mod_upcam.y);
+            if (ret != EM_RES.OK) return ret;
+            //拍照
+            ret = upcam.FindTaskTriAndWait(CapFlow, Demo);
+            if (ret != EM_RES.OK) return ret;
+
+            ResData = upcam.curTask.ResData;
+            return EM_RES.OK;
+        }
+
         public EM_RES UpCamMod(ref bool bquit,out string barcode, ST_XYZA pos_mod_upcam, string CapFlow, ref ST_XYA vs_data,bool Demo=false)
         {
             barcode = "";
@@ -525,6 +548,29 @@ namespace UI
             ST_XYA st_mm = upcam.curTask.ResData.PosMM;
             barcode = upcam.curTask.ResData.BarCode;
             vs_data = st_mm;
+            return EM_RES.OK;
+        }
+
+        public EM_RES DwCam(ref bool bquit, string CapFlow, ref VisionOutPutData ResData, bool Demo = false)
+        {
+            EM_RES ret;
+            //移到拍照位
+            if(CapFlow == CONST.DwFindQrCodeFw[0]|| CapFlow == CONST.DwFindQrCodeFw[1])
+            {
+                double postemp = st_cap_pos.y + DwCapQrCodeoffset;
+                ret = MT.ZupMove(ref bquit, ref ax_y, postemp);
+                if (ret != EM_RES.OK) return ret;
+            }
+            else
+            {
+                ret = MT.ZupMove(ref bquit, ref ax_y, st_cap_pos.y);
+                if (ret != EM_RES.OK) return ret;
+            }
+            
+            //拍照
+            ret = dwcam.FindTaskTriAndWait(CapFlow, Demo);
+            if (ret != EM_RES.OK) return ret;
+            ResData = dwcam.curTask.ResData;
             return EM_RES.OK;
         }
 
@@ -1222,7 +1268,8 @@ namespace UI
                 bool b = false;
            
                 MT.Move(ref b, ref ax_z, 0);
-                if(gpio_pzk.isON)
+                MT.Move(ref b, ref ax_u, 0);
+                if (gpio_pzk.isON)
                 gpio_pzk.SetOff();
 
                 //rechk zk
@@ -1369,15 +1416,22 @@ namespace UI
                     else UpDownLoad.Vs_TrayNg = upcam.curTask.ResData.PosMM;                    
                 }
                 //位置确认
+                //VAR.msg.AddMsg(Msg.EM_MSGTYPE.DBG, "进行位置确认");
+                //VAR.msg.AddMsg(Msg.EM_MSGTYPE.DBG,  string.Format("{0}放料，计算前位置{1}", traybox.disc,placepos[0].Pos[Parent.id].ToXY().ToString()));
                 pos = CaliPos(placepos[0].Pos[Parent.id]);
                 if (PT_SET.bEnVsTray && traybox.disc != traybox_fd.disc)
                 {
                     if (traybox_ok.disc == traybox.disc) VsCmp = UpDownLoad.Vs_TrayOK;
                     else VsCmp = UpDownLoad.Vs_TrayNg;  
                 }
+
+                //VAR.msg.AddMsg(Msg.EM_MSGTYPE.DBG, string.Format("{0}放料，计算后位置{1}", traybox.disc, pos.ToXY().ToString()));
                 pos.x = pos.x + st_rol_cap.x - Parent.list_xt[0].st_rol_cap.x + st_vs_pos_xtshp.x- VsCmp.x;
                 pos.y = pos.y + st_cap_pos.y - Parent.list_xt[0].st_rol_cap.y + st_vs_pos_xtshp.y- VsCmp.y;
                 pos.z = (id % 2 == 0) ? pos.z : -pos.z;
+                //VAR.msg.AddMsg(Msg.EM_MSGTYPE.DBG, string.Format("{0}放料，st_rol_cap.x{1},st_vs_pos_xtshp.x{2},VsCmp.x{3}", traybox.disc, st_rol_cap.x, st_vs_pos_xtshp.x, VsCmp.x));
+                //VAR.msg.AddMsg(Msg.EM_MSGTYPE.DBG, string.Format("{0}放料，st_rol_cap.y{1},st_vs_pos_xtshp.y{2},VsCmp.y{3}", traybox.disc, st_rol_cap.y, st_vs_pos_xtshp.y, VsCmp.y));
+                //VAR.msg.AddMsg(Msg.EM_MSGTYPE.DBG, string.Format("{0}放料，最终结果X{1},Y{2}", traybox.disc, pos.x, pos.y));
                 //定位
                 //VAR.msg.AddMsg(Msg.EM_MSGTYPE.DBG, string.Format("{0}放料{1}: X:{2} Y:{3} X1:{4}", disc, traybox.disc, pos.x, pos.y, pos.a));
                 //if (PT_SET.isopen_degree)
@@ -1386,7 +1440,7 @@ namespace UI
                 //}
                 //else
                 //{
-                    res = MT.ZupMove(ref bquit, ref ax_x, pos.x, ref ax_y, pos.y, ref ax_u, PT_SET.isopen_degree ? -PT_SET.degree : 0, ref traybox.ax_x, pos.a);
+                res = MT.ZupMove(ref bquit, ref ax_x, pos.x, ref ax_y, pos.y, ref ax_u, PT_SET.isopen_degree ? -PT_SET.degree : 0, ref traybox.ax_x, pos.a);
                 //}
                 if (res != EM_RES.OK) return res;
                 //零角度放料

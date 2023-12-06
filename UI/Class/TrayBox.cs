@@ -762,27 +762,30 @@ namespace UI
                 return EM_RES.ERR;
             }
 
-            if (!PT_SET.IsMesLocal&&disc== COM.traybox_fd.disc)
-            {
+            //if (!PT_SET.IsMesLocal&&disc== COM.traybox_fd.disc)
+            //{
               
-                Msg.secsManager.Send(new BaseInfo() { Id = 5 }, 2);
-                MT.IsAllowStartUpdateByTray = false;
-                MT.IsAllowStartByTray= false;
-                Task mm =new Task(() =>
-                {
-                    VAR.msg.AddMsg(Msg.EM_MSGTYPE.SYS, "正在等待MES上位指令!");
-                    SpinWait.SpinUntil(() => MT.IsAllowStartUpdateByTray, 10000);
-                });
+            //    Msg.secsManager.Send(new BaseInfo() { Id = 5 }, 2);
+            //    MT.IsAllowStartUpdateByTray = false;
+            //    MT.IsAllowStartByTray= false;
+
+            //    Msg.secsManager.Send(new BaseInfo() { Id = 1, Value = Convert.ToInt32(DReport.EmStatus.Run).ToString() });
+            //    Msg.secsManager.Send(new BaseInfo() { Id = 3 }, 2);
+            //    Task mm =new Task(() =>
+            //    {
+            //        VAR.msg.AddMsg(Msg.EM_MSGTYPE.SYS, "正在等待MES上位指令!");
+            //        SpinWait.SpinUntil(() => MT.IsAllowStartUpdateByTray, 10000);
+            //    });
                
-                mm.Start();
-                mm.Wait();
-                //fr?.Close();
-                if (!MT.IsAllowStartByTray)
-                {
-                   FrRun. Dialog(Color.Yellow, "警告", "被MES禁止继续加工！请联系相关人员。");
-                   return EM_RES.ERR;
-                }
-            }
+            //    mm.Start();
+            //    mm.Wait();
+            //    //fr?.Close();
+            //    if (!MT.IsAllowStartByTray)
+            //    {
+            //       FrRun. Dialog(Color.Yellow, "警告", "被MES禁止继续加工！请联系相关人员。");
+            //       return EM_RES.ERR;
+            //    }
+            //}
 
 
             //check idx

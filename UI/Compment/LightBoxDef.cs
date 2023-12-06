@@ -11,7 +11,6 @@ using Cognex.VisionPro.Exceptions;
 using System.IO.Ports;
 using System.Threading;
 using MotionCtrl;
-
 namespace UI.Compment
 {
     public partial class LightBoxDef : UserControl
@@ -45,7 +44,7 @@ namespace UI.Compment
 
                     for (int i = 0; i < dgv.ColumnCount; i++)
                         dgv.Columns[i].ReadOnly = true;
-                    dgv.Columns["X1"].ReadOnly = false;
+                    dgv.Columns["XX1"].ReadOnly = false;
                     dgv.Columns["X2"].ReadOnly = false;
                     dgv.Columns["Y1"].ReadOnly = false;
                     dgv.Columns["Z1"].ReadOnly = false;
@@ -130,7 +129,10 @@ namespace UI.Compment
                 str = dgv.Rows[RowID].Cells["Disc"].Value == null ? "" : dgv.Rows[RowID].Cells["Disc"].Value.ToString();
                 PosDef.Name = str;
 
-                str = dgv.Rows[RowID].Cells["X1"].Value == null ? "" : dgv.Rows[RowID].Cells["X1"].Value.ToString();
+                str = dgv.Rows[RowID].Cells["isuse"].Value == null ? "" : dgv.Rows[RowID].Cells["isuse"].Value.ToString();
+                PosDef.IsUse = str.Length > 0 ? Convert.ToBoolean(str) : false;
+
+                str = dgv.Rows[RowID].Cells["XX1"].Value == null ? "" : dgv.Rows[RowID].Cells["XX1"].Value.ToString();
                 PosDef.X1 = str.Length > 0 ? Convert.ToDouble(str) : double.MaxValue;
 
                 str = dgv.Rows[RowID].Cells["X2"].Value == null ? "" : dgv.Rows[RowID].Cells["X2"].Value.ToString();
@@ -217,7 +219,8 @@ namespace UI.Compment
             {
                 dgv.Rows[RowID].Cells["Num"].Value = PosDef.ID;
                 dgv.Rows[RowID].Cells["Disc"].Value = PosDef.Name;
-                dgv.Rows[RowID].Cells["X1"].Value = Math.Abs(PosDef.X1) < 10000 ? PosDef.X1.ToString("F3") : "";
+                dgv.Rows[RowID].Cells["isuse"].Value = PosDef.IsUse;
+                dgv.Rows[RowID].Cells["XX1"].Value = Math.Abs(PosDef.X1) < 10000 ? PosDef.X1.ToString("F3") : "";
                 dgv.Rows[RowID].Cells["X2"].Value = Math.Abs(PosDef.X2) < 10000 ? PosDef.X2.ToString("F3") : "";
                 dgv.Rows[RowID].Cells["Y1"].Value = Math.Abs(PosDef.Y1) < 10000 ? PosDef.Y1.ToString("F3") : "";
                 dgv.Rows[RowID].Cells["Z1"].Value = Math.Abs(PosDef.Z1) < 10000 ? PosDef.Z1.ToString("F3") : "";
@@ -377,13 +380,17 @@ namespace UI.Compment
 
             UpdateShow();
             MessageBox.Show(VAR.IsChinese ? "保存成功!": "Saved successfully!\r\n保存成功!", VAR.IsChinese ? "提示" : "Prompt", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+            BaseAction.LightBoxSendMesAll();
+        
+        
         }
 
         private void dgv_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
             if (lightbox == null || e.RowIndex < 0 || e.RowIndex > lightbox.ListPos.Count) return;
             //定位
-            if (e.ColumnIndex == 10)
+            if (e.ColumnIndex == 11)
             {
                 try
                 {
@@ -444,7 +451,7 @@ namespace UI.Compment
                 }
             }
             //学习位置
-            else if (e.ColumnIndex == 9)
+            else if (e.ColumnIndex == 10)
             {
                 try
                 {
@@ -699,6 +706,25 @@ namespace UI.Compment
             btn_close.Text = VAR.IsChinese ? "定位" : "Move";
         }
 
+        private void dgv_CellMouseDoubleClick(object sender, DataGridViewCellMouseEventArgs e)
+        {
+            if (e.ColumnIndex == 2)
+            {
+                string str = dgv.Rows[0].Cells["isuse"].Value == null ? "" : dgv.Rows[0].Cells["isuse"].Value.ToString();
+                if (str == "")
+                {
+                    MessageBox.Show(string.Format("第一格数据为空,不能复制"), "错误", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
+                    return;
+                }
+            
+                foreach (DataGridViewRow row in dgv.Rows)
+                {
+                    if (str == "True" || str == "False") row.Cells["isuse"].Value = Convert.ToBoolean(str);
+                    else row.Cells["isuse"].Value = Convert.ToDouble(str);
 
+                }
+            }
+                
+        }
     }
 }

@@ -1492,11 +1492,11 @@ namespace UI
         /// <returns></returns>
         public static EM_RES SysTimeCntDataAdd(SysTimeCnt timeCnt)
         {
-            bool bexit = SysTimeCntDataChkExitTable(timeCnt);
-            if (bexit)
-            {
-                return EM_RES.OK ;
-            }
+            //bool bexit = SysTimeCntDataChkExitTable(timeCnt);
+            //if (bexit)
+            //{
+            //    return EM_RES.OK ;
+            //}
             var fileName = timeCnt.Time.ToString("yyyy_MM");
             SysTimeCntConnectionChk(fileName);          
             using (SQLiteConnection conn = new SQLiteConnection(SysTimeDataSource(fileName)))

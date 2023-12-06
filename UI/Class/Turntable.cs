@@ -500,6 +500,8 @@ namespace UI
                 cur_pos = GetCurSta;
                 if (cur_pos != pos)
                 {
+                    io_out_fwd.SetOff();
+                    io_out_rev.SetOff();
                     VAR.msg.AddMsg(Msg.EM_MSGTYPE.ERR, VAR.IsChinese ? string.Format("转盘当前位置[{0}],未转到指定位置[{1}]", cur_pos, pos) : string.Format("Current position [{0}] of the turntable.Turntable did not go to the specified location       (转盘当前位置[{0}],未转到指定位置[{1}])", cur_pos, pos), DReport.EmErrCode.MoveError, (int)DReport.EmHareware.TurnTable, ERR_ALM.EmErrItem.MoveError);
                     VAR.sys_inf.Set(EM_ALM_STA.WAR_YELLOW_FLASH, VAR.IsChinese ? "转盘异常!" : "TurnTable Error", 20, true);
                     MT.ST_WARN warn = new MT.ST_WARN();//鞥加语言

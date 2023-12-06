@@ -42,6 +42,8 @@
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle8 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle9 = new System.Windows.Forms.DataGridViewCellStyle();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FrProduct));
+            this.button44 = new System.Windows.Forms.Button();
+            this.tmr_update = new System.Windows.Forms.Timer(this.components);
             this.ctb_product = new CTabControl();
             this.tp_file = new System.Windows.Forms.TabPage();
             this.label27 = new System.Windows.Forms.Label();
@@ -238,8 +240,6 @@
             this.groupBox12 = new System.Windows.Forms.GroupBox();
             this.button1 = new System.Windows.Forms.Button();
             this.btn_help = new System.Windows.Forms.Button();
-            this.button44 = new System.Windows.Forms.Button();
-            this.tmr_update = new System.Windows.Forms.Timer(this.components);
             this.ctb_product.SuspendLayout();
             this.tp_file.SuspendLayout();
             this.tp_light_box.SuspendLayout();
@@ -302,6 +302,21 @@
             this.groupBox3.SuspendLayout();
             this.groupBox12.SuspendLayout();
             this.SuspendLayout();
+            // 
+            // button44
+            // 
+            this.button44.Location = new System.Drawing.Point(869, 842);
+            this.button44.Name = "button44";
+            this.button44.Size = new System.Drawing.Size(160, 66);
+            this.button44.TabIndex = 1;
+            this.button44.Text = "保存";
+            this.button44.UseVisualStyleBackColor = true;
+            // 
+            // tmr_update
+            // 
+            this.tmr_update.Enabled = true;
+            this.tmr_update.Interval = 200;
+            this.tmr_update.Tick += new System.EventHandler(this.tmr_update_Tick);
             // 
             // ctb_product
             // 
@@ -487,10 +502,10 @@
             this.ctb_lightbox.Controls.Add(this.tp_lightbox_otp);
             this.ctb_lightbox.HeaderBackColor = System.Drawing.SystemColors.Control;
             this.ctb_lightbox.ItemSize = new System.Drawing.Size(80, 40);
-            this.ctb_lightbox.Location = new System.Drawing.Point(32, 21);
+            this.ctb_lightbox.Location = new System.Drawing.Point(6, 21);
             this.ctb_lightbox.Name = "ctb_lightbox";
             this.ctb_lightbox.SelectedIndex = 0;
-            this.ctb_lightbox.Size = new System.Drawing.Size(527, 39);
+            this.ctb_lightbox.Size = new System.Drawing.Size(553, 39);
             this.ctb_lightbox.TabIndex = 2;
             this.ctb_lightbox.SelectedIndexChanged += new System.EventHandler(this.ctb_lightbox_SelectedIndexChanged);
             // 
@@ -499,7 +514,7 @@
             this.tp_lightbox_left.Location = new System.Drawing.Point(4, 44);
             this.tp_lightbox_left.Name = "tp_lightbox_left";
             this.tp_lightbox_left.Padding = new System.Windows.Forms.Padding(3);
-            this.tp_lightbox_left.Size = new System.Drawing.Size(519, 0);
+            this.tp_lightbox_left.Size = new System.Drawing.Size(545, 0);
             this.tp_lightbox_left.TabIndex = 0;
             this.tp_lightbox_left.Text = "  左光箱    ";
             this.tp_lightbox_left.UseVisualStyleBackColor = true;
@@ -509,7 +524,7 @@
             this.tp_lightbox_right.Location = new System.Drawing.Point(4, 44);
             this.tp_lightbox_right.Name = "tp_lightbox_right";
             this.tp_lightbox_right.Padding = new System.Windows.Forms.Padding(3);
-            this.tp_lightbox_right.Size = new System.Drawing.Size(519, 0);
+            this.tp_lightbox_right.Size = new System.Drawing.Size(545, 0);
             this.tp_lightbox_right.TabIndex = 1;
             this.tp_lightbox_right.Text = "  右光箱    ";
             this.tp_lightbox_right.UseVisualStyleBackColor = true;
@@ -518,16 +533,17 @@
             // 
             this.tp_lightbox_otp.Location = new System.Drawing.Point(4, 44);
             this.tp_lightbox_otp.Name = "tp_lightbox_otp";
-            this.tp_lightbox_otp.Size = new System.Drawing.Size(519, 0);
+            this.tp_lightbox_otp.Size = new System.Drawing.Size(545, 0);
             this.tp_lightbox_otp.TabIndex = 2;
             this.tp_lightbox_otp.Text = "  OTP光箱  ";
             this.tp_lightbox_otp.UseVisualStyleBackColor = true;
             // 
             // lightBoxDef
             // 
-            this.lightBoxDef.Location = new System.Drawing.Point(32, 75);
+            this.lightBoxDef.Font = new System.Drawing.Font("宋体", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.lightBoxDef.Location = new System.Drawing.Point(6, 68);
             this.lightBoxDef.Name = "lightBoxDef";
-            this.lightBoxDef.Size = new System.Drawing.Size(997, 843);
+            this.lightBoxDef.Size = new System.Drawing.Size(1098, 843);
             this.lightBoxDef.TabIndex = 0;
             // 
             // tp_vision
@@ -928,7 +944,7 @@
             this.label23.Font = new System.Drawing.Font("宋体", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.label23.Location = new System.Drawing.Point(35, 33);
             this.label23.Name = "label23";
-            this.label23.Size = new System.Drawing.Size(112, 16);
+            this.label23.Size = new System.Drawing.Size(111, 16);
             this.label23.TabIndex = 83;
             this.label23.Text = "视觉检测位置:";
             // 
@@ -974,7 +990,7 @@
             this.label22.Font = new System.Drawing.Font("宋体", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.label22.Location = new System.Drawing.Point(410, 8);
             this.label22.Name = "label22";
-            this.label22.Size = new System.Drawing.Size(64, 16);
+            this.label22.Size = new System.Drawing.Size(63, 16);
             this.label22.TabIndex = 79;
             this.label22.Text = "X1(mm):";
             // 
@@ -984,7 +1000,7 @@
             this.label24.Font = new System.Drawing.Font("宋体", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.label24.Location = new System.Drawing.Point(308, 8);
             this.label24.Name = "label24";
-            this.label24.Size = new System.Drawing.Size(56, 16);
+            this.label24.Size = new System.Drawing.Size(55, 16);
             this.label24.TabIndex = 78;
             this.label24.Text = "Y(mm):";
             // 
@@ -994,7 +1010,7 @@
             this.label25.Font = new System.Drawing.Font("宋体", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.label25.Location = new System.Drawing.Point(189, 8);
             this.label25.Name = "label25";
-            this.label25.Size = new System.Drawing.Size(56, 16);
+            this.label25.Size = new System.Drawing.Size(55, 16);
             this.label25.TabIndex = 77;
             this.label25.Text = "X(mm):";
             // 
@@ -1028,7 +1044,7 @@
             this.label16.Font = new System.Drawing.Font("宋体", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.label16.Location = new System.Drawing.Point(410, 66);
             this.label16.Name = "label16";
-            this.label16.Size = new System.Drawing.Size(64, 16);
+            this.label16.Size = new System.Drawing.Size(63, 16);
             this.label16.TabIndex = 73;
             this.label16.Text = "X1(mm):";
             // 
@@ -1038,7 +1054,7 @@
             this.label15.Font = new System.Drawing.Font("宋体", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.label15.Location = new System.Drawing.Point(300, 66);
             this.label15.Name = "label15";
-            this.label15.Size = new System.Drawing.Size(56, 16);
+            this.label15.Size = new System.Drawing.Size(55, 16);
             this.label15.TabIndex = 72;
             this.label15.Text = "Z(mm):";
             // 
@@ -1048,7 +1064,7 @@
             this.label777.Font = new System.Drawing.Font("宋体", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.label777.Location = new System.Drawing.Point(190, 66);
             this.label777.Name = "label777";
-            this.label777.Size = new System.Drawing.Size(56, 16);
+            this.label777.Size = new System.Drawing.Size(55, 16);
             this.label777.TabIndex = 71;
             this.label777.Text = "Y(mm):";
             // 
@@ -1058,7 +1074,7 @@
             this.label6.Font = new System.Drawing.Font("宋体", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.label6.Location = new System.Drawing.Point(84, 66);
             this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(56, 16);
+            this.label6.Size = new System.Drawing.Size(55, 16);
             this.label6.TabIndex = 70;
             this.label6.Text = "X(mm):";
             // 
@@ -1269,7 +1285,7 @@
             this.labelt7.Font = new System.Drawing.Font("宋体", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.labelt7.Location = new System.Drawing.Point(284, 18);
             this.labelt7.Name = "labelt7";
-            this.labelt7.Size = new System.Drawing.Size(64, 16);
+            this.labelt7.Size = new System.Drawing.Size(63, 16);
             this.labelt7.TabIndex = 82;
             this.labelt7.Text = "TX(mm):";
             // 
@@ -1279,7 +1295,7 @@
             this.label36.Font = new System.Drawing.Font("宋体", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.label36.Location = new System.Drawing.Point(183, 18);
             this.label36.Name = "label36";
-            this.label36.Size = new System.Drawing.Size(56, 16);
+            this.label36.Size = new System.Drawing.Size(55, 16);
             this.label36.TabIndex = 81;
             this.label36.Text = "Y(mm):";
             // 
@@ -1289,7 +1305,7 @@
             this.label37.Font = new System.Drawing.Font("宋体", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.label37.Location = new System.Drawing.Point(64, 18);
             this.label37.Name = "label37";
-            this.label37.Size = new System.Drawing.Size(56, 16);
+            this.label37.Size = new System.Drawing.Size(55, 16);
             this.label37.TabIndex = 80;
             this.label37.Text = "X(mm):";
             // 
@@ -1746,7 +1762,7 @@
             this.label39.AutoSize = true;
             this.label39.Location = new System.Drawing.Point(146, 243);
             this.label39.Name = "label39";
-            this.label39.Size = new System.Drawing.Size(56, 16);
+            this.label39.Size = new System.Drawing.Size(55, 16);
             this.label39.TabIndex = 89;
             this.label39.Text = "吸头2:";
             // 
@@ -1755,7 +1771,7 @@
             this.label38.AutoSize = true;
             this.label38.Location = new System.Drawing.Point(-3, 237);
             this.label38.Name = "label38";
-            this.label38.Size = new System.Drawing.Size(56, 16);
+            this.label38.Size = new System.Drawing.Size(55, 16);
             this.label38.TabIndex = 88;
             this.label38.Text = "吸头1:";
             // 
@@ -1788,14 +1804,14 @@
             this.labelxt4.AutoSize = true;
             this.labelxt4.Location = new System.Drawing.Point(149, 284);
             this.labelxt4.Name = "labelxt4";
-            this.labelxt4.Size = new System.Drawing.Size(56, 16);
+            this.labelxt4.Size = new System.Drawing.Size(55, 16);
             this.labelxt4.TabIndex = 86;
             this.labelxt4.Text = "吸头4:";
             // 
             // btn_traybox_study
             // 
             this.btn_traybox_study.BackColor = System.Drawing.SystemColors.ButtonFace;
-            this.btn_traybox_study.Location = new System.Drawing.Point(17, 333);
+            this.btn_traybox_study.Location = new System.Drawing.Point(17, 313);
             this.btn_traybox_study.Name = "btn_traybox_study";
             this.btn_traybox_study.Size = new System.Drawing.Size(129, 51);
             this.btn_traybox_study.TabIndex = 85;
@@ -1856,7 +1872,7 @@
             this.label35.AutoSize = true;
             this.label35.Location = new System.Drawing.Point(-2, 284);
             this.label35.Name = "label35";
-            this.label35.Size = new System.Drawing.Size(56, 16);
+            this.label35.Size = new System.Drawing.Size(55, 16);
             this.label35.TabIndex = 82;
             this.label35.Text = "吸头3:";
             // 
@@ -1865,14 +1881,14 @@
             this.label34.AutoSize = true;
             this.label34.Location = new System.Drawing.Point(14, 200);
             this.label34.Name = "label34";
-            this.label34.Size = new System.Drawing.Size(160, 16);
+            this.label34.Size = new System.Drawing.Size(159, 16);
             this.label34.TabIndex = 81;
             this.label34.Text = "吸头马达扫码位Ypos:";
             // 
             // btn_traybox_save2
             // 
             this.btn_traybox_save2.BackColor = System.Drawing.SystemColors.ButtonFace;
-            this.btn_traybox_save2.Location = new System.Drawing.Point(173, 333);
+            this.btn_traybox_save2.Location = new System.Drawing.Point(164, 310);
             this.btn_traybox_save2.Name = "btn_traybox_save2";
             this.btn_traybox_save2.Size = new System.Drawing.Size(129, 51);
             this.btn_traybox_save2.TabIndex = 73;
@@ -1934,7 +1950,7 @@
             this.label33.Font = new System.Drawing.Font("宋体", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.label33.Location = new System.Drawing.Point(26, 71);
             this.label33.Name = "label33";
-            this.label33.Size = new System.Drawing.Size(112, 16);
+            this.label33.Size = new System.Drawing.Size(111, 16);
             this.label33.TabIndex = 70;
             this.label33.Text = "上下料2料盘x:";
             // 
@@ -1944,7 +1960,7 @@
             this.label29.Font = new System.Drawing.Font("宋体", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.label29.Location = new System.Drawing.Point(26, 33);
             this.label29.Name = "label29";
-            this.label29.Size = new System.Drawing.Size(112, 16);
+            this.label29.Size = new System.Drawing.Size(111, 16);
             this.label29.TabIndex = 69;
             this.label29.Text = "上下料1料盘x:";
             // 
@@ -1954,7 +1970,7 @@
             this.label32.Font = new System.Drawing.Font("宋体", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.label32.Location = new System.Drawing.Point(149, 157);
             this.label32.Name = "label32";
-            this.label32.Size = new System.Drawing.Size(32, 16);
+            this.label32.Size = new System.Drawing.Size(31, 16);
             this.label32.TabIndex = 68;
             this.label32.Text = "y2:";
             // 
@@ -1964,7 +1980,7 @@
             this.label31.Font = new System.Drawing.Font("宋体", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.label31.Location = new System.Drawing.Point(9, 157);
             this.label31.Name = "label31";
-            this.label31.Size = new System.Drawing.Size(32, 16);
+            this.label31.Size = new System.Drawing.Size(31, 16);
             this.label31.TabIndex = 67;
             this.label31.Text = "x2:";
             // 
@@ -1974,7 +1990,7 @@
             this.label30.Font = new System.Drawing.Font("宋体", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.label30.Location = new System.Drawing.Point(149, 111);
             this.label30.Name = "label30";
-            this.label30.Size = new System.Drawing.Size(32, 16);
+            this.label30.Size = new System.Drawing.Size(31, 16);
             this.label30.TabIndex = 66;
             this.label30.Text = "y1:";
             // 
@@ -2056,7 +2072,7 @@
             this.label28.Font = new System.Drawing.Font("宋体", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.label28.Location = new System.Drawing.Point(8, 111);
             this.label28.Name = "label28";
-            this.label28.Size = new System.Drawing.Size(32, 16);
+            this.label28.Size = new System.Drawing.Size(31, 16);
             this.label28.TabIndex = 59;
             this.label28.Text = "x1:";
             // 
@@ -2508,9 +2524,9 @@
             this.groupBox2.Controls.Add(this.label17);
             this.groupBox2.Font = new System.Drawing.Font("宋体", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.groupBox2.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
-            this.groupBox2.Location = new System.Drawing.Point(736, 72);
+            this.groupBox2.Location = new System.Drawing.Point(732, 61);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(295, 351);
+            this.groupBox2.Size = new System.Drawing.Size(295, 335);
             this.groupBox2.TabIndex = 43;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "参数";
@@ -2520,7 +2536,7 @@
             this.btn_ud_hightest.BackColor = System.Drawing.SystemColors.ButtonFace;
             this.btn_ud_hightest.Location = new System.Drawing.Point(202, 290);
             this.btn_ud_hightest.Name = "btn_ud_hightest";
-            this.btn_ud_hightest.Size = new System.Drawing.Size(89, 55);
+            this.btn_ud_hightest.Size = new System.Drawing.Size(89, 42);
             this.btn_ud_hightest.TabIndex = 36;
             this.btn_ud_hightest.Text = "组合测高";
             this.btn_ud_hightest.UseVisualStyleBackColor = false;
@@ -2532,7 +2548,7 @@
             this.label26.Font = new System.Drawing.Font("宋体", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.label26.Location = new System.Drawing.Point(19, 266);
             this.label26.Name = "label26";
-            this.label26.Size = new System.Drawing.Size(128, 16);
+            this.label26.Size = new System.Drawing.Size(127, 16);
             this.label26.TabIndex = 35;
             this.label26.Text = "4.模块吸头测高:";
             // 
@@ -2542,7 +2558,7 @@
             this.label14.Font = new System.Drawing.Font("宋体", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.label14.Location = new System.Drawing.Point(19, 165);
             this.label14.Name = "label14";
-            this.label14.Size = new System.Drawing.Size(160, 16);
+            this.label14.Size = new System.Drawing.Size(159, 16);
             this.label14.TabIndex = 34;
             this.label14.Text = "3.工站取料位置计算:";
             // 
@@ -2582,7 +2598,7 @@
             this.label10.Font = new System.Drawing.Font("宋体", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.label10.Location = new System.Drawing.Point(19, 133);
             this.label10.Name = "label10";
-            this.label10.Size = new System.Drawing.Size(160, 16);
+            this.label10.Size = new System.Drawing.Size(159, 16);
             this.label10.TabIndex = 32;
             this.label10.Text = "2.立柱坐标允许偏差:";
             // 
@@ -2613,7 +2629,7 @@
             this.btn_ud2_hightest.BackColor = System.Drawing.SystemColors.ButtonFace;
             this.btn_ud2_hightest.Location = new System.Drawing.Point(105, 290);
             this.btn_ud2_hightest.Name = "btn_ud2_hightest";
-            this.btn_ud2_hightest.Size = new System.Drawing.Size(89, 55);
+            this.btn_ud2_hightest.Size = new System.Drawing.Size(89, 42);
             this.btn_ud2_hightest.TabIndex = 29;
             this.btn_ud2_hightest.Text = "模块2测高";
             this.btn_ud2_hightest.UseVisualStyleBackColor = false;
@@ -2624,7 +2640,7 @@
             this.btn_ud1_hightest.BackColor = System.Drawing.SystemColors.ButtonFace;
             this.btn_ud1_hightest.Location = new System.Drawing.Point(5, 290);
             this.btn_ud1_hightest.Name = "btn_ud1_hightest";
-            this.btn_ud1_hightest.Size = new System.Drawing.Size(89, 55);
+            this.btn_ud1_hightest.Size = new System.Drawing.Size(89, 42);
             this.btn_ud1_hightest.TabIndex = 28;
             this.btn_ud1_hightest.Text = "模块1测高";
             this.btn_ud1_hightest.UseVisualStyleBackColor = false;
@@ -2636,7 +2652,7 @@
             this.label9.Font = new System.Drawing.Font("宋体", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.label9.Location = new System.Drawing.Point(125, 94);
             this.label9.Name = "label9";
-            this.label9.Size = new System.Drawing.Size(24, 16);
+            this.label9.Size = new System.Drawing.Size(23, 16);
             this.label9.TabIndex = 27;
             this.label9.Text = "Y:";
             // 
@@ -2646,7 +2662,7 @@
             this.label21.Font = new System.Drawing.Font("宋体", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.label21.Location = new System.Drawing.Point(125, 234);
             this.label21.Name = "label21";
-            this.label21.Size = new System.Drawing.Size(24, 16);
+            this.label21.Size = new System.Drawing.Size(23, 16);
             this.label21.TabIndex = 27;
             this.label21.Text = "Y:";
             // 
@@ -2656,7 +2672,7 @@
             this.label8.Font = new System.Drawing.Font("宋体", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.label8.Location = new System.Drawing.Point(126, 199);
             this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(24, 16);
+            this.label8.Size = new System.Drawing.Size(23, 16);
             this.label8.TabIndex = 26;
             this.label8.Text = "X:";
             // 
@@ -2666,7 +2682,7 @@
             this.label20.Font = new System.Drawing.Font("宋体", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.label20.Location = new System.Drawing.Point(125, 52);
             this.label20.Name = "label20";
-            this.label20.Size = new System.Drawing.Size(24, 16);
+            this.label20.Size = new System.Drawing.Size(23, 16);
             this.label20.TabIndex = 26;
             this.label20.Text = "X:";
             // 
@@ -2804,14 +2820,14 @@
             this.label17.Font = new System.Drawing.Font("宋体", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.label17.Location = new System.Drawing.Point(16, 22);
             this.label17.Name = "label17";
-            this.label17.Size = new System.Drawing.Size(200, 16);
+            this.label17.Size = new System.Drawing.Size(199, 16);
             this.label17.TabIndex = 10;
             this.label17.Text = "1.工位立柱模块1拍照位置:";
             // 
             // wsModuelDef
             // 
             this.wsModuelDef.AllowDrop = true;
-            this.wsModuelDef.Location = new System.Drawing.Point(26, 437);
+            this.wsModuelDef.Location = new System.Drawing.Point(26, 399);
             this.wsModuelDef.Name = "wsModuelDef";
             this.wsModuelDef.Size = new System.Drawing.Size(1012, 475);
             this.wsModuelDef.TabIndex = 13;
@@ -2916,7 +2932,7 @@
             this.ws_status.Font = new System.Drawing.Font("宋体", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.ws_status.Location = new System.Drawing.Point(26, 66);
             this.ws_status.Name = "ws_status";
-            this.ws_status.Size = new System.Drawing.Size(704, 356);
+            this.ws_status.Size = new System.Drawing.Size(690, 307);
             this.ws_status.TabIndex = 1;
             // 
             // tp_Adj
@@ -3113,21 +3129,6 @@
             this.btn_help.TabIndex = 29;
             this.btn_help.Text = "帮助";
             this.btn_help.UseVisualStyleBackColor = false;
-            // 
-            // button44
-            // 
-            this.button44.Location = new System.Drawing.Point(869, 842);
-            this.button44.Name = "button44";
-            this.button44.Size = new System.Drawing.Size(160, 66);
-            this.button44.TabIndex = 1;
-            this.button44.Text = "保存";
-            this.button44.UseVisualStyleBackColor = true;
-            // 
-            // tmr_update
-            // 
-            this.tmr_update.Enabled = true;
-            this.tmr_update.Interval = 200;
-            this.tmr_update.Tick += new System.EventHandler(this.tmr_update_Tick);
             // 
             // FrProduct
             // 

@@ -72,6 +72,9 @@
     <ErrorReport>prompt</ErrorReport>
     <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
+  <PropertyGroup>
+    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="DevReport, Version=1.1.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
@@ -153,6 +156,19 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <Compile Include="TCPHelper\AxTcpClient.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="TCPHelper\AxTcpClient.Designer.cs">
+      <DependentUpon>AxTcpClient.cs</DependentUpon>
+    </Compile>
+    <Compile Include="TCPHelper\AxTcpServer.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="TCPHelper\AxTcpServer.Designer.cs">
+      <DependentUpon>AxTcpServer.cs</DependentUpon>
+    </Compile>
+    <Compile Include="TCPHelper\EnumClass.cs" />
     <Compile Include="User.cs">
       <SubType>UserControl</SubType>
     </Compile>

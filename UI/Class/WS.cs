@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Diagnostics;
 using System.Drawing;
 using System.IO;
 using System.Linq;
@@ -9,6 +10,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using DevReport;
 using MotionCtrl;
+using UI.Class;
 
 namespace UI
 {
@@ -78,8 +80,15 @@ namespace UI
         //public int OkCnt = 0;
         public int ReTest = 0;
         public bool bRetest = false;
+        public bool BoxCheckFinsh = false;
         //订单号防呆
         public bool Iserrfirstbox = true;
+
+        public Stopwatch Swtime = new Stopwatch();//测试时间的统计
+        public Stopwatch Swtimemode = new Stopwatch();//测试分段时间的统计
+        public Stopwatch AllSwtime = new Stopwatch();//测试总时间的统计
+        public Stopwatch UdSwtime = new Stopwatch();//上下料的统计
+
         public int pos_idx
         {
             get
@@ -132,7 +141,7 @@ namespace UI
         //上下料状态
         public EM_STA FeedStatus;
         public bool isEmpty = true;
-
+        public bool isFourRows=false;//是否是四行的夹具
         //位置设定
         public const int cnt = 2;
         float pos_open_fr;
@@ -351,7 +360,9 @@ namespace UI
         public GPIO gpio_out_gz_power = null;
         public GPIO gpio_out_gz_wind = null;
         public List<GPIO> list_gpio_zk = null;
-
+        //是否在上下料位置
+        public bool bOnUpDnPos = false;
+        public bool bUpDnPosGoOnTest = false;//在上下料位置需要继续测试
 
         double fr = 0, bk = 0, u = 0;
         bool btsk = false;
@@ -577,7 +588,7 @@ namespace UI
             pos_CapLiZhu.x = inf.ReadDouble("OTHER", "POS_CAP_LIZHU_X", 0);
             pos_CapLiZhu.y = inf.ReadDouble("OTHER", "POS_CAP_LIZHU_Y", 0);
             Cap_LiZhu_Limit = inf.ReadDouble("OTHER", "POS_CAP_LIZHU_LIMIT", 0.1);
-
+            isFourRows = inf.ReadBool("OTHER", "bisfourrows", false);
             bjigSan = inf.ReadBool("OTHER", "bJigSan", true);
             //pos_Dwload_Pick.y = inf.ReadDouble("OTHER", "POS_DWLOAD_PICK_Y", 0);
             //pos_Dwload_Pick.z = inf.ReadDouble("OTHER", "POS_DWLOAD_PICK_Z", 0);
@@ -724,7 +735,9 @@ namespace UI
             inf.WriteDouble("OTHER", "POS_CAP_LIZHU_Y", pos_CapLiZhu.y, ref ischange, true, filename);
             inf.WriteDouble("OTHER", "POS_CAP_LIZHU_LIMIT", Cap_LiZhu_Limit, ref ischange, true, filename);
             inf.WriteInteger("OTHER", "TEST_DELAY", TestDelay, ref ischange, true, filename);
-            inf.WriteBool("OTHER_SET", "bJigSan", bjigSan, ref ischange, true, filename);
+            inf.WriteBool("OTHER", "bJigSan", bjigSan, ref ischange, true, filename);
+            inf.WriteBool("OTHER", "bisfourrows", isFourRows, ref ischange, true, filename);
+
             //delete
             foreach (MdDat md in list_md)
             {
@@ -1098,10 +1111,15 @@ namespace UI
                 return EM_RES.MOVE_PROTECT;
             }
 
-            if (ChkUpDownPos && pos_idx == (int)Turntable.EM_STA.POS0 && (!COM.UDLoad1.ax_x.isORG || !COM.UDLoad2.ax_x.isORG || COM.UDLoad1.ax_y.fenc_pos > COM.UDLoad1.list_xt[1].st_cap_pos.y || COM.UDLoad2.ax_y.fenc_pos > COM.UDLoad2.list_xt[1].st_cap_pos.y))
+            if (ChkUpDownPos && pos_idx == (int)Turntable.EM_STA.POS0 && ((!COM.UDLoad1.ax_x.isORG && COM.UDLoad1.ax_x.fenc_pos > 3) || (!COM.UDLoad2.ax_x.isORG && COM.UDLoad2.ax_x.fenc_pos < -3) || COM.UDLoad1.ax_y.fenc_pos > (COM.UDLoad1.list_xt[1].st_cap_pos.y + 3) || COM.UDLoad2.ax_y.fenc_pos > (COM.UDLoad2.list_xt[1].st_cap_pos.y + 3)))
             {
-                VAR.msg.AddMsg(Msg.EM_MSGTYPE.DBG, VAR.IsChinese ? string.Format("上下料未回安全位置,{0}禁止翻转", disc) : string.Format("Updownload did not return to the safe position, {0} is prohibited from turning!       (上下料未回安全位置,{0}禁止翻转)", disc), DReport.EmErrCode.SoftwareProtect, (int)DReport.EmHareware.TurnTable + num + 1, ERR_ALM.EmErrItem.MoveProtect);
-                return EM_RES.MOVE_PROTECT;
+                Thread.Sleep(300);
+                if (ChkUpDownPos && pos_idx == (int)Turntable.EM_STA.POS0 && ((!COM.UDLoad1.ax_x.isORG && COM.UDLoad1.ax_x.fenc_pos > 3) || (!COM.UDLoad2.ax_x.isORG && COM.UDLoad2.ax_x.fenc_pos < -3) || COM.UDLoad1.ax_y.fenc_pos > (COM.UDLoad1.list_xt[1].st_cap_pos.y + 3) || COM.UDLoad2.ax_y.fenc_pos > (COM.UDLoad2.list_xt[1].st_cap_pos.y + 3)))
+                {
+                    VAR.msg.AddMsg(Msg.EM_MSGTYPE.DBG, string.Format("目前上下料1X的位置：{0}，上下料2X的位置：{1}，上下料1Y的位置：{2}，上下料2Y的位置：{3}", COM.UDLoad1.ax_x.fenc_pos, COM.UDLoad2.ax_x.fenc_pos, COM.UDLoad1.ax_y.fenc_pos, COM.UDLoad2.ax_y.fenc_pos));
+                    VAR.msg.AddMsg(Msg.EM_MSGTYPE.DBG, VAR.IsChinese ? string.Format("上下料未回安全位置,{0}禁止翻转", disc) : string.Format("Updownload did not return to the safe position, {0} is prohibited from turning!       (上下料未回安全位置,{0}禁止翻转)", disc), DReport.EmErrCode.SoftwareProtect, (int)DReport.EmHareware.TurnTable + num + 1, ERR_ALM.EmErrItem.MoveProtect);
+                    return EM_RES.MOVE_PROTECT;
+                }
             }
 
             if (pos_idx == (int)Turntable.EM_STA.POS2 && !MT.AXIS_BOX_OTP_Z.isORG)
@@ -1125,10 +1143,15 @@ namespace UI
                 return EM_RES.MOVE_PROTECT;
             }
 
-            if (ChkUpDownPos && pos_idx == (int)Turntable.EM_STA.POS0 && (!COM.UDLoad1.ax_x.isORG || !COM.UDLoad2.ax_x.isORG || COM.UDLoad1.ax_y.fenc_pos > COM.UDLoad1.list_xt[1].st_cap_pos.y || COM.UDLoad2.ax_y.fenc_pos > COM.UDLoad2.list_xt[1].st_cap_pos.y))
+            if (ChkUpDownPos && pos_idx == (int)Turntable.EM_STA.POS0 && ((!COM.UDLoad1.ax_x.isORG && COM.UDLoad1.ax_x.fenc_pos > 3) || (!COM.UDLoad2.ax_x.isORG && COM.UDLoad2.ax_x.fenc_pos < -3) || COM.UDLoad1.ax_y.fenc_pos > (COM.UDLoad1.list_xt[1].st_cap_pos.y + 3) || COM.UDLoad2.ax_y.fenc_pos > (COM.UDLoad2.list_xt[1].st_cap_pos.y + 3)))
             {
-                VAR.msg.AddMsg(Msg.EM_MSGTYPE.DBG, VAR.IsChinese ? string.Format("上下料未回安全位置,{0}禁止翻转", disc) : string.Format("Updownload is not in the safe pos,{0} is prohibited from turning!         (上下料未回安全位置,{0}禁止翻转)", disc), DReport.EmErrCode.SoftwareProtect, (int)DReport.EmHareware.TurnTable + num + 1, ERR_ALM.EmErrItem.MoveProtect);
-                return EM_RES.MOVE_PROTECT;
+                Thread.Sleep(300);
+                if (ChkUpDownPos && pos_idx == (int)Turntable.EM_STA.POS0 && ((!COM.UDLoad1.ax_x.isORG && COM.UDLoad1.ax_x.fenc_pos > 3) || (!COM.UDLoad2.ax_x.isORG && COM.UDLoad2.ax_x.fenc_pos < -3) || COM.UDLoad1.ax_y.fenc_pos > (COM.UDLoad1.list_xt[1].st_cap_pos.y+3) || COM.UDLoad2.ax_y.fenc_pos > (COM.UDLoad2.list_xt[1].st_cap_pos.y+3)))
+                {
+                    VAR.msg.AddMsg(Msg.EM_MSGTYPE.DBG, string.Format("目前上下料1X的位置：{0}，上下料2X的位置：{1}，上下料1Y的位置：{2}，上下料2Y的位置：{3}", COM.UDLoad1.ax_x.fenc_pos, COM.UDLoad2.ax_x.fenc_pos, COM.UDLoad1.ax_y.fenc_pos, COM.UDLoad2.ax_y.fenc_pos));
+                    VAR.msg.AddMsg(Msg.EM_MSGTYPE.DBG, VAR.IsChinese ? string.Format("上下料未回安全位置,{0}禁止翻转", disc) : string.Format("Updownload is not in the safe pos,{0} is prohibited from turning!         (上下料未回安全位置,{0}禁止翻转)", disc), DReport.EmErrCode.SoftwareProtect, (int)DReport.EmHareware.TurnTable + num + 1, ERR_ALM.EmErrItem.MoveProtect);
+                    return EM_RES.MOVE_PROTECT;
+                }
             }
 
             if (pos_idx == (int)Turntable.EM_STA.POS2 && !MT.AXIS_BOX_OTP_Z.isORG)
@@ -1772,11 +1795,17 @@ namespace UI
         {
             EM_RES res = EM_RES.OK;
             //已经在上下料位置
-            if (isInFeedPos) return EM_RES.OK;
-            if (pos_idx == (int)Turntable.EM_STA.POS0 && (!COM.UDLoad1.ax_x.isORG || !COM.UDLoad2.ax_x.isORG || COM.UDLoad1.ax_y.fenc_pos > COM.UDLoad1.list_xt[1].st_cap_pos.y || COM.UDLoad2.ax_y.fenc_pos > COM.UDLoad2.list_xt[1].st_cap_pos.y))
+            if (isInFeedPos) return EM_RES.OK;//!COM.UDLoad1.ax_x.isORG || !COM.UDLoad2.ax_x.isORG
+            if (pos_idx == (int)Turntable.EM_STA.POS0 && ((!COM.UDLoad1.ax_x.isORG && COM.UDLoad1.ax_x.fenc_pos>3) || (!COM.UDLoad2.ax_x.isORG && COM.UDLoad2.ax_x.fenc_pos < -3) || COM.UDLoad1.ax_y.fenc_pos > (COM.UDLoad1.list_xt[1].st_cap_pos.y+3) || COM.UDLoad2.ax_y.fenc_pos > (COM.UDLoad2.list_xt[1].st_cap_pos.y+3)))
             {
-                VAR.msg.AddMsg(Msg.EM_MSGTYPE.DBG, VAR.IsChinese ? string.Format("上下料未回安全位置,{0}禁止合盖与翻转", disc) : string.Format("Updownload is not in the safe pos,{0} is forbidden to close and flip!         (上下料未回安全位置,{0}禁止合盖与翻转)", disc), DReport.EmErrCode.SoftwareProtect, (int)DReport.EmHareware.TurnTable + num + 1, ERR_ALM.EmErrItem.MoveProtect);
-                return EM_RES.ERR;
+                Thread.Sleep(300);
+                if (pos_idx == (int)Turntable.EM_STA.POS0 && ((!COM.UDLoad1.ax_x.isORG && COM.UDLoad1.ax_x.fenc_pos > 3) || (!COM.UDLoad2.ax_x.isORG && COM.UDLoad2.ax_x.fenc_pos < -3) || COM.UDLoad1.ax_y.fenc_pos > (COM.UDLoad1.list_xt[1].st_cap_pos.y + 3) || COM.UDLoad2.ax_y.fenc_pos > (COM.UDLoad2.list_xt[1].st_cap_pos.y + 3)))
+                {
+                    VAR.msg.AddMsg(Msg.EM_MSGTYPE.DBG, string.Format("目前上下料1X的位置：{0}，上下料2X的位置：{1}，上下料1Y的位置：{2}，上下料2Y的位置：{3}", COM.UDLoad1.ax_x.fenc_pos, COM.UDLoad2.ax_x.fenc_pos, COM.UDLoad1.ax_y.fenc_pos, COM.UDLoad2.ax_y.fenc_pos));
+                    VAR.msg.AddMsg(Msg.EM_MSGTYPE.DBG, VAR.IsChinese ? string.Format("上下料未回安全位置,{0}禁止合盖与翻转", disc) : string.Format("Updownload is not in the safe pos,{0} is forbidden to close and flip!         (上下料未回安全位置,{0}禁止合盖与翻转)", disc), DReport.EmErrCode.SoftwareProtect, (int)DReport.EmHareware.TurnTable + num + 1, ERR_ALM.EmErrItem.MoveProtect);
+                    
+                    return EM_RES.ERR;
+                }                   
             }
 
             try
@@ -1826,10 +1855,15 @@ namespace UI
             EM_RES res = EM_RES.OK;
             //已经在测试位置
             if (isInTestPos) return EM_RES.OK;
-            if (pos_idx == (int)Turntable.EM_STA.POS0 && (!COM.UDLoad1.ax_x.isORG || !COM.UDLoad2.ax_x.isORG || COM.UDLoad1.ax_y.fenc_pos > COM.UDLoad1.list_xt[1].st_cap_pos.y || COM.UDLoad2.ax_y.fenc_pos > COM.UDLoad2.list_xt[1].st_cap_pos.y))
+            if (pos_idx == (int)Turntable.EM_STA.POS0 && ((!COM.UDLoad1.ax_x.isORG && COM.UDLoad1.ax_x.fenc_pos > 3) || (!COM.UDLoad2.ax_x.isORG && COM.UDLoad2.ax_x.fenc_pos < -3) || COM.UDLoad1.ax_y.fenc_pos > (COM.UDLoad1.list_xt[1].st_cap_pos.y + 3) || COM.UDLoad2.ax_y.fenc_pos > (COM.UDLoad2.list_xt[1].st_cap_pos.y + 3)))
             {
-                VAR.msg.AddMsg(Msg.EM_MSGTYPE.DBG, VAR.IsChinese ? string.Format("上下料未回安全位置,{0}禁止合盖与翻转", disc) : string.Format("Updownload is not in the safe pos,{0} is forbidden to close and flip!         (上下料未回安全位置,{0}禁止合盖与翻转)", disc), DReport.EmErrCode.SoftwareProtect, (int)DReport.EmHareware.TurnTable + num + 1, ERR_ALM.EmErrItem.MoveProtect);
-                return EM_RES.ERR;
+                Thread.Sleep(300);
+                if (pos_idx == (int)Turntable.EM_STA.POS0 && ((!COM.UDLoad1.ax_x.isORG && COM.UDLoad1.ax_x.fenc_pos > 3) || (!COM.UDLoad2.ax_x.isORG && COM.UDLoad2.ax_x.fenc_pos < -3) || COM.UDLoad1.ax_y.fenc_pos > (COM.UDLoad1.list_xt[1].st_cap_pos.y + 3) || COM.UDLoad2.ax_y.fenc_pos > (COM.UDLoad2.list_xt[1].st_cap_pos.y + 3)))
+                {
+                    VAR.msg.AddMsg(Msg.EM_MSGTYPE.DBG, string.Format("目前上下料1X的位置：{0}，上下料2X的位置：{1}，上下料1Y的位置：{2}，上下料2Y的位置：{3}", COM.UDLoad1.ax_x.fenc_pos, COM.UDLoad2.ax_x.fenc_pos, COM.UDLoad1.ax_y.fenc_pos, COM.UDLoad2.ax_y.fenc_pos));
+                    VAR.msg.AddMsg(Msg.EM_MSGTYPE.DBG, VAR.IsChinese ? string.Format("上下料未回安全位置,{0}禁止合盖与翻转", disc) : string.Format("Updownload is not in the safe pos,{0} is forbidden to close and flip!         (上下料未回安全位置,{0}禁止合盖与翻转)", disc));
+                    return EM_RES.ERR;
+                }
             }
 
             //if (!isFrUp && isFrOpen)
@@ -1885,10 +1919,15 @@ namespace UI
         {
             EM_RES res = EM_RES.OK;
 
-            if (pos_idx == (int)Turntable.EM_STA.POS0 && (!COM.UDLoad1.ax_x.isORG || !COM.UDLoad2.ax_x.isORG || COM.UDLoad1.ax_y.fenc_pos > COM.UDLoad1.list_xt[1].st_cap_pos.y || COM.UDLoad2.ax_y.fenc_pos > COM.UDLoad2.list_xt[1].st_cap_pos.y))
+            if (pos_idx == (int)Turntable.EM_STA.POS0 && ((!COM.UDLoad1.ax_x.isORG && COM.UDLoad1.ax_x.fenc_pos > 3) || (!COM.UDLoad2.ax_x.isORG && COM.UDLoad2.ax_x.fenc_pos < -3) || COM.UDLoad1.ax_y.fenc_pos > (COM.UDLoad1.list_xt[1].st_cap_pos.y + 3) || COM.UDLoad2.ax_y.fenc_pos > (COM.UDLoad2.list_xt[1].st_cap_pos.y + 3)))
             {
-                VAR.msg.AddMsg(Msg.EM_MSGTYPE.DBG, VAR.IsChinese ? string.Format("上下料未回安全位置,{0}禁止合盖与翻转", disc) : string.Format("Updownload is not in the safe pos,{0} is forbidden to close and flip!         (上下料未回安全位置,{0}禁止合盖与翻转)", disc));
-                return EM_RES.ERR;
+                Thread.Sleep(300);
+                if (pos_idx == (int)Turntable.EM_STA.POS0 && ((!COM.UDLoad1.ax_x.isORG && COM.UDLoad1.ax_x.fenc_pos > 3) || (!COM.UDLoad2.ax_x.isORG && COM.UDLoad2.ax_x.fenc_pos < -3) || COM.UDLoad1.ax_y.fenc_pos > (COM.UDLoad1.list_xt[1].st_cap_pos.y + 3) || COM.UDLoad2.ax_y.fenc_pos > (COM.UDLoad2.list_xt[1].st_cap_pos.y + 3)))
+                {
+                    VAR.msg.AddMsg(Msg.EM_MSGTYPE.DBG, string.Format("目前上下料1X的位置：{0}，上下料2X的位置：{1}，上下料1Y的位置：{2}，上下料2Y的位置：{3}", COM.UDLoad1.ax_x.fenc_pos, COM.UDLoad2.ax_x.fenc_pos, COM.UDLoad1.ax_y.fenc_pos, COM.UDLoad2.ax_y.fenc_pos));
+                    VAR.msg.AddMsg(Msg.EM_MSGTYPE.DBG, VAR.IsChinese ? string.Format("上下料未回安全位置,{0}禁止合盖与翻转", disc) : string.Format("Updownload is not in the safe pos,{0} is forbidden to close and flip!         (上下料未回安全位置,{0}禁止合盖与翻转)", disc));
+                    return EM_RES.ERR;
+                }
             }
 
             res = AllCyDown(ref VAR.gsys_set.bquit);
@@ -1913,10 +1952,15 @@ namespace UI
             EM_RES res = EM_RES.OK;
             //已经在上下料位置
             if (isInFeedPos) return EM_RES.OK;
-            if (pos_idx == (int)Turntable.EM_STA.POS0 && (!COM.UDLoad1.ax_x.isORG || !COM.UDLoad2.ax_x.isORG || COM.UDLoad1.ax_y.fenc_pos > COM.UDLoad1.list_xt[1].st_cap_pos.y || COM.UDLoad2.ax_y.fenc_pos > COM.UDLoad2.list_xt[1].st_cap_pos.y))
+            if (pos_idx == (int)Turntable.EM_STA.POS0 && ((!COM.UDLoad1.ax_x.isORG && COM.UDLoad1.ax_x.fenc_pos > 3) || (!COM.UDLoad2.ax_x.isORG && COM.UDLoad2.ax_x.fenc_pos < -3) || COM.UDLoad1.ax_y.fenc_pos > (COM.UDLoad1.list_xt[1].st_cap_pos.y + 3) || COM.UDLoad2.ax_y.fenc_pos > (COM.UDLoad2.list_xt[1].st_cap_pos.y + 3)))
             {
-                VAR.msg.AddMsg(Msg.EM_MSGTYPE.DBG, VAR.IsChinese ? string.Format("上下料未回安全位置,{0}禁止合盖与翻转", disc) : string.Format("Updownload is not in the safe pos,{0} is forbidden to close and flip!         (上下料未回安全位置,{0}禁止合盖与翻转)", disc));
-                return EM_RES.ERR;
+                Thread.Sleep(300);
+                if (pos_idx == (int)Turntable.EM_STA.POS0 && ((!COM.UDLoad1.ax_x.isORG && COM.UDLoad1.ax_x.fenc_pos > 3) || (!COM.UDLoad2.ax_x.isORG && COM.UDLoad2.ax_x.fenc_pos < -3) || COM.UDLoad1.ax_y.fenc_pos > (COM.UDLoad1.list_xt[1].st_cap_pos.y + 3) || COM.UDLoad2.ax_y.fenc_pos > (COM.UDLoad2.list_xt[1].st_cap_pos.y + 3)))
+                {
+                    VAR.msg.AddMsg(Msg.EM_MSGTYPE.DBG, string.Format("目前上下料1X的位置：{0}，上下料2X的位置：{1}，上下料1Y的位置：{2}，上下料2Y的位置：{3}", COM.UDLoad1.ax_x.fenc_pos, COM.UDLoad2.ax_x.fenc_pos, COM.UDLoad1.ax_y.fenc_pos, COM.UDLoad2.ax_y.fenc_pos));
+                    VAR.msg.AddMsg(Msg.EM_MSGTYPE.DBG, VAR.IsChinese ? string.Format("上下料未回安全位置,{0}禁止合盖与翻转", disc) : string.Format("Updownload is not in the safe pos,{0} is forbidden to close and flip!         (上下料未回安全位置,{0}禁止合盖与翻转)", disc));
+                    return EM_RES.ERR;
+                }
             }
 
             res = ZKOn(ref VAR.gsys_set.bquit);
@@ -1933,6 +1977,19 @@ namespace UI
         #region 测试通信
         public EM_RES StartTestFlow(int status = 0, bool demo = false)
         {
+            EM_RES res = EM_RES.OK;
+            if (NewSysInf.UserParams.bBeforeTestReset)
+            {
+                //关掉当前测试                    
+                res = NextTest(-1, Demo);
+                VAR.msg.AddMsg(Msg.EM_MSGTYPE.DBG, VAR.IsChinese ? string.Format("在StartTestFlow中关闭当前测试") : "Close current test.   (关闭当前测试)");
+                if (res != EM_RES.OK)
+                {
+                    TestStatus = EM_TEST_STA.ERROR;
+                    return EM_RES.ERR;
+                }
+                Thread.Sleep(100);
+            }
             foreach (List<MdDat> list in list_list_md)
             {
                 if (list.Count == 0) continue;
@@ -1952,8 +2009,8 @@ namespace UI
                             {
                                 if (!VAR.ClearMt)
                                 {
-                                    str_barcode += (m.bardcode == null ? "NO BARCODE" : m.bardcode) + ";" +
-                                                   (m.motor_barcode == null ? "NO BARCODE" : m.motor_barcode) + "#";
+                                    str_barcode += (m.bardcode == null ? "NOBARCODE" : m.bardcode) + ";" +
+                                                   (m.motor_barcode == null ? "REEORCODE" : m.motor_barcode) + "#";
                                 }
                                 else
                                 {
@@ -1970,7 +2027,7 @@ namespace UI
                             {
                                 if (!VAR.ClearMt)
                                 {
-                                    str_barcode += (m.bardcode == null ? "NO BARCODE" : m.bardcode) + "#";
+                                    str_barcode += (m.bardcode == null ? "NOBARCODE" : m.bardcode) + "#";
                                 }
                                 else
                                 {
@@ -2052,6 +2109,18 @@ namespace UI
                             Thread.Sleep(1000);
                             VAR.msg.AddMsg(Msg.EM_MSGTYPE.WAR, VAR.IsChinese ? string.Format("{0} 重发WaitTestResult,ID={1}", disc, list[0].PC_ID) : string.Format("{0} retry WaitTestResult,ID={1}", disc, list[0].PC_ID));
                             ret = TestPC.WaitTestResultA(list[0].PC_ID, ref sta, res, ref num, ref pDeviceParam, ref VAR.gsys_set.bquit, delay, md_barcode);
+                            if (ret != (int)TestPC.EM_RES.OK && ret != (int)TestPC.EM_RES.ERR_QUIT)
+                            {
+                                Thread.Sleep(1000);
+                                VAR.msg.AddMsg(Msg.EM_MSGTYPE.WAR, VAR.IsChinese ? string.Format("{0} 再次重发WaitTestResult,ID={1}", disc, list[0].PC_ID) : string.Format("{0} retry WaitTestResult,ID={1}", disc, list[0].PC_ID));
+                                ret = TestPC.WaitTestResultA(list[0].PC_ID, ref sta, res, ref num, ref pDeviceParam, ref VAR.gsys_set.bquit, delay, md_barcode);
+                                if (ret != (int)TestPC.EM_RES.OK && ret != (int)TestPC.EM_RES.ERR_QUIT)
+                                {
+                                    Thread.Sleep(1000);
+                                    VAR.msg.AddMsg(Msg.EM_MSGTYPE.WAR, VAR.IsChinese ? string.Format("{0} 重发WaitTestResult,ID={1}", disc, list[0].PC_ID) : string.Format("{0} retry WaitTestResult,ID={1}", disc, list[0].PC_ID));
+                                    ret = TestPC.WaitTestResultA(list[0].PC_ID, ref sta, res, ref num, ref pDeviceParam, ref VAR.gsys_set.bquit, delay, md_barcode);
+                                }
+                            }
                         }
                     }
                     else
@@ -2153,7 +2222,7 @@ namespace UI
                                     COUNT_DATA.cnt_ng_other++;
                                     var msg = string.Format("工站点检时间到, \r\n 请确认是否开始清料后进行自动点检!");
                                     VAR.msg.AddMsg(Msg.EM_MSGTYPE.ERR, msg);
-                                    VAR.sys_inf.Set(EM_ALM_STA.WAR_YELLOW_FLASH, msg, 20, true);
+                                   // VAR.sys_inf.Set(EM_ALM_STA.WAR_YELLOW_FLASH, msg, 20, true);
                                     DialogResult dr = FrRun.Dialog(Color.Yellow, "警告", msg, "确定", "取消");
                                     if (dr == DialogResult.OK)
                                     {
@@ -2458,9 +2527,26 @@ namespace UI
                 VAR.msg.AddMsg(Msg.EM_MSGTYPE.ERR, VAR.IsChinese ? (disc + "测试线程未退出无法创建!") : (disc + "The test thread cannot be created without exiting!            (测试线程未退出无法创建!)"), ErrCode: ShowErrMsg.TestThreadExistErr);
             }
         }
+        private  string lastData = string.Empty;
 
+        public bool CompareData(string currentData)
+        {
 
+            if (currentData != lastData && lastData != string.Empty)
+            {
+                lastData = currentData;
+                return true;
 
+            }
+            else
+            {
+                lastData = currentData;
+                return false;
+            }
+
+            
+
+        }
         public EM_RES WaitTestTask(ref bool bquit)
         {
             if (TestTask == null) return EM_RES.PARA_ERR;
@@ -2475,15 +2561,18 @@ namespace UI
             return EM_RES.OK;
         }
         //是否上下料开始
-      public bool bUpDnStart = false;
+        public bool bUpDnStart = false;
         public static DateTime CurOutProductTime = DateTime.Now;
         void RunTest()
         {
             LightBox lb = null;
             EM_RES res = EM_RES.OK;
+
             try
             {
                 VAR.msg.AddMsg(Msg.EM_MSGTYPE.DBG, VAR.IsChinese ? string.Format("{0} 测试线程开始", disc) : string.Format("{0} Test thread start!        ({0} 测试线程开始)", disc));
+                Swtime.Restart();
+                Swtime.Start();
                 while (true)
                 {
                     brun = true;
@@ -2501,16 +2590,22 @@ namespace UI
                         //左光箱
                         case Turntable.EM_STA.POS1:
                             bUpDnStart = false;
+                            bOnUpDnPos = false;
+                            bUpDnPosGoOnTest = false;
                             lb = COM.LeftLightBox;
                             break;
                         //OTP光箱
                         case Turntable.EM_STA.POS2:
                             bUpDnStart = false;
+                            bOnUpDnPos = false;
+                            bUpDnPosGoOnTest = false;
                             lb = COM.OTPLightBox;
                             break;
                         //右光箱
                         case Turntable.EM_STA.POS3:
                             bUpDnStart = false;
+                            bOnUpDnPos = false;
+                            bUpDnPosGoOnTest = false;
                             lb = COM.RightLightBox;
                             break;
                     }
@@ -2650,19 +2745,41 @@ namespace UI
                             break;
                         }
 
-                        VAR.msg.AddMsg(Msg.EM_MSGTYPE.DBG, VAR.IsChinese ? string.Format("{0} 启动测试", disc) : string.Format("{0} StartTestFlow       ({0} 启动测试)", disc));
-                        Thread.Sleep(500);
-                        res = StartTestFlow(0, Demo);
-                        if (res != EM_RES.OK)
+                        //VAR.msg.AddMsg(Msg.EM_MSGTYPE.DBG, VAR.IsChinese ? string.Format("{0} 启动测试", disc) : string.Format("{0} StartTestFlow       ({0} 启动测试)", disc));
+                        //Thread.Sleep(500);
+                        //res = StartTestFlow(0, Demo);
+                        //if (res != EM_RES.OK)
+                        //{
+                        //    Thread.Sleep(1500);
+                        //    res = StartTestFlow();
+                        //    if (res != EM_RES.OK)
+                        //    {
+                        //        VAR.msg.AddMsg(Msg.EM_MSGTYPE.DBG, string.Format("{0} StartTestFlow err", disc));
+                        //        Status = EM_STA.LINKERR;
+                        //        break;
+                        //    }
+                        //}
+                        if (!bUpDnPosGoOnTest)
                         {
-                            Thread.Sleep(1500);
-                            res = StartTestFlow();
+                            VAR.msg.AddMsg(Msg.EM_MSGTYPE.DBG, VAR.IsChinese ? string.Format("{0} 启动测试", disc) : string.Format("{0} StartTestFlow       ({0} 启动测试)", disc));
+                            Thread.Sleep(500);
+
+                            res = StartTestFlow(0, Demo);
                             if (res != EM_RES.OK)
                             {
-                                VAR.msg.AddMsg(Msg.EM_MSGTYPE.DBG, string.Format("{0} StartTestFlow err", disc));
-                                Status = EM_STA.LINKERR;
-                                break;
+                                Thread.Sleep(1500);
+                                res = StartTestFlow();
+                                if (res != EM_RES.OK)
+                                {
+                                    VAR.msg.AddMsg(Msg.EM_MSGTYPE.DBG, string.Format("{0} StartTestFlow err", disc));
+                                    Status = EM_STA.LINKERR;
+                                    break;
+                                }
                             }
+                        }
+                        else
+                        {
+                            VAR.msg.AddMsg(Msg.EM_MSGTYPE.DBG, VAR.IsChinese ? string.Format("{0} bUpDnPosGoOnTest不能启动测试", disc) : string.Format("{0}bUpDnPosGoOnTest  Cannot StartTestFlow       ({0} 不能启动测试)", disc));
                         }
 
                     }
@@ -2688,7 +2805,7 @@ namespace UI
                         break;
                     }
 
-                    Thread.Sleep(PT_SET.OpenDly);
+                    Thread.Sleep(PT_SET.OpenDly);// 开图延时等待
                     if (bUpDnStart && !PT_SET.turnon)//后开图且已经上料停止启动测试
                     {
                         res = EM_RES.OK;
@@ -2696,6 +2813,16 @@ namespace UI
                         TestStatus = EM_TEST_STA.COMPLETED;
                         break;
                     }
+
+                    if (bOnUpDnPos && !PT_SET.turnon)//不提前开图且还在上下料位置。停止启动测试
+                    {
+                        res = EM_RES.OK;
+                        Status = EM_STA.REDAY;
+                        VAR.msg.AddMsg(Msg.EM_MSGTYPE.DBG, string.Format("后开图且还在上料位置，停止启动测试,设置工站状态{0}completed", disc));
+                        TestStatus = EM_TEST_STA.COMPLETED;
+                        break;
+                    }
+
                     res = WaitTestResult(ref sta, PT_SET.TestTime, Demo, lb);
                     if (res == EM_RES.PARA_ERR || res == EM_RES.QUIT)
                     {
@@ -2933,6 +3060,7 @@ namespace UI
                         }
                         res = EM_RES.OK;
                         Status = EM_STA.REDAY;
+                        bUpDnPosGoOnTest = false;
                         TestStatus = EM_TEST_STA.COMPLETED;
                         break;
                     }
@@ -2941,6 +3069,7 @@ namespace UI
                         if (lb == COM.LightBox)
                         {
                             VAR.msg.AddMsg(Msg.EM_MSGTYPE.DBG, VAR.IsChinese ? "本站测试完成" : "Test completed on this site      (本站测试完成)");
+
                             //本站测试完成
                             TestStatus = EM_TEST_STA.NEXT;
                             Status = EM_STA.TEST;
@@ -2956,8 +3085,22 @@ namespace UI
 
                         if (lb != null)
                         {
+                            if (sta == 401 && PT_SET.bUpDnAddTest)
+                            {
+                                bUpDnPosGoOnTest = true;
+                            }
                             //光箱定位
+                            String str1, str2;
+
                             VAR.msg.AddMsg(Msg.EM_MSGTYPE.DBG, VAR.IsChinese ? string.Format("{0} {1}定位{2}", disc, lb.disc, sta) : string.Format("{0}  {1} move {3}         ({0} {2}定位{3})", disc, lb.english_disc, lb.disc, sta));
+                            //if(CompareData(sta.ToString()))
+                            //{
+                            //    Swtimemode.Stop();
+                            //    var times = Swtimemode.ElapsedMilliseconds;
+                            //    str2 = "当前工站：" + disc + "当前光箱：" + lb.disc + "测试项序号：" + sta + "测试用时：" + times;
+                            //    Utility.WriteStrToCSVPre(str2);
+                            //    Swtimemode.Restart();
+                            //}
                             try
                             {
                                 res = lb.MoveTo(ref VAR.gsys_set.bquit, sta, num);
@@ -2981,6 +3124,43 @@ namespace UI
                         }
                         else
                         {
+                            if (sta == 401 && PT_SET.bUpDnAddTest)
+                            {
+                                //转到水平
+                                res = TurnToFeed(ref bquit);
+                                if (res != EM_RES.OK)
+                                {
+                                    bquit = true; break;
+                                }
+                                VAR.msg.AddMsg(Msg.EM_MSGTYPE.DBG, "当前工站" + disc + "收到反转代码，反转后执行测试");
+
+                                //通知测试
+                                if (VAR.gsys_set.bquit || bquit)
+                                {
+                                    VAR.msg.AddMsg(Msg.EM_MSGTYPE.DBG, VAR.IsChinese ? string.Format("{0} 取消", disc) : string.Format("{0} cancel       ({0} 取消)", disc));
+                                    res = EM_RES.QUIT;
+                                    break;
+                                }
+
+                                Status = EM_STA.TEST;
+                                VAR.msg.AddMsg(Msg.EM_MSGTYPE.DBG, VAR.IsChinese ? string.Format("{0} 通知测试", disc) : string.Format("{0}  notice test!        ({0} 通知测试)", disc));
+                                res = NextTest(sta, Demo);
+                                if (res != EM_RES.OK)
+                                {
+                                    res = NextTest(sta, Demo);
+                                    if (res != EM_RES.OK)
+                                    {
+                                        VAR.msg.AddMsg(Msg.EM_MSGTYPE.DBG, string.Format("通知测试软件失败设置工站状态{0}error", disc));
+                                        VAR.msg.AddMsg(Msg.EM_MSGTYPE.ERR, VAR.IsChinese ? string.Format("{0} 通知测试出错!", disc) : string.Format("{0} ERROR: notice test!         ({0} 通知测试出错!)", disc), DReport.EmErrCode.TestFailed, (int)DReport.EmHareware.TurnTable + num + 1, ERR_ALM.EmErrItem.TestAbnormal);
+                                        TestStatus = EM_TEST_STA.ERROR;
+                                        break;
+                                    }
+
+                                }
+
+                                continue;
+                            }
+
                             if (sta < 401 && PT_SET.bDelayTest)
                             {
                                 //本站测试完成
@@ -3032,10 +3212,17 @@ namespace UI
                 }
 
                 brun = false;
+                Swtime.Stop();
+                String str1, str2;
+
+                str2 = "工站:" +","+ num + "当前光箱:" + "," + lb.disc+"测试结束总用时:" + "," + Swtime.ElapsedMilliseconds;
+                Utility.WriteStrToCSVPre(str2);
+
                 VAR.msg.AddMsg(Msg.EM_MSGTYPE.DBG, VAR.IsChinese ? string.Format("{0} 测试线程 {1} 结束", disc, res != EM_RES.OK ? "异常" : "正常") : string.Format("{0} test thread {1} end          ({0} 测试线程 {2} 结束)", disc, res != EM_RES.OK ? "ERR" : "NORMAL", res != EM_RES.OK ? "异常" : "正常"));
             }
         }
         #endregion
+
         /// <summary>
         /// 夹具生产数据统计gy0123
         /// </summary>
@@ -3637,7 +3824,7 @@ namespace UI
                     return false;
                 }
                 MT.ST_WARN warn = new MT.ST_WARN();
-                VAR.sys_inf.Set(EM_ALM_STA.WAR_YELLOW_FLASH, VAR.IsChinese ? "自动点检提示" : "AutoChkShowMsg", 0);
+               // VAR.sys_inf.Set(EM_ALM_STA.WAR_YELLOW_FLASH, VAR.IsChinese ? "自动点检提示" : "AutoChkShowMsg", 0);
                 warning fr_warn = new warning();
                 warn.ok_txt = VAR.IsChinese ? "点检模式继续" : "Keep running";
                 warn.cancle_txt = VAR.IsChinese ? "停止运行" : "Stop running";

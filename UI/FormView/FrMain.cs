@@ -76,6 +76,12 @@ namespace UI
 
                     //if (msg.Infos.Count() != 2) return;
                     var result = 0;
+
+                    List<BaseInfo> msgs = new List<BaseInfo>();
+                    msgs.Add(new BaseInfo() { Id = 1, Value = $"{result}" });
+                    msgs.Add(new BaseInfo() { Id = 2, Value = msg.Infos[1].Value });
+                    Msg.secsManager.SendRange(msgs, TypeId: 4);
+
                     //ret结果说明，0为成功
                     //0 - ok, completed 已完成
                     //1 - invalid command 无效的命令
@@ -100,11 +106,17 @@ namespace UI
                     }
                     else if (msg.Infos[0].Value.ToLower() == "startcheck")
                     {
-                        MT.IsAllowStartUpdate = true;
                         if (Convert.ToInt32(msg.Infos[2].Value) == 0)
+                        {
                             MT.IsAllowStart = false;
+                            VAR.msg.AddMsg(Msg.EM_MSGTYPE.SYS, "收到MES开机指令：0!");
+                        }
                         else if (Convert.ToInt32(msg.Infos[2].Value) == 1)
+                        {
                             MT.IsAllowStart = true;
+                            VAR.msg.AddMsg(Msg.EM_MSGTYPE.SYS, "收到MES开机指令：1!");
+                        }
+                        MT.IsAllowStartUpdate = true;
                         result = 0;
                     }
                     else if (msg.Infos[0].Value.ToLower() == "stripstartcheck")
@@ -124,10 +136,7 @@ namespace UI
                         MT.IsAllowStartUpdateByTray = true;
                     }
 
-                    List<BaseInfo> msgs = new List<BaseInfo>();
-                    msgs.Add(new BaseInfo() { Id = 1, Value = $"{result}" });
-                    msgs.Add(new BaseInfo() { Id = 2, Value = msg.Infos[1].Value });
-                    Msg.secsManager.SendRange(msgs, TypeId: 4);
+                   
                 }
             };
         }
@@ -226,6 +235,18 @@ namespace UI
 
         private void btn_quit_Click(object sender, EventArgs e)
         {
+            if (PT_SET.bsunnyqr)
+            {
+                if(PT_SET.bsunnyqrleft)
+                {
+                    COM.Sunnnyqr1.EpsonClose();
+                }
+                if (PT_SET.bsunnyqrright)
+                {
+                    COM.Sunnnyqr0.EpsonClose();
+                }
+              
+            }
             Close();
         }
         private Form FindForm(string formName)
@@ -545,7 +566,18 @@ namespace UI
             Msg.secsManager.Send(new BaseInfo() { Id = 1, Value = Convert.ToInt32(DReport.EmStatus.Unkown).ToString() });
             Msg.secsManager.Send(new BaseInfo() { Id = 1 }, 2);
             //Path.GetFullPath("..") + "\\syscfg\\syscfg.ini";
-
+            if (PT_SET.bsunnyqr)
+            {
+                if (PT_SET.bsunnyqrleft)
+                {
+                    COM.Sunnnyqr1.Init(PT_SET.sunnyqrip1);
+                }
+                if (PT_SET.bsunnyqrright)
+                {
+                    COM.Sunnnyqr0.Init(PT_SET.sunnyqrip0);
+                }                            
+            }
+                
             Msg.secsManager.Send(new BaseInfo() { Value = Path.GetFullPath("..") + @"\product" }, TypeId: 3);
             string vv = "1";
             if (PT_SET.bJigSan) vv = "0";
@@ -763,23 +795,24 @@ namespace UI
                         TempCardList = MT.CardList1;
                     }
 
-                    if (!PT_SET.IsMesLocal)
-                    {
-                        Msg.secsManager.Send(new BaseInfo() { Id = 1, Value = Convert.ToInt32(DReport.EmStatus.Run).ToString() });
-                        Msg.secsManager.Send(new BaseInfo() { Id = 1 }, 2);
-                        await Task.Run(() =>
-                        {
-                            VAR.msg.AddMsg(Msg.EM_MSGTYPE.SYS, "正在等待MES上位指令!");
-                            SpinWait.SpinUntil(() => MT.IsAllowStartUpdate, 10000);
-                        });
-                        MT.IsAllowStartUpdate = false;
-                        //fr?.Close();
-                        if (!MT.IsAllowStart)
-                        {
-                            FrRun.Dialog(Color.Yellow, "警告", "被MES禁止启动！请联系相关人员。");
-                            return;
-                        }
-                    }
+                    //if (!PT_SET.IsMesLocal)
+                    //{
+                    //    Msg.secsManager.Send(new BaseInfo() { Id = 1, Value = Convert.ToInt32(DReport.EmStatus.Run).ToString() });
+                    //    Msg.secsManager.Send(new BaseInfo() { Id = 1 }, 2);
+                    //    Msg.secsManager.Send(new BaseInfo() { Id = 3 }, 2);
+                    //    await Task.Run(() =>
+                    //    {
+                    //        VAR.msg.AddMsg(Msg.EM_MSGTYPE.SYS, "正在等待MES上位指令!");
+                    //        SpinWait.SpinUntil(() => MT.IsAllowStartUpdate, 10000);
+                    //    });
+                    //    MT.IsAllowStartUpdate = false;
+                    //    //fr?.Close();
+                    //    if (!MT.IsAllowStart)
+                    //    {
+                    //        FrRun.Dialog(Color.Yellow, "警告", "被MES禁止启动！请联系相关人员。");
+                    //        return;
+                    //    }
+                    //}
                     //检测复位状态
                     foreach (CARD card in TempCardList)
                     {
@@ -1369,13 +1402,22 @@ namespace UI
             warn.ws = null;
             warn.title = MultiLanguage.TxtSelct("提示:设备维修!", "Tip: Equipment maintenance!", "Mẹo: Bảo trì thiết bị!");
             warn.msg = MultiLanguage.TxtSelct("当前设备在维修状态", "The current equipment is in maintenance status!", "Thiết bị hiện tại đang trong tình trạng bảo trì!");
-            
+
             warn.lb_msg = MultiLanguage.TxtSelct(
                 "提示：当前设备正在维修，请确认设备内没有维修人员或QC巡检确认人员后再关闭此对话框",
                 "Tip: The current equipment is being repaired, please confirm that there are no maintenance personnel in the equipment before closing this dialog box!",
                 "Mẹo: Thiết bị hiện tại đang được sửa chữa, vui lòng xác nhận rằng không có nhân viên bảo trì trong thiết bị trước khi đóng hộp thoại này! ");
             MT.Display_frwarn(fr_warn, warn, ERR_ALM.EmErrItem.Null, false);
             VAR.gsys_set.status = sys_status;
+            //MT.ST_WARN warn = new MT.ST_WARN();
+            //warning fr_warn = new warning();//增加语言
+            //warn.ok_txt = MultiLanguage.TxtSelct("继续", "GoOn", "Đi tiếp");
+            //warn.cancle_txt = MultiLanguage.TxtSelct("停止", "Stop", "Ngừng lại");
+            //warn.title = MultiLanguage.TxtSelct("提示:测试项匹配异常", "Tip: The test item does not match properly", "Mẫu thử khớp với dị thường");
+            //VAR.sys_inf.Set(EM_ALM_STA.WAR_YELLOW_FLASH, VAR.IsChinese ? "测试项匹配异常" : " match err", 10, true);
+            //warn.msg = MultiLanguage.TxtSelct("测试项匹配异常!", " match err", "Mẫu thử khớp với dị thường");
+            //warn.lb_msg = MultiLanguage.TxtSelct($"测试项匹配异常，检测到测试软件发来的测试序号{5}，该测试项未启用，请检查");
+            //DialogResult logres = MT.Display_frwarn(fr_warn, warn, ERR_ALM.EmErrItem.MaterialPosErr);
         }
 
         private void LanguageInit()
@@ -1619,8 +1661,14 @@ namespace UI
 
         }
 
-
-
+        private void timersecs_Tick(object sender, EventArgs e)
+        {
+            if (Process.GetProcessesByName("SecsApp").Count() == 0)
+            {
+                var path = @"Release\SecsApp.exe";
+                if (File.Exists(path)) Process.Start(path);
+            }
+        }
 
         protected override void WndProc(ref System.Windows.Forms.Message m)
         {

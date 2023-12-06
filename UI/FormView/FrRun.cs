@@ -17,6 +17,7 @@ using DevReport;
 using Win32Lib;
 using System.Diagnostics;
 using UI.Class;
+using static UI.Cam;
 
 namespace UI
 {
@@ -216,6 +217,9 @@ namespace UI
             VAR.dttt.Columns.Add("DateTime", typeof(string));
             VAR.dttt.Columns.Add("TickCount", typeof(string));
             cbCheckModEn.Checked = VAR.isAutoChkMode == true;
+
+
+            BaseAction.LightBoxSendMesAll();//上传光箱测试位置信息
         }
 
         public async void btn_run_Click(object sender, EventArgs e)
@@ -224,6 +228,7 @@ namespace UI
             {
                 if (!PT_SET.IsMesLocal)
                 {
+                    MT.IsAllowStartUpdate = false;
                     Msg.secsManager.Send(new BaseInfo() { Id =1,Value= Convert.ToInt32(DReport.EmStatus.Run).ToString() });
                     Msg.secsManager.Send(new BaseInfo() { Id = 1 }, 2);
                     Msg.secsManager.Send(new BaseInfo() { Id = 3 }, 2);
@@ -338,7 +343,7 @@ namespace UI
             }
             finally
             {
-                MT.IsAllowStart = false;
+                //MT.IsAllowStart = false;
                 COUNT_DATA.SaveCountCfg(VAR.gsys_set.cur_product_name);
             }
             
@@ -446,6 +451,7 @@ namespace UI
         private bool colorchange = false;
         private bool ckb_chk = false;
         bool _bShowDialog;
+        bool IsCanClear = true;
         private void timer_500ms_Tick(object sender, EventArgs e)
         {
             BaseAction.bnotfeed = ckb_not_open.Checked;
@@ -561,24 +567,34 @@ namespace UI
             {
                 COUNT_DATA.Clear();
             }
+            var curHour = DateTime.Now;
+            if (curHour.Hour == 8  && IsCanClear)//|| curHour.Hour == 20
+            {
+                IsCanClear = false;
+                COUNT_DATA.Clear();
+            }
+
+            if (curHour.Hour == 9)
+            {
+                IsCanClear = true;
+            }
+
             double all_cnt = COUNT_DATA.allcnt[0] + COUNT_DATA.allcnt[1] + COUNT_DATA.allcnt[2] + COUNT_DATA.allcnt[3];
             double ok_cnt = COUNT_DATA.okcnt[0] + COUNT_DATA.okcnt[1] + COUNT_DATA.okcnt[2] + COUNT_DATA.okcnt[3];
             double ng_cnt = COUNT_DATA.ngcnt[0] + COUNT_DATA.ngcnt[1] + COUNT_DATA.ngcnt[2] + COUNT_DATA.ngcnt[3];
             double hour = COUNT_DATA.runtime + COUNT_DATA.waittime;
             double uph = all_cnt / (hour==0?0.001:hour) * 3600;
-
             double ok_cntNormal = ok_cnt - COUNT_DATA.OkTwoTestCnt;
             double ng_cntNormal = ng_cnt - COUNT_DATA.NgTwoTestCnt;
             double uphNormal = (ok_cntNormal+ ng_cntNormal) / (hour == 0 ? 0.001 : hour) * 3600;
+            double all_cntNornmal = ok_cntNormal + ng_cntNormal;
             if (tb_all_cnt.Text != all_cnt.ToString("f0") || tb_ok_cnt.Text != ok_cnt.ToString("f0") ||
                 tb_uph.Text != uph.ToString("f0") || lastngcnt != ng_cnt)
             {
-                Msg.secsManager.Send((new BaseInfo() { Id = 3, Value = all_cnt.ToString("f0") }));
-                Msg.secsManager.Send((new BaseInfo() { Id = 4, Value = ok_cnt.ToString("f0") }));
-                Msg.secsManager.Send((new BaseInfo() { Id = 5, Value = ng_cnt.ToString("f0") }));
-              
-
-                Msg.secsManager.Send((new BaseInfo() { Id = 6, Value = uph.ToString("f0") }));
+                Msg.secsManager.Send((new BaseInfo() { Id = 3, Value = all_cntNornmal.ToString("f0") }));
+                Msg.secsManager.Send((new BaseInfo() { Id = 4, Value = ok_cntNormal.ToString("f0") }));
+                Msg.secsManager.Send((new BaseInfo() { Id = 5, Value = ng_cntNormal.ToString("f0") }));
+                Msg.secsManager.Send((new BaseInfo() { Id = 6, Value = uphNormal.ToString("f0") }));
                 if (ok_cntNormal >= 0)
                     Msg.secsManager.Send((new BaseInfo() { Id = 10, Value = ok_cntNormal.ToString("f0") }));
                 if (ng_cntNormal >= 0)
@@ -1281,6 +1297,19 @@ namespace UI
             {
                 VAR.isAutoChkMode = false;
             }
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            List<Product.Tray.PosInf> placepos = new List<Product.Tray.PosInf>();
+            Product.Tray tray = new Product.Tray(COM.traybox_ok.strCfgPath);
+            COM.traybox_ok.tray_cur = tray;
+            placepos = COM.traybox_ok.tray_cur.GetPosList(Product.EM_CM_RES.UNTEST);
+            if (placepos.Count>0)
+            {
+                VAR.msg.AddMsg(Msg.EM_MSGTYPE.DBG, string.Format("{0}放料，计算前位置{1}", COM.traybox_ok.disc, placepos[0].Pos[0].ToXY().ToString()));
+            }
+           
         }
     }
 }

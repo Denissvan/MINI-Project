@@ -9,8 +9,7 @@ using System.Timers;
 using System.Drawing;
 using DevReport;
 using Win32Lib;
-
-
+using System.Threading.Tasks;
 
 namespace MotionCtrl
 {
@@ -456,12 +455,20 @@ namespace MotionCtrl
                     {
                         secsManager.Send(new BaseInfo() { Id = (int)ErrCode + 1, Value = "true" }, 1);
                         AlarmInfo.Add(new Alarm() { Alarmid = (int)ErrCode, StartTime = DateTime.Now });
+                        Task.Run(() => {
+                            Task.Delay(1000).Wait();
+                            secsManager.Send(new BaseInfo() { Id = (int)ErrCode + 1, Value = "false" }, 1);
+                        });
                     }
                     else if ((emerr != DReport.EmErrCode.Null) && (MsgType == EM_MSGTYPE.ERR))
                     {
                         DRpt.Report_Error(emerr, relevanthw, MsgStr);
                         secsManager.Send(new BaseInfo() { Id = (int)emerr + 1, Value = "true" }, 1);
                         AlarmInfo.Add(new Alarm() { Alarmid = (int)emerr, StartTime = DateTime.Now });
+                        Task.Run(() => {
+                            Task.Delay(1000).Wait();
+                            secsManager.Send(new BaseInfo() { Id = (int)emerr + 1, Value = "false" }, 1);
+                        });
                     }
 
                 }
@@ -576,7 +583,10 @@ namespace MotionCtrl
         /// <param name="hit">提示</param>
         public void Set(EM_ALM_STA alm_sta, string info, int beep = 100, bool bset = false, string hit = "", ShowErrMsg ErrCode = ShowErrMsg.None)
         {
-            if (info == "运行") VAR.SysErrAlm.Clear();
+            if (info == "运行")
+            {
+                VAR.SysErrAlm.Clear();
+            }
             if (ErrCode != ShowErrMsg.None)
             {
                 secsManager.Send(new BaseInfo() { Id = (int)ErrCode + 1, Value = "true" }, 1);

@@ -90,33 +90,41 @@ namespace UI
             try
             {
                 byte[] data = sCom.bytReceData;
-                if (data.Length < 5)
+                if (data.Length < 5 && data.Length >= 2)
                 {
+                    byte[] newdataT = new byte[data.Length - 2];
+
+                    string strT = Encoding.UTF8.GetString(data);
+                    string sDataT = "";
+
+
+                    //提取数据
+                    for (int i = 0; i < newdataT.Length; i++)
+                    {
+                        newdataT[i] = data[i];
+                    }
+                    sDataT = System.Text.Encoding.ASCII.GetString(newdataT);
+                    VAR.msg.AddMsg(Msg.EM_MSGTYPE.ERR, Description + "接收到异常短消息" + sDataT);
                     bReaded = true;
                     dData = "";
                     return;
                 }
-                byte[] newdata = new byte[data.Length - 2];
-
-                string str = Encoding.UTF8.GetString(data);
-                string sData = "";
-
-
-                //提取数据
-                for (int i = 0; i < newdata.Length; i++)
+                else if (data.Length>=2)
                 {
-                    newdata[i] = data[i];
-                    //if (data[i] != 0x02 && data[i] != 0x0D && data[i] != 0x0A && data[i] != 0x20)
-                    //{
-                    //    newdata[j] = data[i];
-                    //    j++;
-                    //}
+                    byte[] newdata = new byte[data.Length - 2];
+                    string str = Encoding.UTF8.GetString(data);
+                    string sData = "";
+                    //提取数据
+                    for (int i = 0; i < newdata.Length; i++)
+                    {
+                        newdata[i] = data[i];
+                    }
+                    sData = System.Text.Encoding.ASCII.GetString(newdata);
+                    VAR.msg.AddMsg(Msg.EM_MSGTYPE.ERR, Description + "接收到消息:" + sData);
+                    dData = sData;
+                    bReaded = true;
                 }
-                sData = System.Text.Encoding.ASCII.GetString(newdata);
-
-                dData = sData;
-
-                bReaded = true;
+                
             }
             catch (Exception ex)
             {
@@ -165,8 +173,8 @@ namespace UI
             data = dData;
             return true;
         }
-
-        public bool ReadDataByString(out string data, int timeout = 200, int traycnt = 1)
+        public bool bCheckQrLength = false;
+        public bool ReadDataByString(out string data, int timeout = 100, int traycnt = 1)
         {
 
             var bySendDataStr = "T";
@@ -180,29 +188,29 @@ namespace UI
             while (true)
             {
                 if (bReaded == true)
+                {
+                    data = dData;
                     break;
-                //if (sw.ElapsedMilliseconds > timeout)       //容易超时
-                if (i > 20)
+                }
+                if (i > 10)
                 {
                     VAR.msg.AddMsg(Msg.EM_MSGTYPE.ERR, string.Format("{0} 读取数据,超时{1}ms", Description, timeout));
                     trayCnt++;
-                    if (trayCnt <= traycnt)
+                    if (trayCnt < traycnt)
                     {
                         i = 0;
                         sCom.SendData(bySendDataStr);
                         continue;
                     }
-                    bok = false;
                     break;
                 }
                 Thread.Sleep(100);
                 i++;
             }
-
-            data = dData;
-            if (data.Length != PT_SET.motorBarcodeDigits || data.Length < 5)
+            if ((data.Length != PT_SET.motorBarcodeDigits&&bCheckQrLength) || data.Length < 5)
             {
-                data = "";               
+                data = "";
+                VAR.msg.AddMsg(Msg.EM_MSGTYPE.ERR, $"{Description}接收数据长度异常{ data.Length }");
                 return false;
             }else
             {

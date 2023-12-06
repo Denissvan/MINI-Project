@@ -73,6 +73,7 @@ namespace UI
             public double Z2;
             public int Delay;
             public int Channel;
+            public bool IsUse=true;
             /// <summary>
             /// 对应工站补偿
             /// </summary>
@@ -452,6 +453,7 @@ namespace UI
                     inf.WriteInteger(str_section, "ID", pos.ID, ref ischange, true, filename);
                     inf.WriteDouble(str_section, "X1", pos.X1, ref ischange, true, filename);
                     inf.WriteDouble(str_section, "X2", pos.X2, ref ischange, true, filename);
+                    inf.WriteBool(str_section, "Isuse", pos.IsUse, ref ischange, true, filename);
                     inf.WriteDouble(str_section, "Y1", pos.Y1, ref ischange, true, filename);
                     inf.WriteDouble(str_section, "Z1", pos.Z1, ref ischange, true, filename);
                     inf.WriteDouble(str_section, "Z2", pos.Z2, ref ischange, true, filename);
@@ -543,7 +545,7 @@ namespace UI
                 //Name
                 pos.Name = inf.ReadString(str_section, "Name", "");
                 if (pos.Name.Length < 1) continue;
-
+                pos.IsUse = inf.ReadBool(str_section, "Isuse",true);
                 pos.X1 = inf.ReadDouble(str_section, "X1", double.MaxValue);
                 pos.X2 = inf.ReadDouble(str_section, "X2", double.MaxValue);
                 pos.Y1 = inf.ReadDouble(str_section, "Y1", double.MaxValue);
@@ -668,6 +670,29 @@ namespace UI
             int t = Environment.TickCount;
             PosDef pos = ListPos.Find(delegate (PosDef x) { return x.ID == idx; });
             if (pos == null) return EM_RES.END;
+
+
+            if (!pos.IsUse)
+            {
+                MT.ST_WARN warn = new MT.ST_WARN();
+                warning fr_warn = new warning();//增加语言
+                warn.ok_txt = MultiLanguage.TxtSelct("继续", "GoOn", "Đi tiếp");
+                warn.cancle_txt = MultiLanguage.TxtSelct("停止", "Stop", "Ngừng lại");
+                warn.title = MultiLanguage.TxtSelct("提示:测试项匹配异常", "Tip: The test item does not match properly", "Mẫu thử khớp với dị thường");
+                VAR.sys_inf.Set(EM_ALM_STA.WAR_YELLOW_FLASH, VAR.IsChinese ? "测试项匹配异常" : " match err", 10, true);
+                warn.msg = MultiLanguage.TxtSelct("测试项匹配异常!", " match err", "Mẫu thử khớp với dị thường");
+                warn.lb_msg = MultiLanguage.TxtSelct($"测试项匹配异常，检测到测试软件发来的测试序号{idx}，该测试项未启用，请检查");
+                DialogResult logres = MT.Display_frwarn(fr_warn, warn, ERR_ALM.EmErrItem.MaterialPosErr);
+                if (logres == DialogResult.OK)
+                {
+                    return EM_RES.ERR;
+                }
+                else
+                {
+                    return EM_RES.ERR;
+                }
+
+            }
             if ((this == COM.LeftLightBox && pos.X1 > MT.AXIS_BOX_L_X1.fenc_pos && pos.Z1 > 10000)||(this==COM.RightLightBox&&pos.X1> MT.AXIS_BOX_R_X1.fenc_pos&&pos.Z1>10000)) pos.Z1 = 0;
             EM_RES res = MoveTo(ref bquit, pos, cmp_idx);
             VAR.msg.AddMsg(Msg.EM_MSGTYPE.DBG, VAR.IsChinese?string.Format("{0}定位到 [{1}]{2} 用时:{3:F1}s", disc, pos.ID, pos.Name, (Environment.TickCount-t)/1000.0): string.Format("{0} Move to [{2}]{3} for {4:F1}s       ({1}定位到 [{2}]{3} 用时:{4:F1}s)", english_disc, disc, pos.ID, pos.Name, (Environment.TickCount - t) / 1000.0));

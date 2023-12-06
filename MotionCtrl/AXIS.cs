@@ -2143,8 +2143,10 @@ namespace MotionCtrl
             double curDisPos = 0;
             double objDis = 4;
             Thread.Sleep(10);
+           // VAR.msg.AddMsg(Msg.EM_MSGTYPE.DBG, "轴名称为:"+disc+"卡序号"+card.id);
             if (mt_type == MT_TYPE.SEVER)
             {
+                //VAR.msg.AddMsg(Msg.EM_MSGTYPE.DBG, "轴名称为:" + disc + "卡序号" + card.id+"开启轴反馈");
                 curDisPos = Math.Abs(targetpos * pul_per_mm - enc_pos);
                 objDis = pul_per_mm*0.5;
                 if (tempDis > objDis)
@@ -2166,8 +2168,9 @@ namespace MotionCtrl
             if (curDisPos > objDis)
             {            
                 Thread.Sleep(100);
-                if (mt_type == MT_TYPE.SEVER)
+                if (mt_type == MT_TYPE.SEVER )
                 {
+                    //VAR.msg.AddMsg(Msg.EM_MSGTYPE.DBG, "轴名称为:" + disc + "卡序号" + card.id + "开启轴反馈");
                     curDisPos = Math.Abs(targetpos * pul_per_mm - enc_pos);
                     objDis = pul_per_mm * 0.8;
                     if (tempDis > objDis)
@@ -2190,6 +2193,7 @@ namespace MotionCtrl
                     Thread.Sleep(100);
                     if (mt_type == MT_TYPE.SEVER)
                     {
+                       // VAR.msg.AddMsg(Msg.EM_MSGTYPE.DBG, "轴名称为:" + disc + "卡序号" + card.id + "开启轴反馈");
                         curDisPos = Math.Abs(targetpos * pul_per_mm - enc_pos);
                         objDis = pul_per_mm * 1.3;
                         if (tempDis > objDis)
@@ -2200,7 +2204,7 @@ namespace MotionCtrl
                         {
                             tempDis = objDis;
                         }
-                        VAR.msg.AddMsg(Msg.EM_MSGTYPE.WAR, disc + "轴定位偏差巨大范围值1。3mm");
+                        VAR.msg.AddMsg(Msg.EM_MSGTYPE.WAR, disc + "轴定位偏差巨大范围值1.3mm");
                     }
                     else
                     {
@@ -2215,6 +2219,7 @@ namespace MotionCtrl
                     }
                 }
             }
+            //VAR.msg.AddMsg(Msg.EM_MSGTYPE.DBG, "轴名称为:" + disc + "卡序号" + card.id+"轴定位完成");
             res = EM_RES.OK;
             return res;
         }

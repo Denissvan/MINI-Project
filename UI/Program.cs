@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using System.IO;
 using System.Reflection;
 using System.Windows.Forms;
+using System.Threading;
 
 namespace UI
 {
@@ -44,10 +45,17 @@ namespace UI
                     File.Delete(AppDomain.CurrentDomain.BaseDirectory + "temp.exe");
                 }
             }
-
-            
-
+            Process[] procs = Process.GetProcesses();
+            var app = procs.FirstOrDefault(i => i.ProcessName.Contains("SecsApp"));
+            if(app!=null)
+            {
+                app.CloseMainWindow();
+                app.Kill();//WaitForExit()
+            }
+        
+            Thread.Sleep(200);
             Process.Start(AppDomain.CurrentDomain.BaseDirectory + @"\Release\SecsApp.exe");
+           
             //启动程序
             System.Diagnostics.Process[] ps = System.Diagnostics.Process.GetProcessesByName(System.Diagnostics.Process.GetCurrentProcess().ProcessName);
             if (ps.Length <= 1)

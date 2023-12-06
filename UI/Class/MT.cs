@@ -546,6 +546,7 @@ namespace UI
         //压盖检测光幕
         public static GPIO GPIO_IN_LIGHT = new GPIO(13, CARD_ECI2400_0, GPIO.IO_DIR.IN, GPIO.IO_TYPE.MT_CARD, "压盖检测光幕", "Close fixture check light curtain");
         #endregion
+       
         #region AGV
         public static GPIO GPIO_CallAGVBox = new GPIO(48, CARD_ECI2400_3, GPIO.IO_DIR.OUT, GPIO.IO_TYPE.MT_CARD, "AGV料仓叫料", "AgvCallBox");
         public static GPIO GPIO_AGV_ChangeUnTestBox = new GPIO(49, CARD_ECI2400_3, GPIO.IO_DIR.OUT, GPIO.IO_TYPE.MT_CARD, "待测料仓换料", "AgvChangeUntestBox");
@@ -558,6 +559,7 @@ namespace UI
         public static GPIO GPIO_AGV_ChangeOkBoxDone = new GPIO(49, CARD_ECI2400_3, GPIO.IO_DIR.IN, GPIO.IO_TYPE.MT_CARD, "OK料仓换料完成", "AgvChangeOkBoxDone");
 
         #endregion
+
         #region 串口定义
         //public static BarcodeScanner COM3 = new BarcodeScanner("模块1扫码器", "COM3", 115200);
         //public static BarcodeScanner COM4 = new BarcodeScanner("模块2扫码器", "COM4", 115200);
@@ -578,6 +580,7 @@ namespace UI
             UpDownLoad.bquit = ben;
             // WS.bpause = ben;
         }
+
         #region 气缸定义
         //上下料
         public static Cylinder CLD_UDL1_N1 = new Cylinder(GPIO_OUT_UDL1_ZK_N1, GPIO_IN_UDL1_ZK_N1);

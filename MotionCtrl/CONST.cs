@@ -23,10 +23,13 @@ namespace MotionCtrl
         //上相机流程
         public static string  ModUpFw = "ModUp_Shp";//模组拍照流程
         public static string  WsModUpFw = "WsMod_Shp";//工站上模组拍照流程
+        public static string  WsModUpFw2 = "WsMod_Shp2";//工站上模组拍照流程
         public static string WsUpFw = "WsUp_Shp";//工站拍照流程
         public static string TrayUpFw = "TrayUp_Shp";//料盘拍照流程
         public static string LiZhuFw = "LiZhu_Shp";//
         public static string JigSanFw = "Jig_Shp";//夹具拍照流程gy0123
+        public static string BoxCheck1 = "BoxCheck1_Shp";//夹具安装检测
+        public static string BoxCheck2 = "BoxCheck2_Shp";//夹具安装检测
         public static string FindQrCodeFw = "FindQrCode";//拍二维码流程
         public static string WsModQrcode_Shp = "WsModQrcode_Shp";//回检拍二维码流程
         #endregion

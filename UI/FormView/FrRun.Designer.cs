@@ -100,6 +100,7 @@
             this.label8 = new System.Windows.Forms.Label();
             this.label6 = new System.Windows.Forms.Label();
             this.tp_vision = new System.Windows.Forms.TabPage();
+            this.cbCheckModEn = new System.Windows.Forms.CheckBox();
             this.button1 = new System.Windows.Forms.Button();
             this.updatecheck = new System.Windows.Forms.Button();
             this.dtexport = new System.Windows.Forms.Button();
@@ -147,7 +148,6 @@
             this.panel3 = new System.Windows.Forms.Panel();
             this.timer_500ms = new System.Windows.Forms.Timer(this.components);
             this.timer_key = new System.Windows.Forms.Timer(this.components);
-            this.cbCheckModEn = new System.Windows.Forms.CheckBox();
             this.tableLayoutPanel1.SuspendLayout();
             this.panel2.SuspendLayout();
             this.tableLayoutPanel2.SuspendLayout();
@@ -190,7 +190,7 @@
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
             this.tableLayoutPanel1.RowCount = 1;
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel1.Size = new System.Drawing.Size(1300, 788);
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(1300, 1014);
             this.tableLayoutPanel1.TabIndex = 1;
             // 
             // panel2
@@ -201,7 +201,7 @@
             this.panel2.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.panel2.Location = new System.Drawing.Point(3, 3);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(1294, 782);
+            this.panel2.Size = new System.Drawing.Size(1294, 1008);
             this.panel2.TabIndex = 1;
             // 
             // tableLayoutPanel2
@@ -216,7 +216,7 @@
             this.tableLayoutPanel2.Name = "tableLayoutPanel2";
             this.tableLayoutPanel2.RowCount = 1;
             this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayoutPanel2.Size = new System.Drawing.Size(1294, 782);
+            this.tableLayoutPanel2.Size = new System.Drawing.Size(1294, 1008);
             this.tableLayoutPanel2.TabIndex = 8;
             // 
             // panel1
@@ -237,7 +237,7 @@
             this.panel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel1.Location = new System.Drawing.Point(3, 3);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(196, 776);
+            this.panel1.Size = new System.Drawing.Size(196, 1002);
             this.panel1.TabIndex = 0;
             // 
             // lb_mod
@@ -442,7 +442,7 @@
             this.panel5.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel5.Location = new System.Drawing.Point(205, 3);
             this.panel5.Name = "panel5";
-            this.panel5.Size = new System.Drawing.Size(1086, 776);
+            this.panel5.Size = new System.Drawing.Size(1086, 1002);
             this.panel5.TabIndex = 1;
             // 
             // tableLayoutPanel3
@@ -461,7 +461,7 @@
             this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
             this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
             this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
-            this.tableLayoutPanel3.Size = new System.Drawing.Size(1086, 776);
+            this.tableLayoutPanel3.Size = new System.Drawing.Size(1086, 1002);
             this.tableLayoutPanel3.TabIndex = 6;
             // 
             // panel7
@@ -469,9 +469,9 @@
             this.panel7.BackColor = System.Drawing.SystemColors.Control;
             this.panel7.Controls.Add(this.tableLayoutPanel4);
             this.panel7.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panel7.Location = new System.Drawing.Point(3, 391);
+            this.panel7.Location = new System.Drawing.Point(3, 504);
             this.panel7.Name = "panel7";
-            this.panel7.Size = new System.Drawing.Size(656, 382);
+            this.panel7.Size = new System.Drawing.Size(656, 495);
             this.panel7.TabIndex = 2;
             // 
             // tableLayoutPanel4
@@ -479,7 +479,7 @@
             this.tableLayoutPanel4.ColumnCount = 3;
             this.tableLayoutPanel4.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 42.57426F));
             this.tableLayoutPanel4.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 57.42574F));
-            this.tableLayoutPanel4.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 307F));
+            this.tableLayoutPanel4.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 343F));
             this.tableLayoutPanel4.Controls.Add(this.panel4, 2, 0);
             this.tableLayoutPanel4.Controls.Add(this.panel8, 2, 1);
             this.tableLayoutPanel4.Controls.Add(this.panel9, 2, 2);
@@ -503,17 +503,18 @@
             this.panel4.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.panel4.Controls.Add(this.UpLoad1);
             this.panel4.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panel4.Location = new System.Drawing.Point(336, 3);
+            this.panel4.Location = new System.Drawing.Point(300, 3);
             this.panel4.Name = "panel4";
-            this.panel4.Size = new System.Drawing.Size(302, 136);
+            this.panel4.Size = new System.Drawing.Size(338, 136);
             this.panel4.TabIndex = 9;
             // 
             // UpLoad1
             // 
             this.UpLoad1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.UpLoad1.Location = new System.Drawing.Point(0, 0);
+            this.UpLoad1.Margin = new System.Windows.Forms.Padding(4);
             this.UpLoad1.Name = "UpLoad1";
-            this.UpLoad1.Size = new System.Drawing.Size(300, 134);
+            this.UpLoad1.Size = new System.Drawing.Size(336, 134);
             this.UpLoad1.TabIndex = 0;
             // 
             // panel8
@@ -521,17 +522,18 @@
             this.panel8.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.panel8.Controls.Add(this.upLoad2);
             this.panel8.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panel8.Location = new System.Drawing.Point(336, 145);
+            this.panel8.Location = new System.Drawing.Point(300, 145);
             this.panel8.Name = "panel8";
-            this.panel8.Size = new System.Drawing.Size(302, 136);
+            this.panel8.Size = new System.Drawing.Size(338, 136);
             this.panel8.TabIndex = 10;
             // 
             // upLoad2
             // 
             this.upLoad2.Dock = System.Windows.Forms.DockStyle.Fill;
             this.upLoad2.Location = new System.Drawing.Point(0, 0);
+            this.upLoad2.Margin = new System.Windows.Forms.Padding(4);
             this.upLoad2.Name = "upLoad2";
-            this.upLoad2.Size = new System.Drawing.Size(300, 134);
+            this.upLoad2.Size = new System.Drawing.Size(336, 134);
             this.upLoad2.TabIndex = 1;
             // 
             // panel9
@@ -541,9 +543,9 @@
             this.panel9.Controls.Add(this.lb_tt_ct);
             this.panel9.Controls.Add(this.lb_tt_tmr);
             this.panel9.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panel9.Location = new System.Drawing.Point(336, 287);
+            this.panel9.Location = new System.Drawing.Point(300, 287);
             this.panel9.Name = "panel9";
-            this.panel9.Size = new System.Drawing.Size(302, 138);
+            this.panel9.Size = new System.Drawing.Size(338, 138);
             this.panel9.TabIndex = 11;
             // 
             // lb_tt_n
@@ -575,7 +577,7 @@
             this.lb_tt_tmr.ForeColor = System.Drawing.Color.Gray;
             this.lb_tt_tmr.Location = new System.Drawing.Point(3, 58);
             this.lb_tt_tmr.Name = "lb_tt_tmr";
-            this.lb_tt_tmr.Size = new System.Drawing.Size(226, 64);
+            this.lb_tt_tmr.Size = new System.Drawing.Size(225, 64);
             this.lb_tt_tmr.TabIndex = 0;
             this.lb_tt_tmr.Text = "000.0s";
             // 
@@ -584,11 +586,11 @@
             this.tray_fd.Bordercolor = System.Drawing.Color.DodgerBlue;
             this.tray_fd.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tray_fd.ERRcolor = System.Drawing.Color.Gold;
-            this.tray_fd.Location = new System.Drawing.Point(145, 3);
+            this.tray_fd.Location = new System.Drawing.Point(129, 3);
             this.tray_fd.Name = "tray_fd";
             this.tray_fd.NGcolor = System.Drawing.Color.Red;
             this.tray_fd.OKcolor = System.Drawing.Color.Lime;
-            this.tray_fd.Size = new System.Drawing.Size(185, 136);
+            this.tray_fd.Size = new System.Drawing.Size(165, 136);
             this.tray_fd.TabIndex = 12;
             this.tray_fd.TrayColor = System.Drawing.SystemColors.Control;
             this.tray_fd.TrayName = "DISC";
@@ -603,9 +605,10 @@
             this.traybox_fd.DONEcolor = System.Drawing.Color.LightSkyBlue;
             this.traybox_fd.Emptycolor = System.Drawing.Color.Gray;
             this.traybox_fd.ERRcolor = System.Drawing.Color.Gold;
-            this.traybox_fd.Location = new System.Drawing.Point(3, 3);
+            this.traybox_fd.Location = new System.Drawing.Point(4, 4);
+            this.traybox_fd.Margin = new System.Windows.Forms.Padding(4);
             this.traybox_fd.Name = "traybox_fd";
-            this.traybox_fd.Size = new System.Drawing.Size(136, 136);
+            this.traybox_fd.Size = new System.Drawing.Size(118, 134);
             this.traybox_fd.TabIndex = 13;
             this.traybox_fd.UNTESTcolor = System.Drawing.Color.SkyBlue;
             // 
@@ -617,9 +620,10 @@
             this.traybox_ok.DONEcolor = System.Drawing.Color.LightSkyBlue;
             this.traybox_ok.Emptycolor = System.Drawing.Color.Gray;
             this.traybox_ok.ERRcolor = System.Drawing.Color.Gold;
-            this.traybox_ok.Location = new System.Drawing.Point(3, 145);
+            this.traybox_ok.Location = new System.Drawing.Point(4, 146);
+            this.traybox_ok.Margin = new System.Windows.Forms.Padding(4);
             this.traybox_ok.Name = "traybox_ok";
-            this.traybox_ok.Size = new System.Drawing.Size(136, 136);
+            this.traybox_ok.Size = new System.Drawing.Size(118, 134);
             this.traybox_ok.TabIndex = 14;
             this.traybox_ok.UNTESTcolor = System.Drawing.Color.SkyBlue;
             // 
@@ -631,9 +635,10 @@
             this.traybox_ng.DONEcolor = System.Drawing.Color.LightSkyBlue;
             this.traybox_ng.Emptycolor = System.Drawing.Color.Gray;
             this.traybox_ng.ERRcolor = System.Drawing.Color.Gold;
-            this.traybox_ng.Location = new System.Drawing.Point(3, 287);
+            this.traybox_ng.Location = new System.Drawing.Point(4, 288);
+            this.traybox_ng.Margin = new System.Windows.Forms.Padding(4);
             this.traybox_ng.Name = "traybox_ng";
-            this.traybox_ng.Size = new System.Drawing.Size(136, 138);
+            this.traybox_ng.Size = new System.Drawing.Size(118, 136);
             this.traybox_ng.TabIndex = 15;
             this.traybox_ng.UNTESTcolor = System.Drawing.Color.SkyBlue;
             // 
@@ -642,11 +647,11 @@
             this.tray_ok.Bordercolor = System.Drawing.Color.DodgerBlue;
             this.tray_ok.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tray_ok.ERRcolor = System.Drawing.Color.Gold;
-            this.tray_ok.Location = new System.Drawing.Point(145, 145);
+            this.tray_ok.Location = new System.Drawing.Point(129, 145);
             this.tray_ok.Name = "tray_ok";
             this.tray_ok.NGcolor = System.Drawing.Color.Red;
             this.tray_ok.OKcolor = System.Drawing.Color.Lime;
-            this.tray_ok.Size = new System.Drawing.Size(185, 136);
+            this.tray_ok.Size = new System.Drawing.Size(165, 136);
             this.tray_ok.TabIndex = 16;
             this.tray_ok.TrayColor = System.Drawing.SystemColors.Control;
             this.tray_ok.TrayName = "DISC";
@@ -658,11 +663,11 @@
             this.tray_ng.Bordercolor = System.Drawing.Color.DodgerBlue;
             this.tray_ng.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tray_ng.ERRcolor = System.Drawing.Color.Gold;
-            this.tray_ng.Location = new System.Drawing.Point(145, 287);
+            this.tray_ng.Location = new System.Drawing.Point(129, 287);
             this.tray_ng.Name = "tray_ng";
             this.tray_ng.NGcolor = System.Drawing.Color.Red;
             this.tray_ng.OKcolor = System.Drawing.Color.Lime;
-            this.tray_ng.Size = new System.Drawing.Size(185, 138);
+            this.tray_ng.Size = new System.Drawing.Size(165, 138);
             this.tray_ng.TabIndex = 17;
             this.tray_ng.TrayColor = System.Drawing.SystemColors.Control;
             this.tray_ng.TrayName = "DISC";
@@ -676,7 +681,7 @@
             this.panel6.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel6.Location = new System.Drawing.Point(3, 3);
             this.panel6.Name = "panel6";
-            this.panel6.Size = new System.Drawing.Size(656, 382);
+            this.panel6.Size = new System.Drawing.Size(656, 495);
             this.panel6.TabIndex = 1;
             // 
             // cogDisplayer_run
@@ -685,7 +690,7 @@
             this.cogDisplayer_run.Dock = System.Windows.Forms.DockStyle.Fill;
             this.cogDisplayer_run.Location = new System.Drawing.Point(0, 0);
             this.cogDisplayer_run.Name = "cogDisplayer_run";
-            this.cogDisplayer_run.Size = new System.Drawing.Size(656, 382);
+            this.cogDisplayer_run.Size = new System.Drawing.Size(656, 495);
             this.cogDisplayer_run.TabIndex = 0;
             // 
             // cTabControl1
@@ -704,7 +709,7 @@
             this.cTabControl1.Location = new System.Drawing.Point(665, 3);
             this.cTabControl1.Name = "cTabControl1";
             this.cTabControl1.SelectedIndex = 0;
-            this.cTabControl1.Size = new System.Drawing.Size(418, 382);
+            this.cTabControl1.Size = new System.Drawing.Size(418, 495);
             this.cTabControl1.TabIndex = 5;
             // 
             // tp_ws_status
@@ -714,7 +719,7 @@
             this.tp_ws_status.Location = new System.Drawing.Point(4, 4);
             this.tp_ws_status.Name = "tp_ws_status";
             this.tp_ws_status.Padding = new System.Windows.Forms.Padding(3);
-            this.tp_ws_status.Size = new System.Drawing.Size(410, 352);
+            this.tp_ws_status.Size = new System.Drawing.Size(410, 465);
             this.tp_ws_status.TabIndex = 0;
             this.tp_ws_status.Text = " 工站状态 ";
             // 
@@ -735,7 +740,7 @@
             this.tableLayoutPanel5.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 25F));
             this.tableLayoutPanel5.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 25F));
             this.tableLayoutPanel5.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
-            this.tableLayoutPanel5.Size = new System.Drawing.Size(404, 346);
+            this.tableLayoutPanel5.Size = new System.Drawing.Size(404, 459);
             this.tableLayoutPanel5.TabIndex = 2;
             // 
             // ws4
@@ -743,12 +748,12 @@
             this.ws4.Bordercolor = System.Drawing.Color.DodgerBlue;
             this.ws4.Dock = System.Windows.Forms.DockStyle.Fill;
             this.ws4.ERRcolor = System.Drawing.Color.Gold;
-            this.ws4.Location = new System.Drawing.Point(4, 262);
+            this.ws4.Location = new System.Drawing.Point(4, 346);
             this.ws4.Margin = new System.Windows.Forms.Padding(4);
             this.ws4.Name = "ws4";
             this.ws4.NGcolor = System.Drawing.Color.DarkOrange;
             this.ws4.OKcolor = System.Drawing.Color.SpringGreen;
-            this.ws4.Size = new System.Drawing.Size(396, 80);
+            this.ws4.Size = new System.Drawing.Size(396, 109);
             this.ws4.TabIndex = 3;
             this.ws4.UNcolor = System.Drawing.Color.Gray;
             this.ws4.UTcolor = System.Drawing.Color.PowderBlue;
@@ -764,7 +769,7 @@
             this.ws1.Name = "ws1";
             this.ws1.NGcolor = System.Drawing.Color.DarkOrange;
             this.ws1.OKcolor = System.Drawing.Color.SpringGreen;
-            this.ws1.Size = new System.Drawing.Size(396, 78);
+            this.ws1.Size = new System.Drawing.Size(396, 106);
             this.ws1.TabIndex = 4;
             this.ws1.UNcolor = System.Drawing.Color.Gray;
             this.ws1.UTcolor = System.Drawing.Color.PowderBlue;
@@ -775,12 +780,12 @@
             this.ws2.Bordercolor = System.Drawing.Color.DodgerBlue;
             this.ws2.Dock = System.Windows.Forms.DockStyle.Fill;
             this.ws2.ERRcolor = System.Drawing.Color.Gold;
-            this.ws2.Location = new System.Drawing.Point(4, 90);
+            this.ws2.Location = new System.Drawing.Point(4, 118);
             this.ws2.Margin = new System.Windows.Forms.Padding(4);
             this.ws2.Name = "ws2";
             this.ws2.NGcolor = System.Drawing.Color.DarkOrange;
             this.ws2.OKcolor = System.Drawing.Color.SpringGreen;
-            this.ws2.Size = new System.Drawing.Size(396, 78);
+            this.ws2.Size = new System.Drawing.Size(396, 106);
             this.ws2.TabIndex = 5;
             this.ws2.UNcolor = System.Drawing.Color.Gray;
             this.ws2.UTcolor = System.Drawing.Color.PowderBlue;
@@ -791,12 +796,12 @@
             this.ws3.Bordercolor = System.Drawing.Color.DodgerBlue;
             this.ws3.Dock = System.Windows.Forms.DockStyle.Fill;
             this.ws3.ERRcolor = System.Drawing.Color.Gold;
-            this.ws3.Location = new System.Drawing.Point(4, 176);
+            this.ws3.Location = new System.Drawing.Point(4, 232);
             this.ws3.Margin = new System.Windows.Forms.Padding(4);
             this.ws3.Name = "ws3";
             this.ws3.NGcolor = System.Drawing.Color.DarkOrange;
             this.ws3.OKcolor = System.Drawing.Color.SpringGreen;
-            this.ws3.Size = new System.Drawing.Size(396, 78);
+            this.ws3.Size = new System.Drawing.Size(396, 106);
             this.ws3.TabIndex = 6;
             this.ws3.UNcolor = System.Drawing.Color.Gray;
             this.ws3.UTcolor = System.Drawing.Color.PowderBlue;
@@ -808,7 +813,7 @@
             this.tp_lightbox.Controls.Add(this.tableLayoutPanel6);
             this.tp_lightbox.Location = new System.Drawing.Point(4, 4);
             this.tp_lightbox.Name = "tp_lightbox";
-            this.tp_lightbox.Size = new System.Drawing.Size(410, 352);
+            this.tp_lightbox.Size = new System.Drawing.Size(410, 465);
             this.tp_lightbox.TabIndex = 2;
             this.tp_lightbox.Text = " 光箱状态 ";
             // 
@@ -837,7 +842,7 @@
             this.panel10.Controls.Add(this.lb_rightbox);
             this.panel10.Location = new System.Drawing.Point(3, 267);
             this.panel10.Name = "panel10";
-            this.panel10.Size = new System.Drawing.Size(394, 128);
+            this.panel10.Size = new System.Drawing.Size(394, 126);
             this.panel10.TabIndex = 0;
             // 
             // lb_lightbox_right_posref
@@ -846,7 +851,7 @@
             this.lb_lightbox_right_posref.ForeColor = System.Drawing.Color.Gray;
             this.lb_lightbox_right_posref.Location = new System.Drawing.Point(7, 71);
             this.lb_lightbox_right_posref.Name = "lb_lightbox_right_posref";
-            this.lb_lightbox_right_posref.Size = new System.Drawing.Size(88, 16);
+            this.lb_lightbox_right_posref.Size = new System.Drawing.Size(87, 16);
             this.lb_lightbox_right_posref.TabIndex = 150;
             this.lb_lightbox_right_posref.Text = "位置信息：";
             // 
@@ -856,7 +861,7 @@
             this.lb_right_lightbox.ForeColor = System.Drawing.Color.Gray;
             this.lb_right_lightbox.Location = new System.Drawing.Point(7, 12);
             this.lb_right_lightbox.Name = "lb_right_lightbox";
-            this.lb_right_lightbox.Size = new System.Drawing.Size(56, 16);
+            this.lb_right_lightbox.Size = new System.Drawing.Size(55, 16);
             this.lb_right_lightbox.TabIndex = 149;
             this.lb_right_lightbox.Text = "右光箱";
             // 
@@ -867,7 +872,7 @@
             this.lb_rightbox.ForeColor = System.Drawing.Color.Gray;
             this.lb_rightbox.Location = new System.Drawing.Point(170, 12);
             this.lb_rightbox.Name = "lb_rightbox";
-            this.lb_rightbox.Size = new System.Drawing.Size(216, 32);
+            this.lb_rightbox.Size = new System.Drawing.Size(215, 32);
             this.lb_rightbox.TabIndex = 142;
             this.lb_rightbox.Text = "Y1: -000.000  Y2: -000.000\r\nZ1: -000.000  Z2: -000.000";
             // 
@@ -889,7 +894,7 @@
             this.lb_lightbox_left_posref.ForeColor = System.Drawing.Color.Gray;
             this.lb_lightbox_left_posref.Location = new System.Drawing.Point(7, 77);
             this.lb_lightbox_left_posref.Name = "lb_lightbox_left_posref";
-            this.lb_lightbox_left_posref.Size = new System.Drawing.Size(88, 16);
+            this.lb_lightbox_left_posref.Size = new System.Drawing.Size(87, 16);
             this.lb_lightbox_left_posref.TabIndex = 149;
             this.lb_lightbox_left_posref.Text = "位置信息：";
             // 
@@ -899,7 +904,7 @@
             this.lb_left_lightbox.ForeColor = System.Drawing.Color.Gray;
             this.lb_left_lightbox.Location = new System.Drawing.Point(7, 11);
             this.lb_left_lightbox.Name = "lb_left_lightbox";
-            this.lb_left_lightbox.Size = new System.Drawing.Size(56, 16);
+            this.lb_left_lightbox.Size = new System.Drawing.Size(55, 16);
             this.lb_left_lightbox.TabIndex = 148;
             this.lb_left_lightbox.Text = "左光箱";
             // 
@@ -910,7 +915,7 @@
             this.lb_leftbox.ForeColor = System.Drawing.Color.Gray;
             this.lb_leftbox.Location = new System.Drawing.Point(170, 17);
             this.lb_leftbox.Name = "lb_leftbox";
-            this.lb_leftbox.Size = new System.Drawing.Size(216, 32);
+            this.lb_leftbox.Size = new System.Drawing.Size(215, 32);
             this.lb_leftbox.TabIndex = 147;
             this.lb_leftbox.Text = "Y1: -000.000  Y2: -000.000\r\nZ1: -000.000  Z2: -000.000";
             // 
@@ -938,7 +943,7 @@
             this.lb_set_grrudlcnt.ForeColor = System.Drawing.Color.Gray;
             this.lb_set_grrudlcnt.Location = new System.Drawing.Point(327, 84);
             this.lb_set_grrudlcnt.Name = "lb_set_grrudlcnt";
-            this.lb_set_grrudlcnt.Size = new System.Drawing.Size(16, 16);
+            this.lb_set_grrudlcnt.Size = new System.Drawing.Size(15, 16);
             this.lb_set_grrudlcnt.TabIndex = 157;
             this.lb_set_grrudlcnt.Text = "5";
             // 
@@ -948,7 +953,7 @@
             this.lb_set_grrtestcnt.ForeColor = System.Drawing.Color.Gray;
             this.lb_set_grrtestcnt.Location = new System.Drawing.Point(327, 48);
             this.lb_set_grrtestcnt.Name = "lb_set_grrtestcnt";
-            this.lb_set_grrtestcnt.Size = new System.Drawing.Size(16, 16);
+            this.lb_set_grrtestcnt.Size = new System.Drawing.Size(15, 16);
             this.lb_set_grrtestcnt.TabIndex = 156;
             this.lb_set_grrtestcnt.Text = "5";
             // 
@@ -958,7 +963,7 @@
             this.lb_cur_grrudlcnt.ForeColor = System.Drawing.Color.Gray;
             this.lb_cur_grrudlcnt.Location = new System.Drawing.Point(127, 84);
             this.lb_cur_grrudlcnt.Name = "lb_cur_grrudlcnt";
-            this.lb_cur_grrudlcnt.Size = new System.Drawing.Size(16, 16);
+            this.lb_cur_grrudlcnt.Size = new System.Drawing.Size(15, 16);
             this.lb_cur_grrudlcnt.TabIndex = 155;
             this.lb_cur_grrudlcnt.Text = "5";
             // 
@@ -968,7 +973,7 @@
             this.lb_cur_grrtestcnt.ForeColor = System.Drawing.Color.Gray;
             this.lb_cur_grrtestcnt.Location = new System.Drawing.Point(128, 48);
             this.lb_cur_grrtestcnt.Name = "lb_cur_grrtestcnt";
-            this.lb_cur_grrtestcnt.Size = new System.Drawing.Size(16, 16);
+            this.lb_cur_grrtestcnt.Size = new System.Drawing.Size(15, 16);
             this.lb_cur_grrtestcnt.TabIndex = 154;
             this.lb_cur_grrtestcnt.Text = "5";
             // 
@@ -978,7 +983,7 @@
             this.label11.ForeColor = System.Drawing.Color.Gray;
             this.label11.Location = new System.Drawing.Point(209, 84);
             this.label11.Name = "label11";
-            this.label11.Size = new System.Drawing.Size(112, 16);
+            this.label11.Size = new System.Drawing.Size(111, 16);
             this.label11.TabIndex = 153;
             this.label11.Text = "设定轮换次数:";
             // 
@@ -988,7 +993,7 @@
             this.label10.ForeColor = System.Drawing.Color.Gray;
             this.label10.Location = new System.Drawing.Point(209, 48);
             this.label10.Name = "label10";
-            this.label10.Size = new System.Drawing.Size(112, 16);
+            this.label10.Size = new System.Drawing.Size(111, 16);
             this.label10.TabIndex = 152;
             this.label10.Text = "设定测试次数:";
             // 
@@ -998,7 +1003,7 @@
             this.label9.ForeColor = System.Drawing.Color.Gray;
             this.label9.Location = new System.Drawing.Point(7, 84);
             this.label9.Name = "label9";
-            this.label9.Size = new System.Drawing.Size(112, 16);
+            this.label9.Size = new System.Drawing.Size(111, 16);
             this.label9.TabIndex = 151;
             this.label9.Text = "当前轮换次数:";
             // 
@@ -1008,7 +1013,7 @@
             this.label8.ForeColor = System.Drawing.Color.Gray;
             this.label8.Location = new System.Drawing.Point(7, 48);
             this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(112, 16);
+            this.label8.Size = new System.Drawing.Size(111, 16);
             this.label8.TabIndex = 150;
             this.label8.Text = "当前测试次数:";
             // 
@@ -1018,7 +1023,7 @@
             this.label6.ForeColor = System.Drawing.Color.Gray;
             this.label6.Location = new System.Drawing.Point(7, 13);
             this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(136, 16);
+            this.label6.Size = new System.Drawing.Size(135, 16);
             this.label6.TabIndex = 149;
             this.label6.Text = "GRR测试流程信息:";
             // 
@@ -1038,9 +1043,21 @@
             this.tp_vision.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.tp_vision.Location = new System.Drawing.Point(4, 4);
             this.tp_vision.Name = "tp_vision";
-            this.tp_vision.Size = new System.Drawing.Size(410, 352);
+            this.tp_vision.Size = new System.Drawing.Size(410, 465);
             this.tp_vision.TabIndex = 3;
             this.tp_vision.Text = "设备信息";
+            // 
+            // cbCheckModEn
+            // 
+            this.cbCheckModEn.AutoSize = true;
+            this.cbCheckModEn.Font = new System.Drawing.Font("宋体", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.cbCheckModEn.Location = new System.Drawing.Point(22, 184);
+            this.cbCheckModEn.Name = "cbCheckModEn";
+            this.cbCheckModEn.Size = new System.Drawing.Size(142, 23);
+            this.cbCheckModEn.TabIndex = 386;
+            this.cbCheckModEn.Text = "启动自动点检";
+            this.cbCheckModEn.UseVisualStyleBackColor = true;
+            this.cbCheckModEn.CheckedChanged += new System.EventHandler(this.cbCheckModEn_CheckedChanged);
             // 
             // button1
             // 
@@ -1147,8 +1164,9 @@
             this.dgv_vs.Dock = System.Windows.Forms.DockStyle.Fill;
             this.dgv_vs.Location = new System.Drawing.Point(0, 0);
             this.dgv_vs.Name = "dgv_vs";
+            this.dgv_vs.RowHeadersWidth = 51;
             this.dgv_vs.RowTemplate.Height = 23;
-            this.dgv_vs.Size = new System.Drawing.Size(410, 352);
+            this.dgv_vs.Size = new System.Drawing.Size(410, 465);
             this.dgv_vs.TabIndex = 7;
             // 
             // tp_count
@@ -1164,7 +1182,7 @@
             this.tp_count.Location = new System.Drawing.Point(4, 4);
             this.tp_count.Name = "tp_count";
             this.tp_count.Padding = new System.Windows.Forms.Padding(3);
-            this.tp_count.Size = new System.Drawing.Size(410, 352);
+            this.tp_count.Size = new System.Drawing.Size(410, 465);
             this.tp_count.TabIndex = 1;
             this.tp_count.Text = " 统计数据 ";
             // 
@@ -1618,7 +1636,7 @@
             dataGridViewCellStyle5.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
             this.dgv_msg.DefaultCellStyle = dataGridViewCellStyle5;
             this.dgv_msg.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.dgv_msg.Location = new System.Drawing.Point(665, 391);
+            this.dgv_msg.Location = new System.Drawing.Point(665, 504);
             this.dgv_msg.Name = "dgv_msg";
             dataGridViewCellStyle6.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
             dataGridViewCellStyle6.BackColor = System.Drawing.SystemColors.Control;
@@ -1628,8 +1646,9 @@
             dataGridViewCellStyle6.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
             dataGridViewCellStyle6.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
             this.dgv_msg.RowHeadersDefaultCellStyle = dataGridViewCellStyle6;
+            this.dgv_msg.RowHeadersWidth = 51;
             this.dgv_msg.RowTemplate.Height = 23;
-            this.dgv_msg.Size = new System.Drawing.Size(418, 382);
+            this.dgv_msg.Size = new System.Drawing.Size(418, 495);
             this.dgv_msg.TabIndex = 6;
             // 
             // panel3
@@ -1650,23 +1669,11 @@
             // 
             this.timer_key.Tick += new System.EventHandler(this.timer_key_Tick);
             // 
-            // cbCheckModEn
-            // 
-            this.cbCheckModEn.AutoSize = true;
-            this.cbCheckModEn.Font = new System.Drawing.Font("宋体", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.cbCheckModEn.Location = new System.Drawing.Point(22, 184);
-            this.cbCheckModEn.Name = "cbCheckModEn";
-            this.cbCheckModEn.Size = new System.Drawing.Size(142, 23);
-            this.cbCheckModEn.TabIndex = 386;
-            this.cbCheckModEn.Text = "启动自动点检";
-            this.cbCheckModEn.UseVisualStyleBackColor = true;
-            this.cbCheckModEn.CheckedChanged += new System.EventHandler(this.cbCheckModEn_CheckedChanged);
-            // 
             // FrRun
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1300, 788);
+            this.ClientSize = new System.Drawing.Size(1300, 1014);
             this.Controls.Add(this.tableLayoutPanel1);
             this.DoubleBuffered = true;
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;

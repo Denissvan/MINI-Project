@@ -933,7 +933,7 @@ namespace MotionCtrl
 
         //上下料门禁使能
         public static bool bEnUpDownDr = false;
-
+        public static bool bUpDnAddTest=false;
         //转盘门禁使能
         public static bool bEnTrayDr = false;
 
@@ -945,12 +945,12 @@ namespace MotionCtrl
 
         //二维码扫码方式 0---上相机扫码  1---上相机扫码
         public static int BarcodeMode = 0;
-
+        public static bool Isaloneset=false;
         //运行模式 0--两个模块同时工作  1---模块1工作  2---模块2工作
         public static int UpDownRunMode = 0;
 
         //视觉回检
-        public static bool bEnVsFB = false;
+        public static bool bEnVsFB = true;
 
         //料盘检查-(包括XY允许偏差与R允许偏差)
         public static bool bEnVsTray = false;
@@ -989,10 +989,25 @@ namespace MotionCtrl
         public static bool turnon = false;
         public static int OpenDly;
 
+        public static bool OpenDownQrde = false;
+        public static bool UpDownQrde = false;
+        public static bool DownDownQrde = false;
+
         //料盘二维码拍照设置
         public static bool TrayBarcodeEn = false;
+
         //马达扫码设置
         public static bool bmotorphoto = false;
+
+        //是否是舜宇扫码枪
+        public static bool bsunnyqr = false;
+        public static bool bsunnyqralm = false;
+        public static bool bsunnyqrleft = true;
+        public static bool bsunnyqrright = true;
+
+        public static string sunnyqrip0;
+        public static string sunnyqrip1;
+
         //马达扫二维码U1角度
         public static int MotorAngle1 = 0;
 
@@ -1006,7 +1021,17 @@ namespace MotionCtrl
 
         //马达二维码位数
         public static int motorBarcodeDigits;
+        public static int Motornum = 1;
 
+        public static int qroknum = 0;
+        public static int qrngnum = 0;
+
+        //马达扫二维码Z轴下降高度
+        public static double MotorZ1 = 0;
+        public static double MotorZ2 = 0;
+        public static double MotorZ3 = 0;
+        public static double MotorZ4 = 0;
+        public static double Motorrate = 90;//扫码管控良率
         //吸头1先运动设置
         public static bool xt1firsten = false;
 
@@ -1021,9 +1046,25 @@ namespace MotionCtrl
         //取放料角度
         public static bool isopen_degree = false;
         public static int degree;
-
+        //下料取放料角度
+        public static bool isopendown_degree = false;
+        public static int downdegree;
         //二维码回检
         public static bool bBarcodeCamBackEn = false;
+
+        //夹具防呆检测
+        public static bool bboxCheck = false;
+       
+        public static ST_XY boxpos1;
+        public static ST_XY boxpos2;
+        public static ST_XY boxpos3;
+        public static ST_XY boxpos4;
+        public static double boxsetpos;//管控值
+        public static double boxsetpos1;
+        public static double boxsetpos2;
+        public static double boxsetpos3;
+        public static double boxsetpos4;
+
 
         //OK品下料回检
         public static bool bOkCheck = false;
@@ -1110,7 +1151,8 @@ namespace MotionCtrl
         //新增上拍二维码位置
         public static bool bAddCapQrcode;
         //新增下拍二维码位置
-        public static bool bDwAddCapQrcode;
+        public static bool bDwAddCapQrcode;  //对于长模组的情况
+        public static bool Check2open;  //对于长模组的情况
 
         //回检针座管控
         public static double LeftArea;
@@ -1119,6 +1161,10 @@ namespace MotionCtrl
         public static double DownArea;
         //允许误差
         public static double Area;
+
+        //安全位置开放
+        public static double safepos=0;
+
         //回检针座管控
         public static double LeftArea2;
         public static double RightArea2;
@@ -1126,6 +1172,23 @@ namespace MotionCtrl
         public static double DownArea2;
         //允许误差
         public static double Area2;
+
+        //回检针座管控
+        public static double LeftArea3;
+        public static double RightArea3;
+        public static double UpArea3;
+        public static double DownArea3;
+        //允许误差
+        public static double Area3;
+
+        //回检针座管控
+        public static double LeftArea4;
+        public static double RightArea4;
+        public static double UpArea4;
+        public static double DownArea4;
+        //允许误差
+        public static double Area4;
+
         //针座回检使能
         public static bool bConnectorCheck;
         //设备信息
@@ -1187,7 +1250,8 @@ namespace MotionCtrl
             bEnLBoxDr = inf.ReadBool("DOOR_SET", "LBOX_DOOR", true);
             bEnRBoxDr = inf.ReadBool("DOOR_SET", "RBOX_DOOR", true);
             //其它
-            bEnVsFB = inf.ReadBool("OTHER_SET", "VS_FB", false);
+            //bEnVsFB = inf.ReadBool("OTHER_SET", "VS_FB", false);
+            bUpDnAddTest = inf.ReadBool("OTHER_SET", "UPTEST", false);
             bUdMovSafe = inf.ReadBool("OTHER_SET", "UD_MOV_SAFE", false);
             bEnVsTray = inf.ReadBool("OTHER_SET", "VS_TRAY", false);
             Vs_XYofs = inf.ReadDouble("OTHER_SET", "VS_XY_OFS", 0.5);
@@ -1199,6 +1263,7 @@ namespace MotionCtrl
             GRRTestCnt = inf.ReadInteger("OTHER_SET", "GRR_TEST_CNT", 11);
             GRRUdlCnt = inf.ReadInteger("OTHER_SET", "GRR_UDL_CNT", 10);
             bModPasteUp = inf.ReadBool("OTHER_SET", "MODPASTEUP", false);
+            Isaloneset = inf.ReadBool("OTHER_SET", "ISALONESET", false);
             PlaceDly = inf.ReadInteger("OTHER_SET", "PLACEDLY", 50);
             MovUpDly = inf.ReadInteger("OTHER_SET", "MOVUPDLY", 50);
             Y1En = inf.ReadBool("OTHER_SET", "Y1EN", false);
@@ -1214,8 +1279,11 @@ namespace MotionCtrl
             bitOpenMode = inf.ReadInteger("OTHER_SET", "BITOPENMODE", 1);
             isopen_degree = inf.ReadBool("OTHER_SET", "ISopen_degree", false);
             degree = inf.ReadInteger("OTHER_SET", "Degree", 90);
+            isopendown_degree = inf.ReadBool("OTHER_SET", "ISopenDown_degree", false);
+            downdegree = inf.ReadInteger("OTHER_SET", "DownDegree", 90);
             bBarcodeCamBackEn = inf.ReadBool("OTHER_SET", "BARCODE_CAMBACK", true);
             bOkCheck = inf.ReadBool("OTHER_SET", "BOKCHECK", true);
+            bboxCheck = inf.ReadBool("OTHER_SET", "BBOXCHECK", true);
             bWsVsAddCheckEn = inf.ReadBool("OTHER_SET", "WSVS_ADDCHECK", false);
             bGTMCheck = inf.ReadBool("OTHER_SET", "GTM_CHECK", true);
             GTMOfs = inf.ReadDouble("OTHER_SET", "GTM_OFS", 0.5);
@@ -1228,10 +1296,22 @@ namespace MotionCtrl
             SameRowNGTipCnt = inf.ReadInteger("OTHER_SET", "SAMEROWNGTIP_CNT", 5);
 
             bmotorphoto = inf.ReadBool("OTHER_SET", "BMOTORPHOTO", false);
+            bsunnyqr = inf.ReadBool("OTHER_SET", "bsunnyqr", false);
+            bsunnyqrleft = inf.ReadBool("OTHER_SET", "bsunnyqrleft", false);
+            bsunnyqrright = inf.ReadBool("OTHER_SET", "bsunnyqrright", false);
+            bsunnyqralm = inf.ReadBool("OTHER_SET", "bsunnyqralm", false);
+            sunnyqrip0 = inf.ReadString("OTHER_SET", "sunnyqrip0", "192.168.72.80");
+            sunnyqrip1 = inf.ReadString("OTHER_SET", "sunnyqrip1", "192.168.72.81");
+            Motornum = inf.ReadInteger("OTHER_SET", "MOTORNUM", 0);
             MotorAngle1 = inf.ReadInteger("OTHER_SET", "MOTORANGLE1", 0);
             MotorAngle2 = inf.ReadInteger("OTHER_SET", "MOTORANGLE2", 0);
             MotorAngle3 = inf.ReadInteger("OTHER_SET", "MOTORANGLE3", 0);
             MotorAngle4 = inf.ReadInteger("OTHER_SET", "MOTORANGLE4", 0);
+            MotorZ1 = inf.ReadDouble("OTHER_SET", "MOTOZ1", 0);
+            MotorZ2 = inf.ReadDouble("OTHER_SET", "MOTOZ2", 0);
+            MotorZ3 = inf.ReadDouble("OTHER_SET", "MOTOZ3", 0);
+            MotorZ4 = inf.ReadDouble("OTHER_SET", "MOTOZ4", 0);
+            Motorrate = inf.ReadDouble("OTHER_SET", "MOTORATE", 0);
             motorBarcodeDigits = inf.ReadInteger("OTHER_SET", "MOTORBARCODEDIGITS", 0);
 
             bUpdateSoft = inf.ReadBool("OTHER_SET", "BUPDATESOFT", true);
@@ -1244,6 +1324,9 @@ namespace MotionCtrl
             BCamcfgset = inf.ReadBool("OTHER_SET", "BCAMCFGSET", false);
             bCycle = inf.ReadBool("OTHER_SET", "BCYCLE", true);
             bCool = inf.ReadBool("OTHER_SET", "BCOOL", false);
+            OpenDownQrde = inf.ReadBool("OTHER_SET", "OPENDOWNQRDE", false);
+            UpDownQrde = inf.ReadBool("OTHER_SET", "UPDOWNQRDE", false);
+            DownDownQrde = inf.ReadBool("OTHER_SET", "DOWNDOWNQRDE", false);
             bDelayTest = inf.ReadBool("OTHER_SET", "BDELAYTEST", false);
             ngCode = inf.ReadInteger("OTHER_SET", "NGCODE", 0);
             ngScale = inf.ReadDouble("OTHER_SET", "NGSCALE", 0);
@@ -1260,22 +1343,48 @@ namespace MotionCtrl
             JigCntSend = inf.ReadInteger("OTHER_SET", "JigCntSend", 30);
             bAddCapQrcode = inf.ReadBool("OTHER_SET", "bAddCapQrcode", false);
             bDwAddCapQrcode = inf.ReadBool("OTHER_SET", "bDwAddCapQrcode", false);
-
+            Check2open = inf.ReadBool("OTHER_SET", "Check2open", false);
             //吸头个数设置
             bUpDn1XtOnlyOne = inf.ReadBool("OTHER_SET", "bUpDn1XtOnlyOne", false);
             bUpDn2XtOnlyOne = inf.ReadBool("OTHER_SET", "bUpDn2XtOnlyOne", false);
             //
+            boxpos1.x = inf.ReadDouble("OTHER_SET", "BOXPOS1X", 0);
+            boxpos1.y = inf.ReadDouble("OTHER_SET", "BOXPOS1Y", 0);
+            boxpos2.x = inf.ReadDouble("OTHER_SET", "BOXPOS2X", 0);
+            boxpos2.y = inf.ReadDouble("OTHER_SET", "BOXPOS2Y", 0);
+            boxpos3.x = inf.ReadDouble("OTHER_SET", "BOXPOS3X", 0);
+            boxpos3.y = inf.ReadDouble("OTHER_SET", "BOXPOS3Y", 0);
+            boxpos4.x = inf.ReadDouble("OTHER_SET", "BOXPOS4X", 0);
+            boxpos4.y = inf.ReadDouble("OTHER_SET", "BOXPOS4Y", 0);
+            boxsetpos = inf.ReadDouble("OTHER_SET", "BOXSETPOS", 0);
+            boxsetpos1 = inf.ReadDouble("OTHER_SET", "BOXSETPOS1", 0);
+            boxsetpos2 = inf.ReadDouble("OTHER_SET", "BOXSETPOS2", 0);
+            boxsetpos3 = inf.ReadDouble("OTHER_SET", "BOXSETPOS3", 0);
+            boxsetpos4 = inf.ReadDouble("OTHER_SET", "BOXSETPOS4", 0);
+
             LeftArea = inf.ReadDouble("OTHER_SET", "LeftArea", 0.5);
             RightArea = inf.ReadDouble("OTHER_SET", "RightArea", 0.5);
             UpArea = inf.ReadDouble("OTHER_SET", "UpArea", 0.5);
             DownArea = inf.ReadDouble("OTHER_SET", "DownArea", 0.5);
             Area = inf.ReadDouble("OTHER_SET", "Area", 0.5);
-
+            safepos = inf.ReadDouble("OTHER_SET", "SAFEPOS", 0);
             LeftArea2 = inf.ReadDouble("OTHER_SET", "LeftArea2", 0.5);
             RightArea2 = inf.ReadDouble("OTHER_SET", "RightArea2", 0.5);
             UpArea2 = inf.ReadDouble("OTHER_SET", "UpArea2", 0.5);
             DownArea2 = inf.ReadDouble("OTHER_SET", "DownArea2", 0.5);
             Area2 = inf.ReadDouble("OTHER_SET", "Area2", 0.5);
+
+            LeftArea3 = inf.ReadDouble("OTHER_SET", "LeftArea3", 0.5);
+            RightArea3 = inf.ReadDouble("OTHER_SET", "RightArea3", 0.5);
+            UpArea3 = inf.ReadDouble("OTHER_SET", "UpArea3", 0.5);
+            DownArea3 = inf.ReadDouble("OTHER_SET", "DownArea3", 0.5);
+            Area3 = inf.ReadDouble("OTHER_SET", "Area3", 0.5);
+
+            LeftArea4 = inf.ReadDouble("OTHER_SET", "LeftArea4", 0.5);
+            RightArea4 = inf.ReadDouble("OTHER_SET", "RightArea4", 0.5);
+            UpArea4 = inf.ReadDouble("OTHER_SET", "UpArea4", 0.5);
+            DownArea4 = inf.ReadDouble("OTHER_SET", "DownArea4", 0.5);
+            Area4 = inf.ReadDouble("OTHER_SET", "Area4", 0.5);
             bConnectorCheck = inf.ReadBool("OTHER_SET", "bConnectorCheck", false);
             for (int i = 0; i < 2; i++)
             {
@@ -1339,6 +1448,7 @@ namespace MotionCtrl
             inf.WriteBool("DOOR_SET", "RBOX_DOOR", bEnRBoxDr, ref ischange, true, filename);
             //其它
             inf.WriteBool("OTHER_SET", "VS_FB", bEnVsFB, ref ischange, true, filename);
+            inf.WriteBool("OTHER_SET", "UPTEST", bUpDnAddTest, ref ischange, true, filename);
             inf.WriteBool("OTHER_SET", "VS_TRAY", bEnVsTray, ref ischange, true, filename);
             inf.WriteDouble("OTHER_SET", "VS_XY_OFS", Vs_XYofs, ref ischange, true, filename);
             inf.WriteDouble("OTHER_SET", "VS_R_OFS", Vs_Rofs, ref ischange, true, filename);
@@ -1350,6 +1460,7 @@ namespace MotionCtrl
             inf.WriteInteger("OTHER_SET", "GRR_TEST_CNT", GRRTestCnt, ref ischange, true, filename);
             inf.WriteInteger("OTHER_SET", "GRR_UDL_CNT", GRRUdlCnt, ref ischange, true, filename);
             inf.WriteBool("OTHER_SET", "MODPASTEUP", bModPasteUp, ref ischange, true, filename);
+            inf.WriteBool("OTHER_SET", "ISALONESET", Isaloneset, ref ischange, true, filename);
             inf.WriteInteger("OTHER_SET", "PLACEDLY", PlaceDly, ref ischange, true, filename);
             inf.WriteInteger("OTHER_SET", "MOVUPDLY", MovUpDly, ref ischange, true, filename);
             inf.WriteBool("OTHER_SET", "Y1EN", Y1En, ref ischange, true, filename);
@@ -1361,8 +1472,24 @@ namespace MotionCtrl
             inf.WriteBool("OTHER_SET", "HallEN", HallEn, ref ischange, true, filename);
             inf.WriteBool("OTHER_SET", "XT1FIRSTEN", xt1firsten, ref ischange, true, filename);
             inf.WriteBool("OTHER_SET", "TrayBarcodeEn", TrayBarcodeEn, ref ischange, true, filename);
-
+            inf.WriteBool("OTHER_SET", "OPENDOWNQRDE", OpenDownQrde, ref ischange, true, filename);
+            inf.WriteBool("OTHER_SET", "UPDOWNQRDE", UpDownQrde, ref ischange, true, filename);
+            inf.WriteBool("OTHER_SET", "DOWNDOWNQRDE", DownDownQrde, ref ischange, true, filename);
+            inf.WriteBool("OTHER_SET", "DOWNDOWNQRDE", DownDownQrde, ref ischange, true, filename);
             inf.WriteBool("OTHER_SET", "BMOTORPHOTO", bmotorphoto, ref ischange, true, filename);
+            inf.WriteBool("OTHER_SET", " bsunnyqr", bsunnyqr, ref ischange, true, filename);
+            inf.WriteBool("OTHER_SET", " bsunnyqrleft", bsunnyqrleft, ref ischange, true, filename);
+            inf.WriteBool("OTHER_SET", " bsunnyqrright", bsunnyqrright, ref ischange, true, filename);
+            inf.WriteBool("OTHER_SET", " bsunnyqralm", bsunnyqralm, ref ischange, true, filename);
+            inf.WriteString("OTHER_SET", " sunnyqrip0", sunnyqrip0, ref ischange, true, filename);
+            inf.WriteString("OTHER_SET", " sunnyqrip1", sunnyqrip1, ref ischange, true, filename);
+            inf.WriteDouble("OTHER_SET", "MOTOZ1", MotorZ1, ref ischange, true, filename);
+            inf.WriteDouble("OTHER_SET", "MOTOZ2", MotorZ2, ref ischange, true, filename);
+            inf.WriteDouble("OTHER_SET", "MOTOZ3", MotorZ3, ref ischange, true, filename);
+            inf.WriteDouble("OTHER_SET", "MOTOZ4", MotorZ4, ref ischange, true, filename);
+            inf.WriteDouble("OTHER_SET", "MOTORATE", Motorrate, ref ischange, true, filename);
+            inf.WriteDouble("OTHER_SET", "MOTORNUM", Motornum, ref ischange, true, filename);
+
             inf.WriteInteger("OTHER_SET", "MOTORANGLE1", MotorAngle1, ref ischange, true, filename);
             inf.WriteInteger("OTHER_SET", "MOTORANGLE2", MotorAngle2, ref ischange, true, filename);
             inf.WriteInteger("OTHER_SET", "MOTORANGLE3", MotorAngle3, ref ischange, true, filename);
@@ -1372,7 +1499,10 @@ namespace MotionCtrl
             inf.WriteInteger("OTHER_SET", "BITOPENMODE", bitOpenMode, ref ischange, true, filename);
             inf.WriteBool("OTHER_SET", "ISopen_degree", isopen_degree, ref ischange, true, filename);
             inf.WriteInteger("OTHER_SET", "Degree", degree, ref ischange, true, filename);
+            inf.WriteBool("OTHER_SET", "ISopenDown_degree", isopendown_degree, ref ischange, true, filename);
+            inf.WriteInteger("OTHER_SET", "DownDegree", downdegree, ref ischange, true, filename);
             inf.WriteBool("OTHER_SET", "BOKCHECK", bOkCheck, ref ischange, true, filename);
+            inf.WriteBool("OTHER_SET", "BBOXCHECK", bboxCheck, ref ischange, true, filename);
             inf.WriteBool("OTHER_SET", "BARCODE_CAMBACK", bBarcodeCamBackEn, ref ischange, true, filename);
             inf.WriteBool("OTHER_SET", "WSVS_ADDCHECK", bWsVsAddCheckEn, ref ischange, true, filename);
             inf.WriteBool("OTHER_SET", "GTM_CHECK", bGTMCheck, ref ischange, true, filename);
@@ -1391,6 +1521,9 @@ namespace MotionCtrl
             inf.WriteBool("OTHER_SET", "BBACKERRCONTINUE", bBackerrcontinue, ref ischange, true, filename);
             inf.WriteBool("OTHER_SET", "BNONPARALLEL", bNonparallel, ref ischange, true, filename);
             inf.WriteDouble("OTHER_SET", "CLEANINTERVAL", Cleaninterval, ref ischange, true, filename);
+
+            inf.WriteDouble("OTHER_SET", "SAFEPOS", safepos, ref ischange, true, filename);
+
             inf.WriteBool("OTHER_SET", "BCLEANEN", bCleanen, ref ischange, true, filename);
             inf.WriteString("OTHER_SET", "LASTCLEANTIME", Lastcleantime, ref ischange, true, filename);
             inf.WriteBool("OTHER_SET", "BCAMCFGSET", BCamcfgset, ref ischange, true, filename);
@@ -1412,6 +1545,21 @@ namespace MotionCtrl
             inf.WriteBool("OTHER_SET", "bUpDn2XtOnlyOne", bUpDn2XtOnlyOne, ref ischange, true, filename);
 
             //
+            inf.WriteDouble("OTHER_SET", "BOXPOS1X", boxpos1.x, ref ischange, true, filename);
+            inf.WriteDouble("OTHER_SET", "BOXPOS1Y", boxpos1.y, ref ischange, true, filename);
+            inf.WriteDouble("OTHER_SET", "BOXPOS2X", boxpos2.x, ref ischange, true, filename);
+            inf.WriteDouble("OTHER_SET", "BOXPOS2Y", boxpos2.y, ref ischange, true, filename);
+            inf.WriteDouble("OTHER_SET", "BOXPOS3X", boxpos3.x, ref ischange, true, filename);
+            inf.WriteDouble("OTHER_SET", "BOXPOS3Y", boxpos3.y, ref ischange, true, filename);
+            inf.WriteDouble("OTHER_SET", "BOXPOS4X", boxpos4.x, ref ischange, true, filename);
+            inf.WriteDouble("OTHER_SET", "BOXPOS4Y", boxpos4.y, ref ischange, true, filename);
+            inf.WriteDouble("OTHER_SET", "BOXSETPOS", boxsetpos, ref ischange, true, filename);
+            inf.WriteDouble("OTHER_SET", "BOXSETPOS1", boxsetpos1, ref ischange, true, filename);
+            inf.WriteDouble("OTHER_SET", "BOXSETPOS2", boxsetpos2, ref ischange, true, filename);
+            inf.WriteDouble("OTHER_SET", "BOXSETPOS3", boxsetpos3, ref ischange, true, filename);
+            inf.WriteDouble("OTHER_SET", "BOXSETPOS4", boxsetpos4, ref ischange, true, filename);
+
+
             inf.WriteDouble("OTHER_SET", "LeftArea", LeftArea, ref ischange, true, filename);
             inf.WriteDouble("OTHER_SET", "RightArea", RightArea, ref ischange, true, filename);
             inf.WriteDouble("OTHER_SET", "UpArea", UpArea, ref ischange, true, filename);
@@ -1423,6 +1571,18 @@ namespace MotionCtrl
             inf.WriteDouble("OTHER_SET", "UpArea2", UpArea2, ref ischange, true, filename);
             inf.WriteDouble("OTHER_SET", "DownArea2", DownArea2, ref ischange, true, filename);
             inf.WriteDouble("OTHER_SET", "Area2", Area2, ref ischange, true, filename);
+
+            inf.WriteDouble("OTHER_SET", "LeftArea3", LeftArea3, ref ischange, true, filename);
+            inf.WriteDouble("OTHER_SET", "RightArea3", RightArea3, ref ischange, true, filename);
+            inf.WriteDouble("OTHER_SET", "UpArea3", UpArea3, ref ischange, true, filename);
+            inf.WriteDouble("OTHER_SET", "DownArea3", DownArea3, ref ischange, true, filename);
+            inf.WriteDouble("OTHER_SET", "Area3", Area3, ref ischange, true, filename);
+
+            inf.WriteDouble("OTHER_SET", "LeftArea4", LeftArea4, ref ischange, true, filename);
+            inf.WriteDouble("OTHER_SET", "RightArea4", RightArea4, ref ischange, true, filename);
+            inf.WriteDouble("OTHER_SET", "UpArea4", UpArea4, ref ischange, true, filename);
+            inf.WriteDouble("OTHER_SET", "DownArea4", DownArea4, ref ischange, true, filename);
+            inf.WriteDouble("OTHER_SET", "Area4", Area4, ref ischange, true, filename);
 
             inf.WriteBool("OTHER_SET", "bConnectorCheck", bConnectorCheck, ref ischange, true, filename);
             for (int i = 0; i < 2; i++)
@@ -1448,6 +1608,7 @@ namespace MotionCtrl
             
             inf.WriteBool("OTHER_SET", "bAddCapQrcode", bAddCapQrcode, ref ischange, true, filename);
             inf.WriteBool("OTHER_SET", "bDwAddCapQrcode", bDwAddCapQrcode, ref ischange, true, filename);
+            inf.WriteBool("OTHER_SET", "Check2open", Check2open, ref ischange, true, filename);
             inf.WriteBool("OTHER_SET", "bUpWsChkQrCodeEn", bUpWsChkQrCodeEn, ref ischange, true, filename);
         //    inf.WriteInteger("OTHER_SET", "UpWsChkQrCodeCnt", UpWsChkQrCodeCnt, ref ischange, true, filename);
             inf.WriteBool("OTHER_SET", "bWsNgRateShow", bWsNgRateShow, ref ischange, true, filename);

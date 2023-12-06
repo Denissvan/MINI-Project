@@ -375,14 +375,14 @@ namespace UI
 
         bool bInitSysTimeCnt = true;
         SysTimeCnt CurTimeCnt = null;
+
         /// <summary>
         /// 系统运行状态记录
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
         private void timer_sysTimeCnt_Tick(object sender, EventArgs e)
-        {
-        
+        {       
             if (bInitSysTimeCnt)
             {
                 bInitSysTimeCnt = false;
@@ -404,13 +404,21 @@ namespace UI
             if (VAR.gsys_set.status == EM_SYS_STA.RUN)
             {
                 if (CurTimeCnt == null)
-                { bInitSysTimeCnt = true; return; }
+                {
+                    bInitSysTimeCnt = true; 
+                    return; 
+                }
+
                 if (VAR.sys_inf.info.Contains("运行")|| VAR.sys_inf.info.Contains("RUN"))
                 {
                     CurTimeCnt.RunTime++;
-                }else
+                }
+                else
+                {
                     CurTimeCnt.AlmTime++;
-                if(CurTimeCnt.Time.ToString("yyyy-MM-dd HH")!= DateTime.Now.ToString("yyyy-MM-dd HH"))
+                }
+                    
+                if(CurTimeCnt.Time.ToString("yyyy-MM-dd HH ")!= DateTime.Now.ToString("yyyy-MM-dd HH"))
                 {
                     var mlist = SQLData.SysTimeCntDataChkExit(CurTimeCnt);
                     if (mlist.Count != 0)
@@ -419,11 +427,11 @@ namespace UI
                     }
                     SQLData.SysTimeCntDataAdd(CurTimeCnt);
                     CurTimeCnt = null;
-                    bInitSysTimeCnt = true; return; 
-                
+                    bInitSysTimeCnt = true; return;              
                 }
             }
         }
+
         public void SaveSysTimeCnt()
         {
             if (CurTimeCnt != null)

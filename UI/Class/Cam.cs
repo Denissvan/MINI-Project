@@ -816,70 +816,78 @@ namespace UI
         public EM_RES Triger(bool bcontinue = false, bool bWaitImg = false)
         {
             EM_RES res = EM_RES.OK;
-            // graphics_other.Clear();
-            if (mAcqFifo != null)
+            try
             {
-                try
+                // graphics_other.Clear();
+                if (mAcqFifo != null)
                 {
-                    bNewImage = false;
-                    //stop live
-                    res = StopLive();
-                    if (res != EM_RES.OK) return res;
-
-                    //set cap cfg
-                    res = CapCfg(curCapCfg);
-                    if (res != EM_RES.OK) return res;
-                    int n = 0;
-                    while (FlushUpdate)
+                    try
                     {
-                        Thread.Sleep(10);
-                        if (n++ > 150)
+                        bNewImage = false;
+                        //stop live
+                        res = StopLive();
+                        if (res != EM_RES.OK) return res;
+
+                        //set cap cfg
+                        res = CapCfg(curCapCfg);
+                        if (res != EM_RES.OK) return res;
+                        int n = 0;
+                        while (FlushUpdate)
                         {
-                            VAR.msg.AddMsg(Msg.EM_MSGTYPE.ERR, VAR.IsChinese ? string.Format("{0}等待FlushUpdate为false超时1.5S", mName) : string.Format("{0} Wait for FlushUpdate to be false timeout(1.5s)   ({0}等待FlushUpdate为false超时1.5S)", mName), DReport.EmErrCode.Timeout, (int)DReport.EmHareware.Cam);
-                            return EM_RES.TIMEOUT;
+                            Thread.Sleep(10);
+                            if (n++ > 150)
+                            {
+                                VAR.msg.AddMsg(Msg.EM_MSGTYPE.ERR, VAR.IsChinese ? string.Format("{0}等待FlushUpdate为false超时1.5S", mName) : string.Format("{0} Wait for FlushUpdate to be false timeout(1.5s)   ({0}等待FlushUpdate为false超时1.5S)", mName), DReport.EmErrCode.Timeout, (int)DReport.EmHareware.Cam);
+                                return EM_RES.TIMEOUT;
+                            }
+                        }
+                        //clear result
+                        if (!FlushOk && !FlushUpdate)
+                        {
+                            FlushUpdate = true;
+                            mAcqFifo.Flush();
+                            FlushOk = true;
+                            FlushUpdate = false;
+                        }
+                        if (curTask != null) curTask.ResData.Clear();
+
+
+                        //优先硬件触发，失败后软件触发
+                        if (HwTrigerHandle == null || EM_RES.OK != HwTrigerHandle())
+                        {
+                            mAcqFifo.OwnedTriggerParams.TriggerEnabled = false;
+                            mAcqFifo.OwnedTriggerParams.TriggerModel = CogAcqTriggerModelConstants.Manual;
+                            mAcqFifo.OwnedTriggerParams.TriggerEnabled = true;
+                            this.bcontinue = bcontinue;
+                            mAcqFifo.StartAcquire();
+                        }
+
+                        //wait img update
+                        int t = 0;
+                        while (bWaitImg)
+                        {
+                            if (bNewImage) break;
+                            Thread.Sleep(2);
+                            Application.DoEvents();
+                            t++;
+                            if (t > 500)
+                            {
+                                VAR.msg.AddMsg(Msg.EM_MSGTYPE.ERR, VAR.IsChinese ? string.Format("{0}触发等待图像更新超时(1000ms)", mName) : string.Format("{0} Trigger waiting for image update timeout(1000ms)    ({0}触发等待图像更新超时(1000ms))", mName), DReport.EmErrCode.Timeout, (int)DReport.EmHareware.Cam);
+                                return EM_RES.TIMEOUT;
+                            }
                         }
                     }
-                    //clear result
-                    if (!FlushOk && !FlushUpdate)
+                    catch (Exception ex)
                     {
-                        FlushUpdate = true;
-                        mAcqFifo.Flush();
-                        FlushOk = true;
-                        FlushUpdate = false;
-                    }
-                    if (curTask != null) curTask.ResData.Clear();
-
-
-                    //优先硬件触发，失败后软件触发
-                    if (HwTrigerHandle == null || EM_RES.OK != HwTrigerHandle())
-                    {
-                        mAcqFifo.OwnedTriggerParams.TriggerEnabled = false;
-                        mAcqFifo.OwnedTriggerParams.TriggerModel = CogAcqTriggerModelConstants.Manual;
-                        mAcqFifo.OwnedTriggerParams.TriggerEnabled = true;
-                        this.bcontinue = bcontinue;
-                        mAcqFifo.StartAcquire();
-                    }
-
-                    //wait img update
-                    int t = 0;
-                    while (bWaitImg)
-                    {
-                        if (bNewImage) break;
-                        Thread.Sleep(2);
-                        Application.DoEvents();
-                        t++;
-                        if (t > 500)
-                        {
-                            VAR.msg.AddMsg(Msg.EM_MSGTYPE.ERR, VAR.IsChinese ? string.Format("{0}触发等待图像更新超时(1000ms)", mName) : string.Format("{0} Trigger waiting for image update timeout(1000ms)    ({0}触发等待图像更新超时(1000ms))", mName), DReport.EmErrCode.Timeout, (int)DReport.EmHareware.Cam);
-                            return EM_RES.TIMEOUT;
-                        }
+                        VAR.msg.AddMsg(Msg.EM_MSGTYPE.ERR, VAR.IsChinese ? string.Format("{0}触发异常，{1}", mName, ex.Message) : string.Format("{0} ERROR:Trigger.{1}   ({0}触发异常，{1})", mName, ex.Message), DReport.EmErrCode.CaptureFailed, (int)DReport.EmHareware.Cam, ERR_ALM.EmErrItem.CaptureAbnomal);
+                        return EM_RES.CAM_ERR;
                     }
                 }
-                catch (Exception ex)
-                {
-                    VAR.msg.AddMsg(Msg.EM_MSGTYPE.ERR, VAR.IsChinese ? string.Format("{0}触发异常，{1}", mName, ex.Message) : string.Format("{0} ERROR:Trigger.{1}   ({0}触发异常，{1})", mName, ex.Message), DReport.EmErrCode.CaptureFailed, (int)DReport.EmHareware.Cam, ERR_ALM.EmErrItem.CaptureAbnomal);
-                    return EM_RES.CAM_ERR;
-                }
+            }
+            catch (Exception ex)
+            {
+                VAR.msg.AddMsg(Msg.EM_MSGTYPE.ERR, VAR.IsChinese ? string.Format("{0}触发异常，{1}", mName, ex.Message) : string.Format("{0} ERROR:Trigger.{1}   ({0}触发异常，{1})", mName, ex.Message), DReport.EmErrCode.CaptureFailed, (int)DReport.EmHareware.Cam, ERR_ALM.EmErrItem.CaptureAbnomal);
+                return EM_RES.CAM_ERR;
             }
             VAR.msg.AddMsg(Msg.EM_MSGTYPE.DBG, VAR.IsChinese ? string.Format("{0}触发", mName) : string.Format("{0} trigger  ({0}触发)", mName));
             return EM_RES.OK;
@@ -1301,6 +1309,8 @@ namespace UI
             /// 关联的相机
             /// </summary>
             public Cam Camera;
+
+            public int Xtid=-1;
             /// <summary>
             /// 视觉模块
             /// </summary>
@@ -1438,44 +1448,56 @@ namespace UI
             {
                 //check
                 if (Camera == null) return EM_RES.PARA_ERR;
-
-                for (int n = 0; n < TryCnt; n++)
+                try
                 {
-                    //clear result
-                    ResData.Clear();
-                    //triger
-                    EM_RES res = Camera.Triger();
-                    if (res != EM_RES.OK) return res;
-                    //wati result
-                    if (Demo)
+                    for (int n = 0; n < TryCnt; n++)
                     {
-                        ResData.bOK = true;
-                        ResData.PosMM = new ST_XYA(0, 0, 0);
-                        ResData.bUpdate = true;
-                        return EM_RES.OK;
-                    }
-                    int num = 0;
-                    while (ResData.bUpdate == false)
-                    {
-                        if (bquit)
+                        //clear result
+                        ResData.Clear();
+                        //triger
+                        EM_RES res = Camera.Triger();
+                        if (res != EM_RES.OK)
                         {
-                            VAR.msg.AddMsg(Msg.EM_MSGTYPE.ERR, VAR.IsChinese ? string.Format("{0}/{1}等待结果取消!", Camera.disc, TaskName) : string.Format("{0}/{2} Wait for results,cancel!    ({1}/{2}等待结果取消!)", Camera.englishdisc, Camera.disc, TaskName), DReport.EmErrCode.CaptureFailed, (int)DReport.EmHareware.Cam);
-                            return EM_RES.QUIT;
+                            VAR.msg.AddMsg(Msg.EM_MSGTYPE.ERR, string.Format("{0}/{1}触发 失败，返回{2}!", Camera.disc, TaskName, res), DReport.EmErrCode.CaptureFailed, (int)DReport.EmHareware.Cam);
+                            return res;
                         }
-                        // Application.DoEvents();
-                        Thread.Sleep(10);
-                        if (++num > TimeOut / 10)
+                        //wati result
+                        if (Demo)
                         {
+                            ResData.bOK = true;
+                            ResData.PosMM = new ST_XYA(0, 0, 0);
                             ResData.bUpdate = true;
-                            ResData.bOK = false;
-                            VAR.msg.AddMsg(Msg.EM_MSGTYPE.ERR, VAR.IsChinese ? string.Format("{0}/{1}等待结果超时!", Camera.disc, TaskName) : string.Format("{0}/{2} Wait fot results timeout!   ({1}/{2}等待结果超时!)", Camera.englishdisc, Camera.disc, TaskName), DReport.EmErrCode.Timeout, (int)DReport.EmHareware.Cam);
-                            return EM_RES.TIMEOUT;
+                            return EM_RES.OK;
                         }
+                        int num = 0;
+                        while (ResData.bUpdate == false)
+                        {
+                            if (bquit)
+                            {
+                                VAR.msg.AddMsg(Msg.EM_MSGTYPE.ERR, VAR.IsChinese ? string.Format("{0}/{1}等待结果取消!", Camera.disc, TaskName) : string.Format("{0}/{2} Wait for results,cancel!    ({1}/{2}等待结果取消!)", Camera.englishdisc, Camera.disc, TaskName), DReport.EmErrCode.CaptureFailed, (int)DReport.EmHareware.Cam);
+                                return EM_RES.QUIT;
+                            }
+                            // Application.DoEvents();
+                            Thread.Sleep(10);
+                            if (++num > TimeOut / 10)
+                            {
+                                ResData.bUpdate = true;
+                                ResData.bOK = false;
+                                VAR.msg.AddMsg(Msg.EM_MSGTYPE.ERR, VAR.IsChinese ? string.Format("{0}/{1}等待结果超时!", Camera.disc, TaskName) : string.Format("{0}/{2} Wait fot results timeout!   ({1}/{2}等待结果超时!)", Camera.englishdisc, Camera.disc, TaskName), DReport.EmErrCode.Timeout, (int)DReport.EmHareware.Cam);
+                                return EM_RES.TIMEOUT;
+                            }
+                        }
+                        if (ResData.bOK) return EM_RES.OK;
                     }
-                    if (ResData.bOK) return EM_RES.OK;
+                }
+                catch (Exception ex)
+                {
+                    VAR.msg.AddMsg(Msg.EM_MSGTYPE.ERR,  string.Format("{0}拍照异常",ex.Message), DReport.EmErrCode.CaptureFailed, (int)DReport.EmHareware.Cam, ERR_ALM.EmErrItem.CaptureAbnomal);
+                    return EM_RES.CAM_ERR;
                 }
                 return EM_RES.CAM_ERR;
             }
+
             /// <summary>
             /// 提取视觉任务的输出变量，视觉任务为null，或变量不存在则返回默认值
             /// </summary>
@@ -1554,12 +1576,12 @@ namespace UI
 
                     if(TaskName.Contains("ModDw"))
                     {
-                        if(PT_SET.BarcodeMode == 1) RunCfg = RunCfg | 0x01;
+                        if(PT_SET.BarcodeMode == 1 && !PT_SET.bDwAddCapQrcode) RunCfg = RunCfg | 0x01;
                         else RunCfg = RunCfg & (~0x01);
                     }
                     else if(TaskName.Contains("ModUp"))
                     {
-                        if (PT_SET.BarcodeMode == 0)
+                        if (PT_SET.BarcodeMode == 0 && !PT_SET.Isaloneset)
                         {
 
                             bool bGetOrcodOnWs = NewSysInf.UserParams.bGetOrcodOnWs;

@@ -359,7 +359,12 @@ namespace UI
                     if (res == EM_RES.OK)
                     {
                         DRpt.Report_Opration(1000, 0, "整体回零成功!");
-                       
+                        for (int t = 1; t < 37; t++)
+                        {
+                            Msg.secsManager.Send(new BaseInfo() { Id = t, Value = "false" }, 1);
+                        }
+                        Msg.secsManager.Send(new BaseInfo() { Id = 1, Value = Convert.ToInt32(DReport.EmStatus.Run).ToString() });
+                        Msg.secsManager.Send(new BaseInfo() { Id = 1 }, 2);
 
                     }
                     else DRpt.Report_Opration(1000, 0, "整体回零失败!");

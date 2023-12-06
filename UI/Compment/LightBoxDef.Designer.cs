@@ -36,12 +36,11 @@
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle7 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle8 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle11 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle12 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle13 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle14 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle9 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle10 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle11 = new System.Windows.Forms.DataGridViewCellStyle();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.flowLayoutPanel2 = new System.Windows.Forms.FlowLayoutPanel();
             this.light_btn_stop = new System.Windows.Forms.Button();
@@ -58,17 +57,6 @@
             this.cmp_z1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.cmp_z2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dgv = new System.Windows.Forms.DataGridView();
-            this.Num = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Disc = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.X1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.X2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Y1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Z1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Z2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Channel = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.delay = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.btn_open = new System.Windows.Forms.DataGridViewButtonColumn();
-            this.btn_close = new System.Windows.Forms.DataGridViewButtonColumn();
             this.flowLayoutPanel1 = new System.Windows.Forms.FlowLayoutPanel();
             this.panel1 = new System.Windows.Forms.Panel();
             this.lbl_lighttip1 = new System.Windows.Forms.Label();
@@ -91,6 +79,18 @@
             this.lb_lightz = new System.Windows.Forms.Label();
             this.nud_z = new System.Windows.Forms.NumericUpDown();
             this.btn_lightgetpos = new System.Windows.Forms.Button();
+            this.Num = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Disc = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.isuse = new System.Windows.Forms.DataGridViewCheckBoxColumn();
+            this.XX1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.X2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Y1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Z1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Z2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Channel = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.delay = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.btn_open = new System.Windows.Forms.DataGridViewButtonColumn();
+            this.btn_close = new System.Windows.Forms.DataGridViewButtonColumn();
             this.tableLayoutPanel1.SuspendLayout();
             this.flowLayoutPanel2.SuspendLayout();
             this.tp_dgv.SuspendLayout();
@@ -122,7 +122,7 @@
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 180F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 63F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
-            this.tableLayoutPanel1.Size = new System.Drawing.Size(996, 480);
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(1143, 480);
             this.tableLayoutPanel1.TabIndex = 0;
             // 
             // flowLayoutPanel2
@@ -136,13 +136,13 @@
             this.flowLayoutPanel2.FlowDirection = System.Windows.Forms.FlowDirection.RightToLeft;
             this.flowLayoutPanel2.Location = new System.Drawing.Point(3, 420);
             this.flowLayoutPanel2.Name = "flowLayoutPanel2";
-            this.flowLayoutPanel2.Size = new System.Drawing.Size(990, 57);
+            this.flowLayoutPanel2.Size = new System.Drawing.Size(1137, 57);
             this.flowLayoutPanel2.TabIndex = 7;
             // 
             // light_btn_stop
             // 
             this.light_btn_stop.BackColor = System.Drawing.Color.Gold;
-            this.light_btn_stop.Location = new System.Drawing.Point(858, 3);
+            this.light_btn_stop.Location = new System.Drawing.Point(1005, 3);
             this.light_btn_stop.Name = "light_btn_stop";
             this.light_btn_stop.Size = new System.Drawing.Size(129, 51);
             this.light_btn_stop.TabIndex = 5;
@@ -153,7 +153,7 @@
             // light_btn_save
             // 
             this.light_btn_save.BackColor = System.Drawing.SystemColors.ButtonFace;
-            this.light_btn_save.Location = new System.Drawing.Point(723, 3);
+            this.light_btn_save.Location = new System.Drawing.Point(870, 3);
             this.light_btn_save.Name = "light_btn_save";
             this.light_btn_save.Size = new System.Drawing.Size(129, 51);
             this.light_btn_save.TabIndex = 1;
@@ -164,7 +164,7 @@
             // light_btn_load
             // 
             this.light_btn_load.BackColor = System.Drawing.SystemColors.ButtonFace;
-            this.light_btn_load.Location = new System.Drawing.Point(588, 3);
+            this.light_btn_load.Location = new System.Drawing.Point(735, 3);
             this.light_btn_load.Name = "light_btn_load";
             this.light_btn_load.Size = new System.Drawing.Size(129, 51);
             this.light_btn_load.TabIndex = 2;
@@ -175,7 +175,7 @@
             // light_btn_add
             // 
             this.light_btn_add.BackColor = System.Drawing.SystemColors.ButtonFace;
-            this.light_btn_add.Location = new System.Drawing.Point(453, 3);
+            this.light_btn_add.Location = new System.Drawing.Point(600, 3);
             this.light_btn_add.Name = "light_btn_add";
             this.light_btn_add.Size = new System.Drawing.Size(129, 51);
             this.light_btn_add.TabIndex = 3;
@@ -186,7 +186,7 @@
             // light_btn_del
             // 
             this.light_btn_del.BackColor = System.Drawing.SystemColors.ButtonFace;
-            this.light_btn_del.Location = new System.Drawing.Point(318, 3);
+            this.light_btn_del.Location = new System.Drawing.Point(465, 3);
             this.light_btn_del.Name = "light_btn_del";
             this.light_btn_del.Size = new System.Drawing.Size(129, 51);
             this.light_btn_del.TabIndex = 4;
@@ -206,7 +206,7 @@
             this.tp_dgv.RowCount = 2;
             this.tp_dgv.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.tp_dgv.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 113F));
-            this.tp_dgv.Size = new System.Drawing.Size(990, 231);
+            this.tp_dgv.Size = new System.Drawing.Size(1137, 231);
             this.tp_dgv.TabIndex = 6;
             // 
             // dgvcmp
@@ -282,7 +282,7 @@
             this.dgvcmp.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
             this.dgvcmp.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dgvcmp.ShowEditingIcon = false;
-            this.dgvcmp.Size = new System.Drawing.Size(984, 105);
+            this.dgvcmp.Size = new System.Drawing.Size(1131, 105);
             this.dgvcmp.TabIndex = 5;
             this.dgvcmp.CellPainting += new System.Windows.Forms.DataGridViewCellPaintingEventHandler(this.dgvcmp_CellPainting);
             // 
@@ -369,7 +369,8 @@
             this.dgv.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.Num,
             this.Disc,
-            this.X1,
+            this.isuse,
+            this.XX1,
             this.X2,
             this.Y1,
             this.Z1,
@@ -378,14 +379,14 @@
             this.delay,
             this.btn_open,
             this.btn_close});
-            dataGridViewCellStyle12.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle12.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
-            dataGridViewCellStyle12.Font = new System.Drawing.Font("宋体", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            dataGridViewCellStyle12.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
-            dataGridViewCellStyle12.SelectionBackColor = System.Drawing.Color.Transparent;
-            dataGridViewCellStyle12.SelectionForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(43)))), ((int)(((byte)(144)))), ((int)(((byte)(217)))));
-            dataGridViewCellStyle12.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.dgv.DefaultCellStyle = dataGridViewCellStyle12;
+            dataGridViewCellStyle11.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle11.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
+            dataGridViewCellStyle11.Font = new System.Drawing.Font("宋体", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            dataGridViewCellStyle11.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            dataGridViewCellStyle11.SelectionBackColor = System.Drawing.Color.Transparent;
+            dataGridViewCellStyle11.SelectionForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(43)))), ((int)(((byte)(144)))), ((int)(((byte)(217)))));
+            dataGridViewCellStyle11.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.dgv.DefaultCellStyle = dataGridViewCellStyle11;
             this.dgv.Dock = System.Windows.Forms.DockStyle.Fill;
             this.dgv.EnableHeadersVisualStyles = false;
             this.dgv.GridColor = System.Drawing.Color.Gray;
@@ -394,22 +395,22 @@
             this.dgv.MultiSelect = false;
             this.dgv.Name = "dgv";
             this.dgv.RowHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.None;
-            dataGridViewCellStyle13.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle12.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle12.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
+            dataGridViewCellStyle12.Font = new System.Drawing.Font("宋体", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            dataGridViewCellStyle12.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            dataGridViewCellStyle12.SelectionBackColor = System.Drawing.Color.Transparent;
+            dataGridViewCellStyle12.SelectionForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(43)))), ((int)(((byte)(144)))), ((int)(((byte)(217)))));
+            dataGridViewCellStyle12.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dgv.RowHeadersDefaultCellStyle = dataGridViewCellStyle12;
+            this.dgv.RowHeadersVisible = false;
+            this.dgv.RowHeadersWidthSizeMode = System.Windows.Forms.DataGridViewRowHeadersWidthSizeMode.DisableResizing;
             dataGridViewCellStyle13.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
-            dataGridViewCellStyle13.Font = new System.Drawing.Font("宋体", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            dataGridViewCellStyle13.Font = new System.Drawing.Font("宋体", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             dataGridViewCellStyle13.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
             dataGridViewCellStyle13.SelectionBackColor = System.Drawing.Color.Transparent;
             dataGridViewCellStyle13.SelectionForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(43)))), ((int)(((byte)(144)))), ((int)(((byte)(217)))));
-            dataGridViewCellStyle13.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dgv.RowHeadersDefaultCellStyle = dataGridViewCellStyle13;
-            this.dgv.RowHeadersVisible = false;
-            this.dgv.RowHeadersWidthSizeMode = System.Windows.Forms.DataGridViewRowHeadersWidthSizeMode.DisableResizing;
-            dataGridViewCellStyle14.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
-            dataGridViewCellStyle14.Font = new System.Drawing.Font("宋体", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            dataGridViewCellStyle14.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
-            dataGridViewCellStyle14.SelectionBackColor = System.Drawing.Color.Transparent;
-            dataGridViewCellStyle14.SelectionForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(43)))), ((int)(((byte)(144)))), ((int)(((byte)(217)))));
-            this.dgv.RowsDefaultCellStyle = dataGridViewCellStyle14;
+            this.dgv.RowsDefaultCellStyle = dataGridViewCellStyle13;
             this.dgv.RowTemplate.DefaultCellStyle.BackColor = System.Drawing.SystemColors.Control;
             this.dgv.RowTemplate.DefaultCellStyle.Font = new System.Drawing.Font("宋体", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.dgv.RowTemplate.DefaultCellStyle.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
@@ -420,134 +421,13 @@
             this.dgv.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
             this.dgv.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dgv.ShowEditingIcon = false;
-            this.dgv.Size = new System.Drawing.Size(984, 110);
+            this.dgv.Size = new System.Drawing.Size(1131, 110);
             this.dgv.TabIndex = 4;
             this.dgv.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgv_CellClick);
             this.dgv.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgv_CellContentClick);
+            this.dgv.CellMouseDoubleClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.dgv_CellMouseDoubleClick);
             this.dgv.CellMouseEnter += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgv_CellMouseEnter);
             this.dgv.CellPainting += new System.Windows.Forms.DataGridViewCellPaintingEventHandler(this.dgv_CellPainting);
-            // 
-            // Num
-            // 
-            this.Num.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.Num.FillWeight = 1F;
-            this.Num.HeaderText = "编号";
-            this.Num.MinimumWidth = 60;
-            this.Num.Name = "Num";
-            this.Num.Resizable = System.Windows.Forms.DataGridViewTriState.False;
-            // 
-            // Disc
-            // 
-            this.Disc.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.Disc.FillWeight = 20F;
-            this.Disc.HeaderText = "名称";
-            this.Disc.MinimumWidth = 140;
-            this.Disc.Name = "Disc";
-            // 
-            // X1
-            // 
-            this.X1.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            dataGridViewCellStyle9.SelectionBackColor = System.Drawing.Color.Transparent;
-            dataGridViewCellStyle9.SelectionForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(43)))), ((int)(((byte)(144)))), ((int)(((byte)(217)))));
-            this.X1.DefaultCellStyle = dataGridViewCellStyle9;
-            this.X1.FillWeight = 1F;
-            this.X1.HeaderText = "X1";
-            this.X1.MinimumWidth = 90;
-            this.X1.Name = "X1";
-            this.X1.Resizable = System.Windows.Forms.DataGridViewTriState.False;
-            // 
-            // X2
-            // 
-            this.X2.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.X2.FillWeight = 1F;
-            this.X2.HeaderText = "X2";
-            this.X2.MinimumWidth = 90;
-            this.X2.Name = "X2";
-            this.X2.Resizable = System.Windows.Forms.DataGridViewTriState.False;
-            // 
-            // Y1
-            // 
-            this.Y1.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.Y1.FillWeight = 1F;
-            this.Y1.HeaderText = "Y1";
-            this.Y1.MinimumWidth = 90;
-            this.Y1.Name = "Y1";
-            // 
-            // Z1
-            // 
-            this.Z1.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.Z1.FillWeight = 1F;
-            this.Z1.HeaderText = "Z1";
-            this.Z1.MinimumWidth = 90;
-            this.Z1.Name = "Z1";
-            this.Z1.Resizable = System.Windows.Forms.DataGridViewTriState.False;
-            // 
-            // Z2
-            // 
-            this.Z2.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.Z2.FillWeight = 1F;
-            this.Z2.HeaderText = "Z2";
-            this.Z2.MinimumWidth = 90;
-            this.Z2.Name = "Z2";
-            this.Z2.Resizable = System.Windows.Forms.DataGridViewTriState.False;
-            // 
-            // Channel
-            // 
-            this.Channel.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.Channel.FillWeight = 1F;
-            this.Channel.HeaderText = "通道";
-            this.Channel.MinimumWidth = 70;
-            this.Channel.Name = "Channel";
-            this.Channel.Resizable = System.Windows.Forms.DataGridViewTriState.False;
-            // 
-            // delay
-            // 
-            this.delay.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.delay.FillWeight = 1F;
-            this.delay.HeaderText = "延迟";
-            this.delay.MinimumWidth = 70;
-            this.delay.Name = "delay";
-            this.delay.Resizable = System.Windows.Forms.DataGridViewTriState.False;
-            // 
-            // btn_open
-            // 
-            this.btn_open.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            dataGridViewCellStyle10.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle10.BackColor = System.Drawing.SystemColors.ButtonFace;
-            dataGridViewCellStyle10.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
-            dataGridViewCellStyle10.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
-            dataGridViewCellStyle10.SelectionBackColor = System.Drawing.Color.Transparent;
-            dataGridViewCellStyle10.SelectionForeColor = System.Drawing.Color.Transparent;
-            this.btn_open.DefaultCellStyle = dataGridViewCellStyle10;
-            this.btn_open.FillWeight = 1F;
-            this.btn_open.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btn_open.HeaderText = "";
-            this.btn_open.MinimumWidth = 80;
-            this.btn_open.Name = "btn_open";
-            this.btn_open.ReadOnly = true;
-            this.btn_open.Resizable = System.Windows.Forms.DataGridViewTriState.False;
-            this.btn_open.Text = "学习";
-            this.btn_open.UseColumnTextForButtonValue = true;
-            // 
-            // btn_close
-            // 
-            this.btn_close.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            dataGridViewCellStyle11.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle11.BackColor = System.Drawing.SystemColors.ButtonFace;
-            dataGridViewCellStyle11.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
-            dataGridViewCellStyle11.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
-            dataGridViewCellStyle11.SelectionBackColor = System.Drawing.Color.Transparent;
-            dataGridViewCellStyle11.SelectionForeColor = System.Drawing.Color.Transparent;
-            this.btn_close.DefaultCellStyle = dataGridViewCellStyle11;
-            this.btn_close.FillWeight = 1F;
-            this.btn_close.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btn_close.HeaderText = "";
-            this.btn_close.MinimumWidth = 80;
-            this.btn_close.Name = "btn_close";
-            this.btn_close.ReadOnly = true;
-            this.btn_close.Resizable = System.Windows.Forms.DataGridViewTriState.False;
-            this.btn_close.Text = "定位";
-            this.btn_close.UseColumnTextForButtonValue = true;
             // 
             // flowLayoutPanel1
             // 
@@ -555,7 +435,7 @@
             this.flowLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.flowLayoutPanel1.Location = new System.Drawing.Point(3, 240);
             this.flowLayoutPanel1.Name = "flowLayoutPanel1";
-            this.flowLayoutPanel1.Size = new System.Drawing.Size(990, 174);
+            this.flowLayoutPanel1.Size = new System.Drawing.Size(1137, 174);
             this.flowLayoutPanel1.TabIndex = 8;
             // 
             // panel1
@@ -592,7 +472,7 @@
             this.lbl_lighttip1.ForeColor = System.Drawing.Color.Red;
             this.lbl_lighttip1.Location = new System.Drawing.Point(128, 45);
             this.lbl_lighttip1.Name = "lbl_lighttip1";
-            this.lbl_lighttip1.Size = new System.Drawing.Size(240, 16);
+            this.lbl_lighttip1.Size = new System.Drawing.Size(239, 16);
             this.lbl_lighttip1.TabIndex = 78;
             this.lbl_lighttip1.Text = "默认位置:X1:240 Y1:43 Z2:-200";
             // 
@@ -873,13 +753,134 @@
             this.btn_lightgetpos.UseVisualStyleBackColor = false;
             this.btn_lightgetpos.Click += new System.EventHandler(this.btn_getpos_Click);
             // 
+            // Num
+            // 
+            this.Num.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.Num.FillWeight = 1F;
+            this.Num.HeaderText = "编号";
+            this.Num.MinimumWidth = 60;
+            this.Num.Name = "Num";
+            this.Num.Resizable = System.Windows.Forms.DataGridViewTriState.False;
+            // 
+            // Disc
+            // 
+            this.Disc.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.Disc.FillWeight = 20F;
+            this.Disc.HeaderText = "名称";
+            this.Disc.MinimumWidth = 140;
+            this.Disc.Name = "Disc";
+            // 
+            // isuse
+            // 
+            this.isuse.HeaderText = "启用";
+            this.isuse.Name = "isuse";
+            this.isuse.Width = 40;
+            // 
+            // XX1
+            // 
+            this.XX1.HeaderText = "X1";
+            this.XX1.Name = "XX1";
+            // 
+            // X2
+            // 
+            this.X2.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.X2.FillWeight = 1F;
+            this.X2.HeaderText = "X2";
+            this.X2.MinimumWidth = 90;
+            this.X2.Name = "X2";
+            this.X2.Resizable = System.Windows.Forms.DataGridViewTriState.False;
+            // 
+            // Y1
+            // 
+            this.Y1.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.Y1.FillWeight = 1F;
+            this.Y1.HeaderText = "Y1";
+            this.Y1.MinimumWidth = 90;
+            this.Y1.Name = "Y1";
+            // 
+            // Z1
+            // 
+            this.Z1.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.Z1.FillWeight = 1F;
+            this.Z1.HeaderText = "Z1";
+            this.Z1.MinimumWidth = 90;
+            this.Z1.Name = "Z1";
+            this.Z1.Resizable = System.Windows.Forms.DataGridViewTriState.False;
+            // 
+            // Z2
+            // 
+            this.Z2.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.Z2.FillWeight = 1F;
+            this.Z2.HeaderText = "Z2";
+            this.Z2.MinimumWidth = 90;
+            this.Z2.Name = "Z2";
+            this.Z2.Resizable = System.Windows.Forms.DataGridViewTriState.False;
+            // 
+            // Channel
+            // 
+            this.Channel.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.Channel.FillWeight = 1F;
+            this.Channel.HeaderText = "通道";
+            this.Channel.MinimumWidth = 70;
+            this.Channel.Name = "Channel";
+            this.Channel.Resizable = System.Windows.Forms.DataGridViewTriState.False;
+            // 
+            // delay
+            // 
+            this.delay.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.delay.FillWeight = 1F;
+            this.delay.HeaderText = "延迟";
+            this.delay.MinimumWidth = 70;
+            this.delay.Name = "delay";
+            this.delay.Resizable = System.Windows.Forms.DataGridViewTriState.False;
+            // 
+            // btn_open
+            // 
+            this.btn_open.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            dataGridViewCellStyle9.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle9.BackColor = System.Drawing.SystemColors.ButtonFace;
+            dataGridViewCellStyle9.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
+            dataGridViewCellStyle9.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            dataGridViewCellStyle9.SelectionBackColor = System.Drawing.Color.Transparent;
+            dataGridViewCellStyle9.SelectionForeColor = System.Drawing.Color.Transparent;
+            this.btn_open.DefaultCellStyle = dataGridViewCellStyle9;
+            this.btn_open.FillWeight = 1F;
+            this.btn_open.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btn_open.HeaderText = "";
+            this.btn_open.MinimumWidth = 80;
+            this.btn_open.Name = "btn_open";
+            this.btn_open.ReadOnly = true;
+            this.btn_open.Resizable = System.Windows.Forms.DataGridViewTriState.False;
+            this.btn_open.Text = "学习";
+            this.btn_open.UseColumnTextForButtonValue = true;
+            // 
+            // btn_close
+            // 
+            this.btn_close.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            dataGridViewCellStyle10.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle10.BackColor = System.Drawing.SystemColors.ButtonFace;
+            dataGridViewCellStyle10.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
+            dataGridViewCellStyle10.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            dataGridViewCellStyle10.SelectionBackColor = System.Drawing.Color.Transparent;
+            dataGridViewCellStyle10.SelectionForeColor = System.Drawing.Color.Transparent;
+            this.btn_close.DefaultCellStyle = dataGridViewCellStyle10;
+            this.btn_close.FillWeight = 1F;
+            this.btn_close.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btn_close.HeaderText = "";
+            this.btn_close.MinimumWidth = 80;
+            this.btn_close.Name = "btn_close";
+            this.btn_close.ReadOnly = true;
+            this.btn_close.Resizable = System.Windows.Forms.DataGridViewTriState.False;
+            this.btn_close.Text = "定位";
+            this.btn_close.UseColumnTextForButtonValue = true;
+            // 
             // LightBoxDef
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
             this.Controls.Add(this.tableLayoutPanel1);
             this.DoubleBuffered = true;
             this.Name = "LightBoxDef";
-            this.Size = new System.Drawing.Size(996, 480);
+            this.Size = new System.Drawing.Size(1143, 480);
             this.Load += new System.EventHandler(this.LightBoxDef_Load);
             this.tableLayoutPanel1.ResumeLayout(false);
             this.flowLayoutPanel2.ResumeLayout(false);
@@ -904,17 +905,6 @@
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
         private System.Windows.Forms.TableLayoutPanel tp_dgv;
         private System.Windows.Forms.DataGridView dgvcmp;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Num;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Disc;
-        private System.Windows.Forms.DataGridViewTextBoxColumn X1;
-        private System.Windows.Forms.DataGridViewTextBoxColumn X2;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Y1;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Z1;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Z2;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Channel;
-        private System.Windows.Forms.DataGridViewTextBoxColumn delay;
-        private System.Windows.Forms.DataGridViewButtonColumn btn_open;
-        private System.Windows.Forms.DataGridViewButtonColumn btn_close;
         private System.Windows.Forms.DataGridViewTextBoxColumn cmp_ws;
         private System.Windows.Forms.DataGridViewTextBoxColumn cmp_x1;
         private System.Windows.Forms.DataGridViewTextBoxColumn cmp_x2;
@@ -950,5 +940,17 @@
         private System.Windows.Forms.Label lbl_lighttip1;
         private System.Windows.Forms.Label lbl_lighttip3;
         public System.Windows.Forms.Panel panel1;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Num;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Disc;
+        private System.Windows.Forms.DataGridViewCheckBoxColumn isuse;
+        private System.Windows.Forms.DataGridViewTextBoxColumn XX1;
+        private System.Windows.Forms.DataGridViewTextBoxColumn X2;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Y1;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Z1;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Z2;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Channel;
+        private System.Windows.Forms.DataGridViewTextBoxColumn delay;
+        private System.Windows.Forms.DataGridViewButtonColumn btn_open;
+        private System.Windows.Forms.DataGridViewButtonColumn btn_close;
     }
 }

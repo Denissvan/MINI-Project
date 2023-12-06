@@ -30,8 +30,8 @@ namespace UI
         public static WS ws4 = new WS(3, MT.AXIS_WS4_U, MT.List_CLD_WS4_FR, MT.List_CLD_WS4_BK, MT.List_CLD_WS4, MT.GPIO_OUT_WS4_GZ_POWER, MT.List_GPIO_OUT_WS4_ZK, MT.GPIO_OUT_WS4_Wind);
 
         public static List<WS> list_ws = new List<WS>() { ws1, ws2, ws3, ws4 };
-
-
+        public static SunnyQr Sunnnyqr0 = new SunnyQr(0);
+        public static SunnyQr Sunnnyqr1 = new SunnyQr(1);
         public static Product.Tray tray_fd, tray_ok, tray_ng;
 
         public static TrayBox traybox_fd = new TrayBox("TrayBox_FD", "供料仓", TrayBox.EM_DIR.IN_OUT, 10, MT.AXIS_UDL_FD_X,
@@ -995,6 +995,62 @@ namespace UI
             }
         }
 
+        public static void LightBoxSendMes(LightBox light, int secsId, int PosId)
+        {
+            var mpos = light.ListPos.Find(s => s.ID == PosId);
+            if (mpos != null)
+            {
+                if (light.disc.Contains("左"))
+                {
+                    Msg.secsManager.Send(new BaseInfo() { Id = secsId, Value = mpos.X1.ToString() });
+                    Msg.secsManager.Send(new BaseInfo() { Id = secsId + 1, Value = mpos.X2.ToString() });
+                    Msg.secsManager.Send(new BaseInfo() { Id = secsId + 2, Value = mpos.Y1.ToString() });
+                    Msg.secsManager.Send(new BaseInfo() { Id = secsId + 3, Value = mpos.Z1.ToString() });
+                    Msg.secsManager.Send(new BaseInfo() { Id = secsId + 4, Value = mpos.Z2.ToString() });
+                }
+                else if (light.disc.Contains("右"))
+                {
+                    Msg.secsManager.Send(new BaseInfo() { Id = secsId, Value = mpos.X1.ToString() });
+                    Msg.secsManager.Send(new BaseInfo() { Id = secsId + 1, Value = mpos.X2.ToString() });
+                    Msg.secsManager.Send(new BaseInfo() { Id = secsId + 2, Value = mpos.Z1.ToString() });
+                    Msg.secsManager.Send(new BaseInfo() { Id = secsId + 3, Value = mpos.Z2.ToString() });
+                }else
+                {
+                    Msg.secsManager.Send(new BaseInfo() { Id = secsId , Value = mpos.Z1.ToString() });
+                }
+
+                Msg.secsManager.Send(new BaseInfo() { Id = 7 }, TypeId: 2);
+            }
+        }
+
+        public static void LightBoxSendMesAll()
+        {
+            int mesid = 14;
+            try
+            {
+                foreach (var pos in COM.LeftLightBox.ListPos)
+                {
+                    LightBoxSendMes(COM.LeftLightBox, mesid, pos.ID);
+                    mesid = mesid + 5;
+                }
+                mesid = 101;
+                foreach (var pos in COM.RightLightBox.ListPos)
+                {
+                    LightBoxSendMes(COM.RightLightBox, mesid, pos.ID);
+                    mesid = mesid + 4;
+                }
+                mesid = 94;
+                foreach (var pos in COM.OTPLightBox.ListPos)
+                {
+                    LightBoxSendMes(COM.OTPLightBox, mesid, pos.ID);
+                    mesid = mesid + 1;
+                }
+            }catch (Exception ee)
+            {
+                VAR.msg.AddMsg(Msg.EM_MSGTYPE.ERR, "光箱上传数据异常");
+            }
+            VAR.msg.AddMsg(Msg.EM_MSGTYPE.NOR, "光箱上传数据成功");
+        }
 
 
 
@@ -1394,6 +1450,10 @@ namespace UI
                     if(i>=3000)
                     {
                         i = 0;
+                        for (int t = 1; t < 37; t++)
+                        {
+                            Msg.secsManager.Send(new BaseInfo() { Id = t, Value = "false" }, 1);
+                        }
                         Msg.secsManager.Send(new BaseInfo() { Id = 1, Value = Convert.ToInt32(DReport.EmStatus.Run).ToString() });
                         Msg.secsManager.Send(new BaseInfo() { Id = 1 }, 2);
                     }
@@ -1632,26 +1692,6 @@ namespace UI
                             var tempNewCnt = WS.AutoChkCnt;
                             if (tempOldCnt != tempNewCnt)
                             {
-                                //int curtempMod = 0, NextTempMod = 0;
-                                //if (tempOldCnt >= 0 && tempOldCnt < WS.ListChkTemp.Count)
-                                //{
-                                //    curtempMod = WS.ListChkTemp[tempOldCnt];
-                                //}
-                                //if (tempNewCnt >= 0 && tempNewCnt < WS.ListChkTemp.Count)
-                                //{
-                                //    NextTempMod = WS.ListChkTemp[tempOldCnt];
-                                //}
-
-                                //if (WS.NoChangCheckModList.Contains(curtempMod) && WS.NoChangCheckModList.Contains(NextTempMod))
-                                //{
-                                //    // 不用更换模组提示
-                                //}
-                                //else
-                                //{
-                                //    var bok = workstation.PutModShowMsg();
-                                //    if (!bok) return;
-                                //}
-
                                 VAR.msg.AddMsg(Msg.EM_MSGTYPE.DBG, "提示点检模组上料");
 
                                var bok = workstation.PutModShowMsg();
@@ -1737,7 +1777,12 @@ namespace UI
                             workstation.ResetResultOfMd();
                             //更新物料状态
                             workstation.TestStatus = WS.EM_TEST_STA.UNTEST;
-
+                            var mtime = NewSysInf.UserParams.BeforeOpenImageWaitTime;
+                            if (mtime > 0)
+                            {
+                                VAR.msg.AddMsg(Msg.EM_MSGTYPE.DBG, "上料后延迟开图时间" + mtime);
+                                Thread.Sleep(mtime);
+                            }
                             //提前开图
                             VAR.msg.AddMsg(Msg.EM_MSGTYPE.DBG, VAR.IsChinese ? string.Format("{0} 启动测试", workstation.disc) : string.Format("{0}Start test     ({0} 启动测试)", workstation.disc));
                             res = workstation.StartTestFlow(0, WS.Demo);

@@ -104,6 +104,7 @@
             this.toolStripSeparator20 = new System.Windows.Forms.ToolStripSeparator();
             this.tsb_stop2 = new System.Windows.Forms.ToolStripButton();
             this.tlp_Show = new System.Windows.Forms.ToolTip(this.components);
+            this.timersecs = new System.Windows.Forms.Timer(this.components);
             this.timer_sysTimeCnt = new System.Windows.Forms.Timer(this.components);
             this.tbl_main.SuspendLayout();
             this.pnl_top_menu.SuspendLayout();
@@ -126,7 +127,7 @@
             this.tbl_main.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 80F));
             this.tbl_main.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.tbl_main.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
-            this.tbl_main.Size = new System.Drawing.Size(1320, 1000);
+            this.tbl_main.Size = new System.Drawing.Size(1320, 1094);
             this.tbl_main.TabIndex = 0;
             // 
             // pnl_top_menu
@@ -391,10 +392,12 @@
             this.menuStrip1.BackColor = System.Drawing.SystemColors.Control;
             this.menuStrip1.Dock = System.Windows.Forms.DockStyle.None;
             this.menuStrip1.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.menuStrip1.ImageScalingSize = new System.Drawing.Size(20, 20);
             this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.toolStripMenuItem1});
             this.menuStrip1.Location = new System.Drawing.Point(1012, 34);
             this.menuStrip1.Name = "menuStrip1";
+            this.menuStrip1.Padding = new System.Windows.Forms.Padding(4, 2, 0, 2);
             this.menuStrip1.Size = new System.Drawing.Size(102, 30);
             this.menuStrip1.TabIndex = 71;
             this.menuStrip1.Text = "menuStrip1";
@@ -408,14 +411,14 @@
             this.toolStripMenuItem1.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.toolStripMenuItem1.ForeColor = System.Drawing.Color.Gray;
             this.toolStripMenuItem1.Name = "toolStripMenuItem1";
-            this.toolStripMenuItem1.Size = new System.Drawing.Size(50, 26);
+            this.toolStripMenuItem1.Size = new System.Drawing.Size(49, 26);
             this.toolStripMenuItem1.Text = "语言";
             // 
             // chineseToolStripMenuItem
             // 
             this.chineseToolStripMenuItem.ForeColor = System.Drawing.Color.Gray;
             this.chineseToolStripMenuItem.Name = "chineseToolStripMenuItem";
-            this.chineseToolStripMenuItem.Size = new System.Drawing.Size(140, 22);
+            this.chineseToolStripMenuItem.Size = new System.Drawing.Size(138, 22);
             this.chineseToolStripMenuItem.Text = "中文";
             this.chineseToolStripMenuItem.Click += new System.EventHandler(this.languageToolStripMenuItem_Click);
             // 
@@ -423,14 +426,14 @@
             // 
             this.englishToolStripMenuItem.ForeColor = System.Drawing.Color.Gray;
             this.englishToolStripMenuItem.Name = "englishToolStripMenuItem";
-            this.englishToolStripMenuItem.Size = new System.Drawing.Size(140, 22);
+            this.englishToolStripMenuItem.Size = new System.Drawing.Size(138, 22);
             this.englishToolStripMenuItem.Text = "英语";
             this.englishToolStripMenuItem.Click += new System.EventHandler(this.languageToolStripMenuItem_Click);
             // 
             // vietnameseToolStripMenuItem
             // 
             this.vietnameseToolStripMenuItem.Name = "vietnameseToolStripMenuItem";
-            this.vietnameseToolStripMenuItem.Size = new System.Drawing.Size(140, 22);
+            this.vietnameseToolStripMenuItem.Size = new System.Drawing.Size(138, 22);
             this.vietnameseToolStripMenuItem.Text = "Tiếng Việt ";
             this.vietnameseToolStripMenuItem.Click += new System.EventHandler(this.languageToolStripMenuItem_Click);
             // 
@@ -1061,6 +1064,11 @@
             this.tlp_Show.ReshowDelay = 100;
             this.tlp_Show.ShowAlways = true;
             // 
+            // timersecs
+            // 
+            this.timersecs.Interval = 3600000;
+            this.timersecs.Tick += new System.EventHandler(this.timersecs_Tick);
+            // 
             // timer_sysTimeCnt
             // 
             this.timer_sysTimeCnt.Enabled = true;
@@ -1070,7 +1078,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1320, 1000);
+            this.ClientSize = new System.Drawing.Size(1320, 1094);
             this.Controls.Add(this.ts_manual);
             this.Controls.Add(this.ts_manual2);
             this.Controls.Add(this.tbl_main);
@@ -1174,8 +1182,9 @@
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem1;
         private System.Windows.Forms.ToolStripMenuItem chineseToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem englishToolStripMenuItem;
-        private System.Windows.Forms.Timer timer_sysTimeCnt;
         private System.Windows.Forms.ToolStripMenuItem vietnameseToolStripMenuItem;
+        private System.Windows.Forms.Timer timersecs;
+        private System.Windows.Forms.Timer timer_sysTimeCnt;
     }
 }
 
