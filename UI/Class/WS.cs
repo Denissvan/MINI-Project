@@ -3217,6 +3217,18 @@ namespace UI
 
                 str2 = "工站:" +","+ num + "当前光箱:" + "," + lb.disc+"测试结束总用时:" + "," + Swtime.ElapsedMilliseconds;
                 Utility.WriteStrToCSVPre(str2);
+                if (lb.disc.Contains("左"))
+                {
+                    PT_SET.lefttime = (Swtime.ElapsedMilliseconds/1000);
+                }
+                else if (lb.disc.Contains("右"))
+                {
+                    PT_SET.righttime = (Swtime.ElapsedMilliseconds / 1000);
+                }
+                else
+                {
+                    PT_SET.otptime= (Swtime.ElapsedMilliseconds / 1000);
+                }
 
                 VAR.msg.AddMsg(Msg.EM_MSGTYPE.DBG, VAR.IsChinese ? string.Format("{0} 测试线程 {1} 结束", disc, res != EM_RES.OK ? "异常" : "正常") : string.Format("{0} test thread {1} end          ({0} 测试线程 {2} 结束)", disc, res != EM_RES.OK ? "ERR" : "NORMAL", res != EM_RES.OK ? "异常" : "正常"));
             }

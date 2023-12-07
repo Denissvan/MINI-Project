@@ -88,6 +88,8 @@
             this.cogDisplayer_product = new UI.CogDisplayer();
             this.maskDisplay1 = new UI.Compment.MaskDisplay();
             this.tp_tray = new System.Windows.Forms.TabPage();
+            this.label7 = new System.Windows.Forms.Label();
+            this.cbouttray = new System.Windows.Forms.CheckBox();
             this.cTabControl2 = new CTabControl();
             this.tpOgn = new System.Windows.Forms.TabPage();
             this.label23 = new System.Windows.Forms.Label();
@@ -870,6 +872,8 @@
             // 
             // tp_tray
             // 
+            this.tp_tray.Controls.Add(this.label7);
+            this.tp_tray.Controls.Add(this.cbouttray);
             this.tp_tray.Controls.Add(this.cTabControl2);
             this.tp_tray.Controls.Add(this.cTabControl1);
             this.tp_tray.Controls.Add(this.ctb_udload_cfg);
@@ -889,6 +893,27 @@
             this.tp_tray.Text = "料盘    ";
             this.tp_tray.UseVisualStyleBackColor = true;
             // 
+            // label7
+            // 
+            this.label7.AutoSize = true;
+            this.label7.Font = new System.Drawing.Font("宋体", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.label7.Location = new System.Drawing.Point(601, 294);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(447, 16);
+            this.label7.TabIndex = 68;
+            this.label7.Text = "提示：若勾选使用出料吸塑盒，则2号位置可使用右下角的位置";
+            // 
+            // cbouttray
+            // 
+            this.cbouttray.AutoSize = true;
+            this.cbouttray.Location = new System.Drawing.Point(365, 288);
+            this.cbouttray.Name = "cbouttray";
+            this.cbouttray.Size = new System.Drawing.Size(183, 26);
+            this.cbouttray.TabIndex = 67;
+            this.cbouttray.Text = "使用出料吸塑盒";
+            this.cbouttray.UseVisualStyleBackColor = true;
+            this.cbouttray.CheckedChanged += new System.EventHandler(this.cbouttray_CheckedChanged);
+            // 
             // cTabControl2
             // 
             this.cTabControl2.BackColor = System.Drawing.SystemColors.Control;
@@ -897,7 +922,7 @@
             this.cTabControl2.Controls.Add(this.tpAdd);
             this.cTabControl2.HeaderBackColor = System.Drawing.SystemColors.Control;
             this.cTabControl2.ItemSize = new System.Drawing.Size(20, 13);
-            this.cTabControl2.Location = new System.Drawing.Point(293, 110);
+            this.cTabControl2.Location = new System.Drawing.Point(289, 94);
             this.cTabControl2.Margin = new System.Windows.Forms.Padding(2);
             this.cTabControl2.Name = "cTabControl2";
             this.cTabControl2.SelectedIndex = 0;
@@ -1359,10 +1384,10 @@
             this.cTabControl1.HeaderBackColor = System.Drawing.Color.White;
             this.cTabControl1.HeadSelectedBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
             this.cTabControl1.HeadSelectedBorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(128)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
-            this.cTabControl1.Location = new System.Drawing.Point(12, 490);
+            this.cTabControl1.Location = new System.Drawing.Point(8, 473);
             this.cTabControl1.Name = "cTabControl1";
             this.cTabControl1.SelectedIndex = 0;
-            this.cTabControl1.Size = new System.Drawing.Size(322, 431);
+            this.cTabControl1.Size = new System.Drawing.Size(322, 419);
             this.cTabControl1.TabIndex = 63;
             // 
             // tabPage4
@@ -1371,7 +1396,7 @@
             this.tabPage4.Location = new System.Drawing.Point(4, 31);
             this.tabPage4.Name = "tabPage4";
             this.tabPage4.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage4.Size = new System.Drawing.Size(314, 396);
+            this.tabPage4.Size = new System.Drawing.Size(314, 384);
             this.tabPage4.TabIndex = 0;
             this.tabPage4.Text = "参数1";
             this.tabPage4.UseVisualStyleBackColor = true;
@@ -1400,7 +1425,7 @@
             this.groupBox1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
             this.groupBox1.Location = new System.Drawing.Point(3, 3);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(308, 390);
+            this.groupBox1.Size = new System.Drawing.Size(308, 378);
             this.groupBox1.TabIndex = 43;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "仓储参数";
@@ -1693,7 +1718,7 @@
             this.tabPage5.Location = new System.Drawing.Point(4, 31);
             this.tabPage5.Name = "tabPage5";
             this.tabPage5.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage5.Size = new System.Drawing.Size(314, 396);
+            this.tabPage5.Size = new System.Drawing.Size(314, 384);
             this.tabPage5.TabIndex = 1;
             this.tabPage5.Text = "参数2";
             this.tabPage5.UseVisualStyleBackColor = true;
@@ -1728,7 +1753,7 @@
             this.groupBox6.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
             this.groupBox6.Location = new System.Drawing.Point(3, 3);
             this.groupBox6.Name = "groupBox6";
-            this.groupBox6.Size = new System.Drawing.Size(308, 390);
+            this.groupBox6.Size = new System.Drawing.Size(308, 378);
             this.groupBox6.TabIndex = 65;
             this.groupBox6.TabStop = false;
             this.groupBox6.Text = "料盘扫二维码参数";
@@ -2111,10 +2136,10 @@
             this.ctb_udload_cfg.HeadSelectedBackColor = System.Drawing.Color.DarkViolet;
             this.ctb_udload_cfg.HeadSelectedBorderColor = System.Drawing.Color.DarkViolet;
             this.ctb_udload_cfg.ItemSize = new System.Drawing.Size(60, 32);
-            this.ctb_udload_cfg.Location = new System.Drawing.Point(32, 69);
+            this.ctb_udload_cfg.Location = new System.Drawing.Point(32, 50);
             this.ctb_udload_cfg.Name = "ctb_udload_cfg";
             this.ctb_udload_cfg.SelectedIndex = 0;
-            this.ctb_udload_cfg.Size = new System.Drawing.Size(998, 39);
+            this.ctb_udload_cfg.Size = new System.Drawing.Size(1039, 39);
             this.ctb_udload_cfg.TabIndex = 51;
             this.ctb_udload_cfg.SelectedIndexChanged += new System.EventHandler(this.ctb_udload_cfg_SelectedIndexChanged);
             // 
@@ -2123,7 +2148,7 @@
             this.tabPage2.Location = new System.Drawing.Point(4, 36);
             this.tabPage2.Name = "tabPage2";
             this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage2.Size = new System.Drawing.Size(990, 0);
+            this.tabPage2.Size = new System.Drawing.Size(1031, 0);
             this.tabPage2.TabIndex = 0;
             this.tabPage2.Text = "  上下料模块1  ";
             this.tabPage2.UseVisualStyleBackColor = true;
@@ -2133,7 +2158,7 @@
             this.tabPage3.Location = new System.Drawing.Point(4, 36);
             this.tabPage3.Name = "tabPage3";
             this.tabPage3.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage3.Size = new System.Drawing.Size(990, 0);
+            this.tabPage3.Size = new System.Drawing.Size(1031, 0);
             this.tabPage3.TabIndex = 1;
             this.tabPage3.Text = "  上下料模块2  ";
             this.tabPage3.UseVisualStyleBackColor = true;
@@ -2142,11 +2167,11 @@
             // 
             this.tray_map.Bordercolor = System.Drawing.Color.DodgerBlue;
             this.tray_map.ERRcolor = System.Drawing.Color.Gold;
-            this.tray_map.Location = new System.Drawing.Point(32, 289);
+            this.tray_map.Location = new System.Drawing.Point(12, 277);
             this.tray_map.Name = "tray_map";
             this.tray_map.NGcolor = System.Drawing.Color.Red;
             this.tray_map.OKcolor = System.Drawing.Color.Lime;
-            this.tray_map.Size = new System.Drawing.Size(302, 207);
+            this.tray_map.Size = new System.Drawing.Size(318, 190);
             this.tray_map.TabIndex = 46;
             this.tray_map.TrayColor = System.Drawing.Color.Transparent;
             this.tray_map.TrayName = "MAP";
@@ -2196,7 +2221,7 @@
             this.dgv_tray_pos.DefaultCellStyle = dataGridViewCellStyle10;
             this.dgv_tray_pos.EnableHeadersVisualStyles = false;
             this.dgv_tray_pos.GridColor = System.Drawing.Color.Gray;
-            this.dgv_tray_pos.Location = new System.Drawing.Point(344, 307);
+            this.dgv_tray_pos.Location = new System.Drawing.Point(340, 321);
             this.dgv_tray_pos.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.dgv_tray_pos.MultiSelect = false;
             this.dgv_tray_pos.Name = "dgv_tray_pos";
@@ -2228,7 +2253,7 @@
             this.dgv_tray_pos.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
             this.dgv_tray_pos.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dgv_tray_pos.ShowEditingIcon = false;
-            this.dgv_tray_pos.Size = new System.Drawing.Size(694, 613);
+            this.dgv_tray_pos.Size = new System.Drawing.Size(731, 582);
             this.dgv_tray_pos.TabIndex = 38;
             this.dgv_tray_pos.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgv_tray_pos_CellClick);
             this.dgv_tray_pos.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgv_tray_pos_CellContentClick);
@@ -2342,10 +2367,10 @@
             this.ctb_tray_cfg.Font = new System.Drawing.Font("宋体", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.ctb_tray_cfg.HeaderBackColor = System.Drawing.SystemColors.Control;
             this.ctb_tray_cfg.ItemSize = new System.Drawing.Size(60, 32);
-            this.ctb_tray_cfg.Location = new System.Drawing.Point(32, 15);
+            this.ctb_tray_cfg.Location = new System.Drawing.Point(31, 8);
             this.ctb_tray_cfg.Name = "ctb_tray_cfg";
             this.ctb_tray_cfg.SelectedIndex = 0;
-            this.ctb_tray_cfg.Size = new System.Drawing.Size(1002, 39);
+            this.ctb_tray_cfg.Size = new System.Drawing.Size(1040, 39);
             this.ctb_tray_cfg.TabIndex = 1;
             this.ctb_tray_cfg.SelectedIndexChanged += new System.EventHandler(this.ctb_tray_cfg_SelectedIndexChanged);
             // 
@@ -2354,7 +2379,7 @@
             this.ctp_tray_fd.Location = new System.Drawing.Point(4, 36);
             this.ctp_tray_fd.Name = "ctp_tray_fd";
             this.ctp_tray_fd.Padding = new System.Windows.Forms.Padding(3);
-            this.ctp_tray_fd.Size = new System.Drawing.Size(994, 0);
+            this.ctp_tray_fd.Size = new System.Drawing.Size(1032, 0);
             this.ctp_tray_fd.TabIndex = 0;
             this.ctp_tray_fd.Text = "  供料盘  ";
             this.ctp_tray_fd.UseVisualStyleBackColor = true;
@@ -2364,7 +2389,7 @@
             this.ctp_tray_ok.Location = new System.Drawing.Point(4, 36);
             this.ctp_tray_ok.Name = "ctp_tray_ok";
             this.ctp_tray_ok.Padding = new System.Windows.Forms.Padding(3);
-            this.ctp_tray_ok.Size = new System.Drawing.Size(994, 0);
+            this.ctp_tray_ok.Size = new System.Drawing.Size(1032, 0);
             this.ctp_tray_ok.TabIndex = 1;
             this.ctp_tray_ok.Text = "  OK料盘  ";
             this.ctp_tray_ok.UseVisualStyleBackColor = true;
@@ -2373,7 +2398,7 @@
             // 
             this.ctp_tray_ng.Location = new System.Drawing.Point(4, 36);
             this.ctp_tray_ng.Name = "ctp_tray_ng";
-            this.ctp_tray_ng.Size = new System.Drawing.Size(994, 0);
+            this.ctp_tray_ng.Size = new System.Drawing.Size(1032, 0);
             this.ctp_tray_ng.TabIndex = 2;
             this.ctp_tray_ng.Text = "  NG料盘  ";
             this.ctp_tray_ng.UseVisualStyleBackColor = true;
@@ -2385,7 +2410,7 @@
             this.rbtn_tray_tl.FlatAppearance.CheckedBackColor = System.Drawing.Color.Orange;
             this.rbtn_tray_tl.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.rbtn_tray_tl.Font = new System.Drawing.Font("宋体", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.rbtn_tray_tl.Location = new System.Drawing.Point(36, 126);
+            this.rbtn_tray_tl.Location = new System.Drawing.Point(32, 110);
             this.rbtn_tray_tl.Name = "rbtn_tray_tl";
             this.rbtn_tray_tl.Size = new System.Drawing.Size(47, 41);
             this.rbtn_tray_tl.TabIndex = 5;
@@ -2398,7 +2423,7 @@
             // nud_tray_row
             // 
             this.nud_tray_row.Font = new System.Drawing.Font("宋体", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.nud_tray_row.Location = new System.Drawing.Point(36, 191);
+            this.nud_tray_row.Location = new System.Drawing.Point(32, 175);
             this.nud_tray_row.Maximum = new decimal(new int[] {
             20,
             0,
@@ -2421,7 +2446,7 @@
             // nud_tray_col
             // 
             this.nud_tray_col.Font = new System.Drawing.Font("宋体", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.nud_tray_col.Location = new System.Drawing.Point(131, 129);
+            this.nud_tray_col.Location = new System.Drawing.Point(127, 113);
             this.nud_tray_col.Maximum = new decimal(new int[] {
             20,
             0,
@@ -2448,7 +2473,7 @@
             this.rbtn_tray_tr.FlatAppearance.CheckedBackColor = System.Drawing.Color.Orange;
             this.rbtn_tray_tr.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.rbtn_tray_tr.Font = new System.Drawing.Font("宋体", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.rbtn_tray_tr.Location = new System.Drawing.Point(233, 126);
+            this.rbtn_tray_tr.Location = new System.Drawing.Point(229, 110);
             this.rbtn_tray_tr.Name = "rbtn_tray_tr";
             this.rbtn_tray_tr.Size = new System.Drawing.Size(47, 41);
             this.rbtn_tray_tr.TabIndex = 6;
@@ -2465,7 +2490,7 @@
             this.rbtn_tray_bl.FlatAppearance.CheckedBackColor = System.Drawing.Color.Orange;
             this.rbtn_tray_bl.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.rbtn_tray_bl.Font = new System.Drawing.Font("宋体", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.rbtn_tray_bl.Location = new System.Drawing.Point(36, 246);
+            this.rbtn_tray_bl.Location = new System.Drawing.Point(32, 230);
             this.rbtn_tray_bl.Name = "rbtn_tray_bl";
             this.rbtn_tray_bl.Size = new System.Drawing.Size(47, 41);
             this.rbtn_tray_bl.TabIndex = 7;
@@ -2478,7 +2503,7 @@
             // pic_pallet
             // 
             this.pic_pallet.Image = ((System.Drawing.Image)(resources.GetObject("pic_pallet.Image")));
-            this.pic_pallet.Location = new System.Drawing.Point(99, 173);
+            this.pic_pallet.Location = new System.Drawing.Point(95, 157);
             this.pic_pallet.Name = "pic_pallet";
             this.pic_pallet.Size = new System.Drawing.Size(181, 114);
             this.pic_pallet.TabIndex = 37;
@@ -3153,6 +3178,7 @@
             this.Tb_CameraCheckboard.ResumeLayout(false);
             this.panel1.ResumeLayout(false);
             this.tp_tray.ResumeLayout(false);
+            this.tp_tray.PerformLayout();
             this.cTabControl2.ResumeLayout(false);
             this.tpOgn.ResumeLayout(false);
             this.tpOgn.PerformLayout();
@@ -3411,5 +3437,7 @@
         private System.Windows.Forms.NumericUpDown nud_motor_y2;
         private System.Windows.Forms.Label label39;
         private System.Windows.Forms.Label label38;
+        private System.Windows.Forms.CheckBox cbouttray;
+        private System.Windows.Forms.Label label7;
     }
 }

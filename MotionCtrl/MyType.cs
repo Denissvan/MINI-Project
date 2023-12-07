@@ -1082,6 +1082,10 @@ namespace MotionCtrl
         //工站同排连续同NG提示
         public static bool bSameRowNGTip;
         public static int SameRowNGTipCnt;
+        public static double otptime;
+        public static double lefttime;
+        public static double righttime;
+        public static double udtime;
 
         //保养
         public static int FixtrueMT;

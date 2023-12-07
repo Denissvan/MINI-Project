@@ -5944,6 +5944,7 @@ RECHECKAGAIN:
                     String str;
                     str = "工站:" +","+ ws.disc + "上下料用时:" + "," + ws.UdSwtime.ElapsedMilliseconds;
                     Utility.WriteStrToCSVPre(str);
+                    PT_SET.udtime = ws.UdSwtime.ElapsedMilliseconds / 1000;
                 }
 
                 bWaitforUpDownload = true;

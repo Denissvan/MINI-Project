@@ -446,6 +446,12 @@ namespace UI
                
         }
 
-       
+        private void timer1_Tick(object sender, EventArgs e)
+        {
+            lbleft.Text = "左光箱测试用时: " + (PT_SET.lefttime == 0 ? "暂未更新" : PT_SET.lefttime.ToString()+" S");
+            lbotp.Text = "OTP光箱测试用时: " + (PT_SET.otptime == 0 ? "暂未更新" : PT_SET.otptime.ToString()+ " S") ;
+            lbright.Text = "右光箱测试用时: " + (PT_SET.righttime == 0 ? "暂未更新" : PT_SET.righttime.ToString()+ " S") ; 
+            lbud.Text = "上下料用时: " + (PT_SET.udtime == 0 ? "暂未更新" : PT_SET.udtime.ToString()+ " S") ;
+        }
     }
 }

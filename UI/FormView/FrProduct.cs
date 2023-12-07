@@ -171,7 +171,7 @@ namespace UI
 
                 nud_tray_col.Value = tray.col;
                 nud_tray_row.Value = tray.row;
-
+                cbouttray.Checked = tray.IsoutTray;
 
                 xyzu_trayvs.Value = tray.TrayVsPos[id];
 
@@ -279,6 +279,7 @@ namespace UI
             tray.col= (int)nud_tray_col.Value ;
             tray.row = (int)nud_tray_row.Value;
             tray.TrayVsPos[id] = xyzu_trayvs.Value;
+            tray.IsoutTray  = cbouttray.Checked;
             if (rbtn_tray_tl.Checked) tray.tl[id] = xyzu_tray_study.Value;
             else if (rbtn_tray_bl.Checked) tray.bl[id] = xyzu_tray_study.Value;
             else if (rbtn_tray_tr.Checked) tray.tr[id] = xyzu_tray_study.Value;           
@@ -1593,6 +1594,11 @@ namespace UI
             {
                 e.Cancel = true;
             }
+        }
+
+        private void cbouttray_CheckedChanged(object sender, EventArgs e)
+        {
+            tray.IsoutTray = cbouttray.Checked;
         }
     }
 }

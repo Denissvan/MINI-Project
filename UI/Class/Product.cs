@@ -156,6 +156,7 @@ namespace UI
             public string barcode = "BARCODE";
             public int row = 6;
             public int col = 8;
+            public bool IsoutTray;//是否是出料吸塑盒
             /// <summary>
             /// 左上角
             /// </summary>
@@ -339,8 +340,14 @@ namespace UI
             public void CreatePos(int row, int col, ST_XYZA[] tl, ST_XYZA[] bl, ST_XYZA[] tr)
             {
                list_pos.Clear();
+                
                 for (int i = 0; i < cnt; i++)
                 {
+                    if (IsoutTray)
+                    {
+                        tr[i].x = tl[i].x;
+                    }
+
                     ST_XYZA[][] PointArray = Utility.Array(tl[i], tr[i], bl[i], col, row);
 
                     for (int r = 0; r < PointArray.Length; r++)
@@ -439,6 +446,7 @@ namespace UI
                 string str_section = "TRAY";
                 row = inf.ReadInteger(str_section, "ROW", 0);
                 col = inf.ReadInteger(str_section, "COL", 0);
+                IsoutTray = inf.ReadBool(str_section, "ISOUTTRAY", false);
                 for (int i = 0; i < cnt ; i++)
                 {
                     tl[i].x = inf.ReadDouble(str_section, string.Format("TL_X[{0}]", i.ToString()), 0);
@@ -538,6 +546,8 @@ namespace UI
                 string str_section = "TRAY";
                 inf.WriteInteger(str_section, "ROW", row,ref ischange,true, filename);
                 inf.WriteInteger(str_section, "COL", col, ref ischange, true, filename);
+                inf.WriteBool(str_section, "ISOUTTRAY", IsoutTray, ref ischange, true, filename);
+
                 for (int i = 0; i < cnt; i++)
                 {
                     inf.WriteDouble(str_section, string.Format("TL_X[{0}]", i.ToString()), Math.Round(tl[i].x, 3), ref ischange, true, filename);
