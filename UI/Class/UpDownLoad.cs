@@ -11,6 +11,7 @@ using System.Windows.Documents;
 using System.Windows.Forms;
 using Cognex.VisionPro;
 using Cognex.VisionPro.CalibFix;
+using Cognex.VisionPro.Display;
 using Cognex.VisionPro.Implementation.Internal;
 using DevReport;
 using Microsoft.SqlServer.Server;
@@ -1367,16 +1368,25 @@ namespace UI
                 bool bGetOrcodOnWs = NewSysInf.UserParams.bGetOrcodOnWs;
                 if (bGetOrcodOnWs)
                 {
-                    md.bardcode = QrCode;
-                    VAR.msg.AddMsg(Msg.EM_MSGTYPE.DBG, disc + $"当前设置在工站扫码，工站{md.WS_ID}-{md.test_idx}自动更新二维码{QrCode}");
-                    return EM_RES.OK;
+                    QrCodeChkErrCnt++;
+                    md.res = 3342;
+                    VAR.msg.AddMsg(Msg.EM_MSGTYPE.ERR, disc + $"当前模组{md.test_idx}无二维码，自动更新3342");
+                    return EM_RES.RETRY;
+                    //md.bardcode = QrCode;
+                    //VAR.msg.AddMsg(Msg.EM_MSGTYPE.DBG, disc + $"当前设置在工站扫码，工站{md.WS_ID}-{md.test_idx}自动更新二维码{QrCode}");
+                    //return EM_RES.OK;
                 }
                 if (md.bardcode == null || md.bardcode.Length < 3)
                 {
-                    md.bardcode = QrCode;
-                    VAR.msg.AddMsg(Msg.EM_MSGTYPE.DBG, disc + $"当前模组无二维码，自动更新二维码{QrCode}");
-                    VAR.sys_inf.Set(EM_ALM_STA.NOR_GREEN, VAR.IsChinese ? "运行" : "RUN", 0, true);
-                    return EM_RES.OK;
+                    QrCodeChkErrCnt++;
+                    md.res = 3342;
+                    VAR.msg.AddMsg(Msg.EM_MSGTYPE.ERR, disc + $"当前模组{md.test_idx}无二维码，自动更新3342");
+                    return EM_RES.RETRY;
+
+                    //md.bardcode = QrCode;
+                    //VAR.msg.AddMsg(Msg.EM_MSGTYPE.DBG, disc + $"当前模组无二维码，自动更新二维码{QrCode}");
+                    //VAR.sys_inf.Set(EM_ALM_STA.NOR_GREEN, VAR.IsChinese ? "运行" : "RUN", 0, true);
+                    //return EM_RES.OK;
                 }
                 VAR.sys_inf.Set(EM_ALM_STA.WAR_YELLOW_FLASH, VAR.IsChinese ? "二维码异常!" : "ArCode Err", 20, true, ErrCode: ShowErrMsg.WsPhotoErr);
                 MT.ST_WARN warn = new MT.ST_WARN();
@@ -1393,21 +1403,25 @@ namespace UI
                 DialogResult logres = MT.Display_frwarn(fr_warn, warn, ERR_ALM.EmErrItem.BarcodeAbnormal);
                 if (DialogResult.OK == logres)
                 {
-                    md.bardcode = QrCode;
-                    VAR.msg.AddMsg(Msg.EM_MSGTYPE.DBG, disc + "二维码不一致员工操作，更新二维码");
+                    //md.bardcode = QrCode;
+                    //VAR.msg.AddMsg(Msg.EM_MSGTYPE.DBG, disc + "二维码不一致员工操作，更新二维码");
+                    //VAR.sys_inf.Set(EM_ALM_STA.NOR_GREEN, VAR.IsChinese ? "运行" : "RUN", 0, true);
+                    //return EM_RES.OK;
+                    md.res = 3342;
+                    VAR.msg.AddMsg(Msg.EM_MSGTYPE.DBG, disc + "二维码不一致员工操作，NG放回");
                     VAR.sys_inf.Set(EM_ALM_STA.NOR_GREEN, VAR.IsChinese ? "运行" : "RUN", 0, true);
-                    return EM_RES.OK;
+                    return EM_RES.RETRY;
                 }
                 else
                 {
-                    //md.res = 3342;
-                    //VAR.msg.AddMsg(Msg.EM_MSGTYPE.DBG, disc + "二维码不一致员工操作，NG放回");
+                    md.res = 3342;
+                    VAR.msg.AddMsg(Msg.EM_MSGTYPE.DBG, disc + "二维码不一致员工操作，NG放回");
+                    VAR.sys_inf.Set(EM_ALM_STA.NOR_GREEN, VAR.IsChinese ? "运行" : "RUN", 0, true);
+                    return EM_RES.RETRY;
+                    //md.bardcode = QrCode;
+                    //VAR.msg.AddMsg(Msg.EM_MSGTYPE.DBG, disc + "二维码不一致员工操作，更新二维码");
                     //VAR.sys_inf.Set(EM_ALM_STA.NOR_GREEN, VAR.IsChinese ? "运行" : "RUN", 0, true);
                     //return EM_RES.OK;
-                    md.bardcode = QrCode;
-                    VAR.msg.AddMsg(Msg.EM_MSGTYPE.DBG, disc + "二维码不一致员工操作，更新二维码");
-                    VAR.sys_inf.Set(EM_ALM_STA.NOR_GREEN, VAR.IsChinese ? "运行" : "RUN", 0, true);
-                    return EM_RES.OK;
                 }
             }
             return EM_RES.OK;
@@ -1714,6 +1728,8 @@ namespace UI
                 }
                 if (!bPosOk && PT_SET.bEnVsFB)
                 {
+                    upcam.SaveOriginImage(upcam.curTask.Image, string.Format("{0}\\image\\{1}\\BACK", VAR.gsys_set.GetCurProductPath, upcam.mName), string.Format("{0}{1}.jpg",
+                                      DateTime.Now.ToString("yyyyMMdd"), DateTime.Now.ToString("HHmmss_fff")));
                     VAR.sys_inf.Set(EM_ALM_STA.WAR_YELLOW_FLASH, VAR.IsChinese ? "物料放偏!" : "Place deflected", 20, true, ErrCode: ShowErrMsg.WsPutDivErr);
                     MT.ST_WARN warn = new MT.ST_WARN();
                     warning fr_warn = new warning();
