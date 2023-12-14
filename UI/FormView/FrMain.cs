@@ -426,7 +426,7 @@ namespace UI
             VAR.sys_inf.Set(EM_ALM_STA.WAR_YELLOW_FLASH, VAR.IsChinese ? "正在加载" : "Loading", 2, true);
             PT_SET.LoadPtCfg(VAR.gsys_set.cur_product_name);
             NewSysInf.LoadSysInfCfg(out var msg);
-
+           
             //加载产品
             try
             {

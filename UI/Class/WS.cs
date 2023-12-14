@@ -3214,22 +3214,27 @@ namespace UI
                 brun = false;
                 Swtime.Stop();
                 String str1, str2;
-
-                str2 = "工站:" +","+ num + "当前光箱:" + "," + lb.disc+"测试结束总用时:" + "," + Swtime.ElapsedMilliseconds;
+                int lbid = -1;//定义光箱ID
+                int wsid = num + 1;
+                str2 = wsid + "," + lb.disc + "," + Swtime.ElapsedMilliseconds + ",";
                 Utility.WriteStrToCSVPre(str2);
                 if (lb.disc.Contains("左"))
                 {
+                    lbid = 1;
                     PT_SET.lefttime = (Swtime.ElapsedMilliseconds/1000);
                 }
                 else if (lb.disc.Contains("右"))
                 {
+                    lbid = 2;
                     PT_SET.righttime = (Swtime.ElapsedMilliseconds / 1000);
                 }
                 else
                 {
+                    lbid = 3;
                     PT_SET.otptime= (Swtime.ElapsedMilliseconds / 1000);
                 }
-
+                var timetemp = (Swtime.ElapsedMilliseconds / 1000);
+                SQLData.TestDataAddTime(wsid, lbid, timetemp);
                 VAR.msg.AddMsg(Msg.EM_MSGTYPE.DBG, VAR.IsChinese ? string.Format("{0} 测试线程 {1} 结束", disc, res != EM_RES.OK ? "异常" : "正常") : string.Format("{0} test thread {1} end          ({0} 测试线程 {2} 结束)", disc, res != EM_RES.OK ? "ERR" : "NORMAL", res != EM_RES.OK ? "异常" : "正常"));
             }
         }

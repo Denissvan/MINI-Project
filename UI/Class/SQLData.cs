@@ -13,6 +13,10 @@ using System.Threading.Tasks;
 using Newtonsoft.Json;
 using Flurl.Http;
 using UI.Class;
+using System.Collections;
+using System.Data.SqlClient;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement.TaskbarClock;
+using Sunny.UI.Win32;
 
 namespace UI
 {
@@ -49,6 +53,29 @@ namespace UI
             // return "";
         }
 
+        public static string TestTimeDataSource(string file = "")
+        {
+            string filename = string.Format("{0}\\product\\{1}\\TestimeDataBase", Path.GetFullPath(".."),
+                VAR.gsys_set.cur_product_name, file);
+            if (!Directory.Exists(filename))
+            {
+                try
+                {
+                    Directory.CreateDirectory(filename);
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(VAR.IsChinese ? "建立文件夹出错：" : "Error creating folder:\r\n建立文件夹出错：" + ex.Message + "\r\n" + filename);
+                }
+            }
+
+
+            if (file == "") file = DateTime.Now.ToString("yyyy_MM");
+            filename = string.Format("{0}\\product\\{1}\\TestimeDataBase\\{2}.db", Path.GetFullPath(".."),VAR.gsys_set.cur_product_name, file);
+            return string.Format("data source={0}", filename);
+
+            // return "";
+        }
         public static string AlarmTestDataSource(string file = "")
         {
             string filename = string.Format("{0}\\product\\{1}\\AlarmDataBase", Path.GetFullPath(".."),
@@ -96,8 +123,7 @@ namespace UI
 
 
             if (file == "") file = DateTime.Now.ToString("yyyy_MM");
-            filename = string.Format("{0}\\product\\{1}\\SysTimeBase\\{2}.db", Path.GetFullPath(".."),
-               VAR.gsys_set.cur_product_name, file);
+            filename = string.Format("{0}\\product\\{1}\\SysTimeBase\\{2}.db", Path.GetFullPath(".."), VAR.gsys_set.cur_product_name, file);
             //if (File.Exists(filename))
             return string.Format("data source={0}", filename);
 
@@ -183,7 +209,43 @@ namespace UI
 
             return tablename;
         }
+        public static string TestTimeDataTable(SQLiteHelper sh, string tablename = "", bool bnew = true, string dbName = "")
+        {
+            tablename = tablename.Length > 0 ? tablename : DateTime.Now.ToString("TyyyyMMdd");
+            DataTable dt = new DataTable();
+            try
+            {
+                //dt = sh.Select($"select * from {(dbName.Length > 0 ? $"[{dbName}]." : "")}sqlite_master where name = '{tablename}'");
+                string str = string.Format("select * from {0}sqlite_master where name = '{1}'", dbName.Length > 0 ? "[" + dbName + "]." : "", tablename);
+                dt = sh.Select(str);
+            }
+            catch (Exception e)
+            {
+                return "";
+            }
 
+            if (dt.Rows.Count == 0)
+            {
+                if (bnew)
+                {
+                    SQLiteTable tb = new SQLiteTable(tablename);
+                    tb.Columns.Add(new SQLiteColumn("ID", ColType.Integer, true, true, true, "0"));
+                    tb.Columns.Add(new SQLiteColumn("TIME", ColType.DateTime, false, false, false, DateTime.Now.ToString("s"))); //yyyy/MM/dd HH:mm:ss
+                    tb.Columns.Add(new SQLiteColumn("WSID", ColType.Integer, false, false, false, "0"));
+                    tb.Columns.Add(new SQLiteColumn("LBID", ColType.Integer, false, false, false, "0"));
+                    tb.Columns.Add(new SQLiteColumn("TESTTIME", ColType.Decimal, false, false, false, "0"));
+
+                    lock (AlarmLockObj)
+                    {
+                        sh.DropTable(tb.TableName);
+                        sh.CreateTable(tb);
+                    }
+                }
+                else return "";
+            }
+
+            return tablename;
+        }
 
         public static string SysTimeCntDataTable(SQLiteHelper sh, string tablename = "", bool bnew = true, string dbName = "")
         {
@@ -228,6 +290,25 @@ namespace UI
             try
             {
                 using (SQLiteConnection conn = new SQLiteConnection(TestDataSource(file)))
+                {
+                    conn.Open();
+                    conn.Close();
+                }
+
+                return true;
+            }
+            catch (Exception ex)
+            {
+                VAR.msg.AddMsg(Msg.EM_MSGTYPE.ERR, ex.Message, DReport.EmErrCode.ConnectFailed);
+                return false;
+            }
+        }
+
+        public static bool ConnectionTimeChk(string file = "")
+        {
+            try
+            {
+                using (SQLiteConnection conn = new SQLiteConnection(TestTimeDataSource(file)))
                 {
                     conn.Open();
                     conn.Close();
@@ -327,6 +408,62 @@ namespace UI
                 //exist?
                 string tablename = dateTemp.ToString("TyyyyMMdd");
                 tablename = TestDataTable(sh, tablename, false, dateTemp.ToString("yyyy_MM"));
+                if ("" == tablename) continue;
+                if (strFirstTable == "") strFirstTable = tablename;
+                if (strTable != "")
+                {
+                    strTable += " UNION ALL ";
+                }
+
+                strTable += string.Format("select * from {0}", dateTemp.ToString("TyyyyMMdd"));
+
+                dtCnt++;
+            }
+
+            if (strTable.Length > 0)
+                strTable = string.Format("({0})", strTable);
+
+            return dtCnt;
+        }
+        public static int TesttimeAttachFileAndGetTable(DateTime dtFrom, DateTime dtEnd, ref SQLiteHelper sh,
+   ref string strFirstTable, ref string strTable)
+        {
+            if ((dtEnd - dtFrom).Days > 31)
+            {
+                MessageBox.Show(VAR.IsChinese ? @"时间跨度不能超一个月" : "Time span cannot exceed one month!\r\n时间跨度不能超一个月", VAR.IsChinese ? @"提示" : "Prompt", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return -1;
+            }
+
+            int dtCnt = 0;
+            DateTime dateTemp = dtFrom;
+
+            //跨月份
+            for (int m = dtFrom.Month; m <= dtEnd.Month; m++, dateTemp = dateTemp.AddMonths(1))
+            {
+                // string filename =$"{Path.GetFullPath("..")}\\product\\{VAR.gsys_set.cur_product_name}\\DataBase\\{dateTemp:yyyy_MM}.db";
+                string temp = dateTemp.ToString("yyyy_MM");
+                string filename = string.Format("{0}\\product\\{1}\\TestimeDataBase\\{2}.db", Path.GetFullPath(".."), VAR.gsys_set.cur_product_name, temp);
+                if (File.Exists(filename))
+                {
+                    sh.AttachDatabase(filename, dateTemp.ToString("yyyy_MM"));
+                }
+            }
+
+            //跨天
+            dateTemp = dtFrom;
+            strTable = "";
+            strFirstTable = "";
+            for (; dateTemp <= dtEnd.AddDays(1); dateTemp = dateTemp.AddDays(1))
+            {
+                //当月无数据
+                // string filename = $"{Path.GetFullPath("..")}\\product\\{VAR.gsys_set.cur_product_name}\\DataBase\\{dateTemp:yyyy_MM}.db";
+                string temp = dateTemp.ToString("yyyy_MM");
+                string filename = string.Format("{0}\\product\\{1}\\TestimeDataBase\\{2}.db", Path.GetFullPath(".."), VAR.gsys_set.cur_product_name, temp);
+                if (!File.Exists(filename)) continue;
+
+                //exist?
+                string tablename = dateTemp.ToString("TyyyyMMdd");
+                tablename = AlarmTestDataTable(sh, tablename, false, dateTemp.ToString("yyyy_MM"));
                 if ("" == tablename) continue;
                 if (strFirstTable == "") strFirstTable = tablename;
                 if (strTable != "")
@@ -713,7 +850,71 @@ namespace UI
             return dt;
         }
 
+        public static DataTable TesttimeDataSelect(SQLAlarmSelector Selector)
+        {
+            int ct = Environment.TickCount;
+            int tablcecnt = 0;
+            string tablecollection = "";
+            string firstTbname = "";
+            DataTable dt = new DataTable();
+            int leftboxnum;
+            using (SQLiteConnection conn = new SQLiteConnection(TestTimeDataSource()))
+            {
+                using (SQLiteCommand cmd = new SQLiteCommand())
+                {
+                    cmd.Connection = conn;
+                    conn.Open();
+                    SQLiteHelper sh = new SQLiteHelper(cmd);
 
+                    tablcecnt = TesttimeAttachFileAndGetTable(Selector.DateTimeForm, Selector.DateTimeEnd, ref sh,
+                        ref firstTbname, ref tablecollection);
+                    int leftlbnum = 0;//左光箱数量
+                    double lefttime = 0;  //左光箱时间
+                    int rightnum = 0;//右光箱数量
+                    double righttime = 0;  //右光箱时间
+                    int otpnum = 0;//右光箱数量
+                    double otptime = 0;  //右光箱时间
+                    if (tablcecnt > 0)
+                    {
+                        string select = "";
+                        select = string.Format("select * from {0} where time between '{1:s}' and '{2:s}'order by time;", tablecollection, Selector.DateTimeForm, Selector.DateTimeEnd);
+                        dt = sh.Select(select);
+                        foreach (DataRow row in dt.Rows)
+                        {
+                            if(row["LBID"].ToString()=="1")    //左光箱
+                            {
+                                leftlbnum++;
+                                lefttime = lefttime + double.Parse(row["TESTTIME"].ToString());
+                            }
+                            if (row["LBID"].ToString() == "2")    //右2光箱
+                            {
+                                rightnum++;
+                                righttime = righttime + double.Parse(row["TESTTIME"].ToString());
+                            }
+                            if (row["LBID"].ToString() == "3")    //OTP光箱
+                            {
+                                otpnum++;
+                                otptime = otptime + double.Parse(row["TESTTIME"].ToString());
+                            }
+                        }
+
+                    }
+
+                    PT_SET.lefttimedb = lefttime / (leftlbnum == 0 ? 1 : leftlbnum);
+                    PT_SET.righttimedb = righttime / (rightnum == 0 ? 1 : rightnum);
+                    PT_SET.otptimedb = otptime / (otpnum == 0 ? 1 : otpnum);
+
+                    double[] numbers = { PT_SET.lefttimedb, PT_SET.righttimedb, PT_SET.otptimedb };
+                    double max = numbers.Max();
+
+                    PT_SET.ratedb =(PT_SET.lefttimedb + PT_SET.righttimedb + PT_SET.otptimedb) / (max==0 ? 3 : max*3);
+                }
+            }
+
+            //Selector.Lable =$"{firstTbname}...{(tablcecnt > 0 ? tablcecnt.ToString() : "")} [{Environment.TickCount - ct}ms]\r\n[{dt?.Rows.Count:000000}]";
+            Selector.Lable = string.Format("{0}_{1}[{2}ms]\r\n[{3}]", firstTbname, tablcecnt > 0 ? tablcecnt.ToString() : "", Environment.TickCount - ct, dt != null ? dt.Rows.Count : 000000);
+            return dt;
+        }
         public static List<SysTimeCnt> SysTimeCntDataSelect(SysTimeBarChart Selector)
         {
             var TimeCnt = new SysTimeCnt()
@@ -1445,6 +1646,45 @@ namespace UI
                     }
                 }
             }
+            return EM_RES.OK;
+        }
+
+        public static EM_RES TestDataAddTime(int id ,int lbid, double time)
+        {
+
+            ConnectionTimeChk();
+            using (SQLiteConnection conn = new SQLiteConnection(TestTimeDataSource()))
+            {
+                using (SQLiteCommand cmd = new SQLiteCommand())
+                {
+                    cmd.Connection = conn;
+                    conn.Open();
+                    SQLiteHelper sh = new SQLiteHelper(cmd);
+                    string table = TestTimeDataTable(sh);
+                    lock (AlarmLockObj)
+                    {
+                        var dic = new Dictionary<string, object>();
+                        sh.BeginTransaction();
+                      
+                        dic["TIME"] = DateTime.Now.ToString("s");
+                        dic["WSID"] = id;
+                        dic["LBID"] = lbid;
+                        dic["TESTTIME"] = time;
+                        try
+                        {
+                            sh.Insert(table, dic);
+                        }
+                        catch (Exception ex)
+                        {
+                            MessageBox.Show(ex.Message);
+                        }
+                        //上传OK数量
+                        sh.Commit();
+                        conn.Close();
+                    }
+                }
+            }
+        
             return EM_RES.OK;
         }
 

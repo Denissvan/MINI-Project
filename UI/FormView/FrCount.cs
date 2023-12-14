@@ -47,6 +47,7 @@ namespace UI
             sqlSelector_count_soket.HandlerSelect = soket_select;
             sqlSelector_count_ng.HandlerSelect = ng_select;
             sqlSelector_count_alarmdata.HandlerSelect = AlarmData_Select;
+            sqlSelector_count_testtime.HandlerSelect = TestimeData_Select;
             sysTimeBarChart1.HandlerSelect = SysTimeCntData_Select;
             Product.Tray tray = new Product.Tray(COM.traybox_ng.strCfgPath, Product.EM_CM_RES.OK);
             tray.NGDef = COM.NGDef;
@@ -122,6 +123,17 @@ namespace UI
                 bAlarmData_Select = false;
                 SQLData.AlarmTestDataSelect(sqlSelector_count_alarmdata, dgv_count_alarmdata);
                 bAlarmData_Select = true;
+            }
+        }
+
+        private bool btestimeData_Select = true;
+        private void TestimeData_Select(object sender, EventArgs e)
+        {
+            if (btestimeData_Select)
+            {
+                btestimeData_Select = false;
+                SQLData.TesttimeDataSelect(sqlSelector_count_testtime);
+                btestimeData_Select = true;
             }
         }
 
@@ -452,6 +464,27 @@ namespace UI
             lbotp.Text = "OTP光箱测试用时: " + (PT_SET.otptime == 0 ? "暂未更新" : PT_SET.otptime.ToString()+ " S") ;
             lbright.Text = "右光箱测试用时: " + (PT_SET.righttime == 0 ? "暂未更新" : PT_SET.righttime.ToString()+ " S") ; 
             lbud.Text = "上下料用时: " + (PT_SET.udtime == 0 ? "暂未更新" : PT_SET.udtime.ToString()+ " S") ;
+
+            lblefttime.Text = PT_SET.lefttimedb == 0 ? "" : PT_SET.lefttimedb.ToString("F3");
+            lbrighttime.Text = PT_SET.righttimedb == 0 ? "" : PT_SET.righttimedb.ToString("F3");
+            lbotptime.Text = PT_SET.otptimedb == 0 ? "" : PT_SET.otptimedb.ToString("F3");
+            var rate = PT_SET.ratedb * 100;
+            lbrate.Text = rate == 0 ? "" : rate.ToString("F3")+"%";
+            if (rate != 0)
+            {
+                if(rate >= 85)
+                {
+                    panel5.BackColor = Color.Green;
+                }
+                else if (rate >=60 && rate <85)
+                {
+                    panel5.BackColor = Color.Yellow;
+                }
+                else
+                {
+                    panel5.BackColor = Color.Red;
+                }
+            }
         }
     }
 }

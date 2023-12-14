@@ -50,10 +50,10 @@
             this.dtpicker_end.Dock = System.Windows.Forms.DockStyle.Fill;
             this.dtpicker_end.Font = new System.Drawing.Font("宋体", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.dtpicker_end.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
-            this.dtpicker_end.Location = new System.Drawing.Point(3, 43);
+            this.dtpicker_end.Location = new System.Drawing.Point(4, 42);
             this.dtpicker_end.Name = "dtpicker_end";
             this.dtpicker_end.ShowUpDown = true;
-            this.dtpicker_end.Size = new System.Drawing.Size(224, 35);
+            this.dtpicker_end.Size = new System.Drawing.Size(653, 35);
             this.dtpicker_end.TabIndex = 92;
             this.dtpicker_end.Value = new System.DateTime(2018, 10, 23, 10, 1, 59, 0);
             // 
@@ -63,36 +63,32 @@
             this.dtpicker_from.Dock = System.Windows.Forms.DockStyle.Fill;
             this.dtpicker_from.Font = new System.Drawing.Font("宋体", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.dtpicker_from.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
-            this.dtpicker_from.Location = new System.Drawing.Point(3, 3);
+            this.dtpicker_from.Location = new System.Drawing.Point(4, 4);
             this.dtpicker_from.Name = "dtpicker_from";
             this.dtpicker_from.ShowUpDown = true;
-            this.dtpicker_from.Size = new System.Drawing.Size(224, 35);
+            this.dtpicker_from.Size = new System.Drawing.Size(653, 35);
             this.dtpicker_from.TabIndex = 76;
             // 
             // tableLayoutPanel1
             // 
-            this.tableLayoutPanel1.ColumnCount = 7;
+            this.tableLayoutPanel1.CellBorderStyle = System.Windows.Forms.TableLayoutPanelCellBorderStyle.Single;
+            this.tableLayoutPanel1.ColumnCount = 1;
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 230F));
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 76F));
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 55F));
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 90F));
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 72F));
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 70F));
             this.tableLayoutPanel1.Controls.Add(this.dtpicker_from, 0, 0);
             this.tableLayoutPanel1.Controls.Add(this.dtpicker_end, 0, 1);
             this.tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayoutPanel1.Font = new System.Drawing.Font("宋体", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.tableLayoutPanel1.Location = new System.Drawing.Point(3, 3);
+            this.tableLayoutPanel1.Location = new System.Drawing.Point(4, 4);
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
             this.tableLayoutPanel1.RowCount = 2;
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayoutPanel1.Size = new System.Drawing.Size(665, 80);
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(661, 78);
             this.tableLayoutPanel1.TabIndex = 93;
             // 
             // tableLayoutPanel2
             // 
+            this.tableLayoutPanel2.CellBorderStyle = System.Windows.Forms.TableLayoutPanelCellBorderStyle.Single;
             this.tableLayoutPanel2.ColumnCount = 3;
             this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 52F));
@@ -110,17 +106,18 @@
             // 
             // tableLayoutPanel3
             // 
+            this.tableLayoutPanel3.CellBorderStyle = System.Windows.Forms.TableLayoutPanelCellBorderStyle.Single;
             this.tableLayoutPanel3.ColumnCount = 1;
             this.tableLayoutPanel3.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.tableLayoutPanel3.Controls.Add(this.lb_data_status, 0, 0);
             this.tableLayoutPanel3.Controls.Add(this.tableLayoutPanel4, 0, 1);
             this.tableLayoutPanel3.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tableLayoutPanel3.Location = new System.Drawing.Point(726, 3);
+            this.tableLayoutPanel3.Location = new System.Drawing.Point(725, 4);
             this.tableLayoutPanel3.Name = "tableLayoutPanel3";
             this.tableLayoutPanel3.RowCount = 2;
             this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 32F));
             this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel3.Size = new System.Drawing.Size(175, 80);
+            this.tableLayoutPanel3.Size = new System.Drawing.Size(175, 78);
             this.tableLayoutPanel3.TabIndex = 94;
             // 
             // lb_data_status
@@ -128,26 +125,27 @@
             this.lb_data_status.Dock = System.Windows.Forms.DockStyle.Fill;
             this.lb_data_status.Font = new System.Drawing.Font("宋体", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.lb_data_status.ForeColor = System.Drawing.Color.Gray;
-            this.lb_data_status.Location = new System.Drawing.Point(3, 0);
+            this.lb_data_status.Location = new System.Drawing.Point(4, 1);
             this.lb_data_status.Name = "lb_data_status";
-            this.lb_data_status.Size = new System.Drawing.Size(169, 32);
+            this.lb_data_status.Size = new System.Drawing.Size(167, 32);
             this.lb_data_status.TabIndex = 97;
             this.lb_data_status.Text = "T20181023...2,000ms\r\n00000";
             this.lb_data_status.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // tableLayoutPanel4
             // 
+            this.tableLayoutPanel4.CellBorderStyle = System.Windows.Forms.TableLayoutPanelCellBorderStyle.Single;
             this.tableLayoutPanel4.ColumnCount = 2;
             this.tableLayoutPanel4.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
             this.tableLayoutPanel4.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
             this.tableLayoutPanel4.Controls.Add(this.btn_clear, 1, 0);
             this.tableLayoutPanel4.Controls.Add(this.btn_select, 0, 0);
             this.tableLayoutPanel4.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tableLayoutPanel4.Location = new System.Drawing.Point(3, 35);
+            this.tableLayoutPanel4.Location = new System.Drawing.Point(4, 37);
             this.tableLayoutPanel4.Name = "tableLayoutPanel4";
             this.tableLayoutPanel4.RowCount = 1;
             this.tableLayoutPanel4.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayoutPanel4.Size = new System.Drawing.Size(169, 42);
+            this.tableLayoutPanel4.Size = new System.Drawing.Size(167, 37);
             this.tableLayoutPanel4.TabIndex = 0;
             // 
             // btn_clear
@@ -155,9 +153,9 @@
             this.btn_clear.BackColor = System.Drawing.SystemColors.ButtonFace;
             this.btn_clear.Dock = System.Windows.Forms.DockStyle.Fill;
             this.btn_clear.Font = new System.Drawing.Font("宋体", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.btn_clear.Location = new System.Drawing.Point(87, 3);
+            this.btn_clear.Location = new System.Drawing.Point(87, 4);
             this.btn_clear.Name = "btn_clear";
-            this.btn_clear.Size = new System.Drawing.Size(79, 36);
+            this.btn_clear.Size = new System.Drawing.Size(76, 29);
             this.btn_clear.TabIndex = 96;
             this.btn_clear.Text = "清除";
             this.btn_clear.UseVisualStyleBackColor = false;
@@ -168,9 +166,9 @@
             this.btn_select.BackColor = System.Drawing.SystemColors.ButtonFace;
             this.btn_select.Dock = System.Windows.Forms.DockStyle.Fill;
             this.btn_select.Font = new System.Drawing.Font("宋体", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.btn_select.Location = new System.Drawing.Point(3, 3);
+            this.btn_select.Location = new System.Drawing.Point(4, 4);
             this.btn_select.Name = "btn_select";
-            this.btn_select.Size = new System.Drawing.Size(78, 36);
+            this.btn_select.Size = new System.Drawing.Size(76, 29);
             this.btn_select.TabIndex = 95;
             this.btn_select.Text = "查询";
             this.btn_select.UseVisualStyleBackColor = false;
@@ -179,9 +177,9 @@
             // panel1
             // 
             this.panel1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panel1.Location = new System.Drawing.Point(674, 3);
+            this.panel1.Location = new System.Drawing.Point(672, 4);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(46, 80);
+            this.panel1.Size = new System.Drawing.Size(46, 78);
             this.panel1.TabIndex = 95;
             // 
             // SQLAlarmSelector

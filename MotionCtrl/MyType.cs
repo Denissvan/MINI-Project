@@ -1087,6 +1087,10 @@ namespace MotionCtrl
         public static double righttime;
         public static double udtime;
 
+        public static double lefttimedb;
+        public static double righttimedb;
+        public static double otptimedb;
+        public static double ratedb;
         //保养
         public static int FixtrueMT;
         public static int EquipmentMT;

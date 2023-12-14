@@ -50,7 +50,6 @@
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle18 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle19 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle20 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FrCount));
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.panel2 = new System.Windows.Forms.Panel();
             this.ctb_count = new CTabControl();
@@ -96,16 +95,28 @@
             this.sysTimeBarChart1 = new UI.SysTimeBarChart();
             this.tabPage2 = new System.Windows.Forms.TabPage();
             this.tableLayoutPanel7 = new System.Windows.Forms.TableLayoutPanel();
-            this.pictureBox1 = new System.Windows.Forms.PictureBox();
+            this.tableLayoutPanel8 = new System.Windows.Forms.TableLayoutPanel();
+            this.lbud = new System.Windows.Forms.Label();
+            this.lbleft = new System.Windows.Forms.Label();
+            this.lbotp = new System.Windows.Forms.Label();
+            this.lbright = new System.Windows.Forms.Label();
+            this.panel5 = new System.Windows.Forms.Panel();
+            this.tableLayoutPanel9 = new System.Windows.Forms.TableLayoutPanel();
+            this.label1 = new System.Windows.Forms.Label();
+            this.label2 = new System.Windows.Forms.Label();
+            this.label3 = new System.Windows.Forms.Label();
+            this.label4 = new System.Windows.Forms.Label();
+            this.label5 = new System.Windows.Forms.Label();
+            this.lblefttime = new System.Windows.Forms.Label();
+            this.lbotptime = new System.Windows.Forms.Label();
+            this.lbrighttime = new System.Windows.Forms.Label();
+            this.lbrate = new System.Windows.Forms.Label();
+            this.sqlSelector_count_testtime = new UI.SQLAlarmSelector();
             this.panel3 = new System.Windows.Forms.Panel();
             this.tmr_update = new System.Windows.Forms.Timer(this.components);
             this.ds_ngcode = new System.Data.DataSet();
             this.bds_ngcode = new System.Windows.Forms.BindingSource(this.components);
             this.timer_sysTimeCnt = new System.Windows.Forms.Timer(this.components);
-            this.lbud = new System.Windows.Forms.Label();
-            this.lbleft = new System.Windows.Forms.Label();
-            this.lbotp = new System.Windows.Forms.Label();
-            this.lbright = new System.Windows.Forms.Label();
             this.timer1 = new System.Windows.Forms.Timer(this.components);
             this.tableLayoutPanel1.SuspendLayout();
             this.panel2.SuspendLayout();
@@ -135,7 +146,9 @@
             this.tabPage1.SuspendLayout();
             this.tabPage2.SuspendLayout();
             this.tableLayoutPanel7.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
+            this.tableLayoutPanel8.SuspendLayout();
+            this.panel5.SuspendLayout();
+            this.tableLayoutPanel9.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.ds_ngcode)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.bds_ngcode)).BeginInit();
             this.SuspendLayout();
@@ -868,35 +881,238 @@
             // 
             // tableLayoutPanel7
             // 
-            this.tableLayoutPanel7.ColumnCount = 3;
-            this.tableLayoutPanel7.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 20F));
-            this.tableLayoutPanel7.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 60F));
-            this.tableLayoutPanel7.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 20F));
-            this.tableLayoutPanel7.Controls.Add(this.pictureBox1, 1, 1);
-            this.tableLayoutPanel7.Controls.Add(this.lbud, 1, 2);
-            this.tableLayoutPanel7.Controls.Add(this.lbleft, 0, 1);
-            this.tableLayoutPanel7.Controls.Add(this.lbotp, 1, 0);
-            this.tableLayoutPanel7.Controls.Add(this.lbright, 2, 1);
+            this.tableLayoutPanel7.ColumnCount = 1;
+            this.tableLayoutPanel7.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.tableLayoutPanel7.Controls.Add(this.tableLayoutPanel8, 0, 0);
+            this.tableLayoutPanel7.Controls.Add(this.sqlSelector_count_testtime, 0, 1);
             this.tableLayoutPanel7.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayoutPanel7.Location = new System.Drawing.Point(0, 0);
             this.tableLayoutPanel7.Name = "tableLayoutPanel7";
-            this.tableLayoutPanel7.RowCount = 3;
-            this.tableLayoutPanel7.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 20F));
-            this.tableLayoutPanel7.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 60F));
-            this.tableLayoutPanel7.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 20F));
+            this.tableLayoutPanel7.RowCount = 2;
+            this.tableLayoutPanel7.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 81.13695F));
+            this.tableLayoutPanel7.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 18.86305F));
             this.tableLayoutPanel7.Size = new System.Drawing.Size(1140, 774);
-            this.tableLayoutPanel7.TabIndex = 1;
+            this.tableLayoutPanel7.TabIndex = 0;
             // 
-            // pictureBox1
+            // tableLayoutPanel8
             // 
-            this.pictureBox1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.pictureBox1.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox1.Image")));
-            this.pictureBox1.Location = new System.Drawing.Point(231, 157);
-            this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(678, 458);
-            this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.pictureBox1.TabIndex = 0;
-            this.pictureBox1.TabStop = false;
+            this.tableLayoutPanel8.ColumnCount = 3;
+            this.tableLayoutPanel8.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 20F));
+            this.tableLayoutPanel8.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 60F));
+            this.tableLayoutPanel8.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 20F));
+            this.tableLayoutPanel8.Controls.Add(this.lbud, 1, 2);
+            this.tableLayoutPanel8.Controls.Add(this.lbleft, 0, 1);
+            this.tableLayoutPanel8.Controls.Add(this.lbotp, 1, 0);
+            this.tableLayoutPanel8.Controls.Add(this.lbright, 2, 1);
+            this.tableLayoutPanel8.Controls.Add(this.panel5, 1, 1);
+            this.tableLayoutPanel8.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tableLayoutPanel8.Location = new System.Drawing.Point(3, 3);
+            this.tableLayoutPanel8.Name = "tableLayoutPanel8";
+            this.tableLayoutPanel8.RowCount = 3;
+            this.tableLayoutPanel8.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 20F));
+            this.tableLayoutPanel8.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 60F));
+            this.tableLayoutPanel8.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 20F));
+            this.tableLayoutPanel8.Size = new System.Drawing.Size(1134, 621);
+            this.tableLayoutPanel8.TabIndex = 2;
+            // 
+            // lbud
+            // 
+            this.lbud.AutoSize = true;
+            this.lbud.BackColor = System.Drawing.Color.LightGreen;
+            this.lbud.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.lbud.Location = new System.Drawing.Point(229, 496);
+            this.lbud.Name = "lbud";
+            this.lbud.Size = new System.Drawing.Size(674, 125);
+            this.lbud.TabIndex = 5;
+            this.lbud.Text = "上下料用时";
+            this.lbud.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // lbleft
+            // 
+            this.lbleft.AutoSize = true;
+            this.lbleft.BackColor = System.Drawing.Color.MistyRose;
+            this.lbleft.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.lbleft.Location = new System.Drawing.Point(3, 124);
+            this.lbleft.Name = "lbleft";
+            this.lbleft.Size = new System.Drawing.Size(220, 372);
+            this.lbleft.TabIndex = 6;
+            this.lbleft.Text = "左光箱";
+            this.lbleft.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // lbotp
+            // 
+            this.lbotp.AutoSize = true;
+            this.lbotp.BackColor = System.Drawing.Color.BlanchedAlmond;
+            this.lbotp.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.lbotp.Location = new System.Drawing.Point(229, 0);
+            this.lbotp.Name = "lbotp";
+            this.lbotp.Size = new System.Drawing.Size(674, 124);
+            this.lbotp.TabIndex = 7;
+            this.lbotp.Text = "OTP";
+            this.lbotp.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // lbright
+            // 
+            this.lbright.AutoSize = true;
+            this.lbright.BackColor = System.Drawing.Color.Thistle;
+            this.lbright.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.lbright.Location = new System.Drawing.Point(909, 124);
+            this.lbright.Name = "lbright";
+            this.lbright.Size = new System.Drawing.Size(222, 372);
+            this.lbright.TabIndex = 8;
+            this.lbright.Text = "右光箱";
+            this.lbright.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // panel5
+            // 
+            this.panel5.BackColor = System.Drawing.Color.PowderBlue;
+            this.panel5.Controls.Add(this.tableLayoutPanel9);
+            this.panel5.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.panel5.Location = new System.Drawing.Point(229, 127);
+            this.panel5.Name = "panel5";
+            this.panel5.Size = new System.Drawing.Size(674, 366);
+            this.panel5.TabIndex = 9;
+            // 
+            // tableLayoutPanel9
+            // 
+            this.tableLayoutPanel9.CellBorderStyle = System.Windows.Forms.TableLayoutPanelCellBorderStyle.Single;
+            this.tableLayoutPanel9.ColumnCount = 2;
+            this.tableLayoutPanel9.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.tableLayoutPanel9.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.tableLayoutPanel9.Controls.Add(this.label1, 0, 0);
+            this.tableLayoutPanel9.Controls.Add(this.label2, 0, 1);
+            this.tableLayoutPanel9.Controls.Add(this.label3, 0, 2);
+            this.tableLayoutPanel9.Controls.Add(this.label4, 0, 3);
+            this.tableLayoutPanel9.Controls.Add(this.label5, 0, 4);
+            this.tableLayoutPanel9.Controls.Add(this.lblefttime, 1, 1);
+            this.tableLayoutPanel9.Controls.Add(this.lbotptime, 1, 2);
+            this.tableLayoutPanel9.Controls.Add(this.lbrighttime, 1, 3);
+            this.tableLayoutPanel9.Controls.Add(this.lbrate, 1, 4);
+            this.tableLayoutPanel9.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tableLayoutPanel9.Location = new System.Drawing.Point(0, 0);
+            this.tableLayoutPanel9.Name = "tableLayoutPanel9";
+            this.tableLayoutPanel9.RowCount = 5;
+            this.tableLayoutPanel9.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 23.52941F));
+            this.tableLayoutPanel9.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 17.64706F));
+            this.tableLayoutPanel9.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 17.64706F));
+            this.tableLayoutPanel9.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 17.64706F));
+            this.tableLayoutPanel9.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 23.52941F));
+            this.tableLayoutPanel9.Size = new System.Drawing.Size(674, 366);
+            this.tableLayoutPanel9.TabIndex = 0;
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.tableLayoutPanel9.SetColumnSpan(this.label1, 2);
+            this.label1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.label1.Font = new System.Drawing.Font("宋体", 28F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.label1.Location = new System.Drawing.Point(4, 1);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(666, 84);
+            this.label1.TabIndex = 0;
+            this.label1.Text = "面平衡数据看板";
+            this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.label2.Font = new System.Drawing.Font("宋体", 20F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.label2.Location = new System.Drawing.Point(4, 86);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(329, 63);
+            this.label2.TabIndex = 1;
+            this.label2.Text = "左光箱平均用时：";
+            this.label2.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.label3.Font = new System.Drawing.Font("宋体", 20F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.label3.Location = new System.Drawing.Point(4, 150);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(329, 63);
+            this.label3.TabIndex = 2;
+            this.label3.Text = "OTP面平均用时：";
+            this.label3.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.label4.Font = new System.Drawing.Font("宋体", 20F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.label4.Location = new System.Drawing.Point(4, 214);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(329, 63);
+            this.label4.TabIndex = 3;
+            this.label4.Text = "右光箱平均用时：";
+            this.label4.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.label5.Font = new System.Drawing.Font("宋体", 20F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.label5.Location = new System.Drawing.Point(4, 278);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(329, 87);
+            this.label5.TabIndex = 4;
+            this.label5.Text = "面平衡率：\r\n（左光箱＋OTP光箱＋右光箱）/（瓶颈面×3）";
+            this.label5.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // lblefttime
+            // 
+            this.lblefttime.AutoSize = true;
+            this.lblefttime.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.lblefttime.Font = new System.Drawing.Font("宋体", 20F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.lblefttime.Location = new System.Drawing.Point(340, 86);
+            this.lblefttime.Name = "lblefttime";
+            this.lblefttime.Size = new System.Drawing.Size(330, 63);
+            this.lblefttime.TabIndex = 5;
+            this.lblefttime.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // lbotptime
+            // 
+            this.lbotptime.AutoSize = true;
+            this.lbotptime.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.lbotptime.Font = new System.Drawing.Font("宋体", 20F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.lbotptime.Location = new System.Drawing.Point(340, 150);
+            this.lbotptime.Name = "lbotptime";
+            this.lbotptime.Size = new System.Drawing.Size(330, 63);
+            this.lbotptime.TabIndex = 6;
+            this.lbotptime.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // lbrighttime
+            // 
+            this.lbrighttime.AutoSize = true;
+            this.lbrighttime.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.lbrighttime.Font = new System.Drawing.Font("宋体", 20F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.lbrighttime.Location = new System.Drawing.Point(340, 214);
+            this.lbrighttime.Name = "lbrighttime";
+            this.lbrighttime.Size = new System.Drawing.Size(330, 63);
+            this.lbrighttime.TabIndex = 7;
+            this.lbrighttime.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // lbrate
+            // 
+            this.lbrate.AutoSize = true;
+            this.lbrate.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.lbrate.Font = new System.Drawing.Font("宋体", 20F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.lbrate.Location = new System.Drawing.Point(340, 278);
+            this.lbrate.Name = "lbrate";
+            this.lbrate.Size = new System.Drawing.Size(330, 87);
+            this.lbrate.TabIndex = 8;
+            this.lbrate.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // sqlSelector_count_testtime
+            // 
+            this.sqlSelector_count_testtime.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.sqlSelector_count_testtime.Lable = "T20181023...2,000ms\r\n00000";
+            this.sqlSelector_count_testtime.Location = new System.Drawing.Point(3, 630);
+            this.sqlSelector_count_testtime.Name = "sqlSelector_count_testtime";
+            this.sqlSelector_count_testtime.Size = new System.Drawing.Size(1134, 141);
+            this.sqlSelector_count_testtime.TabIndex = 3;
             // 
             // panel3
             // 
@@ -922,54 +1138,6 @@
             this.timer_sysTimeCnt.Enabled = true;
             this.timer_sysTimeCnt.Interval = 60000;
             this.timer_sysTimeCnt.Tick += new System.EventHandler(this.timer_sysTimeCnt_Tick);
-            // 
-            // lbud
-            // 
-            this.lbud.AutoSize = true;
-            this.lbud.BackColor = System.Drawing.Color.LightGreen;
-            this.lbud.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.lbud.Location = new System.Drawing.Point(231, 618);
-            this.lbud.Name = "lbud";
-            this.lbud.Size = new System.Drawing.Size(678, 156);
-            this.lbud.TabIndex = 5;
-            this.lbud.Text = "上下料用时";
-            this.lbud.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
-            // lbleft
-            // 
-            this.lbleft.AutoSize = true;
-            this.lbleft.BackColor = System.Drawing.Color.MistyRose;
-            this.lbleft.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.lbleft.Location = new System.Drawing.Point(3, 154);
-            this.lbleft.Name = "lbleft";
-            this.lbleft.Size = new System.Drawing.Size(222, 464);
-            this.lbleft.TabIndex = 6;
-            this.lbleft.Text = "左光箱";
-            this.lbleft.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
-            // lbotp
-            // 
-            this.lbotp.AutoSize = true;
-            this.lbotp.BackColor = System.Drawing.Color.BlanchedAlmond;
-            this.lbotp.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.lbotp.Location = new System.Drawing.Point(231, 0);
-            this.lbotp.Name = "lbotp";
-            this.lbotp.Size = new System.Drawing.Size(678, 154);
-            this.lbotp.TabIndex = 7;
-            this.lbotp.Text = "OTP";
-            this.lbotp.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
-            // lbright
-            // 
-            this.lbright.AutoSize = true;
-            this.lbright.BackColor = System.Drawing.Color.Thistle;
-            this.lbright.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.lbright.Location = new System.Drawing.Point(915, 154);
-            this.lbright.Name = "lbright";
-            this.lbright.Size = new System.Drawing.Size(222, 464);
-            this.lbright.TabIndex = 8;
-            this.lbright.Text = "右光箱";
-            this.lbright.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // timer1
             // 
@@ -1016,8 +1184,11 @@
             this.tabPage1.ResumeLayout(false);
             this.tabPage2.ResumeLayout(false);
             this.tableLayoutPanel7.ResumeLayout(false);
-            this.tableLayoutPanel7.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
+            this.tableLayoutPanel8.ResumeLayout(false);
+            this.tableLayoutPanel8.PerformLayout();
+            this.panel5.ResumeLayout(false);
+            this.tableLayoutPanel9.ResumeLayout(false);
+            this.tableLayoutPanel9.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.ds_ngcode)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.bds_ngcode)).EndInit();
             this.ResumeLayout(false);
@@ -1083,12 +1254,24 @@
         private SysTimeBarChart sysTimeBarChart1;
         private System.Windows.Forms.Timer timer_sysTimeCnt;
         private System.Windows.Forms.TabPage tabPage2;
-        private System.Windows.Forms.PictureBox pictureBox1;
+        private System.Windows.Forms.Timer timer1;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel7;
+        private System.Windows.Forms.TableLayoutPanel tableLayoutPanel8;
         private System.Windows.Forms.Label lbud;
         private System.Windows.Forms.Label lbleft;
         private System.Windows.Forms.Label lbotp;
         private System.Windows.Forms.Label lbright;
-        private System.Windows.Forms.Timer timer1;
+        public SQLAlarmSelector sqlSelector_count_testtime;
+        private System.Windows.Forms.Panel panel5;
+        private System.Windows.Forms.TableLayoutPanel tableLayoutPanel9;
+        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.Label label5;
+        private System.Windows.Forms.Label lblefttime;
+        private System.Windows.Forms.Label lbotptime;
+        private System.Windows.Forms.Label lbrighttime;
+        private System.Windows.Forms.Label lbrate;
     }
 }
