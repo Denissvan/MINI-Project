@@ -626,6 +626,12 @@ namespace UI
             if (PT_SET.bBarcodeCamBackEn) rbtn_OpenBarCamBack.Checked = true;
             else rbtn_CloseBarCamBack.Checked = true;
 
+            rbtn_AddCapQrcodeEnOnly.Checked=false;
+            rbtn_AddCapQrcodeEnOnlyClose.Checked=false;
+            //单独进行二维码回检
+            if (PT_SET.bBarcodeCamBackEnOnly) rbtn_AddCapQrcodeEnOnly.Checked = true;
+            else rbtn_AddCapQrcodeEnOnlyClose.Checked = true;
+
             //OK品下料检测
             rbtn_OkCheckEn.Checked = false;
             rbtn_OkCheckDis.Checked = false;
@@ -1131,6 +1137,10 @@ namespace UI
             //二维码回检设置
             if (rbtn_OpenBarCamBack.Checked) PT_SET.bBarcodeCamBackEn = true;
             else if (rbtn_CloseBarCamBack.Checked) PT_SET.bBarcodeCamBackEn = false;
+
+            if (rbtn_AddCapQrcodeEnOnly.Checked  ) PT_SET.bBarcodeCamBackEnOnly = true;
+            else if (rbtn_AddCapQrcodeEnOnlyClose.Checked)PT_SET.bBarcodeCamBackEnOnly = false;
+
             //rbtn_CloseBarCamBack.Checked = false;
             //if (!rbtn_CloseBarCamBack.Checked) rbtn_OpenBarCamBack.Checked = true; 
             //PT_SET.bBarcodeCamBackEn = rbtn_OpenBarCamBack.Checked;

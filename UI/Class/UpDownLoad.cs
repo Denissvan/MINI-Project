@@ -5974,6 +5974,19 @@ RECHECKAGAIN:
                 {
                     break;
                 }
+
+                if(PT_SET.bBarcodeCamBackEnOnly)
+                {
+                    res = COM.UDLoad1.OnlyCheckcode(ref bquit, COM.UDLoad1.id, ref ws);
+                    if (res != EM_RES.OK) break;
+                    res = COM.UDLoad1.GoZero(ref bquit, false);
+                    if (res != EM_RES.OK) break;
+                    res = COM.UDLoad2.OnlyCheckcode(ref bquit, COM.UDLoad2.id, ref ws);
+                    if (res != EM_RES.OK) break;
+                    res = COM.UDLoad2.GoZero(ref bquit, false);
+                    if (res != EM_RES.OK) break;
+                }
+
                 //gy0123夹具扫码
                 if (PT_SET.bJigSan)
                 {
@@ -5982,6 +5995,9 @@ RECHECKAGAIN:
                     else res = COM.UDLoad1.JigSan(ref bquit, ref ws);
                     if (res != EM_RES.OK) break;
                 }
+
+
+
                 if (PT_SET.bboxCheck)
                 {
                     var curHour = DateTime.Now;
@@ -6346,6 +6362,102 @@ RECHECKAGAIN:
             res1 = ws.SaveCfg();
             return res1;
 
+        }
+
+        //夹具安装防呆检测
+        public EM_RES OnlyCheckcode(ref bool bquit, int id, ref WS wstemp)      //单独检测 二维码
+        {
+            try
+            {
+                if (!PT_SET.bboxCheck)//开启才扫码
+                {
+                    return EM_RES.OK;
+                }
+                VAR.msg.AddMsg(Msg.EM_MSGTYPE.DBG, "单独回检二维码开始");
+                List<ST_XY> listpos = new List<ST_XY>();
+                foreach (WS.MdDat md in wstemp.list_md)
+                {
+                    if (!md.benable) continue;
+                    if (md.Num == 5 || md.Num == 7 || md.Num == 13 || md.Num == 15)
+                    {
+                        if(id!=0)
+                        {
+                            continue;
+                        }
+                    }
+                    else
+                    {
+                        if (id != 1)
+                        {
+                            continue;
+                        }
+
+                    }
+                    RECAM:
+                    var res = MT.ZupMove(ref bquit, ref ax_x, md.st_CapQrcodePos[id].x, ref ax_y, md.st_CapQrcodePos[id].y);
+                    //if (res != EM_RES.OK) return res;
+                    VAR.msg.AddMsg(Msg.EM_MSGTYPE.DBG, "定位完成，开始拍照");
+                    res = upcam.FindTaskTriAndWait(CONST.FindQrCodeFw, Demo);
+                    if (res != EM_RES.OK)
+                    {
+                        VAR.msg.AddMsg(Msg.EM_MSGTYPE.ERR, "检测夹具安装拍照失败");
+
+                        MT.ST_WARN st_warn = new MT.ST_WARN();
+                        warning fr_warn = new warning();
+                        st_warn.ok_txt = VAR.IsChinese ? "重新拍照" : "Give up";
+                        st_warn.abort_txt = VAR.IsChinese ? "继续运行" : "Try again";
+                        st_warn.ws = null;
+                        st_warn.cancle_txt = VAR.IsChinese ? "停止运行" : "Stop running";
+                        st_warn.title = VAR.IsChinese ? "提示:检测夹具安装拍照失败!" : "Tip: Abnormal suction!";
+                        st_warn.msg = VAR.IsChinese ? "提示:检测夹具安装拍照失败!" : "Tip: Abnormal suction!";
+                        st_warn.lb_msg = "提示:" + st_warn.msg + "请确认!\r\n  1.点击重新拍照将进行重新拍照!\r\n  " +
+                            "2.点击继续运行则继续运行!\r\n  " +
+                            "3.点击停止将停止运行!\r\n  ";
+
+                        DialogResult logres = MT.Display_frwarn(fr_warn, st_warn, ERR_ALM.EmErrItem.UpDownLoadAbnormal);
+                        if (DialogResult.OK == logres)
+                        {
+                            goto RECAM;
+                        }
+                        else if (DialogResult.Abort == logres)
+                        {
+                            return EM_RES.OK;
+                        }
+                        else if (DialogResult.Cancel == logres)
+                        {
+                            return EM_RES.ERR;
+                        }
+                    }
+                    if (!upcam.curTask.ResData.bOK || (upcam.curTask.ResData.bOK && upcam.curTask.ResData.BarCode != md.bardcode))
+                    {
+                        VAR.msg.AddMsg(Msg.EM_MSGTYPE.ERR, "单独回检二维码信息未通过");
+
+                        MT.ST_WARN st_warn = new MT.ST_WARN();
+                        warning fr_warn = new warning();
+                        st_warn.ok_txt = VAR.IsChinese ? "确定" : "Give up";
+                        st_warn.abort_txt = VAR.IsChinese ? "确定" : "Try again";
+                        st_warn.ws = null;
+                        st_warn.cancle_txt = VAR.IsChinese ? "停止运行" : "Stop running";
+                        st_warn.title = VAR.IsChinese ? "提示:单独回检二维码信息未通过!" : "Tip: Abnormal suction!";
+                        st_warn.msg = VAR.IsChinese ? "提示:单独回检二维码信息未通过!" : "Tip: Abnormal suction!";
+                        st_warn.lb_msg = "提示:" + st_warn.msg + "请确认!\r\n  1.点击确定将继续运行,!\r\n  " +
+                            "2.点击停止将停止运行!\r\n  ";
+
+                        DialogResult logres = MT.Display_frwarn(fr_warn, st_warn, ERR_ALM.EmErrItem.UpDownLoadAbnormal);
+                        if (DialogResult.Cancel == logres)
+                        {
+                            return EM_RES.ERR;
+                        }
+                    }
+
+                }
+            }
+            catch (Exception ex)
+            {
+                VAR.msg.AddMsg(Msg.EM_MSGTYPE.ERR, "夹具检测发生异常" + ex.ToString());
+            }
+            VAR.msg.AddMsg(Msg.EM_MSGTYPE.DBG, "夹具检测通过");
+            return EM_RES.OK;
         }
 
         //夹具安装防呆检测

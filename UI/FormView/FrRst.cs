@@ -8,10 +8,13 @@ using System.Linq;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Forms;
 using DevReport;
 using MotionCtrl;
 using Win32Lib;
+using MessageBox = System.Windows.Forms.MessageBox;
+using SystemColors = System.Drawing.SystemColors;
 
 namespace UI
 {
@@ -358,6 +361,11 @@ namespace UI
                     EM_RES res = COM.Home();
                     if (res == EM_RES.OK)
                     {
+                        bool bqtemp = false;
+                        foreach (WS wstemp in COM.list_ws)
+                        {
+                            wstemp.PowerOff(ref bqtemp);
+                        }
                         DRpt.Report_Opration(1000, 0, "整体回零成功!");
                         for (int t = 1; t < 37; t++)
                         {

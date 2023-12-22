@@ -214,6 +214,9 @@
             this.label14 = new System.Windows.Forms.Label();
             this.chk_GTMCheck = new System.Windows.Forms.CheckBox();
             this.tp_setparm_2 = new System.Windows.Forms.TabPage();
+            this.groupBox65 = new System.Windows.Forms.GroupBox();
+            this.rbtn_AddCapQrcodeEnOnlyClose = new System.Windows.Forms.RadioButton();
+            this.rbtn_AddCapQrcodeEnOnly = new System.Windows.Forms.RadioButton();
             this.groupBox64 = new System.Windows.Forms.GroupBox();
             this.rbtn_check2close = new System.Windows.Forms.RadioButton();
             this.rbtn_check2open = new System.Windows.Forms.RadioButton();
@@ -609,6 +612,7 @@
             this.groupBox10.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nud_GTMOfs)).BeginInit();
             this.tp_setparm_2.SuspendLayout();
+            this.groupBox65.SuspendLayout();
             this.groupBox64.SuspendLayout();
             this.tabControl3.SuspendLayout();
             this.tabPage6.SuspendLayout();
@@ -3483,6 +3487,7 @@
             // 
             // tp_setparm_2
             // 
+            this.tp_setparm_2.Controls.Add(this.groupBox65);
             this.tp_setparm_2.Controls.Add(this.groupBox64);
             this.tp_setparm_2.Controls.Add(this.groupBox62);
             this.tp_setparm_2.Controls.Add(this.groupBox48);
@@ -3514,10 +3519,54 @@
             this.tp_setparm_2.Location = new System.Drawing.Point(4, 44);
             this.tp_setparm_2.Name = "tp_setparm_2";
             this.tp_setparm_2.Padding = new System.Windows.Forms.Padding(3);
-            this.tp_setparm_2.Size = new System.Drawing.Size(1098, 882);
+            this.tp_setparm_2.Size = new System.Drawing.Size(52, 44);
             this.tp_setparm_2.TabIndex = 1;
             this.tp_setparm_2.Text = "参数2          ";
             this.tp_setparm_2.UseVisualStyleBackColor = true;
+            // 
+            // groupBox65
+            // 
+            this.groupBox65.Controls.Add(this.rbtn_AddCapQrcodeEnOnlyClose);
+            this.groupBox65.Controls.Add(this.rbtn_AddCapQrcodeEnOnly);
+            this.groupBox65.Font = new System.Drawing.Font("宋体", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.groupBox65.Location = new System.Drawing.Point(796, 744);
+            this.groupBox65.Name = "groupBox65";
+            this.groupBox65.Size = new System.Drawing.Size(270, 116);
+            this.groupBox65.TabIndex = 155;
+            this.groupBox65.TabStop = false;
+            this.groupBox65.Text = "是否单独进行二维码回检";
+            // 
+            // rbtn_AddCapQrcodeEnOnlyClose
+            // 
+            this.rbtn_AddCapQrcodeEnOnlyClose.Appearance = System.Windows.Forms.Appearance.Button;
+            this.rbtn_AddCapQrcodeEnOnlyClose.FlatAppearance.CheckedBackColor = System.Drawing.Color.Yellow;
+            this.rbtn_AddCapQrcodeEnOnlyClose.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.rbtn_AddCapQrcodeEnOnlyClose.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
+            this.rbtn_AddCapQrcodeEnOnlyClose.ForeColor = System.Drawing.Color.Black;
+            this.rbtn_AddCapQrcodeEnOnlyClose.Location = new System.Drawing.Point(147, 45);
+            this.rbtn_AddCapQrcodeEnOnlyClose.Name = "rbtn_AddCapQrcodeEnOnlyClose";
+            this.rbtn_AddCapQrcodeEnOnlyClose.Size = new System.Drawing.Size(84, 30);
+            this.rbtn_AddCapQrcodeEnOnlyClose.TabIndex = 126;
+            this.rbtn_AddCapQrcodeEnOnlyClose.Text = "关闭";
+            this.rbtn_AddCapQrcodeEnOnlyClose.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.rbtn_AddCapQrcodeEnOnlyClose.UseVisualStyleBackColor = true;
+            // 
+            // rbtn_AddCapQrcodeEnOnly
+            // 
+            this.rbtn_AddCapQrcodeEnOnly.Appearance = System.Windows.Forms.Appearance.Button;
+            this.rbtn_AddCapQrcodeEnOnly.Checked = true;
+            this.rbtn_AddCapQrcodeEnOnly.FlatAppearance.CheckedBackColor = System.Drawing.Color.Yellow;
+            this.rbtn_AddCapQrcodeEnOnly.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.rbtn_AddCapQrcodeEnOnly.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
+            this.rbtn_AddCapQrcodeEnOnly.ForeColor = System.Drawing.Color.Black;
+            this.rbtn_AddCapQrcodeEnOnly.Location = new System.Drawing.Point(18, 45);
+            this.rbtn_AddCapQrcodeEnOnly.Name = "rbtn_AddCapQrcodeEnOnly";
+            this.rbtn_AddCapQrcodeEnOnly.Size = new System.Drawing.Size(84, 30);
+            this.rbtn_AddCapQrcodeEnOnly.TabIndex = 124;
+            this.rbtn_AddCapQrcodeEnOnly.TabStop = true;
+            this.rbtn_AddCapQrcodeEnOnly.Text = "开启";
+            this.rbtn_AddCapQrcodeEnOnly.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.rbtn_AddCapQrcodeEnOnly.UseVisualStyleBackColor = true;
             // 
             // groupBox64
             // 
@@ -6252,7 +6301,7 @@
             this.tabPage3.Location = new System.Drawing.Point(4, 44);
             this.tabPage3.Name = "tabPage3";
             this.tabPage3.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage3.Size = new System.Drawing.Size(1098, 882);
+            this.tabPage3.Size = new System.Drawing.Size(52, 44);
             this.tabPage3.TabIndex = 2;
             this.tabPage3.Text = "参数3";
             this.tabPage3.UseVisualStyleBackColor = true;
@@ -6942,7 +6991,7 @@
             this.groupBox55.Font = new System.Drawing.Font("宋体", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.groupBox55.Location = new System.Drawing.Point(20, 764);
             this.groupBox55.Name = "groupBox55";
-            this.groupBox55.Size = new System.Drawing.Size(293, 108);
+            this.groupBox55.Size = new System.Drawing.Size(271, 108);
             this.groupBox55.TabIndex = 139;
             this.groupBox55.TabStop = false;
             this.groupBox55.Text = "工位NG比例报警";
@@ -7984,7 +8033,7 @@
             this.tpPara4.Location = new System.Drawing.Point(4, 44);
             this.tpPara4.Name = "tpPara4";
             this.tpPara4.Padding = new System.Windows.Forms.Padding(3);
-            this.tpPara4.Size = new System.Drawing.Size(1098, 882);
+            this.tpPara4.Size = new System.Drawing.Size(52, 44);
             this.tpPara4.TabIndex = 3;
             this.tpPara4.Text = "参数4";
             this.tpPara4.UseVisualStyleBackColor = true;
@@ -8001,7 +8050,7 @@
             this.tableLayoutPanel2.Name = "tableLayoutPanel2";
             this.tableLayoutPanel2.RowCount = 1;
             this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel2.Size = new System.Drawing.Size(1092, 876);
+            this.tableLayoutPanel2.Size = new System.Drawing.Size(46, 38);
             this.tableLayoutPanel2.TabIndex = 1;
             // 
             // dataGrideSysInfo1
@@ -8010,7 +8059,7 @@
             this.dataGrideSysInfo1.Location = new System.Drawing.Point(6, 5);
             this.dataGrideSysInfo1.Margin = new System.Windows.Forms.Padding(6, 5, 6, 5);
             this.dataGrideSysInfo1.Name = "dataGrideSysInfo1";
-            this.dataGrideSysInfo1.Size = new System.Drawing.Size(980, 866);
+            this.dataGrideSysInfo1.Size = new System.Drawing.Size(1, 28);
             this.dataGrideSysInfo1.TabIndex = 0;
             // 
             // panel1
@@ -8018,9 +8067,9 @@
             this.panel1.Controls.Add(this.button8);
             this.panel1.Controls.Add(this.button7);
             this.panel1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panel1.Location = new System.Drawing.Point(995, 3);
+            this.panel1.Location = new System.Drawing.Point(-51, 3);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(94, 870);
+            this.panel1.Size = new System.Drawing.Size(94, 32);
             this.panel1.TabIndex = 1;
             // 
             // button8
@@ -8365,6 +8414,7 @@
             this.groupBox10.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nud_GTMOfs)).EndInit();
             this.tp_setparm_2.ResumeLayout(false);
+            this.groupBox65.ResumeLayout(false);
             this.groupBox64.ResumeLayout(false);
             this.tabControl3.ResumeLayout(false);
             this.tabPage6.ResumeLayout(false);
@@ -9015,5 +9065,8 @@
         private System.Windows.Forms.Label label84;
         private System.Windows.Forms.NumericUpDown nud_Motornum;
         private System.Windows.Forms.CheckBox cbisaloneset;
+        private System.Windows.Forms.GroupBox groupBox65;
+        private System.Windows.Forms.RadioButton rbtn_AddCapQrcodeEnOnlyClose;
+        private System.Windows.Forms.RadioButton rbtn_AddCapQrcodeEnOnly;
     }
 }

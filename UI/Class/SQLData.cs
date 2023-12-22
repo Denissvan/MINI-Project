@@ -55,8 +55,8 @@ namespace UI
 
         public static string TestTimeDataSource(string file = "")
         {
-            string filename = string.Format("{0}\\product\\{1}\\TestimeDataBase", Path.GetFullPath(".."),
-                VAR.gsys_set.cur_product_name, file);
+            string filename = string.Format("{0}\\TestimeDataBase", Path.GetFullPath(".."),
+                 file);
             if (!Directory.Exists(filename))
             {
                 try
@@ -71,7 +71,7 @@ namespace UI
 
 
             if (file == "") file = DateTime.Now.ToString("yyyy_MM");
-            filename = string.Format("{0}\\product\\{1}\\TestimeDataBase\\{2}.db", Path.GetFullPath(".."),VAR.gsys_set.cur_product_name, file);
+            filename = string.Format("{0}\\TestimeDataBase\\{1}.db", Path.GetFullPath(".."), file);
             return string.Format("data source={0}", filename);
 
             // return "";

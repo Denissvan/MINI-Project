@@ -1052,6 +1052,8 @@ namespace MotionCtrl
         //二维码回检
         public static bool bBarcodeCamBackEn = false;
 
+        public static bool bBarcodeCamBackEnOnly = false;   //是否单独进行二维码回检
+
         //夹具防呆检测
         public static bool bboxCheck = false;
        
@@ -1290,6 +1292,7 @@ namespace MotionCtrl
             isopendown_degree = inf.ReadBool("OTHER_SET", "ISopenDown_degree", false);
             downdegree = inf.ReadInteger("OTHER_SET", "DownDegree", 90);
             bBarcodeCamBackEn = inf.ReadBool("OTHER_SET", "BARCODE_CAMBACK", true);
+            bBarcodeCamBackEnOnly = inf.ReadBool("OTHER_SET", "BARCODE_CAMBACKONLY", true);
             bOkCheck = inf.ReadBool("OTHER_SET", "BOKCHECK", true);
             bboxCheck = inf.ReadBool("OTHER_SET", "BBOXCHECK", true);
             bWsVsAddCheckEn = inf.ReadBool("OTHER_SET", "WSVS_ADDCHECK", false);
@@ -1512,6 +1515,7 @@ namespace MotionCtrl
             inf.WriteBool("OTHER_SET", "BOKCHECK", bOkCheck, ref ischange, true, filename);
             inf.WriteBool("OTHER_SET", "BBOXCHECK", bboxCheck, ref ischange, true, filename);
             inf.WriteBool("OTHER_SET", "BARCODE_CAMBACK", bBarcodeCamBackEn, ref ischange, true, filename);
+            inf.WriteBool("OTHER_SET", "BARCODE_CAMBACKONLY", bBarcodeCamBackEnOnly, ref ischange, true, filename);
             inf.WriteBool("OTHER_SET", "WSVS_ADDCHECK", bWsVsAddCheckEn, ref ischange, true, filename);
             inf.WriteBool("OTHER_SET", "GTM_CHECK", bGTMCheck, ref ischange, true, filename);
             inf.WriteDouble("OTHER_SET", "GTM_OFS", GTMOfs, ref ischange, true, filename);

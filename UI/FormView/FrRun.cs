@@ -266,7 +266,11 @@ namespace UI
                         MessageBox.Show("启动SECE失败请停机重启软件或手动开启secs");
                     }
                 }
-
+                bool bqtemp = false;
+                foreach (WS wstemp in COM.list_ws)
+                {
+                    wstemp.PowerOn(ref bqtemp);
+                }
                 if (VAR.gsys_set.status == EM_SYS_STA.REPAIR)
                 {
                     VAR.msg.AddMsg(Msg.EM_MSGTYPE.ERR, VAR.IsChinese ? string.Format("提示:当前设备正在维修，无法运行!") : "提示: 当前设备正在维修，无法运行!         (The current device is under repair and cannot be operated!)");
@@ -1317,6 +1321,14 @@ namespace UI
             SQLData.TestDataAddTime(0, 1, 1000);
             SQLData.TestDataAddTime(2, 1, 1000);
             SQLData.TestDataAddTime(2,2, 2000);
+            SQLData.TestDataAddTime(2, 3, 3000);
+        }
+
+        private void button2_Click_2(object sender, EventArgs e)
+        {
+            SQLData.TestDataAddTime(0, 1, 1000);
+            SQLData.TestDataAddTime(2, 1, 1000);
+            SQLData.TestDataAddTime(2, 2, 2000);
             SQLData.TestDataAddTime(2, 3, 3000);
         }
     }
