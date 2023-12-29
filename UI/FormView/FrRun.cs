@@ -1331,5 +1331,14 @@ namespace UI
             SQLData.TestDataAddTime(2, 2, 2000);
             SQLData.TestDataAddTime(2, 3, 3000);
         }
+
+        private void button2_Click_3(object sender, EventArgs e)
+        {
+            SQLData.TestDataAddTime(0, 1, 1000);
+            SQLData.TestDataAddTime(1, 1, 1000);
+            SQLData.TestDataAddTime(2, 1, 1000);
+            SQLData.TestDataAddTime(2, 2, 2000);
+            SQLData.TestDataAddTime(2, 3, 3000);
+        }
     }
 }

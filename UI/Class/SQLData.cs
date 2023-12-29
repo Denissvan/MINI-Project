@@ -55,8 +55,8 @@ namespace UI
 
         public static string TestTimeDataSource(string file = "")
         {
-            string filename = string.Format("{0}\\TestimeDataBase", Path.GetFullPath(".."),
-                 file);
+            string filename = string.Format("{0}\\product\\TestimeDataBase", Path.GetFullPath(".."),file);
+           // string filename = string.Format("{0}\\product\\{1}\\TestimeDataBase", Path.GetFullPath(".."),VAR.gsys_set.cur_product_name, file);
             if (!Directory.Exists(filename))
             {
                 try
@@ -71,7 +71,8 @@ namespace UI
 
 
             if (file == "") file = DateTime.Now.ToString("yyyy_MM");
-            filename = string.Format("{0}\\TestimeDataBase\\{1}.db", Path.GetFullPath(".."), file);
+            filename = string.Format("{0}\\product\\TestimeDataBase\\{1}.db", Path.GetFullPath(".."), file);
+            //filename = string.Format("{0}\\product\\{1}\\TestimeDataBase\\{2}.db", Path.GetFullPath(".."), VAR.gsys_set.cur_product_name, file);
             return string.Format("data source={0}", filename);
 
             // return "";
@@ -308,7 +309,7 @@ namespace UI
         {
             try
             {
-                using (SQLiteConnection conn = new SQLiteConnection(TestTimeDataSource(file)))
+                using (SQLiteConnection conn = new SQLiteConnection(TestTimeDataSource(/*file*/)))
                 {
                     conn.Open();
                     conn.Close();
@@ -857,7 +858,7 @@ namespace UI
             string tablecollection = "";
             string firstTbname = "";
             DataTable dt = new DataTable();
-            int leftboxnum;
+
             using (SQLiteConnection conn = new SQLiteConnection(TestTimeDataSource()))
             {
                 using (SQLiteCommand cmd = new SQLiteCommand())
@@ -866,8 +867,7 @@ namespace UI
                     conn.Open();
                     SQLiteHelper sh = new SQLiteHelper(cmd);
 
-                    tablcecnt = TesttimeAttachFileAndGetTable(Selector.DateTimeForm, Selector.DateTimeEnd, ref sh,
-                        ref firstTbname, ref tablecollection);
+                    tablcecnt = TesttimeAttachFileAndGetTable(Selector.DateTimeForm, Selector.DateTimeEnd, ref sh, ref firstTbname, ref tablecollection);
                     int leftlbnum = 0;//左光箱数量
                     double lefttime = 0;  //左光箱时间
                     int rightnum = 0;//右光箱数量
