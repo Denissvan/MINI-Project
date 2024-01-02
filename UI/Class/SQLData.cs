@@ -443,7 +443,7 @@ namespace UI
             {
                 // string filename =$"{Path.GetFullPath("..")}\\product\\{VAR.gsys_set.cur_product_name}\\DataBase\\{dateTemp:yyyy_MM}.db";
                 string temp = dateTemp.ToString("yyyy_MM");
-                string filename = string.Format("{0}\\product\\{1}\\TestimeDataBase\\{2}.db", Path.GetFullPath(".."), VAR.gsys_set.cur_product_name, temp);
+                string filename = string.Format("{0}\\product\\TestimeDataBase\\{1}.db", Path.GetFullPath(".."),  temp);
                 if (File.Exists(filename))
                 {
                     sh.AttachDatabase(filename, dateTemp.ToString("yyyy_MM"));
@@ -459,12 +459,12 @@ namespace UI
                 //当月无数据
                 // string filename = $"{Path.GetFullPath("..")}\\product\\{VAR.gsys_set.cur_product_name}\\DataBase\\{dateTemp:yyyy_MM}.db";
                 string temp = dateTemp.ToString("yyyy_MM");
-                string filename = string.Format("{0}\\product\\{1}\\TestimeDataBase\\{2}.db", Path.GetFullPath(".."), VAR.gsys_set.cur_product_name, temp);
+                string filename = string.Format("{0}\\product\\TestimeDataBase\\{1}.db", Path.GetFullPath(".."), temp);
                 if (!File.Exists(filename)) continue;
 
                 //exist?
                 string tablename = dateTemp.ToString("TyyyyMMdd");
-                tablename = AlarmTestDataTable(sh, tablename, false, dateTemp.ToString("yyyy_MM"));
+                tablename = TestTimeDataTable(sh, tablename, false, dateTemp.ToString("yyyy_MM"));
                 if ("" == tablename) continue;
                 if (strFirstTable == "") strFirstTable = tablename;
                 if (strTable != "")
