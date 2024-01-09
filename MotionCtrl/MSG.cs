@@ -585,6 +585,7 @@ namespace MotionCtrl
         {
             if (info == "运行")
             {
+               
                 VAR.SysErrAlm.Clear();
             }
             if (ErrCode != ShowErrMsg.None)

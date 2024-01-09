@@ -1093,6 +1093,8 @@ namespace MotionCtrl
         public static double righttimedb;
         public static double otptimedb;
         public static double ratedb;
+
+        public static double Noimagenumdb;
         //保养
         public static int FixtrueMT;
         public static int EquipmentMT;

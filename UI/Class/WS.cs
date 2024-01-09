@@ -3458,6 +3458,7 @@ namespace UI
                         VAR.msg.AddMsg(Msg.EM_MSGTYPE.ERR, disc + "PcIsProductModShow切换测试软件到生产模式失败");
                         return false;
                     }
+                    MT.OnlyOnelightON(0);
                     VAR.sys_inf.Set(EM_ALM_STA.NOR_GREEN, VAR.IsChinese ? "运行" : "RUN", 0, true);
                 }
                 else
@@ -3503,6 +3504,7 @@ namespace UI
                     {
                         md.bAutoChkOk = false;
                     }
+                    MT.OnlyOnelightON(0);
                     VAR.sys_inf.Set(EM_ALM_STA.NOR_GREEN, VAR.IsChinese ? "运行" : "RUN", 0, true);
                 }
                 else
@@ -3867,6 +3869,7 @@ namespace UI
                         VAR.gsys_set.bquit = true;
                         return false;
                     }
+                    MT.OnlyOnelightON(0);
                     VAR.sys_inf.Set(EM_ALM_STA.NOR_GREEN, VAR.IsChinese ? "运行" : "RUN", 0, true);
                 }
                 else

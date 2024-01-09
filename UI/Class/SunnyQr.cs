@@ -225,6 +225,7 @@ namespace UI.Class
                     else if (logres == DialogResult.Abort)
                     {
                         VAR.sys_inf.Set(EM_ALM_STA.NOR_GREEN, VAR.IsChinese ? "运行" : "RUN", 0, true);
+                        MT.OnlyOnelightON(0);
                         Code = "ERRORCODE";
                         return EM_RES.OK;
 

@@ -927,7 +927,8 @@ namespace UI
                                else
                                {
                                    VAR.sys_inf.Set(EM_ALM_STA.NOR_GREEN, VAR.IsChinese ? "运行":"RUN", 0, true);
-                               }
+                                    MT.OnlyOnelightON(0);
+                                }
 
                                if (uploadZpos!= 0)
                                MT.Move(ref bquit, ref UploadModle.traybox_fd.ax_z, uploadZpos);

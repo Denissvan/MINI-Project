@@ -1683,11 +1683,14 @@ namespace UI
                     return EM_RES.ERR;
                 }
                 else
+                {
                     VAR.sys_inf.Set(EM_ALM_STA.NOR_GREEN, VAR.IsChinese ? "运行!" : "RUN", 0, true);
-                left = 0;
-                right = 0;
-                up = 0;
-                down = 0;
+                    MT.OnlyOnelightON(0);
+                    left = 0;
+                    right = 0;
+                    up = 0;
+                    down = 0;
+                }          
             }
             else 
             {
@@ -2040,11 +2043,13 @@ RECAP:
 
                                             else if (DialogResult.Abort == logres1)
                                             {
+                                                MT.OnlyOnelightON(0);
                                                 VAR.sys_inf.Set(EM_ALM_STA.NOR_GREEN, VAR.IsChinese ? "运行" : "RUN", 0, true);
                                                 goto RECAP;
                                             }
                                             else
                                             {
+                                                MT.OnlyOnelightON(0);
                                                 VAR.sys_inf.Set(EM_ALM_STA.NOR_GREEN, VAR.IsChinese ? "运行" : "RUN", 0, true);
                                                 goto RECAP;
                                             }
@@ -2856,8 +2861,8 @@ RECAP:
                             return EM_RES.ERR;
                         }
                         else
-
-                            left = 0;
+                            MT.OnlyOnelightON(0);
+                        left = 0;
                         right = 0;
                         up = 0;
                         down = 0;
@@ -2901,6 +2906,7 @@ RECAP:
                     else if (resulte == DialogResult.Cancel)
                     {
                         VAR.sys_inf.Set(EM_ALM_STA.NOR_GREEN, "运行", 0, true);
+                        MT.OnlyOnelightON(0);
                         VAR.msg.AddMsg(Msg.EM_MSGTYPE.ERR, string.Format("{0}上相机回检失败，选择了取消", disc));
                         return EM_RES.OK;
                     }

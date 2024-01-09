@@ -1239,7 +1239,7 @@
         private System.Windows.Forms.ComboBox cb_test_pc;
         private System.Windows.Forms.TableLayoutPanel tbp_count_data;
         private System.Windows.Forms.DataGridView dgv_count_data;
-        private SQLSelector sqlSelector_count_data;
+        public SQLSelector sqlSelector_count_data;
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.Button btn_SaveCsv;
         private System.Windows.Forms.Label lb_SaveCsv;

@@ -852,6 +852,34 @@ namespace UI
 
         #endregion
 
+        public  static void OnlyOnelightON(int id) //0绿灯1黄灯2红灯
+        {
+            MT.GPIO_OUT_ALM_GREEN.SetOff();
+            MT.GPIO_OUT_ALM_RED.SetOff();
+            MT.GPIO_OUT_ALM_YELLOW.SetOff();
+            MT.GPIO_OUT_ALM_BEEPER.SetOff();
+            if(id==0)
+            {
+                MT.GPIO_OUT_ALM_GREEN.SetOn();
+                MT.GPIO_OUT_ALM_RED.SetOff();
+                MT.GPIO_OUT_ALM_YELLOW.SetOff();
+                MT.GPIO_OUT_ALM_BEEPER.SetOff();
+            }
+            else if (id==1)
+            {
+                MT.GPIO_OUT_ALM_GREEN.SetOff();
+                MT.GPIO_OUT_ALM_RED.SetOff();
+                MT.GPIO_OUT_ALM_YELLOW.SetOn();
+                MT.GPIO_OUT_ALM_BEEPER.SetOff();
+            }
+            else if (id == 2)
+            {
+                MT.GPIO_OUT_ALM_GREEN.SetOff();
+                MT.GPIO_OUT_ALM_RED.SetOn();
+                MT.GPIO_OUT_ALM_YELLOW.SetOff();
+                MT.GPIO_OUT_ALM_BEEPER.SetOff();
+            }
+        }
         #region 安全监测
         public static void SetSafeFunc()
         {

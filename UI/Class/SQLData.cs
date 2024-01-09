@@ -17,6 +17,7 @@ using System.Collections;
 using System.Data.SqlClient;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement.TaskbarClock;
 using Sunny.UI.Win32;
+using System.Runtime.Remoting.Metadata.W3cXsd2001;
 
 namespace UI
 {
@@ -647,6 +648,64 @@ namespace UI
                     dgv.DataSource = dt;
                 }
 
+            }
+
+            //Selector.Lable =$"{firstTbname}...{(tablcecnt > 0 ? tablcecnt.ToString() : "")} [{Environment.TickCount - ct}ms]\r\n[{dt?.Rows.Count:000000}]";
+            Selector.Lable = string.Format("{0}_{1}[{2}ms]\r\n[{3}]", firstTbname, tablcecnt > 0 ? tablcecnt.ToString() : "", Environment.TickCount - ct, dt != null ? dt.Rows.Count : 000000);
+            return dt;
+        }
+
+        public static DataTable TestDataSelectPro(SQLSelector Selector)
+        {
+            int ct = Environment.TickCount;
+            int tablcecnt = 0;
+            string tablecollection = "";
+            string firstTbname = "";
+            DataTable dt = new DataTable();
+
+            using (SQLiteConnection conn = new SQLiteConnection(TestDataSource()))
+            {
+                using (SQLiteCommand cmd = new SQLiteCommand())
+                {
+                    cmd.Connection = conn;
+                    conn.Open();
+                    SQLiteHelper sh = new SQLiteHelper(cmd);
+
+                    var stop = DateTime.Parse(DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss"));
+                    var  start= stop;
+                    TimeSpan timeSpan = new TimeSpan(0,1, 0, 0); // 1 day  
+                    start = start.Subtract(timeSpan);
+
+                    tablcecnt = AttachFileAndGetTable(start, stop,ref sh, ref firstTbname, ref tablecollection);    //Selector.DateTimeForm, Selector.DateTimeEnd
+
+                    if (tablcecnt > 0)
+                    {
+                        string select = "";
+                        if (Selector.Condition == "")
+                        {
+                            //select =$"select * from {tablecollection} where time between '{Selector.DateTimeForm:s}' and '{Selector.DateTimeEnd:s}'order by time;";
+                            select = string.Format("select * from {0} where time between '{1:s}' and '{2:s}'order by time;", tablecollection, start, stop);
+                        }
+                        else
+                        {
+                            //select =$"select * from {tablecollection} where time between '{Selector.DateTimeForm:s}' and '{Selector.DateTimeEnd:s}' and {Selector.Condition} order by time;";
+                            select = string.Format("select * from {0} where time between '{1:s}' and '{2:s}' and {3} order by time;", tablecollection, start, stop, Selector.Condition);
+                        }
+
+                        dt = sh.Select(select);
+                        //renum
+                        int lightnum = 0;//无图数量统计
+                        foreach (DataRow row in dt.Rows)
+                        {
+                            if (row["RES"].ToString() == "258" || row["RES"].ToString() == "266")    //左光箱
+                            {
+                                lightnum++;
+                            }
+                        }
+
+                        PT_SET.Noimagenumdb = lightnum;
+                    }
+                }
             }
 
             //Selector.Lable =$"{firstTbname}...{(tablcecnt > 0 ? tablcecnt.ToString() : "")} [{Environment.TickCount - ct}ms]\r\n[{dt?.Rows.Count:000000}]";
@@ -1547,7 +1606,8 @@ namespace UI
                                             md.cntNgRateFor20 += md.res.ToString();
                                     }
                                     NGRateShow(ws.disc + "-" + md.Num, ref md.cntNgRateFor20);
-                                }catch(Exception ee)
+                                }
+                                catch(Exception ee)
                                 {
 
                                     VAR.msg.AddMsg(Msg.EM_MSGTYPE.ERR,  "NG比例监控发生异常" + ee.ToString());

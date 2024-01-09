@@ -906,6 +906,7 @@ namespace UI
                 }
                 else
                 {
+                    MT.OnlyOnelightON(0);
                     VAR.sys_inf.Set(EM_ALM_STA.NOR_GREEN, VAR.IsChinese ? "运行":"RUN", 0, true);
                 }
             }

@@ -1340,5 +1340,26 @@ namespace UI
             SQLData.TestDataAddTime(2, 2, 2000);
             SQLData.TestDataAddTime(2, 3, 3000);
         }
+
+        private void button2_Click_4(object sender, EventArgs e)
+        {
+            var start = DateTime.Parse(DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss"));
+            var stop = start;
+            TimeSpan timeSpan = new TimeSpan(0, 1, 0, 0); // 1 day  
+            stop = stop.Subtract(timeSpan);
+
+            MessageBox.Show(start.ToString());
+            MessageBox.Show(stop.ToString());
+            foreach (WS.MdDat md in COM.ws1.list_md)
+            {
+               
+                md.res =266;
+                md.bardcode = "";
+            }
+
+            SQLData.TestDataAdd(COM.ws1);
+            SQLData.TestDataSelectPro(FrMain.frcount.sqlSelector_count_data);
+            MessageBox.Show(PT_SET.Noimagenumdb.ToString()); 
+        }
     }
 }
