@@ -655,7 +655,7 @@ namespace UI
             return dt;
         }
 
-        public static DataTable TestDataSelectPro(SQLSelector Selector)
+        public static DataTable TestDataSelectPro(SQLSelector Selector,int wsid)
         {
             int ct = Environment.TickCount;
             int tablcecnt = 0;
@@ -673,7 +673,7 @@ namespace UI
 
                     var stop = DateTime.Parse(DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss"));
                     var  start= stop;
-                    TimeSpan timeSpan = new TimeSpan(0,1, 0, 0); // 1 day  
+                    TimeSpan timeSpan = new TimeSpan(0,1, 0, 0); // 1 hour  
                     start = start.Subtract(timeSpan);
 
                     tablcecnt = AttachFileAndGetTable(start, stop,ref sh, ref firstTbname, ref tablecollection);    //Selector.DateTimeForm, Selector.DateTimeEnd
@@ -694,13 +694,26 @@ namespace UI
 
                         dt = sh.Select(select);
                         //renum
-                        int lightnum = 0;//无图数量统计
+                        int[] lightnum = new int[16] { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 };//无图数量统计
+
                         foreach (DataRow row in dt.Rows)
                         {
-                            if (row["RES"].ToString() == "258" || row["RES"].ToString() == "266")    //左光箱
+                            if (row["WS_ID"].ToString()==wsid.ToString())
                             {
-                                lightnum++;
+                                for (int i = 1; i<=16;i++)
+                                {
+                                    if (int.Parse(row["NUM"].ToString()) == i)
+                                    {
+                                        if (row["RES"].ToString() == "270" || row["RES"].ToString() == "266" || row["RES"].ToString() == "274")    //左光箱
+                                        {
+                                            lightnum[i]++;
+                                        }
+                                    }
+                                    
+                                }
+                                
                             }
+                           
                         }
 
                         PT_SET.Noimagenumdb = lightnum;

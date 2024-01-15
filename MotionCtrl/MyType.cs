@@ -1094,7 +1094,7 @@ namespace MotionCtrl
         public static double otptimedb;
         public static double ratedb;
 
-        public static double Noimagenumdb;
+        public static int [] Noimagenumdb=new int[16];
         //保养
         public static int FixtrueMT;
         public static int EquipmentMT;

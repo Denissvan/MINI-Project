@@ -480,6 +480,12 @@ namespace UI
             rad_light_xsj.Checked = false;
             rad_G4C.Checked = PT_SET.bG4C;
             rad_light_xsj.Checked = !PT_SET.bG4C;
+            ckws1wait.Checked = COM.ws1.waitopen;
+            ckws2wait.Checked = COM.ws2.waitopen;
+            ckws3wait.Checked = COM.ws3.waitopen;
+            ckws4wait.Checked = COM.ws4.waitopen;
+            nbwaittime.Value = COM.ws1.waittime;
+
             //二维码扫码方式
             rbtn_dwcode.Checked = false;
             rbtn_upcode.Checked = false;
@@ -1043,7 +1049,16 @@ namespace UI
             PT_SET.bJigSan = rabt_jigscan_ON.Checked;
             PT_SET.Check2open = rbtn_check2open.Checked;
             PT_SET.Isaloneset= cbisaloneset.Checked;
-      
+            //等待夹具完全打开才进行测试
+            COM.ws1.waitopen = ckws1wait.Checked;
+            COM.ws2.waitopen = ckws2wait.Checked;
+            COM.ws3.waitopen = ckws3wait.Checked;
+            COM.ws4.waitopen = ckws4wait.Checked;
+            foreach (WS ws in COM.list_ws)
+            {
+                ws.waittime = (int)nbwaittime.Value;
+            }
+
             //二维码扫码方式
             if (rbtn_upcode.Checked) PT_SET.BarcodeMode = (int)PT_SET.BAR_SCAN.UP_SCAN;
             else if (rbtn_dwcode.Checked) PT_SET.BarcodeMode = (int)PT_SET.BAR_SCAN.DW_SCAN;
@@ -1137,7 +1152,11 @@ namespace UI
             //二维码回检设置
             if (rbtn_OpenBarCamBack.Checked) PT_SET.bBarcodeCamBackEn = true;
             else if (rbtn_CloseBarCamBack.Checked) PT_SET.bBarcodeCamBackEn = false;
-
+            if (PT_SET.BarcodeMode == (int)PT_SET.BAR_SCAN.UP_SCAN)
+            {
+                PT_SET.bBarcodeCamBackEn = true;
+            }
+            
             if (rbtn_AddCapQrcodeEnOnly.Checked  ) PT_SET.bBarcodeCamBackEnOnly = true;
             else if (rbtn_AddCapQrcodeEnOnlyClose.Checked)PT_SET.bBarcodeCamBackEnOnly = false;
 
@@ -1532,7 +1551,7 @@ namespace UI
                 if (PT_SET.LbEn != rbtn_lben.Checked || PT_SET.issmall != rbtn_small.Checked ||
                     PT_SET.bitOpenMode != bitOpenMode_temp) WsUpdate = true;
 
-                
+               
 
                 GetData();
               var bgetOk=  dataGrideSysInfo1.GetDataFromGride();
@@ -1563,6 +1582,16 @@ namespace UI
                         ws.LoadCfg();
                     }
                 }
+
+                if (ckws1wait.Checked || !ckws1wait.Checked || nbwaittime.Value != 0)
+                {
+                    foreach (WS ws in COM.list_ws)
+                    {
+                        ws.SaveCfg();
+                        ws.LoadCfg();
+                    }
+                }
+
                 ShowData();
                 string vv = "0";
                 if (PT_SET.bJigSan) vv = "1";

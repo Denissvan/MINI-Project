@@ -84,6 +84,8 @@ namespace UI
         //订单号防呆
         public bool Iserrfirstbox = true;
 
+        public bool waitopen = false;     //等待上下料面夹具完全打开才进行测试
+        public int waittime=1000;//夹具打开等待时间
         public Stopwatch Swtime = new Stopwatch();//测试时间的统计
         public Stopwatch Swtimemode = new Stopwatch();//测试分段时间的统计
         public Stopwatch AllSwtime = new Stopwatch();//测试总时间的统计
@@ -585,11 +587,15 @@ namespace UI
             bool ChkParm = false;
 
             TestDelay = inf.ReadInteger("OTHER", "TEST_DELAY", 90000);
+            waittime = inf.ReadInteger("OTHER", "waittime", 2000);
             pos_CapLiZhu.x = inf.ReadDouble("OTHER", "POS_CAP_LIZHU_X", 0);
             pos_CapLiZhu.y = inf.ReadDouble("OTHER", "POS_CAP_LIZHU_Y", 0);
             Cap_LiZhu_Limit = inf.ReadDouble("OTHER", "POS_CAP_LIZHU_LIMIT", 0.1);
             isFourRows = inf.ReadBool("OTHER", "bisfourrows", false);
             bjigSan = inf.ReadBool("OTHER", "bJigSan", true);
+
+            waitopen = inf.ReadBool("OTHER", "waitopen", false);
+
             //pos_Dwload_Pick.y = inf.ReadDouble("OTHER", "POS_DWLOAD_PICK_Y", 0);
             //pos_Dwload_Pick.z = inf.ReadDouble("OTHER", "POS_DWLOAD_PICK_Z", 0);
 
@@ -735,7 +741,9 @@ namespace UI
             inf.WriteDouble("OTHER", "POS_CAP_LIZHU_Y", pos_CapLiZhu.y, ref ischange, true, filename);
             inf.WriteDouble("OTHER", "POS_CAP_LIZHU_LIMIT", Cap_LiZhu_Limit, ref ischange, true, filename);
             inf.WriteInteger("OTHER", "TEST_DELAY", TestDelay, ref ischange, true, filename);
+            inf.WriteInteger("OTHER", "waittime", waittime, ref ischange, true, filename);
             inf.WriteBool("OTHER", "bJigSan", bjigSan, ref ischange, true, filename);
+            inf.WriteBool("OTHER", "waitopen", waitopen, ref ischange, true, filename);
             inf.WriteBool("OTHER", "bisfourrows", isFourRows, ref ischange, true, filename);
 
             //delete
@@ -1817,13 +1825,14 @@ namespace UI
                 res = TurnToFeed(ref bquit);
                 if (res != EM_RES.OK) return res;
 
-                //升盖
-                //res = FrCyUp(ref bquit);
-                //if (res != EM_RES.OK) return res;
-                //res = BkCyUp(ref bquit);
-                //if (res != EM_RES.OK) return res;
-                res = AllCyUp(ref bquit);
-                if (res != EM_RES.OK) return res;
+                //这里加入其它面不可以进行测试的指令
+                COM.Cannottest = true;
+                res = AllCyUp(ref bquit,waittime);
+                COM.Cannottest = false;
+                if (res != EM_RES.OK)
+                {
+                    return res;
+                }
                 if (isFrDown || isBkDown || !isInFeedPos)
                 {
                     res = EM_RES.ERR;
@@ -2576,6 +2585,12 @@ namespace UI
                 while (true)
                 {
                     brun = true;
+                    while (COM.Cannottest && waitopen && !bquit)
+                    {
+                        Thread.Sleep(100);
+                        Application.DoEvents();
+                    }
+
                     //获取当前转盘位置
                     Turntable.EM_STA pos = Turntable.GetWSSta(num);
                     switch (pos)
@@ -2745,20 +2760,6 @@ namespace UI
                             break;
                         }
 
-                        //VAR.msg.AddMsg(Msg.EM_MSGTYPE.DBG, VAR.IsChinese ? string.Format("{0} 启动测试", disc) : string.Format("{0} StartTestFlow       ({0} 启动测试)", disc));
-                        //Thread.Sleep(500);
-                        //res = StartTestFlow(0, Demo);
-                        //if (res != EM_RES.OK)
-                        //{
-                        //    Thread.Sleep(1500);
-                        //    res = StartTestFlow();
-                        //    if (res != EM_RES.OK)
-                        //    {
-                        //        VAR.msg.AddMsg(Msg.EM_MSGTYPE.DBG, string.Format("{0} StartTestFlow err", disc));
-                        //        Status = EM_STA.LINKERR;
-                        //        break;
-                        //    }
-                        //}
                         if (!bUpDnPosGoOnTest)
                         {
                             VAR.msg.AddMsg(Msg.EM_MSGTYPE.DBG, VAR.IsChinese ? string.Format("{0} 启动测试", disc) : string.Format("{0} StartTestFlow       ({0} 启动测试)", disc));
@@ -2783,15 +2784,6 @@ namespace UI
                         }
 
                     }
-
-                    ////Thread.Sleep(2000);
-                    //if (VAR.gsys_set.bquit||bquit)
-                    //{
-                    //    VAR.msg.AddMsg(Msg.EM_MSGTYPE.DBG, VAR.IsChinese?string.Format("{0} 取消", disc): string.Format("{0} cancel         ({0} 取消)", disc));
-                    //    res = EM_RES.QUIT;
-                    //    break;
-                    //}
-
 
                     //等待测试结果
                     VAR.msg.AddMsg(Msg.EM_MSGTYPE.DBG, VAR.IsChinese ? string.Format("{0} 等待结果", disc) : string.Format("{0} wait test result        ({0} 等待结果)", disc));

@@ -30,6 +30,7 @@ namespace UI
         public static WS ws4 = new WS(3, MT.AXIS_WS4_U, MT.List_CLD_WS4_FR, MT.List_CLD_WS4_BK, MT.List_CLD_WS4, MT.GPIO_OUT_WS4_GZ_POWER, MT.List_GPIO_OUT_WS4_ZK, MT.GPIO_OUT_WS4_Wind);
 
         public static List<WS> list_ws = new List<WS>() { ws1, ws2, ws3, ws4 };
+        public static bool Cannottest = false;
         public static SunnyQr Sunnnyqr0 = new SunnyQr(0);
         public static SunnyQr Sunnnyqr1 = new SunnyQr(1);
         public static Product.Tray tray_fd, tray_ok, tray_ng;

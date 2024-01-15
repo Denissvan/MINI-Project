@@ -1358,7 +1358,7 @@ namespace UI
             }
 
             SQLData.TestDataAdd(COM.ws1);
-            SQLData.TestDataSelectPro(FrMain.frcount.sqlSelector_count_data);
+            SQLData.TestDataSelectPro(FrMain.frcount.sqlSelector_count_data, COM.ws1.num);
             MessageBox.Show(PT_SET.Noimagenumdb.ToString()); 
         }
     }
