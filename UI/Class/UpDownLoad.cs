@@ -794,7 +794,7 @@ namespace UI
                 {
                     if (task.ResData.bUpdate) count++;
                 }
-                VAR.msg.AddMsg(Msg.EM_MSGTYPE.ERR, string.Format("结果校验过程count数量{0}相机任务{1}", count,cam.List_vs_task_cur.Count));
+                VAR.msg.AddMsg(Msg.EM_MSGTYPE.NOR, string.Format("结果校验过程count数量{0}相机任务{1}", count,cam.List_vs_task_cur.Count));
                 if (count == cam.List_vs_task_cur.Count)
                 {
                     if (Demo)
@@ -1575,7 +1575,7 @@ namespace UI
                     }
                     //二维码回检
                     res = QrCodeChkShow(qrcodeTask, ws.list_md[WsTriPos[i].n]);
-                    if (res != EM_RES.OK) return res;
+                    if (res != EM_RES.OK && res != EM_RES.RETRY) return res;
 
                     //放偏回检确认
                     res = CheckWsPutOkShow(task, WsTriPos[i]);
@@ -2223,7 +2223,7 @@ RECAP:
                         }
                         //二维码回检
                         res = QrCodeChkShow(qrcodeTask, ws.list_md[WsTriPos[i].n]);
-                        if (res != EM_RES.OK /*&& res != EM_RES.RETRY*/) return res;
+                        if (res != EM_RES.OK && res != EM_RES.RETRY) return res;
 
                         //放偏回检确认
                         res = CheckWsPutOkShow(task, WsTriPos[i]);
@@ -5316,13 +5316,14 @@ RECHECKAGAIN:
 
                     if (Proc == EM_STA.UPDOWNLOADEND || FindMod == EM_FIN_MOD.NONE)
                     {                       
-                            Camcfgset();
+                        Camcfgset();
                         // VAR.msg.AddMsg(Msg.EM_MSGTYPE.ERR, string.Format("{0}检测物料完成", disc));
                         Proc = EM_STA.CHECK;
                         if (FindMod != EM_FIN_MOD.NONE)
                         {
                             ST_XYZA enpos = new ST_XYZA();
                             res = FlyCamToLastPos(ref bquit, ws, ref enpos);
+                            VAR.msg.AddMsg(Msg.EM_MSGTYPE.ERR, string.Format("{0}最后一个位置回检完成，res为{1}", disc,res.ToString()));
                             if (res != EM_RES.OK && res != EM_RES.NEXT && res != EM_RES.RETRY)
                             {
                                 return res;
@@ -5805,114 +5806,131 @@ RECHECKAGAIN:
                         List<int> NgSameResNum = new List<int>();
                         string StrNgSameResNum = string.Empty;
                         string strNgSameRes = string.Empty;
-                        SQLData.TestDataSelectPro(FrMain.frcount.sqlSelector_count_data,ws.num);
-                        if(PT_SET.SameNGTipCnt<=30)
-                        {
-                            PT_SET.SameNGTipCnt = 30;
-                        }
+                        #region 暂时不用
+                        //SQLData.TestDataSelectPro(FrMain.frcount.sqlSelector_count_data,ws.num);
+                        //if(PT_SET.SameNGTipCnt<=20)
+                        //{
+                        //    PT_SET.SameNGTipCnt = 20;
+                        //}
+                        //foreach (WS.MdDat md in ws.list_md)
+                        //{
+                        //    if (PT_SET.Noimagenumdb[md.Num - 1] >= PT_SET.SameNGTipCnt)
+                        //    {
+
+                        //        VAR.sys_inf.Set(EM_ALM_STA.WAR_YELLOW_FLASH, VAR.IsChinese ? "工位连续异常!" : "Same NG", 20, true, ErrCode: ShowErrMsg.SeriesSameNGCode);
+                        //        MT.ST_WARN st_warn = new MT.ST_WARN();
+                        //        warning fr_warn = new warning();//增加语言
+                        //        st_warn.ok_txt = MultiLanguage.TxtSelct("继续运行", "Keep running", "Tiếp tục chạy");
+                        //        st_warn.ws = ws;
+                        //        st_warn.ws_num = NgSameResNum;
+                        //        StrNgSameResNum = md.Num.ToString();
+                        //        strNgSameRes = PT_SET.Noimagenumdb[md.Num - 1].ToString();
+                        //        st_warn.cancle_txt = MultiLanguage.TxtSelct("停止运行", "Stop running", "Ngừng chạy");
+                        //        st_warn.title = MultiLanguage.TxtSelct("提示:工位连续异常!", "Tip: Workstation is continuously abnormal!", "Mẹo: Máy trạm liên tục bất thường!");
+                        //        st_warn.msg = MultiLanguage.TxtSelct(
+                        //            $"{ws.disc}工位:{StrNgSameResNum}近一个小时内连续出现相同NG个数为:{strNgSameRes}!",
+                        //            $"{ws.disc} There are the following stations: {StrNgSameResNum}, Consecutive occurrences of the same NG respectively correspond to: {strNgSameRes}",
+                        //            $"{ws.disc} Có các trạm sau: {StrNgSameResNum}, Các lần xuất hiện liên tiếp của cùng một NG tương ứng là: {strNgSameRes}");
+                        //        st_warn.lb_msg = MultiLanguage.TxtSelct(
+                        //            $"提示:{st_warn.msg}请确认!\r\n  " +
+                        //            $"1.按'继续运行'键则继续运行!\r\n " +
+                        //            $"2.如需确认问题请按'停止运行'键退出运行，待界面左上角显示就绪后再按'运行'键!",
+
+                        //            $"Tip: {st_warn.msg} Please confirm!\r\n" +
+                        //            $"1.Press 'Keep running' to keep running!\r\n" +
+                        //            $"2.If you need to confirm the problem, press the 'Stop Running' button to exit the operation. " +
+                        //            $"After the ready in the upper left corner of the interface, press the 'Run' button!",
+
+                        //            $"Mẹo: {st_warn.msg} Vui lòng xác nhận!\r\n" +
+                        //            $"1.Nhấn 'Tiếp tục chạy' để tiếp tục chạy!\r\n" +
+                        //            $"2.Nếu bạn cần xác nhận sự cố, hãy nhấn nút 'Dừng Chạy' để thoát khỏi hoạt động. " +
+                        //            $"Sau khi đã sẵn sàng ở góc trên bên trái của giao diện, hãy nhấn nút 'Chạy'!");
+                        //        DialogResult logres = MT.Display_frwarn(fr_warn, st_warn, ERR_ALM.EmErrItem.UpDownLoadAbnormal);
+                        //        if (DialogResult.Cancel == logres)
+                        //        {
+                        //            res = EM_RES.ERR;
+                        //            break;
+                        //        }
+
+                        //        VAR.sys_inf.Set(EM_ALM_STA.NOR_GREEN, VAR.IsChinese ? "运行" : "RUN", 0, true);
+                        //    }
+                        //    //if (md.NgSameRes_cnt >= PT_SET.SameNGTipCnt)
+                        //    //{
+                        //    //    NgSameResNum.Add(md.Num);
+                        //    //    strNgSameRes += md.last_res.ToString();
+                        //    //    if (VAR.Isnormal)
+                        //    //    {
+                        //    //        md.benable = false;
+                        //    //        md.bardcode = "Err";
+                        //    //    }
+                        //    //    bSame = true;
+                        //    //}
+                        //}
+                        #endregion
+
                         foreach (WS.MdDat md in ws.list_md)
                         {
-                            if (PT_SET.Noimagenumdb[md.Num - 1] >= PT_SET.SameNGTipCnt)
+
+                            if (md.NgSameRes_cnt >= PT_SET.SameNGTipCnt)
                             {
-
-                                VAR.sys_inf.Set(EM_ALM_STA.WAR_YELLOW_FLASH, VAR.IsChinese ? "工位连续异常!" : "Same NG", 20, true, ErrCode: ShowErrMsg.SeriesSameNGCode);
-                                MT.ST_WARN st_warn = new MT.ST_WARN();
-                                warning fr_warn = new warning();//增加语言
-                                st_warn.ok_txt = MultiLanguage.TxtSelct("继续运行", "Keep running", "Tiếp tục chạy");
-                                st_warn.ws = ws;
-                                st_warn.ws_num = NgSameResNum;
-                                StrNgSameResNum = md.Num.ToString();
-                                strNgSameRes = PT_SET.Noimagenumdb[md.Num - 1].ToString();
-                                st_warn.cancle_txt = MultiLanguage.TxtSelct("停止运行", "Stop running", "Ngừng chạy");
-                                st_warn.title = MultiLanguage.TxtSelct("提示:工位连续异常!", "Tip: Workstation is continuously abnormal!", "Mẹo: Máy trạm liên tục bất thường!");
-                                st_warn.msg = MultiLanguage.TxtSelct(
-                                    $"{ws.disc}工位:{StrNgSameResNum}近一个小时内连续出现相同NG个数为:{strNgSameRes}!",
-                                    $"{ws.disc} There are the following stations: {StrNgSameResNum}, Consecutive occurrences of the same NG respectively correspond to: {strNgSameRes}",
-                                    $"{ws.disc} Có các trạm sau: {StrNgSameResNum}, Các lần xuất hiện liên tiếp của cùng một NG tương ứng là: {strNgSameRes}");
-                                st_warn.lb_msg = MultiLanguage.TxtSelct(
-                                    $"提示:{st_warn.msg}请确认!\r\n  " +
-                                    $"1.按'继续运行'键则继续运行!\r\n " +
-                                    $"2.如需确认问题请按'停止运行'键退出运行，待界面左上角显示就绪后再按'运行'键!",
-
-                                    $"Tip: {st_warn.msg} Please confirm!\r\n" +
-                                    $"1.Press 'Keep running' to keep running!\r\n" +
-                                    $"2.If you need to confirm the problem, press the 'Stop Running' button to exit the operation. " +
-                                    $"After the ready in the upper left corner of the interface, press the 'Run' button!",
-
-                                    $"Mẹo: {st_warn.msg} Vui lòng xác nhận!\r\n" +
-                                    $"1.Nhấn 'Tiếp tục chạy' để tiếp tục chạy!\r\n" +
-                                    $"2.Nếu bạn cần xác nhận sự cố, hãy nhấn nút 'Dừng Chạy' để thoát khỏi hoạt động. " +
-                                    $"Sau khi đã sẵn sàng ở góc trên bên trái của giao diện, hãy nhấn nút 'Chạy'!");
-                                DialogResult logres = MT.Display_frwarn(fr_warn, st_warn, ERR_ALM.EmErrItem.UpDownLoadAbnormal);
-                                if (DialogResult.Cancel == logres)
+                                NgSameResNum.Add(md.Num);
+                                strNgSameRes += md.last_res.ToString();
+                                if (VAR.Isnormal)
                                 {
-                                    res = EM_RES.ERR;
-                                    break;
+                                    md.benable = false;
+                                    md.bardcode = "Err";
                                 }
-                               
-                                VAR.sys_inf.Set(EM_ALM_STA.NOR_GREEN, VAR.IsChinese ? "运行" : "RUN", 0, true);
+                                bSame = true;
                             }
-                            //if (md.NgSameRes_cnt >= PT_SET.SameNGTipCnt)
-                            //{
-                            //    NgSameResNum.Add(md.Num);
-                            //    strNgSameRes += md.last_res.ToString();
-                            //    if (VAR.Isnormal)
-                            //    {
-                            //        md.benable = false;
-                            //        md.bardcode = "Err";
-                            //    }
-                            //    bSame = true;
-                            //}
                         }
-
                         if (bSame)
                         {
                             ws.SaveCfg();
                             ws.LoadCfg();
                             bSame = false;
                         }
-                        //if (NgSameResNum.Count > 0)
-                        //{
-                        //    VAR.sys_inf.Set(EM_ALM_STA.WAR_YELLOW_FLASH, VAR.IsChinese ? "工位连续异常!" : "Same NG", 20, true, ErrCode: ShowErrMsg.SeriesSameNGCode);
-                        //    MT.ST_WARN st_warn = new MT.ST_WARN();
-                        //    warning fr_warn = new warning();//增加语言
-                        //    st_warn.ok_txt = MultiLanguage.TxtSelct("继续运行", "Keep running", "Tiếp tục chạy");
-                        //    st_warn.ws = null;
-                        //    st_warn.ws_num = NgSameResNum;
-                        //    foreach (int num in st_warn.ws_num)
-                        //    {
-                        //        StrNgSameResNum += num.ToString() + ",";
-                        //    }
+                        if (NgSameResNum.Count > 0)
+                        {
+                            VAR.sys_inf.Set(EM_ALM_STA.WAR_YELLOW_FLASH, VAR.IsChinese ? "工位连续异常!" : "Same NG", 20, true, ErrCode: ShowErrMsg.SeriesSameNGCode);
+                            MT.ST_WARN st_warn = new MT.ST_WARN();
+                            warning fr_warn = new warning();//增加语言
+                            st_warn.ok_txt = MultiLanguage.TxtSelct("继续运行", "Keep running", "Tiếp tục chạy");
+                            st_warn.ws = null;
+                            st_warn.ws_num = NgSameResNum;
+                            foreach (int num in st_warn.ws_num)
+                            {
+                                StrNgSameResNum += num.ToString() + ",";
+                            }
 
-                        //    st_warn.cancle_txt = MultiLanguage.TxtSelct("停止运行", "Stop running", "Ngừng chạy");
-                        //    st_warn.title = MultiLanguage.TxtSelct("提示:工位连续异常!", "Tip: Workstation is continuously abnormal!", "Mẹo: Máy trạm liên tục bất thường!");
-                        //    st_warn.msg = MultiLanguage.TxtSelct(
-                        //        $"{ws.disc}有以下工位:{StrNgSameResNum}连续出现相同NG分别对应:{strNgSameRes}!",
-                        //        $"{ws.disc} There are the following stations: {StrNgSameResNum}, Consecutive occurrences of the same NG respectively correspond to: {strNgSameRes}",
-                        //        $"{ws.disc} Có các trạm sau: {StrNgSameResNum}, Các lần xuất hiện liên tiếp của cùng một NG tương ứng là: {strNgSameRes}");
-                        //    st_warn.lb_msg = MultiLanguage.TxtSelct(
-                        //        $"提示:{st_warn.msg}请确认!\r\n  " +
-                        //        $"1.按'继续运行'键则继续运行!\r\n " +
-                        //        $"2.如需确认问题请按'停止运行'键退出运行，待界面左上角显示就绪后再按'运行'键!",
+                            st_warn.cancle_txt = MultiLanguage.TxtSelct("停止运行", "Stop running", "Ngừng chạy");
+                            st_warn.title = MultiLanguage.TxtSelct("提示:工位连续异常!", "Tip: Workstation is continuously abnormal!", "Mẹo: Máy trạm liên tục bất thường!");
+                            st_warn.msg = MultiLanguage.TxtSelct(
+                                $"{ws.disc}有以下工位:{StrNgSameResNum}连续出现相同NG分别对应:{strNgSameRes}!",
+                                $"{ws.disc} There are the following stations: {StrNgSameResNum}, Consecutive occurrences of the same NG respectively correspond to: {strNgSameRes}",
+                                $"{ws.disc} Có các trạm sau: {StrNgSameResNum}, Các lần xuất hiện liên tiếp của cùng một NG tương ứng là: {strNgSameRes}");
+                            st_warn.lb_msg = MultiLanguage.TxtSelct(
+                                $"提示:{st_warn.msg}请确认!\r\n  " +
+                                $"1.按'继续运行'键则继续运行!\r\n " +
+                                $"2.如需确认问题请按'停止运行'键退出运行，待界面左上角显示就绪后再按'运行'键!",
 
-                        //        $"Tip: {st_warn.msg} Please confirm!\r\n" +
-                        //        $"1.Press 'Keep running' to keep running!\r\n" +
-                        //        $"2.If you need to confirm the problem, press the 'Stop Running' button to exit the operation. " +
-                        //        $"After the ready in the upper left corner of the interface, press the 'Run' button!",
+                                $"Tip: {st_warn.msg} Please confirm!\r\n" +
+                                $"1.Press 'Keep running' to keep running!\r\n" +
+                                $"2.If you need to confirm the problem, press the 'Stop Running' button to exit the operation. " +
+                                $"After the ready in the upper left corner of the interface, press the 'Run' button!",
 
-                        //        $"Mẹo: {st_warn.msg} Vui lòng xác nhận!\r\n" +
-                        //        $"1.Nhấn 'Tiếp tục chạy' để tiếp tục chạy!\r\n" +
-                        //        $"2.Nếu bạn cần xác nhận sự cố, hãy nhấn nút 'Dừng Chạy' để thoát khỏi hoạt động. " +
-                        //        $"Sau khi đã sẵn sàng ở góc trên bên trái của giao diện, hãy nhấn nút 'Chạy'!");
-                        //    DialogResult logres = MT.Display_frwarn(fr_warn, st_warn, ERR_ALM.EmErrItem.UpDownLoadAbnormal);
-                        //    if (DialogResult.Cancel == logres)
-                        //    {
-                        //        res = EM_RES.ERR;
-                        //        break;
-                        //    }
+                                $"Mẹo: {st_warn.msg} Vui lòng xác nhận!\r\n" +
+                                $"1.Nhấn 'Tiếp tục chạy' để tiếp tục chạy!\r\n" +
+                                $"2.Nếu bạn cần xác nhận sự cố, hãy nhấn nút 'Dừng Chạy' để thoát khỏi hoạt động. " +
+                                $"Sau khi đã sẵn sàng ở góc trên bên trái của giao diện, hãy nhấn nút 'Chạy'!");
+                            DialogResult logres = MT.Display_frwarn(fr_warn, st_warn, ERR_ALM.EmErrItem.UpDownLoadAbnormal);
+                            if (DialogResult.Cancel == logres)
+                            {
+                                res = EM_RES.ERR;
+                                break;
+                            }
 
-                        //    VAR.sys_inf.Set(EM_ALM_STA.NOR_GREEN, VAR.IsChinese ? "运行" : "RUN", 0, true);
-                        //}
+                            VAR.sys_inf.Set(EM_ALM_STA.NOR_GREEN, VAR.IsChinese ? "运行" : "RUN", 0, true);
+                        }
                     }
                     finally
                     {
@@ -5951,6 +5969,23 @@ RECHECKAGAIN:
                     str = ws.disc + "上下料用时:" + "," + ws.UdSwtime.ElapsedMilliseconds + ",";
                     Utility.WriteStrToCSVPre(str);
                     PT_SET.udtime = ws.UdSwtime.ElapsedMilliseconds / 1000;
+                }
+
+                if (PT_SET.CloseWait)
+                {
+                    VAR.msg.AddMsg(Msg.EM_MSGTYPE.DBG, "开启等待");
+                    int t = 0;
+                    while (!bquit)
+                    {
+                        t++;
+                        Thread.Sleep(100);
+                        Application.DoEvents();
+                        if (t> PT_SET.CloseWaitTime*10)
+                        {
+                            VAR.msg.AddMsg(Msg.EM_MSGTYPE.DBG, "等待结束");
+                            break;
+                        }
+                    }
                 }
 
                 bWaitforUpDownload = true;

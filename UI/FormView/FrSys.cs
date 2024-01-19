@@ -486,6 +486,9 @@ namespace UI
             ckws4wait.Checked = COM.ws4.waitopen;
             nbwaittime.Value = COM.ws1.waittime;
 
+            ckclosewait.Checked = PT_SET.CloseWait;
+            nbclosewaittime.Value = PT_SET.CloseWaitTime;
+
             //二维码扫码方式
             rbtn_dwcode.Checked = false;
             rbtn_upcode.Checked = false;
@@ -517,6 +520,13 @@ namespace UI
             if (PT_SET.RunPattern == (int)PT_SET.RUN_PATTERN.RUN_NORMAL) rbtn_run_normal.Checked = true;
             else if (PT_SET.RunPattern == (int)PT_SET.RUN_PATTERN.RUN_UPDW) rbtn_run_updw.Checked = true;
             else if (PT_SET.RunPattern == (int)PT_SET.RUN_PATTERN.RUN_EMPTY) rbtn_run_empty.Checked = true;
+
+            if (PT_SET.CloseWait)
+            {
+                ckclosewait.Checked = true;
+            }
+            else ckclosewait.Checked = false;
+           nbclosewaittime.Value = PT_SET.CloseWaitTime;
             //下料前二维码检测
             if (PT_SET.OpenDownQrde)
             {
@@ -1049,6 +1059,10 @@ namespace UI
             PT_SET.bJigSan = rabt_jigscan_ON.Checked;
             PT_SET.Check2open = rbtn_check2open.Checked;
             PT_SET.Isaloneset= cbisaloneset.Checked;
+
+            PT_SET.CloseWait = ckclosewait.Checked;
+            PT_SET.CloseWaitTime = (int)nbclosewaittime.Value;
+
             //等待夹具完全打开才进行测试
             COM.ws1.waitopen = ckws1wait.Checked;
             COM.ws2.waitopen = ckws2wait.Checked;

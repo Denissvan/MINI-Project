@@ -383,6 +383,16 @@
             this.rbtn_lbdis = new System.Windows.Forms.RadioButton();
             this.rbtn_lben = new System.Windows.Forms.RadioButton();
             this.tabPage3 = new System.Windows.Forms.TabPage();
+            this.groupBox66 = new System.Windows.Forms.GroupBox();
+            this.label86 = new System.Windows.Forms.Label();
+            this.nbclosewaittime = new System.Windows.Forms.NumericUpDown();
+            this.ckclosewait = new System.Windows.Forms.CheckBox();
+            this.label85 = new System.Windows.Forms.Label();
+            this.nbwaittime = new System.Windows.Forms.NumericUpDown();
+            this.ckws4wait = new System.Windows.Forms.CheckBox();
+            this.ckws3wait = new System.Windows.Forms.CheckBox();
+            this.ckws2wait = new System.Windows.Forms.CheckBox();
+            this.ckws1wait = new System.Windows.Forms.CheckBox();
             this.groupBox61 = new System.Windows.Forms.GroupBox();
             this.rbtn_undownqrcode = new System.Windows.Forms.RadioButton();
             this.rbtn_opendownqrcode = new System.Windows.Forms.RadioButton();
@@ -536,13 +546,6 @@
             this.tbpgVinfo = new System.Windows.Forms.TabPage();
             this.textBoVinfo = new System.Windows.Forms.TextBox();
             this.tmr_update = new System.Windows.Forms.Timer(this.components);
-            this.groupBox66 = new System.Windows.Forms.GroupBox();
-            this.ckws1wait = new System.Windows.Forms.CheckBox();
-            this.ckws2wait = new System.Windows.Forms.CheckBox();
-            this.ckws3wait = new System.Windows.Forms.CheckBox();
-            this.ckws4wait = new System.Windows.Forms.CheckBox();
-            this.nbwaittime = new System.Windows.Forms.NumericUpDown();
-            this.label85 = new System.Windows.Forms.Label();
             this.tableLayoutPanel1.SuspendLayout();
             this.panel2.SuspendLayout();
             this.ctb_sys.SuspendLayout();
@@ -696,6 +699,9 @@
             this.groupBox9.SuspendLayout();
             this.groupBox13.SuspendLayout();
             this.tabPage3.SuspendLayout();
+            this.groupBox66.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.nbclosewaittime)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.nbwaittime)).BeginInit();
             this.groupBox61.SuspendLayout();
             this.groupBox57.SuspendLayout();
             this.panel_autoChkSet.SuspendLayout();
@@ -742,8 +748,6 @@
             this.tb_task_npoint.SuspendLayout();
             this.tableLayoutPanel5.SuspendLayout();
             this.tbpgVinfo.SuspendLayout();
-            this.groupBox66.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.nbwaittime)).BeginInit();
             this.SuspendLayout();
             // 
             // tableLayoutPanel1
@@ -2613,19 +2617,14 @@
             this.groupBox20.Size = new System.Drawing.Size(209, 111);
             this.groupBox20.TabIndex = 132;
             this.groupBox20.TabStop = false;
-            this.groupBox20.Text = "工站同工位近一小时内NG个数设置";
+            this.groupBox20.Text = "工站NG个数设置";
             // 
             // nud_SameRowNGTipCnt
             // 
             this.nud_SameRowNGTipCnt.Font = new System.Drawing.Font("宋体", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.nud_SameRowNGTipCnt.Location = new System.Drawing.Point(136, 64);
-            this.nud_SameRowNGTipCnt.Maximum = new decimal(new int[] {
-            800,
-            0,
-            0,
-            0});
             this.nud_SameRowNGTipCnt.Minimum = new decimal(new int[] {
-            5,
+            2,
             0,
             0,
             0});
@@ -2645,9 +2644,9 @@
             this.label19.Font = new System.Drawing.Font("宋体", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.label19.Location = new System.Drawing.Point(6, 74);
             this.label19.Name = "label19";
-            this.label19.Size = new System.Drawing.Size(127, 16);
+            this.label19.Size = new System.Drawing.Size(95, 16);
             this.label19.TabIndex = 2;
-            this.label19.Text = "NG个数上限设置:";
+            this.label19.Text = "连续NG个数:";
             // 
             // chk_SameRowNGTip
             // 
@@ -3528,7 +3527,7 @@
             this.tp_setparm_2.Location = new System.Drawing.Point(4, 44);
             this.tp_setparm_2.Name = "tp_setparm_2";
             this.tp_setparm_2.Padding = new System.Windows.Forms.Padding(3);
-            this.tp_setparm_2.Size = new System.Drawing.Size(1098, 882);
+            this.tp_setparm_2.Size = new System.Drawing.Size(52, 44);
             this.tp_setparm_2.TabIndex = 1;
             this.tp_setparm_2.Text = "参数2          ";
             this.tp_setparm_2.UseVisualStyleBackColor = true;
@@ -6311,10 +6310,138 @@
             this.tabPage3.Location = new System.Drawing.Point(4, 44);
             this.tabPage3.Name = "tabPage3";
             this.tabPage3.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage3.Size = new System.Drawing.Size(1098, 882);
+            this.tabPage3.Size = new System.Drawing.Size(52, 44);
             this.tabPage3.TabIndex = 2;
             this.tabPage3.Text = "参数3";
             this.tabPage3.UseVisualStyleBackColor = true;
+            // 
+            // groupBox66
+            // 
+            this.groupBox66.BackColor = System.Drawing.Color.WhiteSmoke;
+            this.groupBox66.Controls.Add(this.label86);
+            this.groupBox66.Controls.Add(this.nbclosewaittime);
+            this.groupBox66.Controls.Add(this.ckclosewait);
+            this.groupBox66.Controls.Add(this.label85);
+            this.groupBox66.Controls.Add(this.nbwaittime);
+            this.groupBox66.Controls.Add(this.ckws4wait);
+            this.groupBox66.Controls.Add(this.ckws3wait);
+            this.groupBox66.Controls.Add(this.ckws2wait);
+            this.groupBox66.Controls.Add(this.ckws1wait);
+            this.groupBox66.Font = new System.Drawing.Font("宋体", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.groupBox66.Location = new System.Drawing.Point(257, 749);
+            this.groupBox66.Name = "groupBox66";
+            this.groupBox66.Size = new System.Drawing.Size(492, 130);
+            this.groupBox66.TabIndex = 169;
+            this.groupBox66.TabStop = false;
+            this.groupBox66.Text = "等待夹具打开后才开始测试相关设置";
+            // 
+            // label86
+            // 
+            this.label86.AutoSize = true;
+            this.label86.Font = new System.Drawing.Font("宋体", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.label86.Location = new System.Drawing.Point(165, 65);
+            this.label86.Name = "label86";
+            this.label86.Size = new System.Drawing.Size(199, 16);
+            this.label86.TabIndex = 135;
+            this.label86.Text = "夹具关闭等待时间（ms）：";
+            // 
+            // nbclosewaittime
+            // 
+            this.nbclosewaittime.Font = new System.Drawing.Font("宋体", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.nbclosewaittime.Location = new System.Drawing.Point(370, 57);
+            this.nbclosewaittime.Maximum = new decimal(new int[] {
+            1000,
+            0,
+            0,
+            0});
+            this.nbclosewaittime.Name = "nbclosewaittime";
+            this.nbclosewaittime.Size = new System.Drawing.Size(82, 32);
+            this.nbclosewaittime.TabIndex = 134;
+            this.nbclosewaittime.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.nbclosewaittime.Value = new decimal(new int[] {
+            1000,
+            0,
+            0,
+            0});
+            // 
+            // ckclosewait
+            // 
+            this.ckclosewait.AutoSize = true;
+            this.ckclosewait.Location = new System.Drawing.Point(6, 44);
+            this.ckclosewait.Name = "ckclosewait";
+            this.ckclosewait.Size = new System.Drawing.Size(194, 18);
+            this.ckclosewait.TabIndex = 133;
+            this.ckclosewait.Text = "夹具闭合等待开启延时功能";
+            this.ckclosewait.UseVisualStyleBackColor = true;
+            // 
+            // label85
+            // 
+            this.label85.AutoSize = true;
+            this.label85.Font = new System.Drawing.Font("宋体", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.label85.Location = new System.Drawing.Point(165, 103);
+            this.label85.Name = "label85";
+            this.label85.Size = new System.Drawing.Size(199, 16);
+            this.label85.TabIndex = 132;
+            this.label85.Text = "夹具打开等待时间（ms）：";
+            // 
+            // nbwaittime
+            // 
+            this.nbwaittime.Font = new System.Drawing.Font("宋体", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.nbwaittime.Location = new System.Drawing.Point(370, 95);
+            this.nbwaittime.Maximum = new decimal(new int[] {
+            100000,
+            0,
+            0,
+            0});
+            this.nbwaittime.Name = "nbwaittime";
+            this.nbwaittime.Size = new System.Drawing.Size(82, 32);
+            this.nbwaittime.TabIndex = 131;
+            this.nbwaittime.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.nbwaittime.Value = new decimal(new int[] {
+            1000,
+            0,
+            0,
+            0});
+            // 
+            // ckws4wait
+            // 
+            this.ckws4wait.AutoSize = true;
+            this.ckws4wait.Location = new System.Drawing.Point(319, 22);
+            this.ckws4wait.Name = "ckws4wait";
+            this.ckws4wait.Size = new System.Drawing.Size(89, 18);
+            this.ckws4wait.TabIndex = 3;
+            this.ckws4wait.Text = "工站4开启";
+            this.ckws4wait.UseVisualStyleBackColor = true;
+            // 
+            // ckws3wait
+            // 
+            this.ckws3wait.AutoSize = true;
+            this.ckws3wait.Location = new System.Drawing.Point(209, 24);
+            this.ckws3wait.Name = "ckws3wait";
+            this.ckws3wait.Size = new System.Drawing.Size(89, 18);
+            this.ckws3wait.TabIndex = 2;
+            this.ckws3wait.Text = "工站3开启";
+            this.ckws3wait.UseVisualStyleBackColor = true;
+            // 
+            // ckws2wait
+            // 
+            this.ckws2wait.AutoSize = true;
+            this.ckws2wait.Location = new System.Drawing.Point(107, 24);
+            this.ckws2wait.Name = "ckws2wait";
+            this.ckws2wait.Size = new System.Drawing.Size(89, 18);
+            this.ckws2wait.TabIndex = 1;
+            this.ckws2wait.Text = "工站2开启";
+            this.ckws2wait.UseVisualStyleBackColor = true;
+            // 
+            // ckws1wait
+            // 
+            this.ckws1wait.AutoSize = true;
+            this.ckws1wait.Location = new System.Drawing.Point(6, 24);
+            this.ckws1wait.Name = "ckws1wait";
+            this.ckws1wait.Size = new System.Drawing.Size(89, 18);
+            this.ckws1wait.TabIndex = 0;
+            this.ckws1wait.Text = "工站1开启";
+            this.ckws1wait.UseVisualStyleBackColor = true;
             // 
             // groupBox61
             // 
@@ -6386,7 +6513,7 @@
             this.groupBox57.Font = new System.Drawing.Font("宋体", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.groupBox57.Location = new System.Drawing.Point(256, 644);
             this.groupBox57.Name = "groupBox57";
-            this.groupBox57.Size = new System.Drawing.Size(293, 110);
+            this.groupBox57.Size = new System.Drawing.Size(293, 99);
             this.groupBox57.TabIndex = 167;
             this.groupBox57.TabStop = false;
             this.groupBox57.Text = "上下料位增加测试";
@@ -6398,7 +6525,7 @@
             this.rbtUpDnAddTestOff.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.rbtUpDnAddTestOff.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
             this.rbtUpDnAddTestOff.ForeColor = System.Drawing.Color.Black;
-            this.rbtUpDnAddTestOff.Location = new System.Drawing.Point(25, 74);
+            this.rbtUpDnAddTestOff.Location = new System.Drawing.Point(26, 58);
             this.rbtUpDnAddTestOff.Name = "rbtUpDnAddTestOff";
             this.rbtUpDnAddTestOff.Size = new System.Drawing.Size(234, 30);
             this.rbtUpDnAddTestOff.TabIndex = 126;
@@ -7899,7 +8026,7 @@
             // button1
             // 
             this.button1.BackColor = System.Drawing.SystemColors.ButtonFace;
-            this.button1.Location = new System.Drawing.Point(566, 655);
+            this.button1.Location = new System.Drawing.Point(555, 644);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(183, 99);
             this.button1.TabIndex = 131;
@@ -8321,97 +8448,6 @@
             this.tmr_update.Interval = 500;
             this.tmr_update.Tick += new System.EventHandler(this.tmr_update_Tick);
             // 
-            // groupBox66
-            // 
-            this.groupBox66.BackColor = System.Drawing.Color.WhiteSmoke;
-            this.groupBox66.Controls.Add(this.label85);
-            this.groupBox66.Controls.Add(this.nbwaittime);
-            this.groupBox66.Controls.Add(this.ckws4wait);
-            this.groupBox66.Controls.Add(this.ckws3wait);
-            this.groupBox66.Controls.Add(this.ckws2wait);
-            this.groupBox66.Controls.Add(this.ckws1wait);
-            this.groupBox66.Font = new System.Drawing.Font("宋体", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.groupBox66.Location = new System.Drawing.Point(257, 764);
-            this.groupBox66.Name = "groupBox66";
-            this.groupBox66.Size = new System.Drawing.Size(492, 108);
-            this.groupBox66.TabIndex = 169;
-            this.groupBox66.TabStop = false;
-            this.groupBox66.Text = "等待夹具打开后才开始测试相关设置";
-            // 
-            // ckws1wait
-            // 
-            this.ckws1wait.AutoSize = true;
-            this.ckws1wait.Location = new System.Drawing.Point(12, 39);
-            this.ckws1wait.Name = "ckws1wait";
-            this.ckws1wait.Size = new System.Drawing.Size(89, 18);
-            this.ckws1wait.TabIndex = 0;
-            this.ckws1wait.Text = "工站1开启";
-            this.ckws1wait.UseVisualStyleBackColor = true;
-            // 
-            // ckws2wait
-            // 
-            this.ckws2wait.AutoSize = true;
-            this.ckws2wait.Location = new System.Drawing.Point(113, 39);
-            this.ckws2wait.Name = "ckws2wait";
-            this.ckws2wait.Size = new System.Drawing.Size(89, 18);
-            this.ckws2wait.TabIndex = 1;
-            this.ckws2wait.Text = "工站2开启";
-            this.ckws2wait.UseVisualStyleBackColor = true;
-            // 
-            // ckws3wait
-            // 
-            this.ckws3wait.AutoSize = true;
-            this.ckws3wait.Location = new System.Drawing.Point(215, 39);
-            this.ckws3wait.Name = "ckws3wait";
-            this.ckws3wait.Size = new System.Drawing.Size(89, 18);
-            this.ckws3wait.TabIndex = 2;
-            this.ckws3wait.Text = "工站3开启";
-            this.ckws3wait.UseVisualStyleBackColor = true;
-            // 
-            // ckws4wait
-            // 
-            this.ckws4wait.AutoSize = true;
-            this.ckws4wait.Location = new System.Drawing.Point(325, 37);
-            this.ckws4wait.Name = "ckws4wait";
-            this.ckws4wait.Size = new System.Drawing.Size(89, 18);
-            this.ckws4wait.TabIndex = 3;
-            this.ckws4wait.Text = "工站4开启";
-            this.ckws4wait.UseVisualStyleBackColor = true;
-            // 
-            // nbwaittime
-            // 
-            this.nbwaittime.Font = new System.Drawing.Font("宋体", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.nbwaittime.Location = new System.Drawing.Point(215, 74);
-            this.nbwaittime.Maximum = new decimal(new int[] {
-            10000,
-            0,
-            0,
-            0});
-            this.nbwaittime.Minimum = new decimal(new int[] {
-            1000,
-            0,
-            0,
-            0});
-            this.nbwaittime.Name = "nbwaittime";
-            this.nbwaittime.Size = new System.Drawing.Size(82, 32);
-            this.nbwaittime.TabIndex = 131;
-            this.nbwaittime.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.nbwaittime.Value = new decimal(new int[] {
-            1000,
-            0,
-            0,
-            0});
-            // 
-            // label85
-            // 
-            this.label85.AutoSize = true;
-            this.label85.Font = new System.Drawing.Font("宋体", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.label85.Location = new System.Drawing.Point(10, 82);
-            this.label85.Name = "label85";
-            this.label85.Size = new System.Drawing.Size(199, 16);
-            this.label85.TabIndex = 132;
-            this.label85.Text = "夹具打开等待时间（ms）：";
-            // 
             // FrSys
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
@@ -8603,6 +8639,10 @@
             this.groupBox9.ResumeLayout(false);
             this.groupBox13.ResumeLayout(false);
             this.tabPage3.ResumeLayout(false);
+            this.groupBox66.ResumeLayout(false);
+            this.groupBox66.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.nbclosewaittime)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.nbwaittime)).EndInit();
             this.groupBox61.ResumeLayout(false);
             this.groupBox57.ResumeLayout(false);
             this.panel_autoChkSet.ResumeLayout(false);
@@ -8656,9 +8696,6 @@
             this.tableLayoutPanel5.ResumeLayout(false);
             this.tbpgVinfo.ResumeLayout(false);
             this.tbpgVinfo.PerformLayout();
-            this.groupBox66.ResumeLayout(false);
-            this.groupBox66.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.nbwaittime)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -9180,5 +9217,8 @@
         private System.Windows.Forms.CheckBox ckws1wait;
         private System.Windows.Forms.Label label85;
         private System.Windows.Forms.NumericUpDown nbwaittime;
+        private System.Windows.Forms.CheckBox ckclosewait;
+        private System.Windows.Forms.Label label86;
+        private System.Windows.Forms.NumericUpDown nbclosewaittime;
     }
 }

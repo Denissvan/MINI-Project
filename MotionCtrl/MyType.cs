@@ -993,6 +993,9 @@ namespace MotionCtrl
         public static bool UpDownQrde = false;
         public static bool DownDownQrde = false;
 
+
+        public static bool CloseWait = false;
+        public static int  CloseWaitTime = 1;
         //料盘二维码拍照设置
         public static bool TrayBarcodeEn = false;
 
@@ -1337,6 +1340,8 @@ namespace MotionCtrl
             BCamcfgset = inf.ReadBool("OTHER_SET", "BCAMCFGSET", false);
             bCycle = inf.ReadBool("OTHER_SET", "BCYCLE", true);
             bCool = inf.ReadBool("OTHER_SET", "BCOOL", false);
+            CloseWait = inf.ReadBool("OTHER_SET", "CLOSEWAIT", false);
+            CloseWaitTime = inf.ReadInteger("OTHER_SET", "WAITTIME", 1);
             OpenDownQrde = inf.ReadBool("OTHER_SET", "OPENDOWNQRDE", false);
             UpDownQrde = inf.ReadBool("OTHER_SET", "UPDOWNQRDE", false);
             DownDownQrde = inf.ReadBool("OTHER_SET", "DOWNDOWNQRDE", false);
@@ -1481,6 +1486,9 @@ namespace MotionCtrl
             inf.WriteBool("OTHER_SET", "LbEN", LbEn, ref ischange, true, filename);
             inf.WriteBool("OTHER_SET", "TurnOn", turnon, ref ischange, true, filename);
             inf.WriteInteger("OTHER_SET", "OpenDly", OpenDly, ref ischange, true, filename);
+            inf.WriteBool("OTHER_SET", "CLOSEWAIT", CloseWait, ref ischange, true, filename);
+            inf.WriteInteger("OTHER_SET", "WAITTIME", CloseWaitTime, ref ischange, true, filename);
+
             inf.WriteBool("OTHER_SET", "ISsmall", issmall, ref ischange, true, filename);
             inf.WriteBool("OTHER_SET", "HallEN", HallEn, ref ischange, true, filename);
             inf.WriteBool("OTHER_SET", "XT1FIRSTEN", xt1firsten, ref ischange, true, filename);
