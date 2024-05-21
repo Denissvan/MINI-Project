@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
@@ -224,6 +224,62 @@ namespace MotionCtrl
         public void WriteDouble(string section, string ident, double value, ref bool ischange, bool check = true, string filename = "", string username = "", string productname = "")
         {
             WriteString(section, ident, Convert.ToString(value, CultureInfo.CurrentCulture), ref ischange, check, filename, username, productname);
+        }
+        /// <summary>
+        /// 读取XYZ类型
+        /// </summary>
+        /// <param name="section"></param>
+        /// <param name="identPrefix"></param>
+        /// <param name="defaultX"></param>
+        /// <param name="defaultY"></param>
+        /// <param name="defaultZ"></param>
+        /// <returns></returns>
+        public ST_XYZ ReadXYZ(string section, string identPrefix, double defaultX = 0, double defaultY = 0, double defaultZ = 0)
+        {
+            // 读取x坐标值
+            string xStr = ReadString(section, $"{identPrefix}X", defaultX.ToString(CultureInfo.CurrentCulture));
+            double x = double.TryParse(xStr, NumberStyles.Any, CultureInfo.CurrentCulture, out double xVal)
+                ? xVal
+                : defaultX;
+
+            // 读取y坐标值
+            string yStr = ReadString(section, $"{identPrefix}Y", defaultY.ToString(CultureInfo.CurrentCulture));
+            double y = double.TryParse(yStr, NumberStyles.Any, CultureInfo.CurrentCulture, out double yVal)
+                ? yVal
+                : defaultY;
+
+            // 读取z坐标值
+            string zStr = ReadString(section, $"{identPrefix}Z", defaultZ.ToString(CultureInfo.CurrentCulture));
+            double z = double.TryParse(zStr, NumberStyles.Any, CultureInfo.CurrentCulture, out double zVal)
+                ? zVal
+                : defaultZ;
+
+            // 创建并返回ST_XYZ对象
+            return new ST_XYZ(x, y, z);
+        }
+        /// <summary>
+        /// 将ST_XYZ对象的坐标值写入配置文件
+        /// </summary>
+        /// <param name="section">配置节名称</param>
+        /// <param name="identPrefix">标识前缀，用于区分不同的XYZ组</param>
+        /// <param name="xyz">要写入的ST_XYZ对象</param>
+        /// <param name="ischange">是否有变更的标志（引用传递）</param>
+        /// <param name="check">是否检查变更并记录日志</param>
+        /// <param name="filename">文件名</param>
+        /// <param name="username">用户名</param>
+        /// <param name="productname">产品名称</param>
+        public void WriteXYZ(string section, string identPrefix, ST_XYZ xyz, ref bool ischange,
+                            bool check = true, string filename = "", string username = "", string productname = "")
+        {
+            
+            //// 检查传入的对象是否为空
+            //if (xyz.Equals(default(ST_XYZ)))
+            //    throw new ArgumentNullException(nameof(xyz), "ST_XYZ对象不能为null");
+
+            // 分别写入X、Y、Z坐标值，使用前缀+坐标名作为标识
+            WriteDouble(section, $"{identPrefix}X", xyz.x, ref ischange, check, filename, username, productname);
+            WriteDouble(section, $"{identPrefix}Y", xyz.y, ref ischange, check, filename, username, productname);
+            WriteDouble(section, $"{identPrefix}Z", xyz.z, ref ischange, check, filename, username, productname);
         }
 
         /// <summary>

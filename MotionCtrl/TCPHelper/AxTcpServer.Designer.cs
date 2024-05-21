@@ -1,4 +1,4 @@
-﻿namespace SunyLib.TCPHelper
+namespace SunyLib.TCPHelper
 {
     partial class AxTcpServer
     {

@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -18,6 +18,13 @@ using Win32Lib;
 using System.Diagnostics;
 using UI.Class;
 using static UI.Cam;
+using MesUIWpf;
+using System.Xml.Linq;
+using Sunny.UI.Win32;
+using User = MotionCtrl.User;
+using System.IO.Packaging;
+using System.Globalization;
+using MesUIWpf.Models;
 
 namespace UI
 {
@@ -50,7 +57,7 @@ namespace UI
             cogDisplayer_run.PmsEn((pms > User.PERMISSION.Engineer) ? true : false);
             cb_product_list.Enabled = false;// (pms >= User.PERMISSION.Engineer) ? true : false;
             ckb_Check.Enabled = (pms >= User.PERMISSION.Engineer) ? true : false;
-            updatecheck.Enabled= (pms >= User.PERMISSION.SuperAdmin) ? true : false;
+            updatecheck.Enabled = (pms >= User.PERMISSION.SuperAdmin) ? true : false;
             // ckb_not_open.Enabled= (pms >= User.PERMISSION.Engineer) ? true : false;
         }
         //#region
@@ -180,10 +187,10 @@ namespace UI
 
         private void FrRun_Load(object sender, EventArgs e)
         {
-            COM.product.LoadProductList(cb_product_list, VAR.gsys_set.cur_product_name);        
+            COM.product.LoadProductList(cb_product_list, VAR.gsys_set.cur_product_name);
             Msg.secsManager.Send(new BaseInfo() { Id = 2, Value = cb_product_list.Text });
-            Msg.secsManager.Send(new BaseInfo() { Id = 2 }, TypeId: 2);           
-            for(int i = 1; i < 37; i++)
+            Msg.secsManager.Send(new BaseInfo() { Id = 2 }, TypeId: 2);
+            for (int i = 1; i < 37; i++)
             {
                 Msg.secsManager.Send(new BaseInfo() { Id = i, Value = "false" }, 1);
             }
@@ -203,9 +210,9 @@ namespace UI
             traybox_fd.box = COM.traybox_fd;
             traybox_ok.box = COM.traybox_ok;
             traybox_ng.box = COM.traybox_ng;
-            tray_fd.TrayName = VAR.IsChinese?"待测料盘":"Feed Tray";
-            tray_ok.TrayName = VAR.IsChinese ? "OK料盘":"OK Tray";
-            tray_ng.TrayName = VAR.IsChinese ? "NG料盘":"NG Tray";
+            tray_fd.TrayName = VAR.IsChinese ? "待测料盘" : "Feed Tray";
+            tray_ok.TrayName = VAR.IsChinese ? "OK料盘" : "OK Tray";
+            tray_ng.TrayName = VAR.IsChinese ? "NG料盘" : "NG Tray";
             tray_fd.TrayColor = Color.DarkOrange;
             tray_ok.TrayColor = Color.Lime;
             tray_ng.TrayColor = Color.Red;
@@ -229,9 +236,9 @@ namespace UI
                 if (!PT_SET.IsMesLocal)
                 {
                     MT.IsAllowStartUpdate = false;
-                    Msg.secsManager.Send(new BaseInfo() { Id =1,Value= Convert.ToInt32(DReport.EmStatus.Run).ToString() });
-                    Msg.secsManager.Send(new BaseInfo() { Id = 1 }, 2);
-                    Msg.secsManager.Send(new BaseInfo() { Id = 3 }, 2);
+                    //Msg.secsManager.Send(new BaseInfo() { Id = 1, Value = Convert.ToInt32(DReport.EmStatus.Run).ToString() });
+                    //Msg.secsManager.Send(new BaseInfo() { Id = 1 }, 2);
+                    //Msg.secsManager.Send(new BaseInfo() { Id = 3 }, 2);
                     await Task.Run(() =>
                     {
                         VAR.msg.AddMsg(Msg.EM_MSGTYPE.SYS, "正在等待MES上位指令!");
@@ -253,12 +260,13 @@ namespace UI
                         if (File.Exists(path)) Process.Start(path);
                     }
                 }
-                catch(Exception ee)
+                catch (Exception ee)
                 {
                     VAR.msg.AddMsg(Msg.EM_MSGTYPE.ERR, "启动SECE失败请手动开启!");
                     MessageBox.Show("启动SECE失败请重启软件或手动开启secs");
                     return;
-                }finally
+                }
+                finally
                 {
                     if (Process.GetProcessesByName("SecsApp").Count() == 0)
                     {
@@ -305,6 +313,10 @@ namespace UI
                     }
                 }
 
+                DRpt.Report_Status(DReport.EmStatus.Run, DReport.EmHareware.Null, DReport.EmStatus.Run.GetDescription(VAR.IsChinese));
+                Msg.secsManager.Send(new BaseInfo() { Id = 1, Value = Convert.ToInt32(DReport.EmStatus.Run).ToString() });
+                Msg.secsManager.Send(new BaseInfo() { Id = 1 }, 2);
+
                 ////转台门
                 //if (MT.GPIO_IN_TT_DOOR.isOFF)
                 //{
@@ -350,7 +362,7 @@ namespace UI
                 //MT.IsAllowStart = false;
                 COUNT_DATA.SaveCountCfg(VAR.gsys_set.cur_product_name);
             }
-            
+
         }
 
         int i = 0;
@@ -358,35 +370,35 @@ namespace UI
         {
             //for (int n = 0; n < 10; n++)
             //{
+            //VAR.gsys_set.bquit = true;
+
+            WS.bquit = true;
+            UpDownLoad.bquit = true;
+            MT.GPIO_OUT_ALM_BEEPER.SetOff();
+            VAR.msg.AddMsg(Msg.EM_MSGTYPE.NOR, VAR.IsChinese ? "---停止键按下---" : "---Press the stop key---      (---停止键按下---)");
+            DRpt.Report_Opration(1000, 0, VAR.IsChinese ? "---停止键按下---" : "---Press the stop key---      (---停止键按下---)");
+            VAR.gsys_set.status = EM_SYS_STA.STANDBY;
+            if (VAR.gsys_set.status != EM_SYS_STA.RUN)
+            {
+
                 //VAR.gsys_set.bquit = true;
-               
-                WS.bquit = true;
-                UpDownLoad.bquit = true;
-                MT.GPIO_OUT_ALM_BEEPER.SetOff();
-                VAR.msg.AddMsg(Msg.EM_MSGTYPE.NOR,VAR.IsChinese? "---停止键按下---": "---Press the stop key---      (---停止键按下---)");
-                DRpt.Report_Opration(1000, 0, VAR.IsChinese ? "---停止键按下---" : "---Press the stop key---      (---停止键按下---)");
-              // VAR.gsys_set.bquit = true;
-             if (VAR.gsys_set.status!=EM_SYS_STA.RUN)
+                if (VAR.gsys_set.status != EM_SYS_STA.RESET)
                 {
-                    
-                    //VAR.gsys_set.bquit = true;
-                    if (VAR.gsys_set.status != EM_SYS_STA.RESET)
+                    COM.LeftLightBox.Stop();
+                    COM.RightLightBox.Stop();
+                    UpDownLoad.UD1Stop();
+                    UpDownLoad.UD2Stop();
+                    UpDownLoad.LCStop();
+                    foreach (WS ws in COM.list_ws)
                     {
-                        COM.LeftLightBox.Stop();
-                        COM.RightLightBox.Stop();
-                        UpDownLoad.UD1Stop();
-                        UpDownLoad.UD2Stop();
-                        UpDownLoad.LCStop();
-                        foreach (WS ws in COM.list_ws)
-                        {
-                            ws.ax_u.Stop();
-                        }
+                        ws.ax_u.Stop();
                     }
-                    else
-                    {
-                       MT.AllAxStop();
-                    }                       
                 }
+                else
+                {
+                    MT.AllAxStop();
+                }
+            }
 
             //}
             //VAR.gsys_set.status = EM_SYS_STA.STANDBY;
@@ -425,7 +437,7 @@ namespace UI
                 tray_fd.tray_dat = traybox_fd.box.tray_cur;
                 tray_ok.tray_dat = traybox_ok.box.tray_cur;
                 tray_ng.tray_dat = traybox_ng.box.tray_cur;
-                
+
 
                 tray_fd.UpdateShow();
                 tray_ok.UpdateShow();
@@ -462,9 +474,9 @@ namespace UI
             if (ckb_Check.Checked)
             {
                 VAR.gsys_set.mode = EM_SYS_MODE.CHK;
-                if (0 < nud_TestCnt.Value && nud_TestCnt.Value < 6) VAR.ChkCnt = (int)nud_TestCnt.Value;            
+                if (0 < nud_TestCnt.Value && nud_TestCnt.Value < 6) VAR.ChkCnt = (int)nud_TestCnt.Value;
                 else VAR.ChkCnt = 1;
-               
+
             }
             else
             {
@@ -481,14 +493,14 @@ namespace UI
             //});
             //show.Start();
             //}
-            if (PT_SET.RunPattern == (int) PT_SET.RUN_PATTERN.RUN_NORMAL && PT_SET.bGrrFlow) lb_mod.Text = VAR.IsChinese?"<正常GRR测试>":"Normal GRR";
-            else if(PT_SET.RunPattern != (int)PT_SET.RUN_PATTERN.RUN_NORMAL && PT_SET.bGrrFlow) lb_mod.Text = VAR.IsChinese ? "<空跑GRR测试>":"Empty GRR";
-            else if (PT_SET.RunPattern == (int)PT_SET.RUN_PATTERN.RUN_NORMAL && VAR.gsys_set.mode == EM_SYS_MODE.CHK) lb_mod.Text = VAR.IsChinese ? "<正常点检模式>":"Normal Chk";
+            if (PT_SET.RunPattern == (int)PT_SET.RUN_PATTERN.RUN_NORMAL && PT_SET.bGrrFlow) lb_mod.Text = VAR.IsChinese ? "<正常GRR测试>" : "Normal GRR";
+            else if (PT_SET.RunPattern != (int)PT_SET.RUN_PATTERN.RUN_NORMAL && PT_SET.bGrrFlow) lb_mod.Text = VAR.IsChinese ? "<空跑GRR测试>" : "Empty GRR";
+            else if (PT_SET.RunPattern == (int)PT_SET.RUN_PATTERN.RUN_NORMAL && VAR.gsys_set.mode == EM_SYS_MODE.CHK) lb_mod.Text = VAR.IsChinese ? "<正常点检模式>" : "Normal Chk";
             else if (PT_SET.RunPattern == (int)PT_SET.RUN_PATTERN.RUN_NORMAL && VAR.isAutoChkMode) lb_mod.Text = VAR.IsChinese ? "<自动点检模式>" : "Auto Chk";
-            else if (PT_SET.RunPattern != (int)PT_SET.RUN_PATTERN.RUN_NORMAL && VAR.gsys_set.mode == EM_SYS_MODE.CHK) lb_mod.Text = VAR.IsChinese ? "<空跑点检模式>": "UpDwLoad Chk";
-            else if (PT_SET.RunPattern == (int) PT_SET.RUN_PATTERN.RUN_NORMAL)lb_mod.Text =  VAR.IsChinese ? "<正常生产模式>" : "Normal";
-            else if (PT_SET.RunPattern == (int)PT_SET.RUN_PATTERN.RUN_UPDW) lb_mod.Text =  VAR.IsChinese ? "<有料空跑模式>": "UpDwLoad";
-            else if (PT_SET.RunPattern == (int)PT_SET.RUN_PATTERN.RUN_EMPTY) lb_mod.Text = VAR.IsChinese ? "<无料空跑模式>":"Empty UpDwLoad";
+            else if (PT_SET.RunPattern != (int)PT_SET.RUN_PATTERN.RUN_NORMAL && VAR.gsys_set.mode == EM_SYS_MODE.CHK) lb_mod.Text = VAR.IsChinese ? "<空跑点检模式>" : "UpDwLoad Chk";
+            else if (PT_SET.RunPattern == (int)PT_SET.RUN_PATTERN.RUN_NORMAL) lb_mod.Text = VAR.IsChinese ? "<正常生产模式>" : "Normal";
+            else if (PT_SET.RunPattern == (int)PT_SET.RUN_PATTERN.RUN_UPDW) lb_mod.Text = VAR.IsChinese ? "<有料空跑模式>" : "UpDwLoad";
+            else if (PT_SET.RunPattern == (int)PT_SET.RUN_PATTERN.RUN_EMPTY) lb_mod.Text = VAR.IsChinese ? "<无料空跑模式>" : "Empty UpDwLoad";
 
             timer_500ms.Interval = 500;
 
@@ -500,27 +512,27 @@ namespace UI
             if (VAR.ClearMt)
             {
                 btn_ClearMt.BackColor = Color.Cyan;
-                btn_ClearMt.Text = VAR.IsChinese?"-清料中-":"-Clearing-";
+                btn_ClearMt.Text = VAR.IsChinese ? "-清料中-" : "-Clearing-";
             }
             else
             {
                 btn_ClearMt.BackColor = SystemColors.ButtonFace;
-                btn_ClearMt.Text = VAR.IsChinese ? "清料":"Clear";
+                btn_ClearMt.Text = VAR.IsChinese ? "清料" : "Clear";
             }
-           
+
             if (!ckb_wait_upload.Checked) UpDownLoad.bWaitforUpDownload = false;
             if (UpDownLoad.bWaitforUpDownload)
             {
                 if (!colorchange) btn_upload_ok.BackColor = SystemColors.ButtonFace;
                 else btn_upload_ok.BackColor = Color.Orange;
                 colorchange = !colorchange;
-                btn_upload_ok.Text = VAR.IsChinese ? "等待上料...":"Wait for UpDwLoad";     
+                btn_upload_ok.Text = VAR.IsChinese ? "等待上料..." : "Wait for UpDwLoad";
             }
             else
             {
                 colorchange = false;
                 btn_upload_ok.BackColor = SystemColors.ButtonFace;
-                btn_upload_ok.Text = VAR.IsChinese ? "上料完成":"UpDwLoad finished";
+                btn_upload_ok.Text = VAR.IsChinese ? "上料完成" : "UpDwLoad finished";
             }
 
             lb_tt_n.Text = Turntable.n.ToString();
@@ -532,20 +544,20 @@ namespace UI
                 lb_tt_tmr.Text = ((System.Environment.TickCount - Turntable.tmr) / 1000).ToString("000.0s");
                 //COUNT_DATA.runtime++;
             }
-                
+
             else
             {
                 rbtn_NormalProduct.Enabled = true;
                 rbtn_RetestProduct.Enabled = true;
                 lb_tt_tmr.Text = "000.0s";
-                 
+
             }
-            double min=COUNT_DATA.runtime;
+            double min = COUNT_DATA.runtime;
             min = min / 60;
-            tb_run_time.Text = string.Format("{0:000}H{1:00}M", Math.Floor(min /60), min % 60);
+            tb_run_time.Text = string.Format("{0:000}H{1:00}M", Math.Floor(min / 60), min % 60);
             min = COUNT_DATA.waittime;
             min = min / 60;
-            tb_stop_time.Text = string.Format("{0:000}H{1:00}M",Math.Floor(min / 60), min % 60);
+            tb_stop_time.Text = string.Format("{0:000}H{1:00}M", Math.Floor(min / 60), min % 60);
             min = COUNT_DATA.waitwltime;
             min = min / 60;
             tb_waitwl_time.Text = string.Format("{0:000}H{1:00}M", Math.Floor(min / 60), min % 60);
@@ -553,7 +565,7 @@ namespace UI
             if (min == 0) min = 1;
             min = 1 - COUNT_DATA.waittime / min;
             min = min * 100;
-            tb_Activation.Text= min.ToString("f2") + "%";
+            tb_Activation.Text = min.ToString("f2") + "%";
             tb_LastClearTime.Text = COUNT_DATA.dt.ToString();
 
             lb_leftbox.Text = COM.LeftLightBox.StrOfPos;
@@ -567,12 +579,12 @@ namespace UI
 
 
 
-            if (COUNT_DATA.OkTwoTestCnt > 50000|| COUNT_DATA.NgTwoTestCnt > 50000)
+            if (COUNT_DATA.OkTwoTestCnt > 50000 || COUNT_DATA.NgTwoTestCnt > 50000)
             {
                 COUNT_DATA.Clear();
             }
             var curHour = DateTime.Now;
-            if (curHour.Hour == 8  && IsCanClear)//|| curHour.Hour == 20
+            if (curHour.Hour == 8 && IsCanClear)//|| curHour.Hour == 20
             {
                 IsCanClear = false;
                 COUNT_DATA.Clear();
@@ -587,10 +599,10 @@ namespace UI
             double ok_cnt = COUNT_DATA.okcnt[0] + COUNT_DATA.okcnt[1] + COUNT_DATA.okcnt[2] + COUNT_DATA.okcnt[3];
             double ng_cnt = COUNT_DATA.ngcnt[0] + COUNT_DATA.ngcnt[1] + COUNT_DATA.ngcnt[2] + COUNT_DATA.ngcnt[3];
             double hour = COUNT_DATA.runtime + COUNT_DATA.waittime;
-            double uph = all_cnt / (hour==0?0.001:hour) * 3600;
+            double uph = all_cnt / (hour == 0 ? 0.001 : hour) * 3600;
             double ok_cntNormal = ok_cnt - COUNT_DATA.OkTwoTestCnt;
             double ng_cntNormal = ng_cnt - COUNT_DATA.NgTwoTestCnt;
-            double uphNormal = (ok_cntNormal+ ng_cntNormal) / (hour == 0 ? 0.001 : hour) * 3600;
+            double uphNormal = (ok_cntNormal + ng_cntNormal) / (hour == 0 ? 0.001 : hour) * 3600;
             double all_cntNornmal = ok_cntNormal + ng_cntNormal;
             if (tb_all_cnt.Text != all_cnt.ToString("f0") || tb_ok_cnt.Text != ok_cnt.ToString("f0") ||
                 tb_uph.Text != uph.ToString("f0") || lastngcnt != ng_cnt)
@@ -605,30 +617,30 @@ namespace UI
 
                 {
                     Msg.secsManager.Send((new BaseInfo() { Id = 11, Value = ng_cntNormal.ToString("f0") }));
-                    Msg.secsManager.Send((new BaseInfo() { Id =12, Value = uphNormal.ToString("f0") }));
+                    Msg.secsManager.Send((new BaseInfo() { Id = 12, Value = uphNormal.ToString("f0") }));
                 }
                 Msg.secsManager.Send(new BaseInfo() { Id = 2 }, TypeId: 2);
             }
             lastngcnt = COUNT_DATA.ngcnt[0] + COUNT_DATA.ngcnt[1] + COUNT_DATA.ngcnt[2] + COUNT_DATA.ngcnt[3];
 
-            tb_uph.Text =uph.ToString("f0");
+            tb_uph.Text = uph.ToString("f0");
             tb_all_cnt.Text = all_cnt.ToString("f0");
-            tb_ok_cnt.Text= ok_cnt.ToString("f0");
-            double ok_rate=ok_cnt / (ok_cnt + ng_cnt != 0 ? ok_cnt + ng_cnt : 1)*100;
+            tb_ok_cnt.Text = ok_cnt.ToString("f0");
+            double ok_rate = ok_cnt / (ok_cnt + ng_cnt != 0 ? ok_cnt + ng_cnt : 1) * 100;
             tb_ok_rate.Text = ok_rate.ToString("f2") + "%";
             double openimage_rate = 0;
             if (ok_cnt + ng_cnt != 0)
                 openimage_rate = (1 - COUNT_DATA.openimagerate / (ok_cnt + ng_cnt)) * 100;
             else openimage_rate = 0;
-            tb_OpenImageRate.Text=openimage_rate.ToString("f2") + "%";
+            tb_OpenImageRate.Text = openimage_rate.ToString("f2") + "%";
             double suction_rate = 0;
             suction_rate = COUNT_DATA.SuctionErrcnt;
             suction_rate = suction_rate / (COUNT_DATA.SuctionAllcnt != 0 ? COUNT_DATA.SuctionAllcnt : 1) * 100;
 
-            if(PT_SET.bNgWarn && !_bShowDialog &&ok_rate <= PT_SET.OkRate)
+            if (PT_SET.bNgWarn && !_bShowDialog && ok_rate <= PT_SET.OkRate)
             {
                 _bShowDialog = true;
-                DialogResult dr = Dialog(Color.Yellow, "警告", "当前良率低，请注意!可清零！","确定","清除");
+                DialogResult dr = Dialog(Color.Yellow, "警告", "当前良率低，请注意!可清零！", "确定", "清除");
                 if (dr == DialogResult.Cancel)
                 {
                     DialogResult drq = Dialog(Color.Yellow, "警告", "清除后临时生产数据归零。", "确定", "取消");
@@ -640,23 +652,23 @@ namespace UI
                     _bShowDialog = false;
                 }
             }
-            tb_SuctionErrRate.Text=suction_rate.ToString("f2") + "%";
+            tb_SuctionErrRate.Text = suction_rate.ToString("f2") + "%";
             ws1.WorkStationName = VAR.IsChinese ? "工站1" : "WS1";
             ws2.WorkStationName = VAR.IsChinese ? "工站2" : "WS2";
             ws3.WorkStationName = VAR.IsChinese ? "工站3" : "WS3";
             ws4.WorkStationName = VAR.IsChinese ? "工站4" : "WS4";
-            traybox_fd.TrayBoxName= VAR.IsChinese ? "供料" : "Feed";
+            traybox_fd.TrayBoxName = VAR.IsChinese ? "供料" : "Feed";
             traybox_ok.TrayBoxName = VAR.IsChinese ? "OK" : "OK";
             traybox_ng.TrayBoxName = VAR.IsChinese ? "NG" : "NG";
 
             bool bSound = NewSysInf.UserParams.RedLightSund;
-            if (bSound&& MT.GPIO_OUT_ALM_RED.isON)
+            if (bSound && MT.GPIO_OUT_ALM_RED.isON)
             {
                 MT.GPIO_OUT_ALM_BEEPER.SetOn();
                 Thread.Sleep(250);
                 MT.GPIO_OUT_ALM_BEEPER.SetOff();
             }
-     
+
         }
 
         private void btn_faf_Click(object sender, EventArgs e)
@@ -771,13 +783,13 @@ namespace UI
 
         private void btn_new_traybox_fd_Click(object sender, EventArgs e)
         {
-            if(VAR.gsys_set.status==EM_SYS_STA.RUN)return;
-            if (DialogResult.No == MessageBox.Show(VAR.IsChinese?"重新加载供料仓?\r\n注:加载后请拿掉供料轴上的料盘!": "Reload the feed tray box? \r\n Note: Please remove the feed tray after loading!\r\n重新加载供料仓?\r\n注:加载后请拿掉供料轴上的料盘!", VAR.IsChinese?"提示":"Prompt", MessageBoxButtons.YesNo, MessageBoxIcon.Question)) return;
+            if (VAR.gsys_set.status == EM_SYS_STA.RUN) return;
+            if (DialogResult.No == MessageBox.Show(VAR.IsChinese ? "重新加载供料仓?\r\n注:加载后请拿掉供料轴上的料盘!" : "Reload the feed tray box? \r\n Note: Please remove the feed tray after loading!\r\n重新加载供料仓?\r\n注:加载后请拿掉供料轴上的料盘!", VAR.IsChinese ? "提示" : "Prompt", MessageBoxButtons.YesNo, MessageBoxIcon.Question)) return;
             DRpt.Report_Opration(1000, 0, "更换供料仓按键按下!");
             EM_RES res = COM.traybox_fd.NewBox();
             if (res == EM_RES.OK) COM.traybox_fd.IsReady = true;
-             COM.traybox_fd.tray_idx = 0;
-             COM.traybox_fd.tray_cur = null;
+            COM.traybox_fd.tray_idx = 0;
+            COM.traybox_fd.tray_cur = null;
             //if (DialogResult.No == MessageBox.Show("供料导轨上有料盘?", "", MessageBoxButtons.YesNo, MessageBoxIcon.Question))
             //{
             //    COM.traybox_fd.tray_cur = null;
@@ -787,7 +799,7 @@ namespace UI
         private void btn_new_traybox_ok_Click(object sender, EventArgs e)
         {
             if (VAR.gsys_set.status == EM_SYS_STA.RUN) return;
-            if (DialogResult.No == MessageBox.Show(VAR.IsChinese?"重新加载OK料仓?\r\n注:加载后请拿掉OK料轴上的料盘!" : "Reload the OK tray box? \r\n Note: Please remove the OK tray after loading!\r\n重新加载OK料仓?\r\n注:加载后请拿掉OK料轴上的料盘!", VAR.IsChinese ? "提示" : "Prompt", MessageBoxButtons.YesNo, MessageBoxIcon.Question)) return;
+            if (DialogResult.No == MessageBox.Show(VAR.IsChinese ? "重新加载OK料仓?\r\n注:加载后请拿掉OK料轴上的料盘!" : "Reload the OK tray box? \r\n Note: Please remove the OK tray after loading!\r\n重新加载OK料仓?\r\n注:加载后请拿掉OK料轴上的料盘!", VAR.IsChinese ? "提示" : "Prompt", MessageBoxButtons.YesNo, MessageBoxIcon.Question)) return;
             DRpt.Report_Opration(1000, 0, "更换OK料仓按键按下!");
             EM_RES res = COM.traybox_ok.NewBox();
             if (res == EM_RES.OK) COM.traybox_ok.IsReady = true;
@@ -802,7 +814,7 @@ namespace UI
         private void btn_new_traybox_ng_Click(object sender, EventArgs e)
         {
             if (VAR.gsys_set.status == EM_SYS_STA.RUN) return;
-            if (DialogResult.No == MessageBox.Show(VAR.IsChinese?"重新加载NG料仓?\r\n注:加载后请拿掉NG料轴上的料盘!": "Reload the NG tray box? \r\n Note: Please remove the NG tray after loading!\r\n重新加载NG料仓?\r\n注:加载后请拿掉NG料轴上的料盘!", VAR.IsChinese ? "提示" : "Prompt", MessageBoxButtons.YesNo, MessageBoxIcon.Question))return;
+            if (DialogResult.No == MessageBox.Show(VAR.IsChinese ? "重新加载NG料仓?\r\n注:加载后请拿掉NG料轴上的料盘!" : "Reload the NG tray box? \r\n Note: Please remove the NG tray after loading!\r\n重新加载NG料仓?\r\n注:加载后请拿掉NG料轴上的料盘!", VAR.IsChinese ? "提示" : "Prompt", MessageBoxButtons.YesNo, MessageBoxIcon.Question)) return;
             DRpt.Report_Opration(1000, 0, "更换NG料仓按键按下!");
             EM_RES res = COM.traybox_ng.NewBox();
             if (res == EM_RES.OK) COM.traybox_ng.IsReady = true;
@@ -960,8 +972,8 @@ namespace UI
 
         private void btn_home_Click(object sender, EventArgs e)
         {
-            
-            if (VAR.gsys_set.status!= EM_SYS_STA.RUN)
+
+            if (VAR.gsys_set.status != EM_SYS_STA.RUN)
             {
                 DRpt.Report_Opration(1000, 0, "归位按键按下!");
                 try
@@ -974,25 +986,25 @@ namespace UI
                         MT.Move(ref VAR.gsys_set.bquit, ref COM.UDLoad1.ax_x, 0, ref COM.UDLoad1.ax_y, 0, ref COM.UDLoad2.ax_x, 0, ref COM.UDLoad2.ax_y, 0);
                     }
                 }
-                finally 
+                finally
                 {
                     MT.SetAllAxToWorkSpd();
                 }
-               
+
             }
         }
 
-       
+
 
         private void btn_ClearMt_Click(object sender, EventArgs e)
         {
 
-                //COM.CamUp1.FindTaskTriAndWait(CONST.ModUpFw);
-           if (VAR.gsys_set.status == EM_SYS_STA.RUN && VAR.ClearMt == false)
+            //COM.CamUp1.FindTaskTriAndWait(CONST.ModUpFw);
+            if (VAR.gsys_set.status == EM_SYS_STA.RUN && VAR.ClearMt == false)
             {
-                if (DialogResult.No == MessageBox.Show(VAR.IsChinese?"是否清料？": "Are you sure to clear?\r\n是否清料？", VAR.IsChinese?"提示":"Prompt", MessageBoxButtons.YesNo, MessageBoxIcon.Question)) return;
+                if (DialogResult.No == MessageBox.Show(VAR.IsChinese ? "是否清料？" : "Are you sure to clear?\r\n是否清料？", VAR.IsChinese ? "提示" : "Prompt", MessageBoxButtons.YesNo, MessageBoxIcon.Question)) return;
                 DRpt.Report_Opration(1000, 0, "清料按键按下!");
-                VAR.msg.AddMsg(Msg.EM_MSGTYPE.NOR, VAR.IsChinese?string.Format("清料"):"Clear   (清料)");
+                VAR.msg.AddMsg(Msg.EM_MSGTYPE.NOR, VAR.IsChinese ? string.Format("清料") : "Clear   (清料)");
                 VAR.ClearMt = true;
             }
 
@@ -1000,12 +1012,14 @@ namespace UI
 
         private void btn_pause_Click(object sender, EventArgs e)
         {
-            
+
             WS.bpause = true;
             UpDownLoad.bquit = true;
             MT.GPIO_OUT_ALM_BEEPER.SetOff();
-            VAR.msg.AddMsg(Msg.EM_MSGTYPE.NOR, VAR.IsChinese?"---暂停键按下---": "--- Press the pause key ---");
+            VAR.msg.AddMsg(Msg.EM_MSGTYPE.NOR, VAR.IsChinese ? "---暂停键按下---" : "--- Press the pause key ---");
             DRpt.Report_Opration(1000, 0, "暂停键按下!");
+            COM.UDLoad1.Ispause=true;
+            COM.UDLoad2.Ispause = true;
         }
 
         private void btn_SetZero_Click(object sender, EventArgs e)
@@ -1016,7 +1030,7 @@ namespace UI
 
         private void rbtn_NormalProduct_CheckedChanged(object sender, EventArgs e)
         {
-            if (VAR.gsys_set.status == EM_SYS_STA.RUN)return;
+            if (VAR.gsys_set.status == EM_SYS_STA.RUN) return;
             if (rbtn_NormalProduct.Checked)
             {
                 VAR.Isnormal = true;
@@ -1027,7 +1041,7 @@ namespace UI
             {
                 VAR.Isnormal = false;
                 DRpt.Report_Opration(1000, 0, "复测品模式按键按下!");
-                if (DialogResult.No == MessageBox.Show(VAR.IsChinese?"是否暂时取消同工位连续同NG报警?": "Are you sure to temporarily cancel the continuous same-NG alarm at the same station?\r\n是否暂时取消同工位连续同NG报警?", VAR.IsChinese?"提示":"Prompt", MessageBoxButtons.YesNo, MessageBoxIcon.Question)) return;
+                //if (DialogResult.No == MessageBox.Show(VAR.IsChinese ? "是否暂时取消同工位连续同NG报警?" : "Are you sure to temporarily cancel the continuous same-NG alarm at the same station?\r\n是否暂时取消同工位连续同NG报警?", VAR.IsChinese ? "提示" : "Prompt", MessageBoxButtons.YesNo, MessageBoxIcon.Question)) return;
                 VAR.bSameNGTip_Temp = false;
             }
         }
@@ -1100,7 +1114,7 @@ namespace UI
                 }
                 DRpt.Report_Opration(2000, 0, string.Format("点检完毕,点检人:{0}", FrMain.frsuser.user1.cur_user.name));
             }
-            
+
         }
 
         /// <summary>
@@ -1137,12 +1151,12 @@ namespace UI
                     Name = "btnOk",
                     Anchor = AnchorStyles.Right | AnchorStyles.Bottom,
                     Dock = DockStyle.Bottom,
-                    Width = 240,
+                    Width = 140,
                     Height = 80,
                     Margin = new Padding(10),
                     Text = okText.Length == 0 ? "确定" : okText,
                     BackColor = SystemColors.ButtonFace,
-                    Font = new Font(flp_Panel.Font.FontFamily, 36)
+                    Font = new Font(flp_Panel.Font.FontFamily, 16)
                 };
                 btn_Ok.Click += (sender, e) =>
                 {
@@ -1160,12 +1174,12 @@ namespace UI
                         Name = "btnCancel",
                         Anchor = AnchorStyles.Left | AnchorStyles.Bottom,
                         Dock = DockStyle.Bottom,
-                        Width = 240,
+                        Width = 140,
                         Height = 80,
                         Text = cancelText,
                         BackColor = SystemColors.ButtonFace,
                         Margin = new Padding(10),
-                        Font = new Font(flp_Panel.Font.FontFamily, 36)
+                        Font = new Font(flp_Panel.Font.FontFamily, 16)
                     };
                     btn_Cancel.Click += (sender, e) =>
                     {
@@ -1184,12 +1198,12 @@ namespace UI
                         Name = "btnAbort",
                         Anchor = AnchorStyles.Left | AnchorStyles.Bottom,
                         Dock = DockStyle.Bottom,
-                        Width = 240,
+                        Width = 140,
                         Height = 80,
                         Text = AbortText,
                         Margin = new Padding(10),
                         BackColor = SystemColors.ButtonFace,
-                        Font = new Font(flp_Panel.Font.FontFamily, 36)
+                        Font = new Font(flp_Panel.Font.FontFamily, 16)
                     };
                     btn_Abort.Click += (sender, e) =>
                     {
@@ -1264,7 +1278,7 @@ namespace UI
 
         private void button1_Click(object sender, EventArgs e)
         {
-         var vi=   NewSysInf.UserParams.bPickWsDis;
+            var vi = NewSysInf.UserParams.bPickWsDis;
         }
 
         private void cbCheckModEn_CheckedChanged(object sender, EventArgs e)
@@ -1309,18 +1323,54 @@ namespace UI
             Product.Tray tray = new Product.Tray(COM.traybox_ok.strCfgPath);
             COM.traybox_ok.tray_cur = tray;
             placepos = COM.traybox_ok.tray_cur.GetPosList(Product.EM_CM_RES.UNTEST);
-            if (placepos.Count>0)
+            if (placepos.Count > 0)
             {
                 VAR.msg.AddMsg(Msg.EM_MSGTYPE.DBG, string.Format("{0}放料，计算前位置{1}", COM.traybox_ok.disc, placepos[0].Pos[0].ToXY().ToString()));
             }
-           
+
+        }
+
+        public void waring(int Numng1, double rate)
+        {
+            // 查询XML文档中的元素
+            string xmlFilePath = VAR.gsys_set.GetCurProductPath + "ngcode.xml";
+            XDocument xDoc = XDocument.Load(xmlFilePath);
+            int targetId = Numng1;
+            string textInfo = null;
+            var item = xDoc.Root.Elements("代码").FirstOrDefault(e => (string)e.Attribute("名称") == targetId.ToString());
+
+            var element = xDoc.Root.Elements().Where(e => e.Name.LocalName.StartsWith("Row") && (string)e.Attribute("代码") == targetId.ToString()).FirstOrDefault(); // 获取第一个匹配的元素  
+            // 检查是否找到了对应的元素  
+            if (element != null)
+            {
+                textInfo = (string)element.Attribute("名称");
+            }
+
+            VAR.sys_inf.Set(EM_ALM_STA.WAR_YELLOW_FLASH, VAR.IsChinese ? "良率报警!" : "Same NG", 20, true, ErrCode: ShowErrMsg.SeriesSameNGCode);
+            MT.ST_WARN st_warn = new MT.ST_WARN();
+            warning fr_warn = new warning();//增加语言
+            st_warn.ok_txt = MultiLanguage.TxtSelct("继续运行", "Keep running", "Tiếp tục chạy");
+            st_warn.ws = COM.ws1;
+            st_warn.cancle_txt = MultiLanguage.TxtSelct("继续运行", "Stop running", "Ngừng chạy");
+            st_warn.title = "良率报警";
+            st_warn.msg = "请注意，不良项：" + textInfo==null? Numng1.ToString() : textInfo + "已经超过设置值:" + rate.ToString();
+            st_warn.lb_msg = st_warn.msg + "点击继续运行后，将不再提示（4小时后重新提示）";
+            string newmsg = PT_SET.EqpSN + "," + VAR.gsys_set.cur_product_name + "," + st_warn.msg;
+            Msg.secsManager.Send(new BaseInfo() { Id = 246, Value = Encoding.UTF8.GetBytes(newmsg).Aggregate("", (current, next) => current + " " + next).TrimStart() });
+            Msg.secsManager.Send(new BaseInfo() { Id = 10 }, TypeId: 2);
+            DialogResult logres = MT.Display_frwarn(fr_warn, st_warn, ERR_ALM.EmErrItem.UpDownLoadAbnormal);
+            if (DialogResult.Cancel == logres)
+            {
+            }
+
+            VAR.sys_inf.Set(EM_ALM_STA.NOR_GREEN, VAR.IsChinese ? "运行" : "RUN", 0, true);
         }
 
         private void button2_Click_1(object sender, EventArgs e)
         {
             SQLData.TestDataAddTime(0, 1, 1000);
             SQLData.TestDataAddTime(2, 1, 1000);
-            SQLData.TestDataAddTime(2,2, 2000);
+            SQLData.TestDataAddTime(2, 2, 2000);
             SQLData.TestDataAddTime(2, 3, 3000);
         }
 
@@ -1343,23 +1393,385 @@ namespace UI
 
         private void button2_Click_4(object sender, EventArgs e)
         {
-            var start = DateTime.Parse(DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss"));
-            var stop = start;
-            TimeSpan timeSpan = new TimeSpan(0, 1, 0, 0); // 1 day  
-            stop = stop.Subtract(timeSpan);
+            //// 获取当前日期  
+            //DateTime today = DateTime.Today;
 
-            MessageBox.Show(start.ToString());
-            MessageBox.Show(stop.ToString());
-            foreach (WS.MdDat md in COM.ws1.list_md)
+            //// 设置时间为0点1分  
+            //DateTime start = new DateTime(today.Year, today.Month, today.Day, 0, 1, 0);
+            //DateTime stop = DateTime.Parse(DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss"));
+
+            //MessageBox.Show(start.ToString());
+            //MessageBox.Show(stop.ToString());
+            //foreach (WS.MdDat md in COM.ws1.list_md)
+            //{
+
+            //    md.res = 267;
+            //    md.bardcode = "TEast";
+            //}
+
+            //SQLData.TestDataAdd(COM.ws1);
+            //double rate = 0;
+            //SQLData.TestDataSelectPro(FrMain.frcount.sqlSelector_count_data, out rate, 266);
+            //waring(PT_SET.Numng2, PT_SET.Numngrate2);
+
+            SQLData.TestDataAddClose(2, 62);
+
+        }
+
+        bool show1 = true;
+        bool show2 = true;
+        bool show3 = true;
+        bool show4 = true;
+        bool show5 = true;
+
+        private void timer1_Tick(object sender, EventArgs e)
+        {
+            if (PT_SET.Ckngrate1)
             {
-               
-                md.res =266;
-                md.bardcode = "";
+                double rate = 0;
+                SQLData.TestDataSelectPro(FrMain.frcount.sqlSelector_count_data, out rate, PT_SET.Numng1);
+                labnum1.Text = PT_SET.Numng1.ToString();
+                labnumrate1.Text = (rate * 100).ToString() + "%";
+                if (rate * 100 > PT_SET.Numngrate1)
+                {
+                    PT_SET.Ckngrate1war = true;
+                    if (show1)
+                    {
+                        show1 = false;
+                        waring(PT_SET.Numng1, PT_SET.Numngrate1);
+                    }
+
+                }
+                else
+                {
+                    PT_SET.Ckngrate1war = false;
+                }
+            }
+            else
+            {
+                PT_SET.Ckngrate1war = false;
+                labnum1.Text = "";
+                labnumrate1.Text = "";
             }
 
-            SQLData.TestDataAdd(COM.ws1);
-            SQLData.TestDataSelectPro(FrMain.frcount.sqlSelector_count_data, COM.ws1.num);
-            MessageBox.Show(PT_SET.Noimagenumdb.ToString()); 
+            if (PT_SET.Ckngrate2)
+            {
+                double rate = 0;
+                SQLData.TestDataSelectPro(FrMain.frcount.sqlSelector_count_data, out rate, PT_SET.Numng2);
+                labnum2.Text = PT_SET.Numng2.ToString();
+                labnumrate2.Text = (rate * 100).ToString() + "%";
+                if (rate * 100 > PT_SET.Numngrate2)
+                {
+                    PT_SET.Ckngrate2war = true;
+                    if (show2)
+                    {
+                        show2 = false;
+                        waring(PT_SET.Numng2, PT_SET.Numngrate2);
+                    }
+                }
+                else
+                {
+                    PT_SET.Ckngrate2war = false;
+                }
+            }
+            else
+            {
+                labnum2.Text = "";
+                labnumrate2.Text = "";
+                PT_SET.Ckngrate2war = false;
+            }
+
+            if (PT_SET.Ckngrate3)
+            {
+                double rate = 0;
+                SQLData.TestDataSelectPro(FrMain.frcount.sqlSelector_count_data, out rate, PT_SET.Numng3);
+                labnum3.Text = PT_SET.Numng3.ToString();
+                labnumrate3.Text = (rate * 100).ToString() + "%";
+                if (rate * 100 > PT_SET.Numngrate3)
+                {
+                    PT_SET.Ckngrate3war = true;
+                    if (show3)
+                    {
+                        show3 = false;
+                        waring(PT_SET.Numng3, PT_SET.Numngrate3);
+                    }
+                }
+                else
+                {
+                    PT_SET.Ckngrate3war = false;
+                }
+            }
+            else
+            {
+                labnum3.Text = "";
+                labnumrate3.Text = "";
+                PT_SET.Ckngrate3war = false;
+            }
+
+            if (PT_SET.Ckngrate4)
+            {
+                double rate = 0;
+                SQLData.TestDataSelectPro(FrMain.frcount.sqlSelector_count_data, out rate, PT_SET.Numng4);
+                labnum4.Text = PT_SET.Numng4.ToString();
+                labnumrate4.Text = (rate * 100).ToString() + "%";
+                if (rate * 100 > PT_SET.Numngrate4)
+                {
+                    PT_SET.Ckngrate4war = true;
+                    if (show4)
+                    {
+                        show4 = false;
+                        waring(PT_SET.Numng4, PT_SET.Numngrate4);
+                    }
+                }
+                else
+                {
+                    PT_SET.Ckngrate4war = false;
+                }
+            }
+            else
+            {
+                labnum4.Text = "";
+                labnumrate4.Text = "";
+                PT_SET.Ckngrate4war = false;
+            }
+
+            if (PT_SET.Ckngrate5)
+            {
+                double rate = 0;
+                SQLData.TestDataSelectPro(FrMain.frcount.sqlSelector_count_data, out rate, PT_SET.Numng5);
+                labnum5.Text = PT_SET.Numng5.ToString();
+                labnumrate5.Text = (rate * 100).ToString() + "%";
+                if (rate * 100 > PT_SET.Numngrate5)
+                {
+                    PT_SET.Ckngrate5war = true;
+                    if (show5)
+                    {
+                        show5 = false;
+                        waring(PT_SET.Numng5, PT_SET.Numngrate5);
+                    }
+                }
+                else
+                {
+                    PT_SET.Ckngrate5war = false;
+                }
+
+            }
+            else
+            {
+                labnum5.Text = "";
+                labnumrate5.Text = "";
+                PT_SET.Ckngrate5war = false;
+            }
+
+        }
+
+        private void timer2_Tick(object sender, EventArgs e)
+        {
+
+         
+
+
+            if (PT_SET.Ckngrate1 && PT_SET.Ckngrate1war)
+            {
+                waring(PT_SET.Numng1, PT_SET.Numngrate1);
+            }
+
+            if (PT_SET.Ckngrate2 && PT_SET.Ckngrate2war)
+            {
+                waring(PT_SET.Numng2, PT_SET.Numngrate2);
+            }
+
+            if (PT_SET.Ckngrate3 && PT_SET.Ckngrate3war)
+            {
+                waring(PT_SET.Numng3, PT_SET.Numngrate3);
+            }
+
+            if (PT_SET.Ckngrate4 && PT_SET.Ckngrate4war)
+            {
+                waring(PT_SET.Numng4, PT_SET.Numngrate4);
+            }
+
+            if (PT_SET.Ckngrate5 && PT_SET.Ckngrate5war)
+            {
+                waring(PT_SET.Numng5, PT_SET.Numngrate5);
+            }
+
+        }
+
+        private void timer3_Tick(object sender, EventArgs e)
+        {
+            int ubenable = 0; //工位关闭数量
+            int benable = 0; //工位开始数量
+            foreach (WS temp in COM.list_ws)
+            {
+                foreach (WS.MdDat md in temp.list_md)
+                {
+                    if (!md.benable)
+                    {
+                        ubenable++;
+                    }
+                    else
+                    {
+                        benable++;
+                    }
+                }
+            }
+            labelopennum.Text = benable.ToString("f0");
+            labelclosenum.Text = ubenable.ToString("f0");
+            SQLData.TestDataAddClose(ubenable, benable);
+
+            Msg.secsManager.Send((new BaseInfo() { Id = 244, Value = benable.ToString("f0") }));  //工位开始数量
+            Msg.secsManager.Send((new BaseInfo() { Id = 245, Value = ubenable.ToString("f0") }));//工位关闭数量
+
+        }
+
+        Stopwatch stopwatch = new Stopwatch();
+        bool show = false;
+        private void timer4_Tick(object sender, EventArgs e)
+        {
+            double secondss = stopwatchnew.ElapsedMilliseconds / 1000;
+
+            if (secondss >= 41400)
+            {
+                stopwatchnew.Stop();
+                DialogResult dr = Dialog(Color.Yellow, "警告!", "软件点检时间10分钟后超时，\r\n请清料准备点检！\r\n", "继续运行", "取消", "停止运行");
+                if (dr == DialogResult.Abort)
+                {
+                    WS.bquit = true;
+                    UpDownLoad.bquit = true;
+                    MT.GPIO_OUT_ALM_BEEPER.SetOff();
+                    VAR.msg.AddMsg(Msg.EM_MSGTYPE.NOR, VAR.IsChinese ? "---停止键按下---" : "---Press the stop key---      (---停止键按下---)");
+                    DRpt.Report_Opration(1000, 0, VAR.IsChinese ? "---停止键按下---" : "---Press the stop key---      (---停止键按下---)");
+                    VAR.gsys_set.status = EM_SYS_STA.STANDBY;
+                    if (VAR.gsys_set.status != EM_SYS_STA.RUN)
+                    {
+
+                        //VAR.gsys_set.bquit = true;
+                        if (VAR.gsys_set.status != EM_SYS_STA.RESET)
+                        {
+                            COM.LeftLightBox.Stop();
+                            COM.RightLightBox.Stop();
+                            UpDownLoad.UD1Stop();
+                            UpDownLoad.UD2Stop();
+                            UpDownLoad.LCStop();
+                            foreach (WS ws in COM.list_ws)
+                            {
+                                ws.ax_u.Stop();
+                            }
+                        }
+                        else
+                        {
+                            MT.AllAxStop();
+                        }
+                    }
+                }
+            }
+
+            if (VAR.gsys_set.status == EM_SYS_STA.STANDBY || COM.traybox_fd.ChgML || COM.traybox_ng.ChgML || COM.traybox_ok.ChgML)
+            {
+                show = false;
+                stopwatch.Start();
+            }
+            else
+            {
+                stopwatch.Stop();
+                show = true;
+                var secondst = stopwatch.ElapsedMilliseconds / 1000;
+
+                //if (secondst<=180 && secondst>5 && !PT_SET.Isshowmsgpre && !PT_SET.Isshowmsg)
+                //{
+                //    // 获取当前时间  
+                //    DateTime now = DateTime.Now;
+
+                //    if (secondst<=60)
+                //    {
+                //        double minute = (secondst / 60);
+                //      // 创建一个表示1分钟的时间间隔  
+                //      TimeSpan threeMinutes = TimeSpan.FromMinutes(minute);
+                //        // 从当前时间中减去1分钟  
+                //        DateTime threeMinutesAgo = now.Subtract(threeMinutes);
+                //        PT_SET.WaitMode = 25;
+                //        VAR.msg.AddMsg(Msg.EM_MSGTYPE.SYS, string.Format("（微停机）待机上传开始事件，原因为{0}", PT_SET.WaitMode));
+                //        Msg.secsManager.Send(new BaseInfo() { Id = 250, Value = (DateTime.Now - threeMinutesAgo).TotalSeconds.ToString("F2") });
+                //    }
+                //    else
+                //    {
+                //        double minute = (secondst / 60);
+                //        // 创建一个表示3分钟的时间间隔  
+                //        TimeSpan threeMinutes = TimeSpan.FromMinutes(minute);
+                //        // 从当前时间中减去3分钟  
+                //        DateTime threeMinutesAgo = now.Subtract(threeMinutes);
+                //        PT_SET.WaitMode = 26;
+                //        VAR.msg.AddMsg(Msg.EM_MSGTYPE.SYS, string.Format("（微停机）待机上传开始事件，原因为{0}", PT_SET.WaitMode));
+                //        Msg.secsManager.Send(new BaseInfo() { Id = 250, Value = (DateTime.Now - threeMinutesAgo).TotalSeconds.ToString("F2") });
+                //    }
+                //    Msg.secsManager.Send(new BaseInfo() { Id = 241, Value = PT_SET.WaitMode.ToString() });
+                //    Msg.secsManager.Send(new BaseInfo() { Id = 242, Value = Encoding.UTF8.GetBytes(MesData.CobMesIdleStatusDict[PT_SET.WaitMode]).Aggregate("", (current, next) => current + " " + next).TrimStart() });
+                //    Msg.secsManager.Send(new BaseInfo() { Id = 8 }, TypeId: 2);
+                //    PT_SET.Isshowmsgpre = true;
+
+                //    #region  待机细分
+
+                //    if (PT_SET.Isshowmsgpre)
+                //    {
+                //        PT_SET.Isshowmsgpre = false;
+                //        PT_SET.WaitMode = PT_SET.WaitMode == 0 ? 26 : PT_SET.WaitMode;
+                //        Msg.secsManager.Send(new BaseInfo() { Id = 241, Value = PT_SET.WaitMode.ToString() });
+                //        Msg.secsManager.Send(new BaseInfo() { Id = 242, Value = Encoding.UTF8.GetBytes(MesData.CobMesIdleStatusDict[PT_SET.WaitMode]).Aggregate("", (current, next) => current + " " + next).TrimStart() });
+                //        Msg.secsManager.Send(new BaseInfo() { Id = 9 }, TypeId: 2);
+                //        VAR.msg.AddMsg(Msg.EM_MSGTYPE.SYS, string.Format("（微停机）待机上传结束事件，原因为{0}", PT_SET.WaitMode));
+                //        Msg.secsManager.Send(new BaseInfo() { Id = 1, Value = Convert.ToInt32(DReport.EmStatus.Run).ToString() });
+                //        Msg.secsManager.Send(new BaseInfo() { Id = 1 }, 2);
+                //    }
+
+                //    #endregion
+                //}
+
+                stopwatch.Reset();
+
+            }
+
+            double seconds = stopwatch.ElapsedMilliseconds / 1000;
+
+            if (seconds > 180)
+            {
+                stopwatch.Stop();
+
+                if (!show && !PT_SET.Isshowmsg)
+                {
+                    DRpt.Report_Status(DReport.EmStatus.Wait, DReport.EmHareware.Null, DReport.EmStatus.Wait.GetDescription(VAR.IsChinese));
+                    Msg.secsManager.Send(new BaseInfo() { Id = 1, Value = Convert.ToInt32(DReport.EmStatus.Wait).ToString() });
+                    Msg.secsManager.Send(new BaseInfo() { Id = 1 }, 2);
+                    // 获取当前时间  
+                    DateTime now = DateTime.Now;
+                    // 创建一个表示3分钟的时间间隔  
+                    TimeSpan threeMinutes = TimeSpan.FromMinutes(3);
+                    // 从当前时间中减去3分钟  
+                    DateTime threeMinutesAgo = now.Subtract(threeMinutes);
+
+                    Msg.secsManager.Send(new BaseInfo() { Id = 240, Value = threeMinutesAgo.ToString("yyyy-MM-dd HH:mm:ss") });
+                    show = true;
+                    COM.mesWaitWarning.WindowState = System.Windows.WindowState.Maximized;
+                    PT_SET.WaitMode = COM.mesWaitWarning.OnShowDialog();
+
+                    show = false;
+                    stopwatch.Reset();
+                    if (PT_SET.WaitMode == -1) return;
+                    VAR.msg.AddMsg(Msg.EM_MSGTYPE.SYS, string.Format("待机上传开始事件，原因为{0}", PT_SET.WaitMode));
+                    Msg.secsManager.Send(new BaseInfo() { Id = 250, Value = (DateTime.Now - threeMinutesAgo).TotalSeconds.ToString("F2") });
+                    Msg.secsManager.Send(new BaseInfo() { Id = 241, Value = PT_SET.WaitMode.ToString() });
+                    Msg.secsManager.Send(new BaseInfo() { Id = 242, Value = Encoding.UTF8.GetBytes(MesData.CobMesIdleStatusDict[PT_SET.WaitMode]).Aggregate("", (current, next) => current + " " + next).TrimStart() });
+                    Msg.secsManager.Send(new BaseInfo() { Id = 8 }, TypeId: 2);
+                    PT_SET.Isshowmsg = true;
+                }
+            }
+        }
+
+        Stopwatch stopwatchnew = new Stopwatch();
+        private void ckb_Check_CheckedChanged(object sender, EventArgs e)
+        {
+            stopwatchnew.Reset();
+            stopwatchnew.Start();
         }
     }
 }

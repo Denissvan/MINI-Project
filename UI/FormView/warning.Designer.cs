@@ -1,4 +1,4 @@
-﻿namespace UI
+namespace UI
 {
     partial class warning
     {
@@ -88,10 +88,10 @@
             // btn_ok
             // 
             this.btn_ok.Font = new System.Drawing.Font("Microsoft Sans Serif", 20F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.btn_ok.Location = new System.Drawing.Point(711, 597);
+            this.btn_ok.Location = new System.Drawing.Point(329, 597);
             this.btn_ok.Name = "btn_ok";
             this.btn_ok.Size = new System.Drawing.Size(268, 80);
-            this.btn_ok.TabIndex = 1;
+            this.btn_ok.TabIndex = 7;
             this.btn_ok.Text = "确定";
             this.btn_ok.UseVisualStyleBackColor = true;
             this.btn_ok.Click += new System.EventHandler(this.btn_ok_Click);
@@ -99,7 +99,7 @@
             // btn_cancle
             // 
             this.btn_cancle.Font = new System.Drawing.Font("Microsoft Sans Serif", 20F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.btn_cancle.Location = new System.Drawing.Point(26, 597);
+            this.btn_cancle.Location = new System.Drawing.Point(37, 597);
             this.btn_cancle.Name = "btn_cancle";
             this.btn_cancle.Size = new System.Drawing.Size(268, 80);
             this.btn_cancle.TabIndex = 2;
@@ -111,10 +111,10 @@
             // btn_abort
             // 
             this.btn_abort.Font = new System.Drawing.Font("Microsoft Sans Serif", 20F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.btn_abort.Location = new System.Drawing.Point(364, 597);
+            this.btn_abort.Location = new System.Drawing.Point(621, 597);
             this.btn_abort.Name = "btn_abort";
             this.btn_abort.Size = new System.Drawing.Size(268, 80);
-            this.btn_abort.TabIndex = 3;
+            this.btn_abort.TabIndex = 1;
             this.btn_abort.Text = "放弃";
             this.btn_abort.UseVisualStyleBackColor = true;
             this.btn_abort.Click += new System.EventHandler(this.btn_abort_Click);

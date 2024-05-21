@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -97,8 +97,8 @@ namespace MotionCtrl
         public ENC_TYPE encode;
         public MT_TYPE mt_type;
 
-        private AX_DIR home_dir;
-        private ushort home_mode;
+        public AX_DIR home_dir;
+        public ushort home_mode;
         public double home_spd;
         public double home_offset;
         public int home_timeout;

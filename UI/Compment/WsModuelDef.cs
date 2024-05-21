@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Drawing;
@@ -24,7 +24,7 @@ namespace UI
 
         public void PmsEn(User.PERMISSION pms)
         {
-            if (pms <= User.PERMISSION.Operator)
+            if (pms <= User.PERMISSION.None)
             {
                 getdata = false;
                 this.Enabled = false;
@@ -32,7 +32,7 @@ namespace UI
             else
             {
                 this.Enabled = true;
-                if (pms >= User.PERMISSION.Engineer)
+                if (pms >= User.PERMISSION.Operator)
                 {
                     for (int i = 0; i < dgv.ColumnCount; i++)
                         dgv.Columns[i].ReadOnly = true;

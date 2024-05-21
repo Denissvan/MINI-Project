@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -17,7 +17,10 @@ using UI.Class;
 using Sunny.UI;
 using Newtonsoft.Json;
 using System.Windows.Media.Media3D;
-
+using System.Windows.Controls.Primitives;
+using IniFile = MotionCtrl.IniFile;
+using Newtonsoft.Json.Linq;
+using static MotionCtrl.AXIS;
 namespace UI
 {
     public partial class FrSys : Form
@@ -31,10 +34,15 @@ namespace UI
                 if (value == false) ioTable.ShowCfg(-1);
             }
         }
-
+        private bool isAPointSelected = false;
+        private bool isBPointSelected = false;
+        private bool isCPointSelected = false;
         public FrSys()
         {
             InitializeComponent();
+
+   
+
             if (FrMain.frsuser != null)
                 PmsfrSys(FrMain.frsuser.user1.cur_user.pms);
             else
@@ -266,7 +274,7 @@ namespace UI
             affineCail_Dw2ToUp2.Init(ref COM.UDLoad2);
             rotAndFly1.AddUDLoad(COM.List_UDLoad);
             taskNpoint1.AddCam(COM.ListCam);
-            NewSysInf.LoadSysInfCfg( out var msg);
+            NewSysInf.LoadSysInfCfg(out var msg);
             ShowData();
 
 
@@ -393,12 +401,12 @@ namespace UI
             if (((CTabControl)sender).SelectedIndex != 2)
                 ioTable.ShowCfg(-1);
             if ((((CTabControl)sender).SelectedTab.Name) == "tp_sysparm") ShowData();
-            if(ctb_sys.SelectedIndex>2)
+            if (ctb_sys.SelectedIndex > 2)
             {
-              var allline=  File.ReadAllLines(System.Environment.CurrentDirectory + "\\vInfo.ini");
+                var allline = File.ReadAllLines(System.Environment.CurrentDirectory + "\\vInfo.ini");
                 textBoVinfo.Clear();
                 foreach (var info in allline)
-                    textBoVinfo.AppendText(info+"\r\n");
+                    textBoVinfo.AppendText(info + "\r\n");
             }
 
         }
@@ -486,9 +494,18 @@ namespace UI
             ckws4wait.Checked = COM.ws4.waitopen;
             nbwaittime.Value = COM.ws1.waittime;
 
+            checkmagic.Checked = PT_SET.Ismagic;
+            nummagic.Value = PT_SET.magictimes;
+
             ckclosewait.Checked = PT_SET.CloseWait;
             nbclosewaittime.Value = PT_SET.CloseWaitTime;
+            cbttpcloseair.Checked = PT_SET.otpclose;
+            numcloseair.Value = (decimal)PT_SET.otpclosetime;
 
+            cbafccloseair.Checked = PT_SET.afcclose;
+            numafc.Value = (decimal)PT_SET.afcclosetime;
+            rbtn_opencheckoven.Checked = PT_SET.OvenCheck;
+            rbtn_closecheckoven.Checked = !PT_SET.OvenCheck;
             //二维码扫码方式
             rbtn_dwcode.Checked = false;
             rbtn_upcode.Checked = false;
@@ -526,7 +543,7 @@ namespace UI
                 ckclosewait.Checked = true;
             }
             else ckclosewait.Checked = false;
-           nbclosewaittime.Value = PT_SET.CloseWaitTime;
+            nbclosewaittime.Value = PT_SET.CloseWaitTime;
             //下料前二维码检测
             if (PT_SET.OpenDownQrde)
             {
@@ -572,7 +589,7 @@ namespace UI
             rbtn_RY1en.Checked = false;
             if (PT_SET.RY1En) rbtn_RY1en.Checked = true;
             else rbtn_RY1dis.Checked = true;
-            safepos.Value= (decimal)PT_SET.safepos;
+            safepos.Value = (decimal)PT_SET.safepos;
             //左右光箱开启设置
             rbtn_lbdis.Checked = false;
             rbtn_lben.Checked = false;
@@ -625,7 +642,8 @@ namespace UI
             //开关取放料角度设置
             rbtn_open_degree.Checked = false;
             rbtn_close_degree.Checked = false;
-            if (PT_SET.isopen_degree) rbtn_open_degree.Checked = true;
+            if (PT_SET.isopen_degree
+                ) rbtn_open_degree.Checked = true;
             else rbtn_close_degree.Checked = true;
             nud_offset_degree.Value = PT_SET.degree;
 
@@ -642,8 +660,8 @@ namespace UI
             if (PT_SET.bBarcodeCamBackEn) rbtn_OpenBarCamBack.Checked = true;
             else rbtn_CloseBarCamBack.Checked = true;
 
-            rbtn_AddCapQrcodeEnOnly.Checked=false;
-            rbtn_AddCapQrcodeEnOnlyClose.Checked=false;
+            rbtn_AddCapQrcodeEnOnly.Checked = false;
+            rbtn_AddCapQrcodeEnOnlyClose.Checked = false;
             //单独进行二维码回检
             if (PT_SET.bBarcodeCamBackEnOnly) rbtn_AddCapQrcodeEnOnly.Checked = true;
             else rbtn_AddCapQrcodeEnOnlyClose.Checked = true;
@@ -651,8 +669,9 @@ namespace UI
             //OK品下料检测
             rbtn_OkCheckEn.Checked = false;
             rbtn_OkCheckDis.Checked = false;
-            if (PT_SET.bOkCheck) rbtn_OkCheckEn.Checked = true;
-            else rbtn_OkCheckDis.Checked = true;
+            /*if (PT_SET.bOkCheck)*/
+            rbtn_OkCheckEn.Checked = true;
+            //else rbtn_OkCheckDis.Checked = true;
 
             if (PT_SET.bboxCheck) rbtn_boxCheckEn.Checked = true;
             else rbtn_boxCheckOff.Checked = true;
@@ -690,7 +709,7 @@ namespace UI
             rbtUpDn2OneXtOff.Checked = false;
             rbtUpDn2OneXtOn.Checked = false;
             if (PT_SET.bUpDn1XtOnlyOne) rbtUpDn1OneXtOn.Checked = true; else rbtUpDn1OneXtOff.Checked = true;
-            if (PT_SET.bUpDn2XtOnlyOne) rbtUpDn2OneXtOn.Checked = true;else rbtUpDn2OneXtOff.Checked = true;
+            if (PT_SET.bUpDn2XtOnlyOne) rbtUpDn2OneXtOn.Checked = true; else rbtUpDn2OneXtOff.Checked = true;
 
             //工站视觉模板增加有无检测
             rbtn_OpenWsVsAddCheck.Checked = false;
@@ -790,10 +809,10 @@ namespace UI
 
             nud_ws_exposure1.Value = (decimal)PT_SET.WsExposure[0];
             nud_ws_exposure2.Value = (decimal)PT_SET.WsExposure[1];
-           
+
             nud_ws_brightness1.Value = (decimal)PT_SET.WsBrightness[0];
             nud_ws_brightness2.Value = (decimal)PT_SET.WsBrightness[1];
-           
+
             nud_ws_contrast1.Value = (decimal)PT_SET.WsContrast[0];
             nud_ws_contrast2.Value = (decimal)PT_SET.WsContrast[1];
             nud_jig_exposure1.Value = (decimal)PT_SET.JigExposure[0];
@@ -807,7 +826,9 @@ namespace UI
             //点检时间设置
             dateTimePicker1.Value = Convert.ToDateTime(PT_SET.CheckTimeMorning);
             dateTimePicker2.Value = Convert.ToDateTime(PT_SET.CheckTimeEvening);
-
+            //执行点检时间设置
+            dateTimePicker3.Value = Convert.ToDateTime(PT_SET.CheckTimeMorning1);
+            dateTimePicker4.Value = Convert.ToDateTime(PT_SET.CheckTimeEvening2);
             //上下料周期保存设置
             rbtn_CycleEn.Checked = false;
             rbtn_CycleDis.Checked = false;
@@ -859,22 +880,34 @@ namespace UI
             nud_TestTime.Value = PT_SET.TestTime;
 
             //夹具扫码gy0123
-             btnStartJigSan1.Checked = COM.ws1.bjigSan;
-             btnStartJigSan2.Checked = COM.ws2.bjigSan; 
-             btnStartJigSan3.Checked = COM.ws3.bjigSan; 
-             btnStartJigSan4.Checked = COM.ws4.bjigSan;
+            btnStartJigSan1.Checked = COM.ws1.bjigSan;
+            btnStartJigSan2.Checked = COM.ws2.bjigSan;
+            btnStartJigSan3.Checked = COM.ws3.bjigSan;
+            btnStartJigSan4.Checked = COM.ws4.bjigSan;
             rabt_jigscan_ON.Checked = PT_SET.bJigSan;
             rabt_jigscan_OFF.Checked = !PT_SET.bJigSan;
 
             //新增上拍二维码
             rbtn_AddCapQrcodeDis.Checked = false;
             rbtn_AddCapQrcodeEn.Checked = false;
-            if (PT_SET.bAddCapQrcode) rbtn_AddCapQrcodeEn.Checked = true;       
+            if (PT_SET.bAddCapQrcode) rbtn_AddCapQrcodeEn.Checked = true;
             else rbtn_AddCapQrcodeDis.Checked = true;
 
+            checkpicktray.Checked = PT_SET.bpicktray;
+            numpicktrayx1.Value = (decimal)PT_SET.picktrayxt1.x;
+            numpicktrayy1.Value = (decimal)PT_SET.picktrayxt1.y;
+            numpicktrayx2.Value = (decimal)PT_SET.picktrayxt2.x;
+            numpicktrayy2.Value = (decimal)PT_SET.picktrayxt2.y;
+            numpicktrayx3.Value = (decimal)PT_SET.picktrayxt3.x;
+            numpicktrayy3.Value = (decimal)PT_SET.picktrayxt3.y;
+            numpicktrayx4.Value = (decimal)PT_SET.picktrayxt4.x;
+            numpicktrayy4.Value = (decimal)PT_SET.picktrayxt4.y;
+            cbcity.SelectedIndex = PT_SET.citynum;
+            ckupload.Checked = PT_SET.upload;
+            ckcloseazd.Checked = PT_SET.closeazd;
             rbtn_DwAddCapQrcodeEn.Checked = PT_SET.bDwAddCapQrcode;
-            rbtn_DwAddCapQrcodeOff.Checked= !PT_SET.bDwAddCapQrcode;
-            rbtn_check2open.Checked= PT_SET.Check2open;
+            rbtn_DwAddCapQrcodeOff.Checked = !PT_SET.bDwAddCapQrcode;
+            rbtn_check2open.Checked = PT_SET.Check2open;
             rbtn_check2close.Checked = !PT_SET.Check2open;
             //回检管控
             nud_LeftArea.Value = (decimal)PT_SET.LeftArea;
@@ -904,9 +937,9 @@ namespace UI
             cb_ConnectorCheck.Checked = PT_SET.bConnectorCheck;
 
             if (PT_SET.EqpPos.Length > 0)
-                tb_eqp_pos.Text = PT_SET.EqpPos ;
+                tb_eqp_pos.Text = PT_SET.EqpPos;
             if (PT_SET.EqpSN.Length > 0)
-                tb_eqp_sn.Text= PT_SET.EqpSN ;
+                tb_eqp_sn.Text = PT_SET.EqpSN;
 
 
             //马达扫码设置
@@ -918,9 +951,25 @@ namespace UI
             nud_MotorZ2.Value = (decimal)PT_SET.MotorZ2;
             nud_MotorZ3.Value = (decimal)PT_SET.MotorZ3;
             nud_MotorZ4.Value = (decimal)PT_SET.MotorZ4;
-            numsunnyokrate.Value = (decimal) PT_SET.Motorrate;
+            numsunnyokrate.Value = (decimal)PT_SET.Motorrate;
             nud_MotorAngle1.Value = (decimal)PT_SET.MotorAngle1;
             nud_Motornum.Value = (decimal)PT_SET.Motornum;
+
+            numng1.Value = (decimal)PT_SET.Numng1;
+            numng2.Value = (decimal)PT_SET.Numng2;
+            numng3.Value = (decimal)PT_SET.Numng3;
+            numng4.Value = (decimal)PT_SET.Numng4;
+            numng5.Value = (decimal)PT_SET.Numng5;
+            numngrate1.Value = (decimal)PT_SET.Numngrate1;
+            numngrate2.Value = (decimal)PT_SET.Numngrate2;
+            numngrate3.Value = (decimal)PT_SET.Numngrate3;
+            numngrate4.Value = (decimal)PT_SET.Numngrate4;
+            numngrate5.Value = (decimal)PT_SET.Numngrate5;
+            checknumng1.Checked = PT_SET.Ckngrate1;
+            checknumng2.Checked = PT_SET.Ckngrate2;
+            checknumng3.Checked = PT_SET.Ckngrate3;
+            checknumng4.Checked = PT_SET.Ckngrate4;
+            checknumng5.Checked = PT_SET.Ckngrate5;
 
             nud_MotorAngle2.Value = (decimal)PT_SET.MotorAngle2;
             nud_MotorAngle3.Value = (decimal)PT_SET.MotorAngle3;
@@ -929,17 +978,22 @@ namespace UI
             if (PT_SET.bsunnyqr) checkBoxSunnyQr.Checked = true;
             else checkBoxSunnyQr.Checked = false;
 
+            if (PT_SET.bdownqr) checkBoxdownQr.Checked = true;
+            else checkBoxdownQr.Checked = false;
+
             if (PT_SET.bsunnyqrleft) checksunnyleft.Checked = true;
             else checksunnyleft.Checked = false;
             if (PT_SET.bsunnyqrright) checksunnyright.Checked = true;
             else checksunnyright.Checked = false;
             if (PT_SET.bsunnyqralm) checkBoxSunnyAlm.Checked = true;
             else checkBoxSunnyAlm.Checked = false;
+            if (PT_SET.bsunnyqralmtray) checkBoxSunnyAlmTray.Checked = true;
+            else checkBoxSunnyAlmTray.Checked = false;
             textBoxSunnyIp.Text = PT_SET.sunnyqrip0;
             textBoxSunnyIp2.Text = PT_SET.sunnyqrip1;
             radWsNgRateShowEn.Checked = PT_SET.bWsNgRateShow;
-            radWsNgRateShowOff.Checked=!PT_SET.bWsNgRateShow;
-            NumWsNgCntPer20.Value = (decimal)PT_SET.CntWsNgRateShow ;
+            radWsNgRateShowOff.Checked = !PT_SET.bWsNgRateShow;
+            NumWsNgCntPer20.Value = (decimal)PT_SET.CntWsNgRateShow;
 
 
             //自动点检
@@ -959,6 +1013,66 @@ namespace UI
             rbt_modeH.Checked = PT_SET.AutoChkMode == (int)PT_SET.AutoChkMod.Huawei;
             rbt_modeL.Checked = PT_SET.AutoChkMode == (int)PT_SET.AutoChkMod.Lenov;
 
+            ///距离光源自动点检
+            AFC_cctdraggableProgressBar.Percentage = PT_SET.afc_cct_uniformity_precent;
+            AFC_luxdraggableProgressBar.Percentage = PT_SET.afc_lux_uniformity_precent;
+            DCC_cctdraggableProgressBar.Percentage = PT_SET.dcc_cct_uniformity_precent;
+            DCC_luxdraggableProgressBar.Percentage = PT_SET.dcc_lux_uniformity_precent;
+            OTP_cctdraggableProgressBar.Percentage = PT_SET.otp_cct_uniformity_precent;
+            OTP_luxdraggableProgressBar.Percentage = PT_SET.otp_lux_uniformity_precent;
+
+            ////屏蔽
+            AFC_APOS.Value = PT_SET.ApointposAFC;
+            AFC_BPOS.Value = PT_SET.BpointposAFC;
+            AFC_CPOS.Value = PT_SET.CpointposAFC;
+            DCC_APOS.Value = PT_SET.ApointposDCC;
+            DCC_BPOS.Value = PT_SET.BpointposDCC;
+            DCC_CPOS.Value = PT_SET.CpointposDCC;
+            OTP_APOS.Value = PT_SET.ApointposOTP;
+            OTP_BPOS.Value = PT_SET.BpointposOTP;
+            OTP_CPOS.Value = PT_SET.CpointposOTP;
+
+
+
+            AFC_distance_check_open.Checked = PT_SET.AFC_distance_check_open ? true : false;
+            DCC_distance_check_open.Checked = PT_SET.DCC_distance_check_open ? true : false;
+            OTP_distance_check_open.Checked = PT_SET.OTP_distance_check_open ? true : false;
+            AFC_luxcct_check_open.Checked = PT_SET.AFC_luxcct_check_open ? true : false;
+            DCC_luxcct_check_open.Checked = PT_SET.DCC_luxcct_check_open ? true : false;
+            OTP_luxcct_check_open.Checked = PT_SET.OTP_luxcct_check_open ? true : false;
+            if (PT_SET.AFC_distance_check_open || PT_SET.DCC_distance_check_open)
+            {
+                COM_1.Enabled = true;
+                COM_1.Text = PT_SET.COM_1;
+            }
+            else
+            {
+                COM_1.Enabled = false;
+            }
+
+            if (PT_SET.AFC_luxcct_check_open || PT_SET.OTP_luxcct_check_open|| PT_SET.DCC_luxcct_check_open)
+            {
+                COM_2.Enabled = true;
+                COM_1.Text = PT_SET.COM_1;
+                COM_2.Text = PT_SET.COM_2;
+                COM_3.Text = PT_SET.COM_3;
+            }
+            else
+
+            {
+                COM_2.Enabled = false;
+                COM_3.Enabled = false;
+            }
+            switch (PT_SET.CheckWs)
+            {
+                case 1: CheckWsCombox.Text = "工站1"; break;
+                case 2: CheckWsCombox.Text = "工站2"; break;
+                case 3: CheckWsCombox.Text = "工站3"; break;
+                case 4: CheckWsCombox.Text = "工站4"; break;
+
+            }
+            distance_coefficient.Value = (decimal)PT_SET.distance_coefficient;
+            stanum.Text=(PT_SET.stanum).ToString();
             rbt_modeM_CheckedChanged(rbt_modeL, null);
 
         }
@@ -1049,6 +1163,20 @@ namespace UI
 
         public void GetData()
         {
+            PT_SET.bpicktray = checkpicktray.Checked;
+            PT_SET.picktrayxt1.x = (double)numpicktrayx1.Value;
+            PT_SET.picktrayxt1.y = (double)numpicktrayy1.Value;
+            PT_SET.picktrayxt2.x = (double)numpicktrayx2.Value;
+            PT_SET.picktrayxt2.y = (double)numpicktrayy2.Value;
+            PT_SET.picktrayxt3.x = (double)numpicktrayx3.Value;
+            PT_SET.picktrayxt3.y = (double)numpicktrayy3.Value;
+            PT_SET.picktrayxt4.x = (double)numpicktrayx4.Value;
+            PT_SET.picktrayxt4.y = (double)numpicktrayy4.Value;
+            PT_SET.citynum = cbcity.SelectedIndex;
+            PT_SET.upload =ckupload.Checked;
+            PT_SET.closeazd = ckcloseazd.Checked;
+            //烘烤检测
+            PT_SET.OvenCheck = rbtn_opencheckoven.Checked;
             //光源选择
             PT_SET.bG4C = rad_G4C.Checked;
             //夹具扫码gy0123
@@ -1058,8 +1186,9 @@ namespace UI
             COM.ws4.bjigSan = btnStartJigSan4.Checked;
             PT_SET.bJigSan = rabt_jigscan_ON.Checked;
             PT_SET.Check2open = rbtn_check2open.Checked;
-            PT_SET.Isaloneset= cbisaloneset.Checked;
-
+            PT_SET.Isaloneset = cbisaloneset.Checked;
+            PT_SET.Ismagic = checkmagic.Checked;
+            PT_SET.magictimes = (int)nummagic.Value;
             PT_SET.CloseWait = ckclosewait.Checked;
             PT_SET.CloseWaitTime = (int)nbclosewaittime.Value;
 
@@ -1077,7 +1206,7 @@ namespace UI
             if (rbtn_upcode.Checked) PT_SET.BarcodeMode = (int)PT_SET.BAR_SCAN.UP_SCAN;
             else if (rbtn_dwcode.Checked) PT_SET.BarcodeMode = (int)PT_SET.BAR_SCAN.DW_SCAN;
             else PT_SET.BarcodeMode = (int)PT_SET.BAR_SCAN.NO_SCAN;
-            PT_SET.safepos=(double)safepos.Value;
+            PT_SET.safepos = (double)safepos.Value;
             //运行模式
             if (rbtn_twomd.Checked) PT_SET.UpDownRunMode = (int)PT_SET.RUN_MD.BOTH_WORK;
             else if (rbtn_md1.Checked) PT_SET.UpDownRunMode = (int)PT_SET.RUN_MD.MD1_WORK;
@@ -1101,6 +1230,24 @@ namespace UI
                 PT_SET.UpDownQrde = false;
                 PT_SET.DownDownQrde = true;
             }
+            if (cbttpcloseair.Checked)
+            {
+                PT_SET.otpclose = true;
+            }
+            else
+            {
+                PT_SET.otpclose = false;
+            }
+            PT_SET.otpclosetime = (double)numcloseair.Value;
+            if (cbafccloseair.Checked)
+            {
+                PT_SET.afcclose = true;
+            }
+            else
+            {
+                PT_SET.afcclose = false;
+            }
+            PT_SET.afcclosetime = (double)numafc.Value;
 
             //运行方式
             if (rbtn_run_normal.Checked) PT_SET.RunPattern = (int)PT_SET.RUN_PATTERN.RUN_NORMAL;
@@ -1170,16 +1317,17 @@ namespace UI
             {
                 PT_SET.bBarcodeCamBackEn = true;
             }
-            
-            if (rbtn_AddCapQrcodeEnOnly.Checked  ) PT_SET.bBarcodeCamBackEnOnly = true;
-            else if (rbtn_AddCapQrcodeEnOnlyClose.Checked)PT_SET.bBarcodeCamBackEnOnly = false;
+
+            if (rbtn_AddCapQrcodeEnOnly.Checked) PT_SET.bBarcodeCamBackEnOnly = true;
+            else if (rbtn_AddCapQrcodeEnOnlyClose.Checked) PT_SET.bBarcodeCamBackEnOnly = false;
 
             //rbtn_CloseBarCamBack.Checked = false;
             //if (!rbtn_CloseBarCamBack.Checked) rbtn_OpenBarCamBack.Checked = true; 
             //PT_SET.bBarcodeCamBackEn = rbtn_OpenBarCamBack.Checked;
             //OK品下料检测设置
-            if (rbtn_OkCheckEn.Checked) PT_SET.bOkCheck = true;
-            else if (rbtn_OkCheckDis.Checked) PT_SET.bOkCheck = false;
+            /*if (rbtn_OkCheckEn.Checked)*/
+            PT_SET.bOkCheck = true;
+            //**  else if (rbtn_OkCheckDis.Checked)*/ PT_SET.bOkCheck = false;*/
             //夹具安装防呆检测设置
             if (rbtn_boxCheckEn.Checked) PT_SET.bboxCheck = true;
             else if (rbtn_boxCheckOff.Checked) PT_SET.bboxCheck = false;
@@ -1300,6 +1448,9 @@ namespace UI
             //点检时间设置
             PT_SET.CheckTimeMorning = dateTimePicker1.Value.ToString("HH:mm:ss");
             PT_SET.CheckTimeEvening = dateTimePicker2.Value.ToString("HH:mm:ss");
+            //执行点检时间设置
+            PT_SET.CheckTimeMorning1 = dateTimePicker3.Value.ToString("HH:mm:ss");
+            PT_SET.CheckTimeEvening2 = dateTimePicker4.Value.ToString("HH:mm:ss");
             //上下料周期保存设置
             if (rbtn_CycleEn.Checked) PT_SET.bCycle = true;
             else if (rbtn_CycleDis.Checked) PT_SET.bCycle = false;
@@ -1380,13 +1531,32 @@ namespace UI
             PT_SET.MotorAngle2 = (int)nud_MotorAngle2.Value;
             PT_SET.MotorAngle3 = (int)nud_MotorAngle3.Value;
             PT_SET.MotorAngle4 = (int)nud_MotorAngle4.Value;
+            PT_SET.Numng1 = (int)numng1.Value;
+            PT_SET.Numng2 = (int)numng2.Value;
+            PT_SET.Numng3 = (int)numng3.Value;
+            PT_SET.Numng4 = (int)numng4.Value;
+            PT_SET.Numng5 = (int)numng5.Value;
+            PT_SET.Numngrate1 = (double)numngrate1.Value;
+            PT_SET.Numngrate2 = (double)numngrate2.Value;
+            PT_SET.Numngrate3 = (double)numngrate3.Value;
+            PT_SET.Numngrate4 = (double)numngrate4.Value;
+            PT_SET.Numngrate5 = (double)numngrate5.Value;
+            PT_SET.Ckngrate1 = checknumng1.Checked;
+            PT_SET.Ckngrate2 = checknumng2.Checked;
+            PT_SET.Ckngrate3 = checknumng3.Checked;
+            PT_SET.Ckngrate4 = checknumng4.Checked;
+            PT_SET.Ckngrate5 = checknumng5.Checked;
+
+
             PT_SET.motorBarcodeDigits = (int)nud_MotorbarcodeDigits.Value;
-            PT_SET.bsunnyqr=checkBoxSunnyQr.Checked;
+            PT_SET.bsunnyqr = checkBoxSunnyQr.Checked;
+            PT_SET.bdownqr = checkBoxdownQr.Checked;
             PT_SET.bsunnyqrright = checksunnyright.Checked;
             PT_SET.bsunnyqrleft = checksunnyleft.Checked;
 
             PT_SET.bsunnyqralm = checkBoxSunnyAlm.Checked;
-            PT_SET.sunnyqrip0 =textBoxSunnyIp.Text ;
+            PT_SET.bsunnyqralmtray = checkBoxSunnyAlmTray.Checked;
+            PT_SET.sunnyqrip0 = textBoxSunnyIp.Text;
             PT_SET.sunnyqrip1 = textBoxSunnyIp2.Text;
             PT_SET.bWsNgRateShow = radWsNgRateShowEn.Checked;
             PT_SET.CntWsNgRateShow = (int)NumWsNgCntPer20.Value;
@@ -1475,7 +1645,60 @@ namespace UI
                     }
                 }
             }
+            PT_SET.afc_cct_uniformity_precent= AFC_luxdraggableProgressBar.Percentage;
+            PT_SET.afc_lux_uniformity_precent= AFC_cctdraggableProgressBar.Percentage;
+            PT_SET.dcc_cct_uniformity_precent = DCC_cctdraggableProgressBar.Percentage;
+            PT_SET.dcc_lux_uniformity_precent = DCC_luxdraggableProgressBar.Percentage;
+            PT_SET.otp_cct_uniformity_precent = OTP_cctdraggableProgressBar.Percentage;
+            PT_SET.otp_lux_uniformity_precent = OTP_luxdraggableProgressBar.Percentage;
 
+            ////屏蔽
+            PT_SET.ApointposAFC = AFC_APOS.Value;
+            PT_SET.BpointposAFC = AFC_BPOS.Value;
+            PT_SET.CpointposAFC = AFC_CPOS.Value;
+            PT_SET.ApointposDCC = DCC_APOS.Value;
+            PT_SET.BpointposDCC = DCC_BPOS.Value;
+            PT_SET.CpointposDCC = DCC_CPOS.Value;
+            PT_SET.ApointposOTP = OTP_APOS.Value;
+            PT_SET.BpointposOTP = OTP_BPOS.Value;
+            PT_SET.CpointposOTP = OTP_CPOS.Value;
+
+
+
+            var uniquePorts = new HashSet<string>();
+            bool a=uniquePorts.Add(COM_1.Text);
+            bool b = uniquePorts.Add(COM_2.Text);
+            bool c = uniquePorts.Add(COM_3.Text);
+            if (!(a && b && c))
+            {
+                MessageBox.Show("输入的COM口有重复,COM口保存失败");
+            }
+            else
+            {
+                PT_SET.COM_1 = COM_1.Text;
+                PT_SET.COM_2 = COM_2.Text;
+                PT_SET.COM_3 = COM_3.Text;
+            }
+            PT_SET.CheckTimer= (double)AutoCheckTimer.Value;
+
+            PT_SET.AFC_distance_check_open = AFC_distance_check_open.Checked ? true : false;
+            PT_SET.DCC_distance_check_open = DCC_distance_check_open.Checked ? true : false;
+            PT_SET.OTP_distance_check_open = OTP_distance_check_open.Checked ? true : false;
+            PT_SET.AFC_luxcct_check_open = AFC_luxcct_check_open.Checked ? true : false;
+            PT_SET.DCC_luxcct_check_open = DCC_luxcct_check_open.Checked ? true : false;
+            PT_SET.OTP_luxcct_check_open = OTP_luxcct_check_open.Checked ? true : false;
+
+            switch (CheckWsCombox.Text)
+            {
+                case "工站1":PT_SET.CheckWs = 1; break;
+                case "工站2": PT_SET.CheckWs = 2; break;
+                case "工站3": PT_SET.CheckWs = 3; break;
+                case "工站4": PT_SET.CheckWs = 4; break;
+
+            }
+            PT_SET.distance_coefficient = (double)distance_coefficient.Value;
+            PT_SET.stanum = int.Parse(stanum.Text);
+           
         }
         public bool ReloadUpcamTask(string tskname)
         {
@@ -1498,14 +1721,14 @@ namespace UI
             bool WsUpdate = false;
             bool res = true;
             int bitOpenMode_temp = 1;
-           
+
             VAR.msg.AddMsg(Msg.EM_MSGTYPE.DBG, "当前参数保存者:" + FrMain.frsuser.user1.cur_user);
             Type staticClassType = typeof(PT_SET);
             // 获取所有字段
             FieldInfo[] fields = staticClassType.GetFields(BindingFlags.Public | BindingFlags.Static);
             foreach (FieldInfo field in fields)
             {
-                VAR.msg.AddMsg(Msg.EM_MSGTYPE.DBG,$"{field.Name}: {field.GetValue(null)}");
+                VAR.msg.AddMsg(Msg.EM_MSGTYPE.DBG, $"{field.Name}: {field.GetValue(null)}");
             }
 
             // 获取所有属性
@@ -1565,11 +1788,11 @@ namespace UI
                 if (PT_SET.LbEn != rbtn_lben.Checked || PT_SET.issmall != rbtn_small.Checked ||
                     PT_SET.bitOpenMode != bitOpenMode_temp) WsUpdate = true;
 
-               
+
 
                 GetData();
-              var bgetOk=  dataGrideSysInfo1.GetDataFromGride();
-             
+                var bgetOk = dataGrideSysInfo1.GetDataFromGride();
+
                 PT_SET.SavePtCfg(VAR.gsys_set.cur_product_name);
                 PT_SET.LoadPtCfg(VAR.gsys_set.cur_product_name);
                 foreach (Cam cam in COM.ListCam)
@@ -1611,9 +1834,9 @@ namespace UI
                 if (PT_SET.bJigSan) vv = "1";
                 Msg.secsManager.Send(new BaseInfo() { Id = 9, Value = vv });
 
-                if(PT_SET.EqpSN=="123456")
+                if (PT_SET.EqpSN == "123456")
                 {
-                    MessageBox.Show(VAR.IsChinese ? "请在设置参数3界面填写设备编号和厂区!" : "please write the information of eqpument on SefForm Set3\r\n请在设置参数3界面填写设备编号和厂区!", 
+                    MessageBox.Show(VAR.IsChinese ? "请在设置参数3界面填写设备编号和厂区!" : "please write the information of eqpument on SefForm Set3\r\n请在设置参数3界面填写设备编号和厂区!",
                         VAR.IsChinese ? "提示" : "Prompt");
                     return;
                 }
@@ -1629,18 +1852,18 @@ namespace UI
         private void radioButton2_CheckedChanged(object sender, EventArgs e)
         {
             //gy0123夹具扫码设置
-          
+
         }
 
         private void button1_Click(object sender, EventArgs e)
         {
-            
-         
+
+
         }
 
         private void button2_Click(object sender, EventArgs e)
         {
-           
+
         }
 
         private void radioButton1_CheckedChanged(object sender, EventArgs e)
@@ -1657,19 +1880,19 @@ namespace UI
             ng_miss_pix_rate = 0.66;
             ng_OS_rate = 0.55;
             ng_other_rate = 0.33;
-            string ng_msg = string.Format("\r\n 开图NG率:{0} \r\n IIC读写NG率:{1} \r\n 曝光NG率:{2} \r\n 图像丢帧率:{3}\r\n OS异常率:{4}\r\n 其他NG率: {5}", 
+            string ng_msg = string.Format("\r\n 开图NG率:{0} \r\n IIC读写NG率:{1} \r\n 曝光NG率:{2} \r\n 图像丢帧率:{3}\r\n OS异常率:{4}\r\n 其他NG率: {5}",
             ng_image_rate.ToString("P"), ng_iic_rate.ToString("P"), ng_exposure_rate.ToString("P"),
             ng_miss_pix_rate.ToString("P"), ng_OS_rate.ToString("P"), ng_other_rate.ToString("P"));
 
-            DialogResult dr =FrRun. Dialog(Color.Yellow, "警告", "当前良率低，请注意!可清零！" + ng_msg, "确定", "清除");
+            DialogResult dr = FrRun.Dialog(Color.Yellow, "警告", "当前良率低，请注意!可清零！" + ng_msg, "确定", "清除");
             if (dr == DialogResult.Cancel)
             {
-                DialogResult drq = FrRun. Dialog(Color.Yellow, "警告", "清除后临时生产数据归零。", "确定", "取消");
+                DialogResult drq = FrRun.Dialog(Color.Yellow, "警告", "清除后临时生产数据归零。", "确定", "取消");
                 if (dr == DialogResult.OK)
                 {
                     DRpt.Report_Opration(1000, 0, "归位按键按下!");
-                    
-                }           
+
+                }
             }
         }
 
@@ -1684,36 +1907,36 @@ namespace UI
             md.cnt_ng_other = 0;
             md.cnt_ok = 0;
             UpDownLoad mupd = new UpDownLoad();
-            mupd.  GetModJigData(1, md);//发送更新之后的数据清零
+            mupd.GetModJigData(1, md);//发送更新之后的数据清零
         }
 
         private async void btnmotoScanClick(object sender, EventArgs e)
         {
             Button mbtn = (Button)sender;
-            
+
             try
             {
                 mbtn.Enabled = false;
                 Task mm = new Task(() => {
                     int xtid = 0;
-                    UpDownLoad mupd= COM.UDLoad2;
+                    UpDownLoad mupd = COM.UDLoad2;
                     //if(PT_SET.bmotorphoto==false)
                     //{
                     //    MessageBox.Show( "请开启扫码功能：");
                     //    return;
                     //}
-                    if(mbtn.Name.Contains("1")|| mbtn.Name.Contains("2"))
+                    if (mbtn.Name.Contains("1") || mbtn.Name.Contains("2"))
                     {
                         mupd = COM.UDLoad1;
                         if (mbtn.Name.Contains("1"))
                         {
                             xtid = 0;
-                           
+
                         }
                         else
                         {
                             xtid = 1;
-                        }                   
+                        }
                     }
                     if (mbtn.Name.Contains("3") || mbtn.Name.Contains("4"))
                     {
@@ -1734,13 +1957,13 @@ namespace UI
                     }
                     xt.XtMd.motor_barcode = "";
                     bool bquit = false;
-                   var res = mupd.MotoScan(ref bquit, xtid);
-                    if (xt.XtMd.motor_barcode != null&& xt.XtMd.motor_barcode.Length>3)
-                        MessageBox.Show(xt.disc+"扫码成功，结果是：" + xt.XtMd.motor_barcode);
-                    else MessageBox.Show(xt.disc+"扫码失败：");
+                    var res = mupd.MotoScan(ref bquit, xtid);
+                    if (xt.XtMd.motor_barcode != null && xt.XtMd.motor_barcode.Length > 3)
+                        MessageBox.Show(xt.disc + "扫码成功，结果是：" + xt.XtMd.motor_barcode);
+                    else MessageBox.Show(xt.disc + "扫码失败：");
                 });
                 mm.Start();
-               await mm;
+                await mm;
             }
             finally
             {
@@ -1754,10 +1977,10 @@ namespace UI
         }
 
         private void button4_Click(object sender, EventArgs e)
-        {          
+        {
             MT.COM3.ReInit();
-            if(MT.COM3.bComInitOK) MessageBox.Show("打开成功" );
-          else  MessageBox.Show("打开失败");
+            if (MT.COM3.bComInitOK) MessageBox.Show("打开成功");
+            else MessageBox.Show("打开失败");
         }
 
         private void button5_Click(object sender, EventArgs e)
@@ -1769,7 +1992,7 @@ namespace UI
 
         private void button6_Click(object sender, EventArgs e)
         {
-           
+
         }
 
         private void button6_Click_1(object sender, EventArgs e)
@@ -2066,22 +2289,22 @@ namespace UI
 
         private void buttonboxcheckmove_Click(object sender, EventArgs e)
         {
-            var res=MessageBox.Show("确定要进行定位，(上下料模块2)点击是进行位置1定位，点击否进行位置2定位，点击取消则退出 ？", "警告", MessageBoxButtons.YesNoCancel, MessageBoxIcon.Warning, MessageBoxDefaultButton.Button2);
+            var res = MessageBox.Show("确定要进行定位，(上下料模块2)点击是进行位置1定位，点击否进行位置2定位，点击取消则退出 ？", "警告", MessageBoxButtons.YesNoCancel, MessageBoxIcon.Warning, MessageBoxDefaultButton.Button2);
             PT_SET.boxpos1.x = (double)boxCheckpos1X.Value;
             PT_SET.boxpos1.y = (double)boxCheckpos1Y.Value;
             PT_SET.boxpos2.x = (double)boxCheckpos2X.Value;
             PT_SET.boxpos2.y = (double)boxCheckpos2Y.Value;
             VAR.gsys_set.bquit = false;
-            if (res== DialogResult.Yes)
+            if (res == DialogResult.Yes)
             {
-               
+
                 EM_RES rest = MT.Move(ref VAR.gsys_set.bquit, ref COM.UDLoad2.ax_z, 0);
                 if (rest == EM_RES.OK)
                 {
-                  MT.Move(ref VAR.gsys_set.bquit, ref COM.UDLoad2.ax_x, PT_SET.boxpos1.x, ref COM.UDLoad2.ax_y, PT_SET.boxpos1.y);
+                    MT.Move(ref VAR.gsys_set.bquit, ref COM.UDLoad2.ax_x, PT_SET.boxpos1.x, ref COM.UDLoad2.ax_y, PT_SET.boxpos1.y);
                 }
             }
-            else  if (res == DialogResult.Yes)
+            else if (res == DialogResult.Yes)
             {
                 EM_RES rest = MT.Move(ref VAR.gsys_set.bquit, ref COM.UDLoad2.ax_z, 0);
                 if (rest == EM_RES.OK)
@@ -2154,7 +2377,7 @@ namespace UI
         {
             bool bq = false;
             string Code;
-           var res= COM.Sunnnyqr0.QrAction(ref bq,out Code);
+            var res = COM.Sunnnyqr0.QrAction(ref bq, out Code);
             if (res != EM_RES.OK)
             {
                 MessageBox.Show("扫码失败");
@@ -2163,7 +2386,7 @@ namespace UI
             {
                 if ((Code.Length - 4) != PT_SET.motorBarcodeDigits && NewSysInf.UserParams.bCheckMotoCodeLength)
                 {
-                    VAR.msg.AddMsg(Msg.EM_MSGTYPE.NOR, $"马达二维码位数校验失败，扫码长度:{Code.Length},设置长度:{PT_SET.motorBarcodeDigits}");                   
+                    VAR.msg.AddMsg(Msg.EM_MSGTYPE.NOR, $"马达二维码位数校验失败，扫码长度:{Code.Length},设置长度:{PT_SET.motorBarcodeDigits}");
                 }
             }
 
@@ -2185,6 +2408,221 @@ namespace UI
                     VAR.msg.AddMsg(Msg.EM_MSGTYPE.NOR, $"马达二维码位数校验失败，扫码长度:{Code.Length},设置长度:{PT_SET.motorBarcodeDigits}");
                 }
             }
+        }
+
+        private void button6_Click_2(object sender, EventArgs e)
+        {
+            if (textBoxpassword.Text == "hyq20231102000!")
+            {
+                if (groupBox67.Enabled)
+                {
+                    groupBox67.Enabled = false;
+                    textBoxpassword.Text = "";
+                }
+                else
+                {
+                    groupBox67.Enabled = true;
+
+                }
+            }
+        }
+
+        private void rbtn_motoren_CheckedChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void btn_lightgetpos_Click(object sender, EventArgs e)
+        {
+            
+            OTP_APOS.Z = MT.AXIS_BOX_OTP_Z.fenc_pos;
+        }
+
+        private void btn_lightgotopos_Click(object sender, EventArgs e)
+        {
+           
+            EM_RES res;
+            bool bquit = false;
+            MT.SetAllAxToManualSpd();
+            double pos = Convert.ToDouble(OTP_APOS.Z);
+            res = MT.AXIS_BOX_OTP_Z.MoveTo(ref bquit, pos, 25000, true);
+
+        }
+       
+        private void UpdateLabelSelectionState(Label label)
+        {
+            bool isSelected = false;
+
+            // 根据Label名称获取选中状态
+            switch (label.Name)
+            {
+                case "lblAPoint":
+                    isSelected = isAPointSelected;
+                    break;
+                case "lblBPoint":
+                    isSelected = isBPointSelected;
+                    break;
+                case "lblCPoint":
+                    isSelected = isCPointSelected;
+                    break;
+            }
+
+            // 更新外观
+            label.ForeColor = isSelected ? System.Drawing.Color.Red : System.Drawing.Color.Blue;
+            label.Font = new System.Drawing.Font(label.Font, isSelected ? System.Drawing.FontStyle.Bold : System.Drawing.FontStyle.Regular);
+        }
+        private void SetLabelClickableStyle(Label label)
+        {
+            label.Cursor = Cursors.Hand;
+            label.ForeColor = System.Drawing.Color.Blue;
+            label.Text += " (点击选择)";
+        }
+      
+        private void button13_Click(object sender, EventArgs e)
+        {
+            //屏蔽
+            DCC_APOS.X = MT.AXIS_BOX_R_X1.fenc_pos;
+            DCC_APOS.Z = MT.AXIS_BOX_R_Z2.fenc_pos;
+        }
+
+        private void button15_Click(object sender, EventArgs e)
+        {
+            //屏蔽
+            AFC_APOS.X = MT.AXIS_BOX_L_X1.fenc_pos;
+            AFC_APOS.Z = MT.AXIS_BOX_L_Z2.fenc_pos;
+        }
+
+        private void button14_Click(object sender, EventArgs e)
+        {
+            LightBox lb = COM.RightLightBox;
+            LightBox.PosDef PosDef = new LightBox.PosDef();
+            PosDef.X1 = DCC_APOS.X;
+            PosDef.Z2 = DCC_APOS.Z;
+            EM_RES res;
+            bool bquit = false;
+            MT.SetAllAxToManualSpd();
+            res = lb.MoveTo(ref bquit, PosDef, 0);
+
+
+        }
+
+        private void button16_Click(object sender, EventArgs e)
+        {
+
+            LightBox lb = COM.LeftLightBox;
+            LightBox.PosDef PosDef = new LightBox.PosDef();
+            PosDef.X1 = AFC_APOS.X;
+            PosDef.Z2= AFC_APOS.Z;
+            //屏蔽
+            EM_RES res;
+            bool bquit = false;
+            MT.SetAllAxToManualSpd();
+            res = lb.MoveTo(ref bquit, PosDef,0);
+
+        }
+
+        private void button18_Click(object sender, EventArgs e)
+        {
+            //屏蔽
+            AFC_BPOS.X = MT.AXIS_BOX_L_X1.fenc_pos;
+            AFC_BPOS.Z = MT.AXIS_BOX_L_Z2.fenc_pos;
+        }
+
+        private void button20_Click(object sender, EventArgs e)
+        {
+            //屏蔽
+            AFC_CPOS.X = MT.AXIS_BOX_L_X1.fenc_pos;
+            AFC_CPOS.Z = MT.AXIS_BOX_L_Z2.fenc_pos;
+        }
+
+        private void button19_Click(object sender, EventArgs e)
+        {
+            LightBox lb = COM.LeftLightBox;
+            LightBox.PosDef PosDef = new LightBox.PosDef();
+            PosDef.X1 = AFC_BPOS.X;
+            PosDef.Z2 = AFC_BPOS.Z;
+            EM_RES res;
+            bool bquit = false;
+            MT.SetAllAxToManualSpd();
+            res = lb.MoveTo(ref bquit, PosDef, 0);
+        }
+
+        private void button21_Click(object sender, EventArgs e)
+        {
+            LightBox lb = COM.LeftLightBox;
+            LightBox.PosDef PosDef = new LightBox.PosDef();
+            PosDef.X1 = AFC_CPOS.X;
+            PosDef.Z2 = AFC_CPOS.Z;
+            EM_RES res;
+            bool bquit = false;
+            MT.SetAllAxToManualSpd();
+            res = lb.MoveTo(ref bquit, PosDef, 0);
+
+        }
+
+        private void button22_Click(object sender, EventArgs e)
+        {
+            DCC_BPOS.X = MT.AXIS_BOX_R_X1.fenc_pos;
+            DCC_BPOS.Z = MT.AXIS_BOX_R_Z2.fenc_pos;
+        }
+
+        private void button23_Click(object sender, EventArgs e)
+        {
+            LightBox lb = COM.RightLightBox;
+            LightBox.PosDef PosDef = new LightBox.PosDef();
+            PosDef.X1 = DCC_BPOS.X;
+            PosDef.Z2 = DCC_BPOS.Z;
+            EM_RES res;
+            bool bquit = false;
+            MT.SetAllAxToManualSpd();
+            res = lb.MoveTo(ref bquit, PosDef, 0);
+
+        }
+
+        private void button24_Click(object sender, EventArgs e)
+        {
+            DCC_CPOS.X = MT.AXIS_BOX_R_X1.fenc_pos;
+            DCC_CPOS.Z = MT.AXIS_BOX_R_Z2.fenc_pos;
+        }
+
+        private void button25_Click(object sender, EventArgs e)
+        {
+            LightBox lb = COM.RightLightBox;
+            LightBox.PosDef PosDef = new LightBox.PosDef();
+            PosDef.X1 = DCC_CPOS.X;
+            PosDef.Z2 = DCC_CPOS.Z;
+            EM_RES res;
+            bool bquit = false;
+            MT.SetAllAxToManualSpd();
+            res = lb.MoveTo(ref bquit, PosDef, 0);
+        }
+
+        private void button26_Click(object sender, EventArgs e)
+        {
+            OTP_BPOS.Z = MT.AXIS_BOX_OTP_Z.fenc_pos;
+        }
+
+        private void button28_Click(object sender, EventArgs e)
+        {
+            OTP_CPOS.Z = MT.AXIS_BOX_OTP_Z.fenc_pos;
+        }
+
+        private void button27_Click(object sender, EventArgs e)
+        {
+            EM_RES res;
+            bool bquit = false;
+            MT.SetAllAxToManualSpd();
+            double pos = Convert.ToDouble(OTP_BPOS.Z);
+            res = MT.AXIS_BOX_OTP_Z.MoveTo(ref bquit, pos, 25000, true);
+        }
+
+        private void button29_Click(object sender, EventArgs e)
+        {
+            EM_RES res;
+            bool bquit = false;
+            MT.SetAllAxToManualSpd();
+            double pos = Convert.ToDouble(OTP_CPOS.Z);
+            res = MT.AXIS_BOX_OTP_Z.MoveTo(ref bquit, pos, 25000, true);
         }
     }
 }

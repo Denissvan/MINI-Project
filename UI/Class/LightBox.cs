@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.IO;
@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using DevReport;
 using MotionCtrl;
+using UI.Class;
 
 namespace UI
 {
@@ -66,6 +67,14 @@ namespace UI
         {
             public int ID;
             public string Name;
+            public double ActualDistanceParam;
+            public double DistanceThreshold;
+            public double Comp;
+            public double TeleComp;
+            public double ActualLuxParam;
+            public double LuxThreshold;
+            public double ActualCctParam;
+            public double CctThreshold;
             public double X1;
             public double X2;
             public double Y1;
@@ -387,6 +396,10 @@ namespace UI
         double x1 = 0, x2 = 0, y1 = 0, z1 = 0, z2 = 0, zotp = 0;
         bool btsk = false;
         /// <summary>
+        /// 每日点检次数
+        /// </summary>
+        public int AutoCheckCount;
+        /// <summary>
         /// 当前位置字符串
         /// </summary>
         public string StrOfPos
@@ -451,6 +464,15 @@ namespace UI
                 {
                     inf.WriteString(str_section, "Name", pos.Name,ref ischange, true, filename);
                     inf.WriteInteger(str_section, "ID", pos.ID, ref ischange, true, filename);
+                    inf.WriteDouble(str_section, "ActualDistanceParam", pos.ActualDistanceParam, ref ischange, true, filename);
+                    inf.WriteDouble(str_section, "DistanceThreshold", pos.DistanceThreshold, ref ischange, true, filename);
+                    inf.WriteDouble(str_section, "Comp", pos.Comp, ref ischange, true, filename);
+                    inf.WriteDouble(str_section, "TeleComp", pos.TeleComp, ref ischange, true, filename);
+                    inf.WriteDouble(str_section, "ActualLuxParam", pos.ActualLuxParam, ref ischange, true, filename);
+                    inf.WriteDouble(str_section, "DistanceThreshold", pos.DistanceThreshold, ref ischange, true, filename);
+                    inf.WriteDouble(str_section, "ActualCctParam", pos.ActualCctParam, ref ischange, true, filename);
+                    inf.WriteDouble(str_section, "CctThreshold", pos.CctThreshold, ref ischange, true, filename);
+                    inf.WriteDouble(str_section, "LuxThreshold", pos.LuxThreshold, ref ischange, true, filename);
                     inf.WriteDouble(str_section, "X1", pos.X1, ref ischange, true, filename);
                     inf.WriteDouble(str_section, "X2", pos.X2, ref ischange, true, filename);
                     inf.WriteBool(str_section, "Isuse", pos.IsUse, ref ischange, true, filename);
@@ -546,6 +568,14 @@ namespace UI
                 pos.Name = inf.ReadString(str_section, "Name", "");
                 if (pos.Name.Length < 1) continue;
                 pos.IsUse = inf.ReadBool(str_section, "Isuse",true);
+                pos.ActualDistanceParam = inf.ReadDouble(str_section, "ActualDistanceParam", 0);
+                pos.DistanceThreshold = inf.ReadDouble(str_section, "DistanceThreshold", 0);
+                pos.Comp = inf.ReadDouble(str_section, "Comp", 0);
+                pos.TeleComp = inf.ReadDouble(str_section, "TeleComp", 0);
+                pos.ActualLuxParam = inf.ReadDouble(str_section, "ActualLuxParam", 0);
+                pos.LuxThreshold = inf.ReadDouble(str_section, "LuxThreshold", 0);
+                pos.ActualCctParam = inf.ReadDouble(str_section, "ActualCctParam", 0);
+                pos.CctThreshold = inf.ReadDouble(str_section, "CctThreshold", 0);
                 pos.X1 = inf.ReadDouble(str_section, "X1", double.MaxValue);
                 pos.X2 = inf.ReadDouble(str_section, "X2", double.MaxValue);
                 pos.Y1 = inf.ReadDouble(str_section, "Y1", double.MaxValue);
@@ -670,7 +700,7 @@ namespace UI
             int t = Environment.TickCount;
             PosDef pos = ListPos.Find(delegate (PosDef x) { return x.ID == idx; });
             if (pos == null) return EM_RES.END;
-
+ 
 
             if (!pos.IsUse)
             {
@@ -700,6 +730,8 @@ namespace UI
             {
                 VAR.msg.AddMsg(Msg.EM_MSGTYPE.ERR, VAR.IsChinese?string.Format("{0}定位到 [{1}]{2} 出错,{3}", disc, pos.ID, pos.Name, Utility.GetDescription(res,VAR.IsChinese)): string.Format("{0} move to [{2}]{3} err,{4}        ({1}定位到 [{2}]{3} 出错,{4})", english_disc, disc, pos.ID, pos.Name, Utility.GetDescription(res, VAR.IsChinese)), DReport.EmErrCode.MoveError, (int)DReport.EmHareware.LightBox, ERR_ALM.EmErrItem.MoveError);
             }
+
+
             return res;
         }
         /// <summary>
@@ -728,8 +760,7 @@ namespace UI
                         ret = MT.COM6.SetChannelXSJ(pos.Channel);
 
                     }
-                    else
-                      if (!PT_SET.bG4C && pos.Channel <= 9)//轩十佳光源OTP
+                    else if (!PT_SET.bG4C && pos.Channel <= 9)//轩十佳光源OTP
                     {
                         var idx = pos.Channel - 3;
                         VAR.msg.AddMsg(Msg.EM_MSGTYPE.DBG, "进入轩仕佳");
@@ -785,6 +816,7 @@ namespace UI
             if ((this == COM.LeftLightBox && pos.X1 > MT.AXIS_BOX_L_X1.fenc_pos && pos.Z1 > 10000) || (this == COM.RightLightBox && pos.X1 > MT.AXIS_BOX_R_X1.fenc_pos && pos.Z1 > 10000)) pos.Z1 = 0;
             //补偿
             PosCmpDef cmp = pos.GetCmp(cmp_idx);
+
             if (cmp != null)
             {
                 VAR.msg.AddMsg(Msg.EM_MSGTYPE.NOR, VAR.IsChinese ? string.Format("{0}/{1}补偿:dx1={2},dx2={3},dz1={4},dz2={5},dy1={6}", disc, pos.ID, cmp.X1, cmp.X2, cmp.Z1, cmp.Z2, cmp.Y1) : string.Format("{0}/{2} cmp:dx1={3},dx2={4},dz1={5},dz2={6},dy1={7}   ({1}/{2}补偿:dx1={3},dx2={4},dz1={5},dz2={6},dy1={7})", english_disc, disc, pos.ID, cmp.X1, cmp.X2, cmp.Z1, cmp.Z2, cmp.Y1));
@@ -802,6 +834,14 @@ namespace UI
                 Thread.Sleep(100);
                 Application.DoEvents();
             }
+           
+            string str2 = "(位置打印)测试项：" + "," + pos?.Name + "," + ax_x1?.disc + "," + ax_x1?.fenc_pos + "," + ax_x2?.disc + "," + ax_x2?.fenc_pos
+                + "," + ax_y1?.disc + "," + ax_y1?.fenc_pos + "," + ax_z1?.disc + "," + ax_z1?.fenc_pos + "," + ax_z2?.disc + "," + ax_z2?.fenc_pos
+                + "," + ax_z_otp?. disc + "," + ax_z_otp?.fenc_pos;
+
+
+            Utility.WriteStrToCSVTest(str2);
+            VAR.msg.AddMsg(Msg.EM_MSGTYPE.DBG, str2);
             return res;
         }
 

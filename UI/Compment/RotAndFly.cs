@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Drawing;
@@ -365,7 +365,7 @@ namespace UI.Compment
                         Thread.Sleep(500);
                     }
                     //udl.list_xt[1].XtMd = null;
-                    ret = udl.FlyToWs(ref VAR.gsys_set.bquit, ref pos_flystop, WsTriPos, false);
+                    ret = udl.FlyToWs(ref VAR.gsys_set.bquit, ref pos_flystop, WsTriPos, ws, false);
                     if (ret != EM_RES.OK) return ret;
                 }
                 finally 
@@ -494,7 +494,7 @@ namespace UI.Compment
                         if (WsTriPos.Count == 1) udl.list_xt[1].XtMd = null;
                            
                     }
-                    ret = udl.FlyToWs(ref VAR.gsys_set.bquit, ref pos_flystop, WsTriPos, true);
+                    ret = udl.FlyToWs(ref VAR.gsys_set.bquit, ref pos_flystop, WsTriPos, ws,true);
                     if (ret != EM_RES.OK) return ret;
                 }
                 finally

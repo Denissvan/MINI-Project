@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -45,6 +45,7 @@ namespace UI
             return dr;
         }
         #endregion
+
         #region 委托操作按键
         delegate void EnableObject(object sender,bool ben = true);
         void EnableObj(object sender, bool ben = true)
@@ -371,8 +372,8 @@ namespace UI
                         {
                             Msg.secsManager.Send(new BaseInfo() { Id = t, Value = "false" }, 1);
                         }
-                        Msg.secsManager.Send(new BaseInfo() { Id = 1, Value = Convert.ToInt32(DReport.EmStatus.Run).ToString() });
-                        Msg.secsManager.Send(new BaseInfo() { Id = 1 }, 2);
+                        //Msg.secsManager.Send(new BaseInfo() { Id = 1, Value = Convert.ToInt32(DReport.EmStatus.Run).ToString() });
+                        //Msg.secsManager.Send(new BaseInfo() { Id = 1 }, 2);
 
                     }
                     else DRpt.Report_Opration(1000, 0, "整体回零失败!");
@@ -390,6 +391,25 @@ namespace UI
                     Enablebtn(btn_ul_dl_home, true);
                     Enablebtn(sender, true);
                     COM.bhomeing = false;
+                    VAR.gsys_set.status = EM_SYS_STA.STANDBY;
+
+                    #region 待机细分
+                    //// 获取当前时间  
+                    //DateTime now = DateTime.Now;
+                    //// 创建一个表示3分钟的时间间隔  
+                    //TimeSpan threeMinutes = TimeSpan.FromMinutes(3);
+                    //// 从当前时间中减去3分钟  
+                    //DateTime threeMinutesAgo = now.Subtract(threeMinutes);
+
+                    //Msg.secsManager.Send(new BaseInfo() { Id = 240, Value = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss") });
+                    //PT_SET.WaitMode = PT_SET.WaitMode == 0 ? 1 : PT_SET.WaitMode;
+                    //Msg.secsManager.Send(new BaseInfo() { Id = 250, Value = (DateTime.Now - threeMinutesAgo).TotalSeconds.ToString("F2") });
+                    //Msg.secsManager.Send(new BaseInfo() { Id = 241, Value = PT_SET.WaitMode.ToString() });
+                    //Msg.secsManager.Send(new BaseInfo() { Id = 242, Value = Encoding.UTF8.GetBytes(PT_SET.dict[PT_SET.WaitMode]).Aggregate("", (current, next) => current + " " + next).TrimStart() });
+                    //Msg.secsManager.Send(new BaseInfo() { Id = 8 }, TypeId: 2); ;
+                    //PT_SET.Isshowmsg = true;
+
+                    #endregion
                 }
             }
             );

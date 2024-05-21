@@ -1,4 +1,4 @@
-﻿namespace UI
+namespace UI
 {
     partial class FrRst
     {
@@ -60,11 +60,18 @@
             this.lb_ws_2 = new System.Windows.Forms.Label();
             this.lb_ws_4 = new System.Windows.Forms.Label();
             this.btn_zt_z_otp = new System.Windows.Forms.Button();
+            this.btn_zt_ws4_u = new System.Windows.Forms.Button();
+            this.btn_zt_ws3_u = new System.Windows.Forms.Button();
+            this.btn_zt_ws1_u = new System.Windows.Forms.Button();
             this.label2 = new System.Windows.Forms.Label();
+            this.btn_zt_u = new System.Windows.Forms.Button();
             this.btn_zt_stop = new System.Windows.Forms.Button();
             this.btn_zt_home = new System.Windows.Forms.Button();
+            this.btn_zt_ws2_u = new System.Windows.Forms.Button();
             this.panel3 = new System.Windows.Forms.Panel();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.btn_udl2_u2 = new System.Windows.Forms.Button();
+            this.btn_udl2_u1 = new System.Windows.Forms.Button();
             this.btn_udl2_y = new System.Windows.Forms.Button();
             this.btn_udl2_x = new System.Windows.Forms.Button();
             this.lb_box_ng = new System.Windows.Forms.Label();
@@ -81,21 +88,14 @@
             this.btn_traybox_fd_x = new System.Windows.Forms.Button();
             this.btn_udl2_z = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
+            this.btn_udl1_u1 = new System.Windows.Forms.Button();
             this.btn_udl1_y = new System.Windows.Forms.Button();
             this.btn_udl1_x = new System.Windows.Forms.Button();
             this.btn_ul_dl_stop = new System.Windows.Forms.Button();
             this.btn_ul_dl_home = new System.Windows.Forms.Button();
+            this.btn_udl1_u2 = new System.Windows.Forms.Button();
             this.btn_udl1_z = new System.Windows.Forms.Button();
             this.timer_update = new System.Windows.Forms.Timer(this.components);
-            this.btn_zt_ws4_u = new System.Windows.Forms.Button();
-            this.btn_zt_ws3_u = new System.Windows.Forms.Button();
-            this.btn_zt_ws1_u = new System.Windows.Forms.Button();
-            this.btn_zt_u = new System.Windows.Forms.Button();
-            this.btn_zt_ws2_u = new System.Windows.Forms.Button();
-            this.btn_udl2_u2 = new System.Windows.Forms.Button();
-            this.btn_udl2_u1 = new System.Windows.Forms.Button();
-            this.btn_udl1_u1 = new System.Windows.Forms.Button();
-            this.btn_udl1_u2 = new System.Windows.Forms.Button();
             this.tableLayoutPanel1.SuspendLayout();
             this.panel2.SuspendLayout();
             this.pnl_lightbox_right.SuspendLayout();
@@ -157,7 +157,7 @@
             this.lb_rightbox.ForeColor = System.Drawing.Color.DarkGray;
             this.lb_rightbox.Location = new System.Drawing.Point(12, 200);
             this.lb_rightbox.Name = "lb_rightbox";
-            this.lb_rightbox.Size = new System.Drawing.Size(242, 32);
+            this.lb_rightbox.Size = new System.Drawing.Size(241, 32);
             this.lb_rightbox.TabIndex = 141;
             this.lb_rightbox.Text = "Y1: -000.000  Y2: -000.000\r\nZ1: -000.000  Z2: -000.000";
             // 
@@ -340,7 +340,7 @@
             this.lb_leftbox.ForeColor = System.Drawing.Color.DarkGray;
             this.lb_leftbox.Location = new System.Drawing.Point(11, 200);
             this.lb_leftbox.Name = "lb_leftbox";
-            this.lb_leftbox.Size = new System.Drawing.Size(242, 32);
+            this.lb_leftbox.Size = new System.Drawing.Size(241, 32);
             this.lb_leftbox.TabIndex = 140;
             this.lb_leftbox.Text = "Y1: -000.000  Y2: -000.000\r\nZ1: -000.000  Z2: -000.000";
             // 
@@ -483,7 +483,7 @@
             this.lb_tp.ForeColor = System.Drawing.Color.DarkGray;
             this.lb_tp.Location = new System.Drawing.Point(222, 296);
             this.lb_tp.Name = "lb_tp";
-            this.lb_tp.Size = new System.Drawing.Size(107, 16);
+            this.lb_tp.Size = new System.Drawing.Size(106, 16);
             this.lb_tp.TabIndex = 156;
             this.lb_tp.Text = "U: -000.000";
             // 
@@ -494,7 +494,7 @@
             this.lb_opt.ForeColor = System.Drawing.Color.DarkGray;
             this.lb_opt.Location = new System.Drawing.Point(500, 37);
             this.lb_opt.Name = "lb_opt";
-            this.lb_opt.Size = new System.Drawing.Size(125, 16);
+            this.lb_opt.Size = new System.Drawing.Size(124, 16);
             this.lb_opt.TabIndex = 153;
             this.lb_opt.Text = "OTP: -000.000";
             // 
@@ -505,7 +505,7 @@
             this.lb_ws_1.ForeColor = System.Drawing.Color.DarkGray;
             this.lb_ws_1.Location = new System.Drawing.Point(227, 470);
             this.lb_ws_1.Name = "lb_ws_1";
-            this.lb_ws_1.Size = new System.Drawing.Size(107, 16);
+            this.lb_ws_1.Size = new System.Drawing.Size(106, 16);
             this.lb_ws_1.TabIndex = 155;
             this.lb_ws_1.Text = "U: -000.000";
             // 
@@ -516,7 +516,7 @@
             this.lb_ws_3.ForeColor = System.Drawing.Color.DarkGray;
             this.lb_ws_3.Location = new System.Drawing.Point(227, 157);
             this.lb_ws_3.Name = "lb_ws_3";
-            this.lb_ws_3.Size = new System.Drawing.Size(107, 16);
+            this.lb_ws_3.Size = new System.Drawing.Size(106, 16);
             this.lb_ws_3.TabIndex = 154;
             this.lb_ws_3.Text = "U: -000.000";
             // 
@@ -527,7 +527,7 @@
             this.lb_ws_2.ForeColor = System.Drawing.Color.DarkGray;
             this.lb_ws_2.Location = new System.Drawing.Point(398, 314);
             this.lb_ws_2.Name = "lb_ws_2";
-            this.lb_ws_2.Size = new System.Drawing.Size(107, 16);
+            this.lb_ws_2.Size = new System.Drawing.Size(106, 16);
             this.lb_ws_2.TabIndex = 153;
             this.lb_ws_2.Text = "U: -000.000";
             // 
@@ -538,7 +538,7 @@
             this.lb_ws_4.ForeColor = System.Drawing.Color.DarkGray;
             this.lb_ws_4.Location = new System.Drawing.Point(53, 314);
             this.lb_ws_4.Name = "lb_ws_4";
-            this.lb_ws_4.Size = new System.Drawing.Size(107, 16);
+            this.lb_ws_4.Size = new System.Drawing.Size(106, 16);
             this.lb_ws_4.TabIndex = 152;
             this.lb_ws_4.Text = "U: -000.000";
             // 
@@ -559,6 +559,60 @@
             this.btn_zt_z_otp.Text = "+ OTP \r\n-";
             this.btn_zt_z_otp.UseVisualStyleBackColor = false;
             // 
+            // btn_zt_ws4_u
+            // 
+            this.btn_zt_ws4_u.BackColor = System.Drawing.SystemColors.ButtonFace;
+            this.btn_zt_ws4_u.Enabled = false;
+            this.btn_zt_ws4_u.FlatAppearance.BorderColor = System.Drawing.Color.Silver;
+            this.btn_zt_ws4_u.FlatAppearance.BorderSize = 2;
+            this.btn_zt_ws4_u.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btn_zt_ws4_u.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.btn_zt_ws4_u.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            this.btn_zt_ws4_u.Image = global::UI.Properties.Resources.cw;
+            this.btn_zt_ws4_u.Location = new System.Drawing.Point(59, 211);
+            this.btn_zt_ws4_u.Margin = new System.Windows.Forms.Padding(5);
+            this.btn_zt_ws4_u.Name = "btn_zt_ws4_u";
+            this.btn_zt_ws4_u.Size = new System.Drawing.Size(95, 95);
+            this.btn_zt_ws4_u.TabIndex = 148;
+            this.btn_zt_ws4_u.Text = "U";
+            this.btn_zt_ws4_u.UseVisualStyleBackColor = false;
+            // 
+            // btn_zt_ws3_u
+            // 
+            this.btn_zt_ws3_u.BackColor = System.Drawing.SystemColors.ButtonFace;
+            this.btn_zt_ws3_u.Enabled = false;
+            this.btn_zt_ws3_u.FlatAppearance.BorderColor = System.Drawing.Color.Silver;
+            this.btn_zt_ws3_u.FlatAppearance.BorderSize = 2;
+            this.btn_zt_ws3_u.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btn_zt_ws3_u.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.btn_zt_ws3_u.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            this.btn_zt_ws3_u.Image = global::UI.Properties.Resources.cw;
+            this.btn_zt_ws3_u.Location = new System.Drawing.Point(231, 57);
+            this.btn_zt_ws3_u.Margin = new System.Windows.Forms.Padding(5);
+            this.btn_zt_ws3_u.Name = "btn_zt_ws3_u";
+            this.btn_zt_ws3_u.Size = new System.Drawing.Size(95, 95);
+            this.btn_zt_ws3_u.TabIndex = 145;
+            this.btn_zt_ws3_u.Text = "U";
+            this.btn_zt_ws3_u.UseVisualStyleBackColor = false;
+            // 
+            // btn_zt_ws1_u
+            // 
+            this.btn_zt_ws1_u.BackColor = System.Drawing.SystemColors.ButtonFace;
+            this.btn_zt_ws1_u.Enabled = false;
+            this.btn_zt_ws1_u.FlatAppearance.BorderColor = System.Drawing.Color.Silver;
+            this.btn_zt_ws1_u.FlatAppearance.BorderSize = 2;
+            this.btn_zt_ws1_u.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btn_zt_ws1_u.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.btn_zt_ws1_u.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            this.btn_zt_ws1_u.Image = global::UI.Properties.Resources.cw;
+            this.btn_zt_ws1_u.Location = new System.Drawing.Point(231, 370);
+            this.btn_zt_ws1_u.Margin = new System.Windows.Forms.Padding(5);
+            this.btn_zt_ws1_u.Name = "btn_zt_ws1_u";
+            this.btn_zt_ws1_u.Size = new System.Drawing.Size(95, 95);
+            this.btn_zt_ws1_u.TabIndex = 142;
+            this.btn_zt_ws1_u.Text = "U";
+            this.btn_zt_ws1_u.UseVisualStyleBackColor = false;
+            // 
             // label2
             // 
             this.label2.AutoSize = true;
@@ -568,6 +622,24 @@
             this.label2.Size = new System.Drawing.Size(89, 19);
             this.label2.TabIndex = 137;
             this.label2.Text = "测试转台";
+            // 
+            // btn_zt_u
+            // 
+            this.btn_zt_u.BackColor = System.Drawing.SystemColors.ButtonFace;
+            this.btn_zt_u.Enabled = false;
+            this.btn_zt_u.FlatAppearance.BorderColor = System.Drawing.Color.Silver;
+            this.btn_zt_u.FlatAppearance.BorderSize = 2;
+            this.btn_zt_u.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btn_zt_u.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.btn_zt_u.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            this.btn_zt_u.Image = global::UI.Properties.Resources.cw;
+            this.btn_zt_u.Location = new System.Drawing.Point(195, 190);
+            this.btn_zt_u.Margin = new System.Windows.Forms.Padding(5);
+            this.btn_zt_u.Name = "btn_zt_u";
+            this.btn_zt_u.Size = new System.Drawing.Size(160, 140);
+            this.btn_zt_u.TabIndex = 136;
+            this.btn_zt_u.Text = "U1";
+            this.btn_zt_u.UseVisualStyleBackColor = false;
             // 
             // btn_zt_stop
             // 
@@ -598,6 +670,24 @@
             this.btn_zt_home.Text = "回零";
             this.btn_zt_home.UseVisualStyleBackColor = false;
             this.btn_zt_home.Click += new System.EventHandler(this.btn_zt_home_Click);
+            // 
+            // btn_zt_ws2_u
+            // 
+            this.btn_zt_ws2_u.BackColor = System.Drawing.SystemColors.ButtonFace;
+            this.btn_zt_ws2_u.Enabled = false;
+            this.btn_zt_ws2_u.FlatAppearance.BorderColor = System.Drawing.Color.Silver;
+            this.btn_zt_ws2_u.FlatAppearance.BorderSize = 2;
+            this.btn_zt_ws2_u.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btn_zt_ws2_u.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.btn_zt_ws2_u.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            this.btn_zt_ws2_u.Image = global::UI.Properties.Resources.cw;
+            this.btn_zt_ws2_u.Location = new System.Drawing.Point(400, 211);
+            this.btn_zt_ws2_u.Margin = new System.Windows.Forms.Padding(5);
+            this.btn_zt_ws2_u.Name = "btn_zt_ws2_u";
+            this.btn_zt_ws2_u.Size = new System.Drawing.Size(95, 95);
+            this.btn_zt_ws2_u.TabIndex = 131;
+            this.btn_zt_ws2_u.Text = "U";
+            this.btn_zt_ws2_u.UseVisualStyleBackColor = false;
             // 
             // panel3
             // 
@@ -641,6 +731,42 @@
             this.panel1.Size = new System.Drawing.Size(864, 312);
             this.panel1.TabIndex = 0;
             // 
+            // btn_udl2_u2
+            // 
+            this.btn_udl2_u2.BackColor = System.Drawing.SystemColors.ButtonFace;
+            this.btn_udl2_u2.Enabled = false;
+            this.btn_udl2_u2.FlatAppearance.BorderColor = System.Drawing.Color.Silver;
+            this.btn_udl2_u2.FlatAppearance.BorderSize = 2;
+            this.btn_udl2_u2.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btn_udl2_u2.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.btn_udl2_u2.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            this.btn_udl2_u2.Image = global::UI.Properties.Resources.cw;
+            this.btn_udl2_u2.Location = new System.Drawing.Point(375, 222);
+            this.btn_udl2_u2.Margin = new System.Windows.Forms.Padding(5);
+            this.btn_udl2_u2.Name = "btn_udl2_u2";
+            this.btn_udl2_u2.Size = new System.Drawing.Size(69, 69);
+            this.btn_udl2_u2.TabIndex = 154;
+            this.btn_udl2_u2.Text = "U1";
+            this.btn_udl2_u2.UseVisualStyleBackColor = false;
+            // 
+            // btn_udl2_u1
+            // 
+            this.btn_udl2_u1.BackColor = System.Drawing.SystemColors.ButtonFace;
+            this.btn_udl2_u1.Enabled = false;
+            this.btn_udl2_u1.FlatAppearance.BorderColor = System.Drawing.Color.Silver;
+            this.btn_udl2_u1.FlatAppearance.BorderSize = 2;
+            this.btn_udl2_u1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btn_udl2_u1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.btn_udl2_u1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            this.btn_udl2_u1.Image = global::UI.Properties.Resources.cw;
+            this.btn_udl2_u1.Location = new System.Drawing.Point(375, 126);
+            this.btn_udl2_u1.Margin = new System.Windows.Forms.Padding(5);
+            this.btn_udl2_u1.Name = "btn_udl2_u1";
+            this.btn_udl2_u1.Size = new System.Drawing.Size(69, 69);
+            this.btn_udl2_u1.TabIndex = 153;
+            this.btn_udl2_u1.Text = "U2";
+            this.btn_udl2_u1.UseVisualStyleBackColor = false;
+            // 
             // btn_udl2_y
             // 
             this.btn_udl2_y.BackColor = System.Drawing.SystemColors.ButtonFace;
@@ -682,7 +808,7 @@
             this.lb_box_ng.ForeColor = System.Drawing.Color.DarkGray;
             this.lb_box_ng.Location = new System.Drawing.Point(92, 218);
             this.lb_box_ng.Name = "lb_box_ng";
-            this.lb_box_ng.Size = new System.Drawing.Size(116, 32);
+            this.lb_box_ng.Size = new System.Drawing.Size(115, 32);
             this.lb_box_ng.TabIndex = 151;
             this.lb_box_ng.Text = "Y1: -000.000\r\nZ1: -000.000";
             // 
@@ -693,7 +819,7 @@
             this.lb_box_ok.ForeColor = System.Drawing.Color.DarkGray;
             this.lb_box_ok.Location = new System.Drawing.Point(92, 130);
             this.lb_box_ok.Name = "lb_box_ok";
-            this.lb_box_ok.Size = new System.Drawing.Size(116, 32);
+            this.lb_box_ok.Size = new System.Drawing.Size(115, 32);
             this.lb_box_ok.TabIndex = 150;
             this.lb_box_ok.Text = "Y1: -000.000\r\nZ1: -000.000";
             // 
@@ -704,7 +830,7 @@
             this.lb_box_fd.ForeColor = System.Drawing.Color.DarkGray;
             this.lb_box_fd.Location = new System.Drawing.Point(92, 42);
             this.lb_box_fd.Name = "lb_box_fd";
-            this.lb_box_fd.Size = new System.Drawing.Size(116, 32);
+            this.lb_box_fd.Size = new System.Drawing.Size(115, 32);
             this.lb_box_fd.TabIndex = 149;
             this.lb_box_fd.Text = "Y1: -000.000\r\nZ1: -000.000";
             // 
@@ -715,7 +841,7 @@
             this.lb_udl2.ForeColor = System.Drawing.Color.DarkGray;
             this.lb_udl2.Location = new System.Drawing.Point(337, 8);
             this.lb_udl2.Name = "lb_udl2";
-            this.lb_udl2.Size = new System.Drawing.Size(251, 48);
+            this.lb_udl2.Size = new System.Drawing.Size(250, 48);
             this.lb_udl2.TabIndex = 148;
             this.lb_udl2.Text = "X2: -000.000 U2: -000.000  \r\nY2: -000.000 U2: -000.000  \r\nZ1: -000.000";
             // 
@@ -726,7 +852,7 @@
             this.lb_udl1.ForeColor = System.Drawing.Color.DarkGray;
             this.lb_udl1.Location = new System.Drawing.Point(712, 79);
             this.lb_udl1.Name = "lb_udl1";
-            this.lb_udl1.Size = new System.Drawing.Size(134, 80);
+            this.lb_udl1.Size = new System.Drawing.Size(133, 80);
             this.lb_udl1.TabIndex = 147;
             this.lb_udl1.Text = "X1: -000.000 \r\nY1: -000.000\r\nZ1: -000.000  \r\nU1: -000.000\r\nU2: -000.000";
             // 
@@ -870,6 +996,24 @@
             this.label1.Tag = "1";
             this.label1.Text = "上下料模组2";
             // 
+            // btn_udl1_u1
+            // 
+            this.btn_udl1_u1.BackColor = System.Drawing.SystemColors.ButtonFace;
+            this.btn_udl1_u1.Enabled = false;
+            this.btn_udl1_u1.FlatAppearance.BorderColor = System.Drawing.Color.Silver;
+            this.btn_udl1_u1.FlatAppearance.BorderSize = 2;
+            this.btn_udl1_u1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btn_udl1_u1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.btn_udl1_u1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            this.btn_udl1_u1.Image = global::UI.Properties.Resources.cw;
+            this.btn_udl1_u1.Location = new System.Drawing.Point(492, 126);
+            this.btn_udl1_u1.Margin = new System.Windows.Forms.Padding(5);
+            this.btn_udl1_u1.Name = "btn_udl1_u1";
+            this.btn_udl1_u1.Size = new System.Drawing.Size(69, 69);
+            this.btn_udl1_u1.TabIndex = 136;
+            this.btn_udl1_u1.Text = "U2";
+            this.btn_udl1_u1.UseVisualStyleBackColor = false;
+            // 
             // btn_udl1_y
             // 
             this.btn_udl1_y.BackColor = System.Drawing.SystemColors.ButtonFace;
@@ -934,6 +1078,24 @@
             this.btn_ul_dl_home.UseVisualStyleBackColor = false;
             this.btn_ul_dl_home.Click += new System.EventHandler(this.btn_ul_dl_home_Click);
             // 
+            // btn_udl1_u2
+            // 
+            this.btn_udl1_u2.BackColor = System.Drawing.SystemColors.ButtonFace;
+            this.btn_udl1_u2.Enabled = false;
+            this.btn_udl1_u2.FlatAppearance.BorderColor = System.Drawing.Color.Silver;
+            this.btn_udl1_u2.FlatAppearance.BorderSize = 2;
+            this.btn_udl1_u2.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btn_udl1_u2.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.btn_udl1_u2.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            this.btn_udl1_u2.Image = global::UI.Properties.Resources.cw;
+            this.btn_udl1_u2.Location = new System.Drawing.Point(492, 222);
+            this.btn_udl1_u2.Margin = new System.Windows.Forms.Padding(5);
+            this.btn_udl1_u2.Name = "btn_udl1_u2";
+            this.btn_udl1_u2.Size = new System.Drawing.Size(69, 69);
+            this.btn_udl1_u2.TabIndex = 131;
+            this.btn_udl1_u2.Text = "U1";
+            this.btn_udl1_u2.UseVisualStyleBackColor = false;
+            // 
             // btn_udl1_z
             // 
             this.btn_udl1_z.BackColor = System.Drawing.SystemColors.ButtonFace;
@@ -955,168 +1117,6 @@
             // 
             this.timer_update.Interval = 500;
             this.timer_update.Tick += new System.EventHandler(this.timer_update_Tick);
-            // 
-            // btn_zt_ws4_u
-            // 
-            this.btn_zt_ws4_u.BackColor = System.Drawing.SystemColors.ButtonFace;
-            this.btn_zt_ws4_u.Enabled = false;
-            this.btn_zt_ws4_u.FlatAppearance.BorderColor = System.Drawing.Color.Silver;
-            this.btn_zt_ws4_u.FlatAppearance.BorderSize = 2;
-            this.btn_zt_ws4_u.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btn_zt_ws4_u.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.btn_zt_ws4_u.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
-            this.btn_zt_ws4_u.Image = global::UI.Properties.Resources.cw;
-            this.btn_zt_ws4_u.Location = new System.Drawing.Point(59, 211);
-            this.btn_zt_ws4_u.Margin = new System.Windows.Forms.Padding(5);
-            this.btn_zt_ws4_u.Name = "btn_zt_ws4_u";
-            this.btn_zt_ws4_u.Size = new System.Drawing.Size(95, 95);
-            this.btn_zt_ws4_u.TabIndex = 148;
-            this.btn_zt_ws4_u.Text = "U";
-            this.btn_zt_ws4_u.UseVisualStyleBackColor = false;
-            // 
-            // btn_zt_ws3_u
-            // 
-            this.btn_zt_ws3_u.BackColor = System.Drawing.SystemColors.ButtonFace;
-            this.btn_zt_ws3_u.Enabled = false;
-            this.btn_zt_ws3_u.FlatAppearance.BorderColor = System.Drawing.Color.Silver;
-            this.btn_zt_ws3_u.FlatAppearance.BorderSize = 2;
-            this.btn_zt_ws3_u.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btn_zt_ws3_u.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.btn_zt_ws3_u.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
-            this.btn_zt_ws3_u.Image = global::UI.Properties.Resources.cw;
-            this.btn_zt_ws3_u.Location = new System.Drawing.Point(231, 57);
-            this.btn_zt_ws3_u.Margin = new System.Windows.Forms.Padding(5);
-            this.btn_zt_ws3_u.Name = "btn_zt_ws3_u";
-            this.btn_zt_ws3_u.Size = new System.Drawing.Size(95, 95);
-            this.btn_zt_ws3_u.TabIndex = 145;
-            this.btn_zt_ws3_u.Text = "U";
-            this.btn_zt_ws3_u.UseVisualStyleBackColor = false;
-            // 
-            // btn_zt_ws1_u
-            // 
-            this.btn_zt_ws1_u.BackColor = System.Drawing.SystemColors.ButtonFace;
-            this.btn_zt_ws1_u.Enabled = false;
-            this.btn_zt_ws1_u.FlatAppearance.BorderColor = System.Drawing.Color.Silver;
-            this.btn_zt_ws1_u.FlatAppearance.BorderSize = 2;
-            this.btn_zt_ws1_u.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btn_zt_ws1_u.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.btn_zt_ws1_u.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
-            this.btn_zt_ws1_u.Image = global::UI.Properties.Resources.cw;
-            this.btn_zt_ws1_u.Location = new System.Drawing.Point(231, 370);
-            this.btn_zt_ws1_u.Margin = new System.Windows.Forms.Padding(5);
-            this.btn_zt_ws1_u.Name = "btn_zt_ws1_u";
-            this.btn_zt_ws1_u.Size = new System.Drawing.Size(95, 95);
-            this.btn_zt_ws1_u.TabIndex = 142;
-            this.btn_zt_ws1_u.Text = "U";
-            this.btn_zt_ws1_u.UseVisualStyleBackColor = false;
-            // 
-            // btn_zt_u
-            // 
-            this.btn_zt_u.BackColor = System.Drawing.SystemColors.ButtonFace;
-            this.btn_zt_u.Enabled = false;
-            this.btn_zt_u.FlatAppearance.BorderColor = System.Drawing.Color.Silver;
-            this.btn_zt_u.FlatAppearance.BorderSize = 2;
-            this.btn_zt_u.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btn_zt_u.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.btn_zt_u.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
-            this.btn_zt_u.Image = global::UI.Properties.Resources.cw;
-            this.btn_zt_u.Location = new System.Drawing.Point(195, 190);
-            this.btn_zt_u.Margin = new System.Windows.Forms.Padding(5);
-            this.btn_zt_u.Name = "btn_zt_u";
-            this.btn_zt_u.Size = new System.Drawing.Size(160, 140);
-            this.btn_zt_u.TabIndex = 136;
-            this.btn_zt_u.Text = "U1";
-            this.btn_zt_u.UseVisualStyleBackColor = false;
-            // 
-            // btn_zt_ws2_u
-            // 
-            this.btn_zt_ws2_u.BackColor = System.Drawing.SystemColors.ButtonFace;
-            this.btn_zt_ws2_u.Enabled = false;
-            this.btn_zt_ws2_u.FlatAppearance.BorderColor = System.Drawing.Color.Silver;
-            this.btn_zt_ws2_u.FlatAppearance.BorderSize = 2;
-            this.btn_zt_ws2_u.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btn_zt_ws2_u.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.btn_zt_ws2_u.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
-            this.btn_zt_ws2_u.Image = global::UI.Properties.Resources.cw;
-            this.btn_zt_ws2_u.Location = new System.Drawing.Point(400, 211);
-            this.btn_zt_ws2_u.Margin = new System.Windows.Forms.Padding(5);
-            this.btn_zt_ws2_u.Name = "btn_zt_ws2_u";
-            this.btn_zt_ws2_u.Size = new System.Drawing.Size(95, 95);
-            this.btn_zt_ws2_u.TabIndex = 131;
-            this.btn_zt_ws2_u.Text = "U";
-            this.btn_zt_ws2_u.UseVisualStyleBackColor = false;
-            // 
-            // btn_udl2_u2
-            // 
-            this.btn_udl2_u2.BackColor = System.Drawing.SystemColors.ButtonFace;
-            this.btn_udl2_u2.Enabled = false;
-            this.btn_udl2_u2.FlatAppearance.BorderColor = System.Drawing.Color.Silver;
-            this.btn_udl2_u2.FlatAppearance.BorderSize = 2;
-            this.btn_udl2_u2.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btn_udl2_u2.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.btn_udl2_u2.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
-            this.btn_udl2_u2.Image = global::UI.Properties.Resources.cw;
-            this.btn_udl2_u2.Location = new System.Drawing.Point(375, 222);
-            this.btn_udl2_u2.Margin = new System.Windows.Forms.Padding(5);
-            this.btn_udl2_u2.Name = "btn_udl2_u2";
-            this.btn_udl2_u2.Size = new System.Drawing.Size(69, 69);
-            this.btn_udl2_u2.TabIndex = 154;
-            this.btn_udl2_u2.Text = "U1";
-            this.btn_udl2_u2.UseVisualStyleBackColor = false;
-            // 
-            // btn_udl2_u1
-            // 
-            this.btn_udl2_u1.BackColor = System.Drawing.SystemColors.ButtonFace;
-            this.btn_udl2_u1.Enabled = false;
-            this.btn_udl2_u1.FlatAppearance.BorderColor = System.Drawing.Color.Silver;
-            this.btn_udl2_u1.FlatAppearance.BorderSize = 2;
-            this.btn_udl2_u1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btn_udl2_u1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.btn_udl2_u1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
-            this.btn_udl2_u1.Image = global::UI.Properties.Resources.cw;
-            this.btn_udl2_u1.Location = new System.Drawing.Point(375, 126);
-            this.btn_udl2_u1.Margin = new System.Windows.Forms.Padding(5);
-            this.btn_udl2_u1.Name = "btn_udl2_u1";
-            this.btn_udl2_u1.Size = new System.Drawing.Size(69, 69);
-            this.btn_udl2_u1.TabIndex = 153;
-            this.btn_udl2_u1.Text = "U2";
-            this.btn_udl2_u1.UseVisualStyleBackColor = false;
-            // 
-            // btn_udl1_u1
-            // 
-            this.btn_udl1_u1.BackColor = System.Drawing.SystemColors.ButtonFace;
-            this.btn_udl1_u1.Enabled = false;
-            this.btn_udl1_u1.FlatAppearance.BorderColor = System.Drawing.Color.Silver;
-            this.btn_udl1_u1.FlatAppearance.BorderSize = 2;
-            this.btn_udl1_u1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btn_udl1_u1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.btn_udl1_u1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
-            this.btn_udl1_u1.Image = global::UI.Properties.Resources.cw;
-            this.btn_udl1_u1.Location = new System.Drawing.Point(492, 126);
-            this.btn_udl1_u1.Margin = new System.Windows.Forms.Padding(5);
-            this.btn_udl1_u1.Name = "btn_udl1_u1";
-            this.btn_udl1_u1.Size = new System.Drawing.Size(69, 69);
-            this.btn_udl1_u1.TabIndex = 136;
-            this.btn_udl1_u1.Text = "U2";
-            this.btn_udl1_u1.UseVisualStyleBackColor = false;
-            // 
-            // btn_udl1_u2
-            // 
-            this.btn_udl1_u2.BackColor = System.Drawing.SystemColors.ButtonFace;
-            this.btn_udl1_u2.Enabled = false;
-            this.btn_udl1_u2.FlatAppearance.BorderColor = System.Drawing.Color.Silver;
-            this.btn_udl1_u2.FlatAppearance.BorderSize = 2;
-            this.btn_udl1_u2.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btn_udl1_u2.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.btn_udl1_u2.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
-            this.btn_udl1_u2.Image = global::UI.Properties.Resources.cw;
-            this.btn_udl1_u2.Location = new System.Drawing.Point(492, 222);
-            this.btn_udl1_u2.Margin = new System.Windows.Forms.Padding(5);
-            this.btn_udl1_u2.Name = "btn_udl1_u2";
-            this.btn_udl1_u2.Size = new System.Drawing.Size(69, 69);
-            this.btn_udl1_u2.TabIndex = 131;
-            this.btn_udl1_u2.Text = "U1";
-            this.btn_udl1_u2.UseVisualStyleBackColor = false;
             // 
             // FrRst
             // 

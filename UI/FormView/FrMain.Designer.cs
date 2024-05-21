@@ -1,4 +1,4 @@
-﻿namespace UI
+namespace UI
 {
     partial class FrMain
     {
@@ -120,14 +120,12 @@
             this.tbl_main.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.tbl_main.Controls.Add(this.pnl_top_menu, 0, 0);
             this.tbl_main.Controls.Add(this.pnl_sub, 0, 1);
-            this.tbl_main.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tbl_main.Location = new System.Drawing.Point(0, 0);
+            this.tbl_main.Location = new System.Drawing.Point(0, 3);
             this.tbl_main.Name = "tbl_main";
-            this.tbl_main.RowCount = 3;
-            this.tbl_main.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 80F));
+            this.tbl_main.RowCount = 2;
+            this.tbl_main.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 84F));
             this.tbl_main.RowStyles.Add(new System.Windows.Forms.RowStyle());
-            this.tbl_main.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
-            this.tbl_main.Size = new System.Drawing.Size(1320, 1094);
+            this.tbl_main.Size = new System.Drawing.Size(1672, 1026);
             this.tbl_main.TabIndex = 0;
             // 
             // pnl_top_menu
@@ -150,7 +148,7 @@
             this.pnl_top_menu.Dock = System.Windows.Forms.DockStyle.Fill;
             this.pnl_top_menu.Location = new System.Drawing.Point(3, 3);
             this.pnl_top_menu.Name = "pnl_top_menu";
-            this.pnl_top_menu.Size = new System.Drawing.Size(1314, 74);
+            this.pnl_top_menu.Size = new System.Drawing.Size(1666, 78);
             this.pnl_top_menu.TabIndex = 0;
             // 
             // lbl_update
@@ -442,10 +440,9 @@
             this.pnl_sub.BackColor = System.Drawing.SystemColors.Control;
             this.pnl_sub.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("pnl_sub.BackgroundImage")));
             this.pnl_sub.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
-            this.pnl_sub.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.pnl_sub.Location = new System.Drawing.Point(3, 83);
+            this.pnl_sub.Location = new System.Drawing.Point(3, 87);
             this.pnl_sub.Name = "pnl_sub";
-            this.pnl_sub.Size = new System.Drawing.Size(1314, 938);
+            this.pnl_sub.Size = new System.Drawing.Size(1666, 938);
             this.pnl_sub.TabIndex = 1;
             // 
             // timer_update
@@ -793,7 +790,7 @@
             this.ts_manual2.LayoutStyle = System.Windows.Forms.ToolStripLayoutStyle.VerticalStackWithOverflow;
             this.ts_manual2.Location = new System.Drawing.Point(1151, 54);
             this.ts_manual2.Name = "ts_manual2";
-            this.ts_manual2.Size = new System.Drawing.Size(122, 915);
+            this.ts_manual2.Size = new System.Drawing.Size(126, 915);
             this.ts_manual2.TabIndex = 2;
             this.ts_manual2.Visible = false;
             // 
@@ -808,13 +805,13 @@
             "1mm",
             "10mm"});
             this.tsc_step_sel2.Name = "tsc_step_sel2";
-            this.tsc_step_sel2.Size = new System.Drawing.Size(118, 44);
+            this.tsc_step_sel2.Size = new System.Drawing.Size(122, 44);
             this.tsc_step_sel2.SelectedIndexChanged += new System.EventHandler(this.tsc_step_sel_SelectedIndexChanged);
             // 
             // toolStripSeparator4
             // 
             this.toolStripSeparator4.Name = "toolStripSeparator4";
-            this.toolStripSeparator4.Size = new System.Drawing.Size(120, 6);
+            this.toolStripSeparator4.Size = new System.Drawing.Size(124, 6);
             // 
             // tsb_2xp
             // 
@@ -836,7 +833,7 @@
             // 
             this.toolStripSeparator5.BackColor = System.Drawing.SystemColors.Control;
             this.toolStripSeparator5.Name = "toolStripSeparator5";
-            this.toolStripSeparator5.Size = new System.Drawing.Size(120, 6);
+            this.toolStripSeparator5.Size = new System.Drawing.Size(124, 6);
             // 
             // tsb_2xn
             // 
@@ -858,7 +855,7 @@
             // 
             this.toolStripSeparator6.BackColor = System.Drawing.SystemColors.Control;
             this.toolStripSeparator6.Name = "toolStripSeparator6";
-            this.toolStripSeparator6.Size = new System.Drawing.Size(120, 6);
+            this.toolStripSeparator6.Size = new System.Drawing.Size(124, 6);
             // 
             // tsb_2yp
             // 
@@ -881,7 +878,7 @@
             // 
             this.toolStripSeparator7.BackColor = System.Drawing.SystemColors.Control;
             this.toolStripSeparator7.Name = "toolStripSeparator7";
-            this.toolStripSeparator7.Size = new System.Drawing.Size(120, 6);
+            this.toolStripSeparator7.Size = new System.Drawing.Size(124, 6);
             // 
             // tsb_2yn
             // 
@@ -904,7 +901,7 @@
             // 
             this.toolStripSeparator8.BackColor = System.Drawing.SystemColors.Control;
             this.toolStripSeparator8.Name = "toolStripSeparator8";
-            this.toolStripSeparator8.Size = new System.Drawing.Size(120, 6);
+            this.toolStripSeparator8.Size = new System.Drawing.Size(124, 6);
             // 
             // tsb_2zp
             // 
@@ -927,7 +924,7 @@
             // 
             this.toolStripSeparator9.BackColor = System.Drawing.SystemColors.Control;
             this.toolStripSeparator9.Name = "toolStripSeparator9";
-            this.toolStripSeparator9.Size = new System.Drawing.Size(120, 6);
+            this.toolStripSeparator9.Size = new System.Drawing.Size(124, 6);
             // 
             // tsb_2zn
             // 
@@ -950,7 +947,7 @@
             // 
             this.toolStripSeparator10.BackColor = System.Drawing.SystemColors.Control;
             this.toolStripSeparator10.Name = "toolStripSeparator10";
-            this.toolStripSeparator10.Size = new System.Drawing.Size(120, 6);
+            this.toolStripSeparator10.Size = new System.Drawing.Size(124, 6);
             // 
             // tsb_2u1n
             // 
@@ -973,7 +970,7 @@
             // 
             this.toolStripSeparator11.BackColor = System.Drawing.SystemColors.Control;
             this.toolStripSeparator11.Name = "toolStripSeparator11";
-            this.toolStripSeparator11.Size = new System.Drawing.Size(120, 6);
+            this.toolStripSeparator11.Size = new System.Drawing.Size(124, 6);
             // 
             // tsb_2u1p
             // 
@@ -995,7 +992,7 @@
             // 
             this.toolStripSeparator18.BackColor = System.Drawing.SystemColors.Control;
             this.toolStripSeparator18.Name = "toolStripSeparator18";
-            this.toolStripSeparator18.Size = new System.Drawing.Size(120, 6);
+            this.toolStripSeparator18.Size = new System.Drawing.Size(124, 6);
             // 
             // tsb_2u2n
             // 
@@ -1017,7 +1014,7 @@
             // 
             this.toolStripSeparator19.BackColor = System.Drawing.SystemColors.Control;
             this.toolStripSeparator19.Name = "toolStripSeparator19";
-            this.toolStripSeparator19.Size = new System.Drawing.Size(120, 6);
+            this.toolStripSeparator19.Size = new System.Drawing.Size(124, 6);
             // 
             // tsb_2u2p
             // 
@@ -1039,7 +1036,7 @@
             // 
             this.toolStripSeparator20.BackColor = System.Drawing.SystemColors.Control;
             this.toolStripSeparator20.Name = "toolStripSeparator20";
-            this.toolStripSeparator20.Size = new System.Drawing.Size(120, 6);
+            this.toolStripSeparator20.Size = new System.Drawing.Size(124, 6);
             // 
             // tsb_stop2
             // 
@@ -1078,7 +1075,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1320, 1094);
+            this.ClientSize = new System.Drawing.Size(1675, 1000);
             this.Controls.Add(this.ts_manual);
             this.Controls.Add(this.ts_manual2);
             this.Controls.Add(this.tbl_main);

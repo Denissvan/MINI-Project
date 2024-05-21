@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Drawing;
 using System.Windows.Forms;
 using MotionCtrl;
@@ -345,15 +345,15 @@ namespace UI
                 default:
                 case "tp_lightbox_left":
                     lightBoxDef.lightbox = COM.LeftLightBox;
-                    lightBoxDef.UpdateShow();
+                    lightBoxDef.UpdateShow(distance:PT_SET.AFC_distance_check_open,lux:PT_SET.AFC_luxcct_check_open);
                     break;
                 case "tp_lightbox_right":
                     lightBoxDef.lightbox = COM.RightLightBox;
-                    lightBoxDef.UpdateShow();
+                    lightBoxDef.UpdateShow(distance: PT_SET.DCC_distance_check_open, lux: PT_SET.DCC_luxcct_check_open);
                     break;
                 case "tp_lightbox_otp":
                     lightBoxDef.lightbox = COM.OTPLightBox;
-                    lightBoxDef.UpdateShow();
+                    lightBoxDef.UpdateShow(distance: PT_SET.OTP_distance_check_open, lux: PT_SET.OTP_luxcct_check_open);
                     break;
             }
         }

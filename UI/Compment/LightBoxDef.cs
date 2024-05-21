@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Drawing;
@@ -11,10 +11,15 @@ using Cognex.VisionPro.Exceptions;
 using System.IO.Ports;
 using System.Threading;
 using MotionCtrl;
+using System.IO;
+using UI.Class;
+using QWhale.Syntax;
+using static SerialCommander;
 namespace UI.Compment
 {
     public partial class LightBoxDef : UserControl
     {
+
         public LightBox lightbox = null;
         public SerialPort serialPort1 = new SerialPort();
         byte[] read = { 0x02, 0x43, 0xb0, 0x01, 0x03, 0xf2 };
@@ -28,6 +33,7 @@ namespace UI.Compment
         public LightBoxDef()
         {
             InitializeComponent();
+
         }
 
         public void PmsEn(User.PERMISSION pms)
@@ -44,6 +50,7 @@ namespace UI.Compment
 
                     for (int i = 0; i < dgv.ColumnCount; i++)
                         dgv.Columns[i].ReadOnly = true;
+                    dgv.Columns["ActualDistanceParam"].ReadOnly = false;
                     dgv.Columns["XX1"].ReadOnly = false;
                     dgv.Columns["X2"].ReadOnly = false;
                     dgv.Columns["Y1"].ReadOnly = false;
@@ -93,7 +100,7 @@ namespace UI.Compment
                 if (idx >= 0 && (idx + 1) < lightbox.ListPos.Count)
                     lightbox.ListPos.Insert(idx + 1, PosDef);
                 else lightbox.ListPos.Add(PosDef);
-                UpdateShow();
+                UpdateShow(distance: PT_SET.AFC_distance_check_open, lux: PT_SET.AFC_luxcct_check_open);
 
                 //select add row
                 if (idx > 0 && dgv.Rows != null && (idx + 1) < dgv.Rows.Count)
@@ -110,7 +117,7 @@ namespace UI.Compment
             if (idx >= 0 && idx < lightbox.ListPos.Count)
             {
                 lightbox.ListPos.RemoveAt(idx);
-                UpdateShow();
+                UpdateShow(distance: PT_SET.AFC_distance_check_open, lux: PT_SET.AFC_luxcct_check_open);
                 if (idx > 0 && dgv.Rows != null && idx < dgv.Rows.Count)
                     dgv.Rows[idx].Selected = true;
             }
@@ -131,6 +138,30 @@ namespace UI.Compment
 
                 str = dgv.Rows[RowID].Cells["isuse"].Value == null ? "" : dgv.Rows[RowID].Cells["isuse"].Value.ToString();
                 PosDef.IsUse = str.Length > 0 ? Convert.ToBoolean(str) : false;
+
+                str = dgv.Rows[RowID].Cells["ActualDistanceParam"].Value == null ? "" : dgv.Rows[RowID].Cells["ActualDistanceParam"].Value.ToString();
+                PosDef.ActualDistanceParam = str.Length > 0 ? Convert.ToDouble(str) : 0;
+
+                str = dgv.Rows[RowID].Cells["distance_threshold"].Value == null ? "" : dgv.Rows[RowID].Cells["distance_threshold"].Value.ToString();
+                PosDef.DistanceThreshold = str.Length > 0 ? Convert.ToDouble(str) : 0;
+
+                str = dgv.Rows[RowID].Cells["Comp"].Value == null ? "" : dgv.Rows[RowID].Cells["Comp"].Value.ToString();
+                PosDef.Comp = str.Length > 0 ? Convert.ToDouble(str) : 0;
+
+                str = dgv.Rows[RowID].Cells["TeleComp"].Value == null ? "" : dgv.Rows[RowID].Cells["TeleComp"].Value.ToString();
+                PosDef.TeleComp = str.Length > 0 ? Convert.ToDouble(str) : 0;
+
+                str = dgv.Rows[RowID].Cells["ActualLuxParam"].Value == null ? "" : dgv.Rows[RowID].Cells["ActualLuxParam"].Value.ToString();
+                PosDef.ActualLuxParam = str.Length > 0 ? Convert.ToDouble(str) : 0;
+
+                str = dgv.Rows[RowID].Cells["Lux_threshold"].Value == null ? "" : dgv.Rows[RowID].Cells["Lux_threshold"].Value.ToString();
+                PosDef.LuxThreshold = str.Length > 0 ? Convert.ToDouble(str) : 0;
+
+                str = dgv.Rows[RowID].Cells["ActualCctParam"].Value == null ? "" : dgv.Rows[RowID].Cells["ActualCctParam"].Value.ToString();
+                PosDef.ActualCctParam = str.Length > 0 ? Convert.ToDouble(str) : 0;
+
+                str = dgv.Rows[RowID].Cells["Cct_threshold"].Value == null ? "" : dgv.Rows[RowID].Cells["Cct_threshold"].Value.ToString();
+                PosDef.CctThreshold = str.Length > 0 ? Convert.ToDouble(str) : 0;
 
                 str = dgv.Rows[RowID].Cells["XX1"].Value == null ? "" : dgv.Rows[RowID].Cells["XX1"].Value.ToString();
                 PosDef.X1 = str.Length > 0 ? Convert.ToDouble(str) : double.MaxValue;
@@ -193,7 +224,7 @@ namespace UI.Compment
                 {
                     //保存之前的补偿值
                     int id = PosDef.ID;
-                    LightBox.PosDef postemp = lightbox.ListPos.Find(delegate(LightBox.PosDef x) { return x.ID == id; });
+                    LightBox.PosDef postemp = lightbox.ListPos.Find(delegate (LightBox.PosDef x) { return x.ID == id; });
                     if (postemp != null)
                     {
                         PosDef.Cmp[0] = postemp.Cmp[0];
@@ -212,7 +243,7 @@ namespace UI.Compment
             }
         }
 
-        bool SetRowData(int RowID, LightBox.PosDef PosDef)
+        bool SetRowData(int RowID, LightBox.PosDef PosDef, bool distance = false, bool lux = false)
         {
             if (RowID < 0 || dgv.Rows == null || RowID >= dgv.Rows.Count) return false;
             try
@@ -220,13 +251,26 @@ namespace UI.Compment
                 dgv.Rows[RowID].Cells["Num"].Value = PosDef.ID;
                 dgv.Rows[RowID].Cells["Disc"].Value = PosDef.Name;
                 dgv.Rows[RowID].Cells["isuse"].Value = PosDef.IsUse;
+                if (distance)
+                {
+                    dgv.Rows[(RowID)].Cells["ActualDistanceParam"].Value = Math.Abs(PosDef.ActualDistanceParam) < 10000 ? PosDef.ActualDistanceParam.ToString("F3") : "";
+                    dgv.Rows[(RowID)].Cells["distance_threshold"].Value = Math.Abs(PosDef.DistanceThreshold) < 10000 ? PosDef.DistanceThreshold.ToString("F3") : "";
+                    dgv.Rows[(RowID)].Cells["Comp"].Value = Math.Abs(PosDef.Comp) < 10000 ? PosDef.Comp.ToString("F3") : "";
+                    dgv.Rows[(RowID)].Cells["TeleComp"].Value = Math.Abs(PosDef.TeleComp) < 10000 ? PosDef.TeleComp.ToString("F3") : "";
+                }
+                if (lux)
+                {
+                    dgv.Rows[(RowID)].Cells["ActualLuxParam"].Value = Math.Abs(PosDef.ActualDistanceParam) < 10000 ? PosDef.ActualLuxParam.ToString("F3") : "";
+                    dgv.Rows[(RowID)].Cells["Lux_threshold"].Value = Math.Abs(PosDef.LuxThreshold) < 10000 ? PosDef.LuxThreshold.ToString("F3") : "";
+                    dgv.Rows[(RowID)].Cells["ActualCctParam"].Value = Math.Abs(PosDef.ActualCctParam) < 10000 ? PosDef.ActualCctParam.ToString("F3") : "";
+                    dgv.Rows[(RowID)].Cells["Cct_threshold"].Value = Math.Abs(PosDef.CctThreshold) < 10000 ? PosDef.CctThreshold.ToString("F3") : "";
+                }
                 dgv.Rows[RowID].Cells["XX1"].Value = Math.Abs(PosDef.X1) < 10000 ? PosDef.X1.ToString("F3") : "";
                 dgv.Rows[RowID].Cells["X2"].Value = Math.Abs(PosDef.X2) < 10000 ? PosDef.X2.ToString("F3") : "";
                 dgv.Rows[RowID].Cells["Y1"].Value = Math.Abs(PosDef.Y1) < 10000 ? PosDef.Y1.ToString("F3") : "";
                 dgv.Rows[RowID].Cells["Z1"].Value = Math.Abs(PosDef.Z1) < 10000 ? PosDef.Z1.ToString("F3") : "";
                 dgv.Rows[RowID].Cells["Z2"].Value = Math.Abs(PosDef.Z2) < 10000 ? PosDef.Z2.ToString("F3") : "";
-                dgv.Rows[RowID].Cells["Channel"].Value =
-                    Math.Abs(PosDef.Channel) < 100000 ? PosDef.Channel.ToString() : "";
+                dgv.Rows[RowID].Cells["Channel"].Value = Math.Abs(PosDef.Channel) < 100000 ? PosDef.Channel.ToString() : "";
                 dgv.Rows[RowID].Cells["Delay"].Value = Math.Abs(PosDef.Delay) < 100000 ? PosDef.Delay.ToString() : "0";
                 return true;
             }
@@ -237,7 +281,7 @@ namespace UI.Compment
             }
         }
 
-        private void FillTableWithPosDef(LightBox.PosDef PosDef, int row = -2)
+        private void FillTableWithPosDef(LightBox.PosDef PosDef, int row = -2, bool distance = false, bool lux = false)
         {
             if (lightbox == null || PosDef == null || PosDef.Name.Length < 1) return;
             //if empty or add mode then add
@@ -246,10 +290,10 @@ namespace UI.Compment
             //the last row
             else if (row < 0) row = dgv.Rows.Count - 1;
 
-            SetRowData(row, PosDef);
+            SetRowData(row, PosDef, distance, lux);
         }
 
-        public void UpdateShow(bool bdgvupdate = true)
+        public void UpdateShow(bool bdgvupdate = true, bool distance = false, bool lux = false, bool cct = false)
         {
 
             if (lightbox == null || lightbox.ListPos.Count == 0)
@@ -257,6 +301,14 @@ namespace UI.Compment
                 dgv.Rows.Clear();
                 return;
             }
+            dgv.Columns["ActualDistanceParam"].Visible = distance;
+            dgv.Columns["distance_threshold"].Visible = distance;
+            dgv.Columns["Comp"].Visible = distance;
+            dgv.Columns["TeleComp"].Visible = distance;
+            dgv.Columns["ActualLuxParam"].Visible = lux;
+            dgv.Columns["Lux_threshold"].Visible = lux;
+            dgv.Columns["ActualCctParam"].Visible = lux;
+            dgv.Columns["Cct_threshold"].Visible = lux;
 
             if (bdgvupdate)
             {
@@ -265,23 +317,24 @@ namespace UI.Compment
 
                 for (int r = 0; r < lightbox.ListPos.Count; r++)
                 {
-                    FillTableWithPosDef(lightbox.ListPos.ElementAt(r), r);
+                    FillTableWithPosDef(lightbox.ListPos.ElementAt(r), r, distance, lux);
+
                 }
             }
 
             //补偿
             if (dgv.CurrentRow != null && dgv.CurrentRow.Cells[0] != null && dgv.CurrentRow.Cells[0].Value != null)
             {
-                int num = (int) dgv.CurrentRow.Cells["Num"].Value;
-                LightBox.PosDef PosDef = lightbox.ListPos.Find(delegate(LightBox.PosDef x) { return x.ID == num; });
+                int num = (int)dgv.CurrentRow.Cells["Num"].Value;
+                LightBox.PosDef PosDef = lightbox.ListPos.Find(delegate (LightBox.PosDef x) { return x.ID == num; });
                 if (PosDef != null)
                 {
                     dgvcmp.Rows.Clear();
                     for (int n = 0; n < PosDef.Cmp.Length; n++)
                     {
                         int RowID = dgvcmp.Rows.Add();
-                        dgvcmp.Columns[0].HeaderText =VAR.IsChinese? string.Format("位置[{0}]的补偿", PosDef.ID): string.Format("Pos[{0}]Offset", PosDef.ID);
-                        dgvcmp.Rows[RowID].Cells["cmp_ws"].Value = VAR.IsChinese?string.Format("工站{0}", n): string.Format("POS{0}", n);
+                        dgvcmp.Columns[0].HeaderText = VAR.IsChinese ? string.Format("位置[{0}]的补偿", PosDef.ID) : string.Format("Pos[{0}]Offset", PosDef.ID);
+                        dgvcmp.Rows[RowID].Cells["cmp_ws"].Value = VAR.IsChinese ? string.Format("工站{0}", n) : string.Format("POS{0}", n);
                         dgvcmp.Rows[RowID].Cells["cmp_x1"].Value = Math.Abs(PosDef.Cmp[n].X1) < 10000
                             ? PosDef.Cmp[n].X1.ToString("F3")
                             : "";
@@ -312,20 +365,20 @@ namespace UI.Compment
         private void btn_add_Click(object sender, EventArgs e)
         {
             if (DialogResult.Yes !=
-                MessageBox.Show(VAR.IsChinese?"确定是否新增?": "Are you sure you want to add it?\r\n确定是否新增?", VAR.IsChinese?"提示": "Prompt", MessageBoxButtons.YesNo, MessageBoxIcon.Warning)) return;
+                MessageBox.Show(VAR.IsChinese ? "确定是否新增?" : "Are you sure you want to add it?\r\n确定是否新增?", VAR.IsChinese ? "提示" : "Prompt", MessageBoxButtons.YesNo, MessageBoxIcon.Warning)) return;
             Add();
             // btn_save_Click(null, null);
             EM_RES res = lightbox.SaveCfg();
             if (res != EM_RES.OK)
             {
-                MessageBox.Show(VAR.IsChinese ? "保存失败!": "Save failed!\r\n保存失败!", VAR.IsChinese ? "提示" : "Prompt", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show(VAR.IsChinese ? "保存失败!" : "Save failed!\r\n保存失败!", VAR.IsChinese ? "提示" : "Prompt", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
 
             res = lightbox.LoadCfg();
             if (res != EM_RES.OK)
             {
-                MessageBox.Show(VAR.IsChinese ? "保存后加载失败!": "Load failed after saving!", VAR.IsChinese ? "提示" : "Prompt", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show(VAR.IsChinese ? "保存后加载失败!" : "Load failed after saving!", VAR.IsChinese ? "提示" : "Prompt", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
         }
@@ -336,13 +389,13 @@ namespace UI.Compment
             EM_RES res = lightbox.LoadCfg();
             if (res != EM_RES.OK)
             {
-                MessageBox.Show(VAR.IsChinese ? "加载失败!": "Failed to load!", VAR.IsChinese ? "提示" : "Prompt", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show(VAR.IsChinese ? "加载失败!" : "Failed to load!", VAR.IsChinese ? "提示" : "Prompt", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
 
-            UpdateShow();
-			ShowTrayBoxData(lightbox);
-            MessageBox.Show(VAR.IsChinese ? "加载成功!": "Loaded successfully!", VAR.IsChinese ? "提示" : "Prompt", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            UpdateShow(distance: PT_SET.AFC_distance_check_open, lux: PT_SET.AFC_luxcct_check_open);
+            ShowTrayBoxData(lightbox);
+            MessageBox.Show(VAR.IsChinese ? "加载成功!" : "Loaded successfully!", VAR.IsChinese ? "提示" : "Prompt", MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
 
         private void btn_save_Click(object sender, EventArgs e)
@@ -360,11 +413,11 @@ namespace UI.Compment
             }
 
             lightbox.ListPos = listtemp;
-		    GetLaserData(lightbox);
+            GetLaserData(lightbox);
             EM_RES res = lightbox.SaveCfg();
             if (res != EM_RES.OK)
             {
-                MessageBox.Show(VAR.IsChinese?"保存失败!": "Save failed!\r\n保存失败!", VAR.IsChinese ? "提示" : "Prompt", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show(VAR.IsChinese ? "保存失败!" : "Save failed!\r\n保存失败!", VAR.IsChinese ? "提示" : "Prompt", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
 
@@ -374,23 +427,34 @@ namespace UI.Compment
 
             if (res != EM_RES.OK)
             {
-                MessageBox.Show(VAR.IsChinese ? "保存后加载失败!": "Load failed after saving!\r\n保存后加载失败!", VAR.IsChinese ? "提示" : "Prompt", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show(VAR.IsChinese ? "保存后加载失败!" : "Load failed after saving!\r\n保存后加载失败!", VAR.IsChinese ? "提示" : "Prompt", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
-
-            UpdateShow();
-            MessageBox.Show(VAR.IsChinese ? "保存成功!": "Saved successfully!\r\n保存成功!", VAR.IsChinese ? "提示" : "Prompt", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            switch (lightbox.disc)
+            {
+                case "左光箱":
+                    UpdateShow(false, distance: PT_SET.AFC_distance_check_open, lux: PT_SET.AFC_luxcct_check_open);
+                    break;
+                case "OTP光箱":
+                    UpdateShow(false, distance: PT_SET.OTP_distance_check_open, lux: PT_SET.OTP_luxcct_check_open);
+                    break;
+                case "右光箱":
+                    UpdateShow(false, distance: PT_SET.AFC_distance_check_open, lux: PT_SET.DCC_luxcct_check_open);
+                    break;
+            }
+            //UpdateShow(distance: PT_SET.AFC_distance_check_open, lux: PT_SET.AFC_luxcct_check_open);
+            MessageBox.Show(VAR.IsChinese ? "保存成功!" : "Saved successfully!\r\n保存成功!", VAR.IsChinese ? "提示" : "Prompt", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
             BaseAction.LightBoxSendMesAll();
-        
-        
+
+
         }
 
         private void dgv_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
             if (lightbox == null || e.RowIndex < 0 || e.RowIndex > lightbox.ListPos.Count) return;
             //定位
-            if (e.ColumnIndex == 11)
+            if (e.ColumnIndex == 19)
             {
                 try
                 {
@@ -415,35 +479,35 @@ namespace UI.Compment
 
                     if (ws == null)
                     {
-                        MessageBox.Show(VAR.IsChinese ? "转台位置未知，禁止光箱定位！": "The position of the turntable is unknown, positioning of the light box is prohibited!\r\n转台位置未知，禁止光箱定位！", VAR.IsChinese ? "提示" : "Prompt", MessageBoxButtons.YesNo, MessageBoxIcon.Error);
+                        MessageBox.Show(VAR.IsChinese ? "转台位置未知，禁止光箱定位！" : "The position of the turntable is unknown, positioning of the light box is prohibited!\r\n转台位置未知，禁止光箱定位！", VAR.IsChinese ? "提示" : "Prompt", MessageBoxButtons.YesNo, MessageBoxIcon.Error);
                         return;
                     }
 
                     if (!ws.isInTestPos)
                     {
-                        MessageBox.Show(VAR.IsChinese ? string.Format("{0} 不在测试未知，禁止光箱定位！", ws.disc): string.Format("{0} is not in the test position, and light box positioning is prohibited! \r\n{0} 不在测试位置，禁止光箱定位！", ws.disc), VAR.IsChinese ? "提示" : "Prompt", MessageBoxButtons.YesNo,
+                        MessageBox.Show(VAR.IsChinese ? string.Format("{0} 不在测试未知，禁止光箱定位！", ws.disc) : string.Format("{0} is not in the test position, and light box positioning is prohibited! \r\n{0} 不在测试位置，禁止光箱定位！", ws.disc), VAR.IsChinese ? "提示" : "Prompt", MessageBoxButtons.YesNo,
                             MessageBoxIcon.Error);
                         return;
                     }
 
                     //补偿
                     int ws_idx = -1;
-                    if (PosDef.GetCmp(ws.num) != null && DialogResult.Yes == MessageBox.Show(VAR.IsChinese ? "当前位置有补偿，是否加上补偿定位?": "The current position is compensated. Is compensation positioning added?\r\n当前位置有补偿，是否加上补偿定位?", VAR.IsChinese ? "提示" : "Prompt",
+                    if (PosDef.GetCmp(ws.num) != null && DialogResult.Yes == MessageBox.Show(VAR.IsChinese ? "当前位置有补偿，是否加上补偿定位?" : "The current position is compensated. Is compensation positioning added?\r\n当前位置有补偿，是否加上补偿定位?", VAR.IsChinese ? "提示" : "Prompt",
                             MessageBoxButtons.YesNo, MessageBoxIcon.Warning))
                     {
                         ws_idx = ws.num;
                     }
                     else if (DialogResult.Yes !=
-                             MessageBox.Show(VAR.IsChinese ? "确定要定位?": "Are you sure you want to target?\r\n", VAR.IsChinese ? "提示" : "Prompt", MessageBoxButtons.YesNo, MessageBoxIcon.Warning))
+                             MessageBox.Show(VAR.IsChinese ? "确定要定位?" : "Are you sure you want to target?\r\n", VAR.IsChinese ? "提示" : "Prompt", MessageBoxButtons.YesNo, MessageBoxIcon.Warning))
                     {
                         return;
                     }
 
                     EM_RES res = lightbox.MoveTo(ref VAR.gsys_set.bquit, PosDef, ws_idx);
                     if (res == EM_RES.OK)
-                        MessageBox.Show(VAR.IsChinese ? "定位成功!": "Positioning success!\r\n定位成功!", VAR.IsChinese ? "提示" : "Prompt", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        MessageBox.Show(VAR.IsChinese ? "定位成功!" : "Positioning success!\r\n定位成功!", VAR.IsChinese ? "提示" : "Prompt", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     else
-                        MessageBox.Show(VAR.IsChinese ? "定位失败!": "Positioning failed!\r\n定位失败!", VAR.IsChinese ? "提示" : "Prompt", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        MessageBox.Show(VAR.IsChinese ? "定位失败!" : "Positioning failed!\r\n定位失败!", VAR.IsChinese ? "提示" : "Prompt", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
                 catch (Exception ex)
                 {
@@ -451,7 +515,7 @@ namespace UI.Compment
                 }
             }
             //学习位置
-            else if (e.ColumnIndex == 10)
+            else if (e.ColumnIndex == 18)
             {
                 try
                 {
@@ -484,7 +548,33 @@ namespace UI.Compment
 
         private void dgv_CellClick(object sender, DataGridViewCellEventArgs e)
         {
-            UpdateShow(false);
+            switch (lightbox.disc)
+            {
+                case "左光箱":
+                    UpdateShow(false,distance: PT_SET.AFC_distance_check_open, lux: PT_SET.AFC_luxcct_check_open);
+                    break;
+                case "OTP光箱":
+                    UpdateShow(false,distance: PT_SET.OTP_distance_check_open, lux: PT_SET.OTP_luxcct_check_open);
+                    break;
+                case "右光箱":
+                    UpdateShow(false,distance: PT_SET.AFC_distance_check_open, lux: PT_SET.DCC_luxcct_check_open);
+                    break;
+            }
+            //switch (_ctb_lightbox.SelectedTab.Name)
+            //{
+            //    default:
+            //    case "tp_lightbox_left":
+            //        UpdateShow(distance: PT_SET.AFC_distance_check_open, lux: PT_SET.AFC_luxcct_check_open);
+            //        break;
+            //    case "tp_lightbox_right":
+
+            //        UpdateShow(distance: PT_SET.AFC_distance_check_open, lux: PT_SET.DCC_luxcct_check_open);
+            //        break;
+            //    case "tp_lightbox_otp":
+            //        UpdateShow(lux: PT_SET.OTP_luxcct_check_open);
+            //        break;
+            //}
+
         }
 
         private void dgv_CellPainting(object sender, DataGridViewCellPaintingEventArgs e)
@@ -517,12 +607,12 @@ namespace UI.Compment
 
         public void GetLaserData(LightBox lightBox)
         {
-            lightBox.laser_x1= (double)nud_x.Value;
+            lightBox.laser_x1 = (double)nud_x.Value;
             lightBox.laser_y1 = (double)nud_y.Value;
             lightBox.laser_z2 = (double)nud_z.Value;
             lightBox.md_h = (double)nud_h.Value;
             lightBox.fsm_h = (double)nud_fsmh.Value;
-            lightBox.scale= (double)nud_scale.Value;
+            lightBox.scale = (double)nud_scale.Value;
         }
 
         public void ShowTrayBoxData(LightBox lightBox)
@@ -537,6 +627,7 @@ namespace UI.Compment
 
         private void btn_getpos_Click(object sender, EventArgs e)
         {
+
             nud_x.Value = (decimal)MT.AXIS_BOX_L_X1.fenc_pos;
             nud_y.Value = (decimal)MT.AXIS_BOX_L_Y1.fenc_pos;
             nud_z.Value = (decimal)MT.AXIS_BOX_L_Z2.fenc_pos;
@@ -551,12 +642,12 @@ namespace UI.Compment
             MT.SetAllAxToManualSpd();
 
             COM.LeftLightBox.laser_x1 = Convert.ToDouble(nud_x.Value);
-            COM.LeftLightBox.laser_y1= Convert.ToDouble(nud_y.Value);
+            COM.LeftLightBox.laser_y1 = Convert.ToDouble(nud_y.Value);
             COM.LeftLightBox.laser_z2 = Convert.ToDouble(nud_z.Value);
-            res =lightbox.MoveTo(ref VAR.gsys_set.bquit, COM.LeftLightBox.laser_x1, 0, 0, COM.LeftLightBox.laser_z2,
+            res = lightbox.MoveTo(ref VAR.gsys_set.bquit, COM.LeftLightBox.laser_x1, 0, 0, COM.LeftLightBox.laser_z2,
                 COM.LeftLightBox.laser_y1);
             if (res != EM_RES.OK)
-            MessageBox.Show("定位失败!", "提示", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("定位失败!", "提示", MessageBoxButtons.OK, MessageBoxIcon.Error);
             else
             {
                 MessageBox.Show("定位成功!", "提示", MessageBoxButtons.OK);
@@ -568,7 +659,7 @@ namespace UI.Compment
         {
 
             COM.LeftLightBox.md_h = Convert.ToDouble(nud_h.Value);
-            COM.LeftLightBox.fsm_h= Convert.ToDouble(nud_fsmh.Value);
+            COM.LeftLightBox.fsm_h = Convert.ToDouble(nud_fsmh.Value);
             serialPort1.Write(read, 0, 6);
             Thread.Sleep(2000);
 
@@ -620,16 +711,16 @@ namespace UI.Compment
                 }));
                 return;
             }
-            
 
-            d=Math.Round(35+res/100-(COM.LeftLightBox.md_h + COM.LeftLightBox.fsm_h + 1.5), 2, MidpointRounding.AwayFromZero);
+
+            d = Math.Round(35 + res / 100 - (COM.LeftLightBox.md_h + COM.LeftLightBox.fsm_h + 1.5), 2, MidpointRounding.AwayFromZero);
 
 
             richTextBox1.BeginInvoke(new Action(() =>
             {
                 richTextBox1.Text = string.Format("{0:F2}", d);
             }));
-            
+
 
 
         }
@@ -649,7 +740,7 @@ namespace UI.Compment
                 COM.LeftLightBox.laser_y1);
             Thread.Sleep(3000);
             tempx1 = MT.AXIS_BOX_L_X1.fenc_pos;
-          
+
             serialPort1.Write(read, 0, 6);
             Thread.Sleep(2000);
 
@@ -682,7 +773,7 @@ namespace UI.Compment
             }));
             cali = d;
             COM.LeftLightBox.scale = Math.Round((x1 - tempx1) / (temp - cali), 3, MidpointRounding.AwayFromZero);
-            if (COM.LeftLightBox.scale>1.05||COM.LeftLightBox.scale<0.95)
+            if (COM.LeftLightBox.scale > 1.05 || COM.LeftLightBox.scale < 0.95)
             {
                 MessageBox.Show("比例有误", "提示", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
@@ -716,7 +807,7 @@ namespace UI.Compment
                     MessageBox.Show(string.Format("第一格数据为空,不能复制"), "错误", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
                     return;
                 }
-            
+
                 foreach (DataGridViewRow row in dgv.Rows)
                 {
                     if (str == "True" || str == "False") row.Cells["isuse"].Value = Convert.ToBoolean(str);
@@ -724,7 +815,59 @@ namespace UI.Compment
 
                 }
             }
+
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                using (SerialCommander comm = new SerialCommander(PT_SET.COM_1))
+                {
+                    comm.SetLaserStatus(true);
+                    Thread.Sleep(1000);
+                    double distance = comm.ReadDistanceWithWait(5000);
+                    VAR.msg.AddMsg(Msg.EM_MSGTYPE.DBG, $"{distance}");
+                    comm.SetLaserStatus(false);
+                    distanceres.Text = distance.ToString();
+                }
+            }
+            catch (Exception ex)when(ex is TimeoutException||ex is IOException) 
+            {
+
+               VAR.msg.AddMsg(Msg.EM_MSGTYPE.ERR, ex.Message);
+                MessageBox.Show($"{ex.Message}");
                 
+            }
+
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                string COM=tempcomm.Text;
+                if (COM ==null)
+                {
+                    MessageBox.Show("未输入COM口");
+                    return;
+                }
+                double lux = 0;
+            double cct = 0;
+                using(SerialCommander comm=new SerialCommander(COM))
+             (lux,cct)=comm.ReadLuxCctWithWait(10000);
+            luxcctres.Text = "lux" + Convert.ToInt32(lux).ToString() + "cct" + Convert.ToInt32(cct).ToString();
+            }
+            catch (Exception ex) when (ex is TimeoutException || ex is IOException)
+            {
+
+                VAR.msg.AddMsg(Msg.EM_MSGTYPE.ERR, ex.Message);
+                MessageBox.Show($"{ex.Message}");
+
+            }
+
         }
     }
+
+
 }

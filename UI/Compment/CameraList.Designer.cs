@@ -1,4 +1,4 @@
-﻿namespace UI.Compment
+namespace UI.Compment
 {
     partial class CameraList
     {

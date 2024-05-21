@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -16,6 +16,7 @@ using DevReport;
 using MySql.Data.MySqlClient;
 using Win32Lib;
 using UI.Class;
+using Timer = System.Windows.Forms.Timer;
 
 namespace UI
 {
@@ -28,9 +29,12 @@ namespace UI
         public static FrUser frsuser = new FrUser();
         public static FrRst frrst = new FrRst();
         public static FrMain frmain = null;
-
+        private Timer _eightHourTimer;
+        private bool _isFormDragging = false; // 是否正在拖动窗体
+        private Point _lastMousePos;         // 鼠标按下时相对于窗体的位置
         //KeyboardHook k_hook = new KeyboardHook();
-
+        private bool _isDragging = false;
+        private Point _mouseOffset; // 鼠标在Panel内的偏移量
         protected override CreateParams CreateParams
         {
             get
@@ -48,6 +52,12 @@ namespace UI
         {
             InitializeComponent();
             frmain = this;
+            this.MouseDown += Panel_MouseDown;
+            this.MouseMove += Panel_MouseMove;
+            this.MouseUp += Panel_MouseUp;
+
+            // 确保Panel能正确响应鼠标事件
+            this.MouseCaptureChanged += Panel_MouseCaptureChanged;
             Msg.secsManager.Send(new BaseInfo() { Value = Path.GetFullPath("..") + @"\product" }, TypeId: 3);
             Msg.secsManager.ReceiveMsg += msg =>
             {
@@ -275,8 +285,10 @@ namespace UI
         {
             //    if (frrun != null) frrun.timer_update.Enabled = false;
             //    if (frsys != null) frsys.timer_update.Enabled = false;
-
             Font ft = new Font("Microsoft Sans Serif", 18, FontStyle.Bold);
+            //this.FormBorderStyle = FormBorderStyle.None; // 隐藏边框和标题栏
+            //this.WindowState = FormWindowState.Maximized; // 最大化
+            //this.Bounds = Screen.PrimaryScreen.Bounds;
             rbtn_run.Font = ft;
             rbtn_product.Font = ft;
             rbtn_sys.Font = ft;
@@ -294,7 +306,7 @@ namespace UI
 
             Form form = null;
             ft = new Font("Microsoft Sans Serif", 22, FontStyle.Bold);
-
+            
             //if (frsys == null) frsys = new FrSys();
             if (frsys != null) frsys.bupdate = false;
             //if (frrst == null) frrst = new FrRst();
@@ -396,21 +408,74 @@ namespace UI
             if (form == null) return;
             pnl_sub.Controls.Clear();
             form.TopLevel = false;
-            form.FormBorderStyle = FormBorderStyle.None;
             pnl_sub.Controls.Add(form);
             form.Left = 0;
             form.Top = 0;
             form.Width = pnl_sub.Width;
-            form.Height = pnl_sub.Height - 8;
+            form.Height = pnl_sub.Height-8;
             form.Show();
         }
+        private void Panel_MouseDown(object sender, MouseEventArgs e)
+        {
+            // 仅响应左键点击
+            if (e.Button == MouseButtons.Left)
+            {
+                _isDragging = true;
+                // 记录鼠标在Panel内的相对位置
+                _mouseOffset = new Point(e.X, e.Y);
+            }
+        }
 
+        private void Panel_MouseMove(object sender, MouseEventArgs e)
+        {
+            if (_isDragging)
+            {
+                // 获取Panel的父容器（通常是窗体）
+                Control parent = this.Parent;
+                if (parent == null)
+                    parent = this.FindForm(); // 如果Panel直接在窗体上，获取窗体作为父容器
+
+                if (parent != null)
+                {
+                    // 计算鼠标在父容器中的位置
+                    Point parentPos = parent.PointToClient(this.PointToScreen(e.Location));
+
+                    // 计算新位置（减去偏移量，确保拖动平滑）
+                    int newX = parentPos.X - _mouseOffset.X;
+                    int newY = parentPos.Y - _mouseOffset.Y;
+
+                    // 限制Panel在父容器内（可选）
+                    newX = Math.Max(0, Math.Min(newX, parent.ClientSize.Width - this.Width));
+                    newY = Math.Max(0, Math.Min(newY, parent.ClientSize.Height - this.Height));
+
+                    // 更新Panel位置
+                    this.Location = new Point(newX, newY);
+                }
+            }
+        }
+
+        private void Panel_MouseUp(object sender, MouseEventArgs e)
+        {
+            if (e.Button == MouseButtons.Left)
+            {
+                _isDragging = false;
+            }
+        }
+
+        private void Panel_MouseCaptureChanged(object sender, EventArgs e)
+        {
+            // 鼠标捕获丢失时停止拖动（如拖动到控件外）
+            if (!this.Capture)
+            {
+                _isDragging = false;
+            }
+        }
         private void FrMain_Load(object sender, EventArgs e)
         {
             DRpt.Report_CreateTable();
             EM_RES ret;
             LanguageInit();
-
+            InitializeTimer();
             Msg.secsManager.Start();
             VAR.msg.ShowMsgCfg(1000, (Msg.EM_MSGTYPE)0xffff);
             VAR.msg.AddMsg(Msg.EM_MSGTYPE.SYS, VAR.IsChinese ? string.Format("系统启动...") : "System start ...        (系统启动...)");
@@ -426,7 +491,7 @@ namespace UI
             VAR.sys_inf.Set(EM_ALM_STA.WAR_YELLOW_FLASH, VAR.IsChinese ? "正在加载" : "Loading", 2, true);
             PT_SET.LoadPtCfg(VAR.gsys_set.cur_product_name);
             NewSysInf.LoadSysInfCfg(out var msg);
-           
+            
             //加载产品
             try
             {
@@ -548,7 +613,7 @@ namespace UI
             {
                 Utility.CatchDiskAndDeleteFile(null, Path.GetFullPath("..") + "\\product\\" + VAR.gsys_set.cur_product_name + "\\Image\\" + cam.mName + "\\", -5, false);
             }
-            VAR.msg.AddMsg(Msg.EM_MSGTYPE.NOR, VAR.IsChinese ? ("设备当前版本:" + lbVer.Text) : ("Device current version:        (设备当前版本:)" + lbVer.Text));
+            VAR.msg.AddMsg(Msg.EM_MSGTYPE.NOR, VAR.IsChinese ? ("设备当前版本:" + lbVer.Text) : (" Device current version:        (设备当前版本:)" + lbVer.Text));
             //tooltip
             tlp_Show.Active = true;
             //tlp_Show.AutoPopDelay = 5000;
@@ -577,12 +642,45 @@ namespace UI
                     COM.Sunnnyqr0.Init(PT_SET.sunnyqrip0);
                 }                            
             }
-                
-            Msg.secsManager.Send(new BaseInfo() { Value = Path.GetFullPath("..") + @"\product" }, TypeId: 3);
+            ///
+            
+        Msg.secsManager.Send(new BaseInfo() { Value = Path.GetFullPath("..") + @"\product" }, TypeId: 3);
             string vv = "1";
             if (PT_SET.bJigSan) vv = "0";
             Msg.secsManager.Send(new BaseInfo() { Id = 9, Value = vv });//夹具扫码开启上报
 
+        }
+        private void InitializeTimer()
+        {
+            // 创建定时器
+            _eightHourTimer = new Timer();
+
+            // 设置定时器间隔为1秒(1000毫秒)，可以根据需要调整
+            _eightHourTimer.Interval = 1000;
+
+            // 绑定定时器触发事件
+            _eightHourTimer.Tick += EightHourTimer_Tick;
+
+            // 启动定时器
+            _eightHourTimer.Start();
+
+        }
+        private void EightHourTimer_Tick(object sender, EventArgs e)
+        {
+            // 累加过去的毫秒数
+            AutoInspectionParameter._elapsedMilliseconds += _eightHourTimer.Interval;
+
+            // 检查是否达到某个时间
+            if ( DateTime.Now.ToString("HH:mm:ss") == PT_SET.CheckTimeMorning1 ||
+                    DateTime.Now.ToString("HH:mm:ss") == PT_SET.CheckTimeEvening2)
+            {
+                // 将状态设为true
+                AutoInspectionParameter.ifcheckontime = true;
+                AutoInspectionParameter.ifcheck=false;
+                VAR.msg.AddMsg(Msg.EM_MSGTYPE.DBG, "点检时间到");
+
+
+            }
         }
         private void rbtn_run_Click(object sender, EventArgs e)
         {
@@ -771,162 +869,165 @@ namespace UI
             }
             else
                 bhavesend = false;
-            if (MT.GPIO_IN_KEY_START.isON)
+            if (!COM.mesWaitWarning.IsVisible)
             {
-                i = 0;
-                Thread.Sleep(30);
                 if (MT.GPIO_IN_KEY_START.isON)
                 {
-                    MT.GPIO_OUT_ALM_BEEPER.SetOff();
-                    VAR.msg.AddMsg(Msg.EM_MSGTYPE.NOR, VAR.IsChinese ? string.Format("---开始键按下---") : "--- Press the start key ---       (---开始键按下---)");
-                    DRpt.Report_Opration(1000, 0, "开始键按下!");
-                    if (VAR.gsys_set.status == EM_SYS_STA.REPAIR)
+                    i = 0;
+                    Thread.Sleep(30);
+                    if (MT.GPIO_IN_KEY_START.isON)
                     {
-                        VAR.msg.AddMsg(Msg.EM_MSGTYPE.WAR, VAR.IsChinese ? string.Format("提示:当前设备正在维修，无法运行!") : "提示:当前设备正在维修，无法运行!    (Tip: The current device is being repaired and cannot run!)");
-                        return;
-                    }
-                    List<CARD> TempCardList;
-                    if (PT_SET.LbEn)
-                    {
-                        TempCardList = MT.CardList;
-                    }
-                    else
-                    {
-                        TempCardList = MT.CardList1;
-                    }
-
-                    //if (!PT_SET.IsMesLocal)
-                    //{
-                    //    Msg.secsManager.Send(new BaseInfo() { Id = 1, Value = Convert.ToInt32(DReport.EmStatus.Run).ToString() });
-                    //    Msg.secsManager.Send(new BaseInfo() { Id = 1 }, 2);
-                    //    Msg.secsManager.Send(new BaseInfo() { Id = 3 }, 2);
-                    //    await Task.Run(() =>
-                    //    {
-                    //        VAR.msg.AddMsg(Msg.EM_MSGTYPE.SYS, "正在等待MES上位指令!");
-                    //        SpinWait.SpinUntil(() => MT.IsAllowStartUpdate, 10000);
-                    //    });
-                    //    MT.IsAllowStartUpdate = false;
-                    //    //fr?.Close();
-                    //    if (!MT.IsAllowStart)
-                    //    {
-                    //        FrRun.Dialog(Color.Yellow, "警告", "被MES禁止启动！请联系相关人员。");
-                    //        return;
-                    //    }
-                    //}
-                    //检测复位状态
-                    foreach (CARD card in TempCardList)
-                    {
-                        if (card.isReady == false)
+                        MT.GPIO_OUT_ALM_BEEPER.SetOff();
+                        VAR.msg.AddMsg(Msg.EM_MSGTYPE.NOR, VAR.IsChinese ? string.Format("---开始键按下---") : "--- Press the start key ---       (---开始键按下---)");
+                        DRpt.Report_Opration(1000, 0, "开始键按下!");
+                        if (VAR.gsys_set.status == EM_SYS_STA.REPAIR)
                         {
-                            MessageBox.Show(VAR.IsChinese ? string.Format("{0}未初始化!", card.disc) : string.Format("{0} Uninitialized!!\r\n未初始化!", card.disc), "", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            VAR.msg.AddMsg(Msg.EM_MSGTYPE.WAR, VAR.IsChinese ? string.Format("提示:当前设备正在维修，无法运行!") : "提示:当前设备正在维修，无法运行!    (Tip: The current device is being repaired and cannot run!)");
                             return;
                         }
-                        foreach (AXIS ax in card.AxList)
+                        List<CARD> TempCardList;
+                        if (PT_SET.LbEn)
                         {
-                            if (ax.home_status != AXIS.HOME_STA.OK)
+                            TempCardList = MT.CardList;
+                        }
+                        else
+                        {
+                            TempCardList = MT.CardList1;
+                        }
+
+                        //if (!PT_SET.IsMesLocal)
+                        //{
+                        //    Msg.secsManager.Send(new BaseInfo() { Id = 1, Value = Convert.ToInt32(DReport.EmStatus.Run).ToString() });
+                        //    Msg.secsManager.Send(new BaseInfo() { Id = 1 }, 2);
+                        //    Msg.secsManager.Send(new BaseInfo() { Id = 3 }, 2);
+                        //    await Task.Run(() =>
+                        //    {
+                        //        VAR.msg.AddMsg(Msg.EM_MSGTYPE.SYS, "正在等待MES上位指令!");
+                        //        SpinWait.SpinUntil(() => MT.IsAllowStartUpdate, 10000);
+                        //    });
+                        //    MT.IsAllowStartUpdate = false;
+                        //    //fr?.Close();
+                        //    if (!MT.IsAllowStart)
+                        //    {
+                        //        FrRun.Dialog(Color.Yellow, "警告", "被MES禁止启动！请联系相关人员。");
+                        //        return;
+                        //    }
+                        //}
+                        //检测复位状态
+                        foreach (CARD card in TempCardList)
+                        {
+                            if (card.isReady == false)
                             {
-                                MessageBox.Show(VAR.IsChinese ? string.Format("{0} 状态异常，{1}!\r\n请先复位", ax.disc, ax.home_status) : string.Format("Abnormal {0} status,{1}! \r\n Please reset first{0} \r\n 状态异常，{1}!\r\n请先复位", ax.disc, ax.home_status), "", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                                MessageBox.Show(VAR.IsChinese ? string.Format("{0}未初始化!", card.disc) : string.Format("{0} Uninitialized!!\r\n未初始化!", card.disc), "", MessageBoxButtons.OK, MessageBoxIcon.Error);
                                 return;
                             }
-                        }
-                    }
-
-                    //检测运行状态
-                    if (VAR.gsys_set.status != EM_SYS_STA.RUN)
-                    {
-
-                        VAR.gsys_set.bquit = false;
-                        UpDownLoad.bquit = false;
-                        WS.bquit = false;
-                        WS.bpause = false;
-                        BaseAction.run();
-                    }
-                    else
-                    {
-                        try
-                        {
-                            warning fr;
-                            fr = (warning)FindForm("warning");
-                            if (fr != null)
+                            foreach (AXIS ax in card.AxList)
                             {
-                                fr.btn_ok.BeginInvoke(new Action(() =>
+                                if (ax.home_status != AXIS.HOME_STA.OK)
                                 {
-                                    fr.btn_ok.PerformClick();
-                                }));
+                                    MessageBox.Show(VAR.IsChinese ? string.Format("{0} 状态异常，{1}!\r\n请先复位", ax.disc, ax.home_status) : string.Format("Abnormal {0} status,{1}! \r\n Please reset first{0} \r\n 状态异常，{1}!\r\n请先复位", ax.disc, ax.home_status), "", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                                    return;
+                                }
                             }
                         }
-                        catch (Exception ex)
+
+                        //检测运行状态
+                        if (VAR.gsys_set.status != EM_SYS_STA.RUN)
                         {
-                            VAR.msg.AddMsg(Msg.EM_MSGTYPE.ERR, VAR.IsChinese ? ("fr.btn_ok.PerformClick错误:" + ex.ToString()) : ("fr.btn_ok.PerformClick err:" + ex.ToString()), DReport.EmErrCode.ToolError);
+
+                            VAR.gsys_set.bquit = false;
+                            UpDownLoad.bquit = false;
+                            WS.bquit = false;
+                            WS.bpause = false;
+                            BaseAction.run();
                         }
-
-
-
-                    }
-                    while (MT.GPIO_IN_KEY_START.isON)
-                    {
-                        if (i++ > 600)
+                        else
                         {
-                            VAR.msg.AddMsg(Msg.EM_MSGTYPE.ERR, VAR.IsChinese ? string.Format("等待开始按键松开大于3秒！") : "Wait for the start button to release for more than 3 seconds!     (等待开始按键松开大于3秒！)", DReport.EmErrCode.ToolError);
-                            MessageBox.Show(VAR.IsChinese ? string.Format("等待开始按键松开大于3秒！") : "Wait for the start button to release for more than 3 seconds!\r\n等待开始按键松开大于3秒!");
-                            break;
+                            try
+                            {
+                                warning fr;
+                                fr = (warning)FindForm("warning");
+                                if (fr != null)
+                                {
+                                    fr.btn_ok.BeginInvoke(new Action(() =>
+                                    {
+                                        fr.btn_ok.PerformClick();
+                                    }));
+                                }
+                            }
+                            catch (Exception ex)
+                            {
+                                VAR.msg.AddMsg(Msg.EM_MSGTYPE.ERR, VAR.IsChinese ? ("fr.btn_ok.PerformClick错误:" + ex.ToString()) : ("fr.btn_ok.PerformClick err:" + ex.ToString()), DReport.EmErrCode.ToolError);
+                            }
+
+
+
                         }
-                        Thread.Sleep(5);
-                        Application.DoEvents();
+                        while (MT.GPIO_IN_KEY_START.isON)
+                        {
+                            if (i++ > 600)
+                            {
+                                VAR.msg.AddMsg(Msg.EM_MSGTYPE.ERR, VAR.IsChinese ? string.Format("等待开始按键松开大于3秒！") : "Wait for the start button to release for more than 3 seconds!     (等待开始按键松开大于3秒！)", DReport.EmErrCode.ToolError);
+                                MessageBox.Show(VAR.IsChinese ? string.Format("等待开始按键松开大于3秒！") : "Wait for the start button to release for more than 3 seconds!\r\n等待开始按键松开大于3秒!");
+                                break;
+                            }
+                            Thread.Sleep(5);
+                            Application.DoEvents();
+                        }
                     }
                 }
-            }
 
-            //stop
-            if (MT.GPIO_IN_KEY_STOP.isON)
-            {
-                i = 0;
-                Thread.Sleep(30);
+                //stop
                 if (MT.GPIO_IN_KEY_STOP.isON)
                 {
-                    DRpt.Report_Opration(1000, 0, "停止键按下!");
-                    // VAR.msg.AddMsg(Msg.EM_MSGTYPE.NOR, string.Format("停止按键按下"));
-                    //Action.stop();
-                    if (frrun != null)
-                        frrun.btn_stop.PerformClick();
+                    i = 0;
+                    Thread.Sleep(30);
+                    if (MT.GPIO_IN_KEY_STOP.isON)
+                    {
+                        DRpt.Report_Opration(1000, 0, "停止键按下!");
+                        // VAR.msg.AddMsg(Msg.EM_MSGTYPE.NOR, string.Format("停止按键按下"));
+                        //Action.stop();
+                        if (frrun != null)
+                            frrun.btn_stop.PerformClick();
 
-                    while (MT.GPIO_IN_KEY_STOP.isON)
+                        while (MT.GPIO_IN_KEY_STOP.isON)
+                        {
+                            if (i++ > 600)
+                            {
+                                VAR.msg.AddMsg(Msg.EM_MSGTYPE.ERR, string.Format("等待停止按键松开大于3秒！"), DReport.EmErrCode.ToolError);
+                                MessageBox.Show(VAR.IsChinese ? "等待停止按键松开大于3秒！" : "Wait for the stop button to release for more than 3 seconds!\r\n等待停止按键松开大于3秒！");
+                                break;
+                            }
+                            Thread.Sleep(5);
+                            Application.DoEvents();
+                        }
+                    }
+                }
+
+                //stop
+                if (MT.GPIO_IN_KEY_RESET.isON)
+                {
+                    i = 0;
+                    Thread.Sleep(30);
+                    if (MT.GPIO_IN_KEY_RESET.isON)
+                    {
+                        VAR.msg.AddMsg(Msg.EM_MSGTYPE.NOR, VAR.IsChinese ? string.Format("---复位键按下---") : "--- Press the reset key ---        (---复位键按下---)");
+                        DRpt.Report_Opration(1000, 0, VAR.IsChinese ? string.Format("---复位键按下---") : "--- Press the reset key ---        (---复位键按下---)");
+                        //Action.stop();
+                        form_sel("rbtn_rst");
+                        frrst.btn_all_home.PerformClick();
+                    }
+                    while (MT.GPIO_IN_KEY_RESET.isON)
                     {
                         if (i++ > 600)
                         {
-                            VAR.msg.AddMsg(Msg.EM_MSGTYPE.ERR, string.Format("等待停止按键松开大于3秒！"), DReport.EmErrCode.ToolError);
-                            MessageBox.Show(VAR.IsChinese ? "等待停止按键松开大于3秒！" : "Wait for the stop button to release for more than 3 seconds!\r\n等待停止按键松开大于3秒！");
+                            VAR.msg.AddMsg(Msg.EM_MSGTYPE.ERR, VAR.IsChinese ? string.Format("等待复位按键松开大于3秒！") : "Wait for the reset button to release for more than 3 seconds!      (等待复位按键松开大于3秒！)", DReport.EmErrCode.ToolError);
+                            MessageBox.Show(VAR.IsChinese ? string.Format("等待复位按键松开大于3秒！") : "Wait for the reset button to release for more than 3 seconds!\r\n等待复位按键松开大于3秒！");
                             break;
                         }
                         Thread.Sleep(5);
                         Application.DoEvents();
                     }
-                }
-            }
-
-            //stop
-            if (MT.GPIO_IN_KEY_RESET.isON)
-            {
-                i = 0;
-                Thread.Sleep(30);
-                if (MT.GPIO_IN_KEY_RESET.isON)
-                {
-                    VAR.msg.AddMsg(Msg.EM_MSGTYPE.NOR, VAR.IsChinese ? string.Format("---复位键按下---") : "--- Press the reset key ---        (---复位键按下---)");
-                    DRpt.Report_Opration(1000, 0, VAR.IsChinese ? string.Format("---复位键按下---") : "--- Press the reset key ---        (---复位键按下---)");
-                    //Action.stop();
-                    form_sel("rbtn_rst");
-                    frrst.btn_all_home.PerformClick();
-                }
-                while (MT.GPIO_IN_KEY_RESET.isON)
-                {
-                    if (i++ > 600)
-                    {
-                        VAR.msg.AddMsg(Msg.EM_MSGTYPE.ERR, VAR.IsChinese ? string.Format("等待复位按键松开大于3秒！") : "Wait for the reset button to release for more than 3 seconds!      (等待复位按键松开大于3秒！)", DReport.EmErrCode.ToolError);
-                        MessageBox.Show(VAR.IsChinese ? string.Format("等待复位按键松开大于3秒！") : "Wait for the reset button to release for more than 3 seconds!\r\n等待复位按键松开大于3秒！");
-                        break;
-                    }
-                    Thread.Sleep(5);
-                    Application.DoEvents();
                 }
             }
 
@@ -940,9 +1041,9 @@ namespace UI
                 if((nowtime- curSendNotRunTime).TotalMinutes>5)
                 {
                     curSendNotRunTime = nowtime;
-                    DRpt.Report_Status(DReport.EmStatus.Wait, DReport.EmHareware.Null, DReport.EmStatus.Wait.GetDescription(VAR.IsChinese));
-                    Msg.secsManager.Send(new BaseInfo() { Id = 1, Value = Convert.ToInt32(DReport.EmStatus.Wait).ToString() });
-                    Msg.secsManager.Send(new BaseInfo() { Id = 1 }, 2);
+                    //DRpt.Report_Status(DReport.EmStatus.Wait, DReport.EmHareware.Null, DReport.EmStatus.Wait.GetDescription(VAR.IsChinese));
+                    //Msg.secsManager.Send(new BaseInfo() { Id = 1, Value = Convert.ToInt32(DReport.EmStatus.Wait).ToString() });
+                    //Msg.secsManager.Send(new BaseInfo() { Id = 1 }, 2);
                 }
             }
             SYS_INF.bRuning = BaseAction.bRuning;
@@ -1024,9 +1125,9 @@ namespace UI
                     if((nowtime - curSendOnRunStaTime).TotalMinutes >5)
                     {
                         curSendOnRunStaTime = nowtime;
-                        DRpt.Report_Status(DReport.EmStatus.Wait, DReport.EmHareware.Null, DReport.EmStatus.Wait.GetDescription(VAR.IsChinese));
-                        Msg.secsManager.Send(new BaseInfo() { Id = 1, Value = Convert.ToInt32(DReport.EmStatus.Wait).ToString() });
-                        Msg.secsManager.Send(new BaseInfo() { Id = 1 }, 2);
+                        //DRpt.Report_Status(DReport.EmStatus.Wait, DReport.EmHareware.Null, DReport.EmStatus.Wait.GetDescription(VAR.IsChinese));
+                        //Msg.secsManager.Send(new BaseInfo() { Id = 1, Value = Convert.ToInt32(DReport.EmStatus.Wait).ToString() });
+                        //Msg.secsManager.Send(new BaseInfo() { Id = 1 }, 2);
                     }
                    
                 }
@@ -1037,8 +1138,8 @@ namespace UI
                     {
                         SendStauts = DReport.EmStatus.Wait;
                         DRpt.Report_Status(DReport.EmStatus.Wait, DReport.EmHareware.Null, DReport.EmStatus.Wait.GetDescription(VAR.IsChinese));
-                        Msg.secsManager.Send(new BaseInfo() { Id = 1, Value = Convert.ToInt32(DReport.EmStatus.Wait).ToString() });
-                        Msg.secsManager.Send(new BaseInfo() { Id = 1 }, 2);
+                        //Msg.secsManager.Send(new BaseInfo() { Id = 1, Value = Convert.ToInt32(DReport.EmStatus.Wait).ToString() });
+                        //Msg.secsManager.Send(new BaseInfo() { Id = 1 }, 2);
                     }
                     else if (SendStauts != DReport.EmStatus.Error && VAR.IsErrAlm && !COM.traybox_fd.ChgML && !COM.traybox_ng.ChgML && !COM.traybox_ok.ChgML)
                     {

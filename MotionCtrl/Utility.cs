@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Text;
 using System.Reflection;
 using System.ComponentModel;
@@ -365,7 +365,33 @@ namespace MotionCtrl
             }
 
         }
-       
+
+        public static bool WriteStrToCSVTest(string str)
+        {
+            lock (objCSV)
+            {
+                string str1 = Path.GetFullPath("..") + "\\TestData\\";
+                if (!Directory.Exists(str1))
+                {
+                    //文件夹不存在则创建
+                    Directory.CreateDirectory(str1);
+                }
+
+                string filename = VAR.gsys_set.cur_product_name + DateTime.Now.ToString("(yyyy-MM-dd)") + ".csv";
+                str1 += filename;
+                if (!File.Exists(str1))
+                    File.Delete(str1);
+
+                StreamWriter writer1 = new StreamWriter(str1, true, System.Text.Encoding.GetEncoding("UTF-8"));
+                str = DateTime.Now.ToString() + str;
+                writer1.WriteLine(str);
+                writer1.Close();
+                writer1.Dispose();
+                return true;
+            }
+
+        }
+
         public static bool WriteStrToCSVPre(string str)
         {
             lock (objCSV)

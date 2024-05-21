@@ -1,4 +1,4 @@
-﻿using Cognex.VisionPro;
+using Cognex.VisionPro;
 using Cognex.VisionPro.PMAlign;
 using Cognex.VisionPro.Display;
 using System;

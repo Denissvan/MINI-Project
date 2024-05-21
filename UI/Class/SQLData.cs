@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.SQLite;
@@ -18,6 +18,7 @@ using System.Data.SqlClient;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement.TaskbarClock;
 using Sunny.UI.Win32;
 using System.Runtime.Remoting.Metadata.W3cXsd2001;
+using static QWhale.Syntax.CodeCompletion.SqlRepository;
 
 namespace UI
 {
@@ -53,7 +54,30 @@ namespace UI
 
             // return "";
         }
+        public static string TestcloseDataSource(string file = "")
+        {
+            string filename = string.Format("{0}\\product\\TestcloseDataBase", Path.GetFullPath(".."), file);
+            // string filename = string.Format("{0}\\product\\{1}\\TestimeDataBase", Path.GetFullPath(".."),VAR.gsys_set.cur_product_name, file);
+            if (!Directory.Exists(filename))
+            {
+                try
+                {
+                    Directory.CreateDirectory(filename);
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(VAR.IsChinese ? "建立文件夹出错：" : "Error creating folder:\r\n建立文件夹出错：" + ex.Message + "\r\n" + filename);
+                }
+            }
 
+
+            if (file == "") file = DateTime.Now.ToString("yyyy_MM");
+            filename = string.Format("{0}\\product\\TestcloseDataBase\\{1}.db", Path.GetFullPath(".."), file);
+            //filename = string.Format("{0}\\product\\{1}\\TestimeDataBase\\{2}.db", Path.GetFullPath(".."), VAR.gsys_set.cur_product_name, file);
+            return string.Format("data source={0}", filename);
+
+            // return "";
+        }
         public static string TestTimeDataSource(string file = "")
         {
             string filename = string.Format("{0}\\product\\TestimeDataBase", Path.GetFullPath(".."),file);
@@ -249,6 +273,42 @@ namespace UI
             return tablename;
         }
 
+        public static string TestcloseDataTable(SQLiteHelper sh, string tablename = "", bool bnew = true, string dbName = "")
+        {
+            tablename = tablename.Length > 0 ? tablename : DateTime.Now.ToString("TyyyyMMdd");
+            DataTable dt = new DataTable();
+            try
+            {
+                //dt = sh.Select($"select * from {(dbName.Length > 0 ? $"[{dbName}]." : "")}sqlite_master where name = '{tablename}'");
+                string str = string.Format("select * from {0}sqlite_master where name = '{1}'", dbName.Length > 0 ? "[" + dbName + "]." : "", tablename);
+                dt = sh.Select(str);
+            }
+            catch (Exception e)
+            {
+                return "";
+            }
+
+            if (dt.Rows.Count == 0)
+            {
+                if (bnew)
+                {
+                    SQLiteTable tb = new SQLiteTable(tablename);
+                    tb.Columns.Add(new SQLiteColumn("ID", ColType.Integer, true, true, true, "0"));
+                    tb.Columns.Add(new SQLiteColumn("TIME", ColType.DateTime, false, false, false, DateTime.Now.ToString("s"))); //yyyy/MM/dd HH:mm:ss
+                    tb.Columns.Add(new SQLiteColumn("OPEN", ColType.Integer, false, false, false, "0"));
+                    tb.Columns.Add(new SQLiteColumn("CLOSE", ColType.Integer, false, false, false, "0"));
+                    lock (AlarmLockObj)
+                    {
+                        sh.DropTable(tb.TableName);
+                        sh.CreateTable(tb);
+                    }
+                }
+                else return "";
+            }
+
+            return tablename;
+        }
+
         public static string SysTimeCntDataTable(SQLiteHelper sh, string tablename = "", bool bnew = true, string dbName = "")
         {
             tablename = tablename.Length > 0 ? tablename : DateTime.Now.ToString("TyyyyMM");
@@ -311,6 +371,25 @@ namespace UI
             try
             {
                 using (SQLiteConnection conn = new SQLiteConnection(TestTimeDataSource(/*file*/)))
+                {
+                    conn.Open();
+                    conn.Close();
+                }
+
+                return true;
+            }
+            catch (Exception ex)
+            {
+                VAR.msg.AddMsg(Msg.EM_MSGTYPE.ERR, ex.Message, DReport.EmErrCode.ConnectFailed);
+                return false;
+            }
+        }
+
+        public static bool ConnectioncloseChk(string file = "")
+        {
+            try
+            {
+                using (SQLiteConnection conn = new SQLiteConnection(TestcloseDataSource(/*file*/)))
                 {
                     conn.Open();
                     conn.Close();
@@ -427,8 +506,7 @@ namespace UI
 
             return dtCnt;
         }
-        public static int TesttimeAttachFileAndGetTable(DateTime dtFrom, DateTime dtEnd, ref SQLiteHelper sh,
-   ref string strFirstTable, ref string strTable)
+        public static int TesttimeAttachFileAndGetTable(DateTime dtFrom, DateTime dtEnd, ref SQLiteHelper sh, ref string strFirstTable, ref string strTable)
         {
             if ((dtEnd - dtFrom).Days > 31)
             {
@@ -466,6 +544,61 @@ namespace UI
                 //exist?
                 string tablename = dateTemp.ToString("TyyyyMMdd");
                 tablename = TestTimeDataTable(sh, tablename, false, dateTemp.ToString("yyyy_MM"));
+                if ("" == tablename) continue;
+                if (strFirstTable == "") strFirstTable = tablename;
+                if (strTable != "")
+                {
+                    strTable += " UNION ALL ";
+                }
+
+                strTable += string.Format("select * from {0}", dateTemp.ToString("TyyyyMMdd"));
+
+                dtCnt++;
+            }
+
+            if (strTable.Length > 0)
+                strTable = string.Format("({0})", strTable);
+
+            return dtCnt;
+        }
+
+        public static int TestcloseAttachFileAndGetTable(DateTime dtFrom, DateTime dtEnd, ref SQLiteHelper sh, ref string strFirstTable, ref string strTable)
+        {
+            if ((dtEnd - dtFrom).Days > 31)
+            {
+                MessageBox.Show(VAR.IsChinese ? @"时间跨度不能超一个月" : "Time span cannot exceed one month!\r\n时间跨度不能超一个月", VAR.IsChinese ? @"提示" : "Prompt", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return -1;
+            }
+
+            int dtCnt = 0;
+            DateTime dateTemp = dtFrom;
+
+            //跨月份
+            for (int m = dtFrom.Month; m <= dtEnd.Month; m++, dateTemp = dateTemp.AddMonths(1))
+            {
+                string temp = dateTemp.ToString("yyyy_MM");
+                string filename = string.Format("{0}\\product\\TestcloseDataBase\\{1}.db", Path.GetFullPath(".."), temp);
+                if (File.Exists(filename))
+                {
+                    sh.AttachDatabase(filename, dateTemp.ToString("yyyy_MM"));
+                }
+            }
+
+            //跨天
+            dateTemp = dtFrom;
+            strTable = "";
+            strFirstTable = "";
+            for (; dateTemp <= dtEnd.AddDays(1); dateTemp = dateTemp.AddDays(1))
+            {
+                //当月无数据
+                // string filename = $"{Path.GetFullPath("..")}\\product\\{VAR.gsys_set.cur_product_name}\\DataBase\\{dateTemp:yyyy_MM}.db";
+                string temp = dateTemp.ToString("yyyy_MM");
+                string filename = string.Format("{0}\\product\\TestcloseDataBase\\{1}.db", Path.GetFullPath(".."), temp);
+                if (!File.Exists(filename)) continue;
+
+                //exist?
+                string tablename = dateTemp.ToString("TyyyyMMdd");
+                tablename = TestcloseDataTable(sh, tablename, false, dateTemp.ToString("yyyy_MM"));
                 if ("" == tablename) continue;
                 if (strFirstTable == "") strFirstTable = tablename;
                 if (strTable != "")
@@ -655,14 +788,15 @@ namespace UI
             return dt;
         }
 
-        public static DataTable TestDataSelectPro(SQLSelector Selector,int wsid)
+        public static DataTable TestDataSelectPro(SQLSelector Selector,out double ngnumrate,int ngnum)
         {
             int ct = Environment.TickCount;
             int tablcecnt = 0;
             string tablecollection = "";
             string firstTbname = "";
             DataTable dt = new DataTable();
-
+            double allcnt = 0;
+            double ngcnt = 0;
             using (SQLiteConnection conn = new SQLiteConnection(TestDataSource()))
             {
                 using (SQLiteCommand cmd = new SQLiteCommand())
@@ -671,10 +805,14 @@ namespace UI
                     conn.Open();
                     SQLiteHelper sh = new SQLiteHelper(cmd);
 
-                    var stop = DateTime.Parse(DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss"));
-                    var  start= stop;
-                    TimeSpan timeSpan = new TimeSpan(0,1, 0, 0); // 1 hour  
-                    start = start.Subtract(timeSpan);
+                    //var stop = DateTime.Parse(DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss"));
+                    //var  start= stop;
+                    //TimeSpan timeSpan = new TimeSpan(0,1, 0, 0); // 1 hour  
+                    //start = start.Subtract(timeSpan);
+                    // 获取当前日期  
+                    DateTime today = DateTime.Today;
+                    DateTime start = new DateTime(today.Year, today.Month, today.Day, 0, 1, 0);
+                    DateTime stop = DateTime.Parse(DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss"));
 
                     tablcecnt = AttachFileAndGetTable(start, stop,ref sh, ref firstTbname, ref tablecollection);    //Selector.DateTimeForm, Selector.DateTimeEnd
 
@@ -694,33 +832,27 @@ namespace UI
 
                         dt = sh.Select(select);
                         //renum
-                        int[] lightnum = new int[16] { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 };//无图数量统计
-
+                       
                         foreach (DataRow row in dt.Rows)
                         {
-                            if (row["WS_ID"].ToString()==wsid.ToString())
-                            {
-                                for (int i = 1; i<=16;i++)
-                                {
-                                    if (int.Parse(row["NUM"].ToString()) == i)
-                                    {
-                                        if (row["RES"].ToString() == "270" || row["RES"].ToString() == "266" || row["RES"].ToString() == "274")    //左光箱
-                                        {
-                                            lightnum[i]++;
-                                        }
-                                    }
-                                    
-                                }
-                                
-                            }
-                           
-                        }
 
-                        PT_SET.Noimagenumdb = lightnum;
+                            if (row["RES"].ToString() == ngnum.ToString())   
+                            {
+                                allcnt++;
+                                ngcnt++;
+                            }
+                            else
+                            {
+                                allcnt++;
+                            }
+
+                        }
+                     
                     }
                 }
             }
-
+            double num = allcnt == 0 ? 1 : allcnt;
+            ngnumrate = ngcnt / num;
             //Selector.Lable =$"{firstTbname}...{(tablcecnt > 0 ? tablcecnt.ToString() : "")} [{Environment.TickCount - ct}ms]\r\n[{dt?.Rows.Count:000000}]";
             Selector.Lable = string.Format("{0}_{1}[{2}ms]\r\n[{3}]", firstTbname, tablcecnt > 0 ? tablcecnt.ToString() : "", Environment.TickCount - ct, dt != null ? dt.Rows.Count : 000000);
             return dt;
@@ -916,6 +1048,82 @@ namespace UI
                     dgv.DataSource = dataTable;
                 }
 
+            }
+
+            //Selector.Lable =$"{firstTbname}...{(tablcecnt > 0 ? tablcecnt.ToString() : "")} [{Environment.TickCount - ct}ms]\r\n[{dt?.Rows.Count:000000}]";
+            Selector.Lable = string.Format("{0}_{1}[{2}ms]\r\n[{3}]", firstTbname, tablcecnt > 0 ? tablcecnt.ToString() : "", Environment.TickCount - ct, dt != null ? dt.Rows.Count : 000000);
+            return dt;
+        }
+        public static DataTable TestcloseDataSelect(SQLAlarmSelector Selector, Chart chart = null)
+        {
+            int ct = Environment.TickCount;
+            if (chart != null)
+            {
+                chart.ChartAreas[0].AxisX.LabelStyle.Enabled = true;
+                chart.ChartAreas[0].AxisX.LabelStyle.Angle = -60;
+                chart.ChartAreas[0].AxisX.LabelStyle.Interval = 1;
+                chart.ChartAreas[0].AxisX.MajorGrid.Enabled = false;
+                chart.ChartAreas[0].AxisY.MajorGrid.LineColor = Color.LightGray;
+                chart.Series.Clear();
+
+                for (int n = 1; n <= 1; n++)
+                {
+                    string s =  string.Format("工位关闭率(%)");
+                    chart.Series.Add(s);
+                    chart.Series[s].Points.Clear();
+                    chart.Series[s].BorderWidth = 3;
+                    chart.Series[s].ChartType = SeriesChartType.StackedColumn;
+                }
+            }
+
+            int tablcecnt = 0;
+            string tablecollection = "";
+            string firstTbname = "";
+            DataTable dt = new DataTable();
+            DateTime date_temp = DateTime.Parse(Selector.DateTimeForm.ToString("yyyy-MM-dd HH:00:00"));
+            using (SQLiteConnection conn = new SQLiteConnection(TestcloseDataSource()))
+            {
+                using (SQLiteCommand cmd = new SQLiteCommand())
+                {
+                    cmd.Connection = conn;
+                    conn.Open();
+                    SQLiteHelper sh = new SQLiteHelper(cmd);
+
+                    tablcecnt = TestcloseAttachFileAndGetTable(Selector.DateTimeForm, Selector.DateTimeEnd, ref sh, ref firstTbname, ref tablecollection);
+ 
+                    for (int h = date_temp.Hour; h <= Selector.DateTimeEnd.Hour; h++, date_temp = date_temp.AddHours(1))
+                    {
+                        //提取table
+                        if ((Selector.DateTimeEnd - date_temp) < new TimeSpan(1, 0, 0)) break;
+                        int closenum = 0;//关闭数量
+                        int opennum = 0;//开启数量
+                        if (tablcecnt > 0)
+                        {
+                            string select = "";
+                            select = string.Format("select * from {0} where time between '{1:s}' and '{2:s}'order by time;", tablecollection, date_temp, (date_temp + new TimeSpan(1, 0, 0)));// Selector.DateTimeForm, Selector.DateTimeEnd
+                            dt = sh.Select(select);
+                            foreach (DataRow row in dt.Rows)
+                            {
+                                if (row["CLOSE"].ToString() != "0")    //关闭数量
+                                {
+                                    closenum += Convert.ToInt16(row["CLOSE"].ToString());
+                                }
+                                if (row["OPEN"].ToString() != "0")    //关闭数量
+                                {
+                                    opennum += Convert.ToInt16(row["OPEN"].ToString());
+                                }
+                               
+                            }
+                            int allnum = closenum + opennum;
+                            double num = (closenum*100) / (allnum == 0 ? 1 : allnum);
+                           // MessageBox.Show(closenum.ToString() + "," + opennum.ToString() + "," + allnum.ToString() + "," + num.ToString());
+                            chart.Series["工位关闭率(%)"].Points.AddXY(date_temp.ToString("HH:mm"), num.ToString("F2"));
+                            chart.Series["工位关闭率(%)"].IsVisibleInLegend=true;
+                            chart.Series["工位关闭率(%)"].Label = "#VALY"; // 显示Y值
+
+                        }                                 
+                    }
+                }
             }
 
             //Selector.Lable =$"{firstTbname}...{(tablcecnt > 0 ? tablcecnt.ToString() : "")} [{Environment.TickCount - ct}ms]\r\n[{dt?.Rows.Count:000000}]";
@@ -1588,43 +1796,43 @@ namespace UI
                             if ((md.bardcode == null || md.bardcode.Length < 1) && PT_SET.BarcodeMode != (int)PT_SET.BAR_SCAN.NO_SCAN) continue;
                             if (PT_SET.bWsNgRateShow&& md.res > 0)
                             {
-                                bool bNgRateBySet = NewSysInf.UserParams.bNgRateBySet;
-                                var ngcodes = NewSysInf.UserParams.NgRateCodes;
-                                VAR.msg.AddMsg(Msg.EM_MSGTYPE.DBG, "bNgRateBySet:" + bNgRateBySet + "ngcodes:" + ngcodes  );
-                                try
-                                {
+                                //bool bNgRateBySet = NewSysInf.UserParams.bNgRateBySet;
+                                //var ngcodes = NewSysInf.UserParams.NgRateCodes;
+                                //VAR.msg.AddMsg(Msg.EM_MSGTYPE.DBG, "bNgRateBySet:" + bNgRateBySet + "ngcodes:" + ngcodes  );
+                                //try
+                                //{
                                    
-                                    if (bNgRateBySet)
-                                    {                                      
-                                        string[] ngCodeList = new string[20];
-                                        if (ngcodes.Length > 0)
-                                            ngCodeList = ngcodes.Split('#');
-                                        foreach (var code in ngCodeList)
-                                        {
-                                            var mdCode = md.res.ToString();
-                                            if (mdCode == code)
-                                            {
-                                                if (md.cntNgRateFor20.Length > 0)
-                                                    md.cntNgRateFor20 += ',' + mdCode;
-                                                else
-                                                    md.cntNgRateFor20 += mdCode;
-                                            }
-                                        }
-                                    }
-                                    else
-                                    {
-                                        if (md.cntNgRateFor20.Length > 0)
-                                            md.cntNgRateFor20 += ',' + md.res.ToString();
-                                        else
-                                            md.cntNgRateFor20 += md.res.ToString();
-                                    }
-                                    NGRateShow(ws.disc + "-" + md.Num, ref md.cntNgRateFor20);
-                                }
-                                catch(Exception ee)
-                                {
+                                //    if (bNgRateBySet)
+                                //    {                                      
+                                //        string[] ngCodeList = new string[20];
+                                //        if (ngcodes.Length > 0)
+                                //            ngCodeList = ngcodes.Split('#');
+                                //        foreach (var code in ngCodeList)
+                                //        {
+                                //            var mdCode = md.res.ToString();
+                                //            if (mdCode == code)
+                                //            {
+                                //                if (md.cntNgRateFor20.Length > 0)
+                                //                    md.cntNgRateFor20 += ',' + mdCode;
+                                //                else
+                                //                    md.cntNgRateFor20 += mdCode;
+                                //            }
+                                //        }
+                                //    }
+                                //    else
+                                //    {
+                                //        if (md.cntNgRateFor20.Length > 0)
+                                //            md.cntNgRateFor20 += ',' + md.res.ToString();
+                                //        else
+                                //            md.cntNgRateFor20 += md.res.ToString();
+                                //    }
+                                //    NGRateShow(ws.disc + "-" + md.Num, ref md.cntNgRateFor20);
+                                //}
+                                //catch(Exception ee)
+                                //{
 
-                                    VAR.msg.AddMsg(Msg.EM_MSGTYPE.ERR,  "NG比例监控发生异常" + ee.ToString());
-                                }
+                                //    VAR.msg.AddMsg(Msg.EM_MSGTYPE.ERR,  "NG比例监控发生异常" + ee.ToString());
+                                //}
                             }
                             if (md.res > 0)
                             {
@@ -1686,10 +1894,24 @@ namespace UI
 
                             }
 
-                            if (PT_SET.bSameNGTip && VAR.bSameNGTip_Temp)
+                            if (PT_SET.bSameNGTip/* && VAR.bSameNGTip_Temp*/)
                             {
-                                if (md.last_res == md.res && md.res > 0) md.NgSameRes_cnt++;
-                                else md.NgSameRes_cnt = 1;
+                                if (!VAR.bSameNGTip_Temp)
+                                {
+                                    VAR.msg.AddMsg(Msg.EM_MSGTYPE.ERR,  string.Format("连续NG提示工站：{0}，模组序号{1}，模组上次结果{2}，模组当前结果{3}!", ws.disc,md.Num,md.last_res,md.res));
+                                    if (md.last_res == md.res && md.res > 0 && (md.res == 266 || md.res == 274))
+                                    {
+                                        md.NgSameRes_cnt++;
+                                    }
+                                    else md.NgSameRes_cnt = 1;
+                                    VAR.msg.AddMsg(Msg.EM_MSGTYPE.ERR, string.Format("连续NG提示工站：{0}，当前连续不良数量{1}!", ws.disc, md.NgSameRes_cnt));
+                                }
+                                else
+                                {
+                                    if (md.last_res == md.res && md.res > 0) md.NgSameRes_cnt++;
+                                    else md.NgSameRes_cnt = 1;
+                                }
+                            
                                 md.last_res = md.res;
                             }
                             dic["TIME"] = DateTime.Now.ToString("s");
@@ -1758,6 +1980,45 @@ namespace UI
                 }
             }
         
+            return EM_RES.OK;
+        }
+
+        public static EM_RES TestDataAddClose(int close, int open)
+        {
+
+            ConnectioncloseChk();
+            using (SQLiteConnection conn = new SQLiteConnection(TestcloseDataSource()))
+            {
+                using (SQLiteCommand cmd = new SQLiteCommand())
+                {
+                    cmd.Connection = conn;
+                    conn.Open();
+                    SQLiteHelper sh = new SQLiteHelper(cmd);
+                    string table = TestcloseDataTable(sh);
+                    lock (AlarmLockObj)
+                    {
+                        var dic = new Dictionary<string, object>();
+                        sh.BeginTransaction();
+
+                        dic["TIME"] = DateTime.Now.ToString("s");
+                        dic["CLOSE"] = close;
+                        dic["OPEN"] = open;
+            
+                        try
+                        {
+                            sh.Insert(table, dic);
+                        }
+                        catch (Exception ex)
+                        {
+                            MessageBox.Show(ex.Message);
+                        }
+                        //上传OK数量
+                        sh.Commit();
+                        conn.Close();
+                    }
+                }
+            }
+
             return EM_RES.OK;
         }
 

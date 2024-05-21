@@ -1,4 +1,4 @@
-﻿namespace UI
+namespace UI
 {
     partial class FrProduct
     {
@@ -57,13 +57,13 @@
             this.edt_cur_product = new System.Windows.Forms.TextBox();
             this.ltb_product = new System.Windows.Forms.ListBox();
             this.tp_light_box = new System.Windows.Forms.TabPage();
+            this.lightBoxDef = new UI.Compment.LightBoxDef();
             this.lb_cur_pos = new System.Windows.Forms.Label();
             this.lb_cur_pos_idx = new System.Windows.Forms.Label();
             this.ctb_lightbox = new CTabControl();
             this.tp_lightbox_left = new System.Windows.Forms.TabPage();
             this.tp_lightbox_right = new System.Windows.Forms.TabPage();
             this.tp_lightbox_otp = new System.Windows.Forms.TabPage();
-            this.lightBoxDef = new UI.Compment.LightBoxDef();
             this.tp_vision = new System.Windows.Forms.TabPage();
             this.tableLayoutPanel2 = new System.Windows.Forms.TableLayoutPanel();
             this.ctb_cali = new CTabControl();
@@ -340,7 +340,7 @@
             this.ctb_product.Multiline = true;
             this.ctb_product.Name = "ctb_product";
             this.ctb_product.SelectedIndex = 0;
-            this.ctb_product.Size = new System.Drawing.Size(1320, 896);
+            this.ctb_product.Size = new System.Drawing.Size(1261, 880);
             this.ctb_product.TabIndex = 2;
             this.ctb_product.SelectedIndexChanged += new System.EventHandler(this.ctb_product_SelectedIndexChanged);
             // 
@@ -358,7 +358,7 @@
             this.tp_file.Controls.Add(this.ltb_product);
             this.tp_file.Location = new System.Drawing.Point(204, 4);
             this.tp_file.Name = "tp_file";
-            this.tp_file.Size = new System.Drawing.Size(1112, 888);
+            this.tp_file.Size = new System.Drawing.Size(1053, 872);
             this.tp_file.TabIndex = 3;
             this.tp_file.Text = "产品    ";
             this.tp_file.UseVisualStyleBackColor = true;
@@ -457,22 +457,29 @@
             this.ltb_product.ItemHeight = 21;
             this.ltb_product.Location = new System.Drawing.Point(114, 185);
             this.ltb_product.Name = "ltb_product";
-            this.ltb_product.Size = new System.Drawing.Size(355, 424);
+            this.ltb_product.Size = new System.Drawing.Size(355, 403);
             this.ltb_product.TabIndex = 0;
             // 
             // tp_light_box
             // 
+            this.tp_light_box.Controls.Add(this.lightBoxDef);
             this.tp_light_box.Controls.Add(this.lb_cur_pos);
             this.tp_light_box.Controls.Add(this.lb_cur_pos_idx);
             this.tp_light_box.Controls.Add(this.ctb_lightbox);
-            this.tp_light_box.Controls.Add(this.lightBoxDef);
             this.tp_light_box.Location = new System.Drawing.Point(204, 4);
             this.tp_light_box.Name = "tp_light_box";
             this.tp_light_box.Padding = new System.Windows.Forms.Padding(3);
-            this.tp_light_box.Size = new System.Drawing.Size(1112, 888);
+            this.tp_light_box.Size = new System.Drawing.Size(1053, 872);
             this.tp_light_box.TabIndex = 1;
             this.tp_light_box.Text = "光箱    ";
             this.tp_light_box.UseVisualStyleBackColor = true;
+            // 
+            // lightBoxDef
+            // 
+            this.lightBoxDef.Location = new System.Drawing.Point(3, 71);
+            this.lightBoxDef.Name = "lightBoxDef";
+            this.lightBoxDef.Size = new System.Drawing.Size(1485, 604);
+            this.lightBoxDef.TabIndex = 60;
             // 
             // lb_cur_pos
             // 
@@ -481,9 +488,9 @@
             this.lb_cur_pos.ForeColor = System.Drawing.Color.Gray;
             this.lb_cur_pos.Location = new System.Drawing.Point(757, 22);
             this.lb_cur_pos.Name = "lb_cur_pos";
-            this.lb_cur_pos.Size = new System.Drawing.Size(219, 38);
+            this.lb_cur_pos.Size = new System.Drawing.Size(269, 19);
             this.lb_cur_pos.TabIndex = 59;
-            this.lb_cur_pos.Text = "X1:000.000 X2:000.000\r\nZ1:000.000 Z2:000.000";
+            this.lb_cur_pos.Text = "vvvvvvvvvvvvvvvvvvvvvvvvvv";
             // 
             // lb_cur_pos_idx
             // 
@@ -540,20 +547,12 @@
             this.tp_lightbox_otp.Text = "  OTP光箱  ";
             this.tp_lightbox_otp.UseVisualStyleBackColor = true;
             // 
-            // lightBoxDef
-            // 
-            this.lightBoxDef.Font = new System.Drawing.Font("宋体", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.lightBoxDef.Location = new System.Drawing.Point(6, 68);
-            this.lightBoxDef.Name = "lightBoxDef";
-            this.lightBoxDef.Size = new System.Drawing.Size(1098, 843);
-            this.lightBoxDef.TabIndex = 0;
-            // 
             // tp_vision
             // 
             this.tp_vision.Controls.Add(this.tableLayoutPanel2);
             this.tp_vision.Location = new System.Drawing.Point(204, 4);
             this.tp_vision.Name = "tp_vision";
-            this.tp_vision.Size = new System.Drawing.Size(1112, 888);
+            this.tp_vision.Size = new System.Drawing.Size(1053, 872);
             this.tp_vision.TabIndex = 4;
             this.tp_vision.Text = "视觉    ";
             this.tp_vision.UseVisualStyleBackColor = true;
@@ -571,7 +570,7 @@
             this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 63.74134F));
             this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 36.25866F));
             this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
-            this.tableLayoutPanel2.Size = new System.Drawing.Size(1112, 888);
+            this.tableLayoutPanel2.Size = new System.Drawing.Size(1053, 872);
             this.tableLayoutPanel2.TabIndex = 1;
             // 
             // ctb_cali
@@ -591,11 +590,11 @@
             this.ctb_cali.HeadSelectedBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(43)))), ((int)(((byte)(144)))), ((int)(((byte)(217)))));
             this.ctb_cali.HeadSelectedBorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(217)))), ((int)(((byte)(225)))), ((int)(((byte)(232)))));
             this.ctb_cali.ItemSize = new System.Drawing.Size(60, 210);
-            this.ctb_cali.Location = new System.Drawing.Point(3, 569);
+            this.ctb_cali.Location = new System.Drawing.Point(3, 558);
             this.ctb_cali.Multiline = true;
             this.ctb_cali.Name = "ctb_cali";
             this.ctb_cali.SelectedIndex = 0;
-            this.ctb_cali.Size = new System.Drawing.Size(1106, 316);
+            this.ctb_cali.Size = new System.Drawing.Size(1047, 311);
             this.ctb_cali.SizeMode = System.Windows.Forms.TabSizeMode.Fixed;
             this.ctb_cali.TabIndex = 131;
             // 
@@ -607,7 +606,7 @@
             this.Tb_ComputeCenter.Location = new System.Drawing.Point(214, 4);
             this.Tb_ComputeCenter.Name = "Tb_ComputeCenter";
             this.Tb_ComputeCenter.Padding = new System.Windows.Forms.Padding(3);
-            this.Tb_ComputeCenter.Size = new System.Drawing.Size(888, 308);
+            this.Tb_ComputeCenter.Size = new System.Drawing.Size(829, 303);
             this.Tb_ComputeCenter.TabIndex = 1;
             this.Tb_ComputeCenter.Text = "放置检查";
             // 
@@ -619,7 +618,7 @@
             this.xtOfsAdj1.Location = new System.Drawing.Point(3, 3);
             this.xtOfsAdj1.Margin = new System.Windows.Forms.Padding(5);
             this.xtOfsAdj1.Name = "xtOfsAdj1";
-            this.xtOfsAdj1.Size = new System.Drawing.Size(882, 302);
+            this.xtOfsAdj1.Size = new System.Drawing.Size(823, 297);
             this.xtOfsAdj1.TabIndex = 2;
             // 
             // Tb_CameraCheckboard
@@ -850,7 +849,7 @@
             this.panel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel1.Location = new System.Drawing.Point(3, 3);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(1106, 560);
+            this.panel1.Size = new System.Drawing.Size(1047, 549);
             this.panel1.TabIndex = 132;
             // 
             // cogDisplayer_product
@@ -859,7 +858,7 @@
             this.cogDisplayer_product.Dock = System.Windows.Forms.DockStyle.Fill;
             this.cogDisplayer_product.Location = new System.Drawing.Point(0, 0);
             this.cogDisplayer_product.Name = "cogDisplayer_product";
-            this.cogDisplayer_product.Size = new System.Drawing.Size(1106, 560);
+            this.cogDisplayer_product.Size = new System.Drawing.Size(1047, 549);
             this.cogDisplayer_product.TabIndex = 134;
             // 
             // maskDisplay1
@@ -867,7 +866,7 @@
             this.maskDisplay1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.maskDisplay1.Location = new System.Drawing.Point(0, 0);
             this.maskDisplay1.Name = "maskDisplay1";
-            this.maskDisplay1.Size = new System.Drawing.Size(1106, 560);
+            this.maskDisplay1.Size = new System.Drawing.Size(1047, 549);
             this.maskDisplay1.TabIndex = 0;
             // 
             // tp_tray
@@ -888,7 +887,7 @@
             this.tp_tray.Controls.Add(this.pic_pallet);
             this.tp_tray.Location = new System.Drawing.Point(204, 4);
             this.tp_tray.Name = "tp_tray";
-            this.tp_tray.Size = new System.Drawing.Size(1112, 888);
+            this.tp_tray.Size = new System.Drawing.Size(1053, 872);
             this.tp_tray.TabIndex = 2;
             this.tp_tray.Text = "料盘    ";
             this.tp_tray.UseVisualStyleBackColor = true;
@@ -2521,7 +2520,7 @@
             this.tp_ws.Controls.Add(this.ws_status);
             this.tp_ws.Location = new System.Drawing.Point(204, 4);
             this.tp_ws.Name = "tp_ws";
-            this.tp_ws.Size = new System.Drawing.Size(1112, 888);
+            this.tp_ws.Size = new System.Drawing.Size(1053, 872);
             this.tp_ws.TabIndex = 5;
             this.tp_ws.Text = "工装    ";
             this.tp_ws.UseVisualStyleBackColor = true;
@@ -2971,7 +2970,7 @@
             this.tp_Adj.Controls.Add(this.groupBox12);
             this.tp_Adj.Location = new System.Drawing.Point(204, 4);
             this.tp_Adj.Name = "tp_Adj";
-            this.tp_Adj.Size = new System.Drawing.Size(1112, 888);
+            this.tp_Adj.Size = new System.Drawing.Size(1053, 872);
             this.tp_Adj.TabIndex = 6;
             this.tp_Adj.Text = "调试    ";
             this.tp_Adj.UseVisualStyleBackColor = true;
@@ -3160,7 +3159,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1320, 896);
+            this.ClientSize = new System.Drawing.Size(1261, 880);
             this.Controls.Add(this.ctb_product);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Name = "FrProduct";
@@ -3324,7 +3323,6 @@
         public System.Windows.Forms.NumericUpDown nud_PosCapLZ_Limit;
         public System.Windows.Forms.TextBox edt_cur_product;
         private System.Windows.Forms.TabPage Tb_ComputeCenter;
-        public Compment.LightBoxDef lightBoxDef;
         public CTabControl ctb_tray_cfg;
         public Compment.AZD ws_status;
         public WsModuelDef wsModuelDef;
@@ -3440,5 +3438,6 @@
         private System.Windows.Forms.Label label38;
         private System.Windows.Forms.CheckBox cbouttray;
         private System.Windows.Forms.Label label7;
+        public Compment.LightBoxDef lightBoxDef;
     }
 }

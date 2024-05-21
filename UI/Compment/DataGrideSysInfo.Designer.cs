@@ -1,4 +1,4 @@
-﻿
+
 namespace UI
 {
     partial class DataGrideSysInfo

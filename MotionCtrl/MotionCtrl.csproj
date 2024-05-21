@@ -9,7 +9,7 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>MotionCtrl</RootNamespace>
     <AssemblyName>MotionCtrl</AssemblyName>
-    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <TargetFrameworkProfile />
   </PropertyGroup>
@@ -179,6 +179,12 @@
     <Compile Include="VAR.cs" />
     <Compile Include="CONST.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="XYZ.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="XYZ.Designer.cs">
+      <DependentUpon>XYZ.cs</DependentUpon>
+    </Compile>
     <Compile Include="XYZU.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -215,6 +221,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="User.resx">
       <DependentUpon>User.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="XYZ.resx">
+      <DependentUpon>XYZ.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="XYZU.resx">
       <DependentUpon>XYZU.cs</DependentUpon>

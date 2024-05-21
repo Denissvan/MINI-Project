@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.IO;
 using System.Threading;
 using MotionCtrl;
@@ -10,6 +10,8 @@ using System.Linq;
 using DevReport;
 using UI.Class;
 using static UI.Cam;
+using Sunny.UI;
+using IniFile = MotionCtrl.IniFile;
 
 namespace UI
 {
@@ -541,6 +543,39 @@ namespace UI
             
             ret = MT.ZupMove(ref bquit, ref ax_x, pos_mod_upcam.x, ref ax_y, pos_mod_upcam.y,ref traybox_fd.ax_x,pos_mod_upcam.a);
             if (ret != EM_RES.OK) return ret;
+
+            if (PT_SET.OvenCheck)
+            {
+                 VAR.msg.AddMsg(Msg.EM_MSGTYPE.NOR, "检测探针是否断裂:");
+                ret = upcam.FindTaskTriAndWait(CONST.OvenCheckFw, Demo);
+                if (ret == EM_RES.OK)
+                {
+                    //return EM_RES.CAM_ERR;
+                    VAR.msg.AddMsg(Msg.EM_MSGTYPE.ERR, "检测探针是否脱落未通过:");
+
+                    MT.ST_WARN st_warn = new MT.ST_WARN();
+                    warning fr_warn = new warning();
+                    st_warn.ok_txt = VAR.IsChinese ? "继续运行" : "Give up";
+                    st_warn.abort_txt = VAR.IsChinese ? "确定" : "Try again";
+                    st_warn.cancle_txt = VAR.IsChinese ? "停止运行" : "Stop running";
+                    st_warn.title = VAR.IsChinese ? "提示:检测探针是否脱落未通过!" : "Tip: Abnormal suction!";
+                    st_warn.msg = "请注意：：：检测探针是否脱落未通过！！！";
+                    st_warn.lb_msg = "提示:" + st_warn.msg + "请人工确认探针是否脱落!\r\n  1.点击继续运行将继续运行!\r\n  " +
+                        "2.点击确定或者停止运行将停止运行!\r\n  ";
+
+                    DialogResult logres = MT.Display_frwarn(fr_warn, st_warn, ERR_ALM.EmErrItem.UpDownLoadAbnormal);
+                    if (DialogResult.OK == logres)
+                    {
+
+                    }
+                    else
+                    {
+                        bquit = true;
+                        return EM_RES.QUIT;
+                    }
+                }
+            }
+
             //拍照
             ret = upcam.FindTaskTriAndWait(CapFlow,Demo);
             if (ret != EM_RES.OK) return ret;
@@ -1334,6 +1369,7 @@ namespace UI
         #region 吸头放料于料盘
         public EM_RES PlaceMd(ref bool bquit, TrayBox traybox,WS ws,bool IsDemo=false)
         {
+            VAR.msg.AddMsg(Msg.EM_MSGTYPE.SYS, $"{disc} 吸头放料于料盘");
             EM_RES res;
             List<Product.Tray.PosInf> placepos = new List<Product.Tray.PosInf>();
             List<Product.Tray.PosInf> placepos_temp = new List<Product.Tray.PosInf>();
@@ -1349,9 +1385,24 @@ namespace UI
                // placepos = traybox.tray_cur.GetPosList(Product.EM_CM_RES.EMPTY);
             if (placepos.Count > 0)
             {
-                
-                res = Parent.FlyCamToTray(ref bquit, ws, traybox, ref enpos);
-                if (res != EM_RES.OK && res != EM_RES.NEXT) return res;
+                bool check=true;
+                foreach (XT xt in Parent.list_xt)
+                {
+                    if (xt.XtMd != null)
+                    {
+                        if (xt.XtMd.res == 3342 || xt.XtMd.res == 2222)
+                        {
+                            VAR.msg.AddMsg(Msg.EM_MSGTYPE.SYS, $"{disc} 存在3342或者2222，不在检测二维码");
+                            //VAR.msg.AddMsg(Msg.EM_MSGTYPE.ERR, VAR.IsChinese ? string.Format("{0} 存在3342，不在检测二维码!", disc) : string.Format("{0} Vacuum failure before unloading!         ({0} 放料前真空失效!)", disc), DReport.EmErrCode.PlaceFailed, (int)DReport.EmHareware.Nozzle + id + 1, ERR_ALM.EmErrItem.UpDownLoadAbnormal);
+                            check = false;
+                        }
+                        
+                    }
+
+                }
+
+                res = Parent.FlyCamToTray(ref bquit, ws, traybox,check ,ref enpos);
+                if (res != EM_RES.OK && res != EM_RES.NEXT && res != EM_RES.RETRY) return res;
 
                 if (placepos_temp.Count == traybox.tray_cur.list_pos.Count && PT_SET.bEnVsTray && traybox.disc != traybox_fd.disc)
                 {
@@ -1445,7 +1496,7 @@ namespace UI
                 if (res != EM_RES.OK) return res;
                 //零角度放料
                 //pos.a = 0;
-                if (PT_SET.isopen_degree)
+                if (PT_SET.isopen_degree/*&& traybox.IsNg*/)
                 {
                     pos.a = -PT_SET.degree;
                 }
@@ -1459,6 +1510,10 @@ namespace UI
                 {
                     traybox.tray_cur.Push(XtMd, placepos[0].idx);                    
                     VAR.msg.AddMsg(Msg.EM_MSGTYPE.DBG, VAR.IsChinese?string.Format("{0}放料: 仓储:{1} 料盘:{2} 位置:{3} 模组结果{4} BC:{5}",disc, traybox.disc, traybox.tray_idx, placepos[0].idx, placepos[0].md.res, placepos[0].md.bardcode): string.Format("{0}Place : Traybox:{1} Tray:{3} Tray_idx:{4} Md_res:{5} Md_BarCode:{6}                 ({0}放料: 仓储:{2} 料盘:{3} 位置:{4} 模组结果{5} BC:{6})", disc,traybox.name, traybox.disc, traybox.tray_idx, placepos[0].idx, placepos[0].md.res, placepos[0].md.bardcode));
+                    if (XtMd != null)
+                    {
+                        XtMd.bardcode = "No Code";
+                    }
                     XtMd = null;
                 }
                 else return res;

@@ -1,4 +1,4 @@
-﻿namespace UI
+namespace UI
 {
     partial class NGcode
     {
@@ -133,6 +133,7 @@
             dataGridViewCellStyle4.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
             this.dgv_ngcode.RowHeadersDefaultCellStyle = dataGridViewCellStyle4;
             this.dgv_ngcode.RowHeadersVisible = false;
+            this.dgv_ngcode.RowHeadersWidth = 51;
             this.dgv_ngcode.RowHeadersWidthSizeMode = System.Windows.Forms.DataGridViewRowHeadersWidthSizeMode.DisableResizing;
             dataGridViewCellStyle5.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
             dataGridViewCellStyle5.Font = new System.Drawing.Font("宋体", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));

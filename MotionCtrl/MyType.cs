@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.IO;
 using System.ComponentModel;
 using System.Windows.Forms;
@@ -6,6 +6,8 @@ using System.Linq;
 using System.Runtime.InteropServices;
 using DevReport;
 using System.Data;
+using System.Collections.Generic;
+
 
 namespace MotionCtrl
 {
@@ -934,6 +936,10 @@ namespace MotionCtrl
         //上下料门禁使能
         public static bool bEnUpDownDr = false;
         public static bool bUpDnAddTest=false;
+
+        //探针断裂检测
+        public static bool OvenCheck = false;
+
         //转盘门禁使能
         public static bool bEnTrayDr = false;
 
@@ -948,6 +954,31 @@ namespace MotionCtrl
         public static bool Isaloneset=false;
         //运行模式 0--两个模块同时工作  1---模块1工作  2---模块2工作
         public static int UpDownRunMode = 0;
+
+
+        public static bool Ismagic = false;//是否进行导磁片检查
+        public static int magictimes= 0;
+        public static int magiccurtimes = 0;
+
+        public static bool Isshowmsg = false;
+        public static bool Isshowmsgpre = false;
+        //待机模式
+        public static int WaitMode = -1;
+        public static Dictionary<int, string> dict = new Dictionary<int, string>() {
+                                                     { 1, "准备" },
+                                                     { 2, "换胶" },
+                                                     { 3, "切机" },
+                                                     { 4, "清洁" },
+                                                     { 5, "点检" },
+                                                     { 6, "首检" },
+                                                     { 7, "无计划" },
+                                                     { 8, "缺原材料" },
+                                                     { 9, "缺在制料" },
+                                                     { 10, "缺人" },
+                                                     { 11, "机台调试" },
+                                                     { 12, "其他" },
+                                                     { 13, "微停机" },
+                                                 };
 
         //视觉回检
         public static bool bEnVsFB = true;
@@ -993,9 +1024,15 @@ namespace MotionCtrl
         public static bool UpDownQrde = false;
         public static bool DownDownQrde = false;
 
+        public static bool otpclose = false; //cbttpcloseair 关闭吹气
+        public static double otpclosetime = 0; //cbttpcloseair 关闭吹气时间
+
+        public static bool afcclose = false; //cbttpcloseair 关闭吹气
+        public static double afcclosetime = 0; //cbttpcloseair 关闭吹气时间
 
         public static bool CloseWait = false;
         public static int  CloseWaitTime = 1;
+
         //料盘二维码拍照设置
         public static bool TrayBarcodeEn = false;
 
@@ -1005,9 +1042,10 @@ namespace MotionCtrl
         //是否是舜宇扫码枪
         public static bool bsunnyqr = false;
         public static bool bsunnyqralm = false;
+        public static bool bsunnyqralmtray = false;//扫码失败，放回料盘
         public static bool bsunnyqrleft = true;
         public static bool bsunnyqrright = true;
-
+        public static bool bdownqr = false; //下相机扫马达二维码
         public static string sunnyqrip0;
         public static string sunnyqrip1;
 
@@ -1045,6 +1083,56 @@ namespace MotionCtrl
         public static int bitOpenMode = 1;
         //霍尔测试
         public static bool HallEn = false;
+
+        //NG报警代码1
+        public static int Numng1;
+
+        //NG报警代码1
+        public static int Numng2;
+
+        //NG报警代码1
+        public static int Numng3;
+
+        //NG报警代码4
+        public static int Numng4;
+
+        //NG报警代码5
+        public static int Numng5;
+
+        //NG报警代码1
+        public static double Numngrate1;
+
+        //NG报警代码1
+        public static double Numngrate2;
+
+        public static double Numngrate3;
+
+        public static double Numngrate4;
+
+        public static double Numngrate5;
+
+        //NG报警代码1
+        public static bool Ckngrate1;
+        //NG报警代码1
+        public static bool Ckngrate2;
+        //NG报警代码1
+        public static bool Ckngrate3;
+        //NG报警代码1
+        public static bool Ckngrate4;
+        //NG报警代码1
+        public static bool Ckngrate5;
+
+        //NG报警代码1
+        public static bool Ckngrate1war;       //报警提示
+        //NG报警代码1
+        public static bool Ckngrate2war;
+        //NG报警代码1
+        public static bool Ckngrate3war;
+        //NG报警代码1
+        public static bool Ckngrate4war;
+        //NG报警代码1
+        public static bool Ckngrate5war;
+
 
         //取放料角度
         public static bool isopen_degree = false;
@@ -1149,7 +1237,16 @@ namespace MotionCtrl
         public static bool bContinuousAlarm = false;
         //轩仕佳光源
         public static bool bG4C;
+        //取料偏移设置
+        public static bool bpicktray;
+        public static ST_XY picktrayxt1;
+        public static ST_XY picktrayxt2;
+        public static ST_XY picktrayxt3;
+        public static ST_XY picktrayxt4;
 
+        public static int citynum = 0;
+        public static bool upload=false;
+        public static bool closeazd = false;
         public static bool bNgWarn;
         public static double OkRate;
 
@@ -1237,6 +1334,169 @@ namespace MotionCtrl
         /// 位置选择，位运算计算（1-8位置是否启用）
         /// </summary>
         public static int AutoChkSmallMdEn = 0;
+        /// <summary>
+        /// AFC增距镜下降前远焦
+        /// </summary>
+        public static double AFC_FarDistanceBeforeZoom_param = 0;
+        /// <summary>
+        /// AFC增距镜下降后远焦
+        /// </summary>
+        public static double AFC_FarDistanceAfterZoom_param = 0;
+        /// <summary>
+        /// AFC中距
+        /// </summary>
+        public static double AFC_MiddleDistance_param = 0;
+        /// <summary>
+        /// AFC近焦
+        /// </summary>
+        public static double AFC_NearDistance_param = 0;
+        /// <summary>
+        /// AFC阈值
+        /// </summary>
+        public static double AFC_threshold_param = 0;
+        /// <summary>
+        /// DCC增距镜下降前远焦
+        /// </summary>
+        public static double DCC_FarDistanceBeforeZoom_param = 0;
+        /// <summary>
+        /// DCC增距镜下降后远焦
+        /// </summary>
+        public static double DCC_FarDistanceAfterZoom_param = 0;
+        /// <summary>
+        /// DCC中距
+        /// </summary>
+        public static double DCC_MiddleDistance_param = 0;
+        /// <summary>
+        /// DCC近焦
+        /// </summary>
+        public static double DCC_NearDistance_param = 0;
+        /// <summary>
+        /// AFC阈值
+        /// </summary>
+        public static double DCC_threshold_param = 0;
+        /// <summary>
+        /// OTP光照
+        /// </summary>
+        public static double OTP_LUX_param = 0;
+        /// <summary>
+        /// OTP色温
+        /// </summary>
+        public static double OTP_CCT_param=0;
+        /// <summary>
+        /// 光照阈值
+        /// </summary>
+        public static double LUX_threshold = 0;
+        /// <summary>
+        /// 色温阈值
+        /// </summary>
+        public static double CCT_threshold = 0;
+        /// <summary>
+        /// AFC面自动点检距离开启
+        /// </summary>
+        public static bool AFC_distance_check_open=false;
+        /// <summary>
+        ///  AFC面自动点检光源色温开启
+        /// </summary>
+        public static bool AFC_luxcct_check_open = false;
+        /// <summary>
+        /// DCC面自动点检距离开启
+        /// </summary>
+        public static bool DCC_distance_check_open = false;
+        /// <summary>
+        ///  DCC面自动点检光源色温开启
+        /// </summary>
+        public static bool DCC_luxcct_check_open = false;
+        /// <summary>
+        /// OTP面自动点检距离开启
+        /// </summary>
+        public static bool OTP_distance_check_open = false;
+        /// <summary>
+        /// OTP面自动点检光源色温开启
+        /// </summary>
+        public static bool OTP_luxcct_check_open = false;
+        /// <summary>
+        ///AFC光照均匀度
+        /// </summary>
+        public static int afc_lux_uniformity_precent = 0;
+        ///AFC色温均匀度
+        /// </summary>
+        public static int afc_cct_uniformity_precent = 0;
+        /// <summary>
+        ///DCC光照均匀度
+        /// </summary>
+        public static int dcc_lux_uniformity_precent = 0;
+        ///DCC色温均匀度
+        /// </summary>
+        public static int dcc_cct_uniformity_precent = 0;
+        /// <summary>
+        ///OTP光照均匀度
+        /// </summary>
+        public static int otp_lux_uniformity_precent = 0;
+        ///OTP色温均匀度
+        /// </summary>
+        public static int otp_cct_uniformity_precent = 0;
+        /// <summary>
+        ///AFC自动点检A位置
+        /// </summary>
+        public static ST_XYZ ApointposAFC;
+        /// <summary>
+        /// AFC自动点检B位置
+        /// </summary>
+        public static ST_XYZ BpointposAFC;
+        /// <summary>
+        /// AFC自动点检C位置
+        /// </summary>
+        public static ST_XYZ CpointposAFC;
+        /// <summary>
+        ///dcc自动点检A位置
+        /// </summary>
+        public static ST_XYZ ApointposDCC;
+        /// <summary>
+        /// dcc自动点检B位置
+        /// </summary>
+        public static ST_XYZ BpointposDCC;
+        /// <summary>
+        /// DCC自动点检C位置
+        /// </summary>
+        public static ST_XYZ CpointposDCC;
+        /// <summary>
+        ///OTP自动点检A位置
+        /// </summary>
+        public static ST_XYZ ApointposOTP;
+        /// <summary>
+        /// OTP自动点检B位置
+        /// </summary>
+        public static ST_XYZ BpointposOTP;
+        /// <summary>
+        /// OTP自动点检C位置
+        /// </summary>
+        public static ST_XYZ CpointposOTP;
+        public static string COM_1 = "";
+        public static string COM_2 = "";
+        public static string COM_3 = "";
+        /// <summary>
+        /// 默认设备点检时间
+        /// </summary>
+        public static double CheckTimer = 12;
+        /// <summary>
+        /// 默认设备点检工站
+        /// </summary>
+        public static int CheckWs = 1;
+
+        /// <summary>
+        /// 执行点检时间
+        /// </summary>
+        public static string CheckTimeMorning1 = "";
+        public static string CheckTimeEvening2 = "";
+        /// <summary>
+        /// 距离系数
+        /// </summary>
+        public static double distance_coefficient = 1;
+        /// <summary>
+        /// 检测首项
+        /// </summary>
+        public static int stanum = 1;
+
         #endregion
 
         #region 参数存取
@@ -1267,6 +1527,7 @@ namespace MotionCtrl
             //其它
             //bEnVsFB = inf.ReadBool("OTHER_SET", "VS_FB", false);
             bUpDnAddTest = inf.ReadBool("OTHER_SET", "UPTEST", false);
+            OvenCheck = inf.ReadBool("OTHER_SET", "OVENCHECK", false);
             bUdMovSafe = inf.ReadBool("OTHER_SET", "UD_MOV_SAFE", false);
             bEnVsTray = inf.ReadBool("OTHER_SET", "VS_TRAY", false);
             Vs_XYofs = inf.ReadDouble("OTHER_SET", "VS_XY_OFS", 0.5);
@@ -1313,9 +1574,11 @@ namespace MotionCtrl
 
             bmotorphoto = inf.ReadBool("OTHER_SET", "BMOTORPHOTO", false);
             bsunnyqr = inf.ReadBool("OTHER_SET", "bsunnyqr", false);
+            bdownqr = inf.ReadBool("OTHER_SET", "bdownqr", false);
             bsunnyqrleft = inf.ReadBool("OTHER_SET", "bsunnyqrleft", false);
             bsunnyqrright = inf.ReadBool("OTHER_SET", "bsunnyqrright", false);
             bsunnyqralm = inf.ReadBool("OTHER_SET", "bsunnyqralm", false);
+            bsunnyqralmtray = inf.ReadBool("OTHER_SET", "bsunnyqralmtray", false);
             sunnyqrip0 = inf.ReadString("OTHER_SET", "sunnyqrip0", "192.168.72.80");
             sunnyqrip1 = inf.ReadString("OTHER_SET", "sunnyqrip1", "192.168.72.81");
             Motornum = inf.ReadInteger("OTHER_SET", "MOTORNUM", 0);
@@ -1323,6 +1586,25 @@ namespace MotionCtrl
             MotorAngle2 = inf.ReadInteger("OTHER_SET", "MOTORANGLE2", 0);
             MotorAngle3 = inf.ReadInteger("OTHER_SET", "MOTORANGLE3", 0);
             MotorAngle4 = inf.ReadInteger("OTHER_SET", "MOTORANGLE4", 0);
+
+            Numng1 = inf.ReadInteger("OTHER_SET", "Numng1", 0);
+            Numng2 = inf.ReadInteger("OTHER_SET", "Numng2", 0);
+            Numng3 = inf.ReadInteger("OTHER_SET", "Numng3", 0);
+            Numng4 = inf.ReadInteger("OTHER_SET", "Numng4", 0);
+            Numng5 = inf.ReadInteger("OTHER_SET", "Numng5", 0);
+
+            Numngrate1 = inf.ReadDouble("OTHER_SET", " Numngrate1", 0);
+            Numngrate2 = inf.ReadDouble("OTHER_SET", " Numngrate2", 0);
+            Numngrate3 = inf.ReadDouble("OTHER_SET", " Numngrate3", 0);
+            Numngrate4 = inf.ReadDouble("OTHER_SET", " Numngrate4", 0);
+            Numngrate5 = inf.ReadDouble("OTHER_SET", " Numngrate5", 0);
+
+            Ckngrate1 = inf.ReadBool("OTHER_SET", " Ckngrate1", true);
+            Ckngrate2 = inf.ReadBool("OTHER_SET", " Ckngrate2", true);
+            Ckngrate3 = inf.ReadBool("OTHER_SET", " Ckngrate3", true);
+            Ckngrate4 = inf.ReadBool("OTHER_SET", " Ckngrate4", true);
+            Ckngrate5 = inf.ReadBool("OTHER_SET", " Ckngrate5", true);
+
             MotorZ1 = inf.ReadDouble("OTHER_SET", "MOTOZ1", 0);
             MotorZ2 = inf.ReadDouble("OTHER_SET", "MOTOZ2", 0);
             MotorZ3 = inf.ReadDouble("OTHER_SET", "MOTOZ3", 0);
@@ -1343,6 +1625,12 @@ namespace MotionCtrl
             CloseWait = inf.ReadBool("OTHER_SET", "CLOSEWAIT", false);
             CloseWaitTime = inf.ReadInteger("OTHER_SET", "WAITTIME", 1);
             OpenDownQrde = inf.ReadBool("OTHER_SET", "OPENDOWNQRDE", false);
+            otpclose = inf.ReadBool("OTHER_SET", "OTPCLOSE", false);
+            otpclosetime = inf.ReadDouble("OTHER_SET", "OTPCLOSETIME", 0);
+
+            afcclose = inf.ReadBool("OTHER_SET", "AFCCLOSE", false);
+            afcclosetime = inf.ReadDouble("OTHER_SET", "AFCCLOSETIME", 0);
+
             UpDownQrde = inf.ReadBool("OTHER_SET", "UPDOWNQRDE", false);
             DownDownQrde = inf.ReadBool("OTHER_SET", "DOWNDOWNQRDE", false);
             bDelayTest = inf.ReadBool("OTHER_SET", "BDELAYTEST", false);
@@ -1354,10 +1642,25 @@ namespace MotionCtrl
             OkRate = inf.ReadDouble("OTHER_SET", "OKRATE", 0);
             bContinuousAlarm = inf.ReadBool("OTHER_SET", "BCONTINUOUSALARM", false);
             bG4C = inf.ReadBool("OTHER_SET", "BG4C", false);//OTP光源是G4C或者其他
+            bpicktray = inf.ReadBool("OTHER_SET", "bpicktray", false);//OTP光源是G4C或者其他
+            picktrayxt1.x = inf.ReadDouble("OTHER_SET", " picktrayxt1X", 0);
+            picktrayxt1.y = inf.ReadDouble("OTHER_SET", " picktrayxt1Y", 0);
+
+            picktrayxt2.x = inf.ReadDouble("OTHER_SET", " picktrayxt2X", 0);
+            picktrayxt2.y = inf.ReadDouble("OTHER_SET", " picktrayxt2Y", 0);
+
+            picktrayxt3.x = inf.ReadDouble("OTHER_SET", " picktrayxt3X", 0);
+            picktrayxt3.y = inf.ReadDouble("OTHER_SET", " picktrayxt3Y", 0);
+
+            picktrayxt4.x = inf.ReadDouble("OTHER_SET", " picktrayxt4X", 0);
+            picktrayxt4.y = inf.ReadDouble("OTHER_SET", " picktrayxt4Y", 0);
+
             bJigSan = inf.ReadBool("OTHER_SET", "bJigSan", true);
             TestTime = inf.ReadInteger("OTHER_SET", "TestTime", 30000);
 
-            
+            citynum = inf.ReadInteger("OTHER_SET", "citynum", 0);
+            upload = inf.ReadBool("OTHER_SET", "upload", false);
+            closeazd = inf.ReadBool("OTHER_SET", "closeazd", false);
             JigCntSend = inf.ReadInteger("OTHER_SET", "JigCntSend", 30);
             bAddCapQrcode = inf.ReadBool("OTHER_SET", "bAddCapQrcode", false);
             bDwAddCapQrcode = inf.ReadBool("OTHER_SET", "bDwAddCapQrcode", false);
@@ -1417,8 +1720,9 @@ namespace MotionCtrl
 
                 WsContrast[i] = inf.ReadDouble("OTHER_SET", string.Format("WSCONTRAST{0}", i), 0);
             }
-            CheckTimeMorning = inf.ReadString("OTHER_SET", "CHECKTIMEMORNING", "08:00:00");
-            CheckTimeEvening = inf.ReadString("OTHER_SET", "CHECKTIMEEVENING", "20:00:00");
+            CheckTimeMorning = inf.ReadString("AutoCheckParam", "CHECKTIMEMORNING", "08:00:00");
+            CheckTimeEvening = inf.ReadString("AutoCheckParam", "CHECKTIMEEVENING", "20:00:00");
+
 
             EqpPos = inf.ReadString("OTHER_SET", "EqpPos", "新基地4号楼标杆车间");
             EqpSN = inf.ReadString("OTHER_SET", "EqpSN", "123456");
@@ -1433,8 +1737,54 @@ namespace MotionCtrl
             AutoChkMode = inf.ReadInteger("OTHER_SET", "AutoChkMode", 1);
             AutoChkMaxMdEn = inf.ReadInteger("OTHER_SET", "AutoChkMaxMdEn", 0);
             AutoChkSmallMdEn = inf.ReadInteger("OTHER_SET", "AutoChkSmallMdEn", 0);
- 
 
+
+
+            AFC_FarDistanceBeforeZoom_param = inf.ReadDouble("AutoCheckParam", "AFC_FarDistanceBeforeZoom_param", 0);
+            AFC_FarDistanceBeforeZoom_param = inf.ReadDouble("AutoCheckParam", "AFC_FarDistanceAfterZoom_param", 0);
+            AFC_MiddleDistance_param = inf.ReadDouble("AutoCheckParam", "AFC_MiddleDistance_param", 0);
+            AFC_NearDistance_param = inf.ReadDouble("AutoCheckParam", "AFC_NearDistance_param", 0);
+            AFC_threshold_param = inf.ReadDouble("AutoCheckParam", "AFC_threshold_param", 0);
+            
+
+            DCC_FarDistanceBeforeZoom_param = inf.ReadDouble("AutoCheckParam", "DCC_FarDistanceBeforeZoom_param", 0);
+            DCC_FarDistanceBeforeZoom_param = inf.ReadDouble("AutoCheckParam", "DCC_FarDistanceAfterZoom_param", 0);
+            DCC_MiddleDistance_param = inf.ReadDouble("AutoCheckParam", "DCC_MiddleDistance_param", 0);
+            DCC_NearDistance_param = inf.ReadDouble("AutoCheckParam", "DCC_NearDistance_param", 0);
+            DCC_threshold_param = inf.ReadDouble("AutoCheckParam", "DCC_threshold_param", 0);
+            AFC_distance_check_open = inf.ReadBool("AutoCheckParam", "AFC_distance_check_open", false);
+            DCC_distance_check_open = inf.ReadBool("AutoCheckParam", "DCC_distance_check_open", false);
+            OTP_distance_check_open = inf.ReadBool("AutoCheckParam", "OTP_distance_check_open", false);
+            OTP_LUX_param = inf.ReadDouble("AutoCheckParam", "OTP_LUX_param", 0);
+            OTP_CCT_param = inf.ReadDouble("AutoCheckParam", "OTP_CCT_param", 0);
+            AFC_luxcct_check_open = inf.ReadBool("AutoCheckParam", "AFC_luxcct_check_open", false);
+            DCC_luxcct_check_open = inf.ReadBool("AutoCheckParam", "DCC_luxcct_check_open", false);
+            OTP_luxcct_check_open = inf.ReadBool("AutoCheckParam", "OTP_luxcct_check_open", false);
+            afc_lux_uniformity_precent = inf.ReadInteger("AutoCheckParam", "afc_lux_uniformity_precent", 0);
+            afc_lux_uniformity_precent = inf.ReadInteger("AutoCheckParam", "afc_lux_uniformity_precent", 0);
+            dcc_lux_uniformity_precent = inf.ReadInteger("AutoCheckParam", "dcc_lux_uniformity_precent", 0);
+            dcc_lux_uniformity_precent = inf.ReadInteger("AutoCheckParam", "dcc_lux_uniformity_precent", 0);
+            otp_lux_uniformity_precent = inf.ReadInteger("AutoCheckParam", "otp_lux_uniformity_precent", 0);
+            otp_lux_uniformity_precent = inf.ReadInteger("AutoCheckParam", "otp_lux_uniformity_precent", 0);
+            
+            ApointposAFC = inf.ReadXYZ("POS", "ApointposAFC");
+            BpointposAFC = inf.ReadXYZ("POS", "BpointposAFC");
+            CpointposAFC = inf.ReadXYZ("POS", "CpointposAFC");
+            ApointposDCC = inf.ReadXYZ("POS", "ApointposDCC");
+            BpointposDCC = inf.ReadXYZ("POS", "BpointposDCC");
+            CpointposDCC = inf.ReadXYZ("POS", "CpointposDCC");
+            ApointposOTP = inf.ReadXYZ("POS", "ApointposOTP");
+            BpointposOTP = inf.ReadXYZ("POS", "BpointposOTP");
+            CpointposOTP = inf.ReadXYZ("POS", "CpointposOTP");
+            COM_1 = inf.ReadString("AutoCheckParam", "COM_1", "");
+            COM_2 = inf.ReadString("AutoCheckParam", "COM_2", "");
+            COM_3 = inf.ReadString("AutoCheckParam", "COM_3", "");
+            stanum = inf.ReadInteger("AutoCheckParam", "stanum", 1);
+            CheckTimer = inf.ReadDouble("AutoCheckParam", "CheckTimer", 12);
+            CheckWs=inf.ReadInteger("AutoCheckParam", "CheckWs", 1);
+            distance_coefficient = inf.ReadDouble("AutoCheckParam", "distance_coefficient", 1);
+            CheckTimeMorning1 = inf.ReadString("AutoCheckParam", "CHECKTIMEMORNING1", "08:00:00");
+            CheckTimeEvening2 = inf.ReadString("AutoCheckParam", "CHECKTIMEEVENING2", "20:00:00");
             return EM_RES.OK;
         }
 
@@ -1467,6 +1817,7 @@ namespace MotionCtrl
             //其它
             inf.WriteBool("OTHER_SET", "VS_FB", bEnVsFB, ref ischange, true, filename);
             inf.WriteBool("OTHER_SET", "UPTEST", bUpDnAddTest, ref ischange, true, filename);
+            inf.WriteBool("OTHER_SET", "OVENCHECK", OvenCheck, ref ischange, true, filename);
             inf.WriteBool("OTHER_SET", "VS_TRAY", bEnVsTray, ref ischange, true, filename);
             inf.WriteDouble("OTHER_SET", "VS_XY_OFS", Vs_XYofs, ref ischange, true, filename);
             inf.WriteDouble("OTHER_SET", "VS_R_OFS", Vs_Rofs, ref ischange, true, filename);
@@ -1494,14 +1845,20 @@ namespace MotionCtrl
             inf.WriteBool("OTHER_SET", "XT1FIRSTEN", xt1firsten, ref ischange, true, filename);
             inf.WriteBool("OTHER_SET", "TrayBarcodeEn", TrayBarcodeEn, ref ischange, true, filename);
             inf.WriteBool("OTHER_SET", "OPENDOWNQRDE", OpenDownQrde, ref ischange, true, filename);
+            inf.WriteBool("OTHER_SET", "OTPCLOSE", otpclose, ref ischange, true, filename);
+            inf.WriteDouble("OTHER_SET", "OTPCLOSETIME", otpclosetime, ref ischange, true, filename);
+            inf.WriteBool("OTHER_SET", "AFCCLOSE", afcclose, ref ischange, true, filename);
+            inf.WriteDouble("OTHER_SET", "AFCCLOSETIME", afcclosetime, ref ischange, true, filename);
             inf.WriteBool("OTHER_SET", "UPDOWNQRDE", UpDownQrde, ref ischange, true, filename);
             inf.WriteBool("OTHER_SET", "DOWNDOWNQRDE", DownDownQrde, ref ischange, true, filename);
             inf.WriteBool("OTHER_SET", "DOWNDOWNQRDE", DownDownQrde, ref ischange, true, filename);
             inf.WriteBool("OTHER_SET", "BMOTORPHOTO", bmotorphoto, ref ischange, true, filename);
             inf.WriteBool("OTHER_SET", " bsunnyqr", bsunnyqr, ref ischange, true, filename);
+            inf.WriteBool("OTHER_SET", " bdownqr", bdownqr, ref ischange, true, filename);
             inf.WriteBool("OTHER_SET", " bsunnyqrleft", bsunnyqrleft, ref ischange, true, filename);
             inf.WriteBool("OTHER_SET", " bsunnyqrright", bsunnyqrright, ref ischange, true, filename);
             inf.WriteBool("OTHER_SET", " bsunnyqralm", bsunnyqralm, ref ischange, true, filename);
+            inf.WriteBool("OTHER_SET", " bsunnyqralmtray", bsunnyqralmtray, ref ischange, true, filename);
             inf.WriteString("OTHER_SET", " sunnyqrip0", sunnyqrip0, ref ischange, true, filename);
             inf.WriteString("OTHER_SET", " sunnyqrip1", sunnyqrip1, ref ischange, true, filename);
             inf.WriteDouble("OTHER_SET", "MOTOZ1", MotorZ1, ref ischange, true, filename);
@@ -1515,6 +1872,25 @@ namespace MotionCtrl
             inf.WriteInteger("OTHER_SET", "MOTORANGLE2", MotorAngle2, ref ischange, true, filename);
             inf.WriteInteger("OTHER_SET", "MOTORANGLE3", MotorAngle3, ref ischange, true, filename);
             inf.WriteInteger("OTHER_SET", "MOTORANGLE4", MotorAngle4, ref ischange, true, filename);
+
+            inf.WriteInteger("OTHER_SET", "Numng1", Numng1, ref ischange, true, filename);
+            inf.WriteInteger("OTHER_SET", "Numng2", Numng2, ref ischange, true, filename);
+            inf.WriteInteger("OTHER_SET", "Numng3", Numng3, ref ischange, true, filename);
+            inf.WriteInteger("OTHER_SET", "Numng4", Numng4, ref ischange, true, filename);
+            inf.WriteInteger("OTHER_SET", "Numng5", Numng5, ref ischange, true, filename);
+
+            inf.WriteBool("OTHER_SET", "Ckngrate1", Ckngrate1, ref ischange, true, filename);
+            inf.WriteBool("OTHER_SET", "Ckngrate2", Ckngrate2, ref ischange, true, filename);
+            inf.WriteBool("OTHER_SET", "Ckngrate3", Ckngrate3, ref ischange, true, filename);
+            inf.WriteBool("OTHER_SET", "Ckngrate4", Ckngrate4, ref ischange, true, filename);
+            inf.WriteBool("OTHER_SET", "Ckngrate5", Ckngrate5, ref ischange, true, filename);
+
+            inf.WriteDouble("OTHER_SET", "Numngrate1", Numngrate1, ref ischange, true, filename);
+            inf.WriteDouble("OTHER_SET", "Numngrate2", Numngrate2, ref ischange, true, filename);
+            inf.WriteDouble("OTHER_SET", "Numngrate3", Numngrate3, ref ischange, true, filename);
+            inf.WriteDouble("OTHER_SET", "Numngrate4", Numngrate4, ref ischange, true, filename);
+            inf.WriteDouble("OTHER_SET", "Numngrate5", Numngrate5, ref ischange, true, filename);
+
             inf.WriteInteger("OTHER_SET", "MOTORBARCODEDIGITS", motorBarcodeDigits, ref ischange, true, filename);
             //inf.WriteBool("OTHER_SET", "ISsingle", issingle, ref ischange, true, filename);
             inf.WriteInteger("OTHER_SET", "BITOPENMODE", bitOpenMode, ref ischange, true, filename);
@@ -1543,16 +1919,28 @@ namespace MotionCtrl
             inf.WriteBool("OTHER_SET", "BBACKERRCONTINUE", bBackerrcontinue, ref ischange, true, filename);
             inf.WriteBool("OTHER_SET", "BNONPARALLEL", bNonparallel, ref ischange, true, filename);
             inf.WriteDouble("OTHER_SET", "CLEANINTERVAL", Cleaninterval, ref ischange, true, filename);
-
             inf.WriteDouble("OTHER_SET", "SAFEPOS", safepos, ref ischange, true, filename);
-
             inf.WriteBool("OTHER_SET", "BCLEANEN", bCleanen, ref ischange, true, filename);
+            inf.WriteBool("OTHER_SET", "bpicktray", bpicktray, ref ischange, true, filename);
+            inf.WriteDouble("OTHER_SET", "picktrayxt1X", picktrayxt1.x, ref ischange, true, filename);
+            inf.WriteDouble("OTHER_SET", "picktrayxt1Y", picktrayxt1.y, ref ischange, true, filename);
+            inf.WriteDouble("OTHER_SET", "picktrayxt2X", picktrayxt2.x, ref ischange, true, filename);
+            inf.WriteDouble("OTHER_SET", "picktrayxt2Y", picktrayxt2.y, ref ischange, true, filename);
+            inf.WriteDouble("OTHER_SET", "picktrayxt3X", picktrayxt3.x, ref ischange, true, filename);
+            inf.WriteDouble("OTHER_SET", "picktrayxt3Y", picktrayxt3.y, ref ischange, true, filename);
+            inf.WriteDouble("OTHER_SET", "picktrayxt4X", picktrayxt4.x, ref ischange, true, filename);
+            inf.WriteDouble("OTHER_SET", "picktrayxt4Y", picktrayxt4.y, ref ischange, true, filename);
+
             inf.WriteString("OTHER_SET", "LASTCLEANTIME", Lastcleantime, ref ischange, true, filename);
             inf.WriteBool("OTHER_SET", "BCAMCFGSET", BCamcfgset, ref ischange, true, filename);
             inf.WriteBool("OTHER_SET", "BCOOL", bCool, ref ischange, true, filename);
             inf.WriteBool("OTHER_SET", "BCYCLE", bCycle, ref ischange, true, filename);
             inf.WriteBool("OTHER_SET", "BDELAYTEST", bDelayTest, ref ischange, true, filename);
             inf.WriteInteger("OTHER_SET", "NGCODE", ngCode, ref ischange, true, filename);
+            inf.WriteInteger("OTHER_SET", "citynum", citynum, ref ischange, true, filename);
+            inf.WriteBool("OTHER_SET", "upload", upload, ref ischange, true, filename);
+            inf.WriteBool("OTHER_SET", "closeazd", closeazd, ref ischange, true, filename);
+
             inf.WriteDouble("OTHER_SET", "NGSCALE", ngScale, ref ischange, true, filename);
             inf.WriteBool("OTHER_SET", "BNGCONTROL", bNgControl, ref ischange, true, filename);
             inf.WriteBool("OTHER_SET", "BCONTINUOUSALARM", bContinuousAlarm, ref ischange, true, filename);
@@ -1624,6 +2012,7 @@ namespace MotionCtrl
             }
             inf.WriteString("OTHER_SET", "CHECKTIMEMORNING", CheckTimeMorning, ref ischange, true, filename);
             inf.WriteString("OTHER_SET", "CHECKTIMEEVENING", CheckTimeEvening, ref ischange, true, filename);
+
             inf.WriteString("OTHER_SET", "EqpPos", EqpPos, ref ischange, true, filename);
             inf.WriteString("OTHER_SET", "EqpSN", EqpSN, ref ischange, true, filename);
 
@@ -1646,8 +2035,49 @@ namespace MotionCtrl
             inf.WriteBool("OTHER_SET", "bAddCapQrcode", bAddCapQrcode, ref ischange, true, filename);
 
 
-
-
+            inf.WriteDouble("AutoCheckParam", "AFC_FarDistanceBeforeZoom_param", AFC_FarDistanceBeforeZoom_param, ref ischange, true, filename);
+            inf.WriteDouble("AutoCheckParam", "AFC_FarDistanceAfterZoom_param", AFC_FarDistanceAfterZoom_param, ref ischange, true, filename);
+            inf.WriteDouble("AutoCheckParam", "AFC_MiddleDistance_param", AFC_MiddleDistance_param, ref ischange, true, filename);
+            inf.WriteDouble("AutoCheckParam", "AFC_NearDistance_param", AFC_NearDistance_param, ref ischange, true, filename);
+            inf.WriteDouble("AutoCheckParam", "AFC_threshold_param", AFC_threshold_param, ref ischange, true, filename);
+            inf.WriteDouble("AutoCheckParam", "DCC_FarDistanceBeforeZoom_param", DCC_FarDistanceBeforeZoom_param, ref ischange, true, filename);
+            inf.WriteDouble("AutoCheckParam", "DCC_FarDistanceAfterZoom_param", DCC_FarDistanceAfterZoom_param, ref ischange, true, filename);
+            inf.WriteDouble("AutoCheckParam", "DCC_MiddleDistance_param", DCC_MiddleDistance_param, ref ischange, true, filename);
+            inf.WriteDouble("AutoCheckParam", "DCC_threshold_param", DCC_threshold_param, ref ischange, true, filename);
+            inf.WriteBool("AutoCheckParam", "AFC_distance_check_open", AFC_distance_check_open, ref ischange, true, filename);
+            inf.WriteBool("AutoCheckParam", "DCC_distance_check_open", DCC_distance_check_open, ref ischange, true, filename);
+            inf.WriteBool("AutoCheckParam", "OTP_distance_check_open", OTP_distance_check_open, ref ischange, true, filename);
+            inf.WriteDouble("AutoCheckParam", "OTP_LUX_param", OTP_LUX_param, ref ischange, true, filename);
+            inf.WriteDouble("AutoCheckParam", "LUX_threshold", LUX_threshold, ref ischange, true, filename);
+            inf.WriteDouble("AutoCheckParam", "OTP_CCT_param", OTP_CCT_param, ref ischange, true, filename);
+            inf.WriteDouble("AutoCheckParam", "CCT_threshold", CCT_threshold, ref ischange, true, filename);
+            inf.WriteBool("AutoCheckParam", "AFC_luxcct_check_open", AFC_luxcct_check_open, ref ischange, true, filename);
+            inf.WriteBool("AutoCheckParam", "DCC_luxcct_check_open", DCC_luxcct_check_open, ref ischange, true, filename);
+            inf.WriteBool("AutoCheckParam", "OTP_luxcct_check_open", OTP_luxcct_check_open, ref ischange, true, filename);
+            inf.WriteInteger("AutoCheckParam", "afc_lux_uniformity_precent", afc_lux_uniformity_precent, ref ischange, true, filename);
+            inf.WriteInteger("AutoCheckParam", "afc_cct_uniformity_precent", afc_cct_uniformity_precent, ref ischange, true, filename);
+            inf.WriteInteger("AutoCheckParam", "dcc_lux_uniformity_precent", dcc_lux_uniformity_precent, ref ischange, true, filename);
+            inf.WriteInteger("AutoCheckParam", "dcc_cct_uniformity_precent", dcc_cct_uniformity_precent, ref ischange, true, filename);
+            inf.WriteInteger("AutoCheckParam", "otp_lux_uniformity_precent", otp_lux_uniformity_precent, ref ischange, true, filename);
+            inf.WriteInteger("AutoCheckParam", "otp_cct_uniformity_precent", otp_cct_uniformity_precent, ref ischange, true, filename);
+            inf.WriteXYZ("POS", "ApointposAFC", ApointposAFC, ref ischange, true, filename);
+            inf.WriteXYZ("POS", "BpointposAFC", BpointposAFC, ref ischange, true, filename);
+            inf.WriteXYZ("POS", "CpointposAFC", CpointposAFC, ref ischange, true, filename);
+            inf.WriteXYZ("POS", "ApointposDCC", ApointposDCC, ref ischange, true, filename);
+            inf.WriteXYZ("POS", "BpointposDCC", BpointposDCC, ref ischange, true, filename);
+            inf.WriteXYZ("POS", "CpointposDCC", CpointposDCC, ref ischange, true, filename);
+            inf.WriteXYZ("POS", "ApointposOTP", ApointposOTP, ref ischange, true, filename);
+            inf.WriteXYZ("POS", "BpointposOTP", BpointposOTP, ref ischange, true, filename);
+            inf.WriteXYZ("POS", "CpointposOTP", CpointposOTP, ref ischange, true, filename);
+            inf.WriteString("AutoCheckParam", "COM_1", COM_1, ref ischange, true, filename);
+            inf.WriteString("AutoCheckParam", "COM_2", COM_2, ref ischange, true, filename);
+            inf.WriteString("AutoCheckParam", "COM_3", COM_3, ref ischange, true, filename);
+            inf.WriteInteger("AutoCheckParam", "stanum", stanum, ref ischange, true, filename);
+            inf.WriteDouble("AutoCheckParam", "CheckTimer", CheckTimer, ref ischange, true, filename);
+            inf.WriteInteger("AutoCheckParam", "CheckWs", CheckWs, ref ischange, true, filename);
+            inf.WriteDouble("AutoCheckParam", "distance_coefficient", distance_coefficient, ref ischange, true, filename);
+            inf.WriteString("AutoCheckParam", "CHECKTIMEMORNING1", CheckTimeMorning1, ref ischange, true, filename);
+            inf.WriteString("AutoCheckParam", "CHECKTIMEEVENING2", CheckTimeEvening2, ref ischange, true, filename);
             if (ischange)
             {
                 //创建backup

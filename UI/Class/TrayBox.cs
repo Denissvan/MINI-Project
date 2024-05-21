@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.IO;
@@ -90,6 +90,11 @@ namespace UI
         /// 右上角
         /// </summary>
         public ST_XYZA tray_tr;
+
+        /// <summary>
+        /// NG默认O度标准位
+        /// </summary>
+        public bool IsNg=true;
 
         //料仓参数
         //第一格位置
@@ -718,164 +723,174 @@ namespace UI
         public EM_RES TrayOut(ref bool bquit, bool Demo, int idx = -2, EM_STA sta = EM_STA.UNTEST)
         {
             EM_RES res = EM_RES.OK;
-            //check box
-            if (in_box_sen.isOFF && !Demo)
+            try
             {
-                Thread.Sleep(30);
-                if (in_box_sen.isOFF)
+                //check box
+                if (in_box_sen.isOFF && !Demo)
                 {
-                    VAR.msg.AddMsg(Msg.EM_MSGTYPE.NOR, VAR.IsChinese ? string.Format("{0}出料时料仓未感应!", disc) : string.Format("{0} The magazine is not sensing when tray out!      ({1}出料时料仓未感应!)", name, disc));
-                    if (VAR.gsys_set.status == EM_SYS_STA.RUN)
+                    Thread.Sleep(30);
+                    if (in_box_sen.isOFF)
                     {
-                        //界面提示         增加语言        
-                        VAR.sys_inf.Set(EM_ALM_STA.WAR_YELLOW_FLASH, VAR.IsChinese ? "没有仓储" : "No tray", 10, true);
-                        MT.ST_WARN warn = new MT.ST_WARN();
-                        warning fr_warn = new warning();
-                        warn.ok_txt = MultiLanguage.TxtSelct("继续运行", "Keep running", "tiếp tục chạy");
-                        warn.ws = null;
-                        warn.title = MultiLanguage.TxtSelct("提示:没有仓储", "Tip: no tray box", "Gợi ý: không nhập kho");
-                        warn.msg = MultiLanguage.TxtSelct
-                            (disc + "没有检测到,请确认放好后按确定继续!",
-                            name + "No detection, please confirm it and press OK to continue!",
-                            disc + "Nếu nó không được phát hiện, vui lòng xác nhận và nhấn OK để tiếp tục!");
-                        warn.lb_msg = MultiLanguage.TxtSelct
-                            (disc + "没有检测到,请确认放好后按确定继续!",
-                            name + "No detection, please confirm it and press OK to continue!",
-                            disc + "Nếu nó không được phát hiện, vui lòng xác nhận và nhấn OK để tiếp tục!");
-                        MT.Display_frwarn(fr_warn, warn, ERR_ALM.EmErrItem.TrayBoxAbnormal);
-                        VAR.sys_inf.Set(EM_ALM_STA.NOR_GREEN, VAR.IsChinese ? "运行" : "RUN", 0, true);
+                        VAR.msg.AddMsg(Msg.EM_MSGTYPE.NOR, VAR.IsChinese ? string.Format("{0}出料时料仓未感应!", disc) : string.Format("{0} The magazine is not sensing when tray out!      ({1}出料时料仓未感应!)", name, disc));
+                        if (VAR.gsys_set.status == EM_SYS_STA.RUN)
+                        {
+                            //界面提示         增加语言        
+                            VAR.sys_inf.Set(EM_ALM_STA.WAR_YELLOW_FLASH, VAR.IsChinese ? "没有仓储" : "No tray", 10, true);
+                            MT.ST_WARN warn = new MT.ST_WARN();
+                            warning fr_warn = new warning();
+                            warn.ok_txt = MultiLanguage.TxtSelct("继续运行", "Keep running", "tiếp tục chạy");
+                            warn.ws = null;
+                            warn.title = MultiLanguage.TxtSelct("提示:没有仓储", "Tip: no tray box", "Gợi ý: không nhập kho");
+                            warn.msg = MultiLanguage.TxtSelct
+                                (disc + "没有检测到,请确认放好后按确定继续!",
+                                name + "No detection, please confirm it and press OK to continue!",
+                                disc + "Nếu nó không được phát hiện, vui lòng xác nhận và nhấn OK để tiếp tục!");
+                            warn.lb_msg = MultiLanguage.TxtSelct
+                                (disc + "没有检测到,请确认放好后按确定继续!",
+                                name + "No detection, please confirm it and press OK to continue!",
+                                disc + "Nếu nó không được phát hiện, vui lòng xác nhận và nhấn OK để tiếp tục!");
+                            MT.Display_frwarn(fr_warn, warn, ERR_ALM.EmErrItem.TrayBoxAbnormal);
+                            VAR.sys_inf.Set(EM_ALM_STA.NOR_GREEN, VAR.IsChinese ? "运行" : "RUN", 0, true);
+                        }
+                        status = EM_STA.NOBOX;
+                        return EM_RES.ERR;
                     }
-                    status = EM_STA.NOBOX;
+                }
+
+
+
+
+                bchanged = true;
+
+                //check cur tray
+                if (tray_cur != null)
+                {
+                    VAR.msg.AddMsg(Msg.EM_MSGTYPE.ERR, VAR.IsChinese ? string.Format("{0} 出料时轨道已有料盘!", disc) : string.Format("{0}There is already a tray in the track when tray out!      ({1} 出料时轨道已有料盘!)", name, disc));
                     return EM_RES.ERR;
                 }
-            }
+
+                //if (!PT_SET.IsMesLocal&&disc== COM.traybox_fd.disc)
+                //{
+
+                //    Msg.secsManager.Send(new BaseInfo() { Id = 5 }, 2);
+                //    MT.IsAllowStartUpdateByTray = false;
+                //    MT.IsAllowStartByTray= false;
+
+                //    Msg.secsManager.Send(new BaseInfo() { Id = 1, Value = Convert.ToInt32(DReport.EmStatus.Run).ToString() });
+                //    Msg.secsManager.Send(new BaseInfo() { Id = 3 }, 2);
+                //    Task mm =new Task(() =>
+                //    {
+                //        VAR.msg.AddMsg(Msg.EM_MSGTYPE.SYS, "正在等待MES上位指令!");
+                //        SpinWait.SpinUntil(() => MT.IsAllowStartUpdateByTray, 10000);
+                //    });
+
+                //    mm.Start();
+                //    mm.Wait();
+                //    //fr?.Close();
+                //    if (!MT.IsAllowStartByTray)
+                //    {
+                //       FrRun. Dialog(Color.Yellow, "警告", "被MES禁止继续加工！请联系相关人员。");
+                //       return EM_RES.ERR;
+                //    }
+                //}
 
 
-
-
-            bchanged = true;
-
-            //check cur tray
-            if (tray_cur != null)
-            {
-                VAR.msg.AddMsg(Msg.EM_MSGTYPE.ERR, VAR.IsChinese ? string.Format("{0} 出料时轨道已有料盘!", disc) : string.Format("{0}There is already a tray in the track when tray out!      ({1} 出料时轨道已有料盘!)", name, disc));
-                return EM_RES.ERR;
-            }
-
-            //if (!PT_SET.IsMesLocal&&disc== COM.traybox_fd.disc)
-            //{
-              
-            //    Msg.secsManager.Send(new BaseInfo() { Id = 5 }, 2);
-            //    MT.IsAllowStartUpdateByTray = false;
-            //    MT.IsAllowStartByTray= false;
-
-            //    Msg.secsManager.Send(new BaseInfo() { Id = 1, Value = Convert.ToInt32(DReport.EmStatus.Run).ToString() });
-            //    Msg.secsManager.Send(new BaseInfo() { Id = 3 }, 2);
-            //    Task mm =new Task(() =>
-            //    {
-            //        VAR.msg.AddMsg(Msg.EM_MSGTYPE.SYS, "正在等待MES上位指令!");
-            //        SpinWait.SpinUntil(() => MT.IsAllowStartUpdateByTray, 10000);
-            //    });
-               
-            //    mm.Start();
-            //    mm.Wait();
-            //    //fr?.Close();
-            //    if (!MT.IsAllowStartByTray)
-            //    {
-            //       FrRun. Dialog(Color.Yellow, "警告", "被MES禁止继续加工！请联系相关人员。");
-            //       return EM_RES.ERR;
-            //    }
-            //}
-
-
-            //check idx
-            if (idx < 0 || idx >= list_sta.Count) idx = tray_idx;
-            VAR.msg.AddMsg(Msg.EM_MSGTYPE.NOR, VAR.IsChinese ? string.Format("{0} 出料,层数:{1}!", disc, idx) : string.Format("{0} tray out,layer:{2}!   ({1} 出料,层数:{2}!)", name, disc, idx));
-            //search
-            if (list_sta[idx] == EM_STA.EMPTY)
-            {
-                for (int n = 0; n < list_sta.Count; n++)
+                //check idx
+                if (idx < 0 || idx >= list_sta.Count) idx = tray_idx;
+                VAR.msg.AddMsg(Msg.EM_MSGTYPE.NOR, VAR.IsChinese ? string.Format("{0} 出料,层数:{1}!", disc, idx) : string.Format("{0} tray out,layer:{2}!   ({1} 出料,层数:{2}!)", name, disc, idx));
+                //search
+                if (list_sta[idx] == EM_STA.EMPTY)
                 {
-                    //search down
-                    if ((idx + n < list_sta.Count) && list_sta[idx + n] != EM_STA.EMPTY)
+                    for (int n = 0; n < list_sta.Count; n++)
                     {
-                        idx = idx + n;
-                        break;
-                    }
+                        //search down
+                        if ((idx + n < list_sta.Count) && list_sta[idx + n] != EM_STA.EMPTY)
+                        {
+                            idx = idx + n;
+                            break;
+                        }
 
-                    //search up
-                    if ((idx - n >= 0) && list_sta[idx - n] != EM_STA.EMPTY)
-                    {
-                        idx = idx - n;
-                        break;
+                        //search up
+                        if ((idx - n >= 0) && list_sta[idx - n] != EM_STA.EMPTY)
+                        {
+                            idx = idx - n;
+                            break;
+                        }
                     }
                 }
-            }
 
-            //check status
-            if (list_sta[idx] == EM_STA.EMPTY)
-            {
-                status = EM_STA.EMPTY;
-                return EM_RES.ERR;
-            }
-            out_tray_hd.SetOff();
-            if (ax_x.fenc_pos > fd_safe_x)
-            {
+                //check status
+                if (list_sta[idx] == EM_STA.EMPTY)
+                {
+                    status = EM_STA.EMPTY;
+                    return EM_RES.ERR;
+                }
+                out_tray_hd.SetOff();
+                if (ax_x.fenc_pos > fd_safe_x)
+                {
+                    res = MT.Move(ref bquit, ref ax_x, fd_safe_x);
+                    if (res != EM_RES.OK) return res;
+                }
+                //move to posInf 
+                res = BoxMoveToPosIdx(ref bquit, Demo, idx, false);
+                if (res == EM_RES.NEXT)
+                {
+                    VAR.msg.AddMsg(Msg.EM_MSGTYPE.WAR, VAR.IsChinese ? string.Format("{0} 出料未感应物料,层数:{1}!", disc, idx + 1) : string.Format("{0}The magazine is not sensing when tray out! ,layer:{2}!     ({1} 出料未感应物料,层数:{2}!)", name, disc, idx + 1));
+                    list_sta[idx] = EM_STA.EMPTY;
+                    return EM_RES.NEXT;
+                }
+                if (res != EM_RES.OK) return res;
+
+                //X in
+                res = MT.Move(ref bquit, ref ax_x, fd_pos_x);
+                if (res != EM_RES.OK) return res;
+
+                //Z down
+                //ax_x.MoveTo(ref bquit, ax_x.fcmd_pos - tray_feed_ofs_h);
+                res = MT.Move(ref bquit, ref ax_z, ax_z.fcmd_pos - tray_feed_ofs_h);
+                if (res != EM_RES.OK) return res;
+
+
+                //Thread.Sleep(300);
+                //X out
+                //ax_x.MoveTo(ref bquit, fd_safe_x);
+                res = MT.Move(ref bquit, ref ax_x, fd_pos_x - 30);
+                if (res != EM_RES.OK) return res;
+
+                if (!Demo) cy_hd.SetOn(ref bquit, 2000);
+                else cy_hd.SetOn();
+
                 res = MT.Move(ref bquit, ref ax_x, fd_safe_x);
                 if (res != EM_RES.OK) return res;
-            }
-            //move to posInf 
-            res = BoxMoveToPosIdx(ref bquit, Demo, idx, false);
-            if (res == EM_RES.NEXT)
-            {
-                VAR.msg.AddMsg(Msg.EM_MSGTYPE.WAR, VAR.IsChinese ? string.Format("{0} 出料未感应物料,层数:{1}!", disc, idx + 1) : string.Format("{0}The magazine is not sensing when tray out! ,layer:{2}!     ({1} 出料未感应物料,层数:{2}!)", name, disc, idx + 1));
+
+                //out_tray_hd.SetOn();
+
+                // Thread.Sleep(2000);
+
+                //update status
                 list_sta[idx] = EM_STA.EMPTY;
-                return EM_RES.NEXT;
-            }
-            if (res != EM_RES.OK) return res;
+                tray_cur = list_tray[idx];
 
-            //X in
-            res = MT.Move(ref bquit, ref ax_x, fd_pos_x);
-            if (res != EM_RES.OK) return res;
-
-            //Z down
-            //ax_x.MoveTo(ref bquit, ax_x.fcmd_pos - tray_feed_ofs_h);
-            res = MT.Move(ref bquit, ref ax_z, ax_z.fcmd_pos - tray_feed_ofs_h);
-            if (res != EM_RES.OK) return res;
-
-
-            //Thread.Sleep(300);
-            //X out
-            //ax_x.MoveTo(ref bquit, fd_safe_x);
-            res = MT.Move(ref bquit, ref ax_x, fd_pos_x - 30);
-            if (res != EM_RES.OK) return res;
-
-            if (!Demo) cy_hd.SetOn(ref bquit, 2000);
-            else cy_hd.SetOn();
-
-            res = MT.Move(ref bquit, ref ax_x, fd_safe_x);
-            if (res != EM_RES.OK) return res;
-
-            //out_tray_hd.SetOn();
-
-            // Thread.Sleep(2000);
-
-            //update status
-            list_sta[idx] = EM_STA.EMPTY;
-            tray_cur = list_tray[idx];
-
-            //check status
-            for (int n = 0; n < list_sta.Count; n++)
-            {
-                if (list_sta[n] != EM_STA.EMPTY)
+                //check status
+                for (int n = 0; n < list_sta.Count; n++)
                 {
-                    status = EM_STA.STANBY;
-                    return EM_RES.OK;
+                    if (list_sta[n] != EM_STA.EMPTY)
+                    {
+                        status = EM_STA.STANBY;
+                        return EM_RES.OK;
+                    }
                 }
-            }
 
-            status = EM_STA.EMPTY;
-            return EM_RES.OK;
+                status = EM_STA.EMPTY;
+                return EM_RES.OK;
+            }
+            finally
+            {
+                bool bq = false;
+                res = MT.Move(ref bq, ref ax_x, fd_safe_x);
+                
+            }
+           
         }
         public EM_RES TrayIn(ref bool bquit, bool Demo, int idx = -2, EM_STA sta = EM_STA.UNTEST)
         {

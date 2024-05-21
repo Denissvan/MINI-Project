@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Threading;
 using System.Windows.Forms;
@@ -9,6 +9,11 @@ using Cognex.VisionPro;
 using DevReport;
 using Win32Lib;
 using UI.Class;
+using MesUIWpf;
+using System.Text;
+using System.Linq;
+using MesUIWpf.Models;
+using ControlzEx.Standard;
 
 namespace UI
 {
@@ -34,6 +39,8 @@ namespace UI
         public static SunnyQr Sunnnyqr0 = new SunnyQr(0);
         public static SunnyQr Sunnnyqr1 = new SunnyQr(1);
         public static Product.Tray tray_fd, tray_ok, tray_ng;
+        public static MesWaitWarning mesWaitWarning = new MesWaitWarning(MesProductType.MINI);
+
 
         public static TrayBox traybox_fd = new TrayBox("TrayBox_FD", "供料仓", TrayBox.EM_DIR.IN_OUT, 10, MT.AXIS_UDL_FD_X,
             MT.AXIS_UDL_FD_Z, MT.GPIO_IN_UL_INP_FD_TRAYBOX, MT.GPIO_IN_UL_RDY_FD_TRAY, MT.GPIO_OUT_UL_FD_TRAY,
@@ -1394,6 +1401,23 @@ namespace UI
                         return;
                     }          
                 }
+
+                #region  待机细分
+
+                if (PT_SET.Isshowmsg)
+                { 
+                    PT_SET.Isshowmsg = false;
+                    PT_SET.WaitMode = PT_SET.WaitMode == 0 ? 26 : PT_SET.WaitMode;
+                    VAR.msg.AddMsg(Msg.EM_MSGTYPE.SYS, string.Format("待机上传结束事件，原因为{0}", PT_SET.WaitMode));
+                    Msg.secsManager.Send(new BaseInfo() { Id = 241, Value = PT_SET.WaitMode.ToString() });
+                    Msg.secsManager.Send(new BaseInfo() { Id = 242, Value = Encoding.UTF8.GetBytes(MesData.CobMesIdleStatusDict[PT_SET.WaitMode]).Aggregate("", (current, next) => current + " " + next).TrimStart() });
+                    Msg.secsManager.Send(new BaseInfo() { Id = 9 }, TypeId: 2);
+                    Msg.secsManager.Send(new BaseInfo() { Id = 1, Value = Convert.ToInt32(DReport.EmStatus.Run).ToString() });
+                    Msg.secsManager.Send(new BaseInfo() { Id = 1 }, 2);
+                }
+
+                #endregion
+
                 //启动线程
                 Task TskTest = new Task(() => { test_th(); });
                 TskTest.Start();
@@ -1444,6 +1468,7 @@ namespace UI
                 DRpt.Report_Product(VAR.gsys_set.cur_product_name, !VAR.Isnormal);
                 DRpt.Report_Status(DReport.EmStatus.Run, DReport.EmHareware.Null, DReport.EmStatus.Run.GetDescription(VAR.IsChinese));
                 int i = 3000;
+                bool show = true;
                 while (true)
                 {
                     Thread.Sleep(10);
@@ -1455,8 +1480,20 @@ namespace UI
                         {
                             Msg.secsManager.Send(new BaseInfo() { Id = t, Value = "false" }, 1);
                         }
-                        Msg.secsManager.Send(new BaseInfo() { Id = 1, Value = Convert.ToInt32(DReport.EmStatus.Run).ToString() });
-                        Msg.secsManager.Send(new BaseInfo() { Id = 1 }, 2);
+                        if (COM.traybox_fd.ChgML || COM.traybox_ng.ChgML || COM.traybox_ok.ChgML)
+                        {
+
+                            //DRpt.Report_Status(DReport.EmStatus.Wait, DReport.EmHareware.Null, DReport.EmStatus.Wait.GetDescription(VAR.IsChinese));
+                            //Msg.secsManager.Send(new BaseInfo() { Id = 1, Value = Convert.ToInt32(DReport.EmStatus.Wait).ToString() });
+                            //Msg.secsManager.Send(new BaseInfo() { Id = 1 }, 2);
+                            VAR.gsys_set.status = EM_SYS_STA.STANDBY;
+                        }
+                        else
+                        {
+                            VAR.gsys_set.status = EM_SYS_STA.RUN;
+                            show = true;
+                          
+                        }
                     }
                     //测试线程退出则通知上料/下料退出
                     if (!brun)
@@ -1566,6 +1603,7 @@ namespace UI
                 MT.GPIO_OUT_ALM_GREEN.SetOff();
                 MT.GPIO_OUT_KL_START.SetOff();
                 MT.OnlyKeyLOn(MT.GPIO_OUT_KL_STOP);
+                VAR.gsys_set.status = EM_SYS_STA.STANDBY;
                 VAR.msg.AddMsg(Msg.EM_MSGTYPE.SYS, VAR.IsChinese ? "总运行线程结束" : "Total running thread ends    (总运行线程结束)");
             }
         }
@@ -1706,9 +1744,25 @@ namespace UI
 
                         }
                         workstation.FeedStatus = WS.EM_STA.REDAYFORUPDOWNLOAD;
+                        // 重置计时器和状态
+                        if(AutoInspectionParameter.ifcheck&&(workstation.num+1==PT_SET.CheckWs) && !VAR.ClearMt)
+                        {
+                            AutoInspectionParameter.ifcheckontime_enabled = false;
+                            AutoInspectionParameter._elapsedMilliseconds = 0;
+                            AutoInspectionParameter.ifcheckontime = false;
+                            AutoInspectionParameter.ifcheck = false;
+                            VAR.msg.AddMsg(Msg.EM_MSGTYPE.DBG, $"{workstation.num + 1}重置机台点检状态");
+                        }
+
                         ////通知上下料
                         //if(workstation.FeedStatus != WS.EM_STA.REDAYFORUPLOAD)
                         //    workstation.FeedStatus = WS.EM_STA.REDAYFORDOWNLOAD;
+                        bool bq = false;
+
+                        if (PT_SET.closeazd)
+                        {
+                            workstation.PowerOff(ref bq);
+                        }
 
                         //等待上下料完成
                         VAR.msg.AddMsg(Msg.EM_MSGTYPE.NOR, VAR.IsChinese ? string.Format("{0}等待上下料...", workstation.disc) : string.Format("{0} Wait for updownload...          ({0}等待上下料...)", workstation.disc));

@@ -1,4 +1,4 @@
-﻿namespace UI.Compment
+namespace UI.Compment
 {
     partial class PMAlignEdit
     {
@@ -152,7 +152,7 @@
             this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F);
             this.label4.Location = new System.Drawing.Point(188, 230);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(17, 16);
+            this.label4.Size = new System.Drawing.Size(16, 16);
             this.label4.TabIndex = 322;
             this.label4.Text = "Y";
             // 
@@ -162,7 +162,7 @@
             this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F);
             this.label3.Location = new System.Drawing.Point(91, 229);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(16, 16);
+            this.label3.Size = new System.Drawing.Size(15, 16);
             this.label3.TabIndex = 321;
             this.label3.Text = "X";
             // 
@@ -172,7 +172,7 @@
             this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F);
             this.label2.Location = new System.Drawing.Point(9, 259);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(53, 16);
+            this.label2.Size = new System.Drawing.Size(52, 16);
             this.label2.TabIndex = 320;
             this.label2.Text = "原点：";
             // 
@@ -209,7 +209,7 @@
             this.label1.ForeColor = System.Drawing.Color.Black;
             this.label1.Location = new System.Drawing.Point(17, 198);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(83, 16);
+            this.label1.Size = new System.Drawing.Size(82, 16);
             this.label1.TabIndex = 318;
             this.label1.Text = "得分阈值：";
             this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -221,7 +221,7 @@
             this.Chk_ScoreUsingClutter.ForeColor = System.Drawing.SystemColors.ControlText;
             this.Chk_ScoreUsingClutter.Location = new System.Drawing.Point(245, 196);
             this.Chk_ScoreUsingClutter.Name = "Chk_ScoreUsingClutter";
-            this.Chk_ScoreUsingClutter.Size = new System.Drawing.Size(117, 20);
+            this.Chk_ScoreUsingClutter.Size = new System.Drawing.Size(116, 20);
             this.Chk_ScoreUsingClutter.TabIndex = 317;
             this.Chk_ScoreUsingClutter.Text = "计分考虑杂斑";
             this.Chk_ScoreUsingClutter.UseVisualStyleBackColor = true;
@@ -247,7 +247,7 @@
             this.chkPolarity.ForeColor = System.Drawing.SystemColors.ControlText;
             this.chkPolarity.Location = new System.Drawing.Point(246, 155);
             this.chkPolarity.Name = "chkPolarity";
-            this.chkPolarity.Size = new System.Drawing.Size(87, 20);
+            this.chkPolarity.Size = new System.Drawing.Size(86, 20);
             this.chkPolarity.TabIndex = 315;
             this.chkPolarity.Text = "忽略极性";
             this.chkPolarity.UseVisualStyleBackColor = true;
@@ -260,7 +260,7 @@
             this.lblCount.ForeColor = System.Drawing.Color.Black;
             this.lblCount.Location = new System.Drawing.Point(17, 156);
             this.lblCount.Name = "lblCount";
-            this.lblCount.Size = new System.Drawing.Size(83, 16);
+            this.lblCount.Size = new System.Drawing.Size(82, 16);
             this.lblCount.TabIndex = 314;
             this.lblCount.Text = "查找个数：";
             this.lblCount.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -344,7 +344,7 @@
             this.label7.ForeColor = System.Drawing.Color.Black;
             this.label7.Location = new System.Drawing.Point(376, 13);
             this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(83, 16);
+            this.label7.Size = new System.Drawing.Size(82, 16);
             this.label7.TabIndex = 426;
             this.label7.Text = "搜索形状：";
             this.label7.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -357,7 +357,7 @@
             this.label12.ForeColor = System.Drawing.Color.Black;
             this.label12.Location = new System.Drawing.Point(376, 65);
             this.label12.Name = "label12";
-            this.label12.Size = new System.Drawing.Size(83, 16);
+            this.label12.Size = new System.Drawing.Size(82, 16);
             this.label12.TabIndex = 427;
             this.label12.Text = "训练形状：";
             this.label12.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -442,7 +442,7 @@
             this.label13.ForeColor = System.Drawing.Color.Black;
             this.label13.Location = new System.Drawing.Point(591, 13);
             this.label13.Name = "label13";
-            this.label13.Size = new System.Drawing.Size(83, 16);
+            this.label13.Size = new System.Drawing.Size(82, 16);
             this.label13.TabIndex = 434;
             this.label13.Text = "相机选择：";
             this.label13.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
@@ -455,7 +455,7 @@
             this.label14.ForeColor = System.Drawing.Color.Black;
             this.label14.Location = new System.Drawing.Point(591, 121);
             this.label14.Name = "label14";
-            this.label14.Size = new System.Drawing.Size(103, 16);
+            this.label14.Size = new System.Drawing.Size(102, 16);
             this.label14.TabIndex = 435;
             this.label14.Text = "PMAlign选择：";
             // 
@@ -467,7 +467,7 @@
             this.label15.ForeColor = System.Drawing.Color.Black;
             this.label15.Location = new System.Drawing.Point(589, 65);
             this.label15.Name = "label15";
-            this.label15.Size = new System.Drawing.Size(83, 16);
+            this.label15.Size = new System.Drawing.Size(82, 16);
             this.label15.TabIndex = 436;
             this.label15.Text = "流程选择：";
             this.label15.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
@@ -540,7 +540,7 @@
             this.label16.ForeColor = System.Drawing.Color.Black;
             this.label16.Location = new System.Drawing.Point(376, 123);
             this.label16.Name = "label16";
-            this.label16.Size = new System.Drawing.Size(83, 16);
+            this.label16.Size = new System.Drawing.Size(82, 16);
             this.label16.TabIndex = 440;
             this.label16.Text = "图像模板：";
             this.label16.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;

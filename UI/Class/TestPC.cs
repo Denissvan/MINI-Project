@@ -1,4 +1,5 @@
-﻿using System;
+using MotionCtrl;
+using System;
 using System.ComponentModel;
 using System.Runtime.InteropServices;
 
@@ -58,5 +59,10 @@ namespace UI
         [DllImport("dllforcomv8.dll", EntryPoint = "GetStatus", CharSet = CharSet.Ansi, CallingConvention = CallingConvention.Cdecl)]
         public static extern int GetStatus(int id, ref int status);
 
+        [DllImport("SFC_Control.dll", EntryPoint = "UploadRiskCode", CharSet = CharSet.Ansi, CallingConvention = CallingConvention.Cdecl)]
+
+        public static extern int UploadRiskCode(string codes, int netType);
     }
+
+
 }

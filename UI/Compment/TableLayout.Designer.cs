@@ -1,4 +1,4 @@
-﻿namespace WT.ExecuteUI
+namespace WT.ExecuteUI
 {
     partial class TableLayout
     {

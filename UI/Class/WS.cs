@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Diagnostics;
@@ -7,10 +7,13 @@ using System.IO;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
+using System.Timers;
 using System.Windows.Forms;
+using ControlzEx.Standard;
 using DevReport;
 using MotionCtrl;
 using UI.Class;
+using static UI.LightBox;
 
 namespace UI
 {
@@ -171,6 +174,10 @@ namespace UI
         public int GrrUDLcnt = 0;
         //点检测试次数
         public int ChkCnt = 0;
+        /// <summary>
+        /// 当前工站的NG码
+        /// </summary>
+        public  List<string> CurWSNGCode = new List<string>();
         public class MdDat
         {
             //编号
@@ -281,6 +288,7 @@ namespace UI
             public int cnt_ng_other;
             //新增回检拍二维码位
             public ST_XYZ[] st_CapQrcodePos = new ST_XYZ[cnt];
+
 
             public MdDat Clone()
             {
@@ -2012,7 +2020,7 @@ namespace UI
                     string str_barcode = "";
                     foreach (MdDat m in list)
                     {
-                        if (PT_SET.bmotorphoto)
+                        if (PT_SET.bmotorphoto || PT_SET.bdownqr)
                         {
                             if (m.benable)
                             {
@@ -2058,6 +2066,67 @@ namespace UI
                         else
                             str_barcode += "0" + "@";
                     }
+                  
+                   if( PT_SET.BarcodeMode != (int)PT_SET.BAR_SCAN.NO_SCAN  )
+                   {
+                        #region   二维码防呆
+                        List<string> numbers = new List<string>();
+                        List<string> lastnumbers = new List<string>();
+
+
+                        numbers.Clear();
+                        foreach (MdDat m in list)
+                        {
+                            if (m.benable && m.res == (int)Product.EM_CM_RES.UNTEST)//没有模组不需要测试。
+                            {
+                                numbers.Add(m.bardcode);
+                            }
+                        }
+                        bool Err = false;
+                        if (lastnumbers.Count > 0)
+                        {
+                            var differentElements = lastnumbers.Except(numbers).ToList();
+
+                            if (!differentElements.Any())
+                            {
+                                Err = true;
+                            }
+                        }
+
+                        lastnumbers.Clear();
+                        lastnumbers = numbers;
+
+                        var distinctNumbers = numbers.Distinct().ToList();
+
+                        // 如果原始列表和不重复元素集合的长度不同，说明存在重复元素  
+                        if (numbers.Count != distinctNumbers.Count || Err)
+                        {
+                            VAR.msg.AddMsg(Msg.EM_MSGTYPE.ERR, "启动时，存在重复二维码或者和上一轮存在重复二维码");
+                            MT.ST_WARN st_warn = new MT.ST_WARN();
+                            warning fr_warn = new warning();
+                            st_warn.ok_txt = VAR.IsChinese ? "继续运行" : "Give up";
+                            st_warn.abort_txt = VAR.IsChinese ? "停止运行" : "Try again";
+                            st_warn.ws = null;
+                            st_warn.cancle_txt = VAR.IsChinese ? "停止运行" : "Stop running";
+                            st_warn.title = VAR.IsChinese ? "提示:存在重复二维码!" : "Tip: Abnormal suction!";
+                            st_warn.msg = VAR.IsChinese ? "提示:存在重复二维码!" : "Tip: Abnormal suction!";
+                            st_warn.lb_msg = "提示:" + st_warn.msg + "请确认!\r\n  1.启动时，存在重复二维码!\r\n  " +
+                                "2.点击继续运行则继续运行!\r\n  " +
+                                "3.点击停止将停止运行!\r\n  ";
+
+                            DialogResult logres = MT.Display_frwarn(fr_warn, st_warn, ERR_ALM.EmErrItem.UpDownLoadAbnormal);
+                            if (DialogResult.OK == logres)
+                            {
+
+                            }
+                            else
+                            {
+                                return EM_RES.QUIT; ;
+                            }
+                        }
+                        #endregion
+                    }
+
 
                     //发送启动命令
                     if (demo)
@@ -2272,6 +2341,7 @@ namespace UI
                                 //list[n].res = res[n];
                                 list[n].test_idx = 0;
                                 str = str + string.Format(",{0}-{1}", res[n], lsstr.Length > n && lsstr[n][0] != '\0' ? lsstr[n] : "");
+                                CurWSNGCode.Add(str);
                                 //if (list[n].benable && (lsstr.Length<=n ||list[n].bardcode != lsstr[n] || lsstr[n] == ""))
                                 //{
                                 //    list[n].res = 111;
@@ -2572,6 +2642,122 @@ namespace UI
         //是否上下料开始
         public bool bUpDnStart = false;
         public static DateTime CurOutProductTime = DateTime.Now;
+        private static volatile bool _quitFlag = false;
+        public static class ComPortGuard
+        {
+            private static readonly Dictionary<string, SemaphoreSlim> _guards
+                = new Dictionary<string, SemaphoreSlim>();
+
+            private static readonly object _lock = new object();
+
+            public static SemaphoreSlim Get(string comName)
+            {
+                lock (_lock)
+                {
+                    if (!_guards.ContainsKey(comName))
+                        _guards[comName] = new SemaphoreSlim(1, 1);
+
+                    return _guards[comName];
+                }
+            }
+        }
+
+        public static class GyroscopeMonitor
+        {
+            private static Task _worker;
+            private static readonly object _lock = new object();
+
+            /// <summary>
+            /// 启动陀螺仪后台监控（每 1 分钟检测一次）
+            /// </summary>
+            public static void Start(
+                string comName)
+            {
+                lock (_lock)
+                {
+                    // 防止重复启动
+                    if (_worker != null && !_worker.IsCompleted)
+                        return;
+
+                    _worker = Task.Run(() =>
+                    {
+                        RunLoop(comName);
+                    });
+                }
+            }
+
+            /// <summary>
+            /// 后台循环主体
+            /// </summary>
+            private static void RunLoop(string comName)
+            {
+                var guard = ComPortGuard.Get(comName);
+
+                while (!_quitFlag)
+                {
+                    bool acquired = false;
+
+                    try
+                    {
+                        acquired = guard.Wait(0);
+                        if (!acquired)
+                        {
+                            VAR.msg.AddMsg(
+                                Msg.EM_MSGTYPE.DBG,
+                                $"[Gyro] {comName} busy, skip");
+                        }
+                        else
+                        {
+                            using (var comm = new SerialCommander(comName))
+                            {
+                                AutoInspectionParameter
+                                    .CheckGyroscopeJitter(comm, comName);
+                            }
+                        }
+                    }
+                    finally
+                    {
+                        if (acquired)
+                            guard.Release();
+                    }
+
+                    // 4 秒检测一次
+                    SleepWithQuitCheck(4_000);
+                }
+            }
+
+
+
+            /// <summary>
+            /// 带退出检查的 Sleep（避免 Thread.Sleep 卡死）
+            /// </summary>
+            private static bool SleepWithQuitCheck(
+                int totalMs)
+            {
+                int step = 200; // 200ms 检查一次
+                int elapsed = 0;
+
+                while (elapsed < totalMs)
+                {
+                    if (_quitFlag)
+                        return false;
+
+                    Thread.Sleep(step);
+                    elapsed += step;
+                }
+
+                return true;
+            }
+            public static void SyncQuitFlag(bool bquit)
+            {
+                _quitFlag = bquit;
+            }
+            public static void Stop()
+            {
+                _quitFlag = true;
+            }
+        }
+
         void RunTest()
         {
             LightBox lb = null;
@@ -2608,6 +2794,31 @@ namespace UI
                             bOnUpDnPos = false;
                             bUpDnPosGoOnTest = false;
                             lb = COM.LeftLightBox;
+                            if (PT_SET.afcclose)
+                            {
+                                int n = 0;
+                                Task tsk = new Task(() =>
+                                {
+                                    while (true)
+                                    {
+
+                                        Thread.Sleep(100);
+                                        VAR.msg.AddMsg(Msg.EM_MSGTYPE.DBG, string.Format("{0} 转到AFC面，关闭吹气", disc));
+                                        this.gpio_out_gz_wind.SetOff();
+                                        n++;
+                                        if (n >= PT_SET.afcclosetime * 10)
+                                        {
+                                            VAR.msg.AddMsg(Msg.EM_MSGTYPE.DBG, string.Format("{0} 关闭时间到，打开吹气", disc));
+                                            this.gpio_out_gz_wind.SetOn();
+                                            break;
+                                        }
+                                    }
+
+                                });
+                                tsk.Start();
+
+                            }
+
                             break;
                         //OTP光箱
                         case Turntable.EM_STA.POS2:
@@ -2615,6 +2826,35 @@ namespace UI
                             bOnUpDnPos = false;
                             bUpDnPosGoOnTest = false;
                             lb = COM.OTPLightBox;
+                            if (PT_SET.afcclose)
+                            {
+                                VAR.msg.AddMsg(Msg.EM_MSGTYPE.DBG, string.Format("{0} 转到OTP光箱，打开吹气", disc));
+                                this.gpio_out_gz_wind.SetOn();
+                            }
+                            if (PT_SET.otpclose)
+                            {
+                                int n = 0;
+                                Task tsk = new Task(() =>
+                                {
+                                    while (true)
+                                    {
+
+                                        Thread.Sleep(100);
+                                        VAR.msg.AddMsg(Msg.EM_MSGTYPE.DBG, string.Format("{0} 转到OTP面，关闭吹气", disc));
+                                        this.gpio_out_gz_wind.SetOff();
+                                        n++;
+                                        if (n >= PT_SET.otpclosetime * 10)
+                                        {
+                                            VAR.msg.AddMsg(Msg.EM_MSGTYPE.DBG, string.Format("{0} 关闭时间到，打开吹气", disc));
+                                            this.gpio_out_gz_wind.SetOn();
+                                            break;
+                                        }
+                                    }
+
+                                });
+                                tsk.Start();
+
+                            }
                             break;
                         //右光箱
                         case Turntable.EM_STA.POS3:
@@ -2622,6 +2862,11 @@ namespace UI
                             bOnUpDnPos = false;
                             bUpDnPosGoOnTest = false;
                             lb = COM.RightLightBox;
+                            if (PT_SET.otpclose)
+                            {
+                                VAR.msg.AddMsg(Msg.EM_MSGTYPE.DBG, string.Format("{0} 转到右光箱，打开吹气", disc));
+                                this.gpio_out_gz_wind.SetOn();
+                            }
                             break;
                     }
                     if (!PT_SET.LbEn && lb != COM.OTPLightBox)
@@ -2749,7 +2994,7 @@ namespace UI
                         IsFirst = false;
                         break;
                     }
-
+                    DateTime startTime = DateTime.Now;
                     //开始测试,只有在上料位置才开图
                     if (pos == Turntable.EM_STA.POS0 && PT_SET.turnon || (pos == Turntable.EM_STA.POS1 && !PT_SET.turnon))
                     {
@@ -2766,10 +3011,13 @@ namespace UI
                             Thread.Sleep(500);
 
                             res = StartTestFlow(0, Demo);
+                            startTime = DateTime.Now;
+
                             if (res != EM_RES.OK)
                             {
                                 Thread.Sleep(1500);
                                 res = StartTestFlow();
+                                startTime = DateTime.Now;
                                 if (res != EM_RES.OK)
                                 {
                                     VAR.msg.AddMsg(Msg.EM_MSGTYPE.DBG, string.Format("{0} StartTestFlow err", disc));
@@ -2816,6 +3064,47 @@ namespace UI
                     }
 
                     res = WaitTestResult(ref sta, PT_SET.TestTime, Demo, lb);
+                    DateTime endTime = DateTime.Now;
+                    TimeSpan timeDifference = endTime - startTime;
+                    double seconds = timeDifference.TotalSeconds;
+                    VAR.msg.AddMsg(Msg.EM_MSGTYPE.DBG, VAR.IsChinese ? string.Format("所花时间{0}", seconds) : string.Format("spend {0}", seconds));
+                    if (res == EM_RES.OK && sta == 0 && seconds < 2 && !Demo)
+                    {
+                      
+                        VAR.msg.AddMsg(Msg.EM_MSGTYPE.ERR, string.Format("开图到收到结果时间过短"));
+
+                        MT.ST_WARN st_warn = new MT.ST_WARN();
+                        warning fr_warn = new warning();
+                        st_warn.ok_txt = VAR.IsChinese ? "忽略" : "Go on";
+                        st_warn.abort_txt = VAR.IsChinese ? "继续" : "give up";
+                        st_warn.cancle_txt = VAR.IsChinese ? "停止运行" : "Stop running";
+                        st_warn.title = VAR.IsChinese ? $"提示:开图到收到结果时间过短!实际该工站的NG码为{CurWSNGCode}" : "Tip: Receieve reason too fast";
+                        st_warn.msg = VAR.IsChinese ? string.Format("开图到收到结果时间过短") : string.Format("Receieve reason too fast");
+                        st_warn.lb_msg = "提示:" + st_warn.msg + "请确认!\r\n  1.点击忽略将保留本次NG结果并继续运行!\r\n  " +
+                            "2.点击继续则本次结果全置为2222，并继续!\r\n  " + "3.点击停止则NG代码置为2222!，并停止\r\n  ";
+                        VAR.sys_inf.Set(EM_ALM_STA.WAR_YELLOW_FLASH, VAR.IsChinese ? "开图到收到结果时间过短!" : "Receieve reason too fast", 20, true);
+                        DialogResult logres = MT.Display_frwarn(fr_warn, st_warn, ERR_ALM.EmErrItem.UpDownLoadAbnormal);
+                        CurWSNGCode.Clear();
+                        if (DialogResult.OK == logres)
+                        {
+                            VAR.msg.AddMsg(Msg.EM_MSGTYPE.DBG, string.Format("开图到收到结果时间过短,点击忽略"));
+
+                        }
+                        else if(DialogResult.Abort == logres)
+                        {
+                            foreach (WS.MdDat md in list_md)
+                            {
+                                md.res = 2222;
+                            }
+                            VAR.msg.AddMsg(Msg.EM_MSGTYPE.DBG, string.Format("开图到收到结果时间过短,点击继续"));
+                        }
+                        else
+                        {
+                            VAR.msg.AddMsg(Msg.EM_MSGTYPE.DBG, string.Format("开图到收到结果时间过短,点击停止"));
+                            Status = EM_STA.ERR;
+                            break;
+                        }
+                    }
                     if (res == EM_RES.PARA_ERR || res == EM_RES.QUIT)
                     {
                         //不同步等异常
@@ -2830,7 +3119,7 @@ namespace UI
 
                     if (sta == 0)
                     {
-                        if (!VAR.ClearMt&& VAR.isAutoChkMode && num == (int)PT_SET.AutoChkSelectWs)
+                        if (!VAR.ClearMt && VAR.isAutoChkMode && num == (int)PT_SET.AutoChkSelectWs)
                         {
                             bool bAllOk = true;
                             List<MdDat> NgMdList = new List<MdDat>();
@@ -2958,108 +3247,264 @@ namespace UI
                                 JigProductionCnt(ref list_md);
                                 SQLData.TestDataAdd(this);
                                 CurOutProductTime = DateTime.Now;
+
+                                //foreach (WS.MdDat md in list_md)
+                                //{
+
+                                //}
                             }
                         }
-                       
+
                         if (lb != null && lb != COM.LightBox)
                         {
+                            ;
+                            //if (PT_SET.otpclose &&lb == COM.OTPLightBox)
+                            //{
+                            //    VAR.msg.AddMsg(Msg.EM_MSGTYPE.DBG, string.Format("{0} 转到OTP面，关闭吹气", disc));
+                            //    this.gpio_out_gz_wind.SetOff();
+                            //}
+                            //else
+                            //{
+                            //    VAR.msg.AddMsg(Msg.EM_MSGTYPE.DBG, string.Format("{0} 转到非OTP面，打开吹气", disc));
+                            //    this.gpio_out_gz_wind.SetOn();
+                            //}
+                        
+                            
                             res = lb.MoveTo(ref VAR.gsys_set.bquit, 0);
                             if (res != EM_RES.OK) break;
-                        }
 
-                        if (Iserrfirstbox && !VAR.gsys_set.isChkMode && !VAR.isAutoChkMode)
-                        {
-
-                            Iserrfirstbox = false;
-                            //同排工站同样NG是否超范围
-                            if (PT_SET.bSameRowNGTip && VAR.bSameNGTip_Temp)
-                            {
-                                List<WS.MdDat> lmds = new List<WS.MdDat>();
-                                WS.MdDat[] _md = new WS.MdDat[2];
-                                int[] num = new int[2] { 0, 0 };
-                                foreach (List<WS.MdDat> list_md in list_list_md)
+      
+                            if (res != EM_RES.OK)
                                 {
-                                    foreach (WS.MdDat md in list_md)
+                                    TestStatus = EM_TEST_STA.ERROR;
+                                    break;
+                                }
+
+
+                            if (Iserrfirstbox && !VAR.gsys_set.isChkMode && !VAR.isAutoChkMode)
+                            {
+
+                                Iserrfirstbox = false;
+                                //同排工站同样NG是否超范围
+                                if (PT_SET.bSameRowNGTip && VAR.bSameNGTip_Temp)
+                                {
+                                    List<WS.MdDat> lmds = new List<WS.MdDat>();
+                                    WS.MdDat[] _md = new WS.MdDat[2];
+                                    int[] num = new int[2] { 0, 0 };
+                                    foreach (List<WS.MdDat> list_md in list_list_md)
                                     {
-                                        lmds.Clear();
-                                        if (md.benable && md.res > 1)
+                                        foreach (WS.MdDat md in list_md)
                                         {
-                                            lmds = list_md.FindAll(delegate (WS.MdDat a) { return md.res > 1 && a.res == md.res || !a.benable; });
-                                            if (lmds.Count >= PT_SET.SameRowNGTipCnt && lmds.Count > num[list_list_md.IndexOf(list_md)])
+                                            lmds.Clear();
+                                            if (md.benable && md.res > 1)
                                             {
-                                                _md[list_list_md.IndexOf(list_md)] = md;
-                                                num[list_list_md.IndexOf(list_md)] = lmds.Count;
+                                                lmds = list_md.FindAll(delegate (WS.MdDat a) { return md.res > 1 && a.res == md.res || !a.benable; });
+                                                if (lmds.Count >= PT_SET.SameRowNGTipCnt && lmds.Count > num[list_list_md.IndexOf(list_md)])
+                                                {
+                                                    _md[list_list_md.IndexOf(list_md)] = md;
+                                                    num[list_list_md.IndexOf(list_md)] = lmds.Count;
+                                                }
                                             }
                                         }
                                     }
+
+                                    if (num[0] > 0 || num[1] > 0)
+                                    {
+                                        string[] ngstr = new string[2];
+                                        VAR.sys_inf.Set(EM_ALM_STA.WAR_YELLOW_FLASH, VAR.IsChinese ? "工站同排异常!" : "Same row NG", 20, true, ErrCode: ShowErrMsg.WsRow1SameErr);
+                                        MT.ST_WARN st_warn = new MT.ST_WARN();
+                                        warning fr_warn = new warning();//增加语言
+                                        st_warn.ok_txt = MultiLanguage.TxtSelct("继续运行", "Keep running", "Tiếp tục chạy");
+                                        st_warn.ws = null;
+                                        st_warn.title = MultiLanguage.TxtSelct("提示:工站同排异常!", "Tip: The station is abnormal in the same row!", "Mẹo: Trạm bất thường trong cùng một hàng!");
+                                        if (num[0] > 0)
+                                            ngstr[0] = MultiLanguage.TxtSelct(
+                                                $"第一排(1-8工位):NG数量(加上屏蔽工位):{num[0]},NG代码:{_md[0].res}!",
+                                                $"First row (1-8 stations): NG quantity (plus shielding stations): {num[0]}, NG code: {_md[0].res}",
+                                                $"Hàng đầu tiên (1-8 trạm): Số lượng NG (cộng với các trạm che chắn): {num[0]}, Mã NG: {_md[0].res}");
+                                        else
+                                            ngstr[0] = String.Empty;
+
+                                        if (num[1] > 0)
+                                            ngstr[1] = MultiLanguage.TxtSelct(
+                                                $"第二排(9-16工位):NG数量(加上屏蔽工位):{num[1]},NG代码:{_md[1].res}",
+                                                $"Second row (9-16 stations): NG quantity (plus shielding station): {num[1]}, NG code: {_md[1].res}!",
+                                                $"Hàng thứ hai (9-16 trạm): Số lượng NG (cộng với trạm che chắn): {num[1]}, Mã NG: {_md[1].res}!");
+                                        else
+                                            ngstr[1] = String.Empty;
+
+                                        st_warn.msg = MultiLanguage.TxtSelct(
+                                            $"{disc}同排工位连续出现相同NG达到设定数量[{PT_SET.SameRowNGTipCnt}]!{ngstr[0]}{ngstr[1]}",
+                                            $"{disc} The same NG appears continuously in the same row of stations to reach the set number [{PT_SET.SameRowNGTipCnt}]! {ngstr[0]}{ngstr[1]}",
+                                            $"{disc} Cùng một NG xuất hiện liên tục trong cùng một hàng trạm để đạt đến số đã đặt [{PT_SET.SameRowNGTipCnt}]! {ngstr[0]}{ngstr[1]}");
+
+                                        st_warn.lb_msg = MultiLanguage.TxtSelct(
+                                            $"提示: {st_warn.msg}请确认!\r\n" +
+                                            $"1.按'继续运行'键则继续运行!\r\n" +
+                                            $"2.如需确认问题请按'停止运行'键退出运行，待界面左上角显示就绪后再按'运行'键!",
+
+                                            $"Tip:{st_warn.msg} Please confirm!\r\n" +
+                                            $"1.Press 'Keep running' to keep running!\r\n" +
+                                            $"2.If you need to confirm the problem, press the 'Stop Running' button to exit the operation." +
+                                            $"After the ready in the upper left corner of the interface, press the 'Run' button.!",
+
+                                            $"Mẹo: {st_warn.msg} Vui lòng xác nhận!\r\n" +
+                                            $"1.Nhấn 'Tiếp tục chạy' để tiếp tục chạy!\r\n" +
+                                            $"2.Nếu bạn cần xác nhận sự cố, hãy nhấn nút 'Dừng Chạy' để thoát khỏi hoạt động." +
+                                            $"Sau khi đã sẵn sàng ở góc trên bên trái của giao diện, nhấn nút 'Chạy'.");
+                                        DialogResult logres = MT.Display_frwarn(fr_warn, st_warn, ERR_ALM.EmErrItem.UpDownLoadAbnormal);
+                                        VAR.sys_inf.Set(EM_ALM_STA.NOR_GREEN, VAR.IsChinese ? "运行" : "RUN", 0, true);
+                                    }
+                                }
+                            }
+                            //复位                    
+                            res = NextTest(sta, Demo);
+                            if (res != EM_RES.OK)
+                            {
+                                TestStatus = EM_TEST_STA.ERROR;
+                                break;
+                            }
+                            res = EM_RES.OK;
+                            Status = EM_STA.REDAY;
+                            bUpDnPosGoOnTest = false;
+                            TestStatus = EM_TEST_STA.COMPLETED;
+                            break;
+                        }
+                        else
+                        {
+                            if (lb == COM.LightBox)
+                            {
+                                VAR.msg.AddMsg(Msg.EM_MSGTYPE.DBG, VAR.IsChinese ? "本站测试完成" : "Test completed on this site      (本站测试完成)");
+
+                                //本站测试完成
+                                TestStatus = EM_TEST_STA.NEXT;
+                                Status = EM_STA.TEST;
+                                res = EM_RES.OK;
+                                break;
+                            }
+                            if (VAR.gsys_set.bquit || bquit)
+                            {
+                                VAR.msg.AddMsg(Msg.EM_MSGTYPE.DBG, VAR.IsChinese ? string.Format("{0} 取消", disc) : string.Format("{0} cancel!        ({0} 取消)", disc));
+                                res = EM_RES.QUIT;
+                                break;
+                            }
+
+                            if (lb != null)
+                            {
+                                if (sta == 401 && PT_SET.bUpDnAddTest)
+                                {
+                                    bUpDnPosGoOnTest = true;
+                                }
+                                //光箱定位
+                                String str1, str2;
+
+                                VAR.msg.AddMsg(Msg.EM_MSGTYPE.DBG, VAR.IsChinese ? string.Format("{0} {1}定位{2}", disc, lb.disc, sta) : string.Format("{0}  {1} move {3}         ({0} {2}定位{3})", disc, lb.english_disc, lb.disc, sta));
+                                //if(CompareData(sta.ToString()))
+                                //{
+                                //    Swtimemode.Stop();
+                                //    var times = Swtimemode.ElapsedMilliseconds;
+                                //    str2 = "当前工站：" + disc + "当前光箱：" + lb.disc + "测试项序号：" + sta + "测试用时：" + times;
+                                //    Utility.WriteStrToCSVPre(str2);
+                                //    Swtimemode.Restart();
+                                //}
+                                try
+                                {
+                                    res = lb.MoveTo(ref VAR.gsys_set.bquit, sta, num);
+                                    if (res == EM_RES.END)
+                                    {
+                                        res = lb.MoveTo(ref VAR.gsys_set.bquit, 0);
+                                        if (res != EM_RES.OK) break;
+
+                                        //本站测试完成
+                                        TestStatus = EM_TEST_STA.NEXT;
+                                        Status = EM_STA.TEST;
+                                        res = EM_RES.OK;
+                                        break;
+                                    }
+                                    if (res != EM_RES.OK) break;
+                                }
+                                catch (Exception ex)
+                                {
+                                    VAR.msg.AddMsg(Msg.EM_MSGTYPE.DBG, string.Format("{0}", ex.Message));
+                                }
+                            }
+                            else
+                            {
+                                if (sta == 401 && PT_SET.bUpDnAddTest)
+                                {
+                                    //转到水平
+                                    res = TurnToFeed(ref bquit);
+                                    if (res != EM_RES.OK)
+                                    {
+                                        bquit = true; break;
+                                    }
+                                    VAR.msg.AddMsg(Msg.EM_MSGTYPE.DBG, "当前工站" + disc + "收到反转代码，反转后执行测试");
+
+                                    //通知测试
+                                    if (VAR.gsys_set.bquit || bquit)
+                                    {
+                                        VAR.msg.AddMsg(Msg.EM_MSGTYPE.DBG, VAR.IsChinese ? string.Format("{0} 取消", disc) : string.Format("{0} cancel       ({0} 取消)", disc));
+                                        res = EM_RES.QUIT;
+                                        break;
+                                    }
+
+                                    Status = EM_STA.TEST;
+                                    VAR.msg.AddMsg(Msg.EM_MSGTYPE.DBG, VAR.IsChinese ? string.Format("{0} 通知测试", disc) : string.Format("{0}  notice test!        ({0} 通知测试)", disc));
+                                    res = NextTest(sta, Demo);
+                                    if (res != EM_RES.OK)
+                                    {
+                                        res = NextTest(sta, Demo);
+                                        if (res != EM_RES.OK)
+                                        {
+                                            VAR.msg.AddMsg(Msg.EM_MSGTYPE.DBG, string.Format("通知测试软件失败设置工站状态{0}error", disc));
+                                            VAR.msg.AddMsg(Msg.EM_MSGTYPE.ERR, VAR.IsChinese ? string.Format("{0} 通知测试出错!", disc) : string.Format("{0} ERROR: notice test!         ({0} 通知测试出错!)", disc), DReport.EmErrCode.TestFailed, (int)DReport.EmHareware.TurnTable + num + 1, ERR_ALM.EmErrItem.TestAbnormal);
+                                            TestStatus = EM_TEST_STA.ERROR;
+                                            break;
+                                        }
+
+                                    }
+
+                                    continue;
                                 }
 
-                                if (num[0] > 0 || num[1] > 0)
+                                if (sta < 401 && PT_SET.bDelayTest)
                                 {
-                                    string[] ngstr = new string[2];
-                                    VAR.sys_inf.Set(EM_ALM_STA.WAR_YELLOW_FLASH, VAR.IsChinese ? "工站同排异常!" : "Same row NG", 20, true, ErrCode: ShowErrMsg.WsRow1SameErr);
-                                    MT.ST_WARN st_warn = new MT.ST_WARN();
-                                    warning fr_warn = new warning();//增加语言
-                                    st_warn.ok_txt = MultiLanguage.TxtSelct("继续运行", "Keep running", "Tiếp tục chạy");
-                                    st_warn.ws = null;
-                                    st_warn.title = MultiLanguage.TxtSelct("提示:工站同排异常!", "Tip: The station is abnormal in the same row!", "Mẹo: Trạm bất thường trong cùng một hàng!");
-                                    if (num[0] > 0)
-                                        ngstr[0] = MultiLanguage.TxtSelct(
-                                            $"第一排(1-8工位):NG数量(加上屏蔽工位):{num[0]},NG代码:{_md[0].res}!",
-                                            $"First row (1-8 stations): NG quantity (plus shielding stations): {num[0]}, NG code: {_md[0].res}",
-                                            $"Hàng đầu tiên (1-8 trạm): Số lượng NG (cộng với các trạm che chắn): {num[0]}, Mã NG: {_md[0].res}");
-                                    else
-                                        ngstr[0] = String.Empty;
+                                    //本站测试完成
+                                    TestStatus = EM_TEST_STA.NEXT;
+                                    Status = EM_STA.TEST;
+                                    res = EM_RES.OK;
+                                    break;
+                                }
+                                else break;
+                            }
+                            //通知测试
+                            if (VAR.gsys_set.bquit || bquit)
+                            {
+                                VAR.msg.AddMsg(Msg.EM_MSGTYPE.DBG, VAR.IsChinese ? string.Format("{0} 取消", disc) : string.Format("{0} cancel       ({0} 取消)", disc));
+                                res = EM_RES.QUIT;
+                                break;
+                            }
 
-                                    if (num[1] > 0)
-                                        ngstr[1] = MultiLanguage.TxtSelct(
-                                            $"第二排(9-16工位):NG数量(加上屏蔽工位):{num[1]},NG代码:{_md[1].res}",
-                                            $"Second row (9-16 stations): NG quantity (plus shielding station): {num[1]}, NG code: {_md[1].res}!",
-                                            $"Hàng thứ hai (9-16 trạm): Số lượng NG (cộng với trạm che chắn): {num[1]}, Mã NG: {_md[1].res}!");
-                                    else
-                                        ngstr[1] = String.Empty;
-
-                                    st_warn.msg = MultiLanguage.TxtSelct(
-                                        $"{disc}同排工位连续出现相同NG达到设定数量[{PT_SET.SameRowNGTipCnt}]!{ngstr[0]}{ngstr[1]}",
-                                        $"{disc} The same NG appears continuously in the same row of stations to reach the set number [{PT_SET.SameRowNGTipCnt}]! {ngstr[0]}{ngstr[1]}",
-                                        $"{disc} Cùng một NG xuất hiện liên tục trong cùng một hàng trạm để đạt đến số đã đặt [{PT_SET.SameRowNGTipCnt}]! {ngstr[0]}{ngstr[1]}");
-
-                                    st_warn.lb_msg = MultiLanguage.TxtSelct(
-                                        $"提示: {st_warn.msg}请确认!\r\n" +
-                                        $"1.按'继续运行'键则继续运行!\r\n" +
-                                        $"2.如需确认问题请按'停止运行'键退出运行，待界面左上角显示就绪后再按'运行'键!",
-
-                                        $"Tip:{st_warn.msg} Please confirm!\r\n" +
-                                        $"1.Press 'Keep running' to keep running!\r\n" +
-                                        $"2.If you need to confirm the problem, press the 'Stop Running' button to exit the operation." +
-                                        $"After the ready in the upper left corner of the interface, press the 'Run' button.!",
-
-                                        $"Mẹo: {st_warn.msg} Vui lòng xác nhận!\r\n" +
-                                        $"1.Nhấn 'Tiếp tục chạy' để tiếp tục chạy!\r\n" +
-                                        $"2.Nếu bạn cần xác nhận sự cố, hãy nhấn nút 'Dừng Chạy' để thoát khỏi hoạt động." +
-                                        $"Sau khi đã sẵn sàng ở góc trên bên trái của giao diện, nhấn nút 'Chạy'.");
-                                    DialogResult logres = MT.Display_frwarn(fr_warn, st_warn, ERR_ALM.EmErrItem.UpDownLoadAbnormal);
-                                    VAR.sys_inf.Set(EM_ALM_STA.NOR_GREEN, VAR.IsChinese ? "运行" : "RUN", 0, true);
+                            Status = EM_STA.TEST;
+                            VAR.msg.AddMsg(Msg.EM_MSGTYPE.DBG, VAR.IsChinese ? string.Format("{0} 通知测试", disc) : string.Format("{0}  notice test!        ({0} 通知测试)", disc));
+                            res = NextTest(sta, Demo);
+                            if (res != EM_RES.OK)
+                            {
+                                res = NextTest(sta);
+                                if (res != EM_RES.OK)
+                                {
+                                    VAR.msg.AddMsg(Msg.EM_MSGTYPE.ERR, VAR.IsChinese ? string.Format("{0} 通知测试出错!", disc) : string.Format("{0} ERROR: notice test!         ({0} 通知测试出错!)", disc), DReport.EmErrCode.TestFailed, (int)DReport.EmHareware.TurnTable + num + 1, ERR_ALM.EmErrItem.TestAbnormal);
+                                    TestStatus = EM_TEST_STA.ERROR;
+                                    break;
                                 }
                             }
                         }
-                        //复位                    
-                        res = NextTest(sta, Demo);
-                        if (res != EM_RES.OK)
-                        {
-                            TestStatus = EM_TEST_STA.ERROR;
-                            break;
-                        }
-                        res = EM_RES.OK;
-                        Status = EM_STA.REDAY;
-                        bUpDnPosGoOnTest = false;
-                        TestStatus = EM_TEST_STA.COMPLETED;
-                        break;
                     }
                     else
                     {
                         if (lb == COM.LightBox)
                         {
+
                             VAR.msg.AddMsg(Msg.EM_MSGTYPE.DBG, VAR.IsChinese ? "本站测试完成" : "Test completed on this site      (本站测试完成)");
 
                             //本站测试完成
@@ -3093,9 +3538,17 @@ namespace UI
                             //    Utility.WriteStrToCSVPre(str2);
                             //    Swtimemode.Restart();
                             //}
-                            try
+                            if (sta == PT_SET.stanum&& AutoInspectionParameter.ifcheckontime && (num + 1 == PT_SET.CheckWs))
                             {
-                                res = lb.MoveTo(ref VAR.gsys_set.bquit, sta, num);
+                                AutoInspectionParameter.ifcheckontime_enabled = true;
+                                VAR.msg.AddMsg(Msg.EM_MSGTYPE.DBG, $"sta为{sta}，下一轮进入点检");
+                            }
+                            if (AutoInspectionParameter.ifcheckontime_enabled && (num+1==PT_SET.CheckWs))
+                            {
+  
+
+                                    res = lb.MoveTo(ref VAR.gsys_set.bquit, sta, num);
+                                    Thread.Sleep(1000);
                                 if (res == EM_RES.END)
                                 {
                                     res = lb.MoveTo(ref VAR.gsys_set.bquit, 0);
@@ -3108,10 +3561,118 @@ namespace UI
                                     break;
                                 }
                                 if (res != EM_RES.OK) break;
+                                #region 自动点检部分
+
+                                AutoInspectionParameter AutoCheck = new AutoInspectionParameter();
+
+
+                                if (lb == COM.LeftLightBox && sta != 0)
+                                {
+                                    PosDef pos1 = COM.LeftLightBox.ListPos.Find(delegate (PosDef x) { return x.ID == sta; });
+                                    ST_XYZ distance1 = PT_SET.ApointposAFC;
+                                    ST_XYZ distance2 = PT_SET.BpointposAFC;
+                                    ST_XYZ distance3 = PT_SET.CpointposAFC;
+                                    if (PT_SET.AFC_distance_check_open)
+                                    {
+                                        if(res== EM_RES.OK)
+                                        {
+                                            VAR.msg.AddMsg(Msg.EM_MSGTYPE.DBG, "AFC面进行距离点检");
+                                            AutoCheck.AutoCheckPass(lb, sta);
+                                        }
+
+                               
+                                    }
+
+                                    if (PT_SET.AFC_luxcct_check_open && pos1.Name.Contains("色温"))
+                                    {
+                                        Thread.Sleep(2000);
+                                        AutoCheck.RunFullLightScan3x3(ref bquit, MT.AXIS_BOX_L_X1, MT.AXIS_BOX_L_Z2, lb, sta, distance1, distance2, distance3);
+                                        res = lb.MoveTo(ref VAR.gsys_set.bquit, sta, num);
+                                    }
+                                }
+                                if (lb == COM.RightLightBox && sta != 0)
+                                {
+                                    PosDef pos1 = COM.RightLightBox.ListPos.Find(delegate (PosDef x) { return x.ID == sta; });
+                                    ST_XYZ distance1 = PT_SET.ApointposDCC;
+                                    ST_XYZ distance2 = PT_SET.BpointposDCC;
+                                    ST_XYZ distance3 = PT_SET.CpointposDCC;
+                                    if (PT_SET.DCC_distance_check_open)
+                                    {
+                                        if (res == EM_RES.OK)
+                                        {
+                                            Thread.Sleep(5000);
+                                            VAR.msg.AddMsg(Msg.EM_MSGTYPE.DBG, "DCC面进行距离点检");
+                                            res = AutoCheck.AutoCheckPass(lb, sta);
+                                        }
+
+                            
+                                        //if (res != EM_RES.OK)
+                                        //{
+                                        //    res = EM_RES.QUIT;
+                                        //    break;
+                                        //}
+
+                                    }
+                                    if (PT_SET.DCC_luxcct_check_open && pos1.Name.Contains("色温"))
+                                    {
+                                        Thread.Sleep(2000);
+                                        AutoCheck.RunFullLightScan3x3(ref bquit, MT.AXIS_BOX_R_X1, MT.AXIS_BOX_R_Z2, lb, sta, distance1, distance2, distance3);
+                                        res = lb.MoveTo(ref VAR.gsys_set.bquit, sta, num);
+
+                                    }
+                                }
+                                if (lb == COM.OTPLightBox && sta != 0)
+                                {
+                                    PosDef pos1 = COM.OTPLightBox.ListPos.Find(delegate (PosDef x) { return x.ID == sta; });
+                                    ST_XYZ distance1 = PT_SET.ApointposOTP;
+                                    ST_XYZ distance2 = PT_SET.BpointposOTP;
+                                    ST_XYZ distance3 = PT_SET.CpointposOTP;
+                                    if (PT_SET.OTP_distance_check_open)
+                                    {
+                                        if (res == EM_RES.OK)
+                                        {
+                                            Thread.Sleep(5000);
+                                            VAR.msg.AddMsg(Msg.EM_MSGTYPE.DBG, "OTP面进行距离点检");
+                                            AutoCheck.AutoCheckPass(lb, sta);
+                                        }
+         
+                                      
+                                    }
+                                    if (PT_SET.OTP_luxcct_check_open && pos1.Name.Contains("色温"))
+                                    {
+                                        Thread.Sleep(2000);
+                                        AutoCheck.RunFullLightScan3x3(ref bquit, null, MT.AXIS_BOX_OTP_Z, lb, sta, distance1, distance2, distance3);
+                                        res = lb.MoveTo(ref VAR.gsys_set.bquit, sta, num);
+                                    }
+                                }
+
+                                #endregion
+                                AutoInspectionParameter.ifcheck = true;
+                                VAR.msg.AddMsg(Msg.EM_MSGTYPE.DBG, "完成单次点检");
+
                             }
-                            catch (Exception ex)
+                            else
                             {
-                                VAR.msg.AddMsg(Msg.EM_MSGTYPE.DBG, string.Format("{0}", ex.Message));
+                                res = lb.MoveTo(ref VAR.gsys_set.bquit, sta, num);
+                                // 主流程里
+
+                                    GyroscopeMonitor.Start(PT_SET.COM_1);
+                             
+             
+                                // 每次主循环同步一次
+                                GyroscopeMonitor.SyncQuitFlag(bquit);
+                                if (res == EM_RES.END)
+                                {
+                                    res = lb.MoveTo(ref VAR.gsys_set.bquit, 0);
+                                    if (res != EM_RES.OK) break;
+
+                                    //本站测试完成
+                                    TestStatus = EM_TEST_STA.NEXT;
+                                    Status = EM_STA.TEST;
+                                    res = EM_RES.OK;
+                                    break;
+                                }
+                                if (res != EM_RES.OK) break;
                             }
                         }
                         else
@@ -3189,7 +3750,7 @@ namespace UI
             }
             catch (Exception ex)
             {
-                VAR.msg.AddMsg(Msg.EM_MSGTYPE.DBG, VAR.IsChinese ? string.Format("{0} 测试线程 {1} 结束,{2}", disc, res != EM_RES.OK ? "异常" : "正常", ex.Message) : string.Format("{0} test thread {1} end,{3}       ({0} 测试线程 {2} 结束,{3})", disc, res != EM_RES.OK ? "ERR" : "NORMAL", res != EM_RES.OK ? "异常" : "正常", ex.Message));
+               // VAR.msg.AddMsg(Msg.EM_MSGTYPE.DBG, VAR.IsChinese ? string.Format("{0} 测试线程 {1} 结束,{2}", disc, res != EM_RES.OK ? "异常" : "正常", ex.Message) : string.Format("{0} test thread {1} end,{3}       ({0} 测试线程 {2} 结束,{3})", disc, res != EM_RES.OK ? "ERR" : "NORMAL", res != EM_RES.OK ? "异常" : "正常", ex.Message));
                 res = EM_RES.ERR;
             }
             finally
@@ -3227,7 +3788,7 @@ namespace UI
                 }
                 var timetemp = (Swtime.ElapsedMilliseconds / 1000);
                 SQLData.TestDataAddTime(wsid, lbid, timetemp);
-                VAR.msg.AddMsg(Msg.EM_MSGTYPE.DBG, VAR.IsChinese ? string.Format("{0} 测试线程 {1} 结束", disc, res != EM_RES.OK ? "异常" : "正常") : string.Format("{0} test thread {1} end          ({0} 测试线程 {2} 结束)", disc, res != EM_RES.OK ? "ERR" : "NORMAL", res != EM_RES.OK ? "异常" : "正常"));
+               // VAR.msg.AddMsg(Msg.EM_MSGTYPE.DBG, VAR.IsChinese ? string.Format("{0} 测试线程 {1} 结束", disc, res != EM_RES.OK ? "异常" : "正常") : string.Format("{0} test thread {1} end          ({0} 测试线程 {2} 结束)", disc, res != EM_RES.OK ? "ERR" : "NORMAL", res != EM_RES.OK ? "异常" : "正常"));
             }
         }
         #endregion
@@ -3277,7 +3838,6 @@ namespace UI
             SaveCfg();//保存数据
 
         }
-
 
         #region 自动点检
         /// <summary>

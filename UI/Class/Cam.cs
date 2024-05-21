@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -1576,7 +1576,7 @@ namespace UI
 
                     if(TaskName.Contains("ModDw"))
                     {
-                        if(PT_SET.BarcodeMode == 1 && !PT_SET.bDwAddCapQrcode) RunCfg = RunCfg | 0x01;
+                        if((PT_SET.BarcodeMode == 1 && !PT_SET.bDwAddCapQrcode) || PT_SET.bdownqr) RunCfg = RunCfg | 0x01;
                         else RunCfg = RunCfg & (~0x01);
                     }
                     else if(TaskName.Contains("ModUp"))

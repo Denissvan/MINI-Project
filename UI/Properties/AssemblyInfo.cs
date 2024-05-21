@@ -1,4 +1,4 @@
-﻿using System.Reflection;
+using System.Reflection;
 using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 
@@ -72,5 +72,5 @@ using System.Runtime.InteropServices;
 //2448 增加开图延时时间
 
 //[assembly: AssemblyVersion("1.0.*")]
-[assembly: AssemblyVersion("2.4.4.18")]
-[assembly: AssemblyFileVersion("2.4.4.18")]
+[assembly: AssemblyVersion("2.4.4.27")]
+[assembly: AssemblyFileVersion("2.4.4.27")]

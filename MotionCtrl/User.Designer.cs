@@ -1,4 +1,4 @@
-﻿namespace MotionCtrl
+namespace MotionCtrl
 {
     partial class User
     {

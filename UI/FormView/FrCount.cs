@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -48,6 +48,7 @@ namespace UI
             sqlSelector_count_ng.HandlerSelect = ng_select;
             sqlSelector_count_alarmdata.HandlerSelect = AlarmData_Select;
             sqlSelector_count_testtime.HandlerSelect = TestimeData_Select;
+            sqlSelector_count_close.HandlerSelect = TestcloseData_Select;
             sysTimeBarChart1.HandlerSelect = SysTimeCntData_Select;
             Product.Tray tray = new Product.Tray(COM.traybox_ng.strCfgPath, Product.EM_CM_RES.OK);
             tray.NGDef = COM.NGDef;
@@ -134,6 +135,17 @@ namespace UI
                 btestimeData_Select = false;
                 SQLData.TesttimeDataSelect(sqlSelector_count_testtime);
                 btestimeData_Select = true;
+            }
+        }
+
+        private bool btestcloseData_Select = true;
+        private void TestcloseData_Select(object sender, EventArgs e)
+        {
+            if (btestcloseData_Select)
+            {
+                btestcloseData_Select = false;
+                SQLData.TestcloseDataSelect(sqlSelector_count_close, chart_close);
+                btestcloseData_Select = true;
             }
         }
 
