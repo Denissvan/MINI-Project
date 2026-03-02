@@ -177,6 +177,58 @@ namespace UI.Class
                 throw; // 可以根据需要决定是否向上抛出异常
             }
         }
+
+        private static int? GetDistanceMesIdFromPosName(string posName)
+        {
+            if (string.IsNullOrEmpty(posName))
+            {
+                return null;
+            }
+
+            var map = new Dictionary<string, int>(StringComparer.Ordinal)
+            {
+                { "AFC近焦1", 260 },
+                { "AFC近焦2", 261 },
+                { "AFC近焦3", 262 },
+                { "AFC中距1左", 263 },
+                { "AFC中距1右", 264 },
+                { "AFC中距2左", 265 },
+                { "AFC中距2右", 266 },
+                { "AFC中距3左", 267 },
+                { "AFC中距3右", 268 },
+                { "AFC远焦1左", 269 },
+                { "AFC远焦1右", 270 },
+                { "AFC远焦2左", 271 },
+                { "AFC远焦2右", 272 },
+                { "AFC远焦3左", 273 },
+                { "AFC远焦3右", 274 },
+                { "DCC近焦1", 275 },
+                { "DCC近焦2", 276 },
+                { "DCC近焦3", 277 },
+                { "DCC中距1左", 278 },
+                { "DCC中距1右", 279 },
+                { "DCC中距2左", 280 },
+                { "DCC中距2右", 281 },
+                { "DCC中距3左", 282 },
+                { "DCC中距3右", 283 },
+                { "DCC远焦1左", 284 },
+                { "DCC远焦1右", 285 },
+                { "DCC远焦2左", 286 },
+                { "DCC远焦2右", 287 },
+                { "DCC远焦3左", 288 },
+                { "DCC远焦3右", 289 },
+            };
+
+            foreach (var pair in map)
+            {
+                if (posName.Contains(pair.Key))
+                {
+                    return pair.Value;
+                }
+            }
+
+            return null;
+        }
         public static EM_RES CheckGyroscopeJitter(SerialCommander comm,
     string comName)
         {
@@ -264,13 +316,12 @@ namespace UI.Class
                     }
                     else
                     {
-                        if (distance > 0)
+                        double distanceToSave = distance > 0 ? distance : -1;
+                        SaveToTxt("距离参数", comm, pos.Name, distanceToSave);
+                        int? mesId = GetDistanceMesIdFromPosName(pos.Name);
+                        if (mesId.HasValue)
                         {
-                            SaveToTxt("距离参数", comm, pos.Name, distance);
-                        }
-                        else
-                        {
-                            SaveToTxt("距离参数", comm, pos.Name, -1);
+                            Msg.secsManager.Send(new BaseInfo() { Id = mesId.Value, Value = $"{distanceToSave}" }, 1);
                         }
 
 
