@@ -13,6 +13,7 @@ using ControlzEx.Standard;
 using System.Windows.Forms.DataVisualization.Charting;
 using System.Threading;
 using static SerialCommander;
+using Win32Lib;
 
 namespace UI.Class
 {
@@ -212,7 +213,7 @@ namespace UI.Class
                 warn.abort_txt = "停止";
                 warn.title = "提示:自动点检距离失败!";
                 warn.msg = string.Format("提示:{0}位置{1}自动点检距离失败!", lb.name, sta);
-                warn.lb_msg = string.Format("{{0}位置{1}自动点检距离失败!\r\n点击重新测量，则重新进行该位置距离检测！！！\r\n点击停止，则会停止测试\r\n", lb.name, sta);
+                warn.lb_msg = string.Format("{0}位置{1}自动点检距离失败!\r\n点击重新测量，则重新进行该位置距离检测！！！\r\n点击停止，则会停止测试\r\n", lb.name, sta);
                 DialogResult resulte = MT.Display_frwarn(fr_warn, warn, ERR_ALM.EmErrItem.CaptureAbnomal);
                 if (resulte == DialogResult.Yes)
                 {
@@ -232,27 +233,31 @@ namespace UI.Class
         }
         public EM_RES AutoCheckDistance(LightBox lb, int idx, bool ifZoomDown)
         {
+            var guard = ComPortGuard.Get(PT_SET.COM_1);
+            guard.Wait();
             try
             {
                 using (SerialCommander comm = new SerialCommander(PT_SET.COM_1))
                 {
                     int temp = 0;
-                    ReTest:
+                   
                     comm.SetLaserStatus(true);
                     Thread.Sleep(1000);
                     PosDef pos = lb.ListPos.Find(x => x.ID == idx);
                     double distance = -1;
-                     distance = comm.ReadDistanceWithWait(30000);
+                ReTest:
+                    distance = comm.ReadDistanceWithWait(30000);
               
                     Thread.Sleep(1000);
-                    distance = comm.ReadDistanceWithWait(30000);
+        
+                    distance = comm.ReadDistanceWithWait(60000);
                     if (Math.Abs(distance - pos.ActualDistanceParam + pos.Comp + pos.TeleComp) > pos.DistanceThreshold && temp < 2)
                     {
                         VAR.msg.AddMsg(Msg.EM_MSGTYPE.ERR, $"{pos.Name}位置的距离超出范围,重新测试");
                         temp++;
                         goto ReTest;
                     }
-                    else if (Math.Abs(distance - pos.ActualDistanceParam + pos.Comp + pos.TeleComp) > pos.DistanceThreshold && temp > 2)
+                    else if (Math.Abs(distance - pos.ActualDistanceParam + pos.Comp + pos.TeleComp) > pos.DistanceThreshold && temp > 2||temp==2)
                     {
                         VAR.msg.AddMsg(Msg.EM_MSGTYPE.ERR, $"{pos.Name}位置的距离超出范围,重新测试超过2次");
                         return EM_RES.ERR;
@@ -288,9 +293,14 @@ namespace UI.Class
             }
             catch (Exception ex) when (ex is IOException || ex is TimeoutException)
             {
+              
                 MessageBox.Show($"{ex.Message}");
                 VAR.msg.AddMsg(Msg.EM_MSGTYPE.ERR, $"{ex.Message}");
                 return EM_RES.ERR;
+            }
+            finally
+            {
+                guard.Release();
             }
             
         }
@@ -332,6 +342,36 @@ namespace UI.Class
                                     var (lux, cct) = comm.ReadLuxCctWithWait(20000);
                                     VAR.msg.AddMsg(Msg.EM_MSGTYPE.DBG, $"{temp + 3}读出参数lux{lux},cct{cct}");
                                     SaveToTxt("光源色温点检参数", temp + 3, pos.Name, lux, cct);
+                                if (pos.Name.Contains("AFC"))
+                                {
+                                    if ((temp + 3).ToString() == "COM11")
+                                    {
+                                        Msg.secsManager.Send(new BaseInfo() { Id = 251, Value = $"{lux},{cct}" }, 1);
+                                    }
+                                    else if ((temp + 3).ToString() == "COM12")
+                                    {
+                                        Msg.secsManager.Send(new BaseInfo() { Id = 252, Value = $"{lux},{cct}" }, 1);
+                                    }
+                                    else if ((temp + 3).ToString() == "COM13")
+                                    {
+                                        Msg.secsManager.Send(new BaseInfo() { Id = 253, Value = $"{lux},{cct}" }, 1);
+                                    }
+                                }
+                                else if (pos.Name.Contains("DCC"))
+                                {
+                                    if ((temp + 3).ToString() == "COM11")
+                                    {
+                                        Msg.secsManager.Send(new BaseInfo() { Id = 257, Value = $"{lux},{cct}" }, 1);
+                                    }
+                                    else if ((temp + 3).ToString() == "COM12")
+                                    {
+                                        Msg.secsManager.Send(new BaseInfo() { Id = 258, Value = $"{lux},{cct}" }, 1);
+                                    }
+                                    else if ((temp + 3).ToString() == "COM13")
+                                    {
+                                        Msg.secsManager.Send(new BaseInfo() { Id = 253, Value = $"{lux},{cct}" }, 1);
+                                    }
+                                }
                                     comm.Close();
                                     LuxWith9point.Add(lux);
                                     if (Math.Abs(lux - pos.ActualLuxParam) > pos.DistanceThreshold)
@@ -420,6 +460,19 @@ namespace UI.Class
                                 Thread.Sleep(5000);
                                 var (lux, cct) = comm.ReadLuxCctWithWait(20000);
                                 VAR.msg.AddMsg(Msg.EM_MSGTYPE.DBG, $"{com}读出参数lux{lux},cct{cct}");
+                                if(com == "COM8")
+                                {
+                                    Msg.secsManager.Send(new BaseInfo() { Id = 254, Value = $"{lux},{cct}" }, 1);
+                                }
+                                else if (com == "COM9")
+                                {
+                                    Msg.secsManager.Send(new BaseInfo() { Id = 255, Value = $"{lux},{cct}" }, 1);
+                                }
+                                else if(com == "COM10")
+                                {
+                                    Msg.secsManager.Send(new BaseInfo() { Id = 256, Value = $"{lux},{cct}" }, 1);
+                                }
+
                                 SaveToTxt("光源色温点检参数", com, pos.Name, lux, cct);
                                 comm.Close();
                                 LuxWith9point.Add(lux);

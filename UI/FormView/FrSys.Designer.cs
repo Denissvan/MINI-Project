@@ -2687,7 +2687,6 @@ namespace UI
             // 
             this.groupBoxbarcode.Controls.Add(this.rbtn_CloseBarCamBack);
             this.groupBoxbarcode.Controls.Add(this.rbtn_OpenBarCamBack);
-            this.groupBoxbarcode.Enabled = false;
             this.groupBoxbarcode.Font = new System.Drawing.Font("宋体", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.groupBoxbarcode.Location = new System.Drawing.Point(30, 474);
             this.groupBoxbarcode.Name = "groupBoxbarcode";

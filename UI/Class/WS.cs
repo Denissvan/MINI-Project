@@ -13,6 +13,7 @@ using ControlzEx.Standard;
 using DevReport;
 using MotionCtrl;
 using UI.Class;
+using static SerialCommander;
 using static UI.LightBox;
 
 namespace UI
@@ -93,6 +94,13 @@ namespace UI
         public Stopwatch Swtimemode = new Stopwatch();//测试分段时间的统计
         public Stopwatch AllSwtime = new Stopwatch();//测试总时间的统计
         public Stopwatch UdSwtime = new Stopwatch();//上下料的统计
+        private static volatile GyroCheckState _gyroState = GyroCheckState.Disabled;
+        private static bool IsGyroCheckAllowed()
+        {
+            return _gyroState >= GyroCheckState.Idle
+                && _gyroState <= GyroCheckState.Running;
+        }
+
 
         public int pos_idx
         {
@@ -2666,7 +2674,10 @@ namespace UI
         {
             private static Task _worker;
             private static readonly object _lock = new object();
-
+            public static void SetState(GyroCheckState state)
+            {
+                _gyroState = state;
+            }
             /// <summary>
             /// 启动陀螺仪后台监控（每 1 分钟检测一次）
             /// </summary>
@@ -2695,16 +2706,24 @@ namespace UI
 
                 while (!_quitFlag)
                 {
+                    // ① 检测条件不满足，直接空转
+                    if (!IsGyroCheckAllowed())
+                    {
+                        SleepWithQuitCheck(500); // 低频轮询
+                        continue;
+                    }
+
                     bool acquired = false;
 
                     try
                     {
+                        // ② 低优先级尝试获取串口
                         acquired = guard.Wait(0);
                         if (!acquired)
                         {
                             VAR.msg.AddMsg(
                                 Msg.EM_MSGTYPE.DBG,
-                                $"[Gyro] {comName} busy, skip");
+                                "[Gyro] COM busy, yield");
                         }
                         else
                         {
@@ -2721,10 +2740,11 @@ namespace UI
                             guard.Release();
                     }
 
-                    // 4 秒检测一次
+                    // ③ 产线要求：4 秒周期
                     SleepWithQuitCheck(4_000);
                 }
             }
+
 
 
 
@@ -3268,8 +3288,8 @@ namespace UI
                             //    VAR.msg.AddMsg(Msg.EM_MSGTYPE.DBG, string.Format("{0} 转到非OTP面，打开吹气", disc));
                             //    this.gpio_out_gz_wind.SetOn();
                             //}
-                        
-                            
+
+                            GyroscopeMonitor.SetState(GyroCheckState.Stop);
                             res = lb.MoveTo(ref VAR.gsys_set.bquit, 0);
                             if (res != EM_RES.OK) break;
 
@@ -3357,7 +3377,9 @@ namespace UI
                                     }
                                 }
                             }
-                            //复位                    
+                            //复位
+                            //
+                            GyroscopeMonitor.SetState(GyroCheckState.Running);
                             res = NextTest(sta, Demo);
                             if (res != EM_RES.OK)
                             {
@@ -3577,7 +3599,12 @@ namespace UI
                                         if(res== EM_RES.OK)
                                         {
                                             VAR.msg.AddMsg(Msg.EM_MSGTYPE.DBG, "AFC面进行距离点检");
-                                            AutoCheck.AutoCheckPass(lb, sta);
+                                            res=AutoCheck.AutoCheckPass(lb, sta);
+                                            if (res != EM_RES.OK)
+                                            {
+                                                res = EM_RES.QUIT;
+                                                break;
+                                            }
                                         }
 
                                
@@ -3603,14 +3630,15 @@ namespace UI
                                             Thread.Sleep(5000);
                                             VAR.msg.AddMsg(Msg.EM_MSGTYPE.DBG, "DCC面进行距离点检");
                                             res = AutoCheck.AutoCheckPass(lb, sta);
+                                            if (res != EM_RES.OK)
+                                            {
+                                                res = EM_RES.QUIT;
+                                                break;
+                                            }
                                         }
 
-                            
-                                        //if (res != EM_RES.OK)
-                                        //{
-                                        //    res = EM_RES.QUIT;
-                                        //    break;
-                                        //}
+
+
 
                                     }
                                     if (PT_SET.DCC_luxcct_check_open && pos1.Name.Contains("色温"))
@@ -3633,7 +3661,12 @@ namespace UI
                                         {
                                             Thread.Sleep(5000);
                                             VAR.msg.AddMsg(Msg.EM_MSGTYPE.DBG, "OTP面进行距离点检");
-                                            AutoCheck.AutoCheckPass(lb, sta);
+                                            res=AutoCheck.AutoCheckPass(lb, sta);
+                                            if (res != EM_RES.OK)
+                                            {
+                                                res = EM_RES.QUIT;
+                                                break;
+                                            }
                                         }
          
                                       
@@ -3653,19 +3686,22 @@ namespace UI
                             }
                             else
                             {
-                                res = lb.MoveTo(ref VAR.gsys_set.bquit, sta, num);
                                 // 主流程里
 
-                                    GyroscopeMonitor.Start(PT_SET.COM_1);
-                             
-             
+                                GyroscopeMonitor.Start(PT_SET.COM_1);
+
+
                                 // 每次主循环同步一次
                                 GyroscopeMonitor.SyncQuitFlag(bquit);
+                                GyroscopeMonitor.SetState(GyroCheckState.Stop);
+                                res = lb.MoveTo(ref VAR.gsys_set.bquit, sta, num);
+                         
+      
                                 if (res == EM_RES.END)
                                 {
                                     res = lb.MoveTo(ref VAR.gsys_set.bquit, 0);
                                     if (res != EM_RES.OK) break;
-
+                                    GyroscopeMonitor.SetState(GyroCheckState.Stop);
                                     //本站测试完成
                                     TestStatus = EM_TEST_STA.NEXT;
                                     Status = EM_STA.TEST;
@@ -3731,7 +3767,7 @@ namespace UI
                             res = EM_RES.QUIT;
                             break;
                         }
-
+                        GyroscopeMonitor.SetState(GyroCheckState.Running);
                         Status = EM_STA.TEST;
                         VAR.msg.AddMsg(Msg.EM_MSGTYPE.DBG, VAR.IsChinese ? string.Format("{0} 通知测试", disc) : string.Format("{0}  notice test!        ({0} 通知测试)", disc));
                         res = NextTest(sta, Demo);

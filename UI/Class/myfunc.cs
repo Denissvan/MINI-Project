@@ -14,6 +14,8 @@ using System.Text;
 using System.Linq;
 using MesUIWpf.Models;
 using ControlzEx.Standard;
+using static SerialCommander;
+using static UI.WS;
 
 namespace UI
 {
@@ -1941,7 +1943,7 @@ namespace UI
                         break;
                     }
 
-
+                    GyroscopeMonitor.SetState(GyroCheckState.Stop);
                     VAR.msg.AddMsg(Msg.EM_MSGTYPE.NOR, VAR.IsChinese ? string.Format("测试完成,T={0:F2}s", (Environment.TickCount - tick) / 1000.0) : string.Format("Test completed,T={0:F2}s          (测试完成,T={0:F2}s)", (Environment.TickCount - tick) / 1000.0));
                     if (COM.ws1.TestStatus == WS.EM_TEST_STA.EMPTY && COM.ws2.TestStatus == WS.EM_TEST_STA.EMPTY &&
                         COM.ws3.TestStatus == WS.EM_TEST_STA.EMPTY && COM.ws4.TestStatus == WS.EM_TEST_STA.EMPTY && VAR.ClearMt)

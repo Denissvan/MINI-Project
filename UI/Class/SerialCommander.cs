@@ -34,6 +34,15 @@ public class SerialCommander : IDisposable
     public event Action<GyroscopeData> GyroUpdated;
     public event Action<JitterThreshold> JitterThresholdUpdated;
 
+    public enum GyroCheckState
+    {
+        Disabled = 0,     // 完全不检测
+        Idle = 1,         // 空闲可检测
+        Running = 2,      // 主流程运行中
+        Error = 3,        // 异常状态
+        Stop = 4          // 停机
+    }
+
     public class GyroscopeData
     {
         public bool IsJittering { get; set; }
@@ -238,7 +247,7 @@ public class SerialCommander : IDisposable
             }
 
             DistanceUpdated += OnUpdate;
-            while(count<10)
+            while(count<50)
             {
                 ReadDistance();
                 Thread.Sleep(200);
@@ -275,7 +284,7 @@ public class SerialCommander : IDisposable
 
         LuxUpdated += OnLux;
         CctUpdated += OnCct;
-            while (count < 15)
+            while (count < 30)
             {
                 ReadLightCalibration();
                 VAR.msg.AddMsg(Msg.EM_MSGTYPE.DBG, $"循环度数{count},lux:{lux},cct:{cct}");
