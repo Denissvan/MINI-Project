@@ -217,6 +217,15 @@ namespace UI.Class
                 { "DCC远焦2右", 287 },
                 { "DCC远焦3左", 288 },
                 { "DCC远焦3右", 289 },
+                { "AFC色温CH1", 290 },
+                { "AFC色温CH2", 292 },
+                { "AFC色温CH3", 294 },
+                { "OTP色温CH1", 296 },
+                { "OTP色温CH2", 298 },
+                { "OTP色温CH3", 300 },
+                 { "DCC色温CH1", 302 },
+                { "DCC色温CH2", 304 },
+                { "DCC色温CH3", 306 },
             };
 
             foreach (var pair in map)
@@ -321,7 +330,9 @@ namespace UI.Class
                         int? mesId = GetDistanceMesIdFromPosName(pos.Name);
                         if (mesId.HasValue)
                         {
-                            Msg.secsManager.Send(new BaseInfo() { Id = mesId.Value, Value = $"{distanceToSave}" }, 1);
+                            Msg.secsManager.Send(new BaseInfo() { Id = mesId.Value, Value = $"{distanceToSave + pos.Comp + pos.TeleComp}" }, 0);
+                            VAR.msg.AddMsg(Msg.EM_MSGTYPE.ERR, $"{pos.Name}成功发送svid为{mesId.Value}，value值为{distanceToSave}的mes信息");
+                            temp++;
                         }
 
 
@@ -395,32 +406,44 @@ namespace UI.Class
                                     SaveToTxt("光源色温点检参数", temp + 3, pos.Name, lux, cct);
                                 if (pos.Name.Contains("AFC"))
                                 {
-                                    if ((temp + 3).ToString() == "COM11")
+                                    if (temp == 8)
                                     {
-                                        Msg.secsManager.Send(new BaseInfo() { Id = 251, Value = $"{lux},{cct}" }, 1);
+                                        Msg.secsManager.Send(new BaseInfo() { Id = 251, Value = $"{lux}" });
+                                        Msg.secsManager.Send(new BaseInfo() { Id = 291, Value = $"{cct}" });
+                                        VAR.msg.AddMsg(Msg.EM_MSGTYPE.DBG, $"Mes成功发送svid为251，291，value分别为{lux},{cct}的Mes信息");
                                     }
-                                    else if ((temp + 3).ToString() == "COM12")
+                                    else if (temp == 9)
                                     {
-                                        Msg.secsManager.Send(new BaseInfo() { Id = 252, Value = $"{lux},{cct}" }, 1);
+                                        Msg.secsManager.Send(new BaseInfo() { Id = 252, Value = $"{lux}" });
+                                        Msg.secsManager.Send(new BaseInfo() { Id = 293, Value = $"{cct}" });
+                                        VAR.msg.AddMsg(Msg.EM_MSGTYPE.DBG, $"Mes成功发送svid为252，293，value分别为{lux},{cct}的Mes信息");
                                     }
-                                    else if ((temp + 3).ToString() == "COM13")
+                                    else if (temp == 10)
                                     {
-                                        Msg.secsManager.Send(new BaseInfo() { Id = 253, Value = $"{lux},{cct}" }, 1);
+                                        Msg.secsManager.Send(new BaseInfo() { Id = 253, Value = $"{lux}" });
+                                        Msg.secsManager.Send(new BaseInfo() { Id = 295, Value = $"{cct}" });
+                                        VAR.msg.AddMsg(Msg.EM_MSGTYPE.DBG, $"Mes成功发送svid为253，295，value分别为{lux},{cct}的Mes信息");
                                     }
                                 }
                                 else if (pos.Name.Contains("DCC"))
                                 {
-                                    if ((temp + 3).ToString() == "COM11")
+                                    if (temp == 8)
                                     {
-                                        Msg.secsManager.Send(new BaseInfo() { Id = 257, Value = $"{lux},{cct}" }, 1);
+                                        Msg.secsManager.Send(new BaseInfo() { Id = 257, Value = $"{lux}" });
+                                        Msg.secsManager.Send(new BaseInfo() { Id = 302, Value = $"{cct}" });
+                                        VAR.msg.AddMsg(Msg.EM_MSGTYPE.DBG, $"Mes成功发送svid为257，302，value分别为{lux},{cct}的Mes信息");
                                     }
-                                    else if ((temp + 3).ToString() == "COM12")
+                                    else if (temp == 9)
                                     {
-                                        Msg.secsManager.Send(new BaseInfo() { Id = 258, Value = $"{lux},{cct}" }, 1);
+                                        Msg.secsManager.Send(new BaseInfo() { Id = 258, Value = $"{lux}" });
+                                        Msg.secsManager.Send(new BaseInfo() { Id = 304, Value = $"{cct}" });
+                                        VAR.msg.AddMsg(Msg.EM_MSGTYPE.DBG, $"Mes成功发送svid为258，304，value分别为{lux},{cct}的Mes信息");
                                     }
-                                    else if ((temp + 3).ToString() == "COM13")
+                                    else if (temp == 10)
                                     {
-                                        Msg.secsManager.Send(new BaseInfo() { Id = 253, Value = $"{lux},{cct}" }, 1);
+                                        Msg.secsManager.Send(new BaseInfo() { Id = 253, Value = $"{lux}" });
+                                        Msg.secsManager.Send(new BaseInfo() { Id = 307, Value = $"{cct}" });
+                                        VAR.msg.AddMsg(Msg.EM_MSGTYPE.DBG, $"Mes成功发送svid为253，307，value分别为{lux},{cct}的Mes信息");
                                     }
                                 }
                                     comm.Close();
@@ -513,15 +536,22 @@ namespace UI.Class
                                 VAR.msg.AddMsg(Msg.EM_MSGTYPE.DBG, $"{com}读出参数lux{lux},cct{cct}");
                                 if(com == "COM8")
                                 {
-                                    Msg.secsManager.Send(new BaseInfo() { Id = 254, Value = $"{lux},{cct}" }, 1);
+                                    Msg.secsManager.Send(new BaseInfo() { Id = 254, Value = $"{lux}" });
+                                    Msg.secsManager.Send(new BaseInfo() { Id = 297, Value = $"{cct}" });
+                                    VAR.msg.AddMsg(Msg.EM_MSGTYPE.DBG, $"Mes成功发送svid为254，297，value分别为{lux},{cct}的Mes信息");
                                 }
                                 else if (com == "COM9")
                                 {
-                                    Msg.secsManager.Send(new BaseInfo() { Id = 255, Value = $"{lux},{cct}" }, 1);
+                                    Msg.secsManager.Send(new BaseInfo() { Id = 255, Value = $"{lux}" });
+                                    Msg.secsManager.Send(new BaseInfo() { Id = 299, Value = $"{cct}" });
+                                    VAR.msg.AddMsg(Msg.EM_MSGTYPE.DBG, $"Mes成功发送svid为255，299，value分别为{lux},{cct}的Mes信息");
                                 }
                                 else if(com == "COM10")
                                 {
-                                    Msg.secsManager.Send(new BaseInfo() { Id = 256, Value = $"{lux},{cct}" }, 1);
+                                    Msg.secsManager.Send(new BaseInfo() { Id = 256, Value = $"{lux}" });
+                                    Msg.secsManager.Send(new BaseInfo() { Id = 301, Value = $"{cct}" });
+                                    VAR.msg.AddMsg(Msg.EM_MSGTYPE.DBG, $"Mes成功发送svid为256，301，value分别为{lux},{cct}的Mes信息");
+
                                 }
 
                                 SaveToTxt("光源色温点检参数", com, pos.Name, lux, cct);
