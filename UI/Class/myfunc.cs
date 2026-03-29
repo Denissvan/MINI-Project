@@ -48,15 +48,39 @@ namespace UI
             MT.AXIS_UDL_FD_Z, MT.GPIO_IN_UL_INP_FD_TRAYBOX, MT.GPIO_IN_UL_RDY_FD_TRAY, MT.GPIO_OUT_UL_FD_TRAY,
             MT.GPIO_IN_UDL_FD_TRAY_ON, MT.CLD_UDL_FDTRAY_HD);
 
-        public static TrayBox traybox_ok = new TrayBox("TrayBox_OK", "OK料仓", TrayBox.EM_DIR.IN_OUT, 10, MT.AXIS_UDL_OK_X,
-            MT.AXIS_UDL_OK_Z, MT.GPIO_IN_DL_INP_OK_TRAYBOX, MT.GPIO_IN_DL_RDY_OK_TRAY, MT.GPIO_OUT_DL_OK_TRAY,
-            MT.GPIO_IN_UDL_OK_TRAY_ON, MT.CLD_UDL_OKTRAY_HD);
+        public static TrayBox traybox_ok = CreateTrayBoxOk();
 
-        public static TrayBox traybox_ng = new TrayBox("TrayBox_NG", "NG料仓", TrayBox.EM_DIR.IN_OUT, 10, MT.AXIS_UDL_NG_X,
-            MT.AXIS_UDL_NG_Z, MT.GPIO_IN_DL_INP_NG_TRAYBOX, MT.GPIO_IN_DL_RDY_NG_TRAY, MT.GPIO_OUT_DL_NG_TRAY,
-            MT.GPIO_IN_UDL_NG_TRAY_ON, MT.CLD_UDL_NGTRAY_HD);
+        public static TrayBox traybox_ng = CreateTrayBoxNg();
 
         public static List<TrayBox> List_traybox = new List<TrayBox>() { traybox_fd, traybox_ok, traybox_ng };
+
+        private static TrayBox CreateTrayBoxOk()
+        {
+            if (RuntimeMachineMode.IsTrayBoxSwapped)
+            {
+                return new TrayBox("TrayBox_NG", "OK料仓", TrayBox.EM_DIR.IN_OUT, 10, MT.AXIS_UDL_NG_X,
+                    MT.AXIS_UDL_NG_Z, MT.GPIO_IN_DL_INP_NG_TRAYBOX, MT.GPIO_IN_DL_RDY_NG_TRAY, MT.GPIO_OUT_DL_NG_TRAY,
+                    MT.GPIO_IN_UDL_NG_TRAY_ON, MT.CLD_UDL_NGTRAY_HD);
+            }
+
+            return new TrayBox("TrayBox_OK", "OK料仓", TrayBox.EM_DIR.IN_OUT, 10, MT.AXIS_UDL_OK_X,
+                MT.AXIS_UDL_OK_Z, MT.GPIO_IN_DL_INP_OK_TRAYBOX, MT.GPIO_IN_DL_RDY_OK_TRAY, MT.GPIO_OUT_DL_OK_TRAY,
+                MT.GPIO_IN_UDL_OK_TRAY_ON, MT.CLD_UDL_OKTRAY_HD);
+        }
+
+        private static TrayBox CreateTrayBoxNg()
+        {
+            if (RuntimeMachineMode.IsTrayBoxSwapped)
+            {
+                return new TrayBox("TrayBox_OK", "NG料仓", TrayBox.EM_DIR.IN_OUT, 10, MT.AXIS_UDL_OK_X,
+                    MT.AXIS_UDL_OK_Z, MT.GPIO_IN_DL_INP_OK_TRAYBOX, MT.GPIO_IN_DL_RDY_OK_TRAY, MT.GPIO_OUT_DL_OK_TRAY,
+                    MT.GPIO_IN_UDL_OK_TRAY_ON, MT.CLD_UDL_OKTRAY_HD);
+            }
+
+            return new TrayBox("TrayBox_NG", "NG料仓", TrayBox.EM_DIR.IN_OUT, 10, MT.AXIS_UDL_NG_X,
+                MT.AXIS_UDL_NG_Z, MT.GPIO_IN_DL_INP_NG_TRAYBOX, MT.GPIO_IN_DL_RDY_NG_TRAY, MT.GPIO_OUT_DL_NG_TRAY,
+                MT.GPIO_IN_UDL_NG_TRAY_ON, MT.CLD_UDL_NGTRAY_HD);
+        }
 
         //组装轴1相机
         public static Cam CamUp1 = new Cam("CamUp1", "上相机1", true, false, false, MT.CamUp1Triger, MT.MoveHandle,

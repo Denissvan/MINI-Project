@@ -3119,7 +3119,7 @@ namespace UI
             0,
             0});
             this.nud_SameNGTipCnt.Minimum = new decimal(new int[] {
-            3,
+            1,
             0,
             0,
             0});
