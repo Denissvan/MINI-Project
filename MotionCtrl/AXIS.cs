@@ -2526,6 +2526,13 @@ namespace MotionCtrl
             //用户取消
             if (bquit == true) return res = EM_RES.QUIT;
 
+            //在上料位提前开图前，阻止其他线程继续发运动命令
+            while (VAR.bBeforeOpenImageAxisStatic)
+            {
+                if (bquit || VAR.gsys_set.bquit) return res = EM_RES.QUIT;
+                Thread.Sleep(10);
+            }
+
             if(try_cnt>0) 
                 VAR.msg.AddMsg(Msg.EM_MSGTYPE.WAR, VAR.IsChinese?"ABS_MOVE_TO(),重试!": "ABS_MOVE_TO(),Retry!");
             if (try_cnt++ >= 3) return res;

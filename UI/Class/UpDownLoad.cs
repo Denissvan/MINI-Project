@@ -6653,12 +6653,8 @@ RECHECKAGAIN:
                     {
                         //提前开图
                         VAR.msg.AddMsg(Msg.EM_MSGTYPE.DBG, VAR.IsChinese ? string.Format("{0} 启动测试", ws.disc) : string.Format("{0} Start test!           ({0} 启动测试)", ws.disc));
-                        var mtime = NewSysInf.UserParams.BeforeOpenImageWaitTime;
-                        if (mtime > 0)
-                        {
-                             VAR.msg.AddMsg(Msg.EM_MSGTYPE.DBG, "上料后延迟开图时间" + mtime);
-                              Thread.Sleep(mtime);
-                        }
+                        res = ws.WaitBeforeOpenImage(ref bquit);
+                        if (res != EM_RES.OK) break;
                         res = ws.StartTestFlow(0, WS.Demo);
                         if (res != EM_RES.OK)
                         {

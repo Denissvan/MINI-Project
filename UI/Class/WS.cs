@@ -2163,6 +2163,54 @@ namespace UI
             }
             return EM_RES.OK;
         }
+
+        public EM_RES WaitBeforeOpenImage(ref bool bquit)
+        {
+            int waitMs = Math.Max(0, NewSysInf.UserParams.BeforeOpenImageWaitTime);
+            bool stopOtherAxes = NewSysInf.UserParams.bBeforeOpenImageStopAxis;
+
+            if (!stopOtherAxes && waitMs <= 0)
+            {
+                return EM_RES.OK;
+            }
+
+            if (stopOtherAxes)
+            {
+                VAR.msg.AddMsg(Msg.EM_MSGTYPE.DBG, $"{disc} 上料位提前开图前停止其他轴");
+                VAR.bBeforeOpenImageAxisStatic = true;
+                MT.AllAxStop();
+            }
+
+            try
+            {
+                if (waitMs <= 0)
+                {
+                    return EM_RES.OK;
+                }
+
+                VAR.msg.AddMsg(Msg.EM_MSGTYPE.DBG, $"{disc} 上料后延迟开图时间{waitMs}");
+                int elapsed = 0;
+                while (elapsed < waitMs)
+                {
+                    if (bquit || VAR.gsys_set.bquit)
+                    {
+                        return EM_RES.QUIT;
+                    }
+
+                    Thread.Sleep(50);
+                    elapsed += 50;
+                }
+
+                return EM_RES.OK;
+            }
+            finally
+            {
+                if (stopOtherAxes)
+                {
+                    VAR.bBeforeOpenImageAxisStatic = false;
+                }
+            }
+        }
         int DemoPos = 0;
         public EM_RES WaitTestResult(ref int status, int delay = 30000, bool demo = false, LightBox lb = null)
         {
@@ -3028,7 +3076,19 @@ namespace UI
                         if (!bUpDnPosGoOnTest)
                         {
                             VAR.msg.AddMsg(Msg.EM_MSGTYPE.DBG, VAR.IsChinese ? string.Format("{0} 启动测试", disc) : string.Format("{0} StartTestFlow       ({0} 启动测试)", disc));
-                            Thread.Sleep(500);
+                            if (pos == Turntable.EM_STA.POS0 && PT_SET.turnon)
+                            {
+                                res = WaitBeforeOpenImage(ref VAR.gsys_set.bquit);
+                                if (res != EM_RES.OK)
+                                {
+                                    Status = EM_STA.LINKERR;
+                                    break;
+                                }
+                            }
+                            else
+                            {
+                                Thread.Sleep(500);
+                            }
 
                             res = StartTestFlow(0, Demo);
                             startTime = DateTime.Now;

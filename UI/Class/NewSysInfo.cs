@@ -62,6 +62,8 @@ namespace UI.Class
             public bool bXtPrePlaceTrayByBigId;
             [Description("启动测试前执行关闭")]
             public bool bBeforeTestReset;
+            [Description("上料后开图前停止其他轴")]
+            public bool bBeforeOpenImageStopAxis;
             [Description("马达二维码位数校验")]
             public bool bCheckMotoCodeLength;
             [Description("上料后延迟开图时间(毫秒)")]

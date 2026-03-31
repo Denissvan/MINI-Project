@@ -32,6 +32,8 @@ namespace MotionCtrl
         public static bool  Isnormal = true;
         //暂时取消同NG超数据提示
         public static bool bSameNGTip_Temp = true;
+        //上料位提前开图前，其他轴保持静止
+        public static bool bBeforeOpenImageAxisStatic = false;
         //目前操作员
         public static string CurUserName = "";
         //系统错误信息

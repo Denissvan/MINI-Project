@@ -1568,7 +1568,7 @@ namespace MotionCtrl
             EquipmentMT = inf.ReadInteger("OTHER_SET", "EQUIPMENT_MT", 0);
             bWsPickAgain = inf.ReadBool("OTHER_SET", "WSPICKAGAIN", true);
             bSameNGTip = inf.ReadBool("OTHER_SET", "BSAMENGTIP", false);
-            SameNGTipCnt = inf.ReadInteger("OTHER_SET", "SAMENGTIP_CNT", 4);
+            SameNGTipCnt = Math.Max(1, Math.Min(5, inf.ReadInteger("OTHER_SET", "SAMENGTIP_CNT", 4)));
             bSameRowNGTip = inf.ReadBool("OTHER_SET", "BSAMEROWNGTIP", false);
             SameRowNGTipCnt = inf.ReadInteger("OTHER_SET", "SAMEROWNGTIP_CNT", 5);
 
@@ -1909,6 +1909,7 @@ namespace MotionCtrl
             inf.WriteInteger("OTHER_SET", "EQUIPMENT_MT", EquipmentMT, ref ischange, true, filename);
             inf.WriteBool("OTHER_SET", "WSPICKAGAIN", bWsPickAgain, ref ischange, true, filename);
             inf.WriteBool("OTHER_SET", "BSAMENGTIP", bSameNGTip, ref ischange, true, filename);
+            SameNGTipCnt = Math.Max(1, Math.Min(5, SameNGTipCnt));
             inf.WriteInteger("OTHER_SET", "SAMENGTIP_CNT", SameNGTipCnt, ref ischange, true, filename);
             inf.WriteInteger("OTHER_SET", "TestTime", TestTime, ref ischange, true, filename);
             inf.WriteInteger("OTHER_SET", "JigCntSend", JigCntSend, ref ischange, true, filename);

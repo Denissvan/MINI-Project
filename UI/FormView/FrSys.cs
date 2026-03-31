@@ -761,6 +761,7 @@ namespace UI
             nud_GTMOfs.Value = (decimal)PT_SET.GTMOfs;
             //同工位连续同NG提示
             chk_SameNGTip.Checked = PT_SET.bSameNGTip;
+            PT_SET.SameNGTipCnt = Math.Max((int)nud_SameNGTipCnt.Minimum, Math.Min((int)nud_SameNGTipCnt.Maximum, PT_SET.SameNGTipCnt));
             nud_SameNGTipCnt.Value = (decimal)PT_SET.SameNGTipCnt;
             //同工位连续同NG提示
             chk_SameRowNGTip.Checked = PT_SET.bSameRowNGTip;
@@ -1392,7 +1393,8 @@ namespace UI
             PT_SET.GTMOfs = (double)nud_GTMOfs.Value;
             //同工位连续同NG提示
             PT_SET.bSameNGTip = chk_SameNGTip.Checked;
-            PT_SET.SameNGTipCnt = (int)nud_SameNGTipCnt.Value;
+            PT_SET.SameNGTipCnt = Math.Max((int)nud_SameNGTipCnt.Minimum, Math.Min((int)nud_SameNGTipCnt.Maximum, (int)nud_SameNGTipCnt.Value));
+            nud_SameNGTipCnt.Value = PT_SET.SameNGTipCnt;
 
             //上下料位置增加测试
             PT_SET.bUpDnAddTest = rbtUpDnAddTestOn.Checked;
