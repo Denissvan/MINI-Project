@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Drawing;
@@ -2767,6 +2767,9 @@ RECAP:
                                 {
                                     WsPickmd[0].bardcode = xt.XtMd.bardcode;                               
                                     WsPickmd[0].res = -1;
+                                    WsPickmd[0].last_res = -1;
+                                    WsPickmd[0].test_idx = 0;
+                                    ws.TestStatus = WS.EM_TEST_STA.UNTEST;
                                     WsPickmd[0].motor_barcode = xt.XtMd.motor_barcode;
                                     if (xt.XtMd != null)
                                     {
@@ -3440,7 +3443,13 @@ RECAP:
                 bool HaveMd = HaveWsPickMd(WsPickPos);
                 if (!HaveMd)
                 {
+                    List<string> wsSkipSnapshot = new List<string>();
+                    foreach (WS.MdDat item in WsPickPos)
+                    {
+                        wsSkipSnapshot.Add(string.Format("工位{0}:res={1},test_idx={2},bc={3}", item.Num, item.res, item.test_idx, string.IsNullOrWhiteSpace(item.bardcode) ? "EMPTY" : item.bardcode));
+                    }
                     VAR.msg.AddMsg(Msg.EM_MSGTYPE.NOR, VAR.IsChinese ? "HaveWsPickMd没有找到测试完成的模组!" : "HaveWsPickMd,no mod was found to complete the test!         (HaveWsPickMd没有找到测试完成的模组!)");
+                    VAR.msg.AddMsg(Msg.EM_MSGTYPE.DBG, string.Format("{0}工站下料跳过,原因=没有可下料模组,快照->{1}", ws.disc, string.Join(" | ", wsSkipSnapshot)));
                     return EM_RES.END;
                 }
                 if (tryagain)
@@ -3664,6 +3673,8 @@ RECAP:
                     }
                     if (res == EM_RES.OK)
                     {
+                        int oldRes = md.res;
+                        string oldBarcode = md.bardcode;
                         pXtMd.res = md.res;
                         pXtMd.bardcode = md.bardcode;
                         pXtMd.Num = md.Num;
@@ -3672,6 +3683,7 @@ RECAP:
                         list_xt[xtid].XtMd = pXtMd.Clone();
                         md.res = -2;
                         md.bardcode = null;
+                        VAR.msg.AddMsg(Msg.EM_MSGTYPE.DBG, string.Format("{0}工站下料完成,模组={1},吸头={2},原结果={3},条码={4}", ws.disc, pXtMd.Num, list_xt[xtid].disc, oldRes, string.IsNullOrWhiteSpace(oldBarcode) ? "EMPTY" : oldBarcode));
                     }
                     else if (res == EM_RES.PICK_ERR)
                     {
@@ -3706,6 +3718,7 @@ RECAP:
                         VAR.sys_inf.Set(EM_ALM_STA.NOR_GREEN, VAR.IsChinese ? "运行" : "RUN", 0, true);
                         if (DialogResult.OK == logres)
                         {
+                            VAR.msg.AddMsg(Msg.EM_MSGTYPE.WAR, string.Format("{0}工站下料放弃吸取,模组={1},吸头={2},原结果={3},条码={4}", ws.disc, md.Num, list_xt[xtid].disc, md.res, string.IsNullOrWhiteSpace(md.bardcode) ? "EMPTY" : md.bardcode));
                             md.res = -2;
                             md.bardcode = null;
                         }
@@ -4597,6 +4610,9 @@ RECAP:
                                     }
 
                                     WsTriPos[j].res = -1;
+                                    WsTriPos[j].last_res = -1;
+                                    WsTriPos[j].test_idx = 0;
+                                    ws.TestStatus = WS.EM_TEST_STA.UNTEST;
                                     WsTriPos[j].IsNormal = VAR.Isnormal;
                                     
                                     if (PT_SET.bmotorphoto)
@@ -4896,6 +4912,9 @@ RECAP:
                         }
 
                         WsTriPos[j].res = -1;
+                        WsTriPos[j].last_res = -1;
+                        WsTriPos[j].test_idx = 0;
+                        ws.TestStatus = WS.EM_TEST_STA.UNTEST;
                         WsTriPos[j].IsNormal = VAR.Isnormal;
 
                         if (PT_SET.bmotorphoto)

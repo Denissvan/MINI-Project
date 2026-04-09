@@ -245,6 +245,23 @@ namespace UI
 
         public async void btn_run_Click(object sender, EventArgs e)
         {
+            //try
+            //{
+            //    int dllProbeRet = TestPC.StartTestFlow(3, 0, "DLL_PROBE".ToCharArray());
+            //    VAR.msg.AddMsg(Msg.EM_MSGTYPE.DBG, string.Format("开始键DLL探测 StartTestFlow, ID=3, ret={0}", dllProbeRet));
+            //}
+            //catch (DllNotFoundException ex)
+            //{
+            //    VAR.msg.AddMsg(Msg.EM_MSGTYPE.ERR, "开始键DLL探测失败,无法加载 dllforcomv8.dll:" + ex.Message);
+            //}
+            //catch (BadImageFormatException ex)
+            //{
+            //    VAR.msg.AddMsg(Msg.EM_MSGTYPE.ERR, "开始键DLL探测失败,DLL位数不匹配:" + ex.Message);
+            //}
+            //catch (Exception ex)
+            //{
+            //    VAR.msg.AddMsg(Msg.EM_MSGTYPE.ERR, "开始键DLL探测异常:" + ex.Message);
+            //}
             try
             {
                 if (!PT_SET.IsMesLocal)
@@ -360,6 +377,7 @@ namespace UI
                 if (VAR.gsys_set.status == EM_SYS_STA.RUN) return;
                 VAR.msg.AddMsg(Msg.EM_MSGTYPE.NOR, VAR.IsChinese ? "---开始键按下---" : "--- Press the start key ---    (---开始键按下---)");
                 DRpt.Report_Opration(1000, 0, VAR.IsChinese ? "---开始键按下---" : "--- Press the start key ---    (---开始键按下---)");
+               
                 VAR.gsys_set.bquit = false;
                 //COM.UDLoad1.Demo = true;
                 //COM.UDLoad1.FindMod = UpDownLoad.EM_FIN_MOD.HIGH;

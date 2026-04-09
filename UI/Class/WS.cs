@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Diagnostics;
@@ -2384,6 +2384,7 @@ namespace UI
                         {
                             string br = new string(md_barcode);
                             string[] lsstr = br.Split('#');
+                            List<string> rowSnapshot = new List<string>();
                             for (int n = 0; n < num && n < res.Length; n++)
                             {
                                 if (list[n].res == -2)//空料无需更新结果
@@ -2397,6 +2398,7 @@ namespace UI
                                 //list[n].res = res[n];
                                 list[n].test_idx = 0;
                                 str = str + string.Format(",{0}-{1}", res[n], lsstr.Length > n && lsstr[n][0] != '\0' ? lsstr[n] : "");
+                                rowSnapshot.Add(string.Format("工位{0}:res={1},bc={2}", list[n].Num, res[n], lsstr.Length > n && lsstr[n].Length > 0 ? lsstr[n] : "EMPTY"));
                                 CurWSNGCode.Add(str);
                                 //if (list[n].benable && (lsstr.Length<=n ||list[n].bardcode != lsstr[n] || lsstr[n] == ""))
                                 //{
@@ -2405,6 +2407,7 @@ namespace UI
                                 //}
 
                             }
+                            VAR.msg.AddMsg(Msg.EM_MSGTYPE.DBG, string.Format("{0} PC{1}最终结果快照->{2}", disc, list[0].PC_ID, string.Join(" | ", rowSnapshot)));
                             //确认个数
                             if (!demo)
                             {
@@ -2415,6 +2418,15 @@ namespace UI
                                 if (bRetest)
                                 {
                                     VAR.msg.AddMsg(Msg.EM_MSGTYPE.WAR, VAR.IsChinese ? string.Format("{0} PC{1},sta={2},n={3}->接收结果缺失，重置待测!", disc, list[0].PC_ID, sta, num) : string.Format("{0} PC{1},sta={2},n={3}->lost result,reardy to retest!          ({0} PC{1},sta={2},n={3}->接收结果缺失，重置待测!)", disc, list[0].PC_ID, sta, num));
+                                    List<string> missingSnapshot = new List<string>();
+                                    for (int m = 0; m < list.Count; m++)
+                                    {
+                                        if (list[m].benable)
+                                        {
+                                            missingSnapshot.Add(string.Format("工位{0}:旧res={1},test_idx={2},bc={3}", list[m].Num, list[m].res, list[m].test_idx, string.IsNullOrWhiteSpace(list[m].bardcode) ? "EMPTY" : list[m].bardcode));
+                                        }
+                                    }
+                                    VAR.msg.AddMsg(Msg.EM_MSGTYPE.WAR, string.Format("{0} PC{1}结果缺失详情,应收={2},实收={3},当前快照->{4}", disc, list[0].PC_ID, encnt, num, string.Join(" | ", missingSnapshot)));
                                     for (int m = 0; m < list.Count; m++)
                                     {
                                         if (list[m].benable)

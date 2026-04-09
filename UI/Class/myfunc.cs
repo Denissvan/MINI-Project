@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Threading;
 using System.Windows.Forms;
@@ -1727,9 +1727,41 @@ namespace UI
                     //if (VAR.gsys_set.isChkMode && !bfeed)
                     //    workstation.TestStatus = WS.EM_TEST_STA.EMPTY;
                     workstation.Iserrfirstbox = true;
+                    bool hasUntestedEnabledMd = false;
+                    foreach (MdDat md in workstation.list_md)
+                    {
+                        if (md.benable && md.res == -1)
+                        {
+                            hasUntestedEnabledMd = true;
+                            break;
+                        }
+                    }
+
+                    bool readyByCompleted = bfeed && workstation.TestStatus == WS.EM_TEST_STA.COMPLETED;
+                    bool readyByEmpty = wsenable && workstation.TestStatus == WS.EM_TEST_STA.EMPTY && !VAR.ClearMt;
+                    bool readyByFeedStatus = workstation.FeedStatus == WS.EM_STA.REDAYFORUPDOWNLOAD;
+
+                    if (hasUntestedEnabledMd)
+                    {
+                        if (readyByCompleted)
+                        {
+                            VAR.msg.AddMsg(Msg.EM_MSGTYPE.WAR,
+                                string.Format("{0} 阻止按完成态再次上下料,原因=存在待测模组残留,TestStatus={1},FeedStatus={2}",
+                                workstation.disc, workstation.TestStatus, workstation.FeedStatus));
+                        }
+                        if (readyByFeedStatus)
+                        {
+                            VAR.msg.AddMsg(Msg.EM_MSGTYPE.WAR,
+                                string.Format("{0} 阻止按准备上下料状态再次上下料,原因=存在待测模组残留,TestStatus={1},FeedStatus={2}",
+                                workstation.disc, workstation.TestStatus, workstation.FeedStatus));
+                        }
+                        readyByCompleted = false;
+                        readyByFeedStatus = false;
+                    }
+
                     //检查是否需要下料
                     // if (!bnotfeed && (bfeed && workstation.TestStatus == WS.EM_TEST_STA.COMPLETED || (wsenable && workstation.TestStatus == WS.EM_TEST_STA.EMPTY && !VAR.ClearMt && (!VAR.gsys_set.isChkMode || (VAR.gsys_set.isChkMode && bchk))) || workstation.FeedStatus == WS.EM_STA.REDAYFORUPDOWNLOAD))
-                    if (!bnotfeed && (bfeed && workstation.TestStatus == WS.EM_TEST_STA.COMPLETED || (wsenable && workstation.TestStatus == WS.EM_TEST_STA.EMPTY && !VAR.ClearMt) || workstation.FeedStatus == WS.EM_STA.REDAYFORUPDOWNLOAD))
+                    if (!bnotfeed && (readyByCompleted || readyByEmpty || readyByFeedStatus))
                     {
                         //检测上下料安全
                         //todo
@@ -1805,6 +1837,15 @@ namespace UI
                             }
                             if (UpDownLoad.brun == false)
                             {
+                                List<string> udSnapshot = new List<string>();
+                                foreach (WS.MdDat md in workstation.list_md)
+                                {
+                                    if (md.benable)
+                                    {
+                                        udSnapshot.Add(string.Format("工位{0}:res={1},test_idx={2},bc={3}", md.Num, md.res, md.test_idx, string.IsNullOrWhiteSpace(md.bardcode) ? "EMPTY" : md.bardcode));
+                                    }
+                                }
+                                VAR.msg.AddMsg(Msg.EM_MSGTYPE.DBG, string.Format("{0}上下料线程退出快照,status={1},FeedStatus={2},UpDownLoad.status={3}->{4}", workstation.disc, workstation.Status, workstation.FeedStatus, UpDownLoad.status, string.Join(" | ", udSnapshot)));
                                 if (UpDownLoad.status == UpDownLoad.EM_STA.ERR)
                                 {
                                     VAR.msg.AddMsg(Msg.EM_MSGTYPE.WAR, VAR.IsChinese ? string.Format("{0}上下料异常，测试线程结束", workstation.disc) : string.Format("{0}ERROR:Updownload, test thread ends       ({0}上下料异常，测试线程结束)", workstation.disc));

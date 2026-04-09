@@ -880,6 +880,23 @@ namespace UI
                         MT.GPIO_OUT_ALM_BEEPER.SetOff();
                         VAR.msg.AddMsg(Msg.EM_MSGTYPE.NOR, VAR.IsChinese ? string.Format("---开始键按下---") : "--- Press the start key ---       (---开始键按下---)");
                         DRpt.Report_Opration(1000, 0, "开始键按下!");
+                        try
+                        {
+                            int dllProbeRet = TestPC.StartTestFlow(3, 0, "DLL_PROBE".ToCharArray());
+                            VAR.msg.AddMsg(Msg.EM_MSGTYPE.DBG, string.Format("开始键DLL探测 StartTestFlow, ID=3, ret={0}", dllProbeRet));
+                        }
+                        catch (DllNotFoundException ex)
+                        {
+                            VAR.msg.AddMsg(Msg.EM_MSGTYPE.ERR, "开始键DLL探测失败,无法加载 dllforcomv8.dll:" + ex.Message);
+                        }
+                        catch (BadImageFormatException ex)
+                        {
+                            VAR.msg.AddMsg(Msg.EM_MSGTYPE.ERR, "开始键DLL探测失败,DLL位数不匹配:" + ex.Message);
+                        }
+                        catch (Exception ex)
+                        {
+                            VAR.msg.AddMsg(Msg.EM_MSGTYPE.ERR, "开始键DLL探测异常:" + ex.Message);
+                        }
                         if (VAR.gsys_set.status == EM_SYS_STA.REPAIR)
                         {
                             VAR.msg.AddMsg(Msg.EM_MSGTYPE.WAR, VAR.IsChinese ? string.Format("提示:当前设备正在维修，无法运行!") : "提示:当前设备正在维修，无法运行!    (Tip: The current device is being repaired and cannot run!)");

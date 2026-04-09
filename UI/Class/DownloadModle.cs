@@ -827,6 +827,10 @@ namespace UI
                             continue;
                         }
 
+                        VAR.msg.AddMsg(Msg.EM_MSGTYPE.DBG,
+                            string.Format("{0} 下料线程进入判定,TestStatus={1},FeedStatus={2},isInFeedPos={3}",
+                            ws.disc, ws.TestStatus, ws.FeedStatus, ws.isInFeedPos));
+
                         //检查当前工站是否有物料
                         if (ws.TestStatus == WS.EM_TEST_STA.EMPTY)
                         {

@@ -735,6 +735,7 @@
     </EmbeddedResource>
     <EmbeddedResource Include="FormView\FrSys.resx">
       <DependentUpon>FrSys.cs</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="FormView\FrUser.resx">
       <DependentUpon>FrUser.cs</DependentUpon>

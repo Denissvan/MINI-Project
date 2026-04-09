@@ -26,6 +26,7 @@ namespace MotionCtrl
         public static string  ModUpFw = "ModUp_Shp";//模组拍照流程
         public static string  WsModUpFw = "WsMod_Shp";//工站上模组拍照流程
         public static string  WsModUpFw2 = "WsMod_Shp2";//工站上模组拍照流程
+        public static string WsModAfterCloseFw = "WsModAfterClose_Shp";//夹具合上后工站上模组拍照流程
         public static string WsUpFw = "WsUp_Shp";//工站拍照流程
         public static string TrayUpFw = "TrayUp_Shp";//料盘拍照流程
         public static string LiZhuFw = "LiZhu_Shp";//
