@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Drawing;
@@ -410,9 +410,9 @@ namespace UI
             EM_RES res;
             Product.MdDat pMddat = new Product.MdDat();
             ST_XYZ pos = new ST_XYZ();
-           if(traybox.disc == traybox_ng.disc)
+           if (traybox.IsNgTray)
             List_traypos = traybox.tray_cur.GetPosList(Product.EM_CM_RES.EMPTY,md.res);
-           else if(traybox.disc == traybox_ok.disc)
+           else if (traybox.IsOkTray)
             List_traypos = traybox.tray_cur.GetPosList(Product.EM_CM_RES.EMPTY);
             if (List_traypos.Count > 0)
             {
@@ -459,8 +459,8 @@ namespace UI
                     List_CLD_HD_HD[md.Num-1].SetOff();
                     continue;
                 }
-                if (traybox.disc == traybox_ok.disc && md.res != 0) continue;
-                if (traybox.disc == traybox_ng.disc && md.res <1) continue;               
+                if (traybox.IsOkTray && md.res != 0) continue;
+                if (traybox.IsNgTray && md.res < 1) continue;               
                 res = MovPlace(ref bquit, md, traybox);
                 if (res != EM_RES.OK) return res;
                            

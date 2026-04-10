@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -210,26 +210,13 @@ namespace UI
             traybox_fd.box = COM.traybox_fd;
             tray_fd.TrayName = VAR.IsChinese ? "待测料盘" : "Feed Tray";
             tray_fd.TrayColor = Color.DarkOrange;
-            if (RuntimeMachineMode.IsTrayBoxSwapped)
-            {
-                traybox_ng.box = COM.traybox_ok;
-                traybox_ok.box = COM.traybox_ng;
+            traybox_ok.box = COM.traybox_ok;
+            traybox_ng.box = COM.traybox_ng;
 
-                tray_ng.TrayName = VAR.IsChinese ? "OK料盘" : "OK Tray";
-                tray_ok.TrayName = VAR.IsChinese ? "NG料盘" : "NG Tray";
-                tray_ng.TrayColor = Color.Lime;
-                tray_ok.TrayColor = Color.Red;
-            }
-            else
-            {
-                traybox_ok.box = COM.traybox_ok;
-                traybox_ng.box = COM.traybox_ng;
-
-                tray_ok.TrayName = VAR.IsChinese ? "OK料盘" : "OK Tray";
-                tray_ng.TrayName = VAR.IsChinese ? "NG料盘" : "NG Tray";
-                tray_ok.TrayColor = Color.Lime;
-                tray_ng.TrayColor = Color.Red;
-            }
+            tray_ok.TrayName = VAR.IsChinese ? "OK料盘" : "OK Tray";
+            tray_ng.TrayName = VAR.IsChinese ? "NG料盘" : "NG Tray";
+            tray_ok.TrayColor = Color.Lime;
+            tray_ng.TrayColor = Color.Red;
             VAR.gsys_set.beep_tmr = 3000;
             VAR.sys_inf.Init(lb_war_inf, MT.GPIO_OUT_ALM_RED, MT.GPIO_OUT_ALM_GREEN, MT.GPIO_OUT_ALM_YELLOW, MT.GPIO_OUT_ALM_BEEPER, VAR.gsys_set.beep_tmr);//lb_war_inf
             VAR.msg.StartUpdate(dgv_msg);
@@ -463,41 +450,17 @@ namespace UI
             {
                 //VAR.msg.AddMsg(Msg.EM_MSGTYPE.ERR, "START");
                 traybox_fd.UpdateShow();
-                if (RuntimeMachineMode.IsTrayBoxSwapped)
-                {
-                    traybox_ng.UpdateShow();
-                    traybox_ok.UpdateShow();
-                }
-                else
-                {
-                    traybox_ok.UpdateShow();
-                    traybox_ng.UpdateShow();
-                }
+                traybox_ok.UpdateShow();
+                traybox_ng.UpdateShow();
                 //VAR.msg.AddMsg(Msg.EM_MSGTYPE.ERR, "START1");
                 tray_fd.tray_dat = traybox_fd.box.tray_cur;
-                if (RuntimeMachineMode.IsTrayBoxSwapped)
-                {
-                    tray_ng.tray_dat = traybox_ng.box.tray_cur;
-                    tray_ok.tray_dat = traybox_ok.box.tray_cur;
-                }
-                else
-                {
-                    tray_ok.tray_dat = traybox_ok.box.tray_cur;
-                    tray_ng.tray_dat = traybox_ng.box.tray_cur;
-                }
+                tray_ok.tray_dat = traybox_ok.box.tray_cur;
+                tray_ng.tray_dat = traybox_ng.box.tray_cur;
 
 
                 tray_fd.UpdateShow();
-                if (RuntimeMachineMode.IsTrayBoxSwapped)
-                {
-                    tray_ng.UpdateShow();
-                    tray_ok.UpdateShow();
-                }
-                else
-                {
-                    tray_ok.UpdateShow();
-                    tray_ng.UpdateShow();
-                }
+                tray_ok.UpdateShow();
+                tray_ng.UpdateShow();
                 //VAR.msg.AddMsg(Msg.EM_MSGTYPE.ERR, "START2");
                 ws1.UpdateShow();
                 ws2.UpdateShow();
@@ -714,16 +677,8 @@ namespace UI
             ws3.WorkStationName = VAR.IsChinese ? "工站3" : "WS3";
             ws4.WorkStationName = VAR.IsChinese ? "工站4" : "WS4";
             traybox_fd.TrayBoxName = VAR.IsChinese ? "供料" : "Feed";
-            if (RuntimeMachineMode.IsTrayBoxSwapped)
-            {
-                traybox_ng.TrayBoxName = VAR.IsChinese ? "OK" : "OK";
-                traybox_ok.TrayBoxName = VAR.IsChinese ? "NG" : "NG";
-            }
-            else
-            {
-                traybox_ok.TrayBoxName = VAR.IsChinese ? "OK" : "OK";
-                traybox_ng.TrayBoxName = VAR.IsChinese ? "NG" : "NG";
-            }
+            traybox_ok.TrayBoxName = VAR.IsChinese ? "OK" : "OK";
+            traybox_ng.TrayBoxName = VAR.IsChinese ? "NG" : "NG";
 
             bool bSound = NewSysInf.UserParams.RedLightSund;
             if (bSound && MT.GPIO_OUT_ALM_RED.isON)

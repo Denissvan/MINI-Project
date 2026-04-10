@@ -936,9 +936,9 @@ namespace UI
                     xt.cy_zk.SetOff();
                     continue;
                 }
-                if (xt.XtMd.res != (int)Product.EM_CM_RES.OK && traybox.disc == traybox_ok.disc) continue;
-                if (xt.XtMd.res <= (int)Product.EM_CM_RES.OK && traybox.disc == traybox_ng.disc) continue;
-                int ngcode = traybox.disc == traybox_ok.disc ? -10000 : xt.XtMd.res;
+                if (xt.XtMd.res != (int)Product.EM_CM_RES.OK && traybox.IsOkTray) continue;
+                if (xt.XtMd.res <= (int)Product.EM_CM_RES.OK && traybox.IsNgTray) continue;
+                int ngcode = traybox.IsOkTray ? -10000 : xt.XtMd.res;
                 List<Product.Tray.PosInf> Listpos_empty = traybox.tray_cur.GetPosList(Product.EM_CM_RES.EMPTY);
                 List<Product.Tray.PosInf> Listpos = traybox.tray_cur.GetPosList(Product.EM_CM_RES.EMPTY, ngcode);
 
@@ -988,7 +988,7 @@ namespace UI
             ST_XYZA pos = new ST_XYZA();
             Product.EM_CM_RES traymod = Product.EM_CM_RES.EMPTY;
             //寻找第一个OK料
-            traymod = traybox.disc == traybox_fd.disc ? Product.EM_CM_RES.UNTEST : Product.EM_CM_RES.EMPTY;
+            traymod = traybox.IsFeedTray ? Product.EM_CM_RES.UNTEST : Product.EM_CM_RES.EMPTY;
             List<Product.Tray.PosInf> Listpos = traybox.tray_cur.GetPosList(traymod);
             //if (Listpos.Count > 0 &&((ud.bUpdateFBPos_OKNG && traymod==Product.EM_CM_RES.EMPTY)||(ud.bUpdateFBPos_UT && traymod==Product.EM_CM_RES.UNTEST)))
             //if (FindMod != EM_FIN_MOD.ALL && ((traybox_fd.disc==traybox.disc && !bUpdateFBPos_UT)||(traybox_fd.disc!=traybox.disc && !bUpdateFBPos_OKNG)))
@@ -1001,7 +1001,7 @@ namespace UI
             {
                 //pos.x = ud.FeedBackPos.x;
                 pos.x = ud.TrayGoPos;
-                if (traybox.disc == COM.traybox_ng.disc)
+                if (traybox.IsNgTray)
                 {
                     int cn = traybox.tray_cur.list_pos.Count / 2;
                     pos.a = -traybox.tray_cur.list_pos[cn].Pos[ud.id].x + pos.x + traybox.tray_cur.list_pos[cn].Pos[ud.id].a;
@@ -1183,7 +1183,7 @@ namespace UI
                         VAR.msg.AddMsg(Msg.EM_MSGTYPE.ERR, VAR.IsChinese ? string.Format("{0}定位超时5S", ax_x_tray.disc) : string.Format("{0}move timeout(5s)       ({0}定位超时5S)", ax_x_tray.disc), DReport.EmErrCode.Timeout, (int)DReport.EmHareware.UpDownLoad + id, ERR_ALM.EmErrItem.TimeOut);
                         return EM_RES.ERR;
                     }
-                    if (traybox.disc == COM.traybox_fd.disc)
+                    if (traybox.IsFeedTray)
                     {
                         int posmaxofs = WsTriPos.Count > 0 ? 10 : 2;
                         if ((Math.Abs(ax_x_tray.fenc_pos - endpos.a) > posmaxofs) && !traybox.runin && traybox.ax_x.isStop)
@@ -1963,7 +1963,7 @@ namespace UI
             }
             else
             {
-                if (((bUpdateFBPos_OKNG && traybox.disc != traybox_fd.disc) || (bUpdateFBPos_UT && traybox.disc == traybox_fd.disc)) && FeedBackWs.Count > 0)// && ax_y.fenc_pos > list_xt[0].st_cap_pos.y)
+                if (((bUpdateFBPos_OKNG && !traybox.IsFeedTray) || (bUpdateFBPos_UT && traybox.IsFeedTray)) && FeedBackWs.Count > 0)// && ax_y.fenc_pos > list_xt[0].st_cap_pos.y)
                 {
                     foreach (WS.MdDat md in FeedBackWs)
                     {
@@ -1986,7 +1986,7 @@ namespace UI
 
 
             //配置飞拍结束位置
-            if (traybox.disc == traybox_fd.disc)
+            if (traybox.IsFeedTray)
             {
                 res = FindFdTrayPos(ref endpos, ref TrayTriPos, ref TrayCapQrcodeTriPos, ws, dir);
             }
@@ -2491,7 +2491,7 @@ RECAP:
                 takdw.Start();
             }
             FeedBackWs.Clear();
-            if (barcode_err && traybox.disc == traybox_ok.disc) return EM_RES.ABORT;
+            if (barcode_err && traybox.IsOkTray) return EM_RES.ABORT;
             return EM_RES.OK;
         }
         public uint CurLightSet=0;
@@ -2770,6 +2770,8 @@ RECAP:
                                     WsPickmd[0].last_res = -1;
                                     WsPickmd[0].test_idx = 0;
                                     ws.TestStatus = WS.EM_TEST_STA.UNTEST;
+                                    ws.bFreshLoadPending = true;
+                                    VAR.msg.AddMsg(Msg.EM_MSGTYPE.DBG, string.Format("{0} 新上料置位,模组={1}", ws.disc, WsPickmd[0].Num));
                                     WsPickmd[0].motor_barcode = xt.XtMd.motor_barcode;
                                     if (xt.XtMd != null)
                                     {
@@ -2909,8 +2911,8 @@ RECAP:
                         xt.XtMd = null;
                         continue;
                     }
-                    if (traybox.disc == traybox_ok.disc && xt.XtMd.res != 0) continue;
-                    if (traybox.disc == traybox_ng.disc && xt.XtMd.res < 1) continue;
+                    if (traybox.IsOkTray && xt.XtMd.res != 0) continue;
+                    if (traybox.IsNgTray && xt.XtMd.res < 1) continue;
 
 
                     EM_RES res = xt.PlaceMd(ref bquit, traybox, ws, Demo);
@@ -4613,6 +4615,8 @@ RECAP:
                                     WsTriPos[j].last_res = -1;
                                     WsTriPos[j].test_idx = 0;
                                     ws.TestStatus = WS.EM_TEST_STA.UNTEST;
+                                    ws.bFreshLoadPending = true;
+                                    VAR.msg.AddMsg(Msg.EM_MSGTYPE.DBG, string.Format("{0} 新上料置位,模组={1}", ws.disc, WsTriPos[j].Num));
                                     WsTriPos[j].IsNormal = VAR.Isnormal;
                                     
                                     if (PT_SET.bmotorphoto)
@@ -4915,6 +4919,8 @@ RECAP:
                         WsTriPos[j].last_res = -1;
                         WsTriPos[j].test_idx = 0;
                         ws.TestStatus = WS.EM_TEST_STA.UNTEST;
+                        ws.bFreshLoadPending = true;
+                        VAR.msg.AddMsg(Msg.EM_MSGTYPE.DBG, string.Format("{0} 新上料置位,模组={1}", ws.disc, WsTriPos[j].Num));
                         WsTriPos[j].IsNormal = VAR.Isnormal;
 
                         if (PT_SET.bmotorphoto)
@@ -6743,6 +6749,11 @@ RECHECKAGAIN:
                 //通知测试
                 VAR.msg.AddMsg(Msg.EM_MSGTYPE.DBG, VAR.IsChinese ? string.Format("{0} 通知REDAYFORTEST", ws.disc) : string.Format("{0} REDAYFORTEST", ws.disc));
                 ws.FeedStatus = WS.EM_STA.REDAYFORTEST;
+                if (ws.bStartupInitPending)
+                {
+                    ws.bStartupInitPending = false;
+                    VAR.msg.AddMsg(Msg.EM_MSGTYPE.DBG, string.Format("{0} 首轮上下料完成,允许进入真实测试流程", ws.disc));
+                }
 
                 Ct = (Environment.TickCount - tick) / 1000.0;
                 VAR.msg.AddMsg(Msg.EM_MSGTYPE.DBG, VAR.IsChinese ? string.Format("上下料完成用时{0:F3}s", Ct) : string.Format("Updownload is finished ,Time:{0:F3}s.          (上下料完成用时{0:F3}s)", Ct));

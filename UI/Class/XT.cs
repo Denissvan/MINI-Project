@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.IO;
 using System.Threading;
 using MotionCtrl;
@@ -1378,9 +1378,9 @@ namespace UI
             ST_XYA VsCmp = new ST_XYA();
             if (XtMd == null || (XtMd != null && XtMd.res < 0)) return EM_RES.OK;
             placepos_temp = traybox.tray_cur.GetPosList(Product.EM_CM_RES.EMPTY);
-            if (traybox.disc == traybox_ok.disc)
+            if (traybox.IsOkTray)
                 placepos = traybox.tray_cur.GetPosList(Product.EM_CM_RES.EMPTY);
-            else if (traybox.disc == traybox_ng.disc)
+            else if (traybox.IsNgTray)
                 placepos = traybox.tray_cur.GetPosList(Product.EM_CM_RES.EMPTY, XtMd.res);
                // placepos = traybox.tray_cur.GetPosList(Product.EM_CM_RES.EMPTY);
             if (placepos.Count > 0)
@@ -1427,7 +1427,7 @@ namespace UI
                             warn.ws = null;
                             warn.title = MultiLanguage.TxtSelct("提示:拍照错误!", "Tip: Failed to take a picture!", "Mẹo: Không chụp được ảnh!");
 
-                            string tray = traybox.disc == traybox_ok.disc ? "OK料盘" : "NG料盘";
+                            string tray = traybox.IsOkTray ? "OK料盘" : "NG料盘";
                             warn.msg = MultiLanguage.TxtSelct($"{upcam.disc}拍{tray}失败!", $"{upcam.englishdisc} failed to shoot {tray}!", $"{upcam.disc} không bắn được {tray}!");
                             warn.lb_msg = MultiLanguage.TxtSelct(
                                 $"提示:{upcam.disc}拍{tray}失败! 请确认!\r\n" +
@@ -1460,20 +1460,20 @@ namespace UI
                     }
                     if(i>=3)
                     {
-                        VAR.msg.AddMsg(Msg.EM_MSGTYPE.DBG, VAR.IsChinese ? string.Format("{0}拍{1}失败次数达3次!",upcam.disc,traybox.disc==traybox_ok.disc?"OK料盘":"NG料盘"): string.Format("{0} failed to take pictures of {1} 3 times      ({2}拍{3}失败次数达3次!)", upcam.englishdisc, traybox.disc == traybox_ok.disc ? "OK tray" : "NG tray", upcam.disc, traybox.disc == traybox_ok.disc ? "OK料盘" : "NG料盘"), DReport.EmErrCode.CaptureFailed, (int)DReport.EmHareware.UpDownLoad, ERR_ALM.EmErrItem.UpDownLoadAbnormal);
+                        VAR.msg.AddMsg(Msg.EM_MSGTYPE.DBG, VAR.IsChinese ? string.Format("{0}拍{1}失败次数达3次!", upcam.disc, traybox.IsOkTray ? "OK料盘" : "NG料盘") : string.Format("{0} failed to take pictures of {1} 3 times      ({2}拍{3}失败次数达3次!)", upcam.englishdisc, traybox.IsOkTray ? "OK tray" : "NG tray", upcam.disc, traybox.IsOkTray ? "OK料盘" : "NG料盘"), DReport.EmErrCode.CaptureFailed, (int)DReport.EmHareware.UpDownLoad, ERR_ALM.EmErrItem.UpDownLoadAbnormal);
                         return EM_RES.ERR;
                     }
-                    if(traybox_ok.disc==traybox.disc) UpDownLoad.Vs_TrayOK = upcam.curTask.ResData.PosMM;
-                    else UpDownLoad.Vs_TrayNg = upcam.curTask.ResData.PosMM;                    
+                    if (traybox.IsOkTray) UpDownLoad.Vs_TrayOK = upcam.curTask.ResData.PosMM;
+                    else if (traybox.IsNgTray) UpDownLoad.Vs_TrayNg = upcam.curTask.ResData.PosMM;                    
                 }
                 //位置确认
                 //VAR.msg.AddMsg(Msg.EM_MSGTYPE.DBG, "进行位置确认");
                 //VAR.msg.AddMsg(Msg.EM_MSGTYPE.DBG,  string.Format("{0}放料，计算前位置{1}", traybox.disc,placepos[0].Pos[Parent.id].ToXY().ToString()));
                 pos = CaliPos(placepos[0].Pos[Parent.id]);
-                if (PT_SET.bEnVsTray && traybox.disc != traybox_fd.disc)
+                if (PT_SET.bEnVsTray && !traybox.IsFeedTray)
                 {
-                    if (traybox_ok.disc == traybox.disc) VsCmp = UpDownLoad.Vs_TrayOK;
-                    else VsCmp = UpDownLoad.Vs_TrayNg;  
+                    if (traybox.IsOkTray) VsCmp = UpDownLoad.Vs_TrayOK;
+                    else if (traybox.IsNgTray) VsCmp = UpDownLoad.Vs_TrayNg;  
                 }
 
                 //VAR.msg.AddMsg(Msg.EM_MSGTYPE.DBG, string.Format("{0}放料，计算后位置{1}", traybox.disc, pos.ToXY().ToString()));

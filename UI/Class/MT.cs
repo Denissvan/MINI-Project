@@ -1018,20 +1018,25 @@ namespace UI
                 }
             }
 
-            if (id == MT.AXIS_UDL_NG_Z.id)
+            TrayBox[] unloadTrayBoxes = { COM.traybox_ok, COM.traybox_ng };
+            foreach (TrayBox traybox in unloadTrayBoxes)
             {
-                if ((Math.Abs(MT.AXIS_UDL_NG_X.fenc_pos) > COM.traybox_ng.fd_safe_x + 1) && (Math.Abs(targe_pos - MT.AXIS_UDL_NG_Z.fenc_pos) > COM.traybox_ng.tray_feed_ofs_h + 0.1))
-                {
-                    VAR.msg.AddMsg(Msg.EM_MSGTYPE.ERR, VAR.IsChinese ? string.Format("NG料仓X轴插入NG料仓，NG料Z轴移动距离{0}大于{1}!", (Math.Abs(targe_pos - MT.AXIS_UDL_NG_Z.fenc_pos)), COM.traybox_ng.tray_feed_ofs_h) : string.Format("NG Box x axis insert in to NG Box，NG Box z axis's moving distance{0} over {1}!      (NG料仓X轴插入NG料仓，NG料Z轴移动距离{0}大于{1}!)", (Math.Abs(targe_pos - MT.AXIS_UDL_NG_Z.fenc_pos)), COM.traybox_ng.tray_feed_ofs_h), DReport.EmErrCode.SoftwareProtect, (int)DReport.EmHareware.Axis + id, ERR_ALM.EmErrItem.MoveProtect);
-                    return EM_RES.MOVE_PROTECT;
-                }
-            }
+                if (id != traybox.ax_z.id) continue;
 
-            if (id == MT.AXIS_UDL_OK_Z.id)
-            {
-                if ((Math.Abs(MT.AXIS_UDL_OK_X.fenc_pos) > COM.traybox_ok.fd_safe_x + 1) && (Math.Abs(targe_pos - MT.AXIS_UDL_OK_Z.fenc_pos) > COM.traybox_ok.tray_feed_ofs_h + 0.1))
+                if ((Math.Abs(traybox.ax_x.fenc_pos) > traybox.fd_safe_x + 1) &&
+                    (Math.Abs(targe_pos - traybox.ax_z.fenc_pos) > traybox.tray_feed_ofs_h + 0.1))
                 {
-                    VAR.msg.AddMsg(Msg.EM_MSGTYPE.ERR, VAR.IsChinese ? string.Format("OK料仓X轴插入OK料仓，OK料Z轴移动距离{0}大于{1}!", (Math.Abs(targe_pos - MT.AXIS_UDL_OK_Z.fenc_pos)), COM.traybox_ok.tray_feed_ofs_h) : string.Format("OK Box x axis insert in to OK Box，OK Box z axis's moving distance{0} over {1}!         (OK料仓X轴插入OK料仓，OK料Z轴移动距离{0}大于{1}!)", (Math.Abs(targe_pos - MT.AXIS_UDL_OK_Z.fenc_pos)), COM.traybox_ok.tray_feed_ofs_h), DReport.EmErrCode.SoftwareProtect, (int)DReport.EmHareware.Axis + id, ERR_ALM.EmErrItem.MoveProtect);
+                    string zhMsg = string.Format("{0}X轴插入{0}，{0}Z轴移动距离{1}大于{2}!",
+                        traybox.disc,
+                        Math.Abs(targe_pos - traybox.ax_z.fenc_pos),
+                        traybox.tray_feed_ofs_h);
+                    string enMsg = string.Format("{0} x axis insert in to {0}, {0} z axis moving distance {1} over {2}!       ({3})",
+                        traybox.name,
+                        Math.Abs(targe_pos - traybox.ax_z.fenc_pos),
+                        traybox.tray_feed_ofs_h,
+                        zhMsg);
+                    VAR.msg.AddMsg(Msg.EM_MSGTYPE.ERR, VAR.IsChinese ? zhMsg : enMsg,
+                        DReport.EmErrCode.SoftwareProtect, (int)DReport.EmHareware.Axis + id, ERR_ALM.EmErrItem.MoveProtect);
                     return EM_RES.MOVE_PROTECT;
                 }
             }

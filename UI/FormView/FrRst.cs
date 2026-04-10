@@ -195,12 +195,12 @@ namespace UI
             SetBtnStatusColor(btn_udl1_u1, MT.AXIS_UDL1_U1.home_status, bflag);
             SetBtnStatusColor(btn_udl1_u2, MT.AXIS_UDL1_U2.home_status, bflag);
 
-            SetBtnStatusColor(btn_traybox_fd_z, MT.AXIS_UDL_FD_Z.home_status, bflag);
-            SetBtnStatusColor(btn_traybox_fd_x, MT.AXIS_UDL_FD_X.home_status, bflag);
-            SetBtnStatusColor(btn_traybox_ok_z, MT.AXIS_UDL_OK_Z.home_status, bflag);
-            SetBtnStatusColor(btn_traybox_ok_x, MT.AXIS_UDL_OK_X.home_status, bflag);
-            SetBtnStatusColor(btn_traybox_ng_z, MT.AXIS_UDL_NG_Z.home_status, bflag);
-            SetBtnStatusColor(btn_traybox_ng_x, MT.AXIS_UDL_NG_X.home_status, bflag);
+            SetBtnStatusColor(btn_traybox_fd_z, COM.traybox_fd.ax_z.home_status, bflag);
+            SetBtnStatusColor(btn_traybox_fd_x, COM.traybox_fd.ax_x.home_status, bflag);
+            SetBtnStatusColor(btn_traybox_ok_z, COM.traybox_ok.ax_z.home_status, bflag);
+            SetBtnStatusColor(btn_traybox_ok_x, COM.traybox_ok.ax_x.home_status, bflag);
+            SetBtnStatusColor(btn_traybox_ng_z, COM.traybox_ng.ax_z.home_status, bflag);
+            SetBtnStatusColor(btn_traybox_ng_x, COM.traybox_ng.ax_x.home_status, bflag);
 
             //WS1
             //SetBtnStatusColor(btn_zt_ws1_f, COM.ws1.ax_fr.home_status, bflag);

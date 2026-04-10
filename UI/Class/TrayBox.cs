@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.IO;
@@ -14,6 +14,13 @@ namespace UI
 {
     public class TrayBox
     {
+        public enum EM_ROLE
+        {
+            FEED,
+            OK,
+            NG
+        }
+
         //料盘
         public List<Product.Tray> list_tray = new List<Product.Tray>();
         public List<EM_STA> list_sta = new List<EM_STA>();
@@ -68,6 +75,7 @@ namespace UI
 
         public string name;
         public string disc;
+        public EM_ROLE role = EM_ROLE.FEED;
         public bool IsReady = true;
         //TRAY参数
         /// <summary>
@@ -199,12 +207,22 @@ namespace UI
             }
         }
 
+        public bool IsFeedTray => role == EM_ROLE.FEED;
+        public bool IsOkTray => role == EM_ROLE.OK;
+        public bool IsNgTray => role == EM_ROLE.NG;
+
         //初始化
         public TrayBox(string name = "未定义", string disc = "料仓", EM_DIR dir = EM_DIR.IN_OUT, int cnt = 10, AXIS ax_x = null, AXIS ax_z = null, GPIO in_box_sen = null, GPIO in_tray_sen = null, GPIO out_tray_hd = null, GPIO in_tray_hd = null, Cylinder cy_hd = null)
+            : this(name, disc, EM_ROLE.FEED, dir, cnt, ax_x, ax_z, in_box_sen, in_tray_sen, out_tray_hd, in_tray_hd, cy_hd)
+        {
+        }
+
+        public TrayBox(string name, string disc, EM_ROLE role, EM_DIR dir, int cnt, AXIS ax_x = null, AXIS ax_z = null, GPIO in_box_sen = null, GPIO in_tray_sen = null, GPIO out_tray_hd = null, GPIO in_tray_hd = null, Cylinder cy_hd = null)
         {
             this.direction = dir;
             this.name = name;
             this.disc = disc;
+            this.role = role;
             this.m_tray_cnt = cnt;
             this.ax_x = ax_x;
             this.ax_z = ax_z;

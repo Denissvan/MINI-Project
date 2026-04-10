@@ -44,7 +44,7 @@ namespace UI
         public static MesWaitWarning mesWaitWarning = new MesWaitWarning(MesProductType.MINI);
 
 
-        public static TrayBox traybox_fd = new TrayBox("TrayBox_FD", "供料仓", TrayBox.EM_DIR.IN_OUT, 10, MT.AXIS_UDL_FD_X,
+        public static TrayBox traybox_fd = new TrayBox("TrayBox_FD", "供料仓", TrayBox.EM_ROLE.FEED, TrayBox.EM_DIR.IN_OUT, 10, MT.AXIS_UDL_FD_X,
             MT.AXIS_UDL_FD_Z, MT.GPIO_IN_UL_INP_FD_TRAYBOX, MT.GPIO_IN_UL_RDY_FD_TRAY, MT.GPIO_OUT_UL_FD_TRAY,
             MT.GPIO_IN_UDL_FD_TRAY_ON, MT.CLD_UDL_FDTRAY_HD);
 
@@ -54,16 +54,32 @@ namespace UI
 
         public static List<TrayBox> List_traybox = new List<TrayBox>() { traybox_fd, traybox_ok, traybox_ng };
 
+        public static string GetStartupModeDescription()
+        {
+            return RuntimeMachineMode.IsTrayBoxSwapped ? "料仓互换版" : "普通版本";
+        }
+
+        public static string DescribeTrayBoxMapping(TrayBox traybox)
+        {
+            string cfgFile = Path.GetFileName(traybox.strCfgPath);
+            return string.Format("{0}映射: 逻辑={1}, 物理轴={2}/{3}, 配置={4}",
+                traybox.disc,
+                traybox.role,
+                traybox.ax_x.disc,
+                traybox.ax_z.disc,
+                cfgFile);
+        }
+
         private static TrayBox CreateTrayBoxOk()
         {
             if (RuntimeMachineMode.IsTrayBoxSwapped)
             {
-                return new TrayBox("TrayBox_NG", "OK料仓", TrayBox.EM_DIR.IN_OUT, 10, MT.AXIS_UDL_NG_X,
+                return new TrayBox("TrayBox_NG", "OK料仓", TrayBox.EM_ROLE.OK, TrayBox.EM_DIR.IN_OUT, 10, MT.AXIS_UDL_NG_X,
                     MT.AXIS_UDL_NG_Z, MT.GPIO_IN_DL_INP_NG_TRAYBOX, MT.GPIO_IN_DL_RDY_NG_TRAY, MT.GPIO_OUT_DL_NG_TRAY,
                     MT.GPIO_IN_UDL_NG_TRAY_ON, MT.CLD_UDL_NGTRAY_HD);
             }
 
-            return new TrayBox("TrayBox_OK", "OK料仓", TrayBox.EM_DIR.IN_OUT, 10, MT.AXIS_UDL_OK_X,
+            return new TrayBox("TrayBox_OK", "OK料仓", TrayBox.EM_ROLE.OK, TrayBox.EM_DIR.IN_OUT, 10, MT.AXIS_UDL_OK_X,
                 MT.AXIS_UDL_OK_Z, MT.GPIO_IN_DL_INP_OK_TRAYBOX, MT.GPIO_IN_DL_RDY_OK_TRAY, MT.GPIO_OUT_DL_OK_TRAY,
                 MT.GPIO_IN_UDL_OK_TRAY_ON, MT.CLD_UDL_OKTRAY_HD);
         }
@@ -72,12 +88,12 @@ namespace UI
         {
             if (RuntimeMachineMode.IsTrayBoxSwapped)
             {
-                return new TrayBox("TrayBox_OK", "NG料仓", TrayBox.EM_DIR.IN_OUT, 10, MT.AXIS_UDL_OK_X,
+                return new TrayBox("TrayBox_OK", "NG料仓", TrayBox.EM_ROLE.NG, TrayBox.EM_DIR.IN_OUT, 10, MT.AXIS_UDL_OK_X,
                     MT.AXIS_UDL_OK_Z, MT.GPIO_IN_DL_INP_OK_TRAYBOX, MT.GPIO_IN_DL_RDY_OK_TRAY, MT.GPIO_OUT_DL_OK_TRAY,
                     MT.GPIO_IN_UDL_OK_TRAY_ON, MT.CLD_UDL_OKTRAY_HD);
             }
 
-            return new TrayBox("TrayBox_NG", "NG料仓", TrayBox.EM_DIR.IN_OUT, 10, MT.AXIS_UDL_NG_X,
+            return new TrayBox("TrayBox_NG", "NG料仓", TrayBox.EM_ROLE.NG, TrayBox.EM_DIR.IN_OUT, 10, MT.AXIS_UDL_NG_X,
                 MT.AXIS_UDL_NG_Z, MT.GPIO_IN_DL_INP_NG_TRAYBOX, MT.GPIO_IN_DL_RDY_NG_TRAY, MT.GPIO_OUT_DL_NG_TRAY,
                 MT.GPIO_IN_UDL_NG_TRAY_ON, MT.CLD_UDL_NGTRAY_HD);
         }
@@ -159,6 +175,10 @@ namespace UI
         public static List<UpDownLoad> List_UDLoad;
         public static EM_RES TrayBoxInit(string productname = "")
         {
+            VAR.msg.AddMsg(Msg.EM_MSGTYPE.SYS, VAR.IsChinese
+                ? string.Format("启动模式:{0}", GetStartupModeDescription())
+                : string.Format("Startup mode: {0}     (启动模式:{0})", GetStartupModeDescription()));
+
             foreach (TrayBox traybox in COM.List_traybox)
             {
                 EM_RES ret = traybox.LoadCfg(productname);
@@ -169,6 +189,16 @@ namespace UI
                     return ret;
 
                 }
+
+                VAR.msg.AddMsg(Msg.EM_MSGTYPE.SYS, VAR.IsChinese
+                    ? DescribeTrayBoxMapping(traybox)
+                    : string.Format("{0} mapping: logical={1}, axis={2}/{3}, cfg={4}     ({5})",
+                        traybox.name,
+                        traybox.role,
+                        traybox.ax_x.disc,
+                        traybox.ax_z.disc,
+                        Path.GetFileName(traybox.strCfgPath),
+                        DescribeTrayBoxMapping(traybox)));
             }
 
             VAR.msg.AddMsg(Msg.EM_MSGTYPE.NOR, VAR.IsChinese ? "仓储参数成功！" : "Load Traybox parameter successfully!     (仓储参数成功！)");
@@ -1727,6 +1757,11 @@ namespace UI
                     //if (VAR.gsys_set.isChkMode && !bfeed)
                     //    workstation.TestStatus = WS.EM_TEST_STA.EMPTY;
                     workstation.Iserrfirstbox = true;
+                    if (workstation.bStartupInitPending && workstation.FeedStatus != WS.EM_STA.REDAYFORUPDOWNLOAD)
+                    {
+                        workstation.FeedStatus = WS.EM_STA.REDAYFORUPDOWNLOAD;
+                        VAR.msg.AddMsg(Msg.EM_MSGTYPE.DBG, string.Format("{0} 首轮初始化后强制先上下料,禁止直接启动测试", workstation.disc));
+                    }
                     bool hasUntestedEnabledMd = false;
                     foreach (MdDat md in workstation.list_md)
                     {
@@ -1740,6 +1775,24 @@ namespace UI
                     bool readyByCompleted = bfeed && (workstation.TestStatus == WS.EM_TEST_STA.COMPLETED || workstation.bUpDnAddTestWaitUnload || workstation.bResultWaitUnload);
                     bool readyByEmpty = wsenable && workstation.TestStatus == WS.EM_TEST_STA.EMPTY && !VAR.ClearMt;
                     bool readyByFeedStatus = workstation.FeedStatus == WS.EM_STA.REDAYFORUPDOWNLOAD || workstation.bUpDnAddTestWaitUnload || workstation.bResultWaitUnload;
+
+                    if (workstation.bFreshLoadPending && !workstation.bResultWaitUnload)
+                    {
+                        if (readyByCompleted)
+                        {
+                            VAR.msg.AddMsg(Msg.EM_MSGTYPE.WAR,
+                                string.Format("{0} 阻止按完成态再次上下料,原因=存在新上料未建测试会话,TestStatus={1},FeedStatus={2}",
+                                workstation.disc, workstation.TestStatus, workstation.FeedStatus));
+                        }
+                        if (readyByFeedStatus)
+                        {
+                            VAR.msg.AddMsg(Msg.EM_MSGTYPE.WAR,
+                                string.Format("{0} 阻止按准备上下料状态再次上下料,原因=存在新上料未建测试会话,TestStatus={1},FeedStatus={2}",
+                                workstation.disc, workstation.TestStatus, workstation.FeedStatus));
+                        }
+                        readyByCompleted = false;
+                        readyByFeedStatus = false;
+                    }
 
                     if (hasUntestedEnabledMd)
                     {

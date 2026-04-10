@@ -3,14 +3,14 @@ namespace UI
     partial class FrMain
     {
         /// <summary>
-        /// ÂøÖÈúÄÁöÑËÆæËÆ°Âô®ÂèòÈáè„ÄÇ
+        /// ±ÿ–Ëµƒ…Ëº∆∆˜±‰¡ø°£
         /// </summary>
         private System.ComponentModel.IContainer components = null;
 
         /// <summary>
-        /// Ê∏ÖÁêÜÊâÄÊúâÊ≠£Âú®‰ΩøÁî®ÁöÑËµÑÊ∫ê„ÄÇ
+        /// «Â¿ÌÀ˘”–’˝‘⁄ π”√µƒ◊ ‘¥°£
         /// </summary>
-        /// <param name="disposing">Â¶ÇÊûúÂ∫îÈáäÊîæÊâòÁÆ°ËµÑÊ∫êÔºå‰∏∫ trueÔºõÂê¶Âàô‰∏∫ false„ÄÇ</param>
+        /// <param name="disposing">»Áπ˚”¶ Õ∑≈Õ–π‹◊ ‘¥£¨Œ™ true£ª∑Ò‘ÚŒ™ false°£</param>
         protected override void Dispose(bool disposing)
         {
             if (disposing && (components != null))
@@ -20,11 +20,11 @@ namespace UI
             base.Dispose(disposing);
         }
 
-        #region Windows Á™ó‰ΩìËÆæËÆ°Âô®ÁîüÊàêÁöÑ‰ª£Á†Å
+        #region Windows ¥∞ÃÂ…Ëº∆∆˜…˙≥…µƒ¥˙¬Î
 
         /// <summary>
-        /// ËÆæËÆ°Âô®ÊîØÊåÅÊâÄÈúÄÁöÑÊñπÊ≥ï - ‰∏çË¶Å‰øÆÊîπ
-        /// ‰ΩøÁî®‰ª£Á†ÅÁºñËæëÂô®‰øÆÊîπÊ≠§ÊñπÊ≥ïÁöÑÂÜÖÂÆπ„ÄÇ
+        /// …Ëº∆∆˜÷ß≥÷À˘–Ëµƒ∑Ω∑® - ≤ª“™–ﬁ∏ƒ
+        ///  π”√¥˙¬Î±‡º≠∆˜–ﬁ∏ƒ¥À∑Ω∑®µƒƒ⁄»›°£
         /// </summary>
         private void InitializeComponent()
         {
@@ -160,7 +160,7 @@ namespace UI
             this.lbl_update.Name = "lbl_update";
             this.lbl_update.Size = new System.Drawing.Size(60, 27);
             this.lbl_update.TabIndex = 70;
-            this.lbl_update.Text = "Ê£Ä";
+            this.lbl_update.Text = "ºÏ";
             this.lbl_update.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             this.lbl_update.Click += new System.EventHandler(this.lbl_update_Click);
             // 
@@ -255,7 +255,7 @@ namespace UI
             this.lb_ver.Name = "lb_ver";
             this.lb_ver.Size = new System.Drawing.Size(276, 25);
             this.lb_ver.TabIndex = 49;
-            this.lb_ver.Text = "ÂÆÅÊ≥¢ËàúÂÆáÂÖâÁîµ‰ø°ÊÅØÊúâÈôêÂÖ¨Âè∏";
+            this.lb_ver.Text = "ƒ˛≤®À¥”Óπ‚µÁ–≈œ¢”–œﬁπ´Àæ";
             this.lb_ver.Click += new System.EventHandler(this.Minimized_Click);
             // 
             // rbtn_rst
@@ -410,14 +410,14 @@ namespace UI
             this.toolStripMenuItem1.ForeColor = System.Drawing.Color.Gray;
             this.toolStripMenuItem1.Name = "toolStripMenuItem1";
             this.toolStripMenuItem1.Size = new System.Drawing.Size(49, 26);
-            this.toolStripMenuItem1.Text = "ËØ≠Ë®Ä";
+            this.toolStripMenuItem1.Text = "”Ô—‘";
             // 
             // chineseToolStripMenuItem
             // 
             this.chineseToolStripMenuItem.ForeColor = System.Drawing.Color.Gray;
             this.chineseToolStripMenuItem.Name = "chineseToolStripMenuItem";
             this.chineseToolStripMenuItem.Size = new System.Drawing.Size(138, 22);
-            this.chineseToolStripMenuItem.Text = "‰∏≠Êñá";
+            this.chineseToolStripMenuItem.Text = "÷–Œƒ";
             this.chineseToolStripMenuItem.Click += new System.EventHandler(this.languageToolStripMenuItem_Click);
             // 
             // englishToolStripMenuItem
@@ -425,14 +425,14 @@ namespace UI
             this.englishToolStripMenuItem.ForeColor = System.Drawing.Color.Gray;
             this.englishToolStripMenuItem.Name = "englishToolStripMenuItem";
             this.englishToolStripMenuItem.Size = new System.Drawing.Size(138, 22);
-            this.englishToolStripMenuItem.Text = "Ëã±ËØ≠";
+            this.englishToolStripMenuItem.Text = "”¢”Ô";
             this.englishToolStripMenuItem.Click += new System.EventHandler(this.languageToolStripMenuItem_Click);
             // 
             // vietnameseToolStripMenuItem
             // 
             this.vietnameseToolStripMenuItem.Name = "vietnameseToolStripMenuItem";
             this.vietnameseToolStripMenuItem.Size = new System.Drawing.Size(138, 22);
-            this.vietnameseToolStripMenuItem.Text = "Ti·∫øng Vi·ªát ";
+            this.vietnameseToolStripMenuItem.Text = "Ti?ng Vi?t ";
             this.vietnameseToolStripMenuItem.Click += new System.EventHandler(this.languageToolStripMenuItem_Click);
             // 
             // pnl_sub
@@ -528,7 +528,7 @@ namespace UI
             this.tsb_1xp.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.tsb_1xp.Name = "tsb_1xp";
             this.tsb_1xp.Size = new System.Drawing.Size(121, 70);
-            this.tsb_1xp.Text = "1-XÂ§ñÁßª";
+            this.tsb_1xp.Text = "1-XÕ‚“∆";
             this.tsb_1xp.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
             this.tsb_1xp.MouseDown += new System.Windows.Forms.MouseEventHandler(this.tsb_xn_MouseDown);
             this.tsb_1xp.MouseUp += new System.Windows.Forms.MouseEventHandler(this.tsb_xn_MouseUp);
@@ -550,7 +550,7 @@ namespace UI
             this.tsb_1xn.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.tsb_1xn.Name = "tsb_1xn";
             this.tsb_1xn.Size = new System.Drawing.Size(121, 70);
-            this.tsb_1xn.Text = "1-XÂÜÖÁßª";
+            this.tsb_1xn.Text = "1-Xƒ⁄“∆";
             this.tsb_1xn.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
             this.tsb_1xn.MouseDown += new System.Windows.Forms.MouseEventHandler(this.tsb_xn_MouseDown);
             this.tsb_1xn.MouseUp += new System.Windows.Forms.MouseEventHandler(this.tsb_xn_MouseUp);
@@ -572,9 +572,9 @@ namespace UI
             this.tsb_1yp.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.tsb_1yp.Name = "tsb_1yp";
             this.tsb_1yp.Size = new System.Drawing.Size(121, 70);
-            this.tsb_1yp.Text = "1-YÂ∑¶Áßª";
+            this.tsb_1yp.Text = "1-Y◊Û“∆";
             this.tsb_1yp.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
-            this.tsb_1yp.ToolTipText = "YÂêëÂâç";
+            this.tsb_1yp.ToolTipText = "YœÚ«∞";
             this.tsb_1yp.MouseDown += new System.Windows.Forms.MouseEventHandler(this.tsb_xn_MouseDown);
             this.tsb_1yp.MouseUp += new System.Windows.Forms.MouseEventHandler(this.tsb_xn_MouseUp);
             // 
@@ -595,9 +595,9 @@ namespace UI
             this.tsb_1yn.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.tsb_1yn.Name = "tsb_1yn";
             this.tsb_1yn.Size = new System.Drawing.Size(121, 70);
-            this.tsb_1yn.Text = "1-YÂè≥Áßª";
+            this.tsb_1yn.Text = "1-Y”““∆";
             this.tsb_1yn.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
-            this.tsb_1yn.ToolTipText = "YÂêëÂêé";
+            this.tsb_1yn.ToolTipText = "YœÚ∫Û";
             this.tsb_1yn.MouseDown += new System.Windows.Forms.MouseEventHandler(this.tsb_xn_MouseDown);
             this.tsb_1yn.MouseUp += new System.Windows.Forms.MouseEventHandler(this.tsb_xn_MouseUp);
             // 
@@ -618,9 +618,9 @@ namespace UI
             this.tsb_1zp.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.tsb_1zp.Name = "tsb_1zp";
             this.tsb_1zp.Size = new System.Drawing.Size(121, 70);
-            this.tsb_1zp.Text = "1-ZÂ§ñËΩ¨";
+            this.tsb_1zp.Text = "1-ZÕ‚◊™";
             this.tsb_1zp.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
-            this.tsb_1zp.ToolTipText = "ZÂêë‰∏ä";
+            this.tsb_1zp.ToolTipText = "ZœÚ…œ";
             this.tsb_1zp.MouseDown += new System.Windows.Forms.MouseEventHandler(this.tsb_xn_MouseDown);
             this.tsb_1zp.MouseUp += new System.Windows.Forms.MouseEventHandler(this.tsb_xn_MouseUp);
             // 
@@ -641,9 +641,9 @@ namespace UI
             this.tsb_1zn.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.tsb_1zn.Name = "tsb_1zn";
             this.tsb_1zn.Size = new System.Drawing.Size(121, 70);
-            this.tsb_1zn.Text = "1-ZÂÜÖËΩ¨";
+            this.tsb_1zn.Text = "1-Zƒ⁄◊™";
             this.tsb_1zn.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
-            this.tsb_1zn.ToolTipText = "ZÂêë‰∏ã";
+            this.tsb_1zn.ToolTipText = "ZœÚœ¬";
             this.tsb_1zn.MouseDown += new System.Windows.Forms.MouseEventHandler(this.tsb_xn_MouseDown);
             this.tsb_1zn.MouseUp += new System.Windows.Forms.MouseEventHandler(this.tsb_xn_MouseUp);
             // 
@@ -664,9 +664,9 @@ namespace UI
             this.tsb_1u1n.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.tsb_1u1n.Name = "tsb_1u1n";
             this.tsb_1u1n.Size = new System.Drawing.Size(121, 70);
-            this.tsb_1u1n.Text = "1-U1È°∫Êó∂";
+            this.tsb_1u1n.Text = "1-U1À≥ ±";
             this.tsb_1u1n.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
-            this.tsb_1u1n.ToolTipText = "R1È°∫Êó∂Èíà";
+            this.tsb_1u1n.ToolTipText = "R1À≥ ±’Î";
             this.tsb_1u1n.MouseDown += new System.Windows.Forms.MouseEventHandler(this.tsb_xn_MouseDown);
             this.tsb_1u1n.MouseUp += new System.Windows.Forms.MouseEventHandler(this.tsb_xn_MouseUp);
             // 
@@ -687,7 +687,7 @@ namespace UI
             this.tsb_1u1p.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.tsb_1u1p.Name = "tsb_1u1p";
             this.tsb_1u1p.Size = new System.Drawing.Size(121, 70);
-            this.tsb_1u1p.Text = "1-U1ÈÄÜÊó∂";
+            this.tsb_1u1p.Text = "1-U1ƒÊ ±";
             this.tsb_1u1p.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
             this.tsb_1u1p.MouseDown += new System.Windows.Forms.MouseEventHandler(this.tsb_xn_MouseDown);
             this.tsb_1u1p.MouseUp += new System.Windows.Forms.MouseEventHandler(this.tsb_xn_MouseUp);
@@ -709,7 +709,7 @@ namespace UI
             this.tsb_1u2n.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.tsb_1u2n.Name = "tsb_1u2n";
             this.tsb_1u2n.Size = new System.Drawing.Size(121, 70);
-            this.tsb_1u2n.Text = "1-U2È°∫Êó∂";
+            this.tsb_1u2n.Text = "1-U2À≥ ±";
             this.tsb_1u2n.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
             this.tsb_1u2n.MouseDown += new System.Windows.Forms.MouseEventHandler(this.tsb_xn_MouseDown);
             this.tsb_1u2n.MouseUp += new System.Windows.Forms.MouseEventHandler(this.tsb_xn_MouseUp);
@@ -731,7 +731,7 @@ namespace UI
             this.tsb_1u2p.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.tsb_1u2p.Name = "tsb_1u2p";
             this.tsb_1u2p.Size = new System.Drawing.Size(121, 70);
-            this.tsb_1u2p.Text = "1-U2ÈÄÜÊó∂";
+            this.tsb_1u2p.Text = "1-U2ƒÊ ±";
             this.tsb_1u2p.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
             this.tsb_1u2p.MouseDown += new System.Windows.Forms.MouseEventHandler(this.tsb_xn_MouseDown);
             this.tsb_1u2p.MouseUp += new System.Windows.Forms.MouseEventHandler(this.tsb_xn_MouseUp);
@@ -753,8 +753,8 @@ namespace UI
             this.tsb_stop.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.tsb_stop.Name = "tsb_stop";
             this.tsb_stop.Size = new System.Drawing.Size(121, 70);
-            this.tsb_stop.Text = "ÂÅúÊ≠¢";
-            this.tsb_stop.ToolTipText = "ÂÅúÊ≠¢";
+            this.tsb_stop.Text = "Õ£÷π";
+            this.tsb_stop.ToolTipText = "Õ£÷π";
             this.tsb_stop.Click += new System.EventHandler(this.tsb_stop_Click);
             // 
             // ts_manual2
@@ -790,7 +790,7 @@ namespace UI
             this.ts_manual2.LayoutStyle = System.Windows.Forms.ToolStripLayoutStyle.VerticalStackWithOverflow;
             this.ts_manual2.Location = new System.Drawing.Point(1151, 54);
             this.ts_manual2.Name = "ts_manual2";
-            this.ts_manual2.Size = new System.Drawing.Size(126, 915);
+            this.ts_manual2.Size = new System.Drawing.Size(124, 915);
             this.ts_manual2.TabIndex = 2;
             this.ts_manual2.Visible = false;
             // 
@@ -805,13 +805,13 @@ namespace UI
             "1mm",
             "10mm"});
             this.tsc_step_sel2.Name = "tsc_step_sel2";
-            this.tsc_step_sel2.Size = new System.Drawing.Size(122, 44);
+            this.tsc_step_sel2.Size = new System.Drawing.Size(120, 44);
             this.tsc_step_sel2.SelectedIndexChanged += new System.EventHandler(this.tsc_step_sel_SelectedIndexChanged);
             // 
             // toolStripSeparator4
             // 
             this.toolStripSeparator4.Name = "toolStripSeparator4";
-            this.toolStripSeparator4.Size = new System.Drawing.Size(124, 6);
+            this.toolStripSeparator4.Size = new System.Drawing.Size(122, 6);
             // 
             // tsb_2xp
             // 
@@ -824,7 +824,7 @@ namespace UI
             this.tsb_2xp.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.tsb_2xp.Name = "tsb_2xp";
             this.tsb_2xp.Size = new System.Drawing.Size(121, 70);
-            this.tsb_2xp.Text = "2-XÂ§ñÁßª";
+            this.tsb_2xp.Text = "2-XÕ‚“∆";
             this.tsb_2xp.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
             this.tsb_2xp.MouseDown += new System.Windows.Forms.MouseEventHandler(this.tsb_xn_MouseDown);
             this.tsb_2xp.MouseUp += new System.Windows.Forms.MouseEventHandler(this.tsb_xn_MouseUp);
@@ -833,7 +833,7 @@ namespace UI
             // 
             this.toolStripSeparator5.BackColor = System.Drawing.SystemColors.Control;
             this.toolStripSeparator5.Name = "toolStripSeparator5";
-            this.toolStripSeparator5.Size = new System.Drawing.Size(124, 6);
+            this.toolStripSeparator5.Size = new System.Drawing.Size(122, 6);
             // 
             // tsb_2xn
             // 
@@ -846,7 +846,7 @@ namespace UI
             this.tsb_2xn.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.tsb_2xn.Name = "tsb_2xn";
             this.tsb_2xn.Size = new System.Drawing.Size(121, 70);
-            this.tsb_2xn.Text = "2-XÂÜÖÁßª";
+            this.tsb_2xn.Text = "2-Xƒ⁄“∆";
             this.tsb_2xn.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
             this.tsb_2xn.MouseDown += new System.Windows.Forms.MouseEventHandler(this.tsb_xn_MouseDown);
             this.tsb_2xn.MouseUp += new System.Windows.Forms.MouseEventHandler(this.tsb_xn_MouseUp);
@@ -855,7 +855,7 @@ namespace UI
             // 
             this.toolStripSeparator6.BackColor = System.Drawing.SystemColors.Control;
             this.toolStripSeparator6.Name = "toolStripSeparator6";
-            this.toolStripSeparator6.Size = new System.Drawing.Size(124, 6);
+            this.toolStripSeparator6.Size = new System.Drawing.Size(122, 6);
             // 
             // tsb_2yp
             // 
@@ -868,9 +868,9 @@ namespace UI
             this.tsb_2yp.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.tsb_2yp.Name = "tsb_2yp";
             this.tsb_2yp.Size = new System.Drawing.Size(121, 70);
-            this.tsb_2yp.Text = "2-YÂ∑¶Áßª";
+            this.tsb_2yp.Text = "2-Y◊Û“∆";
             this.tsb_2yp.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
-            this.tsb_2yp.ToolTipText = "YÂêëÂâç";
+            this.tsb_2yp.ToolTipText = "YœÚ«∞";
             this.tsb_2yp.MouseDown += new System.Windows.Forms.MouseEventHandler(this.tsb_xn_MouseDown);
             this.tsb_2yp.MouseUp += new System.Windows.Forms.MouseEventHandler(this.tsb_xn_MouseUp);
             // 
@@ -878,7 +878,7 @@ namespace UI
             // 
             this.toolStripSeparator7.BackColor = System.Drawing.SystemColors.Control;
             this.toolStripSeparator7.Name = "toolStripSeparator7";
-            this.toolStripSeparator7.Size = new System.Drawing.Size(124, 6);
+            this.toolStripSeparator7.Size = new System.Drawing.Size(122, 6);
             // 
             // tsb_2yn
             // 
@@ -891,9 +891,9 @@ namespace UI
             this.tsb_2yn.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.tsb_2yn.Name = "tsb_2yn";
             this.tsb_2yn.Size = new System.Drawing.Size(121, 70);
-            this.tsb_2yn.Text = "2-YÂè≥Áßª";
+            this.tsb_2yn.Text = "2-Y”““∆";
             this.tsb_2yn.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
-            this.tsb_2yn.ToolTipText = "YÂêëÂêé";
+            this.tsb_2yn.ToolTipText = "YœÚ∫Û";
             this.tsb_2yn.MouseDown += new System.Windows.Forms.MouseEventHandler(this.tsb_xn_MouseDown);
             this.tsb_2yn.MouseUp += new System.Windows.Forms.MouseEventHandler(this.tsb_xn_MouseUp);
             // 
@@ -901,7 +901,7 @@ namespace UI
             // 
             this.toolStripSeparator8.BackColor = System.Drawing.SystemColors.Control;
             this.toolStripSeparator8.Name = "toolStripSeparator8";
-            this.toolStripSeparator8.Size = new System.Drawing.Size(124, 6);
+            this.toolStripSeparator8.Size = new System.Drawing.Size(122, 6);
             // 
             // tsb_2zp
             // 
@@ -914,9 +914,9 @@ namespace UI
             this.tsb_2zp.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.tsb_2zp.Name = "tsb_2zp";
             this.tsb_2zp.Size = new System.Drawing.Size(121, 70);
-            this.tsb_2zp.Text = "2-ZÂ§ñËΩ¨";
+            this.tsb_2zp.Text = "2-ZÕ‚◊™";
             this.tsb_2zp.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
-            this.tsb_2zp.ToolTipText = "ZÂêë‰∏ä";
+            this.tsb_2zp.ToolTipText = "ZœÚ…œ";
             this.tsb_2zp.MouseDown += new System.Windows.Forms.MouseEventHandler(this.tsb_xn_MouseDown);
             this.tsb_2zp.MouseUp += new System.Windows.Forms.MouseEventHandler(this.tsb_xn_MouseUp);
             // 
@@ -924,7 +924,7 @@ namespace UI
             // 
             this.toolStripSeparator9.BackColor = System.Drawing.SystemColors.Control;
             this.toolStripSeparator9.Name = "toolStripSeparator9";
-            this.toolStripSeparator9.Size = new System.Drawing.Size(124, 6);
+            this.toolStripSeparator9.Size = new System.Drawing.Size(122, 6);
             // 
             // tsb_2zn
             // 
@@ -937,9 +937,9 @@ namespace UI
             this.tsb_2zn.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.tsb_2zn.Name = "tsb_2zn";
             this.tsb_2zn.Size = new System.Drawing.Size(121, 70);
-            this.tsb_2zn.Text = "2-ZÂÜÖËΩ¨";
+            this.tsb_2zn.Text = "2-Zƒ⁄◊™";
             this.tsb_2zn.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
-            this.tsb_2zn.ToolTipText = "2-ZÂÜÖËΩ¨";
+            this.tsb_2zn.ToolTipText = "2-Zƒ⁄◊™";
             this.tsb_2zn.MouseDown += new System.Windows.Forms.MouseEventHandler(this.tsb_xn_MouseDown);
             this.tsb_2zn.MouseUp += new System.Windows.Forms.MouseEventHandler(this.tsb_xn_MouseUp);
             // 
@@ -947,7 +947,7 @@ namespace UI
             // 
             this.toolStripSeparator10.BackColor = System.Drawing.SystemColors.Control;
             this.toolStripSeparator10.Name = "toolStripSeparator10";
-            this.toolStripSeparator10.Size = new System.Drawing.Size(124, 6);
+            this.toolStripSeparator10.Size = new System.Drawing.Size(122, 6);
             // 
             // tsb_2u1n
             // 
@@ -960,9 +960,9 @@ namespace UI
             this.tsb_2u1n.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.tsb_2u1n.Name = "tsb_2u1n";
             this.tsb_2u1n.Size = new System.Drawing.Size(121, 70);
-            this.tsb_2u1n.Text = "2-U1È°∫Êó∂";
+            this.tsb_2u1n.Text = "2-U1À≥ ±";
             this.tsb_2u1n.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
-            this.tsb_2u1n.ToolTipText = "2-U1È°∫Êó∂";
+            this.tsb_2u1n.ToolTipText = "2-U1À≥ ±";
             this.tsb_2u1n.MouseDown += new System.Windows.Forms.MouseEventHandler(this.tsb_xn_MouseDown);
             this.tsb_2u1n.MouseUp += new System.Windows.Forms.MouseEventHandler(this.tsb_xn_MouseUp);
             // 
@@ -970,7 +970,7 @@ namespace UI
             // 
             this.toolStripSeparator11.BackColor = System.Drawing.SystemColors.Control;
             this.toolStripSeparator11.Name = "toolStripSeparator11";
-            this.toolStripSeparator11.Size = new System.Drawing.Size(124, 6);
+            this.toolStripSeparator11.Size = new System.Drawing.Size(122, 6);
             // 
             // tsb_2u1p
             // 
@@ -983,7 +983,7 @@ namespace UI
             this.tsb_2u1p.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.tsb_2u1p.Name = "tsb_2u1p";
             this.tsb_2u1p.Size = new System.Drawing.Size(121, 70);
-            this.tsb_2u1p.Text = "2-U1ÈÄÜÊó∂";
+            this.tsb_2u1p.Text = "2-U1ƒÊ ±";
             this.tsb_2u1p.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
             this.tsb_2u1p.MouseDown += new System.Windows.Forms.MouseEventHandler(this.tsb_xn_MouseDown);
             this.tsb_2u1p.MouseUp += new System.Windows.Forms.MouseEventHandler(this.tsb_xn_MouseUp);
@@ -992,7 +992,7 @@ namespace UI
             // 
             this.toolStripSeparator18.BackColor = System.Drawing.SystemColors.Control;
             this.toolStripSeparator18.Name = "toolStripSeparator18";
-            this.toolStripSeparator18.Size = new System.Drawing.Size(124, 6);
+            this.toolStripSeparator18.Size = new System.Drawing.Size(122, 6);
             // 
             // tsb_2u2n
             // 
@@ -1005,7 +1005,7 @@ namespace UI
             this.tsb_2u2n.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.tsb_2u2n.Name = "tsb_2u2n";
             this.tsb_2u2n.Size = new System.Drawing.Size(121, 70);
-            this.tsb_2u2n.Text = "2-U2È°∫Êó∂";
+            this.tsb_2u2n.Text = "2-U2À≥ ±";
             this.tsb_2u2n.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
             this.tsb_2u2n.MouseDown += new System.Windows.Forms.MouseEventHandler(this.tsb_xn_MouseDown);
             this.tsb_2u2n.MouseUp += new System.Windows.Forms.MouseEventHandler(this.tsb_xn_MouseUp);
@@ -1014,7 +1014,7 @@ namespace UI
             // 
             this.toolStripSeparator19.BackColor = System.Drawing.SystemColors.Control;
             this.toolStripSeparator19.Name = "toolStripSeparator19";
-            this.toolStripSeparator19.Size = new System.Drawing.Size(124, 6);
+            this.toolStripSeparator19.Size = new System.Drawing.Size(122, 6);
             // 
             // tsb_2u2p
             // 
@@ -1027,7 +1027,7 @@ namespace UI
             this.tsb_2u2p.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.tsb_2u2p.Name = "tsb_2u2p";
             this.tsb_2u2p.Size = new System.Drawing.Size(121, 70);
-            this.tsb_2u2p.Text = "2-U2ÈÄÜÊó∂";
+            this.tsb_2u2p.Text = "2-U2ƒÊ ±";
             this.tsb_2u2p.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
             this.tsb_2u2p.MouseDown += new System.Windows.Forms.MouseEventHandler(this.tsb_xn_MouseDown);
             this.tsb_2u2p.MouseUp += new System.Windows.Forms.MouseEventHandler(this.tsb_xn_MouseUp);
@@ -1036,7 +1036,7 @@ namespace UI
             // 
             this.toolStripSeparator20.BackColor = System.Drawing.SystemColors.Control;
             this.toolStripSeparator20.Name = "toolStripSeparator20";
-            this.toolStripSeparator20.Size = new System.Drawing.Size(124, 6);
+            this.toolStripSeparator20.Size = new System.Drawing.Size(122, 6);
             // 
             // tsb_stop2
             // 
@@ -1049,8 +1049,8 @@ namespace UI
             this.tsb_stop2.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.tsb_stop2.Name = "tsb_stop2";
             this.tsb_stop2.Size = new System.Drawing.Size(121, 70);
-            this.tsb_stop2.Text = "ÂÅúÊ≠¢";
-            this.tsb_stop2.ToolTipText = "ÂÅúÊ≠¢";
+            this.tsb_stop2.Text = "Õ£÷π";
+            this.tsb_stop2.ToolTipText = "Õ£÷π";
             this.tsb_stop2.Click += new System.EventHandler(this.tsb_stop_Click);
             // 
             // tlp_Show
