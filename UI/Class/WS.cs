@@ -381,6 +381,8 @@ namespace UI
         //是否在上下料位置
         public bool bOnUpDnPos = false;
         public bool bUpDnPosGoOnTest = false;//在上下料位置需要继续测试
+        public bool bUpDnAddTestWaitUnload = false;//401附加测试已完成，等待下料消费
+        public bool bResultWaitUnload = false;//本轮结果已完整返回，等待下料消费
 
         double fr = 0, bk = 0, u = 0;
         bool btsk = false;
@@ -493,6 +495,7 @@ namespace UI
                 }
             }
             VAR.msg.AddMsg(Msg.EM_MSGTYPE.DBG, string.Format("PC{0} reset:{1}", list_md[0].PC_ID, strres));
+            bResultWaitUnload = false;
             breschanged = true;
             return 0;
         }
@@ -3057,7 +3060,6 @@ namespace UI
                         //    TestStatus = EM_TEST_STA.ERROR;
                         //    break;
                         //}
-
                         if (!Demo)
                         {
                             int _sta = 0;
@@ -3070,6 +3072,8 @@ namespace UI
                         {
                             md.res = 1;
                         }
+
+
 
                         IsFirst = false;
                         break;
@@ -3460,6 +3464,13 @@ namespace UI
                             }
                             res = EM_RES.OK;
                             Status = EM_STA.REDAY;
+                            bResultWaitUnload = true;
+                            VAR.msg.AddMsg(Msg.EM_MSGTYPE.DBG, string.Format("{0} 最终结果已返回，等待下料消费", disc));
+                            if (bUpDnPosGoOnTest)
+                            {
+                                bUpDnAddTestWaitUnload = true;
+                                VAR.msg.AddMsg(Msg.EM_MSGTYPE.DBG, string.Format("{0} 401附加测试完成，等待下料消费", disc));
+                            }
                             bUpDnPosGoOnTest = false;
                             TestStatus = EM_TEST_STA.COMPLETED;
                             break;

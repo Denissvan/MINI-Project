@@ -1737,9 +1737,9 @@ namespace UI
                         }
                     }
 
-                    bool readyByCompleted = bfeed && workstation.TestStatus == WS.EM_TEST_STA.COMPLETED;
+                    bool readyByCompleted = bfeed && (workstation.TestStatus == WS.EM_TEST_STA.COMPLETED || workstation.bUpDnAddTestWaitUnload || workstation.bResultWaitUnload);
                     bool readyByEmpty = wsenable && workstation.TestStatus == WS.EM_TEST_STA.EMPTY && !VAR.ClearMt;
-                    bool readyByFeedStatus = workstation.FeedStatus == WS.EM_STA.REDAYFORUPDOWNLOAD;
+                    bool readyByFeedStatus = workstation.FeedStatus == WS.EM_STA.REDAYFORUPDOWNLOAD || workstation.bUpDnAddTestWaitUnload || workstation.bResultWaitUnload;
 
                     if (hasUntestedEnabledMd)
                     {
@@ -1802,6 +1802,16 @@ namespace UI
 
                         }
                         workstation.FeedStatus = WS.EM_STA.REDAYFORUPDOWNLOAD;
+                        if (workstation.bResultWaitUnload)
+                        {
+                            VAR.msg.AddMsg(Msg.EM_MSGTYPE.DBG, string.Format("{0} 最终结果进入下料流程", workstation.disc));
+                            workstation.bResultWaitUnload = false;
+                        }
+                        if (workstation.bUpDnAddTestWaitUnload)
+                        {
+                            VAR.msg.AddMsg(Msg.EM_MSGTYPE.DBG, string.Format("{0} 401结果后进入下料流程", workstation.disc));
+                            workstation.bUpDnAddTestWaitUnload = false;
+                        }
                         // 重置计时器和状态
                         if(AutoInspectionParameter.ifcheck&&(workstation.num+1==PT_SET.CheckWs) && !VAR.ClearMt)
                         {
@@ -1893,7 +1903,17 @@ namespace UI
                     else
                     {
                         //if ((workstation.TestStatus != WS.EM_TEST_STA.EMPTY)&&(!VAR.gsys_set.isChkMode||(VAR.gsys_set.isChkMode  && bchk)))
-                        if (workstation.TestStatus != WS.EM_TEST_STA.EMPTY)
+                        if (workstation.bResultWaitUnload)
+                        {
+                            VAR.msg.AddMsg(Msg.EM_MSGTYPE.WAR, string.Format("{0} 阻止结果后重复启动测试,等待下料消费", workstation.disc));
+                            workstation.Status = WS.EM_STA.REDAY;
+                        }
+                        else if (workstation.bUpDnAddTestWaitUnload)
+                        {
+                            VAR.msg.AddMsg(Msg.EM_MSGTYPE.WAR, string.Format("{0} 阻止401结果后重复启动测试,等待下料消费", workstation.disc));
+                            workstation.Status = WS.EM_STA.REDAY;
+                        }
+                        else if (workstation.TestStatus != WS.EM_TEST_STA.EMPTY)
                         {
                             //复位测试结果
                             workstation.ResetResultOfMd();

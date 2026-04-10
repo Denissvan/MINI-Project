@@ -102,7 +102,7 @@ SlaveData *GetSlaveDatByID(int id)
 	return NULL;
 }
 
-//windows�»�ȡ��ǰdll�ľ��
+//windows???????dll????
 void GetDllPath(const char * filename, TCHAR *fullpath)
 {
 	MEMORY_BASIC_INFORMATION mbi;	
@@ -111,15 +111,29 @@ void GetDllPath(const char * filename, TCHAR *fullpath)
 	PathAppend(fullpath, _T(filename));
 }
 
+DWORD g_lastNoDataLogTick[256] = { 0 };
+int g_lastNoDataStatus[256] = { 0 };
+int g_lastNoDataParam[256] = { 0 };
+int g_lastReturnStatus[256] = { 0 };
+int g_lastReturnNum[256] = { 0 };
+int g_lastReturnMark[256] = { 0 };
+int g_lastReturnParam[256] = { 0 };
+
 void AppendDebugLog(const TCHAR *msg)
 {
 	if (msg == NULL || msg[0] == 0)return;
 	TCHAR logpath[MAX_PATH];
+	TCHAR prefix[64];
+	SYSTEMTIME st;
+	GetLocalTime(&st);
+	sprintf_s(prefix, 64, "[%04d-%02d-%02d %02d:%02d:%02d.%03d] ", st.wYear, st.wMonth, st.wDay, st.wHour, st.wMinute, st.wSecond, st.wMilliseconds);
 	GetDllPath("dllforcomv8_debug.txt", logpath);
 	HANDLE hFile = CreateFile(logpath, FILE_APPEND_DATA, FILE_SHARE_READ | FILE_SHARE_WRITE, NULL, OPEN_ALWAYS, FILE_ATTRIBUTE_NORMAL, NULL);
 	if (hFile == INVALID_HANDLE_VALUE)return;
-	DWORD writeLen = (DWORD)(_tcslen(msg) * sizeof(TCHAR));
 	DWORD written = 0;
+	DWORD prefixLen = (DWORD)(_tcslen(prefix) * sizeof(TCHAR));
+	DWORD writeLen = (DWORD)(_tcslen(msg) * sizeof(TCHAR));
+	WriteFile(hFile, prefix, prefixLen, &written, NULL);
 	WriteFile(hFile, msg, writeLen, &written, NULL);
 	CloseHandle(hFile);
 }
@@ -167,10 +181,10 @@ int GetConfig(const char * filename)
 //	exit(dummy);
 //}
 
-//���������߳�
+//???????????
 unsigned int __stdcall ThreadListen(PVOID pM)
 {
-	//COM��Masterģʽ�������
+	//COM??Master?????????
 	if (Dev.bcom || Dev.slaveid != 0)return 0;
 
 	int master_socket;
@@ -273,7 +287,7 @@ unsigned int __stdcall ThreadListen(PVOID pM)
 				if (rc > 0)
 				{
 					SlaveData *pdat = NULL;
-					//���Ҵ�������
+					//???????????
 					for (int i = 0; i < SLAVE_BUF; i++)
 					{
 						if (SlaveDat[i].s == master_socket)
@@ -282,10 +296,10 @@ unsigned int __stdcall ThreadListen(PVOID pM)
 							break;
 						}
 					}
-					//����ȡ��һ��δʹ������
+					//???????????????????
 					if (pdat == NULL)
 					{
-						//�����û�ʱ��
+						//????????????
 						int cursec = (INT)time(NULL);
 						int maxsec = 0;
 						int maxId = -1;
@@ -296,7 +310,7 @@ unsigned int __stdcall ThreadListen(PVOID pM)
 								pdat = &SlaveDat[i];
 								break;
 							}
-							//�����û�ʱ��
+							//????????????
 							if ((cursec - SlaveDat[i].sec) > maxsec)
 							{
 								maxsec = cursec - SlaveDat[i].sec;
@@ -304,20 +318,20 @@ unsigned int __stdcall ThreadListen(PVOID pM)
 							}
 						}
 
-						//������������ʹ��δ�ʱ���������
+						//??????????????????????????????
 						if (pdat == NULL)
 						{
 							SlaveDat[maxId].slaveid = -1;
 							SlaveDat[maxId].s = -1;
 							SlaveDat[maxId].ip[0] = 0;
 							pdat = &SlaveDat[maxId];
-							DebugStr2("[DLL]Clear SlaveDat��ID=%d,T=%d\n", maxId, maxsec);
+							DebugStr2("[DLL]Clear SlaveDat??ID=%d,T=%d\n", maxId, maxsec);
 						}
 					}
 
 					if (pdat == NULL)
 					{
-						DebugStr2("[DLL]Data Full��%s,%d\n", guest_ip, master_socket);
+						DebugStr2("[DLL]Data Full??%s,%d\n", guest_ip, master_socket);
 						continue;
 					}
 					
@@ -384,7 +398,7 @@ unsigned int __stdcall ThreadListen(PVOID pM)
 							SlaveDat[i].s = -1;
 							SlaveDat[i].ip[0] = 0;				
 
-						    //���߸�λ���
+						    //??????????
 							if (SlaveDat[i].map_result != NULL)
 							{
 								//SlaveDat[i].map_result->tab_registers[REG_IDX_MARK] = MARK_RESET;//mark
@@ -415,7 +429,7 @@ unsigned int __stdcall ThreadListen(PVOID pM)
 	return 0;
 }
 
-//״̬�߳�
+//?????
 #define STA_READY 1
 #define STA_TEST 2
 #define STA_WAIT 3
@@ -428,7 +442,7 @@ int block;
 char barcode[BARCODEBUF]="";
 unsigned int __stdcall ThreadStatus(PVOID pM)
 {
-	//slave ��ʱ�㱨
+	//slave ?????
 	if (Dev.slaveid == 0)return 0;
 	DebugStr2("[DLL]ThreadStatus Start.ID=%4d,s=%d\n", GetCurrentThreadId(), Dev.s);
 	uint16_t temp;
@@ -481,7 +495,7 @@ int GetStatus(int id,int *sta)
 	}
 
 }
-//��ʼ������
+//?????????
 int Init(const char * filename)
 {
 	Dev.quit = FALSE;
@@ -544,7 +558,7 @@ int Init(const char * filename)
 		return RES_ERR_PARAM;
 	}
 
-	//��ʼ���ڴ�
+	//????????
 	Dev.mb_map_result->tab_registers[REG_IDX_MARK] = MARK_RESETTEST;//mark
 	Dev.mb_map_result->tab_registers[REG_IDX_STATUS] = MARK_RESETTEST;//status
 	Dev.mb_map_result->tab_registers[REG_IDX_PARAM] = 0;//param
@@ -558,7 +572,7 @@ int Init(const char * filename)
 	if (!Dev.bcom && Dev.slaveid == 0)
 	{
 		Dev.s = modbus_tcp_listen(Dev.mb, 3);
-		//���������߳�
+		//???????????
 		Dev.quit = 0;
 		Dev.hListen = (HANDLE)_beginthreadex(NULL, 0, ThreadListen, &Dev.s, 0, NULL);
 	}
@@ -579,7 +593,7 @@ int Init(const char * filename)
 	Sleep(300);
 	return RES_OK;
 }
-//�ر�
+//???
 int MBClose()
 {
 	DebugStr2("[DLL]Close%s%s\n", "", "");
@@ -622,7 +636,7 @@ int MBClose()
 	}
 	return RES_OK;
 }
-//����������ȡ������Ϣ
+//??????????????????
 BOOL GetDeviceStatus(int *pnDeviceStatus)
 {
 	Init("DevCfg.ini");
@@ -636,7 +650,7 @@ BOOL GetDeviceStatus(int *pnDeviceStatus)
 	int t = 0;
 	for (int i = 0; i < 10000; i++)
 	{
-		//֪ͨ�豸���̽�����������������
+		//??????????????????????????
 		int temp = sta;
 		if (++t > 10)
 		{
@@ -680,7 +694,7 @@ BOOL GetDeviceStatus(int *pnDeviceStatus)
 
 		//read status
 		int rc = modbus_read_registers(Dev.mb, Dev.mb_map_inf->start_registers, 4, Dev.mb_map_inf->tab_registers);
-		//��ȡ�쳣����һ����������������
+		//??????????????????????????
 		if(rc == -1)
 		{
 			if (++Dev.errcnt>30)
@@ -696,7 +710,7 @@ BOOL GetDeviceStatus(int *pnDeviceStatus)
 			}
 		}
 
-		//�豸��Ӧ
+		//??????
 		if (Dev.mb_map_inf->tab_registers[REG_IDX_MARK] == MARK_RESETTEST)
 		{
 			DebugStr2("[DLL_TX]GetDeviceStatus ResetTest %d,%d\n", Dev.s, Dev.slaveid);
@@ -720,7 +734,7 @@ BOOL GetDeviceStatus(int *pnDeviceStatus)
 
 		if (Dev.mb_map_inf->tab_registers[REG_IDX_MARK] == MARK_READY)
 		{
-			//��ȡ��ά��
+			//????????
 			if (rc == 4)
 			{
 				Dev.errcnt = 0;
@@ -744,7 +758,7 @@ BOOL GetDeviceStatus(int *pnDeviceStatus)
 						addr += rc;
 					}
 				}
-				//δ��ȡ���
+				//????????
 				if (res_num > 0)
 				{
 					Sleep(100);
@@ -813,7 +827,7 @@ BOOL GetDeviceStatus(int *pnDeviceStatus)
 	block = 0;
 	return FALSE;
 }
-//�����������ؽ��/��һλ��
+//??????????????/???????
 BOOL SetDeviceStatus(int status, int ChN, int *testResult, DeviceStruct *pDeviceParam)
 {
 	//if (sta == STA_QUIT)return FALSE;
@@ -835,7 +849,7 @@ BOOL SetDeviceStatus(int status, int ChN, int *testResult, DeviceStruct *pDevice
 	}	
 	DebugStr3("[DLL_TX]SetDeviceStatus,sta=%d,n=%d,%s\n", status, ChN, chtmp);
 
-	//����������򳤶�����Ϊ0
+	//??????????????????0
 	ChN = status == 0 ? ChN : 0;
 
 	Init("DevCfg.ini");
@@ -871,7 +885,7 @@ BOOL SetDeviceStatus(int status, int ChN, int *testResult, DeviceStruct *pDevice
 			{
 				Sleep(100);
 
-				//ͨ�Ŵ�����
+				//????????
 				Dev.errcnt++;
 				if (Dev.errcnt == 20)
 				{
@@ -889,7 +903,7 @@ BOOL SetDeviceStatus(int status, int ChN, int *testResult, DeviceStruct *pDevice
 					modbus_write_registers(Dev.mb, Dev.mb_map_result->start_registers, REG_IDX_DAT + ChN * 2, Dev.mb_map_result->tab_registers);
 				}
 
-				////�����˳�
+				////???????
 				//if (Dev.errcnt > 60)
 				//{
 				//	DebugStr2("Retry connect abort %d,%d\n", Dev.s, Dev.slaveid);
@@ -898,7 +912,7 @@ BOOL SetDeviceStatus(int status, int ChN, int *testResult, DeviceStruct *pDevice
 				//	return FALSE;
 				//}
 
-				//�ǽ�������ȡ��
+				//????????????
 				//if (status != 0)
 				{
 					rc = modbus_read_registers(Dev.mb, Dev.mb_map_inf->start_registers, 1, Dev.mb_map_inf->tab_registers);
@@ -914,15 +928,15 @@ BOOL SetDeviceStatus(int status, int ChN, int *testResult, DeviceStruct *pDevice
 					}
 				}
 
-				//ȷ���豸�յ���Ϣ
+				//????????????
 				rc = modbus_read_registers(Dev.mb, Dev.mb_map_result->start_registers, 1, Dev.mb_map_result->tab_registers);
 				if (rc == -1)continue;
 				Dev.errcnt = 0;
 
 				if (Dev.mb_map_result->tab_registers[REG_IDX_MARK] == MARK_ACK)
 				{
-					//֪ͨ�豸�յ�������һλ������
-					Dev.mb_map_result->tab_registers[REG_IDX_MARK] = (status == 0 ? MARK_END : MARK_NEXT);//status==0��ʾ���̽�����������һ��Ŀ
+					//???????????????????????
+					Dev.mb_map_result->tab_registers[REG_IDX_MARK] = (status == 0 ? MARK_END : MARK_NEXT);//status==0??????????????????????
 					rc = modbus_write_register(Dev.mb, Dev.mb_map_result->start_registers, Dev.mb_map_result->tab_registers[REG_IDX_MARK]);
 					if (rc == -1)continue;
 					Dev.errcnt = 0;
@@ -933,9 +947,9 @@ BOOL SetDeviceStatus(int status, int ChN, int *testResult, DeviceStruct *pDevice
 					DebugStr2("[DLL_TX]Send Next Cmd,sta=%d%s\n", status, "");
 					return TRUE;
 				}
-				else if (Dev.mb_map_result->tab_registers[REG_IDX_MARK] == (status == 0 ? MARK_END : MARK_NEXT))//status==0��ʾ���̽�����������һ��Ŀ
+				else if (Dev.mb_map_result->tab_registers[REG_IDX_MARK] == (status == 0 ? MARK_END : MARK_NEXT))//status==0??????????????????????
 				{
-					//��֪ͨ�豸�յ�������һλ������
+					//?????????????????????????
 					if (status == 0) sta = STA_READY;
 					else sta = STA_TEST;
 					block = 0;
@@ -945,14 +959,14 @@ BOOL SetDeviceStatus(int status, int ChN, int *testResult, DeviceStruct *pDevice
 				else if (Dev.mb_map_result->tab_registers[REG_IDX_MARK] == MARK_RESET)
 				{
 					DebugStr2("[DLL_TX]Rece Reset Cmd,%d,%d\n", Dev.s, Dev.slaveid);
-					//�豸��λ
+					//???????
 					sta = STA_READY;
 					block = 0;
 					return FALSE;
 				}
 				//Sleep(100);
 
-				//����״̬
+				//??????
 				if ((n & 0x07) == 0x07)
 				{
 					int temp = sta;
@@ -963,7 +977,7 @@ BOOL SetDeviceStatus(int status, int ChN, int *testResult, DeviceStruct *pDevice
 		}		
 		if (rc == -1)
 		{
-			//ͨ�Ŵ�����
+			//????????
 			Dev.errcnt++;
 			if (Dev.errcnt == 20)
 			{
@@ -979,7 +993,7 @@ BOOL SetDeviceStatus(int status, int ChN, int *testResult, DeviceStruct *pDevice
 				Sleep(1000);
 			}
 
-			////�����˳�
+			////???????
 			//if (Dev.errcnt > 60)
 			//{
 			//	DebugStr2("Retry connect abort %d,%d\n", Dev.s, Dev.slaveid);
@@ -994,7 +1008,7 @@ BOOL SetDeviceStatus(int status, int ChN, int *testResult, DeviceStruct *pDevice
 	block = 0;
 	return FALSE;
 }
-//����������ȡ������Ϣ
+//??????????????????
 BOOL GetBarcode(char *pch)
 {
 	if (pch == NULL)return FALSE;
@@ -1012,7 +1026,7 @@ BOOL GetFuncQR(char *pch)
 	return GetBarcode(pch);
 }
 
-//�豸֪ͨ��������������Ϣ
+//????????????????????
 int StartTestFlow(int id, int status,char* barcode)
 {
 	Init("DevCfg.ini");	
@@ -1031,7 +1045,7 @@ int StartTestFlow(int id, int status,char* barcode)
 		DebugStr2("[DLL]StartTestFlow,MARK_RESET && STATUS!=0, %d,%d\n", Dev.s, Dev.slaveid);
 	}
 
-	// ��MARK_ENDΪ���̽����У�������������
+	// ??MARK_END????????????????????????
 	if (pDat->map_result->tab_registers[REG_IDX_MARK] != MARK_END)
 	{
 		DebugStr5("[DLL_FLOW]StartTestFlow Skip,id=%d,req_sta=%d,result_mark=%d,result_sta=%d,result_num=%d\n",
@@ -1119,7 +1133,7 @@ int StartTestFlow(int id, int status,char* barcode)
 	//return -1;
 }
 
-//�豸�ȴ��������Խ��
+//????????????????
 int WaitTestResult(int id, int *status, int *res, int *NumofResult, BOOL *bquit, int delay)
 {
 	return WaitTestResultA(id, status, res, NumofResult, NULL,bquit, delay, NULL);
@@ -1148,7 +1162,7 @@ int WaitTestResultA(int id, int *status, int *res, int *NumofResult, DeviceStruc
 	//wait for mark
 	for (; delay >0; delay-=10)
 	{
-		//���������(10sec)
+		//?????????(10sec)
 		int t = pDat->map_result->tab_registers[REG_IDX_PARAM];
 		t = t & 0xFF;
 		if (Tick != t) TickCnt = 0;
@@ -1160,12 +1174,12 @@ int WaitTestResultA(int id, int *status, int *res, int *NumofResult, DeviceStruc
 			return RES_ERR_LINK;
 		}
 
-		//�ⲿȡ��
+		//?????
 		if (bquit != NULL&&*bquit)
 		{
 			return RES_ERR_QUIT;
 		}
-		//ȡ��
+		//???
 		if (pDat->map_inf->tab_registers[REG_IDX_MARK] == MARK_RESETTEST)
 		{
 			DebugStr2("[DLL]StartTestFlow,MARK_RESET && STATUS!=0, %d,%d\n", Dev.s, Dev.slaveid);
@@ -1177,23 +1191,34 @@ int WaitTestResultA(int id, int *status, int *res, int *NumofResult, DeviceStruc
 				delay);
 			return RES_ERR_QUIT;
 		}
-		// 4Ϊ������ɣ�����������
+		// 4???????????????????
 		if (pDat->map_result->tab_registers[REG_IDX_MARK] == MARK_READY || pDat->map_result->tab_registers[REG_IDX_MARK] == MARK_END)
 		{
 			*status = pDat->map_result->tab_registers[REG_IDX_STATUS];			
 
-			//ֻ��0ʱ�ŷ��ؽ��
+			//???0????????
 			if (*status == 0)
 			{
 				int final_num = pDat->map_result->tab_registers[REG_IDX_DAT_LEN];
 				if (final_num <= 0)
 				{
-					DebugStr5("[DLL_FLOW]WaitTestResult FinalNoData,id=%d,result_mark=%d,status=%d,param=%d,remain=%d\n",
-						id,
-						pDat->map_result->tab_registers[REG_IDX_MARK],
-						*status,
-						pDat->map_result->tab_registers[REG_IDX_PARAM],
-						delay);
+					DWORD nowTick = GetTickCount();
+					int lastIdx = id & 0xFF;
+					if (g_lastNoDataLogTick[lastIdx] == 0
+						|| (nowTick - g_lastNoDataLogTick[lastIdx]) >= 1000
+						|| g_lastNoDataStatus[lastIdx] != *status
+						|| g_lastNoDataParam[lastIdx] != pDat->map_result->tab_registers[REG_IDX_PARAM])
+					{
+						DebugStr5("[DLL_FLOW]WaitTestResult FinalNoData,id=%d,result_mark=%d,status=%d,param=%d,remain=%d\n",
+							id,
+							pDat->map_result->tab_registers[REG_IDX_MARK],
+							*status,
+							pDat->map_result->tab_registers[REG_IDX_PARAM],
+							delay);
+						g_lastNoDataLogTick[lastIdx] = nowTick;
+						g_lastNoDataStatus[lastIdx] = *status;
+						g_lastNoDataParam[lastIdx] = pDat->map_result->tab_registers[REG_IDX_PARAM];
+					}
 					Sleep(10);
 					continue;
 				}
@@ -1207,14 +1232,28 @@ int WaitTestResultA(int id, int *status, int *res, int *NumofResult, DeviceStruc
 				GetBarcode(barcode);
 			}			
 			*status = *status & 0x0FFF;
-			DebugStr5("[DLL_FLOW]WaitTestResult Return,id=%d,result_mark=%d,status=%d,num=%d,param=%d\n",
-				id,
-				pDat->map_result->tab_registers[REG_IDX_MARK],
-				*status,
-				*NumofResult,
-				pDat->map_result->tab_registers[REG_IDX_PARAM]);
-
-			//����������
+			{
+				int lastIdx = id & 0xFF;
+				int curMark = pDat->map_result->tab_registers[REG_IDX_MARK];
+				int curParam = pDat->map_result->tab_registers[REG_IDX_PARAM];
+				if (g_lastReturnStatus[lastIdx] != *status
+					|| g_lastReturnNum[lastIdx] != *NumofResult
+					|| g_lastReturnMark[lastIdx] != curMark
+					|| g_lastReturnParam[lastIdx] != curParam)
+				{
+					DebugStr5("[DLL_FLOW]WaitTestResult Return,id=%d,result_mark=%d,status=%d,num=%d,param=%d\n",
+						id,
+						curMark,
+						*status,
+						*NumofResult,
+						curParam);
+					g_lastReturnStatus[lastIdx] = *status;
+					g_lastReturnNum[lastIdx] = *NumofResult;
+					g_lastReturnMark[lastIdx] = curMark;
+					g_lastReturnParam[lastIdx] = curParam;
+				}
+			}
+			//??????????
 			if (pDeviceParam != NULL)
 			{
 				//int addr = 4 + Dev.mb_map_result->tab_registers[3] * 2;
@@ -1248,14 +1287,14 @@ int WaitTestResultA(int id, int *status, int *res, int *NumofResult, DeviceStruc
 	//	{
 	//		*status = Dev.mb_map_result->tab_registers[1];
 
-	//		//���Խ��
+	//		//??????
 	//		NumofResult = Dev.mb_map_result->tab_registers[3];
 	//		for (int i = 0; n < *NumofResult * 2; n++)
 	//		{
 	//			res[i] = Dev.mb_map_result->tab_registers[4 + i * 2] << 16 | Dev.mb_map_result->tab_registers[4 + i * 2 + 1];
 	//		}
 
-	//		//����������
+	//		//??????????
 	//		if (pDeviceParam != NULL)
 	//		{
 	//			int addr = 4 + Dev.mb_map_result->tab_registers[3] * 2;
@@ -1276,7 +1315,7 @@ int WaitTestResultA(int id, int *status, int *res, int *NumofResult, DeviceStruc
 	//return 0;
 }
 
-//�豸֪ͨ������һ������Ŀ
+//???????????????????
 int NextTest(int id ,int status, int delay, BOOL *bquit)
 {		
 	Init("DevCfg.ini");	
@@ -1294,7 +1333,7 @@ int NextTest(int id ,int status, int delay, BOOL *bquit)
 		pDat->map_result != NULL ? pDat->map_result->tab_registers[REG_IDX_STATUS] : -1,
 		pDat->map_result != NULL ? pDat->map_result->tab_registers[REG_IDX_DAT_LEN] : -1);
 
-	// 4Ϊ������ɣ�����������
+	// 4???????????????????
 	if (pDat->map_result->tab_registers[0] == MARK_END)
 	{
 		if (status == 0)
@@ -1322,7 +1361,7 @@ int NextTest(int id ,int status, int delay, BOOL *bquit)
 	for (; delay >0; delay -= 10)
 	{
 		if (bquit != NULL&&*bquit)return RES_ERR_QUIT;
-		//�յ���������ȷ�ϻ��Ѿ�������һ����
+		//?????????????????????????????
 		if (pDat->map_result->tab_registers[0] != MARK_ACK)
 		{
 			DebugStr5("[DLL_FLOW]NextTest Acked,id=%d,req_sta=%d,result_mark=%d,result_sta=%d,remain=%d\n",
@@ -1342,7 +1381,7 @@ int NextTest(int id ,int status, int delay, BOOL *bquit)
 	return RES_ERR_TIMEOUT;
 }
 
-//������Ϣ
+//???????
 int GetInfo(int id, InfoData *pdat)
 {
 	Init("DevCfg.ini");
@@ -1384,7 +1423,7 @@ int GetInfo(int id, InfoData *pdat)
 	return RES_OK;
 }
 
-//��λ����
+//????????
 int ResetTest(int id)
 {
 	Init("DevCfg.ini");
