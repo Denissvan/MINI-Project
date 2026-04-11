@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -35,6 +35,47 @@ namespace UI
         System.Timers.Timer timer;
 
         private static readonly object _Locker = new object();
+        private TrayBox GetRunTrayBoxForOkSlot()
+        {
+            return RuntimeMachineMode.IsTrayBoxSwapped ? COM.traybox_ng : COM.traybox_ok;
+        }
+
+        private TrayBox GetRunTrayBoxForNgSlot()
+        {
+            return RuntimeMachineMode.IsTrayBoxSwapped ? COM.traybox_ok : COM.traybox_ng;
+        }
+
+        private Product.Tray GetRunTrayForOkSlot()
+        {
+            TrayBox traybox = GetRunTrayBoxForOkSlot();
+            return traybox != null ? traybox.tray_cur : null;
+        }
+
+        private Product.Tray GetRunTrayForNgSlot()
+        {
+            TrayBox traybox = GetRunTrayBoxForNgSlot();
+            return traybox != null ? traybox.tray_cur : null;
+        }
+
+        private void ApplyRunTrayUiMapping()
+        {
+            traybox_ok.box = GetRunTrayBoxForOkSlot();
+            traybox_ng.box = GetRunTrayBoxForNgSlot();
+
+            tray_ok.TrayName = RuntimeMachineMode.IsTrayBoxSwapped
+                ? (VAR.IsChinese ? "NG料盘" : "NG Tray")
+                : (VAR.IsChinese ? "OK料盘" : "OK Tray");
+            tray_ng.TrayName = RuntimeMachineMode.IsTrayBoxSwapped
+                ? (VAR.IsChinese ? "OK料盘" : "OK Tray")
+                : (VAR.IsChinese ? "NG料盘" : "NG Tray");
+
+            traybox_ok.TrayBoxName = RuntimeMachineMode.IsTrayBoxSwapped ? "NG" : "OK";
+            traybox_ng.TrayBoxName = RuntimeMachineMode.IsTrayBoxSwapped ? "OK" : "NG";
+
+            btn_new_traybox_ok.Text = RuntimeMachineMode.IsTrayBoxSwapped ? "更换NG料盒" : "更换OK料盒";
+            btn_new_traybox_ng.Text = RuntimeMachineMode.IsTrayBoxSwapped ? "更换OK料盒" : "更换NG料盒";
+        }
+
         public bool bupdate
         {
             get
@@ -210,11 +251,7 @@ namespace UI
             traybox_fd.box = COM.traybox_fd;
             tray_fd.TrayName = VAR.IsChinese ? "待测料盘" : "Feed Tray";
             tray_fd.TrayColor = Color.DarkOrange;
-            traybox_ok.box = COM.traybox_ok;
-            traybox_ng.box = COM.traybox_ng;
-
-            tray_ok.TrayName = VAR.IsChinese ? "OK料盘" : "OK Tray";
-            tray_ng.TrayName = VAR.IsChinese ? "NG料盘" : "NG Tray";
+            ApplyRunTrayUiMapping();
             tray_ok.TrayColor = Color.Lime;
             tray_ng.TrayColor = Color.Red;
             VAR.gsys_set.beep_tmr = 3000;
@@ -454,8 +491,8 @@ namespace UI
                 traybox_ng.UpdateShow();
                 //VAR.msg.AddMsg(Msg.EM_MSGTYPE.ERR, "START1");
                 tray_fd.tray_dat = traybox_fd.box.tray_cur;
-                tray_ok.tray_dat = traybox_ok.box.tray_cur;
-                tray_ng.tray_dat = traybox_ng.box.tray_cur;
+                tray_ok.tray_dat = GetRunTrayForOkSlot();
+                tray_ng.tray_dat = GetRunTrayForNgSlot();
 
 
                 tray_fd.UpdateShow();
@@ -677,8 +714,7 @@ namespace UI
             ws3.WorkStationName = VAR.IsChinese ? "工站3" : "WS3";
             ws4.WorkStationName = VAR.IsChinese ? "工站4" : "WS4";
             traybox_fd.TrayBoxName = VAR.IsChinese ? "供料" : "Feed";
-            traybox_ok.TrayBoxName = VAR.IsChinese ? "OK" : "OK";
-            traybox_ng.TrayBoxName = VAR.IsChinese ? "NG" : "NG";
+            ApplyRunTrayUiMapping();
 
             bool bSound = NewSysInf.UserParams.RedLightSund;
             if (bSound && MT.GPIO_OUT_ALM_RED.isON)

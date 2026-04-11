@@ -10,6 +10,13 @@ namespace UI
 {
     public partial class FrProduct : Form
     {
+        private sealed class TrayCfgBinding
+        {
+            public Product.Tray Tray;
+            public TrayBox TrayBox;
+            public string TrayAxisName;
+        }
+
         public Product.Tray tray = new Product.Tray();
         public Product.Tray tray_fd;
         public Product.Tray tray_ok;
@@ -28,6 +35,48 @@ namespace UI
                 PmsfrProduct(FrMain.frsuser.user1.cur_user.pms);
             else
                 PmsfrProduct(User.PERMISSION.Operator);
+        }
+
+        private bool IsTrayUiSwapped => RuntimeMachineMode.IsTrayBoxSwapped;
+
+        private TrayCfgBinding GetTrayCfgBinding(string tabName)
+        {
+            switch (tabName)
+            {
+                case "ctp_tray_fd":
+                    return new TrayCfgBinding
+                    {
+                        Tray = tray_fd,
+                        TrayBox = COM.traybox_fd,
+                        TrayAxisName = VAR.IsChinese ? "供料轴" : "Feed tray"
+                    };
+                case "ctp_tray_ok":
+                    return IsTrayUiSwapped
+                        ? new TrayCfgBinding { Tray = tray_ng, TrayBox = COM.traybox_ng, TrayAxisName = VAR.IsChinese ? "NG料轴" : "Ng tray" }
+                        : new TrayCfgBinding { Tray = tray_ok, TrayBox = COM.traybox_ok, TrayAxisName = VAR.IsChinese ? "OK料轴" : "Ok tray" };
+                case "ctp_tray_ng":
+                    return IsTrayUiSwapped
+                        ? new TrayCfgBinding { Tray = tray_ok, TrayBox = COM.traybox_ok, TrayAxisName = VAR.IsChinese ? "OK料轴" : "Ok tray" }
+                        : new TrayCfgBinding { Tray = tray_ng, TrayBox = COM.traybox_ng, TrayAxisName = VAR.IsChinese ? "NG料轴" : "Ng tray" };
+                default:
+                    return new TrayCfgBinding
+                    {
+                        Tray = tray_fd,
+                        TrayBox = COM.traybox_fd,
+                        TrayAxisName = VAR.IsChinese ? "供料轴" : "Feed tray"
+                    };
+            }
+        }
+
+        private TrayCfgBinding GetCurrentTrayCfgBinding()
+        {
+            return GetTrayCfgBinding(ctb_tray_cfg.SelectedTab != null ? ctb_tray_cfg.SelectedTab.Name : "ctp_tray_fd");
+        }
+
+        private void UpdateTrayCfgTabText()
+        {
+            ctp_tray_ok.Text = IsTrayUiSwapped ? "  NG料盘  " : "  OK料盘  ";
+            ctp_tray_ng.Text = IsTrayUiSwapped ? "  OK料盘  " : "  NG料盘  ";
         }
 
         public bool bupdate
@@ -131,6 +180,7 @@ namespace UI
 
             tray = tray_fd;
             traybox = COM.traybox_fd;
+            UpdateTrayCfgTabText();
             ShowTrayData(tray);
             ShowTrayBoxData(traybox);
             xyzu_tray_study.XYZUVisible = "True,True,True,True";
@@ -635,40 +685,16 @@ namespace UI
         }
 
         private void ctb_tray_cfg_SelectedIndexChanged(object sender, EventArgs e)
-        {            
-            switch (((CTabControl)sender).SelectedTab.Name)
-            {
-                case "ctp_tray_fd":
-                    // tray = new Product.Tray(COM.traybox_fd.strCfgPath, 0);
-                    tray = tray_fd;
-                    traybox = COM.traybox_fd;
-                    nud_AddCapQrcodePosY.Enabled = true;
-                    btn_GetAddCapQrcodePos.Enabled = true;
-                    btn_GotoAddCapQrcodePos.Enabled = true;
-                    btn_MakeAddCapQrcodePosArray.Enabled = true;
-                    btn_SaveAddCapQrcodePos.Enabled = true;
-                    break;
-                case "ctp_tray_ok":
-                    //tray = new Product.Tray(COM.traybox_ok.strCfgPath, 0);
-                    tray = tray_ok;
-                    traybox = COM.traybox_ok;
-                    nud_AddCapQrcodePosY.Enabled = false;
-                    btn_GetAddCapQrcodePos.Enabled = false;
-                    btn_GotoAddCapQrcodePos.Enabled = false;
-                    btn_MakeAddCapQrcodePosArray.Enabled = false;
-                    btn_SaveAddCapQrcodePos.Enabled = false;
-                    break;
-                case "ctp_tray_ng":
-                    //tray = new Product.Tray(COM.traybox_ng.strCfgPath, 0);
-                    tray = tray_ng;
-                    traybox = COM.traybox_ng;
-                    nud_AddCapQrcodePosY.Enabled = false;
-                    btn_GetAddCapQrcodePos.Enabled = false;
-                    btn_GotoAddCapQrcodePos.Enabled = false;
-                    btn_MakeAddCapQrcodePosArray.Enabled = false;
-                    btn_SaveAddCapQrcodePos.Enabled = false;
-                    break;
-            }
+        {
+            TrayCfgBinding binding = GetCurrentTrayCfgBinding();
+            tray = binding.Tray;
+            traybox = binding.TrayBox;
+            bool isFeedTray = ((CTabControl)sender).SelectedTab.Name == "ctp_tray_fd";
+            nud_AddCapQrcodePosY.Enabled = isFeedTray;
+            btn_GetAddCapQrcodePos.Enabled = isFeedTray;
+            btn_GotoAddCapQrcodePos.Enabled = isFeedTray;
+            btn_MakeAddCapQrcodePosArray.Enabled = isFeedTray;
+            btn_SaveAddCapQrcodePos.Enabled = isFeedTray;
             ShowTrayData(tray);
             ShowTrayBoxData(traybox);
         }
@@ -761,28 +787,10 @@ namespace UI
             ax_x = COM.List_UDLoad[id].ax_x;
             ax_y = COM.List_UDLoad[id].ax_y;
             ax_z = COM.List_UDLoad[id].ax_z;
-            switch (ctb_tray_cfg.SelectedTab.Name)
-            {
-                  
-                case "ctp_tray_fd":
-                    // tray = new Product.Tray(COM.traybox_fd.strCfgPath, 0);   
-                    tray = tray_fd;
-                    ax_u = COM.traybox_fd.ax_x;
-                    gocap = true;
-                    break;
-                case "ctp_tray_ok":
-                    //tray = new Product.Tray(COM.traybox_ok.strCfgPath, 0);
-                    tray = tray_ok;
-                    ax_u = COM.traybox_ok.ax_x;
-                    gocap = false;
-                    break;
-                case "ctp_tray_ng":
-                    //tray = new Product.Tray(COM.traybox_ng.strCfgPath, 0);
-                    tray = tray_ng;
-                    ax_u = COM.traybox_ng.ax_x;
-                    gocap = false;
-                    break;
-            }
+            TrayCfgBinding binding = GetCurrentTrayCfgBinding();
+            tray = binding.Tray;
+            ax_u = binding.TrayBox.ax_x;
+            gocap = ctb_tray_cfg.SelectedTab.Name == "ctp_tray_fd";
             //EM_RES res = MT.Move(ref VAR.gsys_set.bquit, ref ax_z,0);
             //if (res != EM_RES.OK)
             //{
@@ -828,28 +836,10 @@ namespace UI
             ax_x = COM.List_UDLoad[id].ax_x;
             ax_y = COM.List_UDLoad[id].ax_y;
             ax_z = COM.List_UDLoad[id].ax_z;
-            switch (ctb_tray_cfg.SelectedTab.Name)
-            {
-
-                case "ctp_tray_fd":
-                    // tray = new Product.Tray(COM.traybox_fd.strCfgPath, 0);   
-                    tray = tray_fd;
-                    ax_u = COM.traybox_fd.ax_x;
-                    gocap = true;
-                    break;
-                case "ctp_tray_ok":
-                    //tray = new Product.Tray(COM.traybox_ok.strCfgPath, 0);
-                    tray = tray_ok;
-                    ax_u = COM.traybox_ok.ax_x;
-                    gocap = false;
-                    break;
-                case "ctp_tray_ng":
-                    //tray = new Product.Tray(COM.traybox_ng.strCfgPath, 0);
-                    tray = tray_ng;
-                    ax_u = COM.traybox_ng.ax_x;
-                    gocap = false;
-                    break;
-            }
+            TrayCfgBinding binding = GetCurrentTrayCfgBinding();
+            tray = binding.Tray;
+            ax_u = binding.TrayBox.ax_x;
+            gocap = ctb_tray_cfg.SelectedTab.Name == "ctp_tray_fd";
             EM_RES res = MT.ZupMove(ref VAR.gsys_set.bquit, ref ax_x, st_pos.x, ref ax_y, st_pos.y, ref ax_u, st_pos.a, true);
             if (res != EM_RES.OK)
             {
@@ -882,24 +872,9 @@ namespace UI
             ax_x = COM.List_UDLoad[id].ax_x;
             ax_y = COM.List_UDLoad[id].ax_y;
             //ax_z = COM.List_UDLoad[id].ax_z;
-            switch (ctb_tray_cfg.SelectedTab.Name)
-            {
-                case "ctp_tray_fd":
-                    //tray = new Product.Tray(COM.traybox_fd.strCfgPath, 0);
-                    tray = tray_fd;
-                    ax_u = COM.traybox_fd.ax_x;
-                    break;
-                case "ctp_tray_ok":
-                    //tray = new Product.Tray(COM.traybox_ok.strCfgPath, 0);
-                    tray = tray_ok;
-                    ax_u = COM.traybox_ok.ax_x;
-                    break;
-                case "ctp_tray_ng":
-                    //tray = new Product.Tray(COM.traybox_ng.strCfgPath, 0);
-                    tray = tray_ng;
-                    ax_u = COM.traybox_ng.ax_x;
-                    break;
-            }
+            TrayCfgBinding binding = GetCurrentTrayCfgBinding();
+            tray = binding.Tray;
+            ax_u = binding.TrayBox.ax_x;
             st_pos.x = ax_x != null ? ax_x.fenc_pos : 0;
             st_pos.y = ax_y != null ? ax_y.fenc_pos : 0;
             st_pos.z = ax_z != null ? ax_z.fenc_pos : 0;
@@ -1578,9 +1553,7 @@ namespace UI
             tray.SaveDat();
             tray.LoadDat();
             ShowTrayData(tray);
-            if (ctb_tray_cfg.SelectedIndex == 0) trayname = VAR.IsChinese ? "供料轴" : "Feed tray";
-            else if (ctb_tray_cfg.SelectedIndex == 1) trayname = VAR.IsChinese ? "OK料轴" : "Ok tray";
-            else if (ctb_tray_cfg.SelectedIndex == 2) trayname = VAR.IsChinese ? "NG料轴" : "Ng tray";
+            trayname = GetCurrentTrayCfgBinding().TrayAxisName;
             if (DialogResult.No == MessageBox.Show(VAR.IsChinese ? string.Format("保存成功!\r\n注:如需修改的参数立即生效,请按'是'键更换{0},并拿掉{1}上的料盘!", traybox.disc, trayname) : string.Format("Saved successfully! \r\n Note: If the parameters to be modified take effect immediately, press the 'Yes' button to replace {0}, and remove the tray on {2}!\r\n保存成功!\r\n注:如需修改的参数立即生效,请按'是'键更换{1},并拿掉{2}上的料盘!", traybox.name, traybox.disc, trayname), VAR.IsChinese ? "提示" : "Prompt", MessageBoxButtons.YesNo, MessageBoxIcon.Information)) return;
             EM_RES res = traybox.NewBox();
             if (res == EM_RES.OK) traybox.IsReady = true;

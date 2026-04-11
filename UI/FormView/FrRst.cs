@@ -23,6 +23,34 @@ namespace UI
         bool bflag;
         bool breset = false;
 
+        private AXIS GetTrayAxisForOkSlot(bool isZAxis)
+        {
+            TrayBox traybox = RuntimeMachineMode.IsTrayBoxSwapped ? COM.traybox_ng : COM.traybox_ok;
+            return isZAxis ? traybox.ax_z : traybox.ax_x;
+        }
+
+        private AXIS GetTrayAxisForNgSlot(bool isZAxis)
+        {
+            TrayBox traybox = RuntimeMachineMode.IsTrayBoxSwapped ? COM.traybox_ok : COM.traybox_ng;
+            return isZAxis ? traybox.ax_z : traybox.ax_x;
+        }
+
+        private string GetTrayPosForOkSlot()
+        {
+            return (RuntimeMachineMode.IsTrayBoxSwapped ? COM.traybox_ng : COM.traybox_ok).StrOfPos;
+        }
+
+        private string GetTrayPosForNgSlot()
+        {
+            return (RuntimeMachineMode.IsTrayBoxSwapped ? COM.traybox_ok : COM.traybox_ng).StrOfPos;
+        }
+
+        private void ApplyTrayAxisUiText()
+        {
+            btn_traybox_ok_x.Text = RuntimeMachineMode.IsTrayBoxSwapped ? "-   NG   +" : "-   OK   +";
+            btn_traybox_ng_x.Text = RuntimeMachineMode.IsTrayBoxSwapped ? "-   OK   +" : "-   NG   +";
+        }
+
         #region 委托弹框
         delegate DialogResult MessageBoxShow(string text,string caption, MessageBoxButtons buttons,MessageBoxIcon icon);
         DialogResult MessageBoxShowF(string text, string caption, MessageBoxButtons buttons, MessageBoxIcon icon)
@@ -69,6 +97,7 @@ namespace UI
         public FrRst()
         {
             InitializeComponent();
+            ApplyTrayAxisUiText();
         }
 
         public bool bupdate
@@ -197,10 +226,11 @@ namespace UI
 
             SetBtnStatusColor(btn_traybox_fd_z, COM.traybox_fd.ax_z.home_status, bflag);
             SetBtnStatusColor(btn_traybox_fd_x, COM.traybox_fd.ax_x.home_status, bflag);
-            SetBtnStatusColor(btn_traybox_ok_z, COM.traybox_ok.ax_z.home_status, bflag);
-            SetBtnStatusColor(btn_traybox_ok_x, COM.traybox_ok.ax_x.home_status, bflag);
-            SetBtnStatusColor(btn_traybox_ng_z, COM.traybox_ng.ax_z.home_status, bflag);
-            SetBtnStatusColor(btn_traybox_ng_x, COM.traybox_ng.ax_x.home_status, bflag);
+            ApplyTrayAxisUiText();
+            SetBtnStatusColor(btn_traybox_ok_z, GetTrayAxisForOkSlot(true).home_status, bflag);
+            SetBtnStatusColor(btn_traybox_ok_x, GetTrayAxisForOkSlot(false).home_status, bflag);
+            SetBtnStatusColor(btn_traybox_ng_z, GetTrayAxisForNgSlot(true).home_status, bflag);
+            SetBtnStatusColor(btn_traybox_ng_x, GetTrayAxisForNgSlot(false).home_status, bflag);
 
             //WS1
             //SetBtnStatusColor(btn_zt_ws1_f, COM.ws1.ax_fr.home_status, bflag);
@@ -226,8 +256,8 @@ namespace UI
 
 
             lb_udl2.Text = COM.UDLoad2.StrOfPos;
-            lb_box_ok.Text = COM.traybox_ok.StrOfPos;
-            lb_box_ng.Text = COM.traybox_ng.StrOfPos;
+            lb_box_ok.Text = GetTrayPosForOkSlot();
+            lb_box_ng.Text = GetTrayPosForNgSlot();
 
             lb_udl1.Text = COM.UDLoad1.StrOfPos;
             lb_box_fd.Text = COM.traybox_fd.StrOfPos;
