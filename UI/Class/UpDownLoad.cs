@@ -2767,7 +2767,6 @@ RECAP:
                                 {
                                     WsPickmd[0].bardcode = xt.XtMd.bardcode;                               
                                     WsPickmd[0].res = -1;
-                                    WsPickmd[0].last_res = -1;
                                     WsPickmd[0].test_idx = 0;
                                     ws.TestStatus = WS.EM_TEST_STA.UNTEST;
                                     ws.bFreshLoadPending = true;
@@ -4612,7 +4611,6 @@ RECAP:
                                     }
 
                                     WsTriPos[j].res = -1;
-                                    WsTriPos[j].last_res = -1;
                                     WsTriPos[j].test_idx = 0;
                                     ws.TestStatus = WS.EM_TEST_STA.UNTEST;
                                     ws.bFreshLoadPending = true;
@@ -4916,7 +4914,6 @@ RECAP:
                         }
 
                         WsTriPos[j].res = -1;
-                        WsTriPos[j].last_res = -1;
                         WsTriPos[j].test_idx = 0;
                         ws.TestStatus = WS.EM_TEST_STA.UNTEST;
                         ws.bFreshLoadPending = true;
@@ -6753,6 +6750,11 @@ RECHECKAGAIN:
                 {
                     ws.bStartupInitPending = false;
                     VAR.msg.AddMsg(Msg.EM_MSGTYPE.DBG, string.Format("{0} 首轮上下料完成,允许进入真实测试流程", ws.disc));
+                }
+                if (ws.bPauseResumePending)
+                {
+                    ws.bPauseResumePending = false;
+                    VAR.msg.AddMsg(Msg.EM_MSGTYPE.DBG, string.Format("{0} 暂停恢复后已完成真实上下料,允许重新进入测试流程", ws.disc));
                 }
 
                 Ct = (Environment.TickCount - tick) / 1000.0;

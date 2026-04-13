@@ -385,6 +385,7 @@ namespace UI
         public bool bResultWaitUnload = false;//本轮结果已完整返回，等待下料消费
         public bool bFreshLoadPending = false;//本轮已有新上料，但尚未建立新测试会话
         public bool bStartupInitPending = false;//复位启动后的首轮必须先经过一次真实上下料
+        public bool bPauseResumePending = false;//暂停打断后恢复运行，必须先重新建立一次真实上下料状态
 
         double fr = 0, bk = 0, u = 0;
         bool btsk = false;

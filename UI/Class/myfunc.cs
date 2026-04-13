@@ -1762,6 +1762,11 @@ namespace UI
                         workstation.FeedStatus = WS.EM_STA.REDAYFORUPDOWNLOAD;
                         VAR.msg.AddMsg(Msg.EM_MSGTYPE.DBG, string.Format("{0} 首轮初始化后强制先上下料,禁止直接启动测试", workstation.disc));
                     }
+                    if (workstation.bPauseResumePending && workstation.FeedStatus != WS.EM_STA.REDAYFORUPDOWNLOAD)
+                    {
+                        workstation.FeedStatus = WS.EM_STA.REDAYFORUPDOWNLOAD;
+                        VAR.msg.AddMsg(Msg.EM_MSGTYPE.DBG, string.Format("{0} 暂停恢复后强制先上下料,禁止直接继承上一轮测试状态", workstation.disc));
+                    }
                     bool hasUntestedEnabledMd = false;
                     foreach (MdDat md in workstation.list_md)
                     {
@@ -1911,6 +1916,12 @@ namespace UI
                                 VAR.msg.AddMsg(Msg.EM_MSGTYPE.DBG, string.Format("{0}上下料线程退出快照,status={1},FeedStatus={2},UpDownLoad.status={3}->{4}", workstation.disc, workstation.Status, workstation.FeedStatus, UpDownLoad.status, string.Join(" | ", udSnapshot)));
                                 if (UpDownLoad.status == UpDownLoad.EM_STA.ERR)
                                 {
+                                    if (WS.bpause)
+                                    {
+                                        workstation.bPauseResumePending = true;
+                                        workstation.FeedStatus = WS.EM_STA.REDAYFORUPDOWNLOAD;
+                                        VAR.msg.AddMsg(Msg.EM_MSGTYPE.DBG, string.Format("{0} 暂停打断上下料,恢复后必须先重新上下料", workstation.disc));
+                                    }
                                     VAR.msg.AddMsg(Msg.EM_MSGTYPE.WAR, VAR.IsChinese ? string.Format("{0}上下料异常，测试线程结束", workstation.disc) : string.Format("{0}ERROR:Updownload, test thread ends       ({0}上下料异常，测试线程结束)", workstation.disc));
                                     //VAR.sys_inf.Set(EM_ALM_STA.WAR_YELLOW_FLASH, "上下料异常!", 20, true);
                                     if (VAR.SysErrAlm.ErrItem != ERR_ALM.EmErrItem.Null)
