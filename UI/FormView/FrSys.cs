@@ -346,8 +346,8 @@ namespace UI
                     axisConfig.AddAxis(MT.Axlist_UDL2_ExpLC);
                     break;
                 case 2:
-                    axisTable.AddAxis(MT.Axlist_UDL_LC);
-                    axisConfig.AddAxis(MT.Axlist_UDL_LC);
+                    axisTable.AddAxis(MT.GetAxlistUdlLcForCurrentMode());
+                    axisConfig.AddAxis(MT.GetAxlistUdlLcForCurrentMode());
                     break;
                 case 3:
                     axisTable.AddAxis(MT.AxList_BOX_LEFT);

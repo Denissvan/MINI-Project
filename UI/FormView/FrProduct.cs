@@ -181,8 +181,7 @@ namespace UI
             tray = tray_fd;
             traybox = COM.traybox_fd;
             UpdateTrayCfgTabText();
-            ShowTrayData(tray);
-            ShowTrayBoxData(traybox);
+            ctb_tray_cfg_SelectedIndexChanged(ctb_tray_cfg, EventArgs.Empty);
             xyzu_tray_study.XYZUVisible = "True,True,True,True";
             xyzu_trayvs.XYZUVisible = "True,True,True,False";
 			
@@ -689,6 +688,8 @@ namespace UI
             TrayCfgBinding binding = GetCurrentTrayCfgBinding();
             tray = binding.Tray;
             traybox = binding.TrayBox;
+            VAR.msg.AddMsg(Msg.EM_MSGTYPE.SYS, string.Format("TrayCfg页签={0}, 绑定料仓={1}, 列={2}, 行={3}",
+                ((CTabControl)sender).SelectedTab.Name, traybox.disc, tray.col, tray.row));
             bool isFeedTray = ((CTabControl)sender).SelectedTab.Name == "ctp_tray_fd";
             nud_AddCapQrcodePosY.Enabled = isFeedTray;
             btn_GetAddCapQrcodePos.Enabled = isFeedTray;

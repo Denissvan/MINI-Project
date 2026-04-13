@@ -123,6 +123,16 @@ namespace UI
         public static List<AXIS> Axlist_UDL2_ExpLC = new List<AXIS> { AXIS_UDL2_X, AXIS_UDL2_Y, AXIS_UDL2_Z, AXIS_UDL2_U1, AXIS_UDL2_U2 };
         //料仓
         public static List<AXIS> Axlist_UDL_LC = new List<AXIS> { AXIS_UDL_FD_X, AXIS_UDL_OK_X, AXIS_UDL_NG_X, AXIS_UDL_FD_Z, AXIS_UDL_OK_Z, AXIS_UDL_NG_Z };
+
+        public static List<AXIS> GetAxlistUdlLcForCurrentMode()
+        {
+            if (RuntimeMachineMode.IsTrayBoxSwapped)
+            {
+                return new List<AXIS> { AXIS_UDL_FD_X, AXIS_UDL_NG_X, AXIS_UDL_OK_X, AXIS_UDL_FD_Z, AXIS_UDL_NG_Z, AXIS_UDL_OK_Z };
+            }
+
+            return new List<AXIS> { AXIS_UDL_FD_X, AXIS_UDL_OK_X, AXIS_UDL_NG_X, AXIS_UDL_FD_Z, AXIS_UDL_OK_Z, AXIS_UDL_NG_Z };
+        }
         #endregion
 
         #region IO 定义
