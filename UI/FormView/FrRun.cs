@@ -37,12 +37,12 @@ namespace UI
         private static readonly object _Locker = new object();
         private TrayBox GetRunTrayBoxForOkSlot()
         {
-            return RuntimeMachineMode.IsTrayBoxSwapped ? COM.traybox_ng : COM.traybox_ok;
+            return COM.traybox_ok;
         }
 
         private TrayBox GetRunTrayBoxForNgSlot()
         {
-            return RuntimeMachineMode.IsTrayBoxSwapped ? COM.traybox_ok : COM.traybox_ng;
+            return COM.traybox_ng;
         }
 
         private Product.Tray GetRunTrayForOkSlot()
@@ -62,18 +62,33 @@ namespace UI
             traybox_ok.box = GetRunTrayBoxForOkSlot();
             traybox_ng.box = GetRunTrayBoxForNgSlot();
 
-            tray_ok.TrayName = RuntimeMachineMode.IsTrayBoxSwapped
-                ? (VAR.IsChinese ? "NG料盘" : "NG Tray")
-                : (VAR.IsChinese ? "OK料盘" : "OK Tray");
-            tray_ng.TrayName = RuntimeMachineMode.IsTrayBoxSwapped
-                ? (VAR.IsChinese ? "OK料盘" : "OK Tray")
-                : (VAR.IsChinese ? "NG料盘" : "NG Tray");
+            tray_ok.TrayName = VAR.IsChinese ? "OK料盘" : "OK Tray";
+            tray_ng.TrayName = VAR.IsChinese ? "NG料盘" : "NG Tray";
 
-            traybox_ok.TrayBoxName = RuntimeMachineMode.IsTrayBoxSwapped ? "NG" : "OK";
-            traybox_ng.TrayBoxName = RuntimeMachineMode.IsTrayBoxSwapped ? "OK" : "NG";
+            traybox_ok.TrayBoxName = "OK";
+            traybox_ng.TrayBoxName = "NG";
 
-            btn_new_traybox_ok.Text = RuntimeMachineMode.IsTrayBoxSwapped ? "更换NG料盒" : "更换OK料盒";
-            btn_new_traybox_ng.Text = RuntimeMachineMode.IsTrayBoxSwapped ? "更换OK料盒" : "更换NG料盒";
+            btn_new_traybox_ok.Text = "更换OK料盒";
+            btn_new_traybox_ng.Text = "更换NG料盒";
+
+            if (RuntimeMachineMode.IsTrayBoxSwapped)
+            {
+                tableLayoutPanel4.SetCellPosition(traybox_ok, new TableLayoutPanelCellPosition(0, 2));
+                tableLayoutPanel4.SetCellPosition(traybox_ng, new TableLayoutPanelCellPosition(0, 1));
+                tableLayoutPanel4.SetCellPosition(tray_ok, new TableLayoutPanelCellPosition(1, 2));
+                tableLayoutPanel4.SetCellPosition(tray_ng, new TableLayoutPanelCellPosition(1, 1));
+                btn_new_traybox_ok.Location = new Point(0, 597);
+                btn_new_traybox_ng.Location = new Point(0, 519);
+            }
+            else
+            {
+                tableLayoutPanel4.SetCellPosition(traybox_ok, new TableLayoutPanelCellPosition(0, 1));
+                tableLayoutPanel4.SetCellPosition(traybox_ng, new TableLayoutPanelCellPosition(0, 2));
+                tableLayoutPanel4.SetCellPosition(tray_ok, new TableLayoutPanelCellPosition(1, 1));
+                tableLayoutPanel4.SetCellPosition(tray_ng, new TableLayoutPanelCellPosition(1, 2));
+                btn_new_traybox_ok.Location = new Point(0, 519);
+                btn_new_traybox_ng.Location = new Point(0, 597);
+            }
         }
 
         public bool bupdate

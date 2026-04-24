@@ -65,10 +65,10 @@ namespace UI
 
         public static AXIS AXIS_UDL_FD_X = new AXIS(0, CARD_ECI2400_3, "供料X", "FEED_X", AXIS.MT_TYPE.STEP, AXIS.ENC_TYPE.NO, GPIO.IO_STA.OUT_ON);
         public static AXIS AXIS_UDL_FD_Z = new AXIS(3, CARD_ECI2400_3, "供料Z", "FEED_Z", AXIS.MT_TYPE.STEP, AXIS.ENC_TYPE.NO, GPIO.IO_STA.OUT_ON);
-        public static AXIS AXIS_UDL_OK_X = new AXIS(1, CARD_ECI2400_3, "OK料X", "OK_X", AXIS.MT_TYPE.STEP, AXIS.ENC_TYPE.NO, GPIO.IO_STA.OUT_ON);
-        public static AXIS AXIS_UDL_OK_Z = new AXIS(6, CARD_DMC3C00_4, "OK料Z", "OK_Z", AXIS.MT_TYPE.STEP, AXIS.ENC_TYPE.NO, GPIO.IO_STA.OUT_ON);
-        public static AXIS AXIS_UDL_NG_X = new AXIS(2, CARD_ECI2400_3, "NG料X", "NG_X", AXIS.MT_TYPE.STEP, AXIS.ENC_TYPE.NO, GPIO.IO_STA.OUT_ON);
-        public static AXIS AXIS_UDL_NG_Z = new AXIS(7, CARD_DMC3C00_4, "NG料Z", "NG_Z", AXIS.MT_TYPE.STEP, AXIS.ENC_TYPE.NO, GPIO.IO_STA.OUT_ON);
+        public static AXIS AXIS_UDL_OK_X = new AXIS(1, CARD_ECI2400_3, RuntimeMachineMode.IsTrayBoxSwapped ? "NG料X" : "OK料X", RuntimeMachineMode.IsTrayBoxSwapped ? "NG_X" : "OK_X", AXIS.MT_TYPE.STEP, AXIS.ENC_TYPE.NO, GPIO.IO_STA.OUT_ON);
+        public static AXIS AXIS_UDL_OK_Z = new AXIS(6, CARD_DMC3C00_4, RuntimeMachineMode.IsTrayBoxSwapped ? "NG料Z" : "OK料Z", RuntimeMachineMode.IsTrayBoxSwapped ? "NG_Z" : "OK_Z", AXIS.MT_TYPE.STEP, AXIS.ENC_TYPE.NO, GPIO.IO_STA.OUT_ON);
+        public static AXIS AXIS_UDL_NG_X = new AXIS(2, CARD_ECI2400_3, RuntimeMachineMode.IsTrayBoxSwapped ? "OK料X" : "NG料X", RuntimeMachineMode.IsTrayBoxSwapped ? "OK_X" : "NG_X", AXIS.MT_TYPE.STEP, AXIS.ENC_TYPE.NO, GPIO.IO_STA.OUT_ON);
+        public static AXIS AXIS_UDL_NG_Z = new AXIS(7, CARD_DMC3C00_4, RuntimeMachineMode.IsTrayBoxSwapped ? "OK料Z" : "NG料Z", RuntimeMachineMode.IsTrayBoxSwapped ? "OK_Z" : "NG_Z", AXIS.MT_TYPE.STEP, AXIS.ENC_TYPE.NO, GPIO.IO_STA.OUT_ON);
         //上下料
         //public static AXIS AXIS_UL_X = new AXIS(0, null, "上下料X", AXIS.MT_TYPE.SEVER, AXIS.ENC_TYPE.YES, GPIO.IO_STA.OUT_ON);
         //public static AXIS AXIS_UL_Y = new AXIS(1, null, "上下料Y", AXIS.MT_TYPE.SEVER, AXIS.ENC_TYPE.YES, GPIO.IO_STA.OUT_ON);
@@ -126,12 +126,7 @@ namespace UI
 
         public static List<AXIS> GetAxlistUdlLcForCurrentMode()
         {
-            if (RuntimeMachineMode.IsTrayBoxSwapped)
-            {
-                return new List<AXIS> { AXIS_UDL_FD_X, AXIS_UDL_NG_X, AXIS_UDL_OK_X, AXIS_UDL_FD_Z, AXIS_UDL_NG_Z, AXIS_UDL_OK_Z };
-            }
-
-            return new List<AXIS> { AXIS_UDL_FD_X, AXIS_UDL_OK_X, AXIS_UDL_NG_X, AXIS_UDL_FD_Z, AXIS_UDL_OK_Z, AXIS_UDL_NG_Z };
+            return Axlist_UDL_LC;
         }
         #endregion
 

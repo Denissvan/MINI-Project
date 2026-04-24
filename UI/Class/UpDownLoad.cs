@@ -2769,7 +2769,6 @@ RECAP:
                                     WsPickmd[0].res = -1;
                                     WsPickmd[0].test_idx = 0;
                                     ws.TestStatus = WS.EM_TEST_STA.UNTEST;
-                                    ws.bFreshLoadPending = true;
                                     VAR.msg.AddMsg(Msg.EM_MSGTYPE.DBG, string.Format("{0} 新上料置位,模组={1}", ws.disc, WsPickmd[0].Num));
                                     WsPickmd[0].motor_barcode = xt.XtMd.motor_barcode;
                                     if (xt.XtMd != null)
@@ -4613,7 +4612,6 @@ RECAP:
                                     WsTriPos[j].res = -1;
                                     WsTriPos[j].test_idx = 0;
                                     ws.TestStatus = WS.EM_TEST_STA.UNTEST;
-                                    ws.bFreshLoadPending = true;
                                     VAR.msg.AddMsg(Msg.EM_MSGTYPE.DBG, string.Format("{0} 新上料置位,模组={1}", ws.disc, WsTriPos[j].Num));
                                     WsTriPos[j].IsNormal = VAR.Isnormal;
                                     
@@ -4916,7 +4914,6 @@ RECAP:
                         WsTriPos[j].res = -1;
                         WsTriPos[j].test_idx = 0;
                         ws.TestStatus = WS.EM_TEST_STA.UNTEST;
-                        ws.bFreshLoadPending = true;
                         VAR.msg.AddMsg(Msg.EM_MSGTYPE.DBG, string.Format("{0} 新上料置位,模组={1}", ws.disc, WsTriPos[j].Num));
                         WsTriPos[j].IsNormal = VAR.Isnormal;
 
@@ -6746,17 +6743,6 @@ RECHECKAGAIN:
                 //通知测试
                 VAR.msg.AddMsg(Msg.EM_MSGTYPE.DBG, VAR.IsChinese ? string.Format("{0} 通知REDAYFORTEST", ws.disc) : string.Format("{0} REDAYFORTEST", ws.disc));
                 ws.FeedStatus = WS.EM_STA.REDAYFORTEST;
-                if (ws.bStartupInitPending)
-                {
-                    ws.bStartupInitPending = false;
-                    VAR.msg.AddMsg(Msg.EM_MSGTYPE.DBG, string.Format("{0} 首轮上下料完成,允许进入真实测试流程", ws.disc));
-                }
-                if (ws.bPauseResumePending)
-                {
-                    ws.bPauseResumePending = false;
-                    VAR.msg.AddMsg(Msg.EM_MSGTYPE.DBG, string.Format("{0} 暂停恢复后已完成真实上下料,允许重新进入测试流程", ws.disc));
-                }
-
                 Ct = (Environment.TickCount - tick) / 1000.0;
                 VAR.msg.AddMsg(Msg.EM_MSGTYPE.DBG, VAR.IsChinese ? string.Format("上下料完成用时{0:F3}s", Ct) : string.Format("Updownload is finished ,Time:{0:F3}s.          (上下料完成用时{0:F3}s)", Ct));
             }

@@ -19,11 +19,13 @@ Each session note should keep:
 2. demand track
 3. date
 4. related logs or scope
-5. observed symptom
-6. current hypothesis
-7. code changes made
-8. validation result
-9. next action
+5. software version identifier
+6. versioned change summary
+7. observed symptom
+8. current hypothesis
+9. code changes made
+10. validation result
+11. next action
 
 Use `sessions/session-template.md` as the base shape.
 
@@ -33,6 +35,11 @@ Use `sessions/session-template.md` as the base shape.
 - Create a new dated file when the work moves to a new day or needs a clean branch.
 - Keep conclusions factual and concise.
 - Record what was verified separately from what is only suspected.
+- For every confirmed code modification, append a version trace entry:
+  - explicit version identifier
+  - short summary of the change
+  - whether the related field log/software has confirmed that version
+- Do not rely on “latest code” as a version description.
 
 ## Split Rule
 
@@ -55,6 +62,7 @@ A good session note should let a new chat resume with minimal ambiguity:
 
 - what problem is being tracked
 - what evidence was checked
+- which software/log version the evidence belongs to
 - what changed
 - what to do next
 

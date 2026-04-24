@@ -51,13 +51,9 @@ namespace UI
                         TrayAxisName = VAR.IsChinese ? "供料轴" : "Feed tray"
                     };
                 case "ctp_tray_ok":
-                    return IsTrayUiSwapped
-                        ? new TrayCfgBinding { Tray = tray_ng, TrayBox = COM.traybox_ng, TrayAxisName = VAR.IsChinese ? "NG料轴" : "Ng tray" }
-                        : new TrayCfgBinding { Tray = tray_ok, TrayBox = COM.traybox_ok, TrayAxisName = VAR.IsChinese ? "OK料轴" : "Ok tray" };
+                    return new TrayCfgBinding { Tray = tray_ok, TrayBox = COM.traybox_ok, TrayAxisName = VAR.IsChinese ? "OK料轴" : "Ok tray" };
                 case "ctp_tray_ng":
-                    return IsTrayUiSwapped
-                        ? new TrayCfgBinding { Tray = tray_ok, TrayBox = COM.traybox_ok, TrayAxisName = VAR.IsChinese ? "OK料轴" : "Ok tray" }
-                        : new TrayCfgBinding { Tray = tray_ng, TrayBox = COM.traybox_ng, TrayAxisName = VAR.IsChinese ? "NG料轴" : "Ng tray" };
+                    return new TrayCfgBinding { Tray = tray_ng, TrayBox = COM.traybox_ng, TrayAxisName = VAR.IsChinese ? "NG料轴" : "Ng tray" };
                 default:
                     return new TrayCfgBinding
                     {
@@ -75,8 +71,21 @@ namespace UI
 
         private void UpdateTrayCfgTabText()
         {
-            ctp_tray_ok.Text = IsTrayUiSwapped ? "  NG料盘  " : "  OK料盘  ";
-            ctp_tray_ng.Text = IsTrayUiSwapped ? "  OK料盘  " : "  NG料盘  ";
+            ctp_tray_ok.Text = "  OK料盘  ";
+            ctp_tray_ng.Text = "  NG料盘  ";
+
+            ctb_tray_cfg.TabPages.Remove(ctp_tray_ok);
+            ctb_tray_cfg.TabPages.Remove(ctp_tray_ng);
+            if (IsTrayUiSwapped)
+            {
+                ctb_tray_cfg.TabPages.Add(ctp_tray_ng);
+                ctb_tray_cfg.TabPages.Add(ctp_tray_ok);
+            }
+            else
+            {
+                ctb_tray_cfg.TabPages.Add(ctp_tray_ok);
+                ctb_tray_cfg.TabPages.Add(ctp_tray_ng);
+            }
         }
 
         public bool bupdate

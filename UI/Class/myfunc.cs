@@ -74,7 +74,7 @@ namespace UI
         {
             if (RuntimeMachineMode.IsTrayBoxSwapped)
             {
-                return new TrayBox("TrayBox_NG", "OK料仓", TrayBox.EM_ROLE.OK, TrayBox.EM_DIR.IN_OUT, 10, MT.AXIS_UDL_NG_X,
+                return new TrayBox("TrayBox_OK", "OK料仓", TrayBox.EM_ROLE.OK, TrayBox.EM_DIR.IN_OUT, 10, MT.AXIS_UDL_NG_X,
                     MT.AXIS_UDL_NG_Z, MT.GPIO_IN_DL_INP_NG_TRAYBOX, MT.GPIO_IN_DL_RDY_NG_TRAY, MT.GPIO_OUT_DL_NG_TRAY,
                     MT.GPIO_IN_UDL_NG_TRAY_ON, MT.CLD_UDL_NGTRAY_HD);
             }
@@ -88,7 +88,7 @@ namespace UI
         {
             if (RuntimeMachineMode.IsTrayBoxSwapped)
             {
-                return new TrayBox("TrayBox_OK", "NG料仓", TrayBox.EM_ROLE.NG, TrayBox.EM_DIR.IN_OUT, 10, MT.AXIS_UDL_OK_X,
+                return new TrayBox("TrayBox_NG", "NG料仓", TrayBox.EM_ROLE.NG, TrayBox.EM_DIR.IN_OUT, 10, MT.AXIS_UDL_OK_X,
                     MT.AXIS_UDL_OK_Z, MT.GPIO_IN_DL_INP_OK_TRAYBOX, MT.GPIO_IN_DL_RDY_OK_TRAY, MT.GPIO_OUT_DL_OK_TRAY,
                     MT.GPIO_IN_UDL_OK_TRAY_ON, MT.CLD_UDL_OKTRAY_HD);
             }
@@ -1757,65 +1757,9 @@ namespace UI
                     //if (VAR.gsys_set.isChkMode && !bfeed)
                     //    workstation.TestStatus = WS.EM_TEST_STA.EMPTY;
                     workstation.Iserrfirstbox = true;
-                    if (workstation.bStartupInitPending && workstation.FeedStatus != WS.EM_STA.REDAYFORUPDOWNLOAD)
-                    {
-                        workstation.FeedStatus = WS.EM_STA.REDAYFORUPDOWNLOAD;
-                        VAR.msg.AddMsg(Msg.EM_MSGTYPE.DBG, string.Format("{0} 首轮初始化后强制先上下料,禁止直接启动测试", workstation.disc));
-                    }
-                    if (workstation.bPauseResumePending && workstation.FeedStatus != WS.EM_STA.REDAYFORUPDOWNLOAD)
-                    {
-                        workstation.FeedStatus = WS.EM_STA.REDAYFORUPDOWNLOAD;
-                        VAR.msg.AddMsg(Msg.EM_MSGTYPE.DBG, string.Format("{0} 暂停恢复后强制先上下料,禁止直接继承上一轮测试状态", workstation.disc));
-                    }
-                    bool hasUntestedEnabledMd = false;
-                    foreach (MdDat md in workstation.list_md)
-                    {
-                        if (md.benable && md.res == -1)
-                        {
-                            hasUntestedEnabledMd = true;
-                            break;
-                        }
-                    }
-
-                    bool readyByCompleted = bfeed && (workstation.TestStatus == WS.EM_TEST_STA.COMPLETED || workstation.bUpDnAddTestWaitUnload || workstation.bResultWaitUnload);
+                    bool readyByCompleted = bfeed && workstation.TestStatus == WS.EM_TEST_STA.COMPLETED;
                     bool readyByEmpty = wsenable && workstation.TestStatus == WS.EM_TEST_STA.EMPTY && !VAR.ClearMt;
-                    bool readyByFeedStatus = workstation.FeedStatus == WS.EM_STA.REDAYFORUPDOWNLOAD || workstation.bUpDnAddTestWaitUnload || workstation.bResultWaitUnload;
-
-                    if (workstation.bFreshLoadPending && !workstation.bResultWaitUnload)
-                    {
-                        if (readyByCompleted)
-                        {
-                            VAR.msg.AddMsg(Msg.EM_MSGTYPE.WAR,
-                                string.Format("{0} 阻止按完成态再次上下料,原因=存在新上料未建测试会话,TestStatus={1},FeedStatus={2}",
-                                workstation.disc, workstation.TestStatus, workstation.FeedStatus));
-                        }
-                        if (readyByFeedStatus)
-                        {
-                            VAR.msg.AddMsg(Msg.EM_MSGTYPE.WAR,
-                                string.Format("{0} 阻止按准备上下料状态再次上下料,原因=存在新上料未建测试会话,TestStatus={1},FeedStatus={2}",
-                                workstation.disc, workstation.TestStatus, workstation.FeedStatus));
-                        }
-                        readyByCompleted = false;
-                        readyByFeedStatus = false;
-                    }
-
-                    if (hasUntestedEnabledMd)
-                    {
-                        if (readyByCompleted)
-                        {
-                            VAR.msg.AddMsg(Msg.EM_MSGTYPE.WAR,
-                                string.Format("{0} 阻止按完成态再次上下料,原因=存在待测模组残留,TestStatus={1},FeedStatus={2}",
-                                workstation.disc, workstation.TestStatus, workstation.FeedStatus));
-                        }
-                        if (readyByFeedStatus)
-                        {
-                            VAR.msg.AddMsg(Msg.EM_MSGTYPE.WAR,
-                                string.Format("{0} 阻止按准备上下料状态再次上下料,原因=存在待测模组残留,TestStatus={1},FeedStatus={2}",
-                                workstation.disc, workstation.TestStatus, workstation.FeedStatus));
-                        }
-                        readyByCompleted = false;
-                        readyByFeedStatus = false;
-                    }
+                    bool readyByFeedStatus = workstation.FeedStatus == WS.EM_STA.REDAYFORUPDOWNLOAD;
 
                     //检查是否需要下料
                     // if (!bnotfeed && (bfeed && workstation.TestStatus == WS.EM_TEST_STA.COMPLETED || (wsenable && workstation.TestStatus == WS.EM_TEST_STA.EMPTY && !VAR.ClearMt && (!VAR.gsys_set.isChkMode || (VAR.gsys_set.isChkMode && bchk))) || workstation.FeedStatus == WS.EM_STA.REDAYFORUPDOWNLOAD))
@@ -1860,16 +1804,6 @@ namespace UI
 
                         }
                         workstation.FeedStatus = WS.EM_STA.REDAYFORUPDOWNLOAD;
-                        if (workstation.bResultWaitUnload)
-                        {
-                            VAR.msg.AddMsg(Msg.EM_MSGTYPE.DBG, string.Format("{0} 最终结果进入下料流程", workstation.disc));
-                            workstation.bResultWaitUnload = false;
-                        }
-                        if (workstation.bUpDnAddTestWaitUnload)
-                        {
-                            VAR.msg.AddMsg(Msg.EM_MSGTYPE.DBG, string.Format("{0} 401结果后进入下料流程", workstation.disc));
-                            workstation.bUpDnAddTestWaitUnload = false;
-                        }
                         // 重置计时器和状态
                         if(AutoInspectionParameter.ifcheck&&(workstation.num+1==PT_SET.CheckWs) && !VAR.ClearMt)
                         {
@@ -1918,8 +1852,6 @@ namespace UI
                                 {
                                     if (WS.bpause)
                                     {
-                                        workstation.bPauseResumePending = true;
-                                        workstation.FeedStatus = WS.EM_STA.REDAYFORUPDOWNLOAD;
                                         VAR.msg.AddMsg(Msg.EM_MSGTYPE.DBG, string.Format("{0} 暂停打断上下料,恢复后必须先重新上下料", workstation.disc));
                                     }
                                     VAR.msg.AddMsg(Msg.EM_MSGTYPE.WAR, VAR.IsChinese ? string.Format("{0}上下料异常，测试线程结束", workstation.disc) : string.Format("{0}ERROR:Updownload, test thread ends       ({0}上下料异常，测试线程结束)", workstation.disc));
@@ -1967,27 +1899,17 @@ namespace UI
                     else
                     {
                         //if ((workstation.TestStatus != WS.EM_TEST_STA.EMPTY)&&(!VAR.gsys_set.isChkMode||(VAR.gsys_set.isChkMode  && bchk)))
-                        if (workstation.bResultWaitUnload)
-                        {
-                            VAR.msg.AddMsg(Msg.EM_MSGTYPE.WAR, string.Format("{0} 阻止结果后重复启动测试,等待下料消费", workstation.disc));
-                            workstation.Status = WS.EM_STA.REDAY;
-                        }
-                        else if (workstation.bUpDnAddTestWaitUnload)
-                        {
-                            VAR.msg.AddMsg(Msg.EM_MSGTYPE.WAR, string.Format("{0} 阻止401结果后重复启动测试,等待下料消费", workstation.disc));
-                            workstation.Status = WS.EM_STA.REDAY;
-                        }
-                        else if (workstation.TestStatus != WS.EM_TEST_STA.EMPTY)
+                        if (workstation.TestStatus != WS.EM_TEST_STA.EMPTY)
                         {
                             //复位测试结果
                             workstation.ResetResultOfMd();
                             //更新物料状态
                             workstation.TestStatus = WS.EM_TEST_STA.UNTEST;
-                            var mtime = NewSysInf.UserParams.BeforeOpenImageWaitTime;
-                            if (mtime > 0)
+                            res = workstation.WaitBeforeOpenImage(ref VAR.gsys_set.bquit);
+                            if (res != EM_RES.OK)
                             {
-                                VAR.msg.AddMsg(Msg.EM_MSGTYPE.DBG, "上料后延迟开图时间" + mtime);
-                                Thread.Sleep(mtime);
+                                workstation.Status = WS.EM_STA.LINKERR;
+                                break;
                             }
                             //提前开图
                             VAR.msg.AddMsg(Msg.EM_MSGTYPE.DBG, VAR.IsChinese ? string.Format("{0} 启动测试", workstation.disc) : string.Format("{0}Start test     ({0} 启动测试)", workstation.disc));

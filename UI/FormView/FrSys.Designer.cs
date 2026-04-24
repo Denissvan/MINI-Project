@@ -3769,7 +3769,7 @@ namespace UI
             this.tp_setparm_2.Location = new System.Drawing.Point(4, 44);
             this.tp_setparm_2.Name = "tp_setparm_2";
             this.tp_setparm_2.Padding = new System.Windows.Forms.Padding(3);
-            this.tp_setparm_2.Size = new System.Drawing.Size(52, 44);
+            this.tp_setparm_2.Size = new System.Drawing.Size(1164, 818);
             this.tp_setparm_2.TabIndex = 1;
             this.tp_setparm_2.Text = "参数2          ";
             this.tp_setparm_2.UseVisualStyleBackColor = true;
@@ -6607,7 +6607,7 @@ namespace UI
             this.tabPage3.Location = new System.Drawing.Point(4, 44);
             this.tabPage3.Name = "tabPage3";
             this.tabPage3.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage3.Size = new System.Drawing.Size(52, 44);
+            this.tabPage3.Size = new System.Drawing.Size(1164, 818);
             this.tabPage3.TabIndex = 2;
             this.tabPage3.Text = "参数3";
             this.tabPage3.UseVisualStyleBackColor = true;

@@ -381,12 +381,6 @@ namespace UI
         //是否在上下料位置
         public bool bOnUpDnPos = false;
         public bool bUpDnPosGoOnTest = false;//在上下料位置需要继续测试
-        public bool bUpDnAddTestWaitUnload = false;//401附加测试已完成，等待下料消费
-        public bool bResultWaitUnload = false;//本轮结果已完整返回，等待下料消费
-        public bool bFreshLoadPending = false;//本轮已有新上料，但尚未建立新测试会话
-        public bool bStartupInitPending = false;//复位启动后的首轮必须先经过一次真实上下料
-        public bool bPauseResumePending = false;//暂停打断后恢复运行，必须先重新建立一次真实上下料状态
-
         double fr = 0, bk = 0, u = 0;
         bool btsk = false;
         public string StrOfPos
@@ -498,7 +492,6 @@ namespace UI
                 }
             }
             VAR.msg.AddMsg(Msg.EM_MSGTYPE.DBG, string.Format("PC{0} reset:{1}", list_md[0].PC_ID, strres));
-            bResultWaitUnload = false;
             breschanged = true;
             return 0;
         }
@@ -2174,6 +2167,7 @@ namespace UI
         {
             int waitMs = Math.Max(0, NewSysInf.UserParams.BeforeOpenImageWaitTime);
             bool stopOtherAxes = NewSysInf.UserParams.bBeforeOpenImageStopAxis;
+            bool restoreWindAfterDelay = false;
 
             if (!stopOtherAxes && waitMs <= 0)
             {
@@ -2185,6 +2179,16 @@ namespace UI
                 VAR.msg.AddMsg(Msg.EM_MSGTYPE.DBG, $"{disc} 上料位提前开图前停止其他轴");
                 VAR.bBeforeOpenImageAxisStatic = true;
                 MT.AllAxStop();
+                if (gpio_out_gz_wind != null && gpio_out_gz_wind.isON)
+                {
+                    VAR.msg.AddMsg(Msg.EM_MSGTYPE.DBG, $"{disc} 轴静止等待期间关闭吹气");
+                    gpio_out_gz_wind.SetOff();
+                    if (gpio_out_gz_wind.res != EM_RES.OK)
+                    {
+                        return gpio_out_gz_wind.res;
+                    }
+                    restoreWindAfterDelay = true;
+                }
             }
 
             try
@@ -2211,6 +2215,11 @@ namespace UI
             }
             finally
             {
+                if (restoreWindAfterDelay && !bquit && !VAR.gsys_set.bquit)
+                {
+                    VAR.msg.AddMsg(Msg.EM_MSGTYPE.DBG, $"{disc} 轴静止等待结束，恢复吹气");
+                    gpio_out_gz_wind.SetOn();
+                }
                 if (stopOtherAxes)
                 {
                     VAR.bBeforeOpenImageAxisStatic = false;
@@ -2463,11 +2472,6 @@ namespace UI
                         }
 
                         VAR.msg.AddMsg(Msg.EM_MSGTYPE.DBG, str);
-                        if (bFreshLoadPending)
-                        {
-                            bFreshLoadPending = false;
-                            VAR.msg.AddMsg(Msg.EM_MSGTYPE.DBG, string.Format("{0} 新上料标记清除,原因=收到本轮有效测试结果,PC={1}", disc, list[0].PC_ID));
-                        }
                     }
                     else
                     {
@@ -2571,20 +2575,6 @@ namespace UI
             }
 
             return EM_RES.OK;
-        }
-
-        private void MarkResultWaitUnload()
-        {
-            Status = EM_STA.REDAY;
-            bResultWaitUnload = true;
-            VAR.msg.AddMsg(Msg.EM_MSGTYPE.DBG, string.Format("{0} 最终结果已返回，等待下料消费", disc));
-            if (bUpDnPosGoOnTest)
-            {
-                bUpDnAddTestWaitUnload = true;
-                VAR.msg.AddMsg(Msg.EM_MSGTYPE.DBG, string.Format("{0} 401附加测试完成，等待下料消费", disc));
-            }
-            bUpDnPosGoOnTest = false;
-            TestStatus = EM_TEST_STA.COMPLETED;
         }
 
         public EM_RES GetTestInfo(ref List<TestPC.InfoData> list_info, bool demo = false)
@@ -3075,7 +3065,11 @@ namespace UI
                             TestStatus = EM_TEST_STA.ERROR;
                             break;
                         }
-                        VAR.msg.AddMsg(Msg.EM_MSGTYPE.DBG, string.Format("{0} 首轮初始化关闭当前测试后不等待测试结果,直接转入首次上下料", disc));
+                        if (!Demo)
+                        {
+                            int _sta = 0;
+                            WaitTestResult(ref _sta, PT_SET.TestTime);
+                        }
                         res = EM_RES.OK;
                         Status = EM_STA.REDAY;
                         TestStatus = EM_TEST_STA.COMPLETED;
@@ -3083,8 +3077,6 @@ namespace UI
                         {
                             md.res = 1;
                         }
-                        bStartupInitPending = true;
-                        VAR.msg.AddMsg(Msg.EM_MSGTYPE.DBG, string.Format("{0} 首轮初始化完成,等待首次上下料建立真实状态", disc));
                         IsFirst = false;
                         break;
                     }
@@ -3473,17 +3465,12 @@ namespace UI
                                 break;
                             }
                             res = EM_RES.OK;
-                            MarkResultWaitUnload();
+                            Status = EM_STA.REDAY;
+                            TestStatus = EM_TEST_STA.COMPLETED;
                             break;
                         }
                         else
                         {
-                            if (sta == 0 && bUpDnPosGoOnTest)
-                            {
-                                res = EM_RES.OK;
-                                MarkResultWaitUnload();
-                                break;
-                            }
                             if (lb == COM.LightBox)
                             {
                                 VAR.msg.AddMsg(Msg.EM_MSGTYPE.DBG, VAR.IsChinese ? "本站测试完成" : "Test completed on this site      (本站测试完成)");

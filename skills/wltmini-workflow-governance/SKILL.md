@@ -55,6 +55,18 @@ When a user describes a WLTmini issue:
 - The user compiles this project manually.
 - Do not add build/compile as a routine completion step unless the user explicitly requests it.
 
+## Version Trace Rule
+
+- Every confirmed code change must be associated with a traceable software version identifier.
+- Record the version identifier in a durable project record before or together with the change summary.
+- The version identifier may be a package version, handoff version tag, release label, dated patch label, or another user-recognized version string, but it must be explicit and stable enough to compare against field logs later.
+- Record a short change summary for that version:
+  - which files or communication path changed
+  - what behavior changed
+  - what symptom the change targets
+- When analyzing logs, compare the log timestamp/version in use against the recorded version note before reusing old conclusions.
+- If the current software on site cannot be mapped to a recorded version identifier, call that out explicitly instead of assuming the latest local code matches the field software.
+
 ## Related Files
 
 - `skills/wltmini-log-analysis/SKILL.md`

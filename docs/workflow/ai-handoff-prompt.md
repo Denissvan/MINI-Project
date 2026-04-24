@@ -19,6 +19,7 @@ Use this prompt when switching to another AI tool and you want it to continue th
 1. 先读取项目根目录下的 `AGENTS.md`
 2. 读取项目内 `skills/README.md`
 3. 优先读取以下 skills：
+   - `skills/karpathy-guidelines/SKILL.md`，但只在用户提到“仔细思考 / 认真思考 / 深入思考 / think carefully”时启用
    - `skills/wltmini-workflow-governance/SKILL.md`
    - `skills/wltmini-log-analysis/SKILL.md`
    - `skills/workflow-demand-governance/SKILL.md`
@@ -36,6 +37,7 @@ Use this prompt when switching to another AI tool and you want it to continue th
 - 可复用方法论和专用 skill 以 `E:\AI-Workspace\skills\` 为长期主库
 - 分析 `.log` 文件时，不要先假定 UTF-8，优先尝试 `GBK`/`GB2312`/`OEM`
 - 日志、工位状态、测试流、上下料时间线分析优先遵循 `wltmini-log-analysis`
+- 如果用户使用“仔细思考”这类触发词，优先读取项目本地 `skills/karpathy-guidelines/SKILL.md`，并按其方式先显式说明假设、权衡、简要计划，再进入实现
 - 如果只是需求改动、流程调整、代码修改，不需要你执行编译；编译由用户自行完成
 - 除非用户明确要求，否则不要主动编译项目
 

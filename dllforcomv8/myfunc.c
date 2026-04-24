@@ -31,6 +31,9 @@
 #include <windows.h>
 
 
+#include <string.h>
+
+
 #include <process.h>
 
 
@@ -48,6 +51,8 @@
 
 
 void AppendDebugLog(const TCHAR *msg);
+
+int GetWsNoByPcId(int id);
 
 
 
@@ -135,6 +140,9 @@ void AppendDebugLog(const TCHAR *msg);
 
 
 #define MARK_RESETTEST 6
+
+
+#define CMD_STATUS_INVALID 0xFFFF
 
 
 
@@ -481,28 +489,6 @@ void BuildDeviceInfAreaSnapshot(char *buf, size_t bufSize)
 	sprintf_s(buf, bufSize, "[DLL_TX]InfArea,ws=%d,pc=%d,mark=%d,sta=%d,param=%d,num=%d,barcode=%s",
 		GetWsNoByPcId(Dev.slaveid), Dev.slaveid, mark, status, param, num, barcode[0] == 0 ? "EMPTY" : barcode);
 }
-
-void ClearResultAreaForNewFlow(SlaveData *pDat, int status)
-{
-	if (pDat == NULL || pDat->map_result == NULL)return;
-
-	pDat->map_result->tab_registers[REG_IDX_MARK] = MARK_RESET;
-	pDat->map_result->tab_registers[REG_IDX_STATUS] = status;
-	pDat->map_result->tab_registers[REG_IDX_PARAM] = 0;
-	pDat->map_result->tab_registers[REG_IDX_DAT_LEN] = 0;
-
-	int* pres = (int*)&pDat->map_result->tab_registers[REG_IDX_DAT];
-	for (int n = 0; n < INF_CNT; n++)
-	{
-		pres[n] = -1;
-	}
-}
-
-
-
-
-
-
 
 
 void AppendDebugLog(const TCHAR *msg)
@@ -2136,6 +2122,24 @@ BOOL GetDeviceStatus(int *pnDeviceStatus)
 
 			{
 
+				char deviceResultSnapshot[1024];
+				char deviceInfSnapshot[1024];
+				DebugStr5("[DLL_TX]GetDeviceStatus ClearResultByInfStatus0,pc=%d,sta=%d,inf_mark=%d,result_mark=%d,result_num=%d\n",
+					Dev.slaveid,
+					Dev.mb_map_inf->tab_registers[REG_IDX_STATUS],
+					Dev.mb_map_inf->tab_registers[REG_IDX_MARK],
+					Dev.mb_map_result->tab_registers[REG_IDX_MARK],
+					Dev.mb_map_result->tab_registers[REG_IDX_DAT_LEN]);
+				BuildDeviceInfAreaSnapshot(deviceInfSnapshot, sizeof(deviceInfSnapshot));
+				BuildDeviceResultAreaSnapshot(deviceResultSnapshot, sizeof(deviceResultSnapshot));
+				OutputDebugString(deviceInfSnapshot);
+				OutputDebugString("\n");
+				AppendDebugLog(deviceInfSnapshot);
+				AppendDebugLog("\n");
+				OutputDebugString(deviceResultSnapshot);
+				OutputDebugString("\n");
+				AppendDebugLog(deviceResultSnapshot);
+				AppendDebugLog("\n");
 
 				int* pres = (int*)&Dev.mb_map_result->tab_registers[REG_IDX_DAT];
 
@@ -2452,6 +2456,9 @@ BOOL GetDeviceStatus(int *pnDeviceStatus)
 
 
 
+			int consumedStatus = Dev.mb_map_inf->tab_registers[REG_IDX_STATUS];
+
+
 			//reset mark
 
 
@@ -2470,7 +2477,7 @@ BOOL GetDeviceStatus(int *pnDeviceStatus)
 			//get status
 
 
-			*pnDeviceStatus = Dev.mb_map_inf->tab_registers[REG_IDX_STATUS];
+			*pnDeviceStatus = consumedStatus;
 
 
 			//pnDeviceStatus++;
@@ -2548,14 +2555,48 @@ BOOL GetDeviceStatus(int *pnDeviceStatus)
 
 
 
+			Dev.mb_map_inf->tab_registers[REG_IDX_STATUS] = CMD_STATUS_INVALID;
+			rc = modbus_write_register(Dev.mb, Dev.mb_map_inf->start_registers + REG_IDX_STATUS, Dev.mb_map_inf->tab_registers[REG_IDX_STATUS]);
+			if (rc != 1)
+			{
+				DebugStr2("[DLL_TX]Clear consumed inf.status failed, %d,%d\n", Dev.s, Dev.slaveid);
+			}
+			else
+			{
+				DebugStr2("[DLL_TX]Clear consumed inf.status ok, %d,%d\n", Dev.s, Dev.slaveid);
+				BuildDeviceInfAreaSnapshot(deviceInfSnapshot, sizeof(deviceInfSnapshot));
+				OutputDebugString(deviceInfSnapshot);
+				OutputDebugString("\n");
+				AppendDebugLog(deviceInfSnapshot);
+				AppendDebugLog("\n");
+			}
+
 			//reset result
 
 
-			if (Dev.mb_map_inf->tab_registers[REG_IDX_STATUS] == 0)
+			if (consumedStatus == 0)
 
 
 			{
 
+				char deviceResultSnapshot[1024];
+				char deviceInfSnapshot2[1024];
+				DebugStr5("[DLL_TX]GetBarcode ClearResultByInfStatus0,pc=%d,sta=%d,inf_mark=%d,result_mark=%d,result_num=%d\n",
+					Dev.slaveid,
+					consumedStatus,
+					Dev.mb_map_inf->tab_registers[REG_IDX_MARK],
+					Dev.mb_map_result->tab_registers[REG_IDX_MARK],
+					Dev.mb_map_result->tab_registers[REG_IDX_DAT_LEN]);
+				BuildDeviceInfAreaSnapshot(deviceInfSnapshot2, sizeof(deviceInfSnapshot2));
+				BuildDeviceResultAreaSnapshot(deviceResultSnapshot, sizeof(deviceResultSnapshot));
+				OutputDebugString(deviceInfSnapshot2);
+				OutputDebugString("\n");
+				AppendDebugLog(deviceInfSnapshot2);
+				AppendDebugLog("\n");
+				OutputDebugString(deviceResultSnapshot);
+				OutputDebugString("\n");
+				AppendDebugLog(deviceResultSnapshot);
+				AppendDebugLog("\n");
 
 				Dev.mb_map_result->tab_registers[REG_IDX_MARK] = MARK_RESET;//mark
 
@@ -3319,55 +3360,23 @@ int StartTestFlow(int id, int status,char* barcode)
 
 
 	{
-		if (pDat->map_result->tab_registers[REG_IDX_MARK] == MARK_READY
-			&& pDat->map_result->tab_registers[REG_IDX_STATUS] == 0
-			&& pDat->map_result->tab_registers[REG_IDX_DAT_LEN] > 0)
-		{
-			DebugStr5("[DLL_FLOW]StartTestFlow ClearStaleResult,id=%d,ws=%d,result_mark=%d,result_sta=%d,result_num=%d\n",
-				id,
-				GetWsNoByPcId(id),
-				pDat->map_result->tab_registers[REG_IDX_MARK],
-				pDat->map_result->tab_registers[REG_IDX_STATUS],
-				pDat->map_result->tab_registers[REG_IDX_DAT_LEN]);
-			ClearResultAreaForNewFlow(pDat, status);
-		}
-		else
-		{
-
-
 		DebugStr5("[DLL_FLOW]StartTestFlow Skip,id=%d,ws=%d,req_sta=%d,result_mark=%d,result_num=%d\n",
 			id,
 			GetWsNoByPcId(id),
 			status,
 			pDat->map_result->tab_registers[REG_IDX_MARK],
 			pDat->map_result->tab_registers[REG_IDX_DAT_LEN]);
+		OutputDebugString(infSnapshot);
+		OutputDebugString("\n");
+		AppendDebugLog(infSnapshot);
+		AppendDebugLog("\n");
 		BuildResultAreaSnapshot(pDat, id, resultSnapshot, sizeof(resultSnapshot));
 		OutputDebugString(resultSnapshot);
 		OutputDebugString("\n");
 		AppendDebugLog(resultSnapshot);
 		AppendDebugLog("\n");
 		return RES_OK;
-		}
-
-
 	}
-
-	ClearResultAreaForNewFlow(pDat, status);
-	BuildResultAreaSnapshot(pDat, id, resultSnapshot, sizeof(resultSnapshot));
-	DebugStr5("[DLL_FLOW]StartTestFlow PrepareNewSession,id=%d,ws=%d,req_sta=%d,result_mark=%d,result_num=%d\n",
-		id,
-		GetWsNoByPcId(id),
-		status,
-		pDat->map_result->tab_registers[REG_IDX_MARK],
-		pDat->map_result->tab_registers[REG_IDX_DAT_LEN]);
-	OutputDebugString(resultSnapshot);
-	OutputDebugString("\n");
-	AppendDebugLog(resultSnapshot);
-	AppendDebugLog("\n");
-
-
-
-
 
 	//Dev.mb_map_inf->tab_registers[1] = status;//status
 
@@ -3451,7 +3460,7 @@ int StartTestFlow(int id, int status,char* barcode)
 	//wait for start
 
 
-	for (int n = 0; n < 100; n++)
+	for (int n = 0; n < 300; n++)
 
 
 	{
@@ -3525,6 +3534,8 @@ int StartTestFlow(int id, int status,char* barcode)
 
 
 	pDat->map_inf->tab_registers[REG_IDX_MARK] = MARK_RESET;
+	pDat->map_inf->tab_registers[REG_IDX_STATUS] = CMD_STATUS_INVALID;
+	modbus_write_registers(Dev.mb, pDat->map_inf->start_registers, 2, pDat->map_inf->tab_registers);
 
 
 	BuildInfAreaSnapshot(pDat, id, infSnapshot, sizeof(infSnapshot));
@@ -3545,26 +3556,6 @@ int StartTestFlow(int id, int status,char* barcode)
 
 
 	return RES_ERR_TIMEOUT;
-
-
-	DebugStr5("[DLL_FLOW]WaitTestResult Timeout,id=%d,result_mark=%d,result_sta=%d,inf_mark=%d,last_param=%d\n",
-
-
-		id,
-
-
-		pDat->map_result->tab_registers[REG_IDX_MARK],
-
-
-		pDat->map_result->tab_registers[REG_IDX_STATUS],
-
-
-		pDat->map_inf->tab_registers[REG_IDX_MARK],
-
-
-		pDat->map_result->tab_registers[REG_IDX_PARAM]);
-
-
 	////send
 
 
@@ -3641,11 +3632,6 @@ int WaitTestResultA(int id, int *status, int *res, int *NumofResult, DeviceStruc
 
 
 	if (res != NULL)*res = -1;
-
-
-
-
-
 	//check param
 
 
@@ -3727,6 +3713,17 @@ if (pDat == NULL)
 
 
 			DebugStr2("[DLL]%s%s\n", "ERR_LINK","");			
+			DebugStr5("[DLL_FLOW]WaitTestResult LinkStall,id=%d,last_tick=%d,tick_cnt=%d,result_mark=%d,result_sta=%d\n",
+				id,
+				t,
+				TickCnt,
+				pDat->map_result->tab_registers[REG_IDX_MARK],
+				pDat->map_result->tab_registers[REG_IDX_STATUS]);
+			BuildResultAreaSnapshot(pDat, id, resultSnapshot, sizeof(resultSnapshot));
+			OutputDebugString(resultSnapshot);
+			OutputDebugString("\n");
+			AppendDebugLog(resultSnapshot);
+			AppendDebugLog("\n");
 
 
 			return RES_ERR_LINK;
@@ -3818,10 +3815,7 @@ if (pDat == NULL)
 			{
 
 
-				int final_num = pDat->map_result->tab_registers[REG_IDX_DAT_LEN];
-
-
-				*NumofResult = final_num;
+				*NumofResult = pDat->map_result->tab_registers[REG_IDX_DAT_LEN];
 
 
 				if (*NumofResult > INF_CNT)*NumofResult = INF_CNT;
@@ -3886,8 +3880,6 @@ if (pDat == NULL)
 					OutputDebugString("\n");
 					AppendDebugLog(resultSnapshot);
 					AppendDebugLog("\n");
-
-
 					g_lastReturnStatus[lastIdx] = *status;
 
 
@@ -4114,7 +4106,7 @@ int NextTest(int id ,int status, int delay, BOOL *bquit)
 	{
 		DebugStr3("[DLL_FLOW]NextTest CloseOnly,id=%d,req_sta=%d,delay=%d\n",
 			id, status, delay);
-		return ResetTest(id);
+		ResetTest(id);
 	}
 
 
@@ -4419,7 +4411,6 @@ int ResetTest(int id)
 
 
 	if (pDat == NULL)return RES_ERR;	
-
 
 	DebugStr5("[DLL_FLOW]ResetTest Enter,id=%d,result_mark=%d,result_sta=%d,inf_mark=%d,inf_sta=%d\n",
 

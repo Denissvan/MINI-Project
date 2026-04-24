@@ -25,30 +25,49 @@ namespace UI
 
         private AXIS GetTrayAxisForOkSlot(bool isZAxis)
         {
-            TrayBox traybox = RuntimeMachineMode.IsTrayBoxSwapped ? COM.traybox_ng : COM.traybox_ok;
+            TrayBox traybox = COM.traybox_ok;
             return isZAxis ? traybox.ax_z : traybox.ax_x;
         }
 
         private AXIS GetTrayAxisForNgSlot(bool isZAxis)
         {
-            TrayBox traybox = RuntimeMachineMode.IsTrayBoxSwapped ? COM.traybox_ok : COM.traybox_ng;
+            TrayBox traybox = COM.traybox_ng;
             return isZAxis ? traybox.ax_z : traybox.ax_x;
         }
 
         private string GetTrayPosForOkSlot()
         {
-            return (RuntimeMachineMode.IsTrayBoxSwapped ? COM.traybox_ng : COM.traybox_ok).StrOfPos;
+            return COM.traybox_ok.StrOfPos;
         }
 
         private string GetTrayPosForNgSlot()
         {
-            return (RuntimeMachineMode.IsTrayBoxSwapped ? COM.traybox_ok : COM.traybox_ng).StrOfPos;
+            return COM.traybox_ng.StrOfPos;
         }
 
         private void ApplyTrayAxisUiText()
         {
-            btn_traybox_ok_x.Text = RuntimeMachineMode.IsTrayBoxSwapped ? "-   NG   +" : "-   OK   +";
-            btn_traybox_ng_x.Text = RuntimeMachineMode.IsTrayBoxSwapped ? "-   OK   +" : "-   NG   +";
+            btn_traybox_ok_x.Text = "-   OK   +";
+            btn_traybox_ng_x.Text = "-   NG   +";
+
+            if (RuntimeMachineMode.IsTrayBoxSwapped)
+            {
+                lb_box_ok.Location = new System.Drawing.Point(92, 218);
+                lb_box_ng.Location = new System.Drawing.Point(92, 130);
+                btn_traybox_ok_z.Location = new System.Drawing.Point(36, 214);
+                btn_traybox_ng_z.Location = new System.Drawing.Point(36, 126);
+                btn_traybox_ok_x.Location = new System.Drawing.Point(94, 255);
+                btn_traybox_ng_x.Location = new System.Drawing.Point(94, 167);
+            }
+            else
+            {
+                lb_box_ok.Location = new System.Drawing.Point(92, 130);
+                lb_box_ng.Location = new System.Drawing.Point(92, 218);
+                btn_traybox_ok_z.Location = new System.Drawing.Point(36, 126);
+                btn_traybox_ng_z.Location = new System.Drawing.Point(36, 214);
+                btn_traybox_ok_x.Location = new System.Drawing.Point(94, 167);
+                btn_traybox_ng_x.Location = new System.Drawing.Point(94, 255);
+            }
         }
 
         #region 委托弹框

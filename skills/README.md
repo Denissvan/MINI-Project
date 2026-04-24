@@ -12,6 +12,10 @@ This folder keeps project-local skills that the repository can use directly, eve
   Governance skill for creating and updating `sessions/` notes consistently.
 - `wltmini-workflow-governance`
   WLTmini-specific demand taxonomy and continuation rules.
+- `karpathy-guidelines`
+  Use when the user explicitly asks to think carefully before changing code or planning a solution.
+- `monthly-report-ppt-update`
+  Edit an existing monthly report PPT surgically, preserving style while updating one slide or one page region with leader-facing text, flow diagrams, and optional log screenshots.
 
 ## Source-of-Truth Rule
 
