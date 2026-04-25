@@ -33,6 +33,21 @@ namespace UI
             }
         }
 
+        public string strTrayDatCfgPath
+        {
+            get
+            {
+                string trayCfgName = name;
+                if (RuntimeMachineMode.IsTrayBoxSwapped)
+                {
+                    if (role == EM_ROLE.OK) trayCfgName = "TrayBox_NG";
+                    else if (role == EM_ROLE.NG) trayCfgName = "TrayBox_OK";
+                }
+
+                return string.Format("{0}\\product\\{1}\\TrayBoxCfg\\{2}.inf", Path.GetFullPath(".."), VAR.gsys_set.cur_product_name, trayCfgName);
+            }
+        }
+
         //数据变更，用于更新绘图
         public bool bchanged = true;
 
@@ -46,7 +61,7 @@ namespace UI
                 if (m_tray_cnt != value)
                 {
                     if (list_tray == null) list_tray = new List<Product.Tray>();
-                    Product.Tray tray = new Product.Tray(strCfgPath);
+                    Product.Tray tray = new Product.Tray(strTrayDatCfgPath);
                     list_tray.Clear();
                     for (int n = 0; n < m_tray_cnt; n++)
                     {
@@ -389,7 +404,7 @@ namespace UI
             if (name != "TrayBox_FD") res = Product.EM_CM_RES.EMPTY;
             for (int n = 0; n < tray_cnt; n++)
             {
-                Product.Tray tray = new Product.Tray(strCfgPath, res);
+                Product.Tray tray = new Product.Tray(strTrayDatCfgPath, res);
                 tray.NGDef = NGDef;
                 list_tray.Add(tray);
                 list_sta.Add(EM_STA.FULL);

@@ -70,6 +70,51 @@ namespace UI
                 cfgFile);
         }
 
+        public static string DescribeTrayTemplateMapping(string logicalName, TrayBox traybox, Product.Tray tray)
+        {
+            return string.Format("{0}阵列模板加载: 逻辑={1}, 文件={2}, 列={3}, 行={4}",
+                logicalName,
+                traybox.role,
+                Path.GetFileName(traybox.strTrayDatCfgPath),
+                tray.col,
+                tray.row);
+        }
+
+        public static void InitTrayData()
+        {
+            PT_SET.LoadPtCfg(VAR.gsys_set.cur_product_name);
+            COM.tray_fd = new Product.Tray(COM.traybox_fd.strTrayDatCfgPath, 0);
+            COM.tray_ok = new Product.Tray(COM.traybox_ok.strTrayDatCfgPath, 0);
+            COM.tray_ng = new Product.Tray(COM.traybox_ng.strTrayDatCfgPath, 0);
+
+            VAR.msg.AddMsg(Msg.EM_MSGTYPE.SYS, COM.DescribeTrayTemplateMapping("供料", COM.traybox_fd, COM.tray_fd));
+            VAR.msg.AddMsg(Msg.EM_MSGTYPE.SYS, COM.DescribeTrayTemplateMapping("OK", COM.traybox_ok, COM.tray_ok));
+            VAR.msg.AddMsg(Msg.EM_MSGTYPE.SYS, COM.DescribeTrayTemplateMapping("NG", COM.traybox_ng, COM.tray_ng));
+
+            if (FrMain.frproduct != null)
+            {
+                FrMain.frproduct.tray_fd = COM.tray_fd;
+                FrMain.frproduct.tray_ok = COM.tray_ok;
+                FrMain.frproduct.tray_ng = COM.tray_ng;
+
+                Action bindTrayData = () =>
+                {
+                    FrMain.frproduct.ctb_tray_cfg.SelectedIndex = 0;
+                    FrMain.frproduct.tray = FrMain.frproduct.tray_fd;
+                    FrMain.frproduct.ShowTrayData(FrMain.frproduct.tray);
+                    FrMain.frproduct.ShowTrayBoxData(FrMain.frproduct.traybox);
+                };
+
+                if (!FrMain.frproduct.IsHandleCreated || FrMain.frproduct.IsDisposed)
+                    return;
+
+                if (FrMain.frproduct.InvokeRequired)
+                    FrMain.frproduct.BeginInvoke(bindTrayData);
+                else
+                    bindTrayData();
+            }
+        }
+
         private static TrayBox CreateTrayBoxOk()
         {
             if (RuntimeMachineMode.IsTrayBoxSwapped)
@@ -885,6 +930,8 @@ namespace UI
                 ret = COM.TrayBoxInit();
                 if (ret != EM_RES.OK) return ret;
 
+                COM.InitTrayData();
+
                 //加载视觉
                 ret = COM.CamInit();
                 if (ret != EM_RES.OK)
@@ -899,17 +946,6 @@ namespace UI
                 if (UpDownLoad.DisAxisX < 400)
                     UpDownLoad.DisAxisX = 400;
 
-                PT_SET.LoadPtCfg(VAR.gsys_set.cur_product_name);
-                COM.tray_fd = new Product.Tray(COM.traybox_fd.strCfgPath, 0);
-                COM.tray_ok = new Product.Tray(COM.traybox_ok.strCfgPath, 0);
-                COM.tray_ng = new Product.Tray(COM.traybox_ng.strCfgPath, 0);
-                FrMain.frproduct.tray_fd = COM.tray_fd;
-                FrMain.frproduct.tray_ok = COM.tray_ok;
-                FrMain.frproduct.tray_ng = COM.tray_ng;
-                FrMain.frproduct.ctb_tray_cfg.SelectedIndex = 0;
-                FrMain.frproduct.tray = FrMain.frproduct.tray_fd;
-                FrMain.frproduct.ShowTrayData(FrMain.frproduct.tray);
-                FrMain.frproduct.ShowTrayBoxData(FrMain.frproduct.traybox);
                 COM.traybox_fd.SetSta(TrayBox.EM_STA.UNTEST);
                 COM.traybox_ok.SetSta(TrayBox.EM_STA.FULL);
                 COM.traybox_ng.SetSta(TrayBox.EM_STA.FULL);

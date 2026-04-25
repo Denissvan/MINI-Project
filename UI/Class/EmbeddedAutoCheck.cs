@@ -218,14 +218,14 @@ namespace UI.Class
                 { "DCC远焦3左", 288 },
                 { "DCC远焦3右", 289 },
                 { "AFC色温CH1", 290 },
-                { "AFC色温CH2", 292 },
-                { "AFC色温CH3", 294 },
-                { "OTP色温CH1", 296 },
-                { "OTP色温CH2", 298 },
-                { "OTP色温CH3", 300 },
-                 { "DCC色温CH1", 302 },
-                { "DCC色温CH2", 304 },
-                { "DCC色温CH3", 306 },
+                { "AFC色温CH2", 309 },
+                { "AFC色温CH3", 297 },
+                { "OTP色温CH1", 347 },
+                { "OTP色温CH2", 366 },
+                { "OTP色温CH3", 385 },
+                 { "DCC色温CH1", 404 },
+                { "DCC色温CH2", 423 },
+                { "DCC色温CH3", 452 },
             };
 
             foreach (var pair in map)
@@ -237,6 +237,82 @@ namespace UI.Class
             }
 
             return null;
+        }
+
+        private enum LightMesValueType
+        {
+            Cct,
+            Lux
+        }
+
+        private static bool TryGetLightMesBaseId(string posName, LightMesValueType valueType, out int baseId)
+        {
+            baseId = 0;
+            if (string.IsNullOrEmpty(posName))
+            {
+                return false;
+            }
+
+            int panelOffset;
+            if (posName.Contains("AFC"))
+            {
+                panelOffset = 0;
+            }
+            else if (posName.Contains("OTP"))
+            {
+                panelOffset = 57;
+            }
+            else if (posName.Contains("DCC"))
+            {
+                panelOffset = 114;
+            }
+            else
+            {
+                return false;
+            }
+
+            int channelIndex;
+            if (posName.Contains("CH1"))
+            {
+                channelIndex = 0;
+            }
+            else if (posName.Contains("CH2"))
+            {
+                channelIndex = 1;
+            }
+            else if (posName.Contains("CH3"))
+            {
+                channelIndex = 2;
+            }
+            else
+            {
+                return false;
+            }
+
+            int typeBase = valueType == LightMesValueType.Cct ? 291 : 300;
+            baseId = typeBase + panelOffset + (channelIndex * 19);
+            return true;
+        }
+
+        private static bool TrySendLightMesData(string posName, int pointIndex, double lux, double cct)
+        {
+            if (pointIndex < 1 || pointIndex > 9)
+            {
+                return false;
+            }
+
+            if (!TryGetLightMesBaseId(posName, LightMesValueType.Lux, out int luxBaseId) ||
+                !TryGetLightMesBaseId(posName, LightMesValueType.Cct, out int cctBaseId))
+            {
+                return false;
+            }
+
+            int luxId = luxBaseId + pointIndex - 1;
+            int cctId = cctBaseId + pointIndex - 1;
+            Msg.secsManager.Send(new BaseInfo() { Id = luxId, Value = $"{lux}" });
+            Msg.secsManager.Send(new BaseInfo() { Id = cctId, Value = $"{cct}" });
+            VAR.msg.AddMsg(Msg.EM_MSGTYPE.DBG, $"Mes成功发送点位{pointIndex}的照度svid为{luxId}、色温svid为{cctId}，value分别为{lux},{cct}");
+            return true;
         }
         public static EM_RES CheckGyroscopeJitter(SerialCommander comm,
     string comName)
@@ -369,17 +445,20 @@ namespace UI.Class
         /// <summary>
         /// 一次Z轴移动，三串口依次采样lux+cct，添加到结果列表
         /// </summary>
-        public EM_RES ReadAndAddAllLightData3COMs(LightBox lb,int idx)
+        public EM_RES ReadAndAddAllLightData3COMs(LightBox lb, int idx, int moveIndex)
         {
             EM_RES res=EM_RES.OK;
             try
             {
                 PosDef pos = lb.ListPos.Find(x => x.ID == idx);
-                
-                foreach (string com in new[] { PT_SET.COM_1, PT_SET.COM_2, PT_SET.COM_3 })
+
+                string[] comPorts = new[] { PT_SET.COM_1, PT_SET.COM_2, PT_SET.COM_3 };
+                for (int sensorIndex = 0; sensorIndex < comPorts.Length; sensorIndex++)
                 {
+                    string com = comPorts[sensorIndex];
                     if (!string.IsNullOrEmpty(com))
                     {
+                        int pointIndex = (moveIndex * 3) + sensorIndex + 1;
                         int temp = 0;
                         switch (com)
                         {
@@ -404,48 +483,10 @@ namespace UI.Class
                                     var (lux, cct) = comm.ReadLuxCctWithWait(20000);
                                     VAR.msg.AddMsg(Msg.EM_MSGTYPE.DBG, $"{temp + 3}读出参数lux{lux},cct{cct}");
                                     SaveToTxt("光源色温点检参数", temp + 3, pos.Name, lux, cct);
-                                if (pos.Name.Contains("AFC"))
-                                {
-                                    if (temp == 8)
+                                    if (!TrySendLightMesData(pos.Name, pointIndex, lux, cct))
                                     {
-                                        Msg.secsManager.Send(new BaseInfo() { Id = 251, Value = $"{lux}" });
-                                        Msg.secsManager.Send(new BaseInfo() { Id = 291, Value = $"{cct}" });
-                                        VAR.msg.AddMsg(Msg.EM_MSGTYPE.DBG, $"Mes成功发送svid为251，291，value分别为{lux},{cct}的Mes信息");
+                                        VAR.msg.AddMsg(Msg.EM_MSGTYPE.WAR, $"{pos.Name}点位{pointIndex}未匹配到MES上传SVID");
                                     }
-                                    else if (temp == 9)
-                                    {
-                                        Msg.secsManager.Send(new BaseInfo() { Id = 252, Value = $"{lux}" });
-                                        Msg.secsManager.Send(new BaseInfo() { Id = 293, Value = $"{cct}" });
-                                        VAR.msg.AddMsg(Msg.EM_MSGTYPE.DBG, $"Mes成功发送svid为252，293，value分别为{lux},{cct}的Mes信息");
-                                    }
-                                    else if (temp == 10)
-                                    {
-                                        Msg.secsManager.Send(new BaseInfo() { Id = 253, Value = $"{lux}" });
-                                        Msg.secsManager.Send(new BaseInfo() { Id = 295, Value = $"{cct}" });
-                                        VAR.msg.AddMsg(Msg.EM_MSGTYPE.DBG, $"Mes成功发送svid为253，295，value分别为{lux},{cct}的Mes信息");
-                                    }
-                                }
-                                else if (pos.Name.Contains("DCC"))
-                                {
-                                    if (temp == 8)
-                                    {
-                                        Msg.secsManager.Send(new BaseInfo() { Id = 257, Value = $"{lux}" });
-                                        Msg.secsManager.Send(new BaseInfo() { Id = 302, Value = $"{cct}" });
-                                        VAR.msg.AddMsg(Msg.EM_MSGTYPE.DBG, $"Mes成功发送svid为257，302，value分别为{lux},{cct}的Mes信息");
-                                    }
-                                    else if (temp == 9)
-                                    {
-                                        Msg.secsManager.Send(new BaseInfo() { Id = 258, Value = $"{lux}" });
-                                        Msg.secsManager.Send(new BaseInfo() { Id = 304, Value = $"{cct}" });
-                                        VAR.msg.AddMsg(Msg.EM_MSGTYPE.DBG, $"Mes成功发送svid为258，304，value分别为{lux},{cct}的Mes信息");
-                                    }
-                                    else if (temp == 10)
-                                    {
-                                        Msg.secsManager.Send(new BaseInfo() { Id = 253, Value = $"{lux}" });
-                                        Msg.secsManager.Send(new BaseInfo() { Id = 307, Value = $"{cct}" });
-                                        VAR.msg.AddMsg(Msg.EM_MSGTYPE.DBG, $"Mes成功发送svid为253，307，value分别为{lux},{cct}的Mes信息");
-                                    }
-                                }
                                     comm.Close();
                                     LuxWith9point.Add(lux);
                                     if (Math.Abs(lux - pos.ActualLuxParam) > pos.DistanceThreshold)
@@ -534,24 +575,9 @@ namespace UI.Class
                                 Thread.Sleep(5000);
                                 var (lux, cct) = comm.ReadLuxCctWithWait(20000);
                                 VAR.msg.AddMsg(Msg.EM_MSGTYPE.DBG, $"{com}读出参数lux{lux},cct{cct}");
-                                if(com == "COM8")
+                                if (!TrySendLightMesData(pos.Name, pointIndex, lux, cct))
                                 {
-                                    Msg.secsManager.Send(new BaseInfo() { Id = 254, Value = $"{lux}" });
-                                    Msg.secsManager.Send(new BaseInfo() { Id = 297, Value = $"{cct}" });
-                                    VAR.msg.AddMsg(Msg.EM_MSGTYPE.DBG, $"Mes成功发送svid为254，297，value分别为{lux},{cct}的Mes信息");
-                                }
-                                else if (com == "COM9")
-                                {
-                                    Msg.secsManager.Send(new BaseInfo() { Id = 255, Value = $"{lux}" });
-                                    Msg.secsManager.Send(new BaseInfo() { Id = 299, Value = $"{cct}" });
-                                    VAR.msg.AddMsg(Msg.EM_MSGTYPE.DBG, $"Mes成功发送svid为255，299，value分别为{lux},{cct}的Mes信息");
-                                }
-                                else if(com == "COM10")
-                                {
-                                    Msg.secsManager.Send(new BaseInfo() { Id = 256, Value = $"{lux}" });
-                                    Msg.secsManager.Send(new BaseInfo() { Id = 301, Value = $"{cct}" });
-                                    VAR.msg.AddMsg(Msg.EM_MSGTYPE.DBG, $"Mes成功发送svid为256，301，value分别为{lux},{cct}的Mes信息");
-
+                                    VAR.msg.AddMsg(Msg.EM_MSGTYPE.WAR, $"{pos.Name}点位{pointIndex}未匹配到MES上传SVID");
                                 }
 
                                 SaveToTxt("光源色温点检参数", com, pos.Name, lux, cct);
@@ -727,7 +753,7 @@ namespace UI.Class
                 }
                 Thread.Sleep(2000);
                 VAR.msg.AddMsg(Msg.EM_MSGTYPE.DBG, "第一次读光源色温参数");
-                ReadAndAddAllLightData3COMs(lb, idx);
+                ReadAndAddAllLightData3COMs(lb, idx, 0);
                 //res = axis1.MoveTo(ref bquit, 0);
                 //VAR.msg.AddMsg(Msg.EM_MSGTYPE.DBG, $"{axis1.disc}定位到0");
                 //res = axis2.MoveTo(ref bquit, 0);
@@ -742,7 +768,7 @@ namespace UI.Class
                 }
                 Thread.Sleep(2000);
                 VAR.msg.AddMsg(Msg.EM_MSGTYPE.DBG, "第二次读光源色温参数");
-                ReadAndAddAllLightData3COMs(lb, idx);
+                ReadAndAddAllLightData3COMs(lb, idx, 1);
                 //res = axis1.MoveTo(ref bquit, 0);
                 //VAR.msg.AddMsg(Msg.EM_MSGTYPE.DBG, $"{axis1.disc}定位到0");
                 //res = axis2.MoveTo(ref bquit, 0);
@@ -757,7 +783,7 @@ namespace UI.Class
                 }
                 Thread.Sleep(2000);
                 VAR.msg.AddMsg(Msg.EM_MSGTYPE.DBG, "第三次读光源色温参数");
-                ReadAndAddAllLightData3COMs(lb, idx);
+                ReadAndAddAllLightData3COMs(lb, idx, 2);
                 //res = axis1.MoveTo(ref bquit, 0);
                 //if (res == EM_RES.OK)
                 //{
@@ -771,13 +797,13 @@ namespace UI.Class
                 VAR.msg.AddMsg(Msg.EM_MSGTYPE.DBG, "OTP位置下的光源色温参数读取");
                 axis2.MoveTo(ref bquit, distance1.z);
                 VAR.msg.AddMsg(Msg.EM_MSGTYPE.DBG, "第一次读光源色温参数");
-                ReadAndAddAllLightData3COMs(lb, idx);
+                ReadAndAddAllLightData3COMs(lb, idx, 0);
                 axis2.MoveTo(ref bquit, distance2.z);
                 VAR.msg.AddMsg(Msg.EM_MSGTYPE.DBG, "第二次读光源色温参数");
-                ReadAndAddAllLightData3COMs(lb, idx);
+                ReadAndAddAllLightData3COMs(lb, idx, 1);
                 axis2.MoveTo(ref bquit, distance3.z);
                 VAR.msg.AddMsg(Msg.EM_MSGTYPE.DBG, "第三次读光源色温参数");
-                ReadAndAddAllLightData3COMs(lb, idx);
+                ReadAndAddAllLightData3COMs(lb, idx, 2);
             }
 
         }

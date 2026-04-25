@@ -644,6 +644,8 @@ namespace UI
             this.numafc = new System.Windows.Forms.NumericUpDown();
             this.label95 = new System.Windows.Forms.Label();
             this.cbafccloseair = new System.Windows.Forms.CheckBox();
+            this.groupBox75 = new System.Windows.Forms.GroupBox();
+            this.ckJigDownPhoto = new System.Windows.Forms.CheckBox();
             this.groupBox72 = new System.Windows.Forms.GroupBox();
             this.ckcloseazd = new System.Windows.Forms.CheckBox();
             this.groupBox71 = new System.Windows.Forms.GroupBox();
@@ -909,6 +911,7 @@ namespace UI
             this.groupBox74.SuspendLayout();
             this.groupBox73.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numafc)).BeginInit();
+            this.groupBox75.SuspendLayout();
             this.groupBox72.SuspendLayout();
             this.groupBox71.SuspendLayout();
             this.groupBox70.SuspendLayout();
@@ -3769,7 +3772,7 @@ namespace UI
             this.tp_setparm_2.Location = new System.Drawing.Point(4, 44);
             this.tp_setparm_2.Name = "tp_setparm_2";
             this.tp_setparm_2.Padding = new System.Windows.Forms.Padding(3);
-            this.tp_setparm_2.Size = new System.Drawing.Size(1164, 818);
+            this.tp_setparm_2.Size = new System.Drawing.Size(52, 44);
             this.tp_setparm_2.TabIndex = 1;
             this.tp_setparm_2.Text = "参数2          ";
             this.tp_setparm_2.UseVisualStyleBackColor = true;
@@ -6607,7 +6610,7 @@ namespace UI
             this.tabPage3.Location = new System.Drawing.Point(4, 44);
             this.tabPage3.Name = "tabPage3";
             this.tabPage3.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage3.Size = new System.Drawing.Size(1164, 818);
+            this.tabPage3.Size = new System.Drawing.Size(52, 44);
             this.tabPage3.TabIndex = 2;
             this.tabPage3.Text = "参数3";
             this.tabPage3.UseVisualStyleBackColor = true;
@@ -8941,6 +8944,7 @@ namespace UI
             this.tabPage8.Controls.Add(this.AutoCheckParam);
             this.tabPage8.Controls.Add(this.groupBox74);
             this.tabPage8.Controls.Add(this.groupBox73);
+            this.tabPage8.Controls.Add(this.groupBox75);
             this.tabPage8.Controls.Add(this.groupBox72);
             this.tabPage8.Controls.Add(this.groupBox71);
             this.tabPage8.Controls.Add(this.button17);
@@ -8948,7 +8952,7 @@ namespace UI
             this.tabPage8.Location = new System.Drawing.Point(4, 44);
             this.tabPage8.Name = "tabPage8";
             this.tabPage8.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage8.Size = new System.Drawing.Size(52, 44);
+            this.tabPage8.Size = new System.Drawing.Size(1164, 818);
             this.tabPage8.TabIndex = 4;
             this.tabPage8.Text = "参数设置5";
             this.tabPage8.UseVisualStyleBackColor = true;
@@ -10118,6 +10122,28 @@ namespace UI
             this.cbafccloseair.Text = "AFC关闭吹气";
             this.cbafccloseair.UseVisualStyleBackColor = true;
             // 
+            // groupBox75
+            // 
+            this.groupBox75.Controls.Add(this.ckJigDownPhoto);
+            this.groupBox75.Font = new System.Drawing.Font("宋体", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.groupBox75.Location = new System.Drawing.Point(342, 301);
+            this.groupBox75.Name = "groupBox75";
+            this.groupBox75.Size = new System.Drawing.Size(330, 80);
+            this.groupBox75.TabIndex = 162;
+            this.groupBox75.TabStop = false;
+            this.groupBox75.Text = "夹具下拍照设置";
+            // 
+            // ckJigDownPhoto
+            // 
+            this.ckJigDownPhoto.AutoSize = true;
+            this.ckJigDownPhoto.Font = new System.Drawing.Font("微软雅黑", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.ckJigDownPhoto.Location = new System.Drawing.Point(20, 34);
+            this.ckJigDownPhoto.Name = "ckJigDownPhoto";
+            this.ckJigDownPhoto.Size = new System.Drawing.Size(126, 29);
+            this.ckJigDownPhoto.TabIndex = 147;
+            this.ckJigDownPhoto.Text = "夹具下拍照";
+            this.ckJigDownPhoto.UseVisualStyleBackColor = true;
+            // 
             // groupBox72
             // 
             this.groupBox72.Controls.Add(this.ckcloseazd);
@@ -11057,6 +11083,8 @@ namespace UI
             this.groupBox73.ResumeLayout(false);
             this.groupBox73.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numafc)).EndInit();
+            this.groupBox75.ResumeLayout(false);
+            this.groupBox75.PerformLayout();
             this.groupBox72.ResumeLayout(false);
             this.groupBox72.PerformLayout();
             this.groupBox71.ResumeLayout(false);
@@ -11658,6 +11686,8 @@ namespace UI
         private System.Windows.Forms.GroupBox groupBox71;
         private System.Windows.Forms.CheckBox ckupload;
         private System.Windows.Forms.GroupBox groupBox72;
+        private System.Windows.Forms.GroupBox groupBox75;
+        private System.Windows.Forms.CheckBox ckJigDownPhoto;
         private System.Windows.Forms.CheckBox ckcloseazd;
         private System.Windows.Forms.GroupBox groupBox73;
         private System.Windows.Forms.NumericUpDown numafc;

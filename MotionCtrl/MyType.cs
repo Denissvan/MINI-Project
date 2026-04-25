@@ -1265,6 +1265,7 @@ namespace MotionCtrl
         //新增下拍二维码位置
         public static bool bDwAddCapQrcode;  //对于长模组的情况
         public static bool Check2open;  //对于长模组的情况
+        public static bool bJigDownPhoto;  //夹具闭合后拍照
 
         //回检针座管控
         public static double LeftArea;
@@ -1624,6 +1625,7 @@ namespace MotionCtrl
             bCool = inf.ReadBool("OTHER_SET", "BCOOL", false);
             CloseWait = inf.ReadBool("OTHER_SET", "CLOSEWAIT", false);
             CloseWaitTime = inf.ReadInteger("OTHER_SET", "WAITTIME", 1);
+            bJigDownPhoto = inf.ReadBool("OTHER_SET", "BJIGDOWNPHOTO", false);
             OpenDownQrde = inf.ReadBool("OTHER_SET", "OPENDOWNQRDE", false);
             otpclose = inf.ReadBool("OTHER_SET", "OTPCLOSE", false);
             otpclosetime = inf.ReadDouble("OTHER_SET", "OTPCLOSETIME", 0);
@@ -2021,6 +2023,7 @@ namespace MotionCtrl
             inf.WriteBool("OTHER_SET", "bAddCapQrcode", bAddCapQrcode, ref ischange, true, filename);
             inf.WriteBool("OTHER_SET", "bDwAddCapQrcode", bDwAddCapQrcode, ref ischange, true, filename);
             inf.WriteBool("OTHER_SET", "Check2open", Check2open, ref ischange, true, filename);
+            inf.WriteBool("OTHER_SET", "BJIGDOWNPHOTO", bJigDownPhoto, ref ischange, true, filename);
             inf.WriteBool("OTHER_SET", "bUpWsChkQrCodeEn", bUpWsChkQrCodeEn, ref ischange, true, filename);
         //    inf.WriteInteger("OTHER_SET", "UpWsChkQrCodeCnt", UpWsChkQrCodeCnt, ref ischange, true, filename);
             inf.WriteBool("OTHER_SET", "bWsNgRateShow", bWsNgRateShow, ref ischange, true, filename);

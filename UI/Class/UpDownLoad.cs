@@ -2767,9 +2767,6 @@ RECAP:
                                 {
                                     WsPickmd[0].bardcode = xt.XtMd.bardcode;                               
                                     WsPickmd[0].res = -1;
-                                    WsPickmd[0].test_idx = 0;
-                                    ws.TestStatus = WS.EM_TEST_STA.UNTEST;
-                                    VAR.msg.AddMsg(Msg.EM_MSGTYPE.DBG, string.Format("{0} 新上料置位,模组={1}", ws.disc, WsPickmd[0].Num));
                                     WsPickmd[0].motor_barcode = xt.XtMd.motor_barcode;
                                     if (xt.XtMd != null)
                                     {
@@ -3357,6 +3354,125 @@ RECHECK:
             }
 
             return EM_RES.OK;
+        }
+        #endregion
+
+        #region 夹具闭合后上相机回检
+        public EM_RES UpCamAfterCloseCheck(ref bool bquit, ref WS ws, XT xt, int udid, ST_XY pos_mod_upcam, ref VisionOutPutData ResData)
+        {
+            EM_RES res = EM_RES.OK;
+            string flowName = CONST.WsModAfterCloseFw;
+
+        RECHECK:
+            for (int i = 0; i < 2; i++)
+            {
+                res = xt.UpCam(ref bquit, pos_mod_upcam, flowName, ref ResData, Demo);
+                if (res == EM_RES.OK)
+                {
+                    break;
+                }
+            }
+
+            if (res != EM_RES.OK)
+            {
+                VAR.msg.AddMsg(Msg.EM_MSGTYPE.NOR, string.Format("{0}夹具闭合后回检拍照失败，流程为:{1}", xt.disc, flowName));
+                VAR.sys_inf.Set(EM_ALM_STA.WAR_RED_FLASH, VAR.IsChinese ? "拍照失败!" : "Cam ERR", 20, true);
+
+                MT.ST_WARN warn = new MT.ST_WARN();
+                warning fr_warn = new warning();
+                warn.ok_txt = "重新拍照";
+                warn.abort_txt = "停止";
+                warn.cancle_txt = "取消";
+                warn.title = "提示:夹具闭合后回检拍照失败!";
+                warn.msg = string.Format("{0}夹具闭合后回检拍照失败，流程为:{1}", xt.disc, flowName);
+                warn.lb_msg = string.Format("{0}夹具闭合后回检拍照失败\r\n点击重新拍照，则重新进行回检拍照！！！\r\n点击取消则默认当前结果OK，设备继续运行\r\n点击停止则运行会停止\r\n", xt.disc);
+                DialogResult resulte = MT.Display_frwarn(fr_warn, warn, ERR_ALM.EmErrItem.CaptureAbnomal);
+                if (resulte == DialogResult.Yes)
+                {
+                    VAR.sys_inf.Set(EM_ALM_STA.NOR_GREEN, "运行", 0, true);
+                    VAR.msg.AddMsg(Msg.EM_MSGTYPE.ERR, string.Format("{0}夹具闭合后回检拍照失败，选择了是", disc));
+                    goto RECHECK;
+                }
+                else if (resulte == DialogResult.Cancel)
+                {
+                    VAR.sys_inf.Set(EM_ALM_STA.NOR_GREEN, "运行", 0, true);
+                    VAR.msg.AddMsg(Msg.EM_MSGTYPE.ERR, string.Format("{0}夹具闭合后回检拍照失败，选择了取消", disc));
+                    return EM_RES.OK;
+                }
+                else
+                {
+                    VAR.msg.AddMsg(Msg.EM_MSGTYPE.ERR, string.Format("{0}夹具闭合后回检拍照失败，选择了停止", disc));
+                    return EM_RES.ERR;
+                }
+            }
+
+            VAR.msg.AddMsg(Msg.EM_MSGTYPE.NOR, string.Format("{0}夹具闭合后回检拍照完成，结果:{1}，流程为:{2}", xt.disc, ResData.bOK ? "OK" : "NG", flowName));
+            if (ResData.bOK)
+            {
+                return EM_RES.OK;
+            }
+
+            upcam.SaveOriginImage(upcam.curTask.Image, string.Format("{0}\\image\\{1}\\AFTER_CLOSE", VAR.gsys_set.GetCurProductPath, upcam.mName), string.Format("{0}{1}.jpg",
+                DateTime.Now.ToString("yyyyMMdd"), DateTime.Now.ToString("HHmmss_fff")));
+            VAR.msg.AddMsg(Msg.EM_MSGTYPE.ERR, string.Format("{0}夹具闭合后回检失败，流程为:{1}，Message:{2}", xt.disc, flowName, ResData.Message));
+            VAR.sys_inf.Set(EM_ALM_STA.WAR_RED_FLASH, VAR.IsChinese ? "回检失败!" : "Cam ERR", 20, true);
+
+            MT.ST_WARN warnNg = new MT.ST_WARN();
+            warning fr_warn_ng = new warning();
+            warnNg.ok_txt = "重新拍照";
+            warnNg.abort_txt = "停止";
+            warnNg.cancle_txt = "取消";
+            warnNg.title = "提示:夹具闭合后回检失败!";
+            warnNg.msg = string.Format("{0}夹具闭合后回检失败，流程为:{1}", xt.disc, flowName);
+            warnNg.lb_msg = string.Format("{0}夹具闭合后回检结果为NG\r\n点击重新拍照，则重新进行回检拍照！！！\r\n点击取消则默认当前结果OK，设备继续运行\r\n点击停止则运行会停止\r\n", xt.disc);
+            DialogResult resultNg = MT.Display_frwarn(fr_warn_ng, warnNg, ERR_ALM.EmErrItem.CaptureAbnomal);
+            if (resultNg == DialogResult.Yes)
+            {
+                VAR.sys_inf.Set(EM_ALM_STA.NOR_GREEN, "运行", 0, true);
+                VAR.msg.AddMsg(Msg.EM_MSGTYPE.ERR, string.Format("{0}夹具闭合后回检NG，选择了是", disc));
+                goto RECHECK;
+            }
+            else if (resultNg == DialogResult.Cancel)
+            {
+                VAR.sys_inf.Set(EM_ALM_STA.NOR_GREEN, "运行", 0, true);
+                VAR.msg.AddMsg(Msg.EM_MSGTYPE.ERR, string.Format("{0}夹具闭合后回检NG，选择了取消", disc));
+                return EM_RES.OK;
+            }
+
+            VAR.msg.AddMsg(Msg.EM_MSGTYPE.ERR, string.Format("{0}夹具闭合后回检NG，选择了停止", disc));
+            return EM_RES.ERR;
+        }
+
+        public EM_RES UpCamAfterCloseCheck(ref bool bquit, ref WS ws)
+        {
+            EM_RES res = EM_RES.OK;
+            VisionOutPutData resData = new VisionOutPutData();
+
+            if (!PT_SET.bJigDownPhoto || FeedBackWs == null || FeedBackWs.Count == 0)
+            {
+                return EM_RES.OK;
+            }
+
+            foreach (WS.MdDat md in FeedBackWs)
+            {
+                XT xt;
+                if (md.Num > 8)
+                {
+                    xt = list_xt[0];
+                }
+                else
+                {
+                    xt = list_xt[1];
+                }
+
+                res = UpCamAfterCloseCheck(ref bquit, ref ws, xt, id, new ST_XY(FeedBackPos.x, md.st_pos[id].y), ref resData);
+                if (res != EM_RES.OK)
+                {
+                    return res;
+                }
+            }
+
+            return GoZero(ref bquit, false);
         }
         #endregion
 
@@ -4610,9 +4726,6 @@ RECAP:
                                     }
 
                                     WsTriPos[j].res = -1;
-                                    WsTriPos[j].test_idx = 0;
-                                    ws.TestStatus = WS.EM_TEST_STA.UNTEST;
-                                    VAR.msg.AddMsg(Msg.EM_MSGTYPE.DBG, string.Format("{0} 新上料置位,模组={1}", ws.disc, WsTriPos[j].Num));
                                     WsTriPos[j].IsNormal = VAR.Isnormal;
                                     
                                     if (PT_SET.bmotorphoto)
@@ -4912,9 +5025,6 @@ RECAP:
                         }
 
                         WsTriPos[j].res = -1;
-                        WsTriPos[j].test_idx = 0;
-                        ws.TestStatus = WS.EM_TEST_STA.UNTEST;
-                        VAR.msg.AddMsg(Msg.EM_MSGTYPE.DBG, string.Format("{0} 新上料置位,模组={1}", ws.disc, WsTriPos[j].Num));
                         WsTriPos[j].IsNormal = VAR.Isnormal;
 
                         if (PT_SET.bmotorphoto)
@@ -6569,12 +6679,20 @@ RECHECKAGAIN:
                 {
                     res = ws.AllCyClose(ref VAR.gsys_set.bquit);
                     if (res != EM_RES.OK) break;
+                    res = COM.UDLoad1.UpCamAfterCloseCheck(ref bquit, ref ws);
+                    if (res != EM_RES.OK) break;
+                    res = COM.UDLoad2.UpCamAfterCloseCheck(ref bquit, ref ws);
+                    if (res != EM_RES.OK) break;
 
                 }
                 else
                 {
                     //上完闭合            
                     res = ws.SetupForTest(ref VAR.gsys_set.bquit);
+                    if (res != EM_RES.OK) break;
+                    res = COM.UDLoad1.UpCamAfterCloseCheck(ref bquit, ref ws);
+                    if (res != EM_RES.OK) break;
+                    res = COM.UDLoad2.UpCamAfterCloseCheck(ref bquit, ref ws);
                     if (res != EM_RES.OK) break;
 
                 }
@@ -6729,6 +6847,10 @@ RECHECKAGAIN:
 
                             //上完闭合            
                             res = ws.SetupForTest(ref VAR.gsys_set.bquit);
+                            if (res != EM_RES.OK) break;
+                            res = COM.UDLoad1.UpCamAfterCloseCheck(ref bquit, ref ws);
+                            if (res != EM_RES.OK) break;
+                            res = COM.UDLoad2.UpCamAfterCloseCheck(ref bquit, ref ws);
                             if (res != EM_RES.OK) break;
                         }
                     }

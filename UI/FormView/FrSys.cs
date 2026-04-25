@@ -906,6 +906,7 @@ namespace UI
             cbcity.SelectedIndex = PT_SET.citynum;
             ckupload.Checked = PT_SET.upload;
             ckcloseazd.Checked = PT_SET.closeazd;
+            ckJigDownPhoto.Checked = PT_SET.bJigDownPhoto;
             rbtn_DwAddCapQrcodeEn.Checked = PT_SET.bDwAddCapQrcode;
             rbtn_DwAddCapQrcodeOff.Checked = !PT_SET.bDwAddCapQrcode;
             rbtn_check2open.Checked = PT_SET.Check2open;
@@ -1187,6 +1188,7 @@ namespace UI
             COM.ws4.bjigSan = btnStartJigSan4.Checked;
             PT_SET.bJigSan = rabt_jigscan_ON.Checked;
             PT_SET.Check2open = rbtn_check2open.Checked;
+            PT_SET.bJigDownPhoto = ckJigDownPhoto.Checked;
             PT_SET.Isaloneset = cbisaloneset.Checked;
             PT_SET.Ismagic = checkmagic.Checked;
             PT_SET.magictimes = (int)nummagic.Value;

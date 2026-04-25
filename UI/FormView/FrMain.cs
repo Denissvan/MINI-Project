@@ -542,9 +542,7 @@ namespace UI
             else VAR.msg.AddMsg(Msg.EM_MSGTYPE.NOR, VAR.IsChinese ? "相机初始化失败!" : "Camera initialization failed!         (相机初始化失败!)");
             Task TaskTrayInit = new Task(() =>
             {
-                COM.tray_fd = new Product.Tray(COM.traybox_fd.strCfgPath, 0);
-                COM.tray_ok = new Product.Tray(COM.traybox_ok.strCfgPath, 0);
-                COM.tray_ng = new Product.Tray(COM.traybox_ng.strCfgPath, 0);
+                COM.InitTrayData();
             }
             );
             TaskTrayInit.Start();

@@ -2672,6 +2672,15 @@ namespace UI
         bool brun = false;
         public void RunTestTask()
         {
+            if (FeedStatus == EM_STA.REDAYFORUPDOWNLOAD)
+            {
+                brun = false;
+                VAR.msg.AddMsg(Msg.EM_MSGTYPE.DBG, VAR.IsChinese
+                    ? string.Format("{0} 当前需先重新上下料，跳过创建测试线程", disc)
+                    : string.Format("{0} Updownload is required before restarting test, skip creating test thread.        ({0} 当前需先重新上下料，跳过创建测试线程)", disc));
+                return;
+            }
+
             if (TestStatus == EM_TEST_STA.EMPTY || TestStatus == EM_TEST_STA.COMPLETED)
             {
                 brun = false;
@@ -3162,47 +3171,47 @@ namespace UI
                     }
 
                     res = WaitTestResult(ref sta, PT_SET.TestTime, Demo, lb);
-                    DateTime endTime = DateTime.Now;
-                    TimeSpan timeDifference = endTime - startTime;
-                    double seconds = timeDifference.TotalSeconds;
-                    VAR.msg.AddMsg(Msg.EM_MSGTYPE.DBG, VAR.IsChinese ? string.Format("所花时间{0}", seconds) : string.Format("spend {0}", seconds));
-                    if (res == EM_RES.OK && sta == 0 && seconds < 2 && !Demo)
-                    {
+                    //DateTime endTime = DateTime.Now;
+                    //TimeSpan timeDifference = endTime - startTime;
+                    //double seconds = timeDifference.TotalSeconds;
+                    //VAR.msg.AddMsg(Msg.EM_MSGTYPE.DBG, VAR.IsChinese ? string.Format("所花时间{0}", seconds) : string.Format("spend {0}", seconds));
+                    //if (res == EM_RES.OK && sta == 0 && seconds < 2 && !Demo)
+                    //{
                       
-                        VAR.msg.AddMsg(Msg.EM_MSGTYPE.ERR, string.Format("开图到收到结果时间过短"));
+                    //    VAR.msg.AddMsg(Msg.EM_MSGTYPE.ERR, string.Format("开图到收到结果时间过短"));
 
-                        MT.ST_WARN st_warn = new MT.ST_WARN();
-                        warning fr_warn = new warning();
-                        st_warn.ok_txt = VAR.IsChinese ? "忽略" : "Go on";
-                        st_warn.abort_txt = VAR.IsChinese ? "继续" : "give up";
-                        st_warn.cancle_txt = VAR.IsChinese ? "停止运行" : "Stop running";
-                        st_warn.title = VAR.IsChinese ? $"提示:开图到收到结果时间过短!实际该工站的NG码为{CurWSNGCode}" : "Tip: Receieve reason too fast";
-                        st_warn.msg = VAR.IsChinese ? string.Format("开图到收到结果时间过短") : string.Format("Receieve reason too fast");
-                        st_warn.lb_msg = "提示:" + st_warn.msg + "请确认!\r\n  1.点击忽略将保留本次NG结果并继续运行!\r\n  " +
-                            "2.点击继续则本次结果全置为2222，并继续!\r\n  " + "3.点击停止则NG代码置为2222!，并停止\r\n  ";
-                        VAR.sys_inf.Set(EM_ALM_STA.WAR_YELLOW_FLASH, VAR.IsChinese ? "开图到收到结果时间过短!" : "Receieve reason too fast", 20, true);
-                        DialogResult logres = MT.Display_frwarn(fr_warn, st_warn, ERR_ALM.EmErrItem.UpDownLoadAbnormal);
-                        CurWSNGCode.Clear();
-                        if (DialogResult.OK == logres)
-                        {
-                            VAR.msg.AddMsg(Msg.EM_MSGTYPE.DBG, string.Format("开图到收到结果时间过短,点击忽略"));
+                    //    MT.ST_WARN st_warn = new MT.ST_WARN();
+                    //    warning fr_warn = new warning();
+                    //    st_warn.ok_txt = VAR.IsChinese ? "忽略" : "Go on";
+                    //    st_warn.abort_txt = VAR.IsChinese ? "继续" : "give up";
+                    //    st_warn.cancle_txt = VAR.IsChinese ? "停止运行" : "Stop running";
+                    //    st_warn.title = VAR.IsChinese ? $"提示:开图到收到结果时间过短!实际该工站的NG码为{CurWSNGCode}" : "Tip: Receieve reason too fast";
+                    //    st_warn.msg = VAR.IsChinese ? string.Format("开图到收到结果时间过短") : string.Format("Receieve reason too fast");
+                    //    st_warn.lb_msg = "提示:" + st_warn.msg + "请确认!\r\n  1.点击忽略将保留本次NG结果并继续运行!\r\n  " +
+                    //        "2.点击继续则本次结果全置为2222，并继续!\r\n  " + "3.点击停止则NG代码置为2222!，并停止\r\n  ";
+                    //    VAR.sys_inf.Set(EM_ALM_STA.WAR_YELLOW_FLASH, VAR.IsChinese ? "开图到收到结果时间过短!" : "Receieve reason too fast", 20, true);
+                    //    DialogResult logres = MT.Display_frwarn(fr_warn, st_warn, ERR_ALM.EmErrItem.UpDownLoadAbnormal);
+                    //    CurWSNGCode.Clear();
+                    //    if (DialogResult.OK == logres)
+                    //    {
+                    //        VAR.msg.AddMsg(Msg.EM_MSGTYPE.DBG, string.Format("开图到收到结果时间过短,点击忽略"));
 
-                        }
-                        else if(DialogResult.Abort == logres)
-                        {
-                            foreach (WS.MdDat md in list_md)
-                            {
-                                md.res = 2222;
-                            }
-                            VAR.msg.AddMsg(Msg.EM_MSGTYPE.DBG, string.Format("开图到收到结果时间过短,点击继续"));
-                        }
-                        else
-                        {
-                            VAR.msg.AddMsg(Msg.EM_MSGTYPE.DBG, string.Format("开图到收到结果时间过短,点击停止"));
-                            Status = EM_STA.ERR;
-                            break;
-                        }
-                    }
+                    //    }
+                    //    else if(DialogResult.Abort == logres)
+                    //    {
+                    //        foreach (WS.MdDat md in list_md)
+                    //        {
+                    //            md.res = 2222;
+                    //        }
+                    //        VAR.msg.AddMsg(Msg.EM_MSGTYPE.DBG, string.Format("开图到收到结果时间过短,点击继续"));
+                    //    }
+                    //    else
+                    //    {
+                    //        VAR.msg.AddMsg(Msg.EM_MSGTYPE.DBG, string.Format("开图到收到结果时间过短,点击停止"));
+                    //        Status = EM_STA.ERR;
+                    //        break;
+                    //    }
+                    //}
                     if (res == EM_RES.PARA_ERR || res == EM_RES.QUIT)
                     {
                         //不同步等异常
