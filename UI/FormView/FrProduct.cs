@@ -450,7 +450,13 @@ namespace UI
                 {
                     VAR.msg.AddMsg(Msg.EM_MSGTYPE.ERR, VAR.IsChinese?string.Format("系统回零中,转盘不能动!"): "When the system is returning to zero, the turntable cannot move!        (系统回零中,转盘不能动!)");
                     return;
-                }                
+                }
+                WS unsafeWs = COM.list_ws.Find(delegate (WS x) { return x != null && !x.isInTestPos; });
+                if (unsafeWs != null)
+                {
+                    MessageBox.Show(VAR.IsChinese ? string.Format("{0}不在测试位，禁止手动旋转转盘!", unsafeWs.disc) : string.Format("{0} is not in test position, manual turntable rotation is forbidden!\r\n{1}不在测试位，禁止手动旋转转盘!", unsafeWs.disc, unsafeWs.disc), VAR.IsChinese ? "提示" : "Prompt", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    return;
+                }
                 btn_zp_ccw.Enabled = false;
                 btn_zp_cw.Enabled = false;
                 VAR.gsys_set.bquit = false;
@@ -561,6 +567,17 @@ namespace UI
         {
             try
             {
+                if (COM.bhomeing)
+                {
+                    VAR.msg.AddMsg(Msg.EM_MSGTYPE.ERR, VAR.IsChinese ? string.Format("系统回零中,转盘不能动!") : "When the system is returning to zero, the turntable cannot move!        (系统回零中,转盘不能动!)");
+                    return;
+                }
+                WS unsafeWs = COM.list_ws.Find(delegate (WS x) { return x != null && !x.isInTestPos; });
+                if (unsafeWs != null)
+                {
+                    MessageBox.Show(VAR.IsChinese ? string.Format("{0}不在测试位，禁止手动旋转转盘!", unsafeWs.disc) : string.Format("{0} is not in test position, manual turntable rotation is forbidden!\r\n{1}不在测试位，禁止手动旋转转盘!", unsafeWs.disc, unsafeWs.disc), VAR.IsChinese ? "提示" : "Prompt", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    return;
+                }
                 btn_zp_ccw.Enabled = false;
                 btn_zp_cw.Enabled = false;
                 VAR.gsys_set.bquit = false;

@@ -6804,49 +6804,9 @@ RECHECKAGAIN:
                                 break;
                             }
                         }
-                        if (PT_SET.HallEn && !WS.Demo)
+                        if (PT_SET.bDownFlipTest && !WS.Demo)
                         {
-                            int sta = 0;
-                            while (!VAR.gsys_set.bquit && bquit == false)
-                            {
-                                res = ws.WaitTestResult(ref sta, PT_SET.TestTime, WS.Demo);
-                                if (res == EM_RES.PARA_ERR || res == EM_RES.QUIT)
-                                {
-                                    //不同步等异常
-                                    break;
-                                }
-                                else if (res != EM_RES.OK)
-                                {
-                                    VAR.msg.AddMsg(Msg.EM_MSGTYPE.DBG, string.Format("{0} WaitTestResult err", ws.disc));
-                                    ws.Status = WS.EM_STA.LINKERR;
-                                    break;
-                                }
-
-                                if (sta == 301)
-                                {
-                                    VAR.msg.AddMsg(Msg.EM_MSGTYPE.DBG, VAR.IsChinese ? string.Format("{0} 通知测试Hall", ws.disc) : string.Format("{0} Notice Hall.        ({0} 通知测试Hall)", ws.disc));
-                                    res = ws.NextTest(sta, WS.Demo);
-                                    if (res != EM_RES.OK)
-                                    {
-                                        res = ws.NextTest(sta, WS.Demo);
-                                        if (res != EM_RES.OK)
-                                        {
-                                            VAR.msg.AddMsg(Msg.EM_MSGTYPE.ERR, VAR.IsChinese ? string.Format("{0} 通知测试出错!", ws.disc) : string.Format("ERROR: notice test!          ({0} 通知测试出错!)", ws.disc), emerr: DReport.EmErrCode.TestFailed);
-                                            ws.TestStatus = WS.EM_TEST_STA.ERROR;
-                                            break;
-                                        }
-                                    }
-                                }
-                                else
-                                {
-                                    break;
-                                }
-                            }
-                            if (res == EM_RES.PARA_ERR || res == EM_RES.QUIT || res != EM_RES.OK)
-                                break;
-
-                            //上完闭合            
-                            res = ws.SetupForTest(ref VAR.gsys_set.bquit);
+                            res = ws.Run403TurnStage(ref VAR.gsys_set.bquit, WS.Demo);
                             if (res != EM_RES.OK) break;
                             res = COM.UDLoad1.UpCamAfterCloseCheck(ref bquit, ref ws);
                             if (res != EM_RES.OK) break;

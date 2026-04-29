@@ -1966,58 +1966,12 @@ namespace UI
 
                             //通知测试
                             VAR.msg.AddMsg(Msg.EM_MSGTYPE.DBG, VAR.IsChinese ? string.Format("{0} 通知REDAYFORTEST", workstation.disc) : string.Format("{0}Notice  REDAYFORTEST     ({0} 通知REDAYFORTEST)", workstation.disc));
-                            if (PT_SET.HallEn && !WS.Demo)
+                            if (PT_SET.bDownFlipTest && !WS.Demo)
                             {
-
-                                res = workstation.TurnToFeedSafe(ref VAR.gsys_set.bquit);
+                                res = workstation.Run403TurnStage(ref VAR.gsys_set.bquit, WS.Demo);
                                 if (res != EM_RES.OK)
                                 {
-                                    workstation.Status = WS.EM_STA.ERR;
-                                    break;
-                                }
-                                int sta = 0;
-                                while (!VAR.gsys_set.bquit)
-                                {
-                                    res = workstation.WaitTestResult(ref sta, PT_SET.TestTime, WS.Demo);
-                                    if (res == EM_RES.PARA_ERR || res == EM_RES.QUIT)
-                                    {
-
-                                        //不同步等异常
-                                        break;
-                                    }
-                                    else if (res != EM_RES.OK)
-                                    {
-                                        VAR.msg.AddMsg(Msg.EM_MSGTYPE.DBG, string.Format("{0} WaitTestResult err", workstation.disc));
-                                        workstation.Status = WS.EM_STA.LINKERR;
-                                        break;
-                                    }
-
-                                    if (sta == 301)
-                                    {
-                                        VAR.msg.AddMsg(Msg.EM_MSGTYPE.DBG, VAR.IsChinese ? string.Format("{0} 通知测试Hall", workstation.disc) : string.Format("{0} Notice Hall     ({0} 通知测试Hall)", workstation.disc));
-                                        res = workstation.NextTest(sta, WS.Demo);
-                                        if (res != EM_RES.OK)
-                                        {
-                                            res = workstation.NextTest(sta, WS.Demo);
-                                            if (res != EM_RES.OK)
-                                            {
-                                                VAR.msg.AddMsg(Msg.EM_MSGTYPE.ERR, VAR.IsChinese ? string.Format("{0} 通知测试出错!", workstation.disc) : string.Format("{0}  ERROR:Notice test!      ({0} 通知测试出错!)", workstation.disc), emerr: DReport.EmErrCode.TestFailed);
-                                                workstation.TestStatus = WS.EM_TEST_STA.ERROR;
-                                                break;
-                                            }
-                                        }
-                                    }
-                                    else
-                                    {
-                                        break;
-                                    }
-                                }
-                                if (res == EM_RES.PARA_ERR || res == EM_RES.QUIT || res != EM_RES.OK)
-                                    break;
-                                res = workstation.SetupForTest(ref VAR.gsys_set.bquit);
-                                if (res != EM_RES.OK)
-                                {
-                                    workstation.Status = WS.EM_STA.ERR;
+                                    workstation.Status = res == EM_RES.ERR ? WS.EM_STA.LINKERR : WS.EM_STA.ERR;
                                     break;
                                 }
                             }

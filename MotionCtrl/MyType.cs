@@ -936,6 +936,7 @@ namespace MotionCtrl
         //上下料门禁使能
         public static bool bEnUpDownDr = false;
         public static bool bUpDnAddTest=false;
+        public static bool bDownFlipTest = false;
 
         //探针断裂检测
         public static bool OvenCheck = false;
@@ -1528,6 +1529,7 @@ namespace MotionCtrl
             //其它
             //bEnVsFB = inf.ReadBool("OTHER_SET", "VS_FB", false);
             bUpDnAddTest = inf.ReadBool("OTHER_SET", "UPTEST", false);
+            bDownFlipTest = inf.ReadBool("OTHER_SET", "DOWNFLIPTEST", false);
             OvenCheck = inf.ReadBool("OTHER_SET", "OVENCHECK", false);
             bUdMovSafe = inf.ReadBool("OTHER_SET", "UD_MOV_SAFE", false);
             bEnVsTray = inf.ReadBool("OTHER_SET", "VS_TRAY", false);
@@ -1819,6 +1821,7 @@ namespace MotionCtrl
             //其它
             inf.WriteBool("OTHER_SET", "VS_FB", bEnVsFB, ref ischange, true, filename);
             inf.WriteBool("OTHER_SET", "UPTEST", bUpDnAddTest, ref ischange, true, filename);
+            inf.WriteBool("OTHER_SET", "DOWNFLIPTEST", bDownFlipTest, ref ischange, true, filename);
             inf.WriteBool("OTHER_SET", "OVENCHECK", OvenCheck, ref ischange, true, filename);
             inf.WriteBool("OTHER_SET", "VS_TRAY", bEnVsTray, ref ischange, true, filename);
             inf.WriteDouble("OTHER_SET", "VS_XY_OFS", Vs_XYofs, ref ischange, true, filename);

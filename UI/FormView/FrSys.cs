@@ -130,6 +130,7 @@ namespace UI
             //霍尔测试设置
             rbtn_hallen.Enabled = en;
             rbtn_halldis.Enabled = en;
+            chk_downfliptest.Enabled = en;
             //取放料角度开放设置
             rbtn_open_degree.Enabled = en;
             rbtn_close_degree.Enabled = en;
@@ -638,6 +639,7 @@ namespace UI
             rbtn_halldis.Checked = false;
             if (PT_SET.HallEn) rbtn_hallen.Checked = true;
             else rbtn_halldis.Checked = true;
+            chk_downfliptest.Checked = PT_SET.bDownFlipTest;
 
             //开关取放料角度设置
             rbtn_open_degree.Checked = false;
@@ -1303,6 +1305,7 @@ namespace UI
             //霍尔测试
             if (rbtn_hallen.Checked) PT_SET.HallEn = true;
             else if (rbtn_halldis.Checked) PT_SET.HallEn = false;
+            PT_SET.bDownFlipTest = chk_downfliptest.Checked;
             //取放料开放角度设置
             if (rbtn_open_degree.Checked) PT_SET.isopen_degree = true;
             else if (rbtn_close_degree.Checked) PT_SET.isopen_degree = false;

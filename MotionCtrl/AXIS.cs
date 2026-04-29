@@ -150,6 +150,7 @@ namespace MotionCtrl
 
         public double pos0;
         public double pos1;
+        public double pos2;
 
         public CHK_AXIS_SAFE ChkSafePos;
         public CHK_AXIS_SAFE ChkSafeSen;
@@ -162,6 +163,27 @@ namespace MotionCtrl
 #if ORIENTALMOTOR
         public AZD.Motor AzdMotor = null;
 #endif
+
+        private bool IsWorkstationRotateAxis()
+        {
+            return str_disc == "工站1旋转"
+                || str_disc == "工站2旋转"
+                || str_disc == "工站3旋转"
+                || str_disc == "工站4旋转"
+                || english_disc == "WS1 Rotate"
+                || english_disc == "WS2 Rotate"
+                || english_disc == "WS3 Rotate"
+                || english_disc == "WS4 Rotate";
+        }
+
+        private void TraceWsRotate(string action, string detail)
+        {
+            if (!IsWorkstationRotateAxis()) return;
+            VAR.msg.AddMsg(Msg.EM_MSGTYPE.DBG,
+                VAR.IsChinese
+                    ? string.Format("{0} {1}: {2}", disc, action, detail)
+                    : string.Format("{0} {1}: {2}    ({3} {1}: {2})", english_disc, action, detail, disc));
+        }
 
         #region 初始化
         public AXIS()
@@ -305,6 +327,7 @@ namespace MotionCtrl
 
             pos0 = inf.ReadDouble(Section, "POS0", 0);
             pos1 = inf.ReadDouble(Section, "POS1", 0);
+            pos2 = inf.ReadDouble(Section, "POS2", 0);
 
             return EM_RES.OK;
         }
@@ -360,6 +383,7 @@ namespace MotionCtrl
 
             inf.WriteDouble(Section, "POS0", pos0, ref ischange, true, filename);
             inf.WriteDouble(Section, "POS1", pos1, ref ischange, true, filename);
+            inf.WriteDouble(Section, "POS2", pos2, ref ischange, true, filename);
 
             if (ischange)
             {
@@ -2906,11 +2930,19 @@ namespace MotionCtrl
 #if ORIENTALMOTOR
                 if (card.brand == CARD.BRAND.ORIENTALMOTOR)
                 {
+                    byte sel = (byte)(dir == AX_DIR.P ? 1 : 0);
+                    TraceWsRotate("JOG_Step", string.Format("dir={0}, sel={1}, cmd={2:F3}, enc={3:F3}", dir, sel, fcmd_pos, fenc_pos));
                     //protect
-                    if (true == AzdMotor.MoveToSelDat(ref bquit, (byte)(dir == AX_DIR.P ? 1 : 0)))
+                    if (true == AzdMotor.MoveToSelDat(ref bquit, sel))
+                    {
+                        TraceWsRotate("JOG_Step", string.Format("OK, sel={0}, cmd={1:F3}, enc={2:F3}", sel, fcmd_pos, fenc_pos));
                         return EM_RES.OK;
+                    }
                     else
+                    {
+                        TraceWsRotate("JOG_Step", string.Format("ERR, sel={0}, cmd={1:F3}, enc={2:F3}", sel, fcmd_pos, fenc_pos));
                         return EM_RES.ERR;
+                    }
                 }
 #endif
                 if (err != 0)
@@ -2926,6 +2958,27 @@ namespace MotionCtrl
                 SetToManualHighSpd();
             }
             return res;
+        }
+        public EM_RES MoveToSelPos(ref bool bquit, byte sel, int timeout = 3000)
+        {
+            if (mt_type == MT_TYPE.VIRTUAL) return res = EM_RES.OK;
+            if (sel > 3) return res = EM_RES.PARA_ERR;
+            TraceWsRotate("MoveToSelPos", string.Format("START, sel={0}, pos0={1:F3}, pos1={2:F3}, pos2={3:F3}, cmd={4:F3}, enc={5:F3}", sel, pos0, pos1, pos2, fcmd_pos, fenc_pos));
+
+#if ORIENTALMOTOR
+            if (card.brand == CARD.BRAND.ORIENTALMOTOR)
+            {
+                if (AzdMotor.MoveToSelDat(ref bquit, sel, timeout))
+                {
+                    TraceWsRotate("MoveToSelPos", string.Format("OK, sel={0}, cmd={1:F3}, enc={2:F3}", sel, fcmd_pos, fenc_pos));
+                    return res = EM_RES.OK;
+                }
+                TraceWsRotate("MoveToSelPos", string.Format("ERR, sel={0}, timeout={1}, cmd={2:F3}, enc={3:F3}", sel, timeout, fcmd_pos, fenc_pos));
+                return res = EM_RES.ERR;
+            }
+#endif
+            TraceWsRotate("MoveToSelPos", string.Format("PARA_ERR, sel={0}, brand={1}", sel, card == null ? "NULL" : card.brand.ToString()));
+            return res = EM_RES.PARA_ERR;
         }
         public EM_RES JOG_Stop()
         {

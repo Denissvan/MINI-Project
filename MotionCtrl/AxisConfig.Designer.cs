@@ -67,6 +67,7 @@ namespace MotionCtrl
             this.offset = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.pos0 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.pos1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.pos2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.tmr_update = new System.Windows.Forms.Timer(this.components);
             ((System.ComponentModel.ISupportInitialize)(this.dgv)).BeginInit();
             this.SuspendLayout();
@@ -195,7 +196,8 @@ namespace MotionCtrl
             this.puls_per_mm,
             this.offset,
             this.pos0,
-            this.pos1});
+            this.pos1,
+            this.pos2});
             dataGridViewCellStyle10.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
             dataGridViewCellStyle10.BackColor = System.Drawing.Color.Silver;
             dataGridViewCellStyle10.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
@@ -234,7 +236,7 @@ namespace MotionCtrl
             this.dgv.RowTemplate.DefaultCellStyle.SelectionForeColor = System.Drawing.Color.White;
             this.dgv.RowTemplate.Height = 32;
             this.dgv.RowTemplate.Resizable = System.Windows.Forms.DataGridViewTriState.False;
-            this.dgv.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
+            this.dgv.ScrollBars = System.Windows.Forms.ScrollBars.Both;
             this.dgv.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dgv.ShowEditingIcon = false;
             this.dgv.Size = new System.Drawing.Size(1078, 347);
@@ -351,6 +353,12 @@ namespace MotionCtrl
             this.pos1.Name = "pos1";
             this.pos1.Width = 60;
             // 
+            // pos2
+            // 
+            this.pos2.HeaderText = "位置2";
+            this.pos2.Name = "pos2";
+            this.pos2.Width = 60;
+            // 
             // AxisConfig
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
@@ -391,6 +399,7 @@ namespace MotionCtrl
         private System.Windows.Forms.DataGridViewTextBoxColumn offset;
         private System.Windows.Forms.DataGridViewTextBoxColumn pos0;
         private System.Windows.Forms.DataGridViewTextBoxColumn pos1;
+        private System.Windows.Forms.DataGridViewTextBoxColumn pos2;
         public System.Windows.Forms.DataGridView dgv;
 
         #region 属性设定

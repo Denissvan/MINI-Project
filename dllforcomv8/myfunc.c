@@ -3360,7 +3360,7 @@ int StartTestFlow(int id, int status,char* barcode)
 
 
 	{
-		DebugStr5("[DLL_FLOW]StartTestFlow Skip,id=%d,ws=%d,req_sta=%d,result_mark=%d,result_num=%d\n",
+		DebugStr5("[DLL_FLOW]StartTestFlow BusyLastResult,id=%d,ws=%d,req_sta=%d,result_mark=%d,result_num=%d\n",
 			id,
 			GetWsNoByPcId(id),
 			status,
@@ -3375,7 +3375,7 @@ int StartTestFlow(int id, int status,char* barcode)
 		OutputDebugString("\n");
 		AppendDebugLog(resultSnapshot);
 		AppendDebugLog("\n");
-		return RES_OK;
+		return -6;
 	}
 
 	//Dev.mb_map_inf->tab_registers[1] = status;//status
@@ -3813,9 +3813,30 @@ if (pDat == NULL)
 
 
 			{
+				int final_num = pDat->map_result->tab_registers[REG_IDX_DAT_LEN];
 
 
-				*NumofResult = pDat->map_result->tab_registers[REG_IDX_DAT_LEN];
+				if (final_num <= 0)
+
+
+				{
+					DebugStr5("[DLL_FLOW]WaitTestResult FinalNoData,id=%d,ws=%d,result_mark=%d,status=%d,param=%d\n",
+						id,
+						GetWsNoByPcId(id),
+						pDat->map_result->tab_registers[REG_IDX_MARK],
+						*status,
+						pDat->map_result->tab_registers[REG_IDX_PARAM]);
+					BuildResultAreaSnapshot(pDat, id, resultSnapshot, sizeof(resultSnapshot));
+					OutputDebugString(resultSnapshot);
+					OutputDebugString("\n");
+					AppendDebugLog(resultSnapshot);
+					AppendDebugLog("\n");
+					Sleep(10);
+					continue;
+				}
+
+
+				*NumofResult = final_num;
 
 
 				if (*NumofResult > INF_CNT)*NumofResult = INF_CNT;
@@ -3852,6 +3873,32 @@ if (pDat == NULL)
 
 
 				int curParam = pDat->map_result->tab_registers[REG_IDX_PARAM];
+
+
+				if (*status == 0 && *NumofResult > 0 && curMark == MARK_READY)
+
+
+				{
+
+
+					pDat->map_result->tab_registers[REG_IDX_MARK] = MARK_ACK;
+
+
+					curMark = pDat->map_result->tab_registers[REG_IDX_MARK];
+
+
+					DebugStr5("[DLL_FLOW]WaitTestResult AckFinal,id=%d,ws=%d,result_mark=%d,status=%d,num=%d\n",
+						id,
+						GetWsNoByPcId(id),
+						curMark,
+						*status,
+						*NumofResult);
+					BuildResultAreaSnapshot(pDat, id, resultSnapshot, sizeof(resultSnapshot));
+					OutputDebugString(resultSnapshot);
+					OutputDebugString("\n");
+					AppendDebugLog(resultSnapshot);
+					AppendDebugLog("\n");
+				}
 
 
 				if (g_lastReturnStatus[lastIdx] != *status

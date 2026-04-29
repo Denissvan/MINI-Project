@@ -558,6 +558,7 @@ namespace UI
             this.button8 = new System.Windows.Forms.Button();
             this.button7 = new System.Windows.Forms.Button();
             this.tabPage8 = new System.Windows.Forms.TabPage();
+            this.chk_downfliptest = new System.Windows.Forms.CheckBox();
             this.AutoCheckParam = new System.Windows.Forms.TabControl();
             this.AFC_param = new System.Windows.Forms.TabPage();
             this.AFC_CPOS = new MotionCtrl.XYZ();
@@ -8941,6 +8942,7 @@ namespace UI
             // 
             // tabPage8
             // 
+            this.tabPage8.Controls.Add(this.chk_downfliptest);
             this.tabPage8.Controls.Add(this.AutoCheckParam);
             this.tabPage8.Controls.Add(this.groupBox74);
             this.tabPage8.Controls.Add(this.groupBox73);
@@ -8952,10 +8954,21 @@ namespace UI
             this.tabPage8.Location = new System.Drawing.Point(4, 44);
             this.tabPage8.Name = "tabPage8";
             this.tabPage8.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage8.Size = new System.Drawing.Size(1164, 818);
+            this.tabPage8.Size = new System.Drawing.Size(52, 44);
             this.tabPage8.TabIndex = 4;
             this.tabPage8.Text = "参数设置5";
             this.tabPage8.UseVisualStyleBackColor = true;
+            // 
+            // chk_downfliptest
+            // 
+            this.chk_downfliptest.AutoSize = true;
+            this.chk_downfliptest.Font = new System.Drawing.Font("微软雅黑", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.chk_downfliptest.Location = new System.Drawing.Point(342, 398);
+            this.chk_downfliptest.Name = "chk_downfliptest";
+            this.chk_downfliptest.Size = new System.Drawing.Size(145, 29);
+            this.chk_downfliptest.TabIndex = 163;
+            this.chk_downfliptest.Text = "向下翻转测试";
+            this.chk_downfliptest.UseVisualStyleBackColor = true;
             // 
             // AutoCheckParam
             // 
@@ -10215,7 +10228,7 @@ namespace UI
             // button17
             // 
             this.button17.BackColor = System.Drawing.SystemColors.ButtonFace;
-            this.button17.Location = new System.Drawing.Point(484, 382);
+            this.button17.Location = new System.Drawing.Point(505, 449);
             this.button17.Name = "button17";
             this.button17.Size = new System.Drawing.Size(134, 148);
             this.button17.TabIndex = 151;
@@ -11068,6 +11081,7 @@ namespace UI
             this.tableLayoutPanel2.ResumeLayout(false);
             this.panel1.ResumeLayout(false);
             this.tabPage8.ResumeLayout(false);
+            this.tabPage8.PerformLayout();
             this.AutoCheckParam.ResumeLayout(false);
             this.AFC_param.ResumeLayout(false);
             this.AFC_param.PerformLayout();
@@ -11255,6 +11269,7 @@ namespace UI
         private System.Windows.Forms.GroupBox groupBox21;
         private System.Windows.Forms.RadioButton rbtn_halldis;
         private System.Windows.Forms.RadioButton rbtn_hallen;
+        private System.Windows.Forms.CheckBox chk_downfliptest;
         private System.Windows.Forms.GroupBox groupBox23;
         private System.Windows.Forms.RadioButton rbtn_xt1firstdis;
         private System.Windows.Forms.RadioButton rbtn_xt1firsten;

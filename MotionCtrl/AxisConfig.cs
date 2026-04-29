@@ -44,6 +44,7 @@ namespace MotionCtrl
             dgv.Rows[row].Cells[10].Value = ax.home_offset.ToString("F3");
             dgv.Rows[row].Cells[11].Value = ax.pos0.ToString("F3");
             dgv.Rows[row].Cells[12].Value = ax.pos1.ToString("F3");
+            dgv.Rows[row].Cells[13].Value = ax.pos2.ToString("F3");
 
         }
 
@@ -134,6 +135,7 @@ namespace MotionCtrl
 
                             ax.pos0 = Convert.ToDouble(row.Cells[11].Value.ToString());
                             ax.pos1 = Convert.ToDouble(row.Cells[12].Value.ToString());
+                            ax.pos2 = Convert.ToDouble(row.Cells[13].Value.ToString());
                             break;
                         }
                     }
@@ -172,7 +174,7 @@ namespace MotionCtrl
             if ((e.RowIndex & 1) == 1) e.CellStyle.BackColor = Color.WhiteSmoke;
         }
 
-        //axis startspd stopspd homespd workspd tacc tdec sln slp puls_per_mm offset pos0 pos1 
+        //axis startspd stopspd homespd workspd tacc tdec sln slp puls_per_mm offset pos0 pos1 pos2
         public void ChangeColumn()
         {
             if (VAR.IsChinese)
@@ -190,6 +192,7 @@ namespace MotionCtrl
                 offset.HeaderText = "偏移";
                 pos0.HeaderText = "位置0";
                 pos1.HeaderText = "位置1";
+                pos2.HeaderText = "位置2";
             }
             else
             {
@@ -206,6 +209,7 @@ namespace MotionCtrl
                 offset.HeaderText = "Offset";
                 pos0.HeaderText = "Pos0";
                 pos1.HeaderText = "Pos1";
+                pos2.HeaderText = "Pos2";
             }
         }
     }

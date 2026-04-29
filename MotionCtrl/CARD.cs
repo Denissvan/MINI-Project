@@ -599,13 +599,23 @@ namespace MotionCtrl
 
                     //POS0点数据 1024/1025
                     //POS1点数据 1026/1027
-                    temp = (ushort)(ax.pos0 * ax.pul_per_mm);
-                    temp2 = (ushort)(ax.pos1 * ax.pul_per_mm);
-                    dat = new ushort[4] { (ushort)(temp >> 16), (ushort)(temp & 0XFFFF), (ushort)(temp2 >> 16), (ushort)(temp2 & 0XFFFF) };
+                    //POS2点数据 1028/1029
+                    int pos0Pulse = (int)System.Math.Round(ax.pos0 * ax.pul_per_mm);
+                    int pos1Pulse = (int)System.Math.Round(ax.pos1 * ax.pul_per_mm);
+                    int pos2Pulse = (int)System.Math.Round(ax.pos2 * ax.pul_per_mm);
+                    dat = new ushort[6]
+                    {
+                        (ushort)((uint)pos0Pulse >> 16),
+                        (ushort)((uint)pos0Pulse & 0XFFFF),
+                        (ushort)((uint)pos1Pulse >> 16),
+                        (ushort)((uint)pos1Pulse & 0XFFFF),
+                        (ushort)((uint)pos2Pulse >> 16),
+                        (ushort)((uint)pos2Pulse & 0XFFFF)
+                    };
                     bres = ax.AzdMotor.WriteReg(1024, dat);
                     if (!bres)
                     {
-                        VAR.msg.AddMsg(Msg.EM_MSGTYPE.ERR, VAR.IsChinese?string.Format("{0}设置POS0/POS1出错!", ax.disc): string.Format("{0}ERROR:Set POS0/POS1!   ({0}设置POS0/POS1出错!)",  ax.disc), DReport.EmErrCode.SetParamError, (int)DReport.EmHareware.Card + card_id);
+                        VAR.msg.AddMsg(Msg.EM_MSGTYPE.ERR, VAR.IsChinese?string.Format("{0}设置POS0/POS1/POS2出错!", ax.disc): string.Format("{0}ERROR:Set POS0/POS1/POS2!   ({0}设置POS0/POS1/POS2出错!)",  ax.disc), DReport.EmErrCode.SetParamError, (int)DReport.EmHareware.Card + card_id);
                         return EM_RES.ERR;
                     }                    
 

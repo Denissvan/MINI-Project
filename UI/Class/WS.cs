@@ -1008,6 +1008,15 @@ namespace UI
             }
         }
 
+        public bool _isUInPos2 = false;
+        public bool isUInPos2
+        {
+            get
+            {
+                return _isUInPos2 = Math.Abs(ax_u.fenc_pos - ax_u.pos2) < 0.5;
+            }
+        }
+
         public bool isInTestPos
         {
             get
@@ -1024,6 +1033,15 @@ namespace UI
                 //if (isUInFeedPos && isFrUp && isBkUp && isFrOpen && isBkOpen) return true;
                 if (isUInFeedPos && isFrUp && isBkUp) return true;
                 else return false;
+            }
+        }
+
+        public bool isTurntableRotateSafe
+        {
+            get
+            {
+                if (isUInPos2) return false;
+                return isInTestPos || isInFeedPos;
             }
         }
 
@@ -1150,7 +1168,7 @@ namespace UI
                 VAR.msg.AddMsg(Msg.EM_MSGTYPE.ERR, VAR.IsChinese ? string.Format("{0}在OPT位置，OTP光源不在原点，禁止翻转!", ax_u.disc) : string.Format("{0} is in the OTP,but OTP is not in the origin,it is prohibited from turning!        ({0}在OPT位置，OTP光源不在原点，禁止翻转!", ax_u.disc), DReport.EmErrCode.SoftwareProtect, (int)DReport.EmHareware.TurnTable + num + 1);
                 return EM_RES.MOVE_PROTECT;
             }
-            return ax_u.JOG_Step(ref bquit, AXIS.AX_DIR.P);              //P去上料位
+            return ax_u.MoveToSelPos(ref bquit, 1);
         }
         /// <summary>
         /// 旋转到测试位置
@@ -1205,7 +1223,46 @@ namespace UI
             //    VAR.msg.AddMsg(Msg.EM_MSGTYPE.ERR, "后排气缸未在压盖位，禁止U旋转到测试位!");
             //    return EM_RES.MOVE_PROTECT;
             //}
-            return ax_u.JOG_Step(ref bquit, AXIS.AX_DIR.N);
+            return ax_u.MoveToSelPos(ref bquit, 0);
+        }
+
+        public EM_RES TurnToPos2(ref bool bquit, bool ChkUpDownPos = false)
+        {
+            if (pos_idx != (int)Turntable.EM_STA.POS0 && pos_idx != (int)Turntable.EM_STA.POS2)
+            {
+                VAR.msg.AddMsg(Msg.EM_MSGTYPE.ERR, VAR.IsChinese ? string.Format("{0}不在上料/OTP位置，禁止翻转!", ax_u.disc) : string.Format("{0} is not in the upload/OTP,it is prohibited from turning!            ({0}不在上料/OTP位置，禁止翻转!)", ax_u.disc), DReport.EmErrCode.SoftwareProtect, (int)DReport.EmHareware.TurnTable + num + 1, ERR_ALM.EmErrItem.MoveProtect);
+                return EM_RES.MOVE_PROTECT;
+            }
+
+            if (ChkUpDownPos && pos_idx == (int)Turntable.EM_STA.POS0 && ((!COM.UDLoad1.ax_x.isORG && COM.UDLoad1.ax_x.fenc_pos > 3) || (!COM.UDLoad2.ax_x.isORG && COM.UDLoad2.ax_x.fenc_pos < -3) || COM.UDLoad1.ax_y.fenc_pos > (COM.UDLoad1.list_xt[1].st_cap_pos.y + 3) || COM.UDLoad2.ax_y.fenc_pos > (COM.UDLoad2.list_xt[1].st_cap_pos.y + 3)))
+            {
+                Thread.Sleep(300);
+                if (ChkUpDownPos && pos_idx == (int)Turntable.EM_STA.POS0 && ((!COM.UDLoad1.ax_x.isORG && COM.UDLoad1.ax_x.fenc_pos > 3) || (!COM.UDLoad2.ax_x.isORG && COM.UDLoad2.ax_x.fenc_pos < -3) || COM.UDLoad1.ax_y.fenc_pos > (COM.UDLoad1.list_xt[1].st_cap_pos.y + 3) || COM.UDLoad2.ax_y.fenc_pos > (COM.UDLoad2.list_xt[1].st_cap_pos.y + 3)))
+                {
+                    VAR.msg.AddMsg(Msg.EM_MSGTYPE.DBG, string.Format("目前上下料1X的位置：{0}，上下料2X的位置：{1}，上下料1Y的位置：{2}，上下料2Y的位置：{3}", COM.UDLoad1.ax_x.fenc_pos, COM.UDLoad2.ax_x.fenc_pos, COM.UDLoad1.ax_y.fenc_pos, COM.UDLoad2.ax_y.fenc_pos));
+                    VAR.msg.AddMsg(Msg.EM_MSGTYPE.DBG, VAR.IsChinese ? string.Format("上下料未回安全位置,{0}禁止翻转", disc) : string.Format("Updownload is not in the safe pos,{0} is prohibited from turning!         (上下料未回安全位置,{0}禁止翻转)", disc), DReport.EmErrCode.SoftwareProtect, (int)DReport.EmHareware.TurnTable + num + 1, ERR_ALM.EmErrItem.MoveProtect);
+                    return EM_RES.MOVE_PROTECT;
+                }
+            }
+
+            if (pos_idx == (int)Turntable.EM_STA.POS2 && !MT.AXIS_BOX_OTP_Z.isORG)
+            {
+                VAR.msg.AddMsg(Msg.EM_MSGTYPE.ERR, VAR.IsChinese ? string.Format("{0}在OTP位置，OTP光源不在原点，禁止翻转!", ax_u.disc) : string.Format("{0} is in the OTP,but OTP is not in the origin,{0} is prohibited from turning!          ({0}在OTP位置，OTP光源不在原点，禁止翻转!)", ax_u.disc), DReport.EmErrCode.SoftwareProtect, (int)DReport.EmHareware.TurnTable + num + 1, ERR_ALM.EmErrItem.MoveProtect);
+                return EM_RES.MOVE_PROTECT;
+            }
+
+            if (isFrUp && !isFrDown)
+            {
+                VAR.msg.AddMsg(Msg.EM_MSGTYPE.ERR, VAR.IsChinese ? "前排气缸未全压盖，禁止U旋转到位置2!" : "The front cylinders are not fully glanded, forbid U axis to rotate to pos2!    (前排气缸未全压盖，禁止U旋转到位置2!)", DReport.EmErrCode.SoftwareProtect, (int)DReport.EmHareware.TurnTable + num + 1, ERR_ALM.EmErrItem.MoveProtect);
+                return EM_RES.MOVE_PROTECT;
+            }
+            if (isBkUp && !isBkDown)
+            {
+                VAR.msg.AddMsg(Msg.EM_MSGTYPE.ERR, VAR.IsChinese ? "后排气缸未全压盖，禁止U旋转到位置2!" : "The rear cylinder is not fully glanded, and U axis is not allowed to rotate to pos2!         (后排气缸未全压盖，禁止U旋转到位置2!)", DReport.EmErrCode.SoftwareProtect, (int)DReport.EmHareware.TurnTable + num + 1, ERR_ALM.EmErrItem.MoveProtect);
+                return EM_RES.MOVE_PROTECT;
+            }
+
+            return ax_u.MoveToSelPos(ref bquit, 2);
         }
 
         public EM_RES FrCyUp(ref bool bquit, int dly = 1000, bool bdoevent = false, int idx = -1, bool bprotect = true)
@@ -2143,12 +2200,33 @@ namespace UI
                     }
                     ret = TestPC.StartTestFlow(list[0].PC_ID, status, str_barcode.ToArray());
                     VAR.msg.AddMsg(Msg.EM_MSGTYPE.DBG, string.Format("PC{0} barcode:{1}", list[0].PC_ID, str_barcode));
+                    if (ret == (int)TestPC.EM_RES.BUSY)
+                    {
+                        VAR.msg.AddMsg(Msg.EM_MSGTYPE.DBG, VAR.IsChinese
+                            ? string.Format("PC{0} StartFlow命中上一轮结果未闭环，等待后重试,sta={1}", list[0].PC_ID, status)
+                            : string.Format("PC{0} StartFlow busy by last result, retry later, sta={1}", list[0].PC_ID, status));
+                        for (int busyRetry = 0; busyRetry < 80 && ret == (int)TestPC.EM_RES.BUSY; busyRetry++)
+                        {
+                            if (VAR.gsys_set.bquit) break;
+                            Thread.Sleep(100);
+                            ret = TestPC.StartTestFlow(list[0].PC_ID, status, str_barcode.ToArray());
+                        }
+                    }
                     VAR.msg.AddMsg(Msg.EM_MSGTYPE.DBG, string.Format("PC{0} StartFlow,ret={1},sta={2}", list[0].PC_ID, Utility.GetDescription((TestPC.EM_RES)ret, VAR.IsChinese), status));
                     if (ret != (int)TestPC.EM_RES.OK)
                     {
                         VAR.msg.AddMsg(Msg.EM_MSGTYPE.WAR, VAR.IsChinese ? string.Format("PC{0} 重发 StartFlow,ret={1},sta={2}", list[0].PC_ID, Utility.GetDescription((TestPC.EM_RES)ret, VAR.IsChinese), status) : string.Format("PC{0} retry StartFlow,ret={1},sta={2}", list[0].PC_ID, Utility.GetDescription((TestPC.EM_RES)ret, VAR.IsChinese), status));
                         Thread.Sleep(1000);
                         ret = TestPC.StartTestFlow(list[0].PC_ID, status, str_barcode.ToArray());
+                        if (ret == (int)TestPC.EM_RES.BUSY)
+                        {
+                            for (int busyRetry = 0; busyRetry < 80 && ret == (int)TestPC.EM_RES.BUSY; busyRetry++)
+                            {
+                                if (VAR.gsys_set.bquit) break;
+                                Thread.Sleep(100);
+                                ret = TestPC.StartTestFlow(list[0].PC_ID, status, str_barcode.ToArray());
+                            }
+                        }
                         if (ret != (int)TestPC.EM_RES.OK)
                             VAR.msg.AddMsg(Msg.EM_MSGTYPE.ERR, VAR.IsChinese ? string.Format("PC{0} 重发 StartFlow,ret={1},sta={2}", list[0].PC_ID, Utility.GetDescription((TestPC.EM_RES)ret, VAR.IsChinese), status) : string.Format("PC{0} retry StartFlow,ret={1},sta={2}", list[0].PC_ID, Utility.GetDescription((TestPC.EM_RES)ret, VAR.IsChinese), status), DReport.EmErrCode.ResultNg, (int)DReport.EmHareware.TurnTable + num + 1, ERR_ALM.EmErrItem.TestAbnormal);
                         return EM_RES.ERR;
@@ -2575,6 +2653,79 @@ namespace UI
             }
 
             return EM_RES.OK;
+        }
+
+        public EM_RES SetupForTestPos2(ref bool bquit, bool IfDelay = true)
+        {
+            EM_RES res = EM_RES.OK;
+            VAR.msg.AddMsg(Msg.EM_MSGTYPE.DBG, VAR.IsChinese ? string.Format("{0} 准备转到位置2测试位", disc) : string.Format("{0} Prepare for pos2 test     ({0} 准备转到位置2测试位)", disc));
+            if (isUInPos2 && !isFrUp && !isBkUp && isFrDown && isBkDown) return EM_RES.OK;
+            if (pos_idx == (int)Turntable.EM_STA.POS0 && ((!COM.UDLoad1.ax_x.isORG && COM.UDLoad1.ax_x.fenc_pos > 3) || (!COM.UDLoad2.ax_x.isORG && COM.UDLoad2.ax_x.fenc_pos < -3) || COM.UDLoad1.ax_y.fenc_pos > (COM.UDLoad1.list_xt[1].st_cap_pos.y + 3) || COM.UDLoad2.ax_y.fenc_pos > (COM.UDLoad2.list_xt[1].st_cap_pos.y + 3)))
+            {
+                Thread.Sleep(300);
+                if (pos_idx == (int)Turntable.EM_STA.POS0 && ((!COM.UDLoad1.ax_x.isORG && COM.UDLoad1.ax_x.fenc_pos > 3) || (!COM.UDLoad2.ax_x.isORG && COM.UDLoad2.ax_x.fenc_pos < -3) || COM.UDLoad1.ax_y.fenc_pos > (COM.UDLoad1.list_xt[1].st_cap_pos.y + 3) || COM.UDLoad2.ax_y.fenc_pos > (COM.UDLoad2.list_xt[1].st_cap_pos.y + 3)))
+                {
+                    VAR.msg.AddMsg(Msg.EM_MSGTYPE.DBG, string.Format("目前上下料1X的位置：{0}，上下料2X的位置：{1}，上下料1Y的位置：{2}，上下料2Y的位置：{3}", COM.UDLoad1.ax_x.fenc_pos, COM.UDLoad2.ax_x.fenc_pos, COM.UDLoad1.ax_y.fenc_pos, COM.UDLoad2.ax_y.fenc_pos));
+                    VAR.msg.AddMsg(Msg.EM_MSGTYPE.DBG, VAR.IsChinese ? string.Format("上下料未回安全位置,{0}禁止合盖与翻转到位置2", disc) : string.Format("Updownload is not in the safe pos,{0} is forbidden to close and flip to pos2!         (上下料未回安全位置,{0}禁止合盖与翻转到位置2)", disc));
+                    return EM_RES.ERR;
+                }
+            }
+
+            res = AllCyDown(ref VAR.gsys_set.bquit);
+            if (res != EM_RES.OK) return res;
+
+            if (isFrUp || !isFrDown || isBkUp || !isBkDown)
+            {
+                res = EM_RES.ERR;
+                return res;
+            }
+
+            if (IfDelay)
+                Thread.Sleep(400);
+
+            res = TurnToPos2(ref bquit);
+            if (res != EM_RES.OK) return res;
+            VAR.msg.AddMsg(Msg.EM_MSGTYPE.DBG, VAR.IsChinese ? string.Format("{0} 已转到位置2测试位", disc) : string.Format("{0} Reached pos2 test     ({0} 已转到位置2测试位)", disc));
+
+            return EM_RES.OK;
+        }
+
+        public EM_RES Run403TurnStage(ref bool bquit, bool demo = false)
+        {
+            EM_RES res = EM_RES.OK;
+            VAR.msg.AddMsg(Msg.EM_MSGTYPE.DBG, VAR.IsChinese ? string.Format("{0} 进入向下翻转测试流程，当前位置 cmd={1:F3}, enc={2:F3}", disc, ax_u.fcmd_pos, ax_u.fenc_pos) : string.Format("{0} Enter down-flip test flow, cmd={1:F3}, enc={2:F3}     ({0} 进入向下翻转测试流程)", disc, ax_u.fcmd_pos, ax_u.fenc_pos));
+
+            VAR.msg.AddMsg(Msg.EM_MSGTYPE.DBG, VAR.IsChinese ? string.Format("{0} 通知测试403", disc) : string.Format("{0} Notice 403     ({0} 通知测试403)", disc));
+            res = NextTest(403, demo);
+            if (res != EM_RES.OK)
+            {
+                res = NextTest(403, demo);
+                if (res != EM_RES.OK)
+                {
+                    VAR.msg.AddMsg(Msg.EM_MSGTYPE.ERR, VAR.IsChinese ? string.Format("{0} 通知测试403出错!", disc) : string.Format("{0} ERROR:Notice 403!      ({0} 通知测试403出错!)", disc), emerr: DReport.EmErrCode.TestFailed);
+                    return res;
+                }
+            }
+
+            res = SetupForTestPos2(ref bquit);
+            if (res != EM_RES.OK) return res;
+            VAR.msg.AddMsg(Msg.EM_MSGTYPE.DBG, VAR.IsChinese ? string.Format("{0} 位置2测试阶段等待403结果返回", disc) : string.Format("{0} Wait 403 result at pos2     ({0} 位置2测试阶段等待403结果返回)", disc));
+
+            int sta = 0;
+            while (!VAR.gsys_set.bquit && !bquit)
+            {
+                res = WaitTestResult(ref sta, PT_SET.TestTime, demo);
+                if (res == EM_RES.PARA_ERR || res == EM_RES.QUIT) return res;
+                if (res != EM_RES.OK) return res;
+
+                VAR.msg.AddMsg(Msg.EM_MSGTYPE.DBG, VAR.IsChinese ? string.Format("{0} 403测试结果返回sta={1}，立即回位置0", disc, sta) : string.Format("{0} 403 result sta={1}, back to pos0 immediately     ({0} 403测试结果返回sta={1}，立即回位置0)", disc, sta));
+                res = TurnToTest(ref bquit);
+                if (res != EM_RES.OK) return res;
+                VAR.msg.AddMsg(Msg.EM_MSGTYPE.DBG, VAR.IsChinese ? string.Format("{0} 403向下翻转测试流程完成，已回位置0，等待后续正常测试流程", disc) : string.Format("{0} 403 down-flip flow completed, back to pos0 and wait normal follow-up flow     ({0} 403向下翻转测试流程完成，已回位置0，等待后续正常测试流程)", disc));
+                return EM_RES.OK;
+            }
+
+            return EM_RES.QUIT;
         }
 
         public EM_RES GetTestInfo(ref List<TestPC.InfoData> list_info, bool demo = false)
@@ -3102,6 +3253,17 @@ namespace UI
 
                         if (!bUpDnPosGoOnTest)
                         {
+                            if (pos == Turntable.EM_STA.POS0 && PT_SET.turnon && FeedStatus == EM_STA.REDAYFORUPDOWNLOAD)
+                            {
+                                VAR.msg.AddMsg(Msg.EM_MSGTYPE.DBG,
+                                    VAR.IsChinese
+                                        ? string.Format("{0} 当前处于待上下料态，恢复后禁止在POS0提前启动测试", disc)
+                                        : string.Format("{0} skip StartTestFlow at POS0 because FeedStatus is REDAYFORUPDOWNLOAD after resume", disc));
+                                res = EM_RES.OK;
+                                Status = EM_STA.REDAY;
+                                break;
+                            }
+
                             VAR.msg.AddMsg(Msg.EM_MSGTYPE.DBG, VAR.IsChinese ? string.Format("{0} 启动测试", disc) : string.Format("{0} StartTestFlow       ({0} 启动测试)", disc));
                             if (pos == Turntable.EM_STA.POS0 && PT_SET.turnon)
                             {
