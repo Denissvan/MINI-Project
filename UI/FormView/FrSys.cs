@@ -1077,6 +1077,9 @@ namespace UI
             }
             distance_coefficient.Value = (decimal)PT_SET.distance_coefficient;
             stanum.Text=(PT_SET.stanum).ToString();
+            chkStandardBoardRead.Checked = PT_SET.StandardBoardReadEn;
+            cmbStandardBoardAfcCom.Text = PT_SET.StandardBoardAfcCom;
+            cmbStandardBoardDccCom.Text = PT_SET.StandardBoardDccCom;
             rbt_modeM_CheckedChanged(rbt_modeL, null);
 
         }
@@ -1705,6 +1708,9 @@ namespace UI
             }
             PT_SET.distance_coefficient = (double)distance_coefficient.Value;
             PT_SET.stanum = int.Parse(stanum.Text);
+            PT_SET.StandardBoardReadEn = chkStandardBoardRead.Checked;
+            PT_SET.StandardBoardAfcCom = cmbStandardBoardAfcCom.Text;
+            PT_SET.StandardBoardDccCom = cmbStandardBoardDccCom.Text;
            
         }
         public bool ReloadUpcamTask(string tskname)

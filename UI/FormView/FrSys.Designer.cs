@@ -621,6 +621,11 @@ namespace UI
             this.OTP_luxdraggableProgressBar = new DraggableProgressBar();
             this.label106 = new System.Windows.Forms.Label();
             this.AutoCheckParamSetting = new System.Windows.Forms.TabPage();
+            this.cmbStandardBoardDccCom = new System.Windows.Forms.ComboBox();
+            this.labelStandardBoardDccCom = new System.Windows.Forms.Label();
+            this.cmbStandardBoardAfcCom = new System.Windows.Forms.ComboBox();
+            this.chkStandardBoardRead = new System.Windows.Forms.CheckBox();
+            this.labelStandardBoardAfcCom = new System.Windows.Forms.Label();
             this.stanum = new System.Windows.Forms.ComboBox();
             this.label120 = new System.Windows.Forms.Label();
             this.distance_coefficient = new System.Windows.Forms.NumericUpDown();
@@ -8980,7 +8985,7 @@ namespace UI
             this.AutoCheckParam.Margin = new System.Windows.Forms.Padding(2);
             this.AutoCheckParam.Name = "AutoCheckParam";
             this.AutoCheckParam.SelectedIndex = 0;
-            this.AutoCheckParam.Size = new System.Drawing.Size(550, 346);
+            this.AutoCheckParam.Size = new System.Drawing.Size(550, 390);
             this.AutoCheckParam.TabIndex = 161;
             // 
             // AFC_param
@@ -9725,6 +9730,11 @@ namespace UI
             // 
             // AutoCheckParamSetting
             // 
+            this.AutoCheckParamSetting.Controls.Add(this.cmbStandardBoardDccCom);
+            this.AutoCheckParamSetting.Controls.Add(this.labelStandardBoardDccCom);
+            this.AutoCheckParamSetting.Controls.Add(this.cmbStandardBoardAfcCom);
+            this.AutoCheckParamSetting.Controls.Add(this.chkStandardBoardRead);
+            this.AutoCheckParamSetting.Controls.Add(this.labelStandardBoardAfcCom);
             this.AutoCheckParamSetting.Controls.Add(this.stanum);
             this.AutoCheckParamSetting.Controls.Add(this.label120);
             this.AutoCheckParamSetting.Controls.Add(this.distance_coefficient);
@@ -9745,10 +9755,87 @@ namespace UI
             this.AutoCheckParamSetting.Location = new System.Drawing.Point(4, 31);
             this.AutoCheckParamSetting.Margin = new System.Windows.Forms.Padding(2);
             this.AutoCheckParamSetting.Name = "AutoCheckParamSetting";
-            this.AutoCheckParamSetting.Size = new System.Drawing.Size(542, 311);
+            this.AutoCheckParamSetting.Size = new System.Drawing.Size(542, 355);
             this.AutoCheckParamSetting.TabIndex = 3;
             this.AutoCheckParamSetting.Text = "相关参数设置";
             this.AutoCheckParamSetting.UseVisualStyleBackColor = true;
+            // 
+            // cmbStandardBoardDccCom
+            // 
+            this.cmbStandardBoardDccCom.FormattingEnabled = true;
+            this.cmbStandardBoardDccCom.Items.AddRange(new object[] {
+            "COM1",
+            "COM2",
+            "COM3",
+            "COM4",
+            "COM5",
+            "COM6",
+            "COM7",
+            "COM8",
+            "COM9",
+            "COM10",
+            "COM11",
+            "COM12",
+            "COM13",
+            "COM14"});
+            this.cmbStandardBoardDccCom.Location = new System.Drawing.Point(199, 195);
+            this.cmbStandardBoardDccCom.Margin = new System.Windows.Forms.Padding(2);
+            this.cmbStandardBoardDccCom.Name = "cmbStandardBoardDccCom";
+            this.cmbStandardBoardDccCom.Size = new System.Drawing.Size(68, 29);
+            this.cmbStandardBoardDccCom.TabIndex = 176;
+            // 
+            // labelStandardBoardDccCom
+            // 
+            this.labelStandardBoardDccCom.AutoSize = true;
+            this.labelStandardBoardDccCom.Location = new System.Drawing.Point(37, 198);
+            this.labelStandardBoardDccCom.Name = "labelStandardBoardDccCom";
+            this.labelStandardBoardDccCom.Size = new System.Drawing.Size(142, 22);
+            this.labelStandardBoardDccCom.TabIndex = 175;
+            this.labelStandardBoardDccCom.Text = "DCC标板COM口";
+            // 
+            // cmbStandardBoardAfcCom
+            // 
+            this.cmbStandardBoardAfcCom.FormattingEnabled = true;
+            this.cmbStandardBoardAfcCom.Items.AddRange(new object[] {
+            "COM1",
+            "COM2",
+            "COM3",
+            "COM4",
+            "COM5",
+            "COM6",
+            "COM7",
+            "COM8",
+            "COM9",
+            "COM10",
+            "COM11",
+            "COM12",
+            "COM13",
+            "COM14"});
+            this.cmbStandardBoardAfcCom.Location = new System.Drawing.Point(199, 168);
+            this.cmbStandardBoardAfcCom.Margin = new System.Windows.Forms.Padding(2);
+            this.cmbStandardBoardAfcCom.Name = "cmbStandardBoardAfcCom";
+            this.cmbStandardBoardAfcCom.Size = new System.Drawing.Size(68, 29);
+            this.cmbStandardBoardAfcCom.TabIndex = 174;
+            // 
+            // chkStandardBoardRead
+            // 
+            this.chkStandardBoardRead.AutoSize = true;
+            this.chkStandardBoardRead.Location = new System.Drawing.Point(284, 170);
+            this.chkStandardBoardRead.Margin = new System.Windows.Forms.Padding(2);
+            this.chkStandardBoardRead.Name = "chkStandardBoardRead";
+            this.chkStandardBoardRead.Size = new System.Drawing.Size(161, 26);
+            this.chkStandardBoardRead.TabIndex = 173;
+            this.chkStandardBoardRead.Text = "读取标板信息";
+            this.chkStandardBoardRead.UseVisualStyleBackColor = true;
+            // 
+            // labelStandardBoardAfcCom
+            // 
+            this.labelStandardBoardAfcCom.AutoSize = true;
+            this.labelStandardBoardAfcCom.Location = new System.Drawing.Point(37, 171);
+            this.labelStandardBoardAfcCom.Name = "labelStandardBoardAfcCom";
+            this.labelStandardBoardAfcCom.Size = new System.Drawing.Size(142, 22);
+            this.labelStandardBoardAfcCom.TabIndex = 172;
+            this.labelStandardBoardAfcCom.Text = "AFC标板COM口";
             // 
             // stanum
             // 
@@ -9819,7 +9906,7 @@ namespace UI
             0,
             0,
             131072});
-            this.distance_coefficient.Location = new System.Drawing.Point(199, 249);
+            this.distance_coefficient.Location = new System.Drawing.Point(199, 287);
             this.distance_coefficient.Maximum = new decimal(new int[] {
             500,
             0,
@@ -9833,7 +9920,7 @@ namespace UI
             // label119
             // 
             this.label119.AutoSize = true;
-            this.label119.Location = new System.Drawing.Point(60, 251);
+            this.label119.Location = new System.Drawing.Point(60, 289);
             this.label119.Name = "label119";
             this.label119.Size = new System.Drawing.Size(98, 22);
             this.label119.TabIndex = 168;
@@ -9897,7 +9984,7 @@ namespace UI
             "工站2",
             "工站3",
             "工站4"});
-            this.CheckWsCombox.Location = new System.Drawing.Point(199, 208);
+            this.CheckWsCombox.Location = new System.Drawing.Point(199, 238);
             this.CheckWsCombox.Margin = new System.Windows.Forms.Padding(2);
             this.CheckWsCombox.Name = "CheckWsCombox";
             this.CheckWsCombox.Size = new System.Drawing.Size(68, 29);
@@ -9906,7 +9993,7 @@ namespace UI
             // label103
             // 
             this.label103.AutoSize = true;
-            this.label103.Location = new System.Drawing.Point(59, 208);
+            this.label103.Location = new System.Drawing.Point(59, 238);
             this.label103.Name = "label103";
             this.label103.Size = new System.Drawing.Size(98, 22);
             this.label103.TabIndex = 162;
@@ -11796,5 +11883,10 @@ namespace UI
         private System.Windows.Forms.Label label119;
         private System.Windows.Forms.Label label120;
         private System.Windows.Forms.ComboBox stanum;
+        private System.Windows.Forms.ComboBox cmbStandardBoardAfcCom;
+        private System.Windows.Forms.CheckBox chkStandardBoardRead;
+        private System.Windows.Forms.Label labelStandardBoardAfcCom;
+        private System.Windows.Forms.ComboBox cmbStandardBoardDccCom;
+        private System.Windows.Forms.Label labelStandardBoardDccCom;
     }
 }

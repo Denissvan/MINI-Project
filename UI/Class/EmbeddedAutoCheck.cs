@@ -368,6 +368,73 @@ namespace UI.Class
             }
             return EM_RES.OK;
         }
+
+        public EM_RES ReadStandardBoardInfo(LightBox lb)
+        {
+            if (!PT_SET.StandardBoardReadEn)
+            {
+                return EM_RES.OK;
+            }
+
+            string boardName;
+            string portName = GetStandardBoardCom(lb, out boardName);
+            if (string.IsNullOrWhiteSpace(portName))
+            {
+                return StandardBoardReadFail(string.Format("{0}标板信息读取已开启,但未设置COM口", boardName));
+            }
+
+            string error;
+            string boardInfo;
+            using (StandardBoardReader reader = new StandardBoardReader(portName))
+            {
+                if (!reader.Open(out error))
+                {
+                    return StandardBoardReadFail(error);
+                }
+
+                if (!reader.ReadText(out boardInfo, out error))
+                {
+                    return StandardBoardReadFail(error);
+                }
+            }
+
+            SaveToTxt("标板信息", boardName, portName, boardInfo);
+            VAR.msg.AddMsg(Msg.EM_MSGTYPE.DBG, string.Format("{0}读取标板信息成功:{1}", boardName, boardInfo));
+            return EM_RES.OK;
+        }
+
+        private string GetStandardBoardCom(LightBox lb, out string boardName)
+        {
+            if (lb == COM.LeftLightBox)
+            {
+                boardName = "AFC";
+                return PT_SET.StandardBoardAfcCom;
+            }
+
+            if (lb == COM.RightLightBox)
+            {
+                boardName = "DCC";
+                return PT_SET.StandardBoardDccCom;
+            }
+
+            boardName = lb == null ? "未知光箱" : lb.name;
+            return string.Empty;
+        }
+
+        private EM_RES StandardBoardReadFail(string message)
+        {
+            VAR.sys_inf.Set(EM_ALM_STA.WAR_RED_FLASH, "自动点检读取标板信息失败!", 20, true);
+            MT.ST_WARN warn = new MT.ST_WARN();
+            warning fr_warn = new warning();
+            warn.ok_txt = "停止";
+            warn.title = "提示:读取标板信息失败!";
+            warn.msg = message;
+            warn.lb_msg = message + "\r\n读取标板信息失败，本次点检停止！";
+            MT.Display_frwarn(fr_warn, warn, ERR_ALM.EmErrItem.CaptureAbnomal);
+            VAR.msg.AddMsg(Msg.EM_MSGTYPE.ERR, string.Format("读取标板信息失败:{0}", message));
+            return EM_RES.ERR;
+        }
+
         public EM_RES AutoCheckDistance(LightBox lb, int idx, bool ifZoomDown)
         {
             var guard = ComPortGuard.Get(PT_SET.COM_1);

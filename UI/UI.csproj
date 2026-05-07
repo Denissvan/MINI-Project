@@ -385,6 +385,7 @@
     <Compile Include="Class\Product.cs" />
     <Compile Include="Class\SerialCom.cs" />
     <Compile Include="Class\SerialCommander.cs" />
+    <Compile Include="Class\StandardBoardReader.cs" />
     <Compile Include="Class\SQLData.cs" />
     <Compile Include="Class\SunnyQr.cs" />
     <Compile Include="Class\TestPC.cs" />

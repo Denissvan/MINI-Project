@@ -381,6 +381,7 @@ namespace UI
         //是否在上下料位置
         public bool bOnUpDnPos = false;
         public bool bUpDnPosGoOnTest = false;//在上下料位置需要继续测试
+        public bool bUpDnAddTestWaitUnload = false;//401追加测试结果已返回，等待下料消费
         double fr = 0, bk = 0, u = 0;
         bool btsk = false;
         public string StrOfPos
@@ -2690,25 +2691,24 @@ namespace UI
             return EM_RES.OK;
         }
 
-        public EM_RES Run403TurnStage(ref bool bquit, bool demo = false)
+        public EM_RES Run403TurnStageAfterSta(ref bool bquit, bool demo = false)
         {
             EM_RES res = EM_RES.OK;
-            VAR.msg.AddMsg(Msg.EM_MSGTYPE.DBG, VAR.IsChinese ? string.Format("{0} 进入向下翻转测试流程，当前位置 cmd={1:F3}, enc={2:F3}", disc, ax_u.fcmd_pos, ax_u.fenc_pos) : string.Format("{0} Enter down-flip test flow, cmd={1:F3}, enc={2:F3}     ({0} 进入向下翻转测试流程)", disc, ax_u.fcmd_pos, ax_u.fenc_pos));
+            VAR.msg.AddMsg(Msg.EM_MSGTYPE.DBG, VAR.IsChinese ? string.Format("{0} 收到403，进入向下翻转测试流程，当前位置 cmd={1:F3}, enc={2:F3}", disc, ax_u.fcmd_pos, ax_u.fenc_pos) : string.Format("{0} Receive 403, enter down-flip test flow, cmd={1:F3}, enc={2:F3}     ({0} 收到403，进入向下翻转测试流程)", disc, ax_u.fcmd_pos, ax_u.fenc_pos));
 
-            VAR.msg.AddMsg(Msg.EM_MSGTYPE.DBG, VAR.IsChinese ? string.Format("{0} 通知测试403", disc) : string.Format("{0} Notice 403     ({0} 通知测试403)", disc));
+            res = SetupForTestPos2(ref bquit);
+            if (res != EM_RES.OK) return res;
+            VAR.msg.AddMsg(Msg.EM_MSGTYPE.DBG, VAR.IsChinese ? string.Format("{0} 位置2已就绪，通知测试403", disc) : string.Format("{0} Pos2 ready, notice 403     ({0} 位置2已就绪，通知测试403)", disc));
             res = NextTest(403, demo);
             if (res != EM_RES.OK)
             {
                 res = NextTest(403, demo);
                 if (res != EM_RES.OK)
                 {
-                    VAR.msg.AddMsg(Msg.EM_MSGTYPE.ERR, VAR.IsChinese ? string.Format("{0} 通知测试403出错!", disc) : string.Format("{0} ERROR:Notice 403!      ({0} 通知测试403出错!)", disc), emerr: DReport.EmErrCode.TestFailed);
+                    VAR.msg.AddMsg(Msg.EM_MSGTYPE.ERR, VAR.IsChinese ? string.Format("{0} 位置2就绪后通知测试403出错!", disc) : string.Format("{0} ERROR:Notice 403 after pos2 ready!      ({0} 位置2就绪后通知测试403出错!)", disc), emerr: DReport.EmErrCode.TestFailed);
                     return res;
                 }
             }
-
-            res = SetupForTestPos2(ref bquit);
-            if (res != EM_RES.OK) return res;
             VAR.msg.AddMsg(Msg.EM_MSGTYPE.DBG, VAR.IsChinese ? string.Format("{0} 位置2测试阶段等待403结果返回", disc) : string.Format("{0} Wait 403 result at pos2     ({0} 位置2测试阶段等待403结果返回)", disc));
 
             int sta = 0;
@@ -2718,11 +2718,59 @@ namespace UI
                 if (res == EM_RES.PARA_ERR || res == EM_RES.QUIT) return res;
                 if (res != EM_RES.OK) return res;
 
+                if (sta == 403)
+                {
+                    VAR.msg.AddMsg(Msg.EM_MSGTYPE.DBG, VAR.IsChinese ? string.Format("{0} 位置2测试仍收到403，继续等待结果", disc) : string.Format("{0} Still receive 403 at pos2, continue waiting result     ({0} 位置2测试仍收到403，继续等待结果)", disc));
+                    continue;
+                }
+
                 VAR.msg.AddMsg(Msg.EM_MSGTYPE.DBG, VAR.IsChinese ? string.Format("{0} 403测试结果返回sta={1}，立即回位置0", disc, sta) : string.Format("{0} 403 result sta={1}, back to pos0 immediately     ({0} 403测试结果返回sta={1}，立即回位置0)", disc, sta));
                 res = TurnToTest(ref bquit);
                 if (res != EM_RES.OK) return res;
                 VAR.msg.AddMsg(Msg.EM_MSGTYPE.DBG, VAR.IsChinese ? string.Format("{0} 403向下翻转测试流程完成，已回位置0，等待后续正常测试流程", disc) : string.Format("{0} 403 down-flip flow completed, back to pos0 and wait normal follow-up flow     ({0} 403向下翻转测试流程完成，已回位置0，等待后续正常测试流程)", disc));
                 return EM_RES.OK;
+            }
+
+            return EM_RES.QUIT;
+        }
+
+        public EM_RES RunHallStage(ref bool bquit, bool demo = false)
+        {
+            EM_RES res = EM_RES.OK;
+            int sta = 0;
+            while (!VAR.gsys_set.bquit && !bquit)
+            {
+                res = WaitTestResult(ref sta, PT_SET.TestTime, demo);
+                if (res == EM_RES.PARA_ERR || res == EM_RES.QUIT)
+                {
+                    return res;
+                }
+                if (res != EM_RES.OK)
+                {
+                    VAR.msg.AddMsg(Msg.EM_MSGTYPE.DBG, string.Format("{0} WaitTestResult err", disc));
+                    Status = EM_STA.LINKERR;
+                    return res;
+                }
+
+                if (sta == 403 && PT_SET.bDownFlipTest && !demo)
+                {
+                    return Run403TurnStageAfterSta(ref bquit, demo);
+                }
+
+                if (sta != 301) return EM_RES.OK;
+
+                VAR.msg.AddMsg(Msg.EM_MSGTYPE.DBG, VAR.IsChinese ? string.Format("{0} 通知测试Hall", disc) : string.Format("{0} Notice Hall.        ({0} 通知测试Hall)", disc));
+                res = NextTest(sta, demo);
+                if (res != EM_RES.OK)
+                {
+                    res = NextTest(sta, demo);
+                    if (res != EM_RES.OK)
+                    {
+                        VAR.msg.AddMsg(Msg.EM_MSGTYPE.ERR, VAR.IsChinese ? string.Format("{0} 通知测试出错!", disc) : string.Format("{0} ERROR: notice test!          ({0} 通知测试出错!)", disc), DReport.EmErrCode.TestFailed, (int)DReport.EmHareware.TurnTable + num + 1, ERR_ALM.EmErrItem.TestAbnormal);
+                        TestStatus = EM_TEST_STA.ERROR;
+                        return res;
+                    }
+                }
             }
 
             return EM_RES.QUIT;
@@ -3386,6 +3434,19 @@ namespace UI
                         break;
                     }
 
+                    if (PT_SET.bDownFlipTest && sta == 403 && !Demo)
+                    {
+                        res = Run403TurnStageAfterSta(ref bquit, Demo);
+                        if (res != EM_RES.OK)
+                        {
+                            TestStatus = EM_TEST_STA.ERROR;
+                            break;
+                        }
+                        Status = EM_STA.REDAY;
+                        TestStatus = EM_TEST_STA.NEXT;
+                        break;
+                    }
+
                     if (sta == 0)
                     {
                         if (!VAR.ClearMt && VAR.isAutoChkMode && num == (int)PT_SET.AutoChkSelectWs)
@@ -3522,6 +3583,16 @@ namespace UI
 
                                 //}
                             }
+                        }
+
+                        if (sta == 0 && bUpDnPosGoOnTest)
+                        {
+                            Status = EM_STA.REDAY;
+                            TestStatus = EM_TEST_STA.COMPLETED;
+                            bUpDnPosGoOnTest = false;
+                            bUpDnAddTestWaitUnload = true;
+                            VAR.msg.AddMsg(Msg.EM_MSGTYPE.DBG, string.Format("{0} 401追加测试最终结果已返回，等待下料消费", disc));
+                            break;
                         }
 
                         if (lb != null && lb != COM.LightBox)
@@ -3835,6 +3906,15 @@ namespace UI
 
                                 AutoInspectionParameter AutoCheck = new AutoInspectionParameter();
 
+                                if (res == EM_RES.OK)
+                                {
+                                    res = AutoCheck.ReadStandardBoardInfo(lb);
+                                    if (res != EM_RES.OK)
+                                    {
+                                        res = EM_RES.QUIT;
+                                        break;
+                                    }
+                                }
 
                                 if (lb == COM.LeftLightBox && sta != 0)
                                 {

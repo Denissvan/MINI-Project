@@ -1477,6 +1477,18 @@ namespace MotionCtrl
         public static string COM_2 = "";
         public static string COM_3 = "";
         /// <summary>
+        /// 标板信息读取开启
+        /// </summary>
+        public static bool StandardBoardReadEn = false;
+        /// <summary>
+        /// AFC标板信息读取COM口
+        /// </summary>
+        public static string StandardBoardAfcCom = "";
+        /// <summary>
+        /// DCC标板信息读取COM口
+        /// </summary>
+        public static string StandardBoardDccCom = "";
+        /// <summary>
         /// 默认设备点检时间
         /// </summary>
         public static double CheckTimer = 12;
@@ -1783,6 +1795,9 @@ namespace MotionCtrl
             COM_1 = inf.ReadString("AutoCheckParam", "COM_1", "");
             COM_2 = inf.ReadString("AutoCheckParam", "COM_2", "");
             COM_3 = inf.ReadString("AutoCheckParam", "COM_3", "");
+            StandardBoardReadEn = inf.ReadBool("AutoCheckParam", "StandardBoardReadEn", false);
+            StandardBoardAfcCom = inf.ReadString("AutoCheckParam", "StandardBoardAfcCom", inf.ReadString("AutoCheckParam", "StandardBoardCom", ""));
+            StandardBoardDccCom = inf.ReadString("AutoCheckParam", "StandardBoardDccCom", "");
             stanum = inf.ReadInteger("AutoCheckParam", "stanum", 1);
             CheckTimer = inf.ReadDouble("AutoCheckParam", "CheckTimer", 12);
             CheckWs=inf.ReadInteger("AutoCheckParam", "CheckWs", 1);
@@ -2079,6 +2094,9 @@ namespace MotionCtrl
             inf.WriteString("AutoCheckParam", "COM_1", COM_1, ref ischange, true, filename);
             inf.WriteString("AutoCheckParam", "COM_2", COM_2, ref ischange, true, filename);
             inf.WriteString("AutoCheckParam", "COM_3", COM_3, ref ischange, true, filename);
+            inf.WriteBool("AutoCheckParam", "StandardBoardReadEn", StandardBoardReadEn, ref ischange, true, filename);
+            inf.WriteString("AutoCheckParam", "StandardBoardAfcCom", StandardBoardAfcCom, ref ischange, true, filename);
+            inf.WriteString("AutoCheckParam", "StandardBoardDccCom", StandardBoardDccCom, ref ischange, true, filename);
             inf.WriteInteger("AutoCheckParam", "stanum", stanum, ref ischange, true, filename);
             inf.WriteDouble("AutoCheckParam", "CheckTimer", CheckTimer, ref ischange, true, filename);
             inf.WriteInteger("AutoCheckParam", "CheckWs", CheckWs, ref ischange, true, filename);

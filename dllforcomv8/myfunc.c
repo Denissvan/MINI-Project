@@ -54,6 +54,8 @@ void AppendDebugLog(const TCHAR *msg);
 
 int GetWsNoByPcId(int id);
 
+#define DLL_EC_VERSION "EC_DLL_2026-05-04_002"
+#define DLL_LOG_BASENAME "dllforcomv8_debug"
 
 
 
@@ -342,10 +344,6 @@ void GetDllPath(const char * filename, TCHAR *fullpath)
 
 }
 
-
-
-
-
 DWORD g_lastNoDataLogTick[256] = { 0 };
 
 
@@ -365,6 +363,10 @@ int g_lastReturnMark[256] = { 0 };
 
 
 int g_lastReturnParam[256] = { 0 };
+
+int g_closeOnlyWaitPending[256] = { 0 };
+
+LONG g_dllVersionLogged = 0;
 
 int GetWsNoByPcId(int id)
 {
@@ -503,6 +505,9 @@ void AppendDebugLog(const TCHAR *msg)
 	TCHAR logpath[MAX_PATH];
 
 
+	TCHAR logname[MAX_PATH];
+
+
 	TCHAR prefix[64];
 
 
@@ -515,7 +520,8 @@ void AppendDebugLog(const TCHAR *msg)
 	sprintf_s(prefix, 64, "[%04d-%02d-%02d %02d:%02d:%02d.%03d] ", st.wYear, st.wMonth, st.wDay, st.wHour, st.wMinute, st.wSecond, st.wMilliseconds);
 
 
-	GetDllPath("dllforcomv8_debug.txt", logpath);
+	sprintf_s(logname, MAX_PATH, _T("%s_%04d-%02d-%02d.txt"), DLL_LOG_BASENAME, st.wYear, st.wMonth, st.wDay);
+	GetDllPath(logname, logpath);
 
 
 	HANDLE hFile = CreateFile(logpath, FILE_APPEND_DATA, FILE_SHARE_READ | FILE_SHARE_WRITE, NULL, OPEN_ALWAYS, FILE_ATTRIBUTE_NORMAL, NULL);
@@ -1626,6 +1632,18 @@ int Init(const char * filename)
 
 
 {
+	if (InterlockedCompareExchange(&g_dllVersionLogged, 1, 0) == 0)
+	{
+		TCHAR modulePath[MAX_PATH] = { 0 };
+		TCHAR versionMsg[512] = { 0 };
+		GetDllPath("dllforcomv8.dll", modulePath);
+		sprintf_s(versionMsg, 512, "[DLL_VERSION]version=%s,pid=%lu,module=%s\n",
+			DLL_EC_VERSION,
+			GetCurrentProcessId(),
+			modulePath);
+		OutputDebugString(versionMsg);
+		AppendDebugLog(versionMsg);
+	}
 
 
 	Dev.quit = FALSE;
@@ -3316,6 +3334,8 @@ int StartTestFlow(int id, int status,char* barcode)
 	char infSnapshot[1024];
 	if (pDat == NULL)return RES_ERR;
 
+	g_closeOnlyWaitPending[id & 0xFF] = 0;
+
 
 	BuildResultAreaSnapshot(pDat, id, resultSnapshot, sizeof(resultSnapshot));
 	BuildInfAreaSnapshot(pDat, id, infSnapshot, sizeof(infSnapshot));
@@ -3820,6 +3840,25 @@ if (pDat == NULL)
 
 
 				{
+					int closeOnlyIdx = id & 0xFF;
+					if (g_closeOnlyWaitPending[closeOnlyIdx] != 0
+						&& pDat->map_result->tab_registers[REG_IDX_MARK] == MARK_END)
+					{
+						g_closeOnlyWaitPending[closeOnlyIdx] = 0;
+						*NumofResult = 0;
+						DebugStr5("[DLL_FLOW]WaitTestResult CloseOnlyNoDataOk,id=%d,ws=%d,result_mark=%d,status=%d,param=%d\n",
+							id,
+							GetWsNoByPcId(id),
+							pDat->map_result->tab_registers[REG_IDX_MARK],
+							*status,
+							pDat->map_result->tab_registers[REG_IDX_PARAM]);
+						BuildResultAreaSnapshot(pDat, id, resultSnapshot, sizeof(resultSnapshot));
+						OutputDebugString(resultSnapshot);
+						OutputDebugString("\n");
+						AppendDebugLog(resultSnapshot);
+						AppendDebugLog("\n");
+						return RES_OK;
+					}
 					DebugStr5("[DLL_FLOW]WaitTestResult FinalNoData,id=%d,ws=%d,result_mark=%d,status=%d,param=%d\n",
 						id,
 						GetWsNoByPcId(id),
@@ -3832,11 +3871,13 @@ if (pDat == NULL)
 					AppendDebugLog(resultSnapshot);
 					AppendDebugLog("\n");
 					Sleep(10);
+					delay -= 10;
 					continue;
 				}
 
 
 				*NumofResult = final_num;
+				g_closeOnlyWaitPending[id & 0xFF] = 0;
 
 
 				if (*NumofResult > INF_CNT)*NumofResult = INF_CNT;
@@ -4197,6 +4238,10 @@ int NextTest(int id ,int status, int delay, BOOL *bquit)
 
 
 	{
+		if (status == -1)
+		{
+			g_closeOnlyWaitPending[id & 0xFF] = 1;
+		}
 
 
 		DebugStr3("[DLL_FLOW]NextTest SkipEnd,id=%d,req_sta=%d,result_sta=%d\n",
@@ -4260,6 +4305,14 @@ int NextTest(int id ,int status, int delay, BOOL *bquit)
 
 
 		{
+			if (status == -1)
+			{
+				g_closeOnlyWaitPending[id & 0xFF] = 1;
+			}
+			else
+			{
+				g_closeOnlyWaitPending[id & 0xFF] = 0;
+			}
 
 
 			DebugStr5("[DLL_FLOW]NextTest Acked,id=%d,req_sta=%d,result_mark=%d,result_sta=%d,remain=%d\n",

@@ -6804,13 +6804,9 @@ RECHECKAGAIN:
                                 break;
                             }
                         }
-                        if (PT_SET.bDownFlipTest && !WS.Demo)
+                        if (PT_SET.HallEn && !WS.Demo)
                         {
-                            res = ws.Run403TurnStage(ref VAR.gsys_set.bquit, WS.Demo);
-                            if (res != EM_RES.OK) break;
-                            res = COM.UDLoad1.UpCamAfterCloseCheck(ref bquit, ref ws);
-                            if (res != EM_RES.OK) break;
-                            res = COM.UDLoad2.UpCamAfterCloseCheck(ref bquit, ref ws);
+                            res = ws.RunHallStage(ref VAR.gsys_set.bquit, WS.Demo);
                             if (res != EM_RES.OK) break;
                         }
                     }

@@ -1793,9 +1793,38 @@ namespace UI
                     //if (VAR.gsys_set.isChkMode && !bfeed)
                     //    workstation.TestStatus = WS.EM_TEST_STA.EMPTY;
                     workstation.Iserrfirstbox = true;
-                    bool readyByCompleted = bfeed && workstation.TestStatus == WS.EM_TEST_STA.COMPLETED;
+                    bool readyByCompleted = bfeed && (workstation.TestStatus == WS.EM_TEST_STA.COMPLETED || workstation.bUpDnAddTestWaitUnload);
                     bool readyByEmpty = wsenable && workstation.TestStatus == WS.EM_TEST_STA.EMPTY && !VAR.ClearMt;
-                    bool readyByFeedStatus = workstation.FeedStatus == WS.EM_STA.REDAYFORUPDOWNLOAD;
+                    bool readyByFeedStatus = workstation.FeedStatus == WS.EM_STA.REDAYFORUPDOWNLOAD || workstation.bUpDnAddTestWaitUnload;
+                    int mdUntestCnt = 0;
+                    int mdEmptyCnt = 0;
+                    int mdResultCnt = 0;
+                    string mdResSnapshot = "";
+                    foreach (WS.MdDat md in workstation.list_md)
+                    {
+                        if (!md.benable) continue;
+                        if (md.res == (int)Product.EM_CM_RES.UNTEST) mdUntestCnt++;
+                        else if (md.res == (int)Product.EM_CM_RES.EMPTY) mdEmptyCnt++;
+                        else if (md.res > -1) mdResultCnt++;
+                        mdResSnapshot += string.Format("{0}:{1},", md.Num, md.res);
+                    }
+                    VAR.msg.AddMsg(Msg.EM_MSGTYPE.DBG, string.Format("{0} 下料判定快照,bfeed={1},bnotfeed={2},wsenable={3},TestStatus={4},FeedStatus={5},readyByCompleted={6},readyByEmpty={7},readyByFeedStatus={8},ClearMt={9},bUpDnPosGoOnTest={10},bUpDnAddTestWaitUnload={11},untest={12},empty={13},result={14},res=[{15}]",
+                        workstation.disc,
+                        bfeed,
+                        bnotfeed,
+                        wsenable,
+                        workstation.TestStatus,
+                        workstation.FeedStatus,
+                        readyByCompleted,
+                        readyByEmpty,
+                        readyByFeedStatus,
+                        VAR.ClearMt,
+                        workstation.bUpDnPosGoOnTest,
+                        workstation.bUpDnAddTestWaitUnload,
+                        mdUntestCnt,
+                        mdEmptyCnt,
+                        mdResultCnt,
+                        mdResSnapshot));
 
                     //检查是否需要下料
                     // if (!bnotfeed && (bfeed && workstation.TestStatus == WS.EM_TEST_STA.COMPLETED || (wsenable && workstation.TestStatus == WS.EM_TEST_STA.EMPTY && !VAR.ClearMt && (!VAR.gsys_set.isChkMode || (VAR.gsys_set.isChkMode && bchk))) || workstation.FeedStatus == WS.EM_STA.REDAYFORUPDOWNLOAD))
@@ -1840,6 +1869,11 @@ namespace UI
 
                         }
                         workstation.FeedStatus = WS.EM_STA.REDAYFORUPDOWNLOAD;
+                        if (workstation.bUpDnAddTestWaitUnload)
+                        {
+                            VAR.msg.AddMsg(Msg.EM_MSGTYPE.DBG, string.Format("{0} 401追加测试结果进入下料流程", workstation.disc));
+                            workstation.bUpDnAddTestWaitUnload = false;
+                        }
                         // 重置计时器和状态
                         if(AutoInspectionParameter.ifcheck&&(workstation.num+1==PT_SET.CheckWs) && !VAR.ClearMt)
                         {
@@ -1935,7 +1969,12 @@ namespace UI
                     else
                     {
                         //if ((workstation.TestStatus != WS.EM_TEST_STA.EMPTY)&&(!VAR.gsys_set.isChkMode||(VAR.gsys_set.isChkMode  && bchk)))
-                        if (workstation.TestStatus != WS.EM_TEST_STA.EMPTY)
+                        if (workstation.bUpDnAddTestWaitUnload)
+                        {
+                            VAR.msg.AddMsg(Msg.EM_MSGTYPE.WAR, string.Format("{0} 阻止401结果后重复启动测试,等待下料消费", workstation.disc));
+                            workstation.Status = WS.EM_STA.REDAY;
+                        }
+                        else if (workstation.TestStatus != WS.EM_TEST_STA.EMPTY)
                         {
                             //复位测试结果
                             workstation.ResetResultOfMd();
@@ -1966,9 +2005,15 @@ namespace UI
 
                             //通知测试
                             VAR.msg.AddMsg(Msg.EM_MSGTYPE.DBG, VAR.IsChinese ? string.Format("{0} 通知REDAYFORTEST", workstation.disc) : string.Format("{0}Notice  REDAYFORTEST     ({0} 通知REDAYFORTEST)", workstation.disc));
-                            if (PT_SET.bDownFlipTest && !WS.Demo)
+                            if (PT_SET.HallEn && !WS.Demo)
                             {
-                                res = workstation.Run403TurnStage(ref VAR.gsys_set.bquit, WS.Demo);
+                                res = workstation.TurnToFeedSafe(ref VAR.gsys_set.bquit);
+                                if (res != EM_RES.OK)
+                                {
+                                    workstation.Status = WS.EM_STA.ERR;
+                                    break;
+                                }
+                                res = workstation.RunHallStage(ref VAR.gsys_set.bquit, WS.Demo);
                                 if (res != EM_RES.OK)
                                 {
                                     workstation.Status = res == EM_RES.ERR ? WS.EM_STA.LINKERR : WS.EM_STA.ERR;
