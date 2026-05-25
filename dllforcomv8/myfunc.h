@@ -41,6 +41,10 @@ _BEGIN_DECLS
 #define RES_ERR_TIMEOUT -4
 //µôÏß
 #define RES_ERR_LINK -5
+//SESSION_LOST: test software restarted and current PC session was lost
+#define RES_ERR_SESSION_LOST -7
+//LINK_LOST: test PC communication stalled for a long time
+#define RES_ERR_LINK_LOST -8
 
 typedef struct _DeviceStruct
 {

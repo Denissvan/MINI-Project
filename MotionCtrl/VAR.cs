@@ -34,6 +34,8 @@ namespace MotionCtrl
         public static bool bSameNGTip_Temp = true;
         //上料位提前开图前，其他轴保持静止
         public static bool bBeforeOpenImageAxisStatic = false;
+        //上料位提前开图前触发轴停止的时间，用于区分光箱定位被静止打断和真实定位异常
+        public static int BeforeOpenImageAxisStopTick = 0;
         //目前操作员
         public static string CurUserName = "";
         //系统错误信息

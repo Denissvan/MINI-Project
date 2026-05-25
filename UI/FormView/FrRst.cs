@@ -298,6 +298,7 @@ namespace UI
             res_chk = MT.ChkAllSafeSen(0x08);
             if (res_chk != EM_RES.OK) return;
             DRpt.Report_Opration(1000, 0, "左光箱回零按键按下!");
+            COM.LeftLightBox.TraceMapping("回零按键", "按钮=左光箱回零,安全检查=0x08");
             Task task_home = new Task(()=>
             {
                 try
@@ -306,7 +307,9 @@ namespace UI
                     Enablebtn(sender, false);
                     Enablebtn(btn_all_home, false);
                     VAR.gsys_set.bquit = false;
+                    COM.LeftLightBox.TraceMapping("回零开始", "调用=COM.LeftLightBox.Home");
                     EM_RES res = COM.LeftLightBox.Home(ref VAR.gsys_set.bquit);
+                    COM.LeftLightBox.TraceMapping("回零结束", string.Format("结果={0}", res));
                     if(res==EM_RES.OK) DRpt.Report_Opration(1000, 0, "左光箱回零成功!");
                     else DRpt.Report_Opration(1000, 0, "左光箱回零失败!");
                     ShowMessage(VAR.IsChinese?string.Format("【{0}】 复位 {1}！", COM.LeftLightBox.disc, res == EM_RES.OK ? "成功" : "失败"): string.Format("【{0}】 reset {1}！\r\n【{2}】 复位 {3}！", COM.LeftLightBox.english_disc, res == EM_RES.OK ? "Successful" : "Failed",COM.LeftLightBox.disc, res == EM_RES.OK ? "成功" : "失败"), VAR.IsChinese ? "提示" : "prompt", MessageBoxButtons.OK);
@@ -342,6 +345,7 @@ namespace UI
             res_chk = MT.ChkAllSafeSen(0x04);
             if (res_chk != EM_RES.OK) return;
             DRpt.Report_Opration(1000, 0, "右光箱回零按键按下!");
+            COM.RightLightBox.TraceMapping("回零按键", "按钮=右光箱回零,安全检查=0x04");
             Task task_home = new Task(() =>
             {
                 try
@@ -350,7 +354,9 @@ namespace UI
                     Enablebtn(btn_all_home, false);
                     Enablebtn(sender, false);
                     VAR.gsys_set.bquit = false;
+                    COM.RightLightBox.TraceMapping("回零开始", "调用=COM.RightLightBox.Home");
                     EM_RES res = COM.RightLightBox.Home(ref VAR.gsys_set.bquit);
+                    COM.RightLightBox.TraceMapping("回零结束", string.Format("结果={0}", res));
                     if(res==EM_RES.OK) DRpt.Report_Opration(1000, 0, "右光箱回零成功!");
                     else DRpt.Report_Opration(1000, 0, "右光箱回零失败!");
                     ShowMessage(VAR.IsChinese?string.Format("【{0}】 复位 {1}！", COM.RightLightBox.disc, res == EM_RES.OK ? "成功" : "失败"): string.Format("【{0}】 reset {1}！\r\n【{2}】 复位 {3}！", COM.RightLightBox.english_disc, res == EM_RES.OK ? "successful" : "failed", COM.RightLightBox.disc, res == EM_RES.OK ? "成功" : "失败"), VAR.IsChinese ? "提示" : "prompt", MessageBoxButtons.OK);

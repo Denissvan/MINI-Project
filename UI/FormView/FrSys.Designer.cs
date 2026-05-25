@@ -6616,7 +6616,7 @@ namespace UI
             this.tabPage3.Location = new System.Drawing.Point(4, 44);
             this.tabPage3.Name = "tabPage3";
             this.tabPage3.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage3.Size = new System.Drawing.Size(52, 44);
+            this.tabPage3.Size = new System.Drawing.Size(1164, 818);
             this.tabPage3.TabIndex = 2;
             this.tabPage3.Text = "参数3";
             this.tabPage3.UseVisualStyleBackColor = true;
@@ -8885,7 +8885,7 @@ namespace UI
             this.tpPara4.Location = new System.Drawing.Point(4, 44);
             this.tpPara4.Name = "tpPara4";
             this.tpPara4.Padding = new System.Windows.Forms.Padding(3);
-            this.tpPara4.Size = new System.Drawing.Size(52, 44);
+            this.tpPara4.Size = new System.Drawing.Size(1164, 818);
             this.tpPara4.TabIndex = 3;
             this.tpPara4.Text = "参数4";
             this.tpPara4.UseVisualStyleBackColor = true;
@@ -8902,7 +8902,7 @@ namespace UI
             this.tableLayoutPanel2.Name = "tableLayoutPanel2";
             this.tableLayoutPanel2.RowCount = 1;
             this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel2.Size = new System.Drawing.Size(46, 38);
+            this.tableLayoutPanel2.Size = new System.Drawing.Size(1158, 812);
             this.tableLayoutPanel2.TabIndex = 1;
             // 
             // dataGrideSysInfo1
@@ -8911,7 +8911,7 @@ namespace UI
             this.dataGrideSysInfo1.Location = new System.Drawing.Point(6, 5);
             this.dataGrideSysInfo1.Margin = new System.Windows.Forms.Padding(6, 5, 6, 5);
             this.dataGrideSysInfo1.Name = "dataGrideSysInfo1";
-            this.dataGrideSysInfo1.Size = new System.Drawing.Size(1, 28);
+            this.dataGrideSysInfo1.Size = new System.Drawing.Size(1046, 802);
             this.dataGrideSysInfo1.TabIndex = 0;
             // 
             // panel1
@@ -8919,9 +8919,9 @@ namespace UI
             this.panel1.Controls.Add(this.button8);
             this.panel1.Controls.Add(this.button7);
             this.panel1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panel1.Location = new System.Drawing.Point(-51, 3);
+            this.panel1.Location = new System.Drawing.Point(1061, 3);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(94, 32);
+            this.panel1.Size = new System.Drawing.Size(94, 806);
             this.panel1.TabIndex = 1;
             // 
             // button8
@@ -9013,7 +9013,7 @@ namespace UI
             this.AFC_param.Margin = new System.Windows.Forms.Padding(2);
             this.AFC_param.Name = "AFC_param";
             this.AFC_param.Padding = new System.Windows.Forms.Padding(2);
-            this.AFC_param.Size = new System.Drawing.Size(542, 311);
+            this.AFC_param.Size = new System.Drawing.Size(542, 355);
             this.AFC_param.TabIndex = 0;
             this.AFC_param.Text = "AFC参数";
             this.AFC_param.UseVisualStyleBackColor = true;
@@ -9260,7 +9260,7 @@ namespace UI
             this.DCC_Param.Margin = new System.Windows.Forms.Padding(2);
             this.DCC_Param.Name = "DCC_Param";
             this.DCC_Param.Padding = new System.Windows.Forms.Padding(2);
-            this.DCC_Param.Size = new System.Drawing.Size(542, 311);
+            this.DCC_Param.Size = new System.Drawing.Size(542, 355);
             this.DCC_Param.TabIndex = 1;
             this.DCC_Param.Text = "DCC参数";
             this.DCC_Param.UseVisualStyleBackColor = true;
@@ -9506,7 +9506,7 @@ namespace UI
             this.OTP_Param.Location = new System.Drawing.Point(4, 31);
             this.OTP_Param.Margin = new System.Windows.Forms.Padding(2);
             this.OTP_Param.Name = "OTP_Param";
-            this.OTP_Param.Size = new System.Drawing.Size(542, 311);
+            this.OTP_Param.Size = new System.Drawing.Size(542, 355);
             this.OTP_Param.TabIndex = 2;
             this.OTP_Param.Text = "OTP参数";
             this.OTP_Param.UseVisualStyleBackColor = true;

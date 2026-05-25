@@ -2201,33 +2201,12 @@ namespace UI
                     }
                     ret = TestPC.StartTestFlow(list[0].PC_ID, status, str_barcode.ToArray());
                     VAR.msg.AddMsg(Msg.EM_MSGTYPE.DBG, string.Format("PC{0} barcode:{1}", list[0].PC_ID, str_barcode));
-                    if (ret == (int)TestPC.EM_RES.BUSY)
-                    {
-                        VAR.msg.AddMsg(Msg.EM_MSGTYPE.DBG, VAR.IsChinese
-                            ? string.Format("PC{0} StartFlow命中上一轮结果未闭环，等待后重试,sta={1}", list[0].PC_ID, status)
-                            : string.Format("PC{0} StartFlow busy by last result, retry later, sta={1}", list[0].PC_ID, status));
-                        for (int busyRetry = 0; busyRetry < 80 && ret == (int)TestPC.EM_RES.BUSY; busyRetry++)
-                        {
-                            if (VAR.gsys_set.bquit) break;
-                            Thread.Sleep(100);
-                            ret = TestPC.StartTestFlow(list[0].PC_ID, status, str_barcode.ToArray());
-                        }
-                    }
                     VAR.msg.AddMsg(Msg.EM_MSGTYPE.DBG, string.Format("PC{0} StartFlow,ret={1},sta={2}", list[0].PC_ID, Utility.GetDescription((TestPC.EM_RES)ret, VAR.IsChinese), status));
                     if (ret != (int)TestPC.EM_RES.OK)
                     {
                         VAR.msg.AddMsg(Msg.EM_MSGTYPE.WAR, VAR.IsChinese ? string.Format("PC{0} 重发 StartFlow,ret={1},sta={2}", list[0].PC_ID, Utility.GetDescription((TestPC.EM_RES)ret, VAR.IsChinese), status) : string.Format("PC{0} retry StartFlow,ret={1},sta={2}", list[0].PC_ID, Utility.GetDescription((TestPC.EM_RES)ret, VAR.IsChinese), status));
                         Thread.Sleep(1000);
                         ret = TestPC.StartTestFlow(list[0].PC_ID, status, str_barcode.ToArray());
-                        if (ret == (int)TestPC.EM_RES.BUSY)
-                        {
-                            for (int busyRetry = 0; busyRetry < 80 && ret == (int)TestPC.EM_RES.BUSY; busyRetry++)
-                            {
-                                if (VAR.gsys_set.bquit) break;
-                                Thread.Sleep(100);
-                                ret = TestPC.StartTestFlow(list[0].PC_ID, status, str_barcode.ToArray());
-                            }
-                        }
                         if (ret != (int)TestPC.EM_RES.OK)
                             VAR.msg.AddMsg(Msg.EM_MSGTYPE.ERR, VAR.IsChinese ? string.Format("PC{0} 重发 StartFlow,ret={1},sta={2}", list[0].PC_ID, Utility.GetDescription((TestPC.EM_RES)ret, VAR.IsChinese), status) : string.Format("PC{0} retry StartFlow,ret={1},sta={2}", list[0].PC_ID, Utility.GetDescription((TestPC.EM_RES)ret, VAR.IsChinese), status), DReport.EmErrCode.ResultNg, (int)DReport.EmHareware.TurnTable + num + 1, ERR_ALM.EmErrItem.TestAbnormal);
                         return EM_RES.ERR;
@@ -2257,6 +2236,7 @@ namespace UI
             {
                 VAR.msg.AddMsg(Msg.EM_MSGTYPE.DBG, $"{disc} 上料位提前开图前停止其他轴");
                 VAR.bBeforeOpenImageAxisStatic = true;
+                VAR.BeforeOpenImageAxisStopTick = Environment.TickCount;
                 MT.AllAxStop();
                 if (gpio_out_gz_wind != null && gpio_out_gz_wind.isON)
                 {
@@ -2305,7 +2285,67 @@ namespace UI
                 }
             }
         }
+
+        private bool IsBeforeOpenImageAxisStopWindow()
+        {
+            if (VAR.bBeforeOpenImageAxisStatic)
+            {
+                return true;
+            }
+
+            int stopTick = VAR.BeforeOpenImageAxisStopTick;
+            if (stopTick == 0)
+            {
+                return false;
+            }
+
+            int elapsed = Environment.TickCount - stopTick;
+            return elapsed >= 0 && elapsed <= 3000;
+        }
+
+        private bool ShouldRetryLightBoxMoveAfterAxisStatic(LightBox lightBox, EM_RES moveRes, bool runQuit)
+        {
+            return lightBox != null
+                && lightBox != COM.LightBox
+                && moveRes != EM_RES.OK
+                && moveRes != EM_RES.END
+                && moveRes != EM_RES.QUIT
+                && NewSysInf.UserParams.bBeforeOpenImageStopAxis
+                && IsBeforeOpenImageAxisStopWindow()
+                && !runQuit
+                && !VAR.gsys_set.bquit;
+        }
+
+        private EM_RES MoveLightBoxToTestPosition(ref bool runQuit, LightBox lightBox, int status, int cmpIdx)
+        {
+            EM_RES moveRes = lightBox.MoveTo(ref VAR.gsys_set.bquit, status, cmpIdx);
+            if (!ShouldRetryLightBoxMoveAfterAxisStatic(lightBox, moveRes, runQuit))
+            {
+                return moveRes;
+            }
+
+            VAR.msg.AddMsg(Msg.EM_MSGTYPE.DBG, $"{disc} 光箱定位{status}被轴静止停止打断，等待静止结束后重新定位");
+            while (VAR.bBeforeOpenImageAxisStatic && !runQuit && !VAR.gsys_set.bquit)
+            {
+                Thread.Sleep(50);
+            }
+
+            if (runQuit || VAR.gsys_set.bquit)
+            {
+                return EM_RES.QUIT;
+            }
+
+            Thread.Sleep(200);
+            moveRes = lightBox.MoveTo(ref VAR.gsys_set.bquit, status, cmpIdx);
+            if (moveRes == EM_RES.OK)
+            {
+                VAR.msg.AddMsg(Msg.EM_MSGTYPE.DBG, $"{disc} 光箱重新定位{status}完成，允许通知测试到位");
+            }
+
+            return moveRes;
+        }
         int DemoPos = 0;
+
         public EM_RES WaitTestResult(ref int status, int delay = 30000, bool demo = false, LightBox lb = null)
         {
             int sta = -1;
@@ -2605,8 +2645,10 @@ namespace UI
             foreach (List<MdDat> list in list_list_md)
             {
                 if (list.Count == 0) continue;
+                MdDat refMd = list.Find(delegate (MdDat x) { return x.benable; });
+                if (refMd == null) continue;
                 //非禁用模组是否同一测试位
-                MdDat md = list.Find(delegate (MdDat x) { return x.benable && (x.test_idx != list[0].test_idx); });
+                MdDat md = list.Find(delegate (MdDat x) { return x.benable && (x.test_idx != refMd.test_idx); });
                 if (md != null)
                 {
                     VAR.msg.AddMsg(Msg.EM_MSGTYPE.ERR, VAR.IsChinese ? string.Format("{0} WaitTestResult,结果不一致,PC={1},idx={2}!", disc, md.PC_ID, md.test_idx) : string.Format("{0} WaitTestResult,Inconsistent results,PC={1},idx={2}!         ({0} WaitTestResult,结果不一致,PC={1},idx={2}!)", disc, md.PC_ID, md.test_idx), DReport.EmErrCode.ResultNg, (int)DReport.EmHareware.TurnTable + num + 1, ERR_ALM.EmErrItem.TestAbnormal);
@@ -3750,7 +3792,7 @@ namespace UI
                                 //}
                                 try
                                 {
-                                    res = lb.MoveTo(ref VAR.gsys_set.bquit, sta, num);
+                                    res = MoveLightBoxToTestPosition(ref bquit, lb, sta, num);
                                     if (res == EM_RES.END)
                                     {
                                         res = lb.MoveTo(ref VAR.gsys_set.bquit, 0);
@@ -3888,7 +3930,7 @@ namespace UI
                             {
   
 
-                                    res = lb.MoveTo(ref VAR.gsys_set.bquit, sta, num);
+                                    res = MoveLightBoxToTestPosition(ref bquit, lb, sta, num);
                                     Thread.Sleep(1000);
                                 if (res == EM_RES.END)
                                 {
@@ -3908,6 +3950,7 @@ namespace UI
 
                                 if (res == EM_RES.OK)
                                 {
+                                    VAR.msg.AddMsg(Msg.EM_MSGTYPE.NOR, string.Format("自动点检标板读取触发: 工站={0}, 光箱={1}, sta={2}", disc, lb.name, sta));
                                     res = AutoCheck.ReadStandardBoardInfo(lb);
                                     if (res != EM_RES.OK)
                                     {
@@ -3941,8 +3984,14 @@ namespace UI
                                     if (PT_SET.AFC_luxcct_check_open && pos1.Name.Contains("色温"))
                                     {
                                         Thread.Sleep(2000);
-                                        AutoCheck.RunFullLightScan3x3(ref bquit, MT.AXIS_BOX_L_X1, MT.AXIS_BOX_L_Z2, lb, sta, distance1, distance2, distance3);
-                                        res = lb.MoveTo(ref VAR.gsys_set.bquit, sta, num);
+                                        res = AutoCheck.AutoCheckLightPass(ref bquit, MT.AXIS_BOX_L_X1, MT.AXIS_BOX_L_Z2, lb, sta, distance1, distance2, distance3);
+                                        if (res != EM_RES.OK)
+                                        {
+                                            res = EM_RES.QUIT;
+                                            break;
+                                        }
+                                        res = MoveLightBoxToTestPosition(ref bquit, lb, sta, num);
+                                        if (res != EM_RES.OK) break;
                                     }
                                 }
                                 if (lb == COM.RightLightBox && sta != 0)
@@ -3972,8 +4021,14 @@ namespace UI
                                     if (PT_SET.DCC_luxcct_check_open && pos1.Name.Contains("色温"))
                                     {
                                         Thread.Sleep(2000);
-                                        AutoCheck.RunFullLightScan3x3(ref bquit, MT.AXIS_BOX_R_X1, MT.AXIS_BOX_R_Z2, lb, sta, distance1, distance2, distance3);
-                                        res = lb.MoveTo(ref VAR.gsys_set.bquit, sta, num);
+                                        res = AutoCheck.AutoCheckLightPass(ref bquit, MT.AXIS_BOX_R_X1, MT.AXIS_BOX_R_Z2, lb, sta, distance1, distance2, distance3);
+                                        if (res != EM_RES.OK)
+                                        {
+                                            res = EM_RES.QUIT;
+                                            break;
+                                        }
+                                        res = MoveLightBoxToTestPosition(ref bquit, lb, sta, num);
+                                        if (res != EM_RES.OK) break;
 
                                     }
                                 }
@@ -4002,8 +4057,14 @@ namespace UI
                                     if (PT_SET.OTP_luxcct_check_open && pos1.Name.Contains("色温"))
                                     {
                                         Thread.Sleep(2000);
-                                        AutoCheck.RunFullLightScan3x3(ref bquit, null, MT.AXIS_BOX_OTP_Z, lb, sta, distance1, distance2, distance3);
-                                        res = lb.MoveTo(ref VAR.gsys_set.bquit, sta, num);
+                                        res = AutoCheck.AutoCheckLightPass(ref bquit, null, MT.AXIS_BOX_OTP_Z, lb, sta, distance1, distance2, distance3);
+                                        if (res != EM_RES.OK)
+                                        {
+                                            res = EM_RES.QUIT;
+                                            break;
+                                        }
+                                        res = MoveLightBoxToTestPosition(ref bquit, lb, sta, num);
+                                        if (res != EM_RES.OK) break;
                                     }
                                 }
 
@@ -4022,7 +4083,7 @@ namespace UI
                                 // 每次主循环同步一次
                                 GyroscopeMonitor.SyncQuitFlag(bquit);
                                 GyroscopeMonitor.SetState(GyroCheckState.Stop);
-                                res = lb.MoveTo(ref VAR.gsys_set.bquit, sta, num);
+                                res = MoveLightBoxToTestPosition(ref bquit, lb, sta, num);
                          
       
                                 if (res == EM_RES.END)

@@ -575,6 +575,7 @@ namespace UI
             }
             MT.AxList_BOX_LEFT = new List<AXIS> { MT.AXIS_BOX_L_X1, MT.AXIS_BOX_L_X2, MT.AXIS_BOX_L_Y1, MT.AXIS_BOX_L_Z1, MT.AXIS_BOX_L_Z2 };
             COM.LeftLightBox = new LightBox("LeftLightBox", "左光箱", "LeftLightBox", MT.AXIS_BOX_L_X1, MT.AXIS_BOX_L_X2, MT.AXIS_BOX_L_Y1, MT.AXIS_BOX_L_Z1, MT.AXIS_BOX_L_Z2);
+            COM.LeftLightBox.TraceMapping("启动映射", string.Format("轴列表={0}", LightBox.FormatAxesForTrace(MT.AxList_BOX_LEFT)));
 
             if (PT_SET.RY1En)
             {
@@ -582,6 +583,7 @@ namespace UI
             }
             MT.AxList_BOX_RIGHT = new List<AXIS> { MT.AXIS_BOX_R_X1, MT.AXIS_BOX_R_X2, MT.AXIS_BOX_R_Y1, MT.AXIS_BOX_R_Z1, MT.AXIS_BOX_R_Z2 };
             COM.RightLightBox = new LightBox("RightLightBox", "右光箱", "RightLightBox", MT.AXIS_BOX_R_X1, MT.AXIS_BOX_R_X2, MT.AXIS_BOX_R_Y1, MT.AXIS_BOX_R_Z1, MT.AXIS_BOX_R_Z2);
+            COM.RightLightBox.TraceMapping("启动映射", string.Format("轴列表={0}", LightBox.FormatAxesForTrace(MT.AxList_BOX_RIGHT)));
 
 
             Application.DoEvents();

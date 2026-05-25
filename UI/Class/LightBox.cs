@@ -391,6 +391,50 @@ namespace UI
             if (ax_z2 != null) ax_z2.ChkSafePos = safe_chk;
             if (ax_z_otp != null) ax_z_otp.ChkSafePos = opt_safe_chk;
         }
+
+        private static string FormatAxisForTrace(AXIS ax)
+        {
+            if (ax == null) return "未启用";
+            CARD card = ax.card;
+            if (card == null)
+            {
+                return string.Format("{0}(axis={1},m_id={2},card=null)", ax.str_disc, ax.num, ax.m_id);
+            }
+
+            string cardTarget = !string.IsNullOrEmpty(card.ip) ? card.ip : card.card_id.ToString();
+            return string.Format("{0}(axis={1},m_id={2},card={3},cardId={4},target={5},ready={6},handle={7})",
+                ax.str_disc, ax.num, ax.m_id, card.str_disc, card.id, cardTarget, card.isReady, card.handle);
+        }
+
+        public static string FormatAxesForTrace(IEnumerable<AXIS> axes)
+        {
+            if (axes == null) return "轴列表=null";
+
+            List<string> items = new List<string>();
+            foreach (AXIS ax in axes)
+            {
+                items.Add(FormatAxisForTrace(ax));
+            }
+            return string.Join("; ", items.ToArray());
+        }
+
+        public string GetTraceMapping()
+        {
+            return string.Format("逻辑={0}/{1}, X1={2}, X2={3}, Y1={4}, Z1={5}, Z2={6}, OTP={7}",
+                disc, name,
+                FormatAxisForTrace(ax_x1),
+                FormatAxisForTrace(ax_x2),
+                FormatAxisForTrace(ax_y1),
+                FormatAxisForTrace(ax_z1),
+                FormatAxisForTrace(ax_z2),
+                FormatAxisForTrace(ax_z_otp));
+        }
+
+        public void TraceMapping(string action, string detail = "")
+        {
+            VAR.msg.AddMsg(Msg.EM_MSGTYPE.SYS,
+                string.Format("光箱追踪-{0}: {1}{2}", action, GetTraceMapping(), detail.Length > 0 ? ", " + detail : ""));
+        }
         #endregion
 
         double x1 = 0, x2 = 0, y1 = 0, z1 = 0, z2 = 0, zotp = 0;

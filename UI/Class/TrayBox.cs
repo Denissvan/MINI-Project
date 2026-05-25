@@ -37,14 +37,7 @@ namespace UI
         {
             get
             {
-                string trayCfgName = name;
-                if (RuntimeMachineMode.IsTrayBoxSwapped)
-                {
-                    if (role == EM_ROLE.OK) trayCfgName = "TrayBox_NG";
-                    else if (role == EM_ROLE.NG) trayCfgName = "TrayBox_OK";
-                }
-
-                return string.Format("{0}\\product\\{1}\\TrayBoxCfg\\{2}.inf", Path.GetFullPath(".."), VAR.gsys_set.cur_product_name, trayCfgName);
+                return strCfgPath;
             }
         }
 

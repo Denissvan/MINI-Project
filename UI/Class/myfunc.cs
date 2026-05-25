@@ -1102,25 +1102,35 @@ namespace UI
             {
                 if (light.disc.Contains("左"))
                 {
-                    Msg.secsManager.Send(new BaseInfo() { Id = secsId, Value = mpos.X1.ToString() });
-                    Msg.secsManager.Send(new BaseInfo() { Id = secsId + 1, Value = mpos.X2.ToString() });
-                    Msg.secsManager.Send(new BaseInfo() { Id = secsId + 2, Value = mpos.Y1.ToString() });
-                    Msg.secsManager.Send(new BaseInfo() { Id = secsId + 3, Value = mpos.Z1.ToString() });
-                    Msg.secsManager.Send(new BaseInfo() { Id = secsId + 4, Value = mpos.Z2.ToString() });
+                    Msg.secsManager.Send(new BaseInfo() { Id = secsId, Value = FormatLightBoxMesPosition(mpos.X1) });
+                    Msg.secsManager.Send(new BaseInfo() { Id = secsId + 1, Value = FormatLightBoxMesPosition(mpos.X2) });
+                    Msg.secsManager.Send(new BaseInfo() { Id = secsId + 2, Value = FormatLightBoxMesPosition(mpos.Y1) });
+                    Msg.secsManager.Send(new BaseInfo() { Id = secsId + 3, Value = FormatLightBoxMesPosition(mpos.Z1) });
+                    Msg.secsManager.Send(new BaseInfo() { Id = secsId + 4, Value = FormatLightBoxMesPosition(mpos.Z2) });
                 }
                 else if (light.disc.Contains("右"))
                 {
-                    Msg.secsManager.Send(new BaseInfo() { Id = secsId, Value = mpos.X1.ToString() });
-                    Msg.secsManager.Send(new BaseInfo() { Id = secsId + 1, Value = mpos.X2.ToString() });
-                    Msg.secsManager.Send(new BaseInfo() { Id = secsId + 2, Value = mpos.Z1.ToString() });
-                    Msg.secsManager.Send(new BaseInfo() { Id = secsId + 3, Value = mpos.Z2.ToString() });
+                    Msg.secsManager.Send(new BaseInfo() { Id = secsId, Value = FormatLightBoxMesPosition(mpos.X1) });
+                    Msg.secsManager.Send(new BaseInfo() { Id = secsId + 1, Value = FormatLightBoxMesPosition(mpos.X2) });
+                    Msg.secsManager.Send(new BaseInfo() { Id = secsId + 2, Value = FormatLightBoxMesPosition(mpos.Z1) });
+                    Msg.secsManager.Send(new BaseInfo() { Id = secsId + 3, Value = FormatLightBoxMesPosition(mpos.Z2) });
                 }else
                 {
-                    Msg.secsManager.Send(new BaseInfo() { Id = secsId , Value = mpos.Z1.ToString() });
+                    Msg.secsManager.Send(new BaseInfo() { Id = secsId , Value = FormatLightBoxMesPosition(mpos.Z1) });
                 }
 
                 Msg.secsManager.Send(new BaseInfo() { Id = 7 }, TypeId: 2);
             }
+        }
+
+        private static string FormatLightBoxMesPosition(double value)
+        {
+            if (double.IsNaN(value) || double.IsInfinity(value) || Math.Abs(value) >= 10000)
+            {
+                return "0";
+            }
+
+            return value.ToString("0.###");
         }
 
         public static void LightBoxSendMesAll()

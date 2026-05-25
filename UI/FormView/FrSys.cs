@@ -353,10 +353,12 @@ namespace UI
                 case 3:
                     axisTable.AddAxis(MT.AxList_BOX_LEFT);
                     axisConfig.AddAxis(MT.AxList_BOX_LEFT);
+                    VAR.msg.AddMsg(Msg.EM_MSGTYPE.SYS, string.Format("光箱追踪-轴控制页: 页签=左光箱,轴列表={0}", LightBox.FormatAxesForTrace(MT.AxList_BOX_LEFT)));
                     break;
                 case 4:
                     axisTable.AddAxis(MT.AxList_BOX_RIGHT);
                     axisConfig.AddAxis(MT.AxList_BOX_RIGHT);
+                    VAR.msg.AddMsg(Msg.EM_MSGTYPE.SYS, string.Format("光箱追踪-轴控制页: 页签=右光箱,轴列表={0}", LightBox.FormatAxesForTrace(MT.AxList_BOX_RIGHT)));
 
                     break;
                 case 5:

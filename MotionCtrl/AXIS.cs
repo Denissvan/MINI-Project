@@ -185,6 +185,23 @@ namespace MotionCtrl
                     : string.Format("{0} {1}: {2}    ({3} {1}: {2})", english_disc, action, detail, disc));
         }
 
+        private bool IsLightBoxAxis()
+        {
+            return (str_disc != null && (str_disc.StartsWith("左光箱") || str_disc.StartsWith("右光箱")))
+                || (english_disc != null && (english_disc.StartsWith("LB_") || english_disc.StartsWith("RB_")));
+        }
+
+        private void TraceLightBoxAxis(string action, string detail)
+        {
+            if (!IsLightBoxAxis()) return;
+            string cardTarget = card == null ? "card=null" : (!string.IsNullOrEmpty(card.ip) ? card.ip : card.card_id.ToString());
+            string cardText = card == null
+                ? "card=null"
+                : string.Format("card={0},cardId={1},target={2},ready={3},handle={4}", card.str_disc, card.id, cardTarget, card.isReady, card.handle);
+            VAR.msg.AddMsg(Msg.EM_MSGTYPE.SYS,
+                string.Format("光箱追踪-轴{0}: 轴={1},axis={2},m_id={3},{4},{5}", action, str_disc, num, m_id, cardText, detail));
+        }
+
         #region 初始化
         public AXIS()
         {
@@ -2534,6 +2551,7 @@ namespace MotionCtrl
             //check param
             ret = ChkParam();
             if (ret != EM_RES.OK) return res = ret;
+            TraceLightBoxAxis("定位命令", string.Format("target={0:F3},wait={1},home={2},status={3}", pos, wait_ms, home_status, status));
 
             int try_cnt = 0;
 
@@ -3089,6 +3107,7 @@ namespace MotionCtrl
             //check
             res = ChkParam();
             if (res != EM_RES.OK) return res;
+            TraceLightBoxAxis("回零命令", string.Format("spd={0:F3},mode={1},dir={2},timeout={3},home={4},status={5}", spd, mode, dir, timeout_ms, home_status, status));
 
             //check safe sensor
             if (ChkSafeSen != null)

@@ -6,6 +6,14 @@
 
 #include "modbus.h"
 
+#ifndef RES_ERR_SESSION_LOST
+#define RES_ERR_SESSION_LOST -7
+#endif
+
+#ifndef RES_ERR_LINK_LOST
+#define RES_ERR_LINK_LOST -8
+#endif
+
 
 #include <stdlib.h>
 
@@ -365,6 +373,15 @@ int g_lastReturnMark[256] = { 0 };
 int g_lastReturnParam[256] = { 0 };
 
 int g_closeOnlyWaitPending[256] = { 0 };
+int g_activeSession[256] = { 0 };
+int g_finalNoDataCnt[256] = { 0 };
+int g_finalNoActiveCnt[256] = { 0 };
+int g_finalNoActiveParam[256] = { 0 };
+int g_lastSessionSta[256] = { 0 };
+int g_lastSessionMark[256] = { 0 };
+int g_lastSessionParam[256] = { 0 };
+int g_waitTick[256] = { 0 };
+int g_waitTickCnt[256] = { 0 };
 
 LONG g_dllVersionLogged = 0;
 
@@ -767,9 +784,6 @@ unsigned int __stdcall ThreadListen(PVOID pM)
 	int th_idx = 0;
 
 
-	int trycnt = 0;
-
-
 	while (Dev.quit == 0)
 
 
@@ -1103,6 +1117,9 @@ unsigned int __stdcall ThreadListen(PVOID pM)
 						{
 
 
+							int oldSocket = SlaveDat[maxId].s;
+
+
 							SlaveDat[maxId].slaveid = -1;
 
 
@@ -1116,6 +1133,13 @@ unsigned int __stdcall ThreadListen(PVOID pM)
 
 
 							DebugStr2("[DLL]Clear SlaveDat??ID=%d,T=%d\n", maxId, maxsec);
+
+
+							if (oldSocket > 0)
+							{
+								FD_CLR(oldSocket, &refset);
+								closesocket(oldSocket);
+							}
 
 
 						}
@@ -1220,6 +1244,24 @@ unsigned int __stdcall ThreadListen(PVOID pM)
 					}	
 
 
+					int slaveId = Dev.query[Dev.header_length - 1];
+
+
+					for (int i = 0; i < SLAVE_BUF; i++)
+					{
+						if (&SlaveDat[i] != pdat && SlaveDat[i].slaveid == slaveId && SlaveDat[i].s > 0)
+						{
+							int oldSocket = SlaveDat[i].s;
+							SlaveDat[i].slaveid = -1;
+							SlaveDat[i].s = -1;
+							SlaveDat[i].ip[0] = 0;
+							FD_CLR(oldSocket, &refset);
+							closesocket(oldSocket);
+							DebugStr2("[DLL]Replace duplicate slave id=%d,oldSocket=%d\n", slaveId, oldSocket);
+						}
+					}
+
+
 					
 
 
@@ -1259,7 +1301,7 @@ unsigned int __stdcall ThreadListen(PVOID pM)
 					strcpy_s(pdat->ip, sizeof(guest_ip), guest_ip);
 
 
-					pdat->slaveid = Dev.query[Dev.header_length - 1];
+					pdat->slaveid = slaveId;
 
 
 					pdat->sec = (INT)time(NULL);
@@ -1286,25 +1328,7 @@ unsigned int __stdcall ThreadListen(PVOID pM)
 					//printf("Connection closed on socket %d\n", master_socket);
 
 
-					DebugStr2("[DLL]Connection closed on socket %d,%d\n", master_socket, trycnt++);
-
-
-					if (trycnt>5)
-
-
-					{
-
-
-						trycnt = 0;
-
-
-						closesocket(master_socket);
-
-
-						Sleep(1000);
-
-
-					}
+					DebugStr2("[DLL]Connection closed on socket %d,%d\n", master_socket, WSAGetLastError());
 
 
 
@@ -1386,6 +1410,9 @@ unsigned int __stdcall ThreadListen(PVOID pM)
 
 
 					FD_CLR(master_socket, &refset);
+
+
+					closesocket(master_socket);
 
 
 
@@ -1865,7 +1892,7 @@ int Init(const char * filename)
 	{
 
 
-		Dev.s = modbus_tcp_listen(Dev.mb, 3);
+		Dev.s = modbus_tcp_listen(Dev.mb, SLAVE_BUF);
 
 
 		//???????????
@@ -3335,6 +3362,9 @@ int StartTestFlow(int id, int status,char* barcode)
 	if (pDat == NULL)return RES_ERR;
 
 	g_closeOnlyWaitPending[id & 0xFF] = 0;
+	g_finalNoDataCnt[id & 0xFF] = 0;
+	g_finalNoActiveCnt[id & 0xFF] = 0;
+	g_finalNoActiveParam[id & 0xFF] = 0;
 
 
 	BuildResultAreaSnapshot(pDat, id, resultSnapshot, sizeof(resultSnapshot));
@@ -3520,6 +3550,14 @@ int StartTestFlow(int id, int status,char* barcode)
 			AppendDebugLog("\n");
 
 
+			g_activeSession[id & 0xFF] = 1;
+			g_finalNoDataCnt[id & 0xFF] = 0;
+			g_finalNoActiveCnt[id & 0xFF] = 0;
+			g_finalNoActiveParam[id & 0xFF] = 0;
+			g_lastSessionSta[id & 0xFF] = status;
+			g_lastSessionMark[id & 0xFF] = pDat->map_result->tab_registers[REG_IDX_MARK];
+			g_lastSessionParam[id & 0xFF] = pDat->map_result->tab_registers[REG_IDX_PARAM];
+
 			return RES_OK;
 
 
@@ -3555,6 +3593,10 @@ int StartTestFlow(int id, int status,char* barcode)
 
 	pDat->map_inf->tab_registers[REG_IDX_MARK] = MARK_RESET;
 	pDat->map_inf->tab_registers[REG_IDX_STATUS] = CMD_STATUS_INVALID;
+	g_activeSession[id & 0xFF] = 0;
+	g_finalNoDataCnt[id & 0xFF] = 0;
+	g_finalNoActiveCnt[id & 0xFF] = 0;
+	g_finalNoActiveParam[id & 0xFF] = 0;
 	modbus_write_registers(Dev.mb, pDat->map_inf->start_registers, 2, pDat->map_inf->tab_registers);
 
 
@@ -3683,6 +3725,7 @@ int WaitTestResultA(int id, int *status, int *res, int *NumofResult, DeviceStruc
 
 
 	char resultSnapshot[1024];
+	int sessionIdx = id & 0xFF;
 
 if (pDat == NULL)
 
@@ -3717,16 +3760,16 @@ if (pDat == NULL)
 		t = t & 0xFF;
 
 
-		if (Tick != t) TickCnt = 0;
+		if (g_waitTick[sessionIdx] != t) g_waitTickCnt[sessionIdx] = 0;
 
 
-		else TickCnt++;
+		else g_waitTickCnt[sessionIdx]++;
 
 
-		Tick = t;
+		g_waitTick[sessionIdx] = t;
 
 
-		if (TickCnt>1000)
+		if (g_waitTickCnt[sessionIdx]>1000)
 
 
 		{		
@@ -3736,7 +3779,7 @@ if (pDat == NULL)
 			DebugStr5("[DLL_FLOW]WaitTestResult LinkStall,id=%d,last_tick=%d,tick_cnt=%d,result_mark=%d,result_sta=%d\n",
 				id,
 				t,
-				TickCnt,
+				g_waitTickCnt[sessionIdx],
 				pDat->map_result->tab_registers[REG_IDX_MARK],
 				pDat->map_result->tab_registers[REG_IDX_STATUS]);
 			BuildResultAreaSnapshot(pDat, id, resultSnapshot, sizeof(resultSnapshot));
@@ -3746,7 +3789,7 @@ if (pDat == NULL)
 			AppendDebugLog("\n");
 
 
-			return RES_ERR_LINK;
+			return RES_ERR_LINK_LOST;
 
 
 		}
@@ -3820,10 +3863,17 @@ if (pDat == NULL)
 		{
 
 
-			*status = pDat->map_result->tab_registers[REG_IDX_STATUS];			
-
-
-
+			*status = pDat->map_result->tab_registers[REG_IDX_STATUS];
+			if (*status != 0)
+			{
+				g_activeSession[sessionIdx] = 1;
+				g_finalNoDataCnt[sessionIdx] = 0;
+				g_finalNoActiveCnt[sessionIdx] = 0;
+				g_finalNoActiveParam[sessionIdx] = 0;
+				g_lastSessionSta[sessionIdx] = *status;
+				g_lastSessionMark[sessionIdx] = pDat->map_result->tab_registers[REG_IDX_MARK];
+				g_lastSessionParam[sessionIdx] = pDat->map_result->tab_registers[REG_IDX_PARAM];
+			}
 
 
 			//???0????????
@@ -3859,6 +3909,51 @@ if (pDat == NULL)
 						AppendDebugLog("\n");
 						return RES_OK;
 					}
+					if (pDat->map_result->tab_registers[REG_IDX_MARK] == MARK_END
+						&& g_activeSession[sessionIdx] == 0)
+					{
+						int curParam = pDat->map_result->tab_registers[REG_IDX_PARAM];
+						if (g_finalNoActiveParam[sessionIdx] != curParam)
+						{
+							g_finalNoActiveParam[sessionIdx] = curParam;
+						}
+						g_finalNoActiveCnt[sessionIdx]++;
+
+						if (g_finalNoActiveCnt[sessionIdx] >= 50)
+						{
+							DebugStr5("[DLL_FLOW]WaitTestResult SessionLostNoActive,id=%d,ws=%d,cnt=%d,result_mark=%d,param=%d\n",
+								id,
+								GetWsNoByPcId(id),
+								g_finalNoActiveCnt[sessionIdx],
+								pDat->map_result->tab_registers[REG_IDX_MARK],
+								curParam);
+							BuildResultAreaSnapshot(pDat, id, resultSnapshot, sizeof(resultSnapshot));
+							OutputDebugString(resultSnapshot);
+							OutputDebugString("\n");
+							AppendDebugLog(resultSnapshot);
+							AppendDebugLog("\n");
+							return RES_ERR_SESSION_LOST;
+						}
+					}
+					if (g_activeSession[sessionIdx] != 0 && pDat->map_result->tab_registers[REG_IDX_MARK] == MARK_END && pDat->map_result->tab_registers[REG_IDX_PARAM] != g_lastSessionParam[sessionIdx])
+					{
+						g_finalNoDataCnt[sessionIdx]++;
+						if (g_finalNoDataCnt[sessionIdx] >= 5)
+						{
+							DebugStr5("[DLL_FLOW]WaitTestResult SessionLost,id=%d,ws=%d,last_sta=%d,last_mark=%d,last_param=%d\n",
+								id,
+								GetWsNoByPcId(id),
+								g_lastSessionSta[sessionIdx],
+								g_lastSessionMark[sessionIdx],
+								g_lastSessionParam[sessionIdx]);
+							BuildResultAreaSnapshot(pDat, id, resultSnapshot, sizeof(resultSnapshot));
+							OutputDebugString(resultSnapshot);
+							OutputDebugString("\n");
+							AppendDebugLog(resultSnapshot);
+							AppendDebugLog("\n");
+							return RES_ERR_SESSION_LOST;
+						}
+					}
 					DebugStr5("[DLL_FLOW]WaitTestResult FinalNoData,id=%d,ws=%d,result_mark=%d,status=%d,param=%d\n",
 						id,
 						GetWsNoByPcId(id),
@@ -3878,6 +3973,10 @@ if (pDat == NULL)
 
 				*NumofResult = final_num;
 				g_closeOnlyWaitPending[id & 0xFF] = 0;
+				g_activeSession[sessionIdx] = 0;
+				g_finalNoDataCnt[sessionIdx] = 0;
+				g_finalNoActiveCnt[sessionIdx] = 0;
+				g_finalNoActiveParam[sessionIdx] = 0;
 
 
 				if (*NumofResult > INF_CNT)*NumofResult = INF_CNT;
@@ -4192,6 +4291,10 @@ int NextTest(int id ,int status, int delay, BOOL *bquit)
 
 	if (status == -1)
 	{
+		g_activeSession[id & 0xFF] = 0;
+		g_finalNoDataCnt[id & 0xFF] = 0;
+		g_finalNoActiveCnt[id & 0xFF] = 0;
+		g_finalNoActiveParam[id & 0xFF] = 0;
 		DebugStr3("[DLL_FLOW]NextTest CloseOnly,id=%d,req_sta=%d,delay=%d\n",
 			id, status, delay);
 		ResetTest(id);
@@ -4508,6 +4611,10 @@ int ResetTest(int id)
 
 
 	SlaveData *pDat = GetSlaveDatByID(id);
+	g_activeSession[id & 0xFF] = 0;
+	g_finalNoDataCnt[id & 0xFF] = 0;
+	g_finalNoActiveCnt[id & 0xFF] = 0;
+	g_finalNoActiveParam[id & 0xFF] = 0;
 
 
 	if (pDat == NULL)return RES_ERR;	

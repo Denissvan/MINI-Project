@@ -383,6 +383,8 @@ namespace UI.Class
                 return StandardBoardReadFail(string.Format("{0}标板信息读取已开启,但未设置COM口", boardName));
             }
 
+            VAR.msg.AddMsg(Msg.EM_MSGTYPE.NOR, string.Format("标板读取快照: 面别={0}, COM={1}, 结果=开始读取", boardName, portName));
+
             string error;
             string boardInfo;
             using (StandardBoardReader reader = new StandardBoardReader(portName))
@@ -399,7 +401,7 @@ namespace UI.Class
             }
 
             SaveToTxt("标板信息", boardName, portName, boardInfo);
-            VAR.msg.AddMsg(Msg.EM_MSGTYPE.DBG, string.Format("{0}读取标板信息成功:{1}", boardName, boardInfo));
+            VAR.msg.AddMsg(Msg.EM_MSGTYPE.NOR, string.Format("标板读取快照: 面别={0}, COM={1}, 结果=OK, 信息={2}", boardName, portName, boardInfo));
             return EM_RES.OK;
         }
 
@@ -423,6 +425,7 @@ namespace UI.Class
 
         private EM_RES StandardBoardReadFail(string message)
         {
+            VAR.msg.AddMsg(Msg.EM_MSGTYPE.ERR, string.Format("标板读取快照: 结果=NG, 原因={0}", message));
             VAR.sys_inf.Set(EM_ALM_STA.WAR_RED_FLASH, "自动点检读取标板信息失败!", 20, true);
             MT.ST_WARN warn = new MT.ST_WARN();
             warning fr_warn = new warning();
@@ -556,9 +559,10 @@ namespace UI.Class
                                     }
                                     comm.Close();
                                     LuxWith9point.Add(lux);
-                                    if (Math.Abs(lux - pos.ActualLuxParam) > pos.DistanceThreshold)
+                                    double luxDiff = Math.Abs(lux - pos.ActualLuxParam);
+                                    if (luxDiff > pos.LuxThreshold)
                                     {
-                                        VAR.msg.AddMsg(Msg.EM_MSGTYPE.ERR, $"{pos.Name}位置的光源超出{pos.ActualLuxParam}");
+                                        VAR.msg.AddMsg(Msg.EM_MSGTYPE.ERR, $"{pos.Name}位置的照度偏离标准值,当前值:{lux},标准值:{pos.ActualLuxParam},偏差:{luxDiff},阈值:{pos.LuxThreshold}");
                                         res = EM_RES.ERR;
                                     }
                                     if (LuxWith9point.Count == 9)
@@ -590,7 +594,6 @@ namespace UI.Class
                                                 res = EM_RES.ERR;
                                             }
                                         }
-                                        return EM_RES.OK;
                                     }
                                     CctWith9point.Add(cct);
                                     if (Math.Abs(cct - pos.ActualCctParam) > pos.CctThreshold)
@@ -602,8 +605,8 @@ namespace UI.Class
                                     {
                                         if (lb.name == COM.LeftLightBox.name)
                                         {
-                                            int luxpercent = CalculateLuxResult();
-                                            if (luxpercent < PT_SET.afc_cct_uniformity_precent)
+                                            double cctpercent = CalculateCctResult();
+                                            if (cctpercent < PT_SET.afc_cct_uniformity_precent)
                                             {
                                                 VAR.msg.AddMsg(Msg.EM_MSGTYPE.ERR, $"{pos.Name}位置的均匀度小于{PT_SET.afc_cct_uniformity_precent}");
                                                 res = EM_RES.ERR;
@@ -611,8 +614,8 @@ namespace UI.Class
                                         }
                                         if (lb.name == COM.RightLightBox.name)
                                         {
-                                            int luxpercent = CalculateLuxResult();
-                                            if (luxpercent < PT_SET.dcc_cct_uniformity_precent)
+                                            double cctpercent = CalculateCctResult();
+                                            if (cctpercent < PT_SET.dcc_cct_uniformity_precent)
                                             {
                                                 VAR.msg.AddMsg(Msg.EM_MSGTYPE.ERR, $"{pos.Name}位置的均匀度小于{PT_SET.dcc_cct_uniformity_precent}");
                                                 res = EM_RES.ERR;
@@ -620,10 +623,10 @@ namespace UI.Class
                                         }
                                         if (lb.name == COM.OTPLightBox.name)
                                         {
-                                            int luxpercent = CalculateLuxResult();
-                                            if (luxpercent < PT_SET.otp_cct_uniformity_precent)
+                                            double cctpercent = CalculateCctResult();
+                                            if (cctpercent < PT_SET.otp_cct_uniformity_precent)
                                             {
-                                                VAR.msg.AddMsg(Msg.EM_MSGTYPE.ERR, $"{pos.Name}位置的均匀度小于{PT_SET.dcc_cct_uniformity_precent}");
+                                                VAR.msg.AddMsg(Msg.EM_MSGTYPE.ERR, $"{pos.Name}位置的均匀度小于{PT_SET.otp_cct_uniformity_precent}");
                                                 res = EM_RES.ERR;
                                             }
                                         }
@@ -650,9 +653,10 @@ namespace UI.Class
                                 SaveToTxt("光源色温点检参数", com, pos.Name, lux, cct);
                                 comm.Close();
                                 LuxWith9point.Add(lux);
-                                if (Math.Abs(lux - pos.ActualLuxParam) > pos.DistanceThreshold)
+                                double luxDiff = Math.Abs(lux - pos.ActualLuxParam);
+                                if (luxDiff > pos.LuxThreshold)
                                 {
-                                    VAR.msg.AddMsg(Msg.EM_MSGTYPE.ERR, $"{pos.Name}位置的光源超出{pos.ActualLuxParam}");
+                                    VAR.msg.AddMsg(Msg.EM_MSGTYPE.ERR, $"{pos.Name}位置的照度偏离标准值,当前值:{lux},标准值:{pos.ActualLuxParam},偏差:{luxDiff},阈值:{pos.LuxThreshold}");
                                     res = EM_RES.ERR;
                                 }
                                 if (LuxWith9point.Count == 9)
@@ -684,7 +688,6 @@ namespace UI.Class
                                             res = EM_RES.ERR;
                                         }
                                     }
-                                    return EM_RES.OK;
                                 }
                                 CctWith9point.Add(cct);
                                 if (Math.Abs(cct - pos.ActualCctParam) > pos.CctThreshold)
@@ -696,8 +699,8 @@ namespace UI.Class
                                 {
                                     if (lb.name == COM.LeftLightBox.name)
                                     {
-                                        int luxpercent = CalculateLuxResult();
-                                        if (luxpercent < PT_SET.afc_cct_uniformity_precent)
+                                        double cctpercent = CalculateCctResult();
+                                        if (cctpercent < PT_SET.afc_cct_uniformity_precent)
                                         {
                                             VAR.msg.AddMsg(Msg.EM_MSGTYPE.ERR, $"{pos.Name}位置的均匀度小于{PT_SET.afc_cct_uniformity_precent}");
                                             res = EM_RES.ERR;
@@ -705,8 +708,8 @@ namespace UI.Class
                                     }
                                     if (lb.name == COM.RightLightBox.name)
                                     {
-                                        int luxpercent = CalculateLuxResult();
-                                        if (luxpercent < PT_SET.dcc_cct_uniformity_precent)
+                                        double cctpercent = CalculateCctResult();
+                                        if (cctpercent < PT_SET.dcc_cct_uniformity_precent)
                                         {
                                             VAR.msg.AddMsg(Msg.EM_MSGTYPE.ERR, $"{pos.Name}位置的均匀度小于{PT_SET.dcc_cct_uniformity_precent}");
                                             res = EM_RES.ERR;
@@ -714,10 +717,10 @@ namespace UI.Class
                                     }
                                     if (lb.name == COM.OTPLightBox.name)
                                     {
-                                        int luxpercent = CalculateLuxResult();
-                                        if (luxpercent < PT_SET.otp_cct_uniformity_precent)
+                                        double cctpercent = CalculateCctResult();
+                                        if (cctpercent < PT_SET.otp_cct_uniformity_precent)
                                         {
-                                            VAR.msg.AddMsg(Msg.EM_MSGTYPE.ERR, $"{pos.Name}位置的均匀度小于{PT_SET.dcc_cct_uniformity_precent}");
+                                            VAR.msg.AddMsg(Msg.EM_MSGTYPE.ERR, $"{pos.Name}位置的均匀度小于{PT_SET.otp_cct_uniformity_precent}");
                                             res = EM_RES.ERR;
                                         }
                                     }
@@ -761,14 +764,14 @@ namespace UI.Class
             // 应用公式计算
             double result = 1 - (max - min) / (max + min);
             // 转换为百分比
-
+            result *= 100;
 
             return (int)Math.Round(result);
         }
         public double CalculateCctResult()
         {
             // 检查列表是否有足够的数据
-            if (LuxWith9point.Count < 9)
+            if (CctWith9point.Count < 9)
             {
                 throw new InvalidOperationException("列表中至少需要包含两个数值才能进行计算");
             }
@@ -793,9 +796,41 @@ namespace UI.Class
         /// <summary>
         /// 重复3次Z轴动作，完整采集9组lux+cct
         /// </summary>
-        public void RunFullLightScan3x3(ref bool bquit,AXIS axis1, AXIS axis2,LightBox lb, int idx,ST_XYZ distance1, ST_XYZ distance2, ST_XYZ distance3)
+        public EM_RES AutoCheckLightPass(ref bool bquit, AXIS axis1, AXIS axis2, LightBox lb, int sta, ST_XYZ distance1, ST_XYZ distance2, ST_XYZ distance3)
+        {
+            EM_RES res = EM_RES.OK;
+        ReTest:
+            res = RunFullLightScan3x3(ref bquit, axis1, axis2, lb, sta, distance1, distance2, distance3);
+            if (res != EM_RES.OK)
+            {
+                VAR.sys_inf.Set(EM_ALM_STA.WAR_RED_FLASH, "自动点检光源色温失败!", 20, true);
+                MT.ST_WARN warn = new MT.ST_WARN();
+                warning fr_warn = new warning();
+                warn.ok_txt = "重新测量";
+                warn.abort_txt = "停止";
+                warn.title = "提示:自动点检光源色温失败!";
+                warn.msg = string.Format("提示:{0}位置{1}自动点检光源色温失败!", lb.name, sta);
+                warn.lb_msg = string.Format("{0}位置{1}自动点检光源色温失败!\r\n点击重新测量，则重新进行该位置光源色温检测！！！\r\n点击停止，则会停止测试\r\n", lb.name, sta);
+                DialogResult resulte = MT.Display_frwarn(fr_warn, warn, ERR_ALM.EmErrItem.CaptureAbnomal);
+                if (resulte == DialogResult.Yes)
+                {
+                    VAR.sys_inf.Set(EM_ALM_STA.NOR_GREEN, "运行", 0, true);
+                    VAR.msg.AddMsg(Msg.EM_MSGTYPE.ERR, string.Format("{0}位置{1}自动点检光源色温失败,选择了继续", lb.name, sta));
+                    goto ReTest;
+                }
+
+                VAR.msg.AddMsg(Msg.EM_MSGTYPE.ERR, string.Format("{0}位置{1}自动点检光源色温失败,选择了停止", lb.name, sta));
+                return EM_RES.ERR;
+            }
+
+            return EM_RES.OK;
+        }
+
+        public EM_RES RunFullLightScan3x3(ref bool bquit,AXIS axis1, AXIS axis2,LightBox lb, int idx,ST_XYZ distance1, ST_XYZ distance2, ST_XYZ distance3)
         {
             EM_RES res=EM_RES.OK;
+            LuxWith9point.Clear();
+            CctWith9point.Clear();
             if(axis1!=null)
             {
                 VAR.msg.AddMsg(Msg.EM_MSGTYPE.DBG, "AFC,DCC位置下的光源色温参数读取");
@@ -815,12 +850,14 @@ namespace UI.Class
                     LightBox.PosDef PosDef = new LightBox.PosDef();
                     PosDef.X1 = distance1.x;
                     PosDef.Z2 = distance1.z;
-       
+
                     res = lb.MoveTo(ref bquit, PosDef, 0);
                 }
+                if (res != EM_RES.OK) return res;
                 Thread.Sleep(2000);
                 VAR.msg.AddMsg(Msg.EM_MSGTYPE.DBG, "第一次读光源色温参数");
-                ReadAndAddAllLightData3COMs(lb, idx, 0);
+                res = ReadAndAddAllLightData3COMs(lb, idx, 0);
+                if (res != EM_RES.OK) return res;
                 //res = axis1.MoveTo(ref bquit, 0);
                 //VAR.msg.AddMsg(Msg.EM_MSGTYPE.DBG, $"{axis1.disc}定位到0");
                 //res = axis2.MoveTo(ref bquit, 0);
@@ -830,12 +867,14 @@ namespace UI.Class
                     LightBox.PosDef PosDef = new LightBox.PosDef();
                     PosDef.X1 = distance2.x;
                     PosDef.Z2 = distance2.z;
-  
+
                     res = lb.MoveTo(ref bquit, PosDef, 0);
                 }
+                if (res != EM_RES.OK) return res;
                 Thread.Sleep(2000);
                 VAR.msg.AddMsg(Msg.EM_MSGTYPE.DBG, "第二次读光源色温参数");
-                ReadAndAddAllLightData3COMs(lb, idx, 1);
+                res = ReadAndAddAllLightData3COMs(lb, idx, 1);
+                if (res != EM_RES.OK) return res;
                 //res = axis1.MoveTo(ref bquit, 0);
                 //VAR.msg.AddMsg(Msg.EM_MSGTYPE.DBG, $"{axis1.disc}定位到0");
                 //res = axis2.MoveTo(ref bquit, 0);
@@ -848,9 +887,11 @@ namespace UI.Class
 
                     res = lb.MoveTo(ref bquit, PosDef, 0);
                 }
+                if (res != EM_RES.OK) return res;
                 Thread.Sleep(2000);
                 VAR.msg.AddMsg(Msg.EM_MSGTYPE.DBG, "第三次读光源色温参数");
-                ReadAndAddAllLightData3COMs(lb, idx, 2);
+                res = ReadAndAddAllLightData3COMs(lb, idx, 2);
+                if (res != EM_RES.OK) return res;
                 //res = axis1.MoveTo(ref bquit, 0);
                 //if (res == EM_RES.OK)
                 //{
@@ -862,17 +903,24 @@ namespace UI.Class
             else
             {
                 VAR.msg.AddMsg(Msg.EM_MSGTYPE.DBG, "OTP位置下的光源色温参数读取");
-                axis2.MoveTo(ref bquit, distance1.z);
+                res = axis2.MoveTo(ref bquit, distance1.z);
+                if (res != EM_RES.OK) return res;
                 VAR.msg.AddMsg(Msg.EM_MSGTYPE.DBG, "第一次读光源色温参数");
-                ReadAndAddAllLightData3COMs(lb, idx, 0);
-                axis2.MoveTo(ref bquit, distance2.z);
+                res = ReadAndAddAllLightData3COMs(lb, idx, 0);
+                if (res != EM_RES.OK) return res;
+                res = axis2.MoveTo(ref bquit, distance2.z);
+                if (res != EM_RES.OK) return res;
                 VAR.msg.AddMsg(Msg.EM_MSGTYPE.DBG, "第二次读光源色温参数");
-                ReadAndAddAllLightData3COMs(lb, idx, 1);
-                axis2.MoveTo(ref bquit, distance3.z);
+                res = ReadAndAddAllLightData3COMs(lb, idx, 1);
+                if (res != EM_RES.OK) return res;
+                res = axis2.MoveTo(ref bquit, distance3.z);
+                if (res != EM_RES.OK) return res;
                 VAR.msg.AddMsg(Msg.EM_MSGTYPE.DBG, "第三次读光源色温参数");
-                ReadAndAddAllLightData3COMs(lb, idx, 2);
+                res = ReadAndAddAllLightData3COMs(lb, idx, 2);
+                if (res != EM_RES.OK) return res;
             }
 
+            return EM_RES.OK;
         }
 
 

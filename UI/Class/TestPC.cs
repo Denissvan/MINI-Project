@@ -27,8 +27,6 @@ namespace UI
             ERR_TIMEOUT = -4,
             [Description("失联")]
             ERR_LINK = -5,
-            [Description("上一轮结果未闭环")]
-            BUSY = -6,
         }
         public struct InfoData
         {

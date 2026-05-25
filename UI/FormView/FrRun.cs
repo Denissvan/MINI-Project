@@ -749,24 +749,28 @@ namespace UI
             COM.RightLightBox.ax_x2.SetToWorkSpd();
             COM.RightLightBox.ax_z1.SetToWorkSpd();
             COM.RightLightBox.ax_z2.SetToWorkSpd();
+            COM.RightLightBox.TraceMapping("运行页定位", "按钮=右光箱远焦,目标=X1=保持/X2=300/Z1=0/Z2=0");
             COM.RightLightBox.MoveTo(ref VAR.gsys_set.bquit, double.MaxValue, 300, 0, 0);
         }
 
         private void btn_naf_Click(object sender, EventArgs e)
         {
             if (COM.RightLightBox.status == LightBox.EM_STA.UNKNOW || COM.RightLightBox.status == LightBox.EM_STA.ERR) return;
+            COM.RightLightBox.TraceMapping("运行页定位", "按钮=右光箱近焦,目标=X1=100/X2=保持/Z1=-500/Z2=0");
             COM.RightLightBox.MoveTo(ref VAR.gsys_set.bquit, 100, double.MaxValue, -500, 0);
         }
 
         private void btn_dust_Click(object sender, EventArgs e)
         {
             if (COM.RightLightBox.status == LightBox.EM_STA.UNKNOW || COM.RightLightBox.status == LightBox.EM_STA.ERR) return;
+            COM.RightLightBox.TraceMapping("运行页定位", string.Format("按钮=右光箱污坏点,目标=X1={0}/X2=保持/Z1=0/Z2=-500", COM.RightLightBox.ax_x1.slp));
             COM.RightLightBox.MoveTo(ref VAR.gsys_set.bquit, COM.RightLightBox.ax_x1.slp, double.MaxValue, 0, -500);
         }
 
         private void btn_ready_Click(object sender, EventArgs e)
         {
             if (COM.RightLightBox.status == LightBox.EM_STA.UNKNOW || COM.RightLightBox.status == LightBox.EM_STA.ERR) return;
+            COM.RightLightBox.TraceMapping("运行页定位", "按钮=右光箱暗态/准备位,目标=X1=0/X2=0/Z1=0/Z2=0");
             COM.RightLightBox.MoveTo(ref VAR.gsys_set.bquit, 0, 0, 0, 0);
         }
 
@@ -778,24 +782,28 @@ namespace UI
             COM.LeftLightBox.ax_x2.SetToWorkSpd();
             COM.LeftLightBox.ax_z1.SetToWorkSpd();
             COM.LeftLightBox.ax_z2.SetToWorkSpd();
+            COM.LeftLightBox.TraceMapping("运行页定位", "按钮=左光箱远焦,目标=X1=保持/X2=300/Z1=0/Z2=0");
             COM.LeftLightBox.MoveTo(ref VAR.gsys_set.bquit, double.MaxValue, 300, 0, 0);
         }
 
         private void btn_l_naf_Click(object sender, EventArgs e)
         {
             if (COM.LeftLightBox.status == LightBox.EM_STA.UNKNOW || COM.LeftLightBox.status == LightBox.EM_STA.ERR) return;
+            COM.LeftLightBox.TraceMapping("运行页定位", "按钮=左光箱近焦,目标=X1=100/X2=保持/Z1=-500/Z2=0");
             COM.LeftLightBox.MoveTo(ref VAR.gsys_set.bquit, 100, double.MaxValue, -500, 0);
         }
 
         private void btn_l_dust_Click(object sender, EventArgs e)
         {
             if (COM.LeftLightBox.status == LightBox.EM_STA.UNKNOW || COM.LeftLightBox.status == LightBox.EM_STA.ERR) return;
+            COM.LeftLightBox.TraceMapping("运行页定位", string.Format("按钮=左光箱污坏点,目标=X1={0}/X2=保持/Z1=0/Z2=-500", COM.LeftLightBox.ax_x1.slp));
             COM.LeftLightBox.MoveTo(ref VAR.gsys_set.bquit, COM.LeftLightBox.ax_x1.slp, double.MaxValue, 0, -500);
         }
 
         private void btn_l_ready_Click(object sender, EventArgs e)
         {
             if (COM.LeftLightBox.status == LightBox.EM_STA.UNKNOW || COM.LeftLightBox.status == LightBox.EM_STA.ERR) return;
+            COM.LeftLightBox.TraceMapping("运行页定位", "按钮=左光箱暗态/准备位,目标=X1=0/X2=0/Z1=0/Z2=0");
             COM.LeftLightBox.MoveTo(ref VAR.gsys_set.bquit, 0, 0, 0, 0);
         }
 
