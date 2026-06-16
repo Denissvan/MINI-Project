@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Reflection;
@@ -118,6 +119,7 @@ namespace UI
         public string englishdisc;
         //第一次开机标志
         public bool IsFirst = true;
+        private DateTime lastJigDownPhotoTime = DateTime.MinValue;
         //第一次上料需回检
         //public bool isfirst = true;
         //错误信息
@@ -126,6 +128,18 @@ namespace UI
         public ST_XY FeedBackPos = new ST_XY();
         //当前放料工站
         public List<WS.MdDat> FeedBackWs = new List<WS.MdDat>();
+        private class AfterCloseTarget
+        {
+            public WS.MdDat Md;
+            public double X;
+
+            public AfterCloseTarget(WS.MdDat md, double x)
+            {
+                Md = md;
+                X = x;
+            }
+        }
+        private readonly List<AfterCloseTarget> afterCloseTargets = new List<AfterCloseTarget>();
         //当前放料工站位置记录
         public bool bUpdateFBPos_OKNG = false;
         //当前放料工站位置记录
@@ -1674,6 +1688,7 @@ namespace UI
                 tak.Start();
             }
 
+            CacheAfterCloseTargets();
             FeedBackWs.Clear();
             //if (barcode_err) return EM_RES.ABORT;
             return EM_RES.OK;
@@ -2490,6 +2505,7 @@ RECAP:
                 });
                 takdw.Start();
             }
+            CacheAfterCloseTargets();
             FeedBackWs.Clear();
             if (barcode_err && traybox.IsOkTray) return EM_RES.ABORT;
             return EM_RES.OK;
@@ -2994,6 +3010,50 @@ RECAP:
 
         #region 上相机定位回检
 
+        private string GetWsModShp2PhotoSavePath(Cam cam)
+        {
+            string camName = cam == null ? "CamUp" : cam.mName;
+            return Path.Combine(VAR.gsys_set.GetCurProductPath, "image", camName, "WSMOD_SHP2_LIGHT");
+        }
+
+        private void CaptureWsModShp2PhotoOnly(ref bool bquit, XT xt, ST_XY posModUpcam)
+        {
+            if (!PT_SET.bWsModShp2PhotoAfterCheck)
+            {
+                return;
+            }
+
+            if (xt == null || xt.upcam == null)
+            {
+                VAR.msg.AddMsg(Msg.EM_MSGTYPE.ERR, string.Format("{0} WsMod_Shp2附加拍照跳过，吸头或上相机为空", disc));
+                return;
+            }
+
+            try
+            {
+                VisionOutPutData resData = new VisionOutPutData();
+                EM_RES res = xt.UpCam(ref bquit, posModUpcam, CONST.WsModUpFw2, ref resData, Demo);
+                if (res != EM_RES.OK)
+                {
+                    VAR.msg.AddMsg(Msg.EM_MSGTYPE.ERR, string.Format("{0} WsMod_Shp2附加拍照失败，流程:{1}, 返回:{2}", xt.disc, CONST.WsModUpFw2, res));
+                    return;
+                }
+
+                string savePath = GetWsModShp2PhotoSavePath(xt.upcam);
+                Directory.CreateDirectory(savePath);
+                xt.upcam.SaveOriginImage(xt.upcam.curTask.Image, savePath, string.Format("{0}_{1}_{2}.jpg",
+                    DateTime.Now.ToString("yyyyMMdd"),
+                    DateTime.Now.ToString("HHmmss_fff"),
+                    CONST.WsModUpFw2));
+
+                VAR.msg.AddMsg(Msg.EM_MSGTYPE.NOR, string.Format("{0} WsMod_Shp2附加拍照完成，图片路径:{1}", xt.disc, savePath));
+            }
+            catch (Exception ex)
+            {
+                VAR.msg.AddMsg(Msg.EM_MSGTYPE.ERR, string.Format("{0} WsMod_Shp2附加拍照异常:{1}", xt.disc, ex.Message));
+            }
+        }
+
         public EM_RES UpCamBackCheck(ref bool bquit, ref WS ws, XT xt,int udid, ST_XY pos_mod_upcam, ref VisionOutPutData ResData)
         {
             //进行上相机拍照
@@ -3052,6 +3112,7 @@ RECAP:
                 }
             }
             VAR.msg.AddMsg(Msg.EM_MSGTYPE.NOR, string.Format("{0}上相机拍照完成，数据X:{1},Y:{2},Z:{3}", xt.disc, ResData.PosMM.x, ResData.PosMM.y, ResData.PosMM.a));
+            CaptureWsModShp2PhotoOnly(ref bquit, xt, pos_mod_upcam);
             //清空相机数据
             if (!upcam.FlushOk)
             {
@@ -3073,12 +3134,12 @@ RECAP:
             double right = double.MaxValue;
             double up = double.MaxValue; ;
             double down = double.MaxValue;
-            if (xt.upcam.curTask.ResData.bOK)
+            if (ResData.bOK)
             {
                 try
                 {
-                    date = upcam.curTask.ResData.Message.Split(',');
-                    VAR.msg.AddMsg(Msg.EM_MSGTYPE.NOR, string.Format("回检data数量{0}，data值:{1}，Message值:{2}", date.Length, date.ToString(),upcam.curTask.ResData.Message.ToString()));
+                    date = ResData.Message.Split(',');
+                    VAR.msg.AddMsg(Msg.EM_MSGTYPE.NOR, string.Format("回检data数量{0}，data值:{1}，Message值:{2}", date.Length, date.ToString(), ResData.Message.ToString()));
                     var ret = AreaCal(date, out left, out right, out up, out down);
                     if (ret != EM_RES.OK) return ret;              
 
@@ -3093,11 +3154,11 @@ RECAP:
                 || ((Math.Abs(down - PT_SET.DownArea) > PT_SET.Area) && PT_SET.bConnectorCheck))&&id==0)|| ((((Math.Abs(left - PT_SET.LeftArea2) > PT_SET.Area2) && PT_SET.bConnectorCheck) || ((Math.Abs(right - PT_SET.RightArea2) > PT_SET.Area2) && PT_SET.bConnectorCheck) || ((Math.Abs(up - PT_SET.UpArea2) > PT_SET.Area2) && PT_SET.bConnectorCheck)
                 || ((Math.Abs(down - PT_SET.DownArea2) > PT_SET.Area2) && PT_SET.bConnectorCheck)) && id == 1))
             {
-                xt.upcam.SaveOriginImage(xt.upcam.curTask.Image, string.Format("{0}\\image\\{1}\\BACK", VAR.gsys_set.GetCurProductPath, xt.upcam.mName), string.Format("{0}{1}.jpg",
+                xt.upcam.SaveOriginImage(ResData.OutputImg, string.Format("{0}\\image\\{1}\\BACK", VAR.gsys_set.GetCurProductPath, xt.upcam.mName), string.Format("{0}{1}.jpg",
                             DateTime.Now.ToString("yyyyMMdd"), DateTime.Now.ToString("HHmmss_fff")));
 
-                VAR.msg.AddMsg(Msg.EM_MSGTYPE.ERR, string.Format("物料放偏坐标{0}，请确认", xt.upcam.curTask.ResData.PosMM.ToString()));
-                date = upcam.curTask.ResData.Message.Split(',');
+                VAR.msg.AddMsg(Msg.EM_MSGTYPE.ERR, string.Format("物料放偏坐标{0}，请确认", ResData.PosMM.ToString()));
+                date = ResData.Message.Split(',');
                 try
                 {
                     if (date.Length < 2)
@@ -3142,7 +3203,7 @@ RECAP:
                     || ((Math.Abs(down - PT_SET.DownArea2) > PT_SET.Area2) && PT_SET.bConnectorCheck)) && id == 1))
                 {
                     VAR.msg.AddMsg(Msg.EM_MSGTYPE.NOR, string.Format("{0}上相机回检失败,存在放偏，流程为:{1}", xt.disc, CONST.WsModUpFw.ToString()));
-                    upcam.SaveOriginImage(upcam.curTask.Image, string.Format("{0}\\image\\{1}\\BACK", VAR.gsys_set.GetCurProductPath, upcam.mName), string.Format("{0}{1}.jpg",
+                    upcam.SaveOriginImage(ResData.OutputImg, string.Format("{0}\\image\\{1}\\BACK", VAR.gsys_set.GetCurProductPath, upcam.mName), string.Format("{0}{1}.jpg",
                                        DateTime.Now.ToString("yyyyMMdd"), DateTime.Now.ToString("HHmmss_fff")));
                     VAR.sys_inf.Set(EM_ALM_STA.WAR_RED_FLASH, VAR.IsChinese ? "回检失败!" : "Cam ERR", 20, true);
                     MT.ST_WARN warn = new MT.ST_WARN();
@@ -3443,36 +3504,106 @@ RECHECK:
             return EM_RES.ERR;
         }
 
+        private void CacheAfterCloseTargets()
+        {
+            if (FeedBackWs == null || FeedBackWs.Count == 0)
+            {
+                return;
+            }
+
+            foreach (WS.MdDat md in FeedBackWs)
+            {
+                AfterCloseTarget target = afterCloseTargets.FirstOrDefault(t => t.Md.Num == md.Num);
+                if (target == null)
+                {
+                    afterCloseTargets.Add(new AfterCloseTarget(md.Clone(), FeedBackPos.x));
+                }
+                else
+                {
+                    target.Md = md.Clone();
+                    target.X = FeedBackPos.x;
+                }
+            }
+            VAR.msg.AddMsg(Msg.EM_MSGTYPE.DBG, string.Format("{0} JigDownPhoto cache targets: {1}, nums: {2}", disc, afterCloseTargets.Count, string.Join(",", afterCloseTargets.Select(t => t.Md.Num))));
+        }
+
+        private void ClearAfterCloseTargets()
+        {
+            afterCloseTargets.Clear();
+        }
+
         public EM_RES UpCamAfterCloseCheck(ref bool bquit, ref WS ws)
         {
             EM_RES res = EM_RES.OK;
             VisionOutPutData resData = new VisionOutPutData();
 
-            if (!PT_SET.bJigDownPhoto || FeedBackWs == null || FeedBackWs.Count == 0)
+            try
             {
-                return EM_RES.OK;
-            }
-
-            foreach (WS.MdDat md in FeedBackWs)
-            {
-                XT xt;
-                if (md.Num > 8)
+                if (!PT_SET.bJigDownPhoto)
                 {
-                    xt = list_xt[0];
+                    VAR.msg.AddMsg(Msg.EM_MSGTYPE.DBG, string.Format("{0} JigDownPhoto skip: disabled", disc));
+                    return EM_RES.OK;
+                }
+
+                List<AfterCloseTarget> checkTargets;
+                if (FeedBackWs != null && FeedBackWs.Count > 0)
+                {
+                    checkTargets = FeedBackWs.Select(md => new AfterCloseTarget(md, FeedBackPos.x)).ToList();
                 }
                 else
                 {
-                    xt = list_xt[1];
+                    checkTargets = afterCloseTargets.ToList();
                 }
 
-                res = UpCamAfterCloseCheck(ref bquit, ref ws, xt, id, new ST_XY(FeedBackPos.x, md.st_pos[id].y), ref resData);
-                if (res != EM_RES.OK)
+                if (checkTargets.Count == 0)
                 {
-                    return res;
+                    VAR.msg.AddMsg(Msg.EM_MSGTYPE.DBG, string.Format("{0} JigDownPhoto skip: no cached targets", disc));
+                    return EM_RES.OK;
                 }
-            }
 
-            return GoZero(ref bquit, false);
+                double intervalHours = Math.Max(0, PT_SET.JigDownPhotoIntervalHours);
+                if (intervalHours > 0 && lastJigDownPhotoTime != DateTime.MinValue)
+                {
+                    TimeSpan elapsed = DateTime.Now - lastJigDownPhotoTime;
+                    if (elapsed.TotalHours < intervalHours)
+                    {
+                        VAR.msg.AddMsg(Msg.EM_MSGTYPE.DBG, string.Format("{0} JigDownPhoto skip: interval not reached, elapsed {1:F2}h, setting {2:F2}h, nums: {3}", disc, elapsed.TotalHours, intervalHours, string.Join(",", checkTargets.Select(t => t.Md.Num))));
+                        return EM_RES.OK;
+                    }
+                }
+
+                VAR.msg.AddMsg(Msg.EM_MSGTYPE.DBG, string.Format("{0} JigDownPhoto start targets: {1}, nums: {2}", disc, checkTargets.Count, string.Join(",", checkTargets.Select(t => t.Md.Num))));
+                foreach (AfterCloseTarget target in checkTargets)
+                {
+                    WS.MdDat md = target.Md;
+                    XT xt;
+                    if (md.Num > 8)
+                    {
+                        xt = list_xt[0];
+                    }
+                    else
+                    {
+                        xt = list_xt[1];
+                    }
+
+                    res = UpCamAfterCloseCheck(ref bquit, ref ws, xt, id, new ST_XY(target.X, md.st_pos[id].y), ref resData);
+                    if (res != EM_RES.OK)
+                    {
+                        return res;
+                    }
+                }
+
+                res = GoZero(ref bquit, false);
+                if (res == EM_RES.OK)
+                {
+                    lastJigDownPhotoTime = DateTime.Now;
+                }
+                return res;
+            }
+            finally
+            {
+                ClearAfterCloseTargets();
+            }
         }
         #endregion
 

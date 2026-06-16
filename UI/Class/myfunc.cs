@@ -1803,9 +1803,9 @@ namespace UI
                     //if (VAR.gsys_set.isChkMode && !bfeed)
                     //    workstation.TestStatus = WS.EM_TEST_STA.EMPTY;
                     workstation.Iserrfirstbox = true;
-                    bool readyByCompleted = bfeed && (workstation.TestStatus == WS.EM_TEST_STA.COMPLETED || workstation.bUpDnAddTestWaitUnload);
+                    bool readyByCompleted = bfeed && workstation.TestStatus == WS.EM_TEST_STA.COMPLETED;
                     bool readyByEmpty = wsenable && workstation.TestStatus == WS.EM_TEST_STA.EMPTY && !VAR.ClearMt;
-                    bool readyByFeedStatus = workstation.FeedStatus == WS.EM_STA.REDAYFORUPDOWNLOAD || workstation.bUpDnAddTestWaitUnload;
+                    bool readyByFeedStatus = workstation.FeedStatus == WS.EM_STA.REDAYFORUPDOWNLOAD;
                     int mdUntestCnt = 0;
                     int mdEmptyCnt = 0;
                     int mdResultCnt = 0;
@@ -1981,10 +1981,11 @@ namespace UI
                         //if ((workstation.TestStatus != WS.EM_TEST_STA.EMPTY)&&(!VAR.gsys_set.isChkMode||(VAR.gsys_set.isChkMode  && bchk)))
                         if (workstation.bUpDnAddTestWaitUnload)
                         {
-                            VAR.msg.AddMsg(Msg.EM_MSGTYPE.WAR, string.Format("{0} 阻止401结果后重复启动测试,等待下料消费", workstation.disc));
-                            workstation.Status = WS.EM_STA.REDAY;
+                            VAR.msg.AddMsg(Msg.EM_MSGTYPE.WAR, string.Format("{0} 清除401结果等待下料标志,允许重新启动测试", workstation.disc));
+                            workstation.bUpDnAddTestWaitUnload = false;
                         }
-                        else if (workstation.TestStatus != WS.EM_TEST_STA.EMPTY)
+
+                        if (workstation.TestStatus != WS.EM_TEST_STA.EMPTY)
                         {
                             //复位测试结果
                             workstation.ResetResultOfMd();

@@ -2913,15 +2913,6 @@ namespace UI
         bool brun = false;
         public void RunTestTask()
         {
-            if (FeedStatus == EM_STA.REDAYFORUPDOWNLOAD)
-            {
-                brun = false;
-                VAR.msg.AddMsg(Msg.EM_MSGTYPE.DBG, VAR.IsChinese
-                    ? string.Format("{0} 当前需先重新上下料，跳过创建测试线程", disc)
-                    : string.Format("{0} Updownload is required before restarting test, skip creating test thread.        ({0} 当前需先重新上下料，跳过创建测试线程)", disc));
-                return;
-            }
-
             if (TestStatus == EM_TEST_STA.EMPTY || TestStatus == EM_TEST_STA.COMPLETED)
             {
                 brun = false;
@@ -3343,17 +3334,6 @@ namespace UI
 
                         if (!bUpDnPosGoOnTest)
                         {
-                            if (pos == Turntable.EM_STA.POS0 && PT_SET.turnon && FeedStatus == EM_STA.REDAYFORUPDOWNLOAD)
-                            {
-                                VAR.msg.AddMsg(Msg.EM_MSGTYPE.DBG,
-                                    VAR.IsChinese
-                                        ? string.Format("{0} 当前处于待上下料态，恢复后禁止在POS0提前启动测试", disc)
-                                        : string.Format("{0} skip StartTestFlow at POS0 because FeedStatus is REDAYFORUPDOWNLOAD after resume", disc));
-                                res = EM_RES.OK;
-                                Status = EM_STA.REDAY;
-                                break;
-                            }
-
                             VAR.msg.AddMsg(Msg.EM_MSGTYPE.DBG, VAR.IsChinese ? string.Format("{0} 启动测试", disc) : string.Format("{0} StartTestFlow       ({0} 启动测试)", disc));
                             if (pos == Turntable.EM_STA.POS0 && PT_SET.turnon)
                             {
@@ -3978,7 +3958,7 @@ namespace UI
                                             }
                                         }
 
-                               
+
                                     }
 
                                     if (PT_SET.AFC_luxcct_check_open && pos1.Name.Contains("色温"))

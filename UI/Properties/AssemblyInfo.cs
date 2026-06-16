@@ -6,7 +6,7 @@ using System.Runtime.InteropServices;
 // 控制。更改这些特性值可修改
 // 与程序集关联的信息。
 [assembly: AssemblyTitle("WLTmini")]
-[assembly: AssemblyDescription("3.0.0.1测试版")]
+[assembly: AssemblyDescription("3.0.0.5测试版")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("Sunny")]
 [assembly: AssemblyProduct("WLTmini")]
@@ -72,5 +72,5 @@ using System.Runtime.InteropServices;
 //2448 增加开图延时时间
 
 //[assembly: AssemblyVersion("1.0.*")]
-[assembly: AssemblyVersion("3.0.0.2")]
-[assembly: AssemblyFileVersion("3.0.0.2")]
+[assembly: AssemblyVersion("3.0.0.5")]
+[assembly: AssemblyFileVersion("3.0.0.5")]

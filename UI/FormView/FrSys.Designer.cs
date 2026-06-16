@@ -651,6 +651,9 @@ namespace UI
             this.label95 = new System.Windows.Forms.Label();
             this.cbafccloseair = new System.Windows.Forms.CheckBox();
             this.groupBox75 = new System.Windows.Forms.GroupBox();
+            this.ckWsModShp2PhotoAfterCheck = new System.Windows.Forms.CheckBox();
+            this.nudJigDownPhotoIntervalHours = new System.Windows.Forms.NumericUpDown();
+            this.lblJigDownPhotoIntervalHours = new System.Windows.Forms.Label();
             this.ckJigDownPhoto = new System.Windows.Forms.CheckBox();
             this.groupBox72 = new System.Windows.Forms.GroupBox();
             this.ckcloseazd = new System.Windows.Forms.CheckBox();
@@ -918,6 +921,7 @@ namespace UI
             this.groupBox73.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numafc)).BeginInit();
             this.groupBox75.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.nudJigDownPhotoIntervalHours)).BeginInit();
             this.groupBox72.SuspendLayout();
             this.groupBox71.SuspendLayout();
             this.groupBox70.SuspendLayout();
@@ -959,7 +963,7 @@ namespace UI
             // 
             this.panel2.Controls.Add(this.ctb_sys);
             this.panel2.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panel2.Font = new System.Drawing.Font("ÂÆã‰Ωì", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.panel2.Font = new System.Drawing.Font("ÀŒÃÂ", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.panel2.Location = new System.Drawing.Point(3, 3);
             this.panel2.Name = "panel2";
             this.panel2.Size = new System.Drawing.Size(1380, 874);
@@ -977,7 +981,7 @@ namespace UI
             this.ctb_sys.Controls.Add(this.tp_calc);
             this.ctb_sys.Controls.Add(this.tbpgVinfo);
             this.ctb_sys.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.ctb_sys.Font = new System.Drawing.Font("ÂÆã‰Ωì", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.ctb_sys.Font = new System.Drawing.Font("ÀŒÃÂ", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.ctb_sys.HeaderBackColor = System.Drawing.Color.Transparent;
             this.ctb_sys.HeadSelectedBorderColor = System.Drawing.Color.Transparent;
             this.ctb_sys.ItemSize = new System.Drawing.Size(200, 200);
@@ -997,13 +1001,13 @@ namespace UI
             this.tp_card.Name = "tp_card";
             this.tp_card.Size = new System.Drawing.Size(1172, 866);
             this.tp_card.TabIndex = 6;
-            this.tp_card.Text = "ÊùøÂç°Áä∂ÊÄÅ";
+            this.tp_card.Text = "∞Âø®◊¥Ã¨";
             this.tp_card.UseVisualStyleBackColor = true;
             // 
             // lb_card_update_ms
             // 
             this.lb_card_update_ms.AutoSize = true;
-            this.lb_card_update_ms.Font = new System.Drawing.Font("ÂÆã‰Ωì", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.lb_card_update_ms.Font = new System.Drawing.Font("ÀŒÃÂ", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.lb_card_update_ms.ForeColor = System.Drawing.SystemColors.ControlDark;
             this.lb_card_update_ms.Location = new System.Drawing.Point(1016, 22);
             this.lb_card_update_ms.Name = "lb_card_update_ms";
@@ -1043,7 +1047,7 @@ namespace UI
             this.tp_axis.Name = "tp_axis";
             this.tp_axis.Size = new System.Drawing.Size(1172, 866);
             this.tp_axis.TabIndex = 2;
-            this.tp_axis.Text = "ËΩ¥ÂèÇÊï∞  ";
+            this.tp_axis.Text = "÷·≤Œ ˝  ";
             this.tp_axis.UseVisualStyleBackColor = true;
             // 
             // btn_update_card
@@ -1053,7 +1057,7 @@ namespace UI
             this.btn_update_card.Name = "btn_update_card";
             this.btn_update_card.Size = new System.Drawing.Size(175, 71);
             this.btn_update_card.TabIndex = 26;
-            this.btn_update_card.Text = "Êõ¥Êñ∞Âà∞ÊéßÂà∂Âô®";
+            this.btn_update_card.Text = "∏¸–¬µΩøÿ÷∆∆˜";
             this.btn_update_card.UseVisualStyleBackColor = false;
             this.btn_update_card.Click += new System.EventHandler(this.btn_update_card_Click);
             // 
@@ -1064,14 +1068,14 @@ namespace UI
             this.btn_stop.Name = "btn_stop";
             this.btn_stop.Size = new System.Drawing.Size(134, 71);
             this.btn_stop.TabIndex = 25;
-            this.btn_stop.Text = "ÂÅúÊ≠¢";
+            this.btn_stop.Text = "Õ£÷π";
             this.btn_stop.UseVisualStyleBackColor = false;
             this.btn_stop.Click += new System.EventHandler(this.btn_stop_Click);
             // 
             // lb_ax_update_ms
             // 
             this.lb_ax_update_ms.AutoSize = true;
-            this.lb_ax_update_ms.Font = new System.Drawing.Font("ÂÆã‰Ωì", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.lb_ax_update_ms.Font = new System.Drawing.Font("ÀŒÃÂ", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.lb_ax_update_ms.ForeColor = System.Drawing.SystemColors.ControlDark;
             this.lb_ax_update_ms.Location = new System.Drawing.Point(1003, 61);
             this.lb_ax_update_ms.Name = "lb_ax_update_ms";
@@ -1107,7 +1111,7 @@ namespace UI
             this.ctp_ax_udl1.Padding = new System.Windows.Forms.Padding(3);
             this.ctp_ax_udl1.Size = new System.Drawing.Size(1030, 0);
             this.ctp_ax_udl1.TabIndex = 0;
-            this.ctp_ax_udl1.Text = "‰∏ä‰∏ãÊñô1    ";
+            this.ctp_ax_udl1.Text = "…œœ¬¡œ1    ";
             this.ctp_ax_udl1.UseVisualStyleBackColor = true;
             // 
             // ctp_ax_udl2
@@ -1117,7 +1121,7 @@ namespace UI
             this.ctp_ax_udl2.Padding = new System.Windows.Forms.Padding(3);
             this.ctp_ax_udl2.Size = new System.Drawing.Size(1030, 0);
             this.ctp_ax_udl2.TabIndex = 1;
-            this.ctp_ax_udl2.Text = "‰∏ä‰∏ãÊñô2      ";
+            this.ctp_ax_udl2.Text = "…œœ¬¡œ2      ";
             this.ctp_ax_udl2.UseVisualStyleBackColor = true;
             // 
             // ctp_ax_lc
@@ -1126,7 +1130,7 @@ namespace UI
             this.ctp_ax_lc.Name = "ctp_ax_lc";
             this.ctp_ax_lc.Size = new System.Drawing.Size(1030, 0);
             this.ctp_ax_lc.TabIndex = 10;
-            this.ctp_ax_lc.Text = "Êñô‰ªì    ";
+            this.ctp_ax_lc.Text = "¡œ≤÷    ";
             this.ctp_ax_lc.UseVisualStyleBackColor = true;
             // 
             // ctp_ax_box_left
@@ -1135,7 +1139,7 @@ namespace UI
             this.ctp_ax_box_left.Name = "ctp_ax_box_left";
             this.ctp_ax_box_left.Size = new System.Drawing.Size(1030, 0);
             this.ctp_ax_box_left.TabIndex = 2;
-            this.ctp_ax_box_left.Text = "Â∑¶ÂÖâÁÆ±    ";
+            this.ctp_ax_box_left.Text = "◊Ûπ‚œ‰    ";
             this.ctp_ax_box_left.UseVisualStyleBackColor = true;
             // 
             // ctp_ax_box_right
@@ -1144,7 +1148,7 @@ namespace UI
             this.ctp_ax_box_right.Name = "ctp_ax_box_right";
             this.ctp_ax_box_right.Size = new System.Drawing.Size(1030, 0);
             this.ctp_ax_box_right.TabIndex = 3;
-            this.ctp_ax_box_right.Text = "Âè≥ÂÖâÁÆ±    ";
+            this.ctp_ax_box_right.Text = "”“π‚œ‰    ";
             this.ctp_ax_box_right.UseVisualStyleBackColor = true;
             // 
             // ctp_ax_otp
@@ -1153,7 +1157,7 @@ namespace UI
             this.ctp_ax_otp.Name = "ctp_ax_otp";
             this.ctp_ax_otp.Size = new System.Drawing.Size(1030, 0);
             this.ctp_ax_otp.TabIndex = 9;
-            this.ctp_ax_otp.Text = "OTPÂÖâÁÆ±    ";
+            this.ctp_ax_otp.Text = "OTPπ‚œ‰    ";
             this.ctp_ax_otp.UseVisualStyleBackColor = true;
             // 
             // ctp_ax_ws
@@ -1162,7 +1166,7 @@ namespace UI
             this.ctp_ax_ws.Name = "ctp_ax_ws";
             this.ctp_ax_ws.Size = new System.Drawing.Size(1030, 0);
             this.ctp_ax_ws.TabIndex = 4;
-            this.ctp_ax_ws.Text = "Â∑•Á´ôÊóãËΩ¨    ";
+            this.ctp_ax_ws.Text = "π§’æ–˝◊™    ";
             this.ctp_ax_ws.UseVisualStyleBackColor = true;
             // 
             // ctp_ax_all
@@ -1171,30 +1175,30 @@ namespace UI
             this.ctp_ax_all.Name = "ctp_ax_all";
             this.ctp_ax_all.Size = new System.Drawing.Size(1030, 0);
             this.ctp_ax_all.TabIndex = 8;
-            this.ctp_ax_all.Text = "ÊâÄÊúâËΩ¥    ";
+            this.ctp_ax_all.Text = "À˘”–÷·    ";
             this.ctp_ax_all.UseVisualStyleBackColor = true;
             // 
             // label_ax_table
             // 
             this.label_ax_table.AutoSize = true;
-            this.label_ax_table.Font = new System.Drawing.Font("ÂÆã‰Ωì", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.label_ax_table.Font = new System.Drawing.Font("ÀŒÃÂ", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.label_ax_table.ForeColor = System.Drawing.Color.Gray;
             this.label_ax_table.Location = new System.Drawing.Point(26, 61);
             this.label_ax_table.Name = "label_ax_table";
             this.label_ax_table.Size = new System.Drawing.Size(55, 16);
             this.label_ax_table.TabIndex = 22;
-            this.label_ax_table.Text = "ËΩ¥Ë∞ÉËØï";
+            this.label_ax_table.Text = "÷·µ˜ ‘";
             // 
             // label10
             // 
             this.label10.AutoSize = true;
-            this.label10.Font = new System.Drawing.Font("ÂÆã‰Ωì", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.label10.Font = new System.Drawing.Font("ÀŒÃÂ", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.label10.ForeColor = System.Drawing.Color.Gray;
             this.label10.Location = new System.Drawing.Point(26, 421);
             this.label10.Name = "label10";
             this.label10.Size = new System.Drawing.Size(55, 16);
             this.label10.TabIndex = 21;
-            this.label10.Text = "ËΩ¥ÂèÇÊï∞";
+            this.label10.Text = "÷·≤Œ ˝";
             // 
             // btn_load_axis_cfg
             // 
@@ -1203,7 +1207,7 @@ namespace UI
             this.btn_load_axis_cfg.Name = "btn_load_axis_cfg";
             this.btn_load_axis_cfg.Size = new System.Drawing.Size(134, 71);
             this.btn_load_axis_cfg.TabIndex = 20;
-            this.btn_load_axis_cfg.Text = "Âä†ËΩΩ";
+            this.btn_load_axis_cfg.Text = "º”‘ÿ";
             this.btn_load_axis_cfg.UseVisualStyleBackColor = false;
             this.btn_load_axis_cfg.Click += new System.EventHandler(this.btn_load_axis_cfg_Click);
             // 
@@ -1214,7 +1218,7 @@ namespace UI
             this.btn_save_axis_cfg.Name = "btn_save_axis_cfg";
             this.btn_save_axis_cfg.Size = new System.Drawing.Size(134, 71);
             this.btn_save_axis_cfg.TabIndex = 19;
-            this.btn_save_axis_cfg.Text = "‰øùÂ≠ò";
+            this.btn_save_axis_cfg.Text = "±£¥Ê";
             this.btn_save_axis_cfg.UseVisualStyleBackColor = false;
             this.btn_save_axis_cfg.Click += new System.EventHandler(this.btn_save_axis_cfg_Click);
             // 
@@ -1261,7 +1265,7 @@ namespace UI
             this.tp_gpio.Padding = new System.Windows.Forms.Padding(3);
             this.tp_gpio.Size = new System.Drawing.Size(1172, 866);
             this.tp_gpio.TabIndex = 0;
-            this.tp_gpio.Text = "ËæìÂÖ•ËæìÂá∫";
+            this.tp_gpio.Text = " ‰»Î ‰≥ˆ";
             this.tp_gpio.UseVisualStyleBackColor = true;
             // 
             // ctb_io_type
@@ -1287,7 +1291,7 @@ namespace UI
             this.tp_out.Padding = new System.Windows.Forms.Padding(3);
             this.tp_out.Size = new System.Drawing.Size(965, 0);
             this.tp_out.TabIndex = 0;
-            this.tp_out.Text = "ËæìÂá∫      ";
+            this.tp_out.Text = " ‰≥ˆ      ";
             this.tp_out.UseVisualStyleBackColor = true;
             // 
             // tp_in
@@ -1297,7 +1301,7 @@ namespace UI
             this.tp_in.Padding = new System.Windows.Forms.Padding(3);
             this.tp_in.Size = new System.Drawing.Size(965, 0);
             this.tp_in.TabIndex = 1;
-            this.tp_in.Text = "ËæìÂÖ•      ";
+            this.tp_in.Text = " ‰»Î      ";
             this.tp_in.UseVisualStyleBackColor = true;
             // 
             // tp_cy
@@ -1306,13 +1310,13 @@ namespace UI
             this.tp_cy.Name = "tp_cy";
             this.tp_cy.Size = new System.Drawing.Size(965, 0);
             this.tp_cy.TabIndex = 2;
-            this.tp_cy.Text = "Ê∞îÁº∏/ÁªÑÂêà      ";
+            this.tp_cy.Text = "∆¯∏◊/◊È∫œ      ";
             this.tp_cy.UseVisualStyleBackColor = true;
             // 
             // lb_io_update_ms
             // 
             this.lb_io_update_ms.AutoSize = true;
-            this.lb_io_update_ms.Font = new System.Drawing.Font("ÂÆã‰Ωì", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.lb_io_update_ms.Font = new System.Drawing.Font("ÀŒÃÂ", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.lb_io_update_ms.ForeColor = System.Drawing.SystemColors.ControlDark;
             this.lb_io_update_ms.Location = new System.Drawing.Point(1008, 28);
             this.lb_io_update_ms.Name = "lb_io_update_ms";
@@ -1364,7 +1368,7 @@ namespace UI
             this.tp_sysparm.Name = "tp_sysparm";
             this.tp_sysparm.Size = new System.Drawing.Size(1172, 866);
             this.tp_sysparm.TabIndex = 4;
-            this.tp_sysparm.Text = "ÂèÇÊï∞ËÆæÁΩÆ";
+            this.tp_sysparm.Text = "≤Œ ˝…Ë÷√";
             this.tp_sysparm.UseVisualStyleBackColor = true;
             // 
             // ctb_SetParm
@@ -1422,7 +1426,7 @@ namespace UI
             this.tp_setparm_1.Padding = new System.Windows.Forms.Padding(3);
             this.tp_setparm_1.Size = new System.Drawing.Size(1164, 818);
             this.tp_setparm_1.TabIndex = 0;
-            this.tp_setparm_1.Text = "ÂèÇÊï∞1(Â∏∏Áî®)      ";
+            this.tp_setparm_1.Text = "≤Œ ˝1(≥£”√)      ";
             this.tp_setparm_1.UseVisualStyleBackColor = true;
             // 
             // groupBox69
@@ -1430,18 +1434,18 @@ namespace UI
             this.groupBox69.Controls.Add(this.nummagic);
             this.groupBox69.Controls.Add(this.label90);
             this.groupBox69.Controls.Add(this.checkmagic);
-            this.groupBox69.Font = new System.Drawing.Font("ÂÆã‰Ωì", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.groupBox69.Font = new System.Drawing.Font("ÀŒÃÂ", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.groupBox69.Location = new System.Drawing.Point(755, 288);
             this.groupBox69.Name = "groupBox69";
             this.groupBox69.Size = new System.Drawing.Size(284, 61);
             this.groupBox69.TabIndex = 150;
             this.groupBox69.TabStop = false;
-            this.groupBox69.Text = "ÂØºÁ£ÅÁâáÊ£ÄÊµãËÆæÁΩÆ";
+            this.groupBox69.Text = "µº¥≈∆¨ºÏ≤‚…Ë÷√";
             // 
             // nummagic
             // 
             this.nummagic.DecimalPlaces = 2;
-            this.nummagic.Font = new System.Drawing.Font("ÂÆã‰Ωì", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.nummagic.Font = new System.Drawing.Font("ÀŒÃÂ", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.nummagic.Increment = new decimal(new int[] {
             1,
             0,
@@ -1466,22 +1470,22 @@ namespace UI
             // label90
             // 
             this.label90.AutoSize = true;
-            this.label90.Font = new System.Drawing.Font("ÂÆã‰Ωì", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.label90.Font = new System.Drawing.Font("ÀŒÃÂ", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.label90.Location = new System.Drawing.Point(69, 29);
             this.label90.Name = "label90";
             this.label90.Size = new System.Drawing.Size(111, 16);
             this.label90.TabIndex = 2;
-            this.label90.Text = "ÊäΩÊ£ÄÈó¥ÈöîÊ¨°Êï∞:";
+            this.label90.Text = "≥ÈºÏº‰∏Ù¥Œ ˝:";
             // 
             // checkmagic
             // 
             this.checkmagic.AutoSize = true;
-            this.checkmagic.Font = new System.Drawing.Font("ÂÆã‰Ωì", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.checkmagic.Font = new System.Drawing.Font("ÀŒÃÂ", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.checkmagic.Location = new System.Drawing.Point(9, 28);
             this.checkmagic.Name = "checkmagic";
             this.checkmagic.Size = new System.Drawing.Size(58, 20);
             this.checkmagic.TabIndex = 1;
-            this.checkmagic.Text = "ÂºÄÂêØ";
+            this.checkmagic.Text = "ø™∆Ù";
             this.checkmagic.UseVisualStyleBackColor = true;
             // 
             // cbisaloneset
@@ -1491,7 +1495,7 @@ namespace UI
             this.cbisaloneset.Name = "cbisaloneset";
             this.cbisaloneset.Size = new System.Drawing.Size(271, 26);
             this.cbisaloneset.TabIndex = 149;
-            this.cbisaloneset.Text = "ÊñôÁõòÂèñÊñô‰∏çÊâ´Á†ÅÂ∑•Á´ôÊâ´Á†Å";
+            this.cbisaloneset.Text = "¡œ≈Ã»°¡œ≤ª…®¬Îπ§’æ…®¬Î";
             this.cbisaloneset.UseVisualStyleBackColor = true;
             // 
             // groupBox63
@@ -1523,13 +1527,13 @@ namespace UI
             this.groupBox63.Controls.Add(this.boxCheckpos1X);
             this.groupBox63.Controls.Add(this.rbtn_boxCheckOff);
             this.groupBox63.Controls.Add(this.rbtn_boxCheckEn);
-            this.groupBox63.Font = new System.Drawing.Font("ÂÆã‰Ωì", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.groupBox63.Font = new System.Drawing.Font("ÀŒÃÂ", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.groupBox63.Location = new System.Drawing.Point(435, 701);
             this.groupBox63.Name = "groupBox63";
             this.groupBox63.Size = new System.Drawing.Size(467, 178);
             this.groupBox63.TabIndex = 148;
             this.groupBox63.TabStop = false;
-            this.groupBox63.Text = "Â§πÂÖ∑ÂÆâË£ÖÈò≤ÂëÜÊ£ÄÊµãËÆæÁΩÆ";
+            this.groupBox63.Text = "º–æﬂ∞≤◊∞∑¿¥ÙºÏ≤‚…Ë÷√";
             // 
             // label76
             // 
@@ -1538,13 +1542,13 @@ namespace UI
             this.label76.Name = "label76";
             this.label76.Size = new System.Drawing.Size(56, 14);
             this.label76.TabIndex = 150;
-            this.label76.Text = "ÁÆ°ÊéßÂÄº:";
+            this.label76.Text = "π‹øÿ÷µ:";
             // 
             // boxChecksetvalue
             // 
             this.boxChecksetvalue.BackColor = System.Drawing.Color.PeachPuff;
             this.boxChecksetvalue.DecimalPlaces = 2;
-            this.boxChecksetvalue.Font = new System.Drawing.Font("ÂÆã‰Ωì", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.boxChecksetvalue.Font = new System.Drawing.Font("ÀŒÃÂ", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.boxChecksetvalue.Increment = new decimal(new int[] {
             1,
             0,
@@ -1573,7 +1577,7 @@ namespace UI
             this.buttonboxchecklearn2.Name = "buttonboxchecklearn2";
             this.buttonboxchecklearn2.Size = new System.Drawing.Size(67, 26);
             this.buttonboxchecklearn2.TabIndex = 148;
-            this.buttonboxchecklearn2.Text = "Â≠¶‰π†";
+            this.buttonboxchecklearn2.Text = "—ßœ∞";
             this.buttonboxchecklearn2.UseVisualStyleBackColor = false;
             this.buttonboxchecklearn2.Click += new System.EventHandler(this.buttonboxchecklearn2_Click);
             // 
@@ -1584,7 +1588,7 @@ namespace UI
             this.buttonboxcheckmove2.Name = "buttonboxcheckmove2";
             this.buttonboxcheckmove2.Size = new System.Drawing.Size(67, 26);
             this.buttonboxcheckmove2.TabIndex = 147;
-            this.buttonboxcheckmove2.Text = "ÂÆö‰Ωç";
+            this.buttonboxcheckmove2.Text = "∂®Œª";
             this.buttonboxcheckmove2.UseVisualStyleBackColor = false;
             this.buttonboxcheckmove2.Click += new System.EventHandler(this.buttonboxcheckmove2_Click);
             // 
@@ -1595,7 +1599,7 @@ namespace UI
             this.buttonboxchecklearn.Name = "buttonboxchecklearn";
             this.buttonboxchecklearn.Size = new System.Drawing.Size(67, 26);
             this.buttonboxchecklearn.TabIndex = 146;
-            this.buttonboxchecklearn.Text = "Â≠¶‰π†";
+            this.buttonboxchecklearn.Text = "—ßœ∞";
             this.buttonboxchecklearn.UseVisualStyleBackColor = false;
             this.buttonboxchecklearn.Click += new System.EventHandler(this.buttonboxchecklearn_Click);
             // 
@@ -1606,7 +1610,7 @@ namespace UI
             this.buttonboxcheckmove.Name = "buttonboxcheckmove";
             this.buttonboxcheckmove.Size = new System.Drawing.Size(67, 26);
             this.buttonboxcheckmove.TabIndex = 145;
-            this.buttonboxcheckmove.Text = "ÂÆö‰Ωç";
+            this.buttonboxcheckmove.Text = "∂®Œª";
             this.buttonboxcheckmove.UseVisualStyleBackColor = false;
             this.buttonboxcheckmove.Click += new System.EventHandler(this.buttonboxcheckmove_Click);
             // 
@@ -1617,12 +1621,12 @@ namespace UI
             this.label65.Name = "label65";
             this.label65.Size = new System.Drawing.Size(63, 14);
             this.label65.TabIndex = 144;
-            this.label65.Text = "ÊØîÂØπÂÄºX:";
+            this.label65.Text = "±»∂‘÷µX:";
             // 
             // boxChecksetpos4
             // 
             this.boxChecksetpos4.DecimalPlaces = 2;
-            this.boxChecksetpos4.Font = new System.Drawing.Font("ÂÆã‰Ωì", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.boxChecksetpos4.Font = new System.Drawing.Font("ÀŒÃÂ", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.boxChecksetpos4.Increment = new decimal(new int[] {
             1,
             0,
@@ -1642,7 +1646,7 @@ namespace UI
             // boxChecksetpos3
             // 
             this.boxChecksetpos3.DecimalPlaces = 2;
-            this.boxChecksetpos3.Font = new System.Drawing.Font("ÂÆã‰Ωì", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.boxChecksetpos3.Font = new System.Drawing.Font("ÀŒÃÂ", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.boxChecksetpos3.Increment = new decimal(new int[] {
             1,
             0,
@@ -1662,7 +1666,7 @@ namespace UI
             // boxChecksetpos2
             // 
             this.boxChecksetpos2.DecimalPlaces = 2;
-            this.boxChecksetpos2.Font = new System.Drawing.Font("ÂÆã‰Ωì", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.boxChecksetpos2.Font = new System.Drawing.Font("ÀŒÃÂ", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.boxChecksetpos2.Increment = new decimal(new int[] {
             1,
             0,
@@ -1682,7 +1686,7 @@ namespace UI
             // boxChecksetpos1
             // 
             this.boxChecksetpos1.DecimalPlaces = 2;
-            this.boxChecksetpos1.Font = new System.Drawing.Font("ÂÆã‰Ωì", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.boxChecksetpos1.Font = new System.Drawing.Font("ÀŒÃÂ", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.boxChecksetpos1.Increment = new decimal(new int[] {
             1,
             0,
@@ -1706,7 +1710,7 @@ namespace UI
             this.label64.Name = "label64";
             this.label64.Size = new System.Drawing.Size(42, 14);
             this.label64.TabIndex = 139;
-            this.label64.Text = "‰ΩçÁΩÆ4";
+            this.label64.Text = "Œª÷√4";
             // 
             // label63
             // 
@@ -1715,7 +1719,7 @@ namespace UI
             this.label63.Name = "label63";
             this.label63.Size = new System.Drawing.Size(42, 14);
             this.label63.TabIndex = 138;
-            this.label63.Text = "‰ΩçÁΩÆ3";
+            this.label63.Text = "Œª÷√3";
             // 
             // label62
             // 
@@ -1724,7 +1728,7 @@ namespace UI
             this.label62.Name = "label62";
             this.label62.Size = new System.Drawing.Size(42, 14);
             this.label62.TabIndex = 137;
-            this.label62.Text = "‰ΩçÁΩÆ2";
+            this.label62.Text = "Œª÷√2";
             // 
             // label61
             // 
@@ -1733,7 +1737,7 @@ namespace UI
             this.label61.Name = "label61";
             this.label61.Size = new System.Drawing.Size(42, 14);
             this.label61.TabIndex = 136;
-            this.label61.Text = "‰ΩçÁΩÆ1";
+            this.label61.Text = "Œª÷√1";
             // 
             // label58
             // 
@@ -1756,7 +1760,7 @@ namespace UI
             // boxCheckpos4Y
             // 
             this.boxCheckpos4Y.DecimalPlaces = 2;
-            this.boxCheckpos4Y.Font = new System.Drawing.Font("ÂÆã‰Ωì", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.boxCheckpos4Y.Font = new System.Drawing.Font("ÀŒÃÂ", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.boxCheckpos4Y.Increment = new decimal(new int[] {
             1,
             0,
@@ -1781,7 +1785,7 @@ namespace UI
             // boxCheckpos3Y
             // 
             this.boxCheckpos3Y.DecimalPlaces = 2;
-            this.boxCheckpos3Y.Font = new System.Drawing.Font("ÂÆã‰Ωì", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.boxCheckpos3Y.Font = new System.Drawing.Font("ÀŒÃÂ", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.boxCheckpos3Y.Increment = new decimal(new int[] {
             1,
             0,
@@ -1806,7 +1810,7 @@ namespace UI
             // boxCheckpos2Y
             // 
             this.boxCheckpos2Y.DecimalPlaces = 2;
-            this.boxCheckpos2Y.Font = new System.Drawing.Font("ÂÆã‰Ωì", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.boxCheckpos2Y.Font = new System.Drawing.Font("ÀŒÃÂ", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.boxCheckpos2Y.Increment = new decimal(new int[] {
             1,
             0,
@@ -1831,7 +1835,7 @@ namespace UI
             // boxCheckpos1Y
             // 
             this.boxCheckpos1Y.DecimalPlaces = 2;
-            this.boxCheckpos1Y.Font = new System.Drawing.Font("ÂÆã‰Ωì", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.boxCheckpos1Y.Font = new System.Drawing.Font("ÀŒÃÂ", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.boxCheckpos1Y.Increment = new decimal(new int[] {
             1,
             0,
@@ -1856,7 +1860,7 @@ namespace UI
             // boxCheckpos4X
             // 
             this.boxCheckpos4X.DecimalPlaces = 2;
-            this.boxCheckpos4X.Font = new System.Drawing.Font("ÂÆã‰Ωì", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.boxCheckpos4X.Font = new System.Drawing.Font("ÀŒÃÂ", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.boxCheckpos4X.Increment = new decimal(new int[] {
             1,
             0,
@@ -1881,7 +1885,7 @@ namespace UI
             // boxCheckpos3X
             // 
             this.boxCheckpos3X.DecimalPlaces = 2;
-            this.boxCheckpos3X.Font = new System.Drawing.Font("ÂÆã‰Ωì", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.boxCheckpos3X.Font = new System.Drawing.Font("ÀŒÃÂ", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.boxCheckpos3X.Increment = new decimal(new int[] {
             1,
             0,
@@ -1906,7 +1910,7 @@ namespace UI
             // boxCheckpos2X
             // 
             this.boxCheckpos2X.DecimalPlaces = 2;
-            this.boxCheckpos2X.Font = new System.Drawing.Font("ÂÆã‰Ωì", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.boxCheckpos2X.Font = new System.Drawing.Font("ÀŒÃÂ", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.boxCheckpos2X.Increment = new decimal(new int[] {
             1,
             0,
@@ -1931,7 +1935,7 @@ namespace UI
             // boxCheckpos1X
             // 
             this.boxCheckpos1X.DecimalPlaces = 2;
-            this.boxCheckpos1X.Font = new System.Drawing.Font("ÂÆã‰Ωì", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.boxCheckpos1X.Font = new System.Drawing.Font("ÀŒÃÂ", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.boxCheckpos1X.Increment = new decimal(new int[] {
             1,
             0,
@@ -1964,7 +1968,7 @@ namespace UI
             this.rbtn_boxCheckOff.Name = "rbtn_boxCheckOff";
             this.rbtn_boxCheckOff.Size = new System.Drawing.Size(128, 30);
             this.rbtn_boxCheckOff.TabIndex = 126;
-            this.rbtn_boxCheckOff.Text = "ÂÖ≥Èó≠";
+            this.rbtn_boxCheckOff.Text = "πÿ±’";
             this.rbtn_boxCheckOff.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             this.rbtn_boxCheckOff.UseVisualStyleBackColor = true;
             // 
@@ -1981,25 +1985,25 @@ namespace UI
             this.rbtn_boxCheckEn.Size = new System.Drawing.Size(128, 30);
             this.rbtn_boxCheckEn.TabIndex = 124;
             this.rbtn_boxCheckEn.TabStop = true;
-            this.rbtn_boxCheckEn.Text = "ÂºÄÂêØ";
+            this.rbtn_boxCheckEn.Text = "ø™∆Ù";
             this.rbtn_boxCheckEn.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             this.rbtn_boxCheckEn.UseVisualStyleBackColor = true;
             // 
             // groupBox60
             // 
             this.groupBox60.Controls.Add(this.safepos);
-            this.groupBox60.Font = new System.Drawing.Font("ÂÆã‰Ωì", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.groupBox60.Font = new System.Drawing.Font("ÀŒÃÂ", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.groupBox60.Location = new System.Drawing.Point(605, 589);
             this.groupBox60.Name = "groupBox60";
             this.groupBox60.Size = new System.Drawing.Size(139, 106);
             this.groupBox60.TabIndex = 147;
             this.groupBox60.TabStop = false;
-            this.groupBox60.Text = "ÂÆâÂÖ®‰ΩçÁΩÆXÔºàMMÔºâ";
+            this.groupBox60.Text = "∞≤»´Œª÷√X£®MM£©";
             // 
             // safepos
             // 
             this.safepos.DecimalPlaces = 1;
-            this.safepos.Font = new System.Drawing.Font("ÂÆã‰Ωì", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.safepos.Font = new System.Drawing.Font("ÀŒÃÂ", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.safepos.Location = new System.Drawing.Point(28, 50);
             this.safepos.Name = "safepos";
             this.safepos.Size = new System.Drawing.Size(73, 32);
@@ -2009,18 +2013,18 @@ namespace UI
             // groupBox44
             // 
             this.groupBox44.Controls.Add(this.nud_TestTime);
-            this.groupBox44.Font = new System.Drawing.Font("ÂÆã‰Ωì", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.groupBox44.Font = new System.Drawing.Font("ÀŒÃÂ", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.groupBox44.Location = new System.Drawing.Point(433, 589);
             this.groupBox44.Name = "groupBox44";
             this.groupBox44.Size = new System.Drawing.Size(166, 108);
             this.groupBox44.TabIndex = 146;
             this.groupBox44.TabStop = false;
-            this.groupBox44.Text = "ÊúÄÂ§ßÊµãËØïÊó∂Èó¥ÔºàÊØ´ÁßíÔºâ";
+            this.groupBox44.Text = "◊Ó¥Û≤‚ ‘ ±º‰£®∫¡√Î£©";
             // 
             // nud_TestTime
             // 
             this.nud_TestTime.DecimalPlaces = 1;
-            this.nud_TestTime.Font = new System.Drawing.Font("ÂÆã‰Ωì", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.nud_TestTime.Font = new System.Drawing.Font("ÀŒÃÂ", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.nud_TestTime.Location = new System.Drawing.Point(16, 50);
             this.nud_TestTime.Maximum = new decimal(new int[] {
             90000000,
@@ -2045,18 +2049,18 @@ namespace UI
             // groupBox39
             // 
             this.groupBox39.Controls.Add(this.nud_JigSendTime);
-            this.groupBox39.Font = new System.Drawing.Font("ÂÆã‰Ωì", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.groupBox39.Font = new System.Drawing.Font("ÀŒÃÂ", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.groupBox39.Location = new System.Drawing.Point(314, 587);
             this.groupBox39.Name = "groupBox39";
             this.groupBox39.Size = new System.Drawing.Size(113, 110);
             this.groupBox39.TabIndex = 145;
             this.groupBox39.TabStop = false;
-            this.groupBox39.Text = "Â§πÂÖ∑‰∏äÊä•È¢ëÊ¨°ÔºàÂàÜÈíüÔºâ";
+            this.groupBox39.Text = "º–æﬂ…œ±®∆µ¥Œ£®∑÷÷”£©";
             // 
             // nud_JigSendTime
             // 
             this.nud_JigSendTime.DecimalPlaces = 1;
-            this.nud_JigSendTime.Font = new System.Drawing.Font("ÂÆã‰Ωì", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.nud_JigSendTime.Font = new System.Drawing.Font("ÀŒÃÂ", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.nud_JigSendTime.Location = new System.Drawing.Point(16, 52);
             this.nud_JigSendTime.Maximum = new decimal(new int[] {
             200,
@@ -2085,19 +2089,19 @@ namespace UI
             this.groupBox38.Controls.Add(this.groupBox42);
             this.groupBox38.Controls.Add(this.groupBox41);
             this.groupBox38.Controls.Add(this.groupBox40);
-            this.groupBox38.Font = new System.Drawing.Font("ÂÆã‰Ωì", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.groupBox38.Font = new System.Drawing.Font("ÀŒÃÂ", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.groupBox38.Location = new System.Drawing.Point(30, 701);
             this.groupBox38.Name = "groupBox38";
             this.groupBox38.Size = new System.Drawing.Size(399, 118);
             this.groupBox38.TabIndex = 143;
             this.groupBox38.TabStop = false;
-            this.groupBox38.Text = "Â§πÂÖ∑Êâ´‰∫åÁª¥Á†ÅËÆæÁΩÆ";
+            this.groupBox38.Text = "º–æﬂ…®∂˛Œ¨¬Î…Ë÷√";
             // 
             // groupBox45
             // 
             this.groupBox45.Controls.Add(this.rabt_jigscan_ON);
             this.groupBox45.Controls.Add(this.rabt_jigscan_OFF);
-            this.groupBox45.Font = new System.Drawing.Font("ÂÆã‰Ωì", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.groupBox45.Font = new System.Drawing.Font("ÀŒÃÂ", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.groupBox45.Location = new System.Drawing.Point(317, 20);
             this.groupBox45.Margin = new System.Windows.Forms.Padding(2);
             this.groupBox45.Name = "groupBox45";
@@ -2105,7 +2109,7 @@ namespace UI
             this.groupBox45.Size = new System.Drawing.Size(67, 89);
             this.groupBox45.TabIndex = 132;
             this.groupBox45.TabStop = false;
-            this.groupBox45.Text = "ÊÄªÂºÄÂÖ≥";
+            this.groupBox45.Text = "◊‹ø™πÿ";
             // 
             // rabt_jigscan_ON
             // 
@@ -2118,7 +2122,7 @@ namespace UI
             this.rabt_jigscan_ON.Name = "rabt_jigscan_ON";
             this.rabt_jigscan_ON.Size = new System.Drawing.Size(53, 30);
             this.rabt_jigscan_ON.TabIndex = 125;
-            this.rabt_jigscan_ON.Text = "ÂºÄÂêØ";
+            this.rabt_jigscan_ON.Text = "ø™∆Ù";
             this.rabt_jigscan_ON.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             this.rabt_jigscan_ON.UseVisualStyleBackColor = true;
             // 
@@ -2135,7 +2139,7 @@ namespace UI
             this.rabt_jigscan_OFF.Size = new System.Drawing.Size(53, 30);
             this.rabt_jigscan_OFF.TabIndex = 127;
             this.rabt_jigscan_OFF.TabStop = true;
-            this.rabt_jigscan_OFF.Text = "ÂÖ≥Èó≠";
+            this.rabt_jigscan_OFF.Text = "πÿ±’";
             this.rabt_jigscan_OFF.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             this.rabt_jigscan_OFF.UseVisualStyleBackColor = true;
             // 
@@ -2163,7 +2167,7 @@ namespace UI
             this.btnStartJigSan4.Name = "btnStartJigSan4";
             this.btnStartJigSan4.Size = new System.Drawing.Size(53, 30);
             this.btnStartJigSan4.TabIndex = 125;
-            this.btnStartJigSan4.Text = "ÂºÄÂêØ";
+            this.btnStartJigSan4.Text = "ø™∆Ù";
             this.btnStartJigSan4.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             this.btnStartJigSan4.UseVisualStyleBackColor = true;
             // 
@@ -2180,7 +2184,7 @@ namespace UI
             this.radioButton6.Size = new System.Drawing.Size(53, 30);
             this.radioButton6.TabIndex = 127;
             this.radioButton6.TabStop = true;
-            this.radioButton6.Text = "ÂÖ≥Èó≠";
+            this.radioButton6.Text = "πÿ±’";
             this.radioButton6.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             this.radioButton6.UseVisualStyleBackColor = true;
             // 
@@ -2208,7 +2212,7 @@ namespace UI
             this.btnStartJigSan3.Name = "btnStartJigSan3";
             this.btnStartJigSan3.Size = new System.Drawing.Size(53, 30);
             this.btnStartJigSan3.TabIndex = 125;
-            this.btnStartJigSan3.Text = "ÂºÄÂêØ";
+            this.btnStartJigSan3.Text = "ø™∆Ù";
             this.btnStartJigSan3.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             this.btnStartJigSan3.UseVisualStyleBackColor = true;
             // 
@@ -2225,7 +2229,7 @@ namespace UI
             this.radioButton4.Size = new System.Drawing.Size(53, 30);
             this.radioButton4.TabIndex = 127;
             this.radioButton4.TabStop = true;
-            this.radioButton4.Text = "ÂÖ≥Èó≠";
+            this.radioButton4.Text = "πÿ±’";
             this.radioButton4.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             this.radioButton4.UseVisualStyleBackColor = true;
             // 
@@ -2253,7 +2257,7 @@ namespace UI
             this.btnStartJigSan2.Name = "btnStartJigSan2";
             this.btnStartJigSan2.Size = new System.Drawing.Size(53, 30);
             this.btnStartJigSan2.TabIndex = 125;
-            this.btnStartJigSan2.Text = "ÂºÄÂêØ";
+            this.btnStartJigSan2.Text = "ø™∆Ù";
             this.btnStartJigSan2.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             this.btnStartJigSan2.UseVisualStyleBackColor = true;
             this.btnStartJigSan2.CheckedChanged += new System.EventHandler(this.radioButton1_CheckedChanged);
@@ -2271,7 +2275,7 @@ namespace UI
             this.radioButton2.Size = new System.Drawing.Size(53, 30);
             this.radioButton2.TabIndex = 127;
             this.radioButton2.TabStop = true;
-            this.radioButton2.Text = "ÂÖ≥Èó≠";
+            this.radioButton2.Text = "πÿ±’";
             this.radioButton2.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             this.radioButton2.UseVisualStyleBackColor = true;
             // 
@@ -2299,7 +2303,7 @@ namespace UI
             this.btnStartJigSan1.Name = "btnStartJigSan1";
             this.btnStartJigSan1.Size = new System.Drawing.Size(53, 30);
             this.btnStartJigSan1.TabIndex = 125;
-            this.btnStartJigSan1.Text = "ÂºÄÂêØ";
+            this.btnStartJigSan1.Text = "ø™∆Ù";
             this.btnStartJigSan1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             this.btnStartJigSan1.UseVisualStyleBackColor = true;
             this.btnStartJigSan1.CheckedChanged += new System.EventHandler(this.radioButton2_CheckedChanged);
@@ -2317,7 +2321,7 @@ namespace UI
             this.btnStopJigSan.Size = new System.Drawing.Size(53, 30);
             this.btnStopJigSan.TabIndex = 127;
             this.btnStopJigSan.TabStop = true;
-            this.btnStopJigSan.Text = "ÂÖ≥Èó≠";
+            this.btnStopJigSan.Text = "πÿ±’";
             this.btnStopJigSan.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             this.btnStopJigSan.UseVisualStyleBackColor = true;
             // 
@@ -2329,18 +2333,18 @@ namespace UI
             this.groupBox34.Controls.Add(this.label30);
             this.groupBox34.Controls.Add(this.rbtn_ngcontroldis);
             this.groupBox34.Controls.Add(this.rbtn_ngcontrolen);
-            this.groupBox34.Font = new System.Drawing.Font("ÂÆã‰Ωì", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.groupBox34.Font = new System.Drawing.Font("ÀŒÃÂ", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.groupBox34.Location = new System.Drawing.Point(762, 587);
             this.groupBox34.Name = "groupBox34";
             this.groupBox34.Size = new System.Drawing.Size(277, 110);
             this.groupBox34.TabIndex = 141;
             this.groupBox34.TabStop = false;
-            this.groupBox34.Text = "‰∏çËâØÊØî‰æãÁÆ°ÊéßËÆæÁΩÆ";
+            this.groupBox34.Text = "≤ª¡º±»¿˝π‹øÿ…Ë÷√";
             // 
             // nud_ngscale
             // 
             this.nud_ngscale.DecimalPlaces = 1;
-            this.nud_ngscale.Font = new System.Drawing.Font("ÂÆã‰Ωì", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.nud_ngscale.Font = new System.Drawing.Font("ÀŒÃÂ", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.nud_ngscale.Increment = new decimal(new int[] {
             1,
             0,
@@ -2359,7 +2363,7 @@ namespace UI
             // 
             // nud_ngcode
             // 
-            this.nud_ngcode.Font = new System.Drawing.Font("ÂÆã‰Ωì", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.nud_ngcode.Font = new System.Drawing.Font("ÀŒÃÂ", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.nud_ngcode.Location = new System.Drawing.Point(195, 20);
             this.nud_ngcode.Maximum = new decimal(new int[] {
             100000,
@@ -2383,7 +2387,7 @@ namespace UI
             this.label32.Name = "label32";
             this.label32.Size = new System.Drawing.Size(77, 14);
             this.label32.TabIndex = 130;
-            this.label32.Text = "ÊØî‰æãÔºà%Ôºâ:";
+            this.label32.Text = "±»¿˝£®%£©:";
             // 
             // label30
             // 
@@ -2392,7 +2396,7 @@ namespace UI
             this.label30.Name = "label30";
             this.label30.Size = new System.Drawing.Size(42, 14);
             this.label30.TabIndex = 128;
-            this.label30.Text = "NGÁ†Å:";
+            this.label30.Text = "NG¬Î:";
             // 
             // rbtn_ngcontroldis
             // 
@@ -2405,7 +2409,7 @@ namespace UI
             this.rbtn_ngcontroldis.Name = "rbtn_ngcontroldis";
             this.rbtn_ngcontroldis.Size = new System.Drawing.Size(97, 30);
             this.rbtn_ngcontroldis.TabIndex = 127;
-            this.rbtn_ngcontroldis.Text = "ÂÖ≥Èó≠";
+            this.rbtn_ngcontroldis.Text = "πÿ±’";
             this.rbtn_ngcontroldis.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             this.rbtn_ngcontroldis.UseVisualStyleBackColor = true;
             // 
@@ -2422,7 +2426,7 @@ namespace UI
             this.rbtn_ngcontrolen.Size = new System.Drawing.Size(97, 30);
             this.rbtn_ngcontrolen.TabIndex = 125;
             this.rbtn_ngcontrolen.TabStop = true;
-            this.rbtn_ngcontrolen.Text = "ÂºÄÂêØ";
+            this.rbtn_ngcontrolen.Text = "ø™∆Ù";
             this.rbtn_ngcontrolen.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             this.rbtn_ngcontrolen.UseVisualStyleBackColor = true;
             // 
@@ -2430,13 +2434,13 @@ namespace UI
             // 
             this.groupBox29.Controls.Add(this.rbtn_OkCheckDis);
             this.groupBox29.Controls.Add(this.rbtn_OkCheckEn);
-            this.groupBox29.Font = new System.Drawing.Font("ÂÆã‰Ωì", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.groupBox29.Font = new System.Drawing.Font("ÀŒÃÂ", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.groupBox29.Location = new System.Drawing.Point(269, 474);
             this.groupBox29.Name = "groupBox29";
             this.groupBox29.Size = new System.Drawing.Size(211, 108);
             this.groupBox29.TabIndex = 140;
             this.groupBox29.TabStop = false;
-            this.groupBox29.Text = "‰∏ãÊñôOKÂìÅÊ£ÄÊµãËÆæÁΩÆ";
+            this.groupBox29.Text = "œ¬¡œOK∆∑ºÏ≤‚…Ë÷√";
             // 
             // rbtn_OkCheckDis
             // 
@@ -2449,7 +2453,7 @@ namespace UI
             this.rbtn_OkCheckDis.Name = "rbtn_OkCheckDis";
             this.rbtn_OkCheckDis.Size = new System.Drawing.Size(155, 30);
             this.rbtn_OkCheckDis.TabIndex = 126;
-            this.rbtn_OkCheckDis.Text = "ÂÖ≥Èó≠";
+            this.rbtn_OkCheckDis.Text = "πÿ±’";
             this.rbtn_OkCheckDis.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             this.rbtn_OkCheckDis.UseVisualStyleBackColor = true;
             // 
@@ -2466,7 +2470,7 @@ namespace UI
             this.rbtn_OkCheckEn.Size = new System.Drawing.Size(155, 30);
             this.rbtn_OkCheckEn.TabIndex = 124;
             this.rbtn_OkCheckEn.TabStop = true;
-            this.rbtn_OkCheckEn.Text = "ÂºÄÂêØ";
+            this.rbtn_OkCheckEn.Text = "ø™∆Ù";
             this.rbtn_OkCheckEn.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             this.rbtn_OkCheckEn.UseVisualStyleBackColor = true;
             // 
@@ -2474,34 +2478,34 @@ namespace UI
             // 
             this.groupBox19.Controls.Add(this.chk_UpLoadData);
             this.groupBox19.Controls.Add(this.chk_UpdateSoft);
-            this.groupBox19.Font = new System.Drawing.Font("ÂÆã‰Ωì", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.groupBox19.Font = new System.Drawing.Font("ÀŒÃÂ", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.groupBox19.Location = new System.Drawing.Point(911, 475);
             this.groupBox19.Name = "groupBox19";
             this.groupBox19.Size = new System.Drawing.Size(130, 108);
             this.groupBox19.TabIndex = 139;
             this.groupBox19.TabStop = false;
-            this.groupBox19.Text = "Êï∞ÊçÆ‰∏ä‰º†ËÆæÁΩÆ";
+            this.groupBox19.Text = " ˝æ›…œ¥´…Ë÷√";
             // 
             // chk_UpLoadData
             // 
             this.chk_UpLoadData.AutoSize = true;
-            this.chk_UpLoadData.Font = new System.Drawing.Font("ÂÆã‰Ωì", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.chk_UpLoadData.Font = new System.Drawing.Font("ÀŒÃÂ", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.chk_UpLoadData.Location = new System.Drawing.Point(6, 69);
             this.chk_UpLoadData.Name = "chk_UpLoadData";
             this.chk_UpLoadData.Size = new System.Drawing.Size(122, 20);
             this.chk_UpLoadData.TabIndex = 2;
-            this.chk_UpLoadData.Text = "ËÆæÂ§áÊï∞ÊçÆ‰∏ä‰º†";
+            this.chk_UpLoadData.Text = "…Ë±∏ ˝æ›…œ¥´";
             this.chk_UpLoadData.UseVisualStyleBackColor = true;
             // 
             // chk_UpdateSoft
             // 
             this.chk_UpdateSoft.AutoSize = true;
-            this.chk_UpdateSoft.Font = new System.Drawing.Font("ÂÆã‰Ωì", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.chk_UpdateSoft.Font = new System.Drawing.Font("ÀŒÃÂ", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.chk_UpdateSoft.Location = new System.Drawing.Point(8, 32);
             this.chk_UpdateSoft.Name = "chk_UpdateSoft";
             this.chk_UpdateSoft.Size = new System.Drawing.Size(122, 20);
             this.chk_UpdateSoft.TabIndex = 1;
-            this.chk_UpdateSoft.Text = "ËΩØ‰ª∂Êõ¥Êñ∞ÊèêÁ§∫";
+            this.chk_UpdateSoft.Text = "»Ìº˛∏¸–¬Ã· æ";
             this.chk_UpdateSoft.UseVisualStyleBackColor = true;
             // 
             // groupBox4
@@ -2510,13 +2514,13 @@ namespace UI
             this.groupBox4.Controls.Add(this.chk_upcam2);
             this.groupBox4.Controls.Add(this.chk_dwcam1);
             this.groupBox4.Controls.Add(this.chk_upcam1);
-            this.groupBox4.Font = new System.Drawing.Font("ÂÆã‰Ωì", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.groupBox4.Font = new System.Drawing.Font("ÀŒÃÂ", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.groupBox4.Location = new System.Drawing.Point(727, 473);
             this.groupBox4.Name = "groupBox4";
             this.groupBox4.Size = new System.Drawing.Size(167, 108);
             this.groupBox4.TabIndex = 137;
             this.groupBox4.TabStop = false;
-            this.groupBox4.Text = "ÂõæÁâáÂ≠òÂÇ®ËÆæÁΩÆ";
+            this.groupBox4.Text = "Õº∆¨¥Ê¥¢…Ë÷√";
             // 
             // chk_dwcam2
             // 
@@ -2525,7 +2529,7 @@ namespace UI
             this.chk_dwcam2.Name = "chk_dwcam2";
             this.chk_dwcam2.Size = new System.Drawing.Size(75, 18);
             this.chk_dwcam2.TabIndex = 3;
-            this.chk_dwcam2.Text = "‰∏ãÁõ∏Êú∫2";
+            this.chk_dwcam2.Text = "œ¬œ‡ª˙2";
             this.chk_dwcam2.UseVisualStyleBackColor = true;
             // 
             // chk_upcam2
@@ -2535,7 +2539,7 @@ namespace UI
             this.chk_upcam2.Name = "chk_upcam2";
             this.chk_upcam2.Size = new System.Drawing.Size(75, 18);
             this.chk_upcam2.TabIndex = 2;
-            this.chk_upcam2.Text = "‰∏äÁõ∏Êú∫2";
+            this.chk_upcam2.Text = "…œœ‡ª˙2";
             this.chk_upcam2.UseVisualStyleBackColor = true;
             // 
             // chk_dwcam1
@@ -2545,7 +2549,7 @@ namespace UI
             this.chk_dwcam1.Name = "chk_dwcam1";
             this.chk_dwcam1.Size = new System.Drawing.Size(75, 18);
             this.chk_dwcam1.TabIndex = 1;
-            this.chk_dwcam1.Text = "‰∏ãÁõ∏Êú∫1";
+            this.chk_dwcam1.Text = "œ¬œ‡ª˙1";
             this.chk_dwcam1.UseVisualStyleBackColor = true;
             // 
             // chk_upcam1
@@ -2555,7 +2559,7 @@ namespace UI
             this.chk_upcam1.Name = "chk_upcam1";
             this.chk_upcam1.Size = new System.Drawing.Size(75, 18);
             this.chk_upcam1.TabIndex = 0;
-            this.chk_upcam1.Text = "‰∏äÁõ∏Êú∫1";
+            this.chk_upcam1.Text = "…œœ‡ª˙1";
             this.chk_upcam1.UseVisualStyleBackColor = true;
             // 
             // grb_safe
@@ -2564,13 +2568,13 @@ namespace UI
             this.grb_safe.Controls.Add(this.chk_tray);
             this.grb_safe.Controls.Add(this.chk_leftlightbox);
             this.grb_safe.Controls.Add(this.chk_updown);
-            this.grb_safe.Font = new System.Drawing.Font("ÂÆã‰Ωì", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.grb_safe.Font = new System.Drawing.Font("ÀŒÃÂ", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.grb_safe.Location = new System.Drawing.Point(512, 475);
             this.grb_safe.Name = "grb_safe";
             this.grb_safe.Size = new System.Drawing.Size(188, 110);
             this.grb_safe.TabIndex = 136;
             this.grb_safe.TabStop = false;
-            this.grb_safe.Text = "Èó®Á¶ÅÂºÄÂêØËÆæÁΩÆ";
+            this.grb_safe.Text = "√≈Ω˚ø™∆Ù…Ë÷√";
             // 
             // chk_rightlightbox
             // 
@@ -2579,7 +2583,7 @@ namespace UI
             this.chk_rightlightbox.Name = "chk_rightlightbox";
             this.chk_rightlightbox.Size = new System.Drawing.Size(103, 18);
             this.chk_rightlightbox.TabIndex = 3;
-            this.chk_rightlightbox.Text = "Âè≥ÂÖâÁÆ±Èó®Á¶Å ";
+            this.chk_rightlightbox.Text = "”“π‚œ‰√≈Ω˚ ";
             this.chk_rightlightbox.UseVisualStyleBackColor = true;
             // 
             // chk_tray
@@ -2589,7 +2593,7 @@ namespace UI
             this.chk_tray.Name = "chk_tray";
             this.chk_tray.Size = new System.Drawing.Size(82, 18);
             this.chk_tray.TabIndex = 2;
-            this.chk_tray.Text = "ËΩ¨ÁõòÈó®Á¶Å";
+            this.chk_tray.Text = "◊™≈Ã√≈Ω˚";
             this.chk_tray.UseVisualStyleBackColor = true;
             // 
             // chk_leftlightbox
@@ -2599,7 +2603,7 @@ namespace UI
             this.chk_leftlightbox.Name = "chk_leftlightbox";
             this.chk_leftlightbox.Size = new System.Drawing.Size(96, 18);
             this.chk_leftlightbox.TabIndex = 1;
-            this.chk_leftlightbox.Text = "Â∑¶ÂÖâÁÆ±Èó®Á¶Å";
+            this.chk_leftlightbox.Text = "◊Ûπ‚œ‰√≈Ω˚";
             this.chk_leftlightbox.UseVisualStyleBackColor = true;
             // 
             // chk_updown
@@ -2609,7 +2613,7 @@ namespace UI
             this.chk_updown.Name = "chk_updown";
             this.chk_updown.Size = new System.Drawing.Size(96, 18);
             this.chk_updown.TabIndex = 0;
-            this.chk_updown.Text = "‰∏ä‰∏ãÊñôÈó®Á¶Å";
+            this.chk_updown.Text = "…œœ¬¡œ√≈Ω˚";
             this.chk_updown.UseVisualStyleBackColor = true;
             // 
             // groupBox14
@@ -2618,17 +2622,17 @@ namespace UI
             this.groupBox14.Controls.Add(this.label16);
             this.groupBox14.Controls.Add(this.rbtn_next_turnon);
             this.groupBox14.Controls.Add(this.rbtn_pre_turnon);
-            this.groupBox14.Font = new System.Drawing.Font("ÂÆã‰Ωì", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.groupBox14.Font = new System.Drawing.Font("ÀŒÃÂ", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.groupBox14.Location = new System.Drawing.Point(28, 587);
             this.groupBox14.Name = "groupBox14";
             this.groupBox14.Size = new System.Drawing.Size(280, 108);
             this.groupBox14.TabIndex = 138;
             this.groupBox14.TabStop = false;
-            this.groupBox14.Text = "ÂºÄÂõæÈ°∫Â∫èËÆæÁΩÆ";
+            this.groupBox14.Text = "ø™ÕºÀ≥–Ú…Ë÷√";
             // 
             // nud_OpenDly
             // 
-            this.nud_OpenDly.Font = new System.Drawing.Font("ÂÆã‰Ωì", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.nud_OpenDly.Font = new System.Drawing.Font("ÀŒÃÂ", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.nud_OpenDly.Location = new System.Drawing.Point(165, 62);
             this.nud_OpenDly.Maximum = new decimal(new int[] {
             5000,
@@ -2653,12 +2657,12 @@ namespace UI
             // label16
             // 
             this.label16.AutoSize = true;
-            this.label16.Font = new System.Drawing.Font("ÂÆã‰Ωì", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.label16.Font = new System.Drawing.Font("ÀŒÃÂ", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.label16.Location = new System.Drawing.Point(165, 31);
             this.label16.Name = "label16";
             this.label16.Size = new System.Drawing.Size(79, 16);
             this.label16.TabIndex = 127;
-            this.label16.Text = "ÂºÄÂõæÂª∂Êó∂:";
+            this.label16.Text = "ø™Õº—” ±:";
             // 
             // rbtn_next_turnon
             // 
@@ -2671,7 +2675,7 @@ namespace UI
             this.rbtn_next_turnon.Name = "rbtn_next_turnon";
             this.rbtn_next_turnon.Size = new System.Drawing.Size(110, 30);
             this.rbtn_next_turnon.TabIndex = 126;
-            this.rbtn_next_turnon.Text = "ÊóãËΩ¨ÂêéÂºÄÂõæ";
+            this.rbtn_next_turnon.Text = "–˝◊™∫Ûø™Õº";
             this.rbtn_next_turnon.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             this.rbtn_next_turnon.UseVisualStyleBackColor = true;
             // 
@@ -2688,7 +2692,7 @@ namespace UI
             this.rbtn_pre_turnon.Size = new System.Drawing.Size(110, 30);
             this.rbtn_pre_turnon.TabIndex = 124;
             this.rbtn_pre_turnon.TabStop = true;
-            this.rbtn_pre_turnon.Text = "‰∏äÂÆåÊñôÂºÄÂõæ";
+            this.rbtn_pre_turnon.Text = "…œÕÍ¡œø™Õº";
             this.rbtn_pre_turnon.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             this.rbtn_pre_turnon.UseVisualStyleBackColor = true;
             // 
@@ -2696,13 +2700,13 @@ namespace UI
             // 
             this.groupBoxbarcode.Controls.Add(this.rbtn_CloseBarCamBack);
             this.groupBoxbarcode.Controls.Add(this.rbtn_OpenBarCamBack);
-            this.groupBoxbarcode.Font = new System.Drawing.Font("ÂÆã‰Ωì", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.groupBoxbarcode.Font = new System.Drawing.Font("ÀŒÃÂ", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.groupBoxbarcode.Location = new System.Drawing.Point(30, 474);
             this.groupBoxbarcode.Name = "groupBoxbarcode";
             this.groupBoxbarcode.Size = new System.Drawing.Size(209, 108);
             this.groupBoxbarcode.TabIndex = 135;
             this.groupBoxbarcode.TabStop = false;
-            this.groupBoxbarcode.Text = "‰∫åÁª¥Á†ÅÂõûÊ£ÄËÆæÁΩÆ";
+            this.groupBoxbarcode.Text = "∂˛Œ¨¬ÎªÿºÏ…Ë÷√";
             // 
             // rbtn_CloseBarCamBack
             // 
@@ -2715,7 +2719,7 @@ namespace UI
             this.rbtn_CloseBarCamBack.Name = "rbtn_CloseBarCamBack";
             this.rbtn_CloseBarCamBack.Size = new System.Drawing.Size(155, 30);
             this.rbtn_CloseBarCamBack.TabIndex = 126;
-            this.rbtn_CloseBarCamBack.Text = "ÂÖ≥Èó≠";
+            this.rbtn_CloseBarCamBack.Text = "πÿ±’";
             this.rbtn_CloseBarCamBack.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             this.rbtn_CloseBarCamBack.UseVisualStyleBackColor = true;
             // 
@@ -2732,7 +2736,7 @@ namespace UI
             this.rbtn_OpenBarCamBack.Size = new System.Drawing.Size(155, 30);
             this.rbtn_OpenBarCamBack.TabIndex = 124;
             this.rbtn_OpenBarCamBack.TabStop = true;
-            this.rbtn_OpenBarCamBack.Text = "ÂºÄÂêØ";
+            this.rbtn_OpenBarCamBack.Text = "ø™∆Ù";
             this.rbtn_OpenBarCamBack.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             this.rbtn_OpenBarCamBack.UseVisualStyleBackColor = true;
             // 
@@ -2742,13 +2746,13 @@ namespace UI
             this.groupBox16.Controls.Add(this.rbtn_Sml);
             this.groupBox16.Controls.Add(this.rbtn_single);
             this.groupBox16.Controls.Add(this.rbtn_double);
-            this.groupBox16.Font = new System.Drawing.Font("ÂÆã‰Ωì", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.groupBox16.Font = new System.Drawing.Font("ÀŒÃÂ", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.groupBox16.Location = new System.Drawing.Point(863, 355);
             this.groupBox16.Name = "groupBox16";
             this.groupBox16.Size = new System.Drawing.Size(170, 112);
             this.groupBox16.TabIndex = 134;
             this.groupBox16.TabStop = false;
-            this.groupBox16.Text = "Ê®°ÁªÑÂºÄÂêØËÆæÁΩÆ";
+            this.groupBox16.Text = "ƒ£◊Èø™∆Ù…Ë÷√";
             // 
             // rbtn_Lag
             // 
@@ -2761,7 +2765,7 @@ namespace UI
             this.rbtn_Lag.Name = "rbtn_Lag";
             this.rbtn_Lag.Size = new System.Drawing.Size(66, 30);
             this.rbtn_Lag.TabIndex = 128;
-            this.rbtn_Lag.Text = "9-16ÂºÄ";
+            this.rbtn_Lag.Text = "9-16ø™";
             this.rbtn_Lag.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             this.rbtn_Lag.UseVisualStyleBackColor = true;
             // 
@@ -2776,7 +2780,7 @@ namespace UI
             this.rbtn_Sml.Name = "rbtn_Sml";
             this.rbtn_Sml.Size = new System.Drawing.Size(66, 30);
             this.rbtn_Sml.TabIndex = 129;
-            this.rbtn_Sml.Text = "1-8ÂºÄ";
+            this.rbtn_Sml.Text = "1-8ø™";
             this.rbtn_Sml.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             this.rbtn_Sml.UseVisualStyleBackColor = true;
             // 
@@ -2793,7 +2797,7 @@ namespace UI
             this.rbtn_single.Size = new System.Drawing.Size(66, 30);
             this.rbtn_single.TabIndex = 127;
             this.rbtn_single.TabStop = true;
-            this.rbtn_single.Text = "ÂçïÂºÄ";
+            this.rbtn_single.Text = "µ•ø™";
             this.rbtn_single.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             this.rbtn_single.UseVisualStyleBackColor = true;
             // 
@@ -2808,7 +2812,7 @@ namespace UI
             this.rbtn_double.Name = "rbtn_double";
             this.rbtn_double.Size = new System.Drawing.Size(66, 30);
             this.rbtn_double.TabIndex = 127;
-            this.rbtn_double.Text = "ÂèåÂºÄ";
+            this.rbtn_double.Text = "À´ø™";
             this.rbtn_double.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             this.rbtn_double.UseVisualStyleBackColor = true;
             // 
@@ -2816,13 +2820,13 @@ namespace UI
             // 
             this.groupBox15.Controls.Add(this.rbtn_big);
             this.groupBox15.Controls.Add(this.rbtn_small);
-            this.groupBox15.Font = new System.Drawing.Font("ÂÆã‰Ωì", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.groupBox15.Font = new System.Drawing.Font("ÀŒÃÂ", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.groupBox15.Location = new System.Drawing.Point(753, 355);
             this.groupBox15.Name = "groupBox15";
             this.groupBox15.Size = new System.Drawing.Size(104, 112);
             this.groupBox15.TabIndex = 133;
             this.groupBox15.TabStop = false;
-            this.groupBox15.Text = "Ê®°ÁªÑÊï∞Èáè";
+            this.groupBox15.Text = "ƒ£◊È ˝¡ø";
             // 
             // rbtn_big
             // 
@@ -2835,7 +2839,7 @@ namespace UI
             this.rbtn_big.Name = "rbtn_big";
             this.rbtn_big.Size = new System.Drawing.Size(66, 30);
             this.rbtn_big.TabIndex = 126;
-            this.rbtn_big.Text = "8Ê®°ÁªÑ";
+            this.rbtn_big.Text = "8ƒ£◊È";
             this.rbtn_big.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             this.rbtn_big.UseVisualStyleBackColor = true;
             // 
@@ -2852,7 +2856,7 @@ namespace UI
             this.rbtn_small.Size = new System.Drawing.Size(66, 30);
             this.rbtn_small.TabIndex = 124;
             this.rbtn_small.TabStop = true;
-            this.rbtn_small.Text = "16Ê®°ÁªÑ";
+            this.rbtn_small.Text = "16ƒ£◊È";
             this.rbtn_small.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             this.rbtn_small.UseVisualStyleBackColor = true;
             // 
@@ -2861,17 +2865,17 @@ namespace UI
             this.groupBox20.Controls.Add(this.nud_SameRowNGTipCnt);
             this.groupBox20.Controls.Add(this.label19);
             this.groupBox20.Controls.Add(this.chk_SameRowNGTip);
-            this.groupBox20.Font = new System.Drawing.Font("ÂÆã‰Ωì", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.groupBox20.Font = new System.Drawing.Font("ÀŒÃÂ", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.groupBox20.Location = new System.Drawing.Point(512, 356);
             this.groupBox20.Name = "groupBox20";
             this.groupBox20.Size = new System.Drawing.Size(209, 111);
             this.groupBox20.TabIndex = 132;
             this.groupBox20.TabStop = false;
-            this.groupBox20.Text = "Â∑•Á´ôNG‰∏™Êï∞ËÆæÁΩÆ";
+            this.groupBox20.Text = "π§’æNG∏ˆ ˝…Ë÷√";
             // 
             // nud_SameRowNGTipCnt
             // 
-            this.nud_SameRowNGTipCnt.Font = new System.Drawing.Font("ÂÆã‰Ωì", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.nud_SameRowNGTipCnt.Font = new System.Drawing.Font("ÀŒÃÂ", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.nud_SameRowNGTipCnt.Location = new System.Drawing.Point(136, 64);
             this.nud_SameRowNGTipCnt.Minimum = new decimal(new int[] {
             2,
@@ -2891,22 +2895,22 @@ namespace UI
             // label19
             // 
             this.label19.AutoSize = true;
-            this.label19.Font = new System.Drawing.Font("ÂÆã‰Ωì", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.label19.Font = new System.Drawing.Font("ÀŒÃÂ", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.label19.Location = new System.Drawing.Point(6, 74);
             this.label19.Name = "label19";
             this.label19.Size = new System.Drawing.Size(95, 16);
             this.label19.TabIndex = 2;
-            this.label19.Text = "ËøûÁª≠NG‰∏™Êï∞:";
+            this.label19.Text = "¡¨–¯NG∏ˆ ˝:";
             // 
             // chk_SameRowNGTip
             // 
             this.chk_SameRowNGTip.AutoSize = true;
-            this.chk_SameRowNGTip.Font = new System.Drawing.Font("ÂÆã‰Ωì", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.chk_SameRowNGTip.Font = new System.Drawing.Font("ÀŒÃÂ", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.chk_SameRowNGTip.Location = new System.Drawing.Point(13, 44);
             this.chk_SameRowNGTip.Name = "chk_SameRowNGTip";
             this.chk_SameRowNGTip.Size = new System.Drawing.Size(90, 20);
             this.chk_SameRowNGTip.TabIndex = 1;
-            this.chk_SameRowNGTip.Text = "ÂºÄÂêØÊèêÁ§∫";
+            this.chk_SameRowNGTip.Text = "ø™∆ÙÃ· æ";
             this.chk_SameRowNGTip.UseVisualStyleBackColor = true;
             // 
             // btn_ptset_save
@@ -2916,7 +2920,7 @@ namespace UI
             this.btn_ptset_save.Name = "btn_ptset_save";
             this.btn_ptset_save.Size = new System.Drawing.Size(134, 114);
             this.btn_ptset_save.TabIndex = 20;
-            this.btn_ptset_save.Text = "‰øùÂ≠ò";
+            this.btn_ptset_save.Text = "±£¥Ê";
             this.btn_ptset_save.UseVisualStyleBackColor = false;
             this.btn_ptset_save.Click += new System.EventHandler(this.btn_ptset_save_Click);
             // 
@@ -2927,17 +2931,17 @@ namespace UI
             this.groupBox1.Controls.Add(this.label5);
             this.groupBox1.Controls.Add(this.label6);
             this.groupBox1.Controls.Add(this.Chk_ModPasteUp);
-            this.groupBox1.Font = new System.Drawing.Font("ÂÆã‰Ωì", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.groupBox1.Font = new System.Drawing.Font("ÀŒÃÂ", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.groupBox1.Location = new System.Drawing.Point(271, 20);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Size = new System.Drawing.Size(209, 148);
             this.groupBox1.TabIndex = 29;
             this.groupBox1.TabStop = false;
-            this.groupBox1.Text = "Ê®°ÁªÑÂ∏¶Ëµ∑ÂÖãÊúçËÆæÁΩÆ(ms)";
+            this.groupBox1.Text = "ƒ£◊È¥¯∆øÀ∑˛…Ë÷√(ms)";
             // 
             // nud_MovUpDly
             // 
-            this.nud_MovUpDly.Font = new System.Drawing.Font("ÂÆã‰Ωì", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.nud_MovUpDly.Font = new System.Drawing.Font("ÀŒÃÂ", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.nud_MovUpDly.Location = new System.Drawing.Point(109, 104);
             this.nud_MovUpDly.Maximum = new decimal(new int[] {
             500,
@@ -2961,7 +2965,7 @@ namespace UI
             // 
             // nud_PlaceDly
             // 
-            this.nud_PlaceDly.Font = new System.Drawing.Font("ÂÆã‰Ωì", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.nud_PlaceDly.Font = new System.Drawing.Font("ÀŒÃÂ", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.nud_PlaceDly.Location = new System.Drawing.Point(109, 66);
             this.nud_PlaceDly.Maximum = new decimal(new int[] {
             5000,
@@ -2986,32 +2990,32 @@ namespace UI
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Font = new System.Drawing.Font("ÂÆã‰Ωì", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.label5.Font = new System.Drawing.Font("ÀŒÃÂ", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.label5.Location = new System.Drawing.Point(23, 114);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(79, 16);
             this.label5.TabIndex = 3;
-            this.label5.Text = "ÊèêËµ∑Âª∂Êó∂:";
+            this.label5.Text = "Ã·∆—” ±:";
             // 
             // label6
             // 
             this.label6.AutoSize = true;
-            this.label6.Font = new System.Drawing.Font("ÂÆã‰Ωì", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.label6.Font = new System.Drawing.Font("ÀŒÃÂ", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.label6.Location = new System.Drawing.Point(24, 72);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(79, 16);
             this.label6.TabIndex = 2;
-            this.label6.Text = "ÊîæÊñôÂª∂Êó∂:";
+            this.label6.Text = "∑≈¡œ—” ±:";
             // 
             // Chk_ModPasteUp
             // 
             this.Chk_ModPasteUp.AutoSize = true;
-            this.Chk_ModPasteUp.Font = new System.Drawing.Font("ÂÆã‰Ωì", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.Chk_ModPasteUp.Font = new System.Drawing.Font("ÀŒÃÂ", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.Chk_ModPasteUp.Location = new System.Drawing.Point(27, 31);
             this.Chk_ModPasteUp.Name = "Chk_ModPasteUp";
             this.Chk_ModPasteUp.Size = new System.Drawing.Size(154, 20);
             this.Chk_ModPasteUp.TabIndex = 1;
-            this.Chk_ModPasteUp.Text = "ÂÖãÊúçÊ®°ÁªÑÂ∏¶Ëµ∑ÂºÄÂêØ";
+            this.Chk_ModPasteUp.Text = "øÀ∑˛ƒ£◊È¥¯∆ø™∆Ù";
             this.Chk_ModPasteUp.UseVisualStyleBackColor = true;
             // 
             // groupBox6
@@ -3021,18 +3025,18 @@ namespace UI
             this.groupBox6.Controls.Add(this.label3);
             this.groupBox6.Controls.Add(this.label4);
             this.groupBox6.Controls.Add(this.Chk_OpenVs);
-            this.groupBox6.Font = new System.Drawing.Font("ÂÆã‰Ωì", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.groupBox6.Font = new System.Drawing.Font("ÀŒÃÂ", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.groupBox6.Location = new System.Drawing.Point(30, 20);
             this.groupBox6.Name = "groupBox6";
             this.groupBox6.Size = new System.Drawing.Size(209, 148);
             this.groupBox6.TabIndex = 28;
             this.groupBox6.TabStop = false;
-            this.groupBox6.Text = "Ê®°ÁªÑÊîæÂ•ΩÂõûÊ£ÄËÆæÁΩÆ";
+            this.groupBox6.Text = "ƒ£◊È∑≈∫√ªÿºÏ…Ë÷√";
             // 
             // nud_vschk_rofs
             // 
             this.nud_vschk_rofs.DecimalPlaces = 1;
-            this.nud_vschk_rofs.Font = new System.Drawing.Font("ÂÆã‰Ωì", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.nud_vschk_rofs.Font = new System.Drawing.Font("ÀŒÃÂ", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.nud_vschk_rofs.Location = new System.Drawing.Point(123, 108);
             this.nud_vschk_rofs.Maximum = new decimal(new int[] {
             5,
@@ -3052,7 +3056,7 @@ namespace UI
             // nud_vschk_xyofs
             // 
             this.nud_vschk_xyofs.DecimalPlaces = 1;
-            this.nud_vschk_xyofs.Font = new System.Drawing.Font("ÂÆã‰Ωì", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.nud_vschk_xyofs.Font = new System.Drawing.Font("ÀŒÃÂ", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.nud_vschk_xyofs.Increment = new decimal(new int[] {
             1,
             0,
@@ -3077,32 +3081,32 @@ namespace UI
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Font = new System.Drawing.Font("ÂÆã‰Ωì", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.label3.Font = new System.Drawing.Font("ÀŒÃÂ", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.label3.Location = new System.Drawing.Point(30, 114);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(87, 16);
             this.label3.TabIndex = 3;
-            this.label3.Text = "RÂÖÅËÆ∏ÂÅèÂ∑Æ:";
+            this.label3.Text = "R‘ –Ì∆´≤Ó:";
             // 
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Font = new System.Drawing.Font("ÂÆã‰Ωì", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.label4.Font = new System.Drawing.Font("ÀŒÃÂ", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.label4.Location = new System.Drawing.Point(24, 72);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(95, 16);
             this.label4.TabIndex = 2;
-            this.label4.Text = "XYÂÖÅËÆ∏ÂÅèÂ∑Æ:";
+            this.label4.Text = "XY‘ –Ì∆´≤Ó:";
             // 
             // Chk_OpenVs
             // 
             this.Chk_OpenVs.AutoSize = true;
-            this.Chk_OpenVs.Font = new System.Drawing.Font("ÂÆã‰Ωì", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.Chk_OpenVs.Font = new System.Drawing.Font("ÀŒÃÂ", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.Chk_OpenVs.Location = new System.Drawing.Point(27, 31);
             this.Chk_OpenVs.Name = "Chk_OpenVs";
             this.Chk_OpenVs.Size = new System.Drawing.Size(154, 20);
             this.Chk_OpenVs.TabIndex = 1;
-            this.Chk_OpenVs.Text = "Ê®°ÁªÑÊîæÂ•ΩÂõûÊ£ÄÂºÄÂêØ";
+            this.Chk_OpenVs.Text = "ƒ£◊È∑≈∫√ªÿºÏø™∆Ù";
             this.Chk_OpenVs.UseVisualStyleBackColor = true;
             // 
             // groupBox18
@@ -3110,17 +3114,17 @@ namespace UI
             this.groupBox18.Controls.Add(this.nud_SameNGTipCnt);
             this.groupBox18.Controls.Add(this.label18);
             this.groupBox18.Controls.Add(this.chk_SameNGTip);
-            this.groupBox18.Font = new System.Drawing.Font("ÂÆã‰Ωì", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.groupBox18.Font = new System.Drawing.Font("ÀŒÃÂ", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.groupBox18.Location = new System.Drawing.Point(271, 355);
             this.groupBox18.Name = "groupBox18";
             this.groupBox18.Size = new System.Drawing.Size(209, 111);
             this.groupBox18.TabIndex = 130;
             this.groupBox18.TabStop = false;
-            this.groupBox18.Text = "ÂêåÂ∑•‰ΩçËøûÁª≠ÂêåNGÊèêÁ§∫";
+            this.groupBox18.Text = "Õ¨π§Œª¡¨–¯Õ¨NGÃ· æ";
             // 
             // nud_SameNGTipCnt
             // 
-            this.nud_SameNGTipCnt.Font = new System.Drawing.Font("ÂÆã‰Ωì", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.nud_SameNGTipCnt.Font = new System.Drawing.Font("ÀŒÃÂ", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.nud_SameNGTipCnt.Location = new System.Drawing.Point(120, 67);
             this.nud_SameNGTipCnt.Maximum = new decimal(new int[] {
             5,
@@ -3145,22 +3149,22 @@ namespace UI
             // label18
             // 
             this.label18.AutoSize = true;
-            this.label18.Font = new System.Drawing.Font("ÂÆã‰Ωì", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.label18.Font = new System.Drawing.Font("ÀŒÃÂ", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.label18.Location = new System.Drawing.Point(19, 73);
             this.label18.Name = "label18";
             this.label18.Size = new System.Drawing.Size(79, 16);
             this.label18.TabIndex = 2;
-            this.label18.Text = "ËøûÁª≠Ê¨°Êï∞:";
+            this.label18.Text = "¡¨–¯¥Œ ˝:";
             // 
             // chk_SameNGTip
             // 
             this.chk_SameNGTip.AutoSize = true;
-            this.chk_SameNGTip.Font = new System.Drawing.Font("ÂÆã‰Ωì", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.chk_SameNGTip.Font = new System.Drawing.Font("ÀŒÃÂ", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.chk_SameNGTip.Location = new System.Drawing.Point(22, 31);
             this.chk_SameNGTip.Name = "chk_SameNGTip";
             this.chk_SameNGTip.Size = new System.Drawing.Size(90, 20);
             this.chk_SameNGTip.TabIndex = 1;
-            this.chk_SameNGTip.Text = "ÂºÄÂêØÊèêÁ§∫";
+            this.chk_SameNGTip.Text = "ø™∆ÙÃ· æ";
             this.chk_SameNGTip.UseVisualStyleBackColor = true;
             // 
             // groupBox5
@@ -3170,17 +3174,17 @@ namespace UI
             this.groupBox5.Controls.Add(this.label2);
             this.groupBox5.Controls.Add(this.label1);
             this.groupBox5.Controls.Add(this.chk_grr);
-            this.groupBox5.Font = new System.Drawing.Font("ÂÆã‰Ωì", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.groupBox5.Font = new System.Drawing.Font("ÀŒÃÂ", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.groupBox5.Location = new System.Drawing.Point(512, 20);
             this.groupBox5.Name = "groupBox5";
             this.groupBox5.Size = new System.Drawing.Size(209, 148);
             this.groupBox5.TabIndex = 27;
             this.groupBox5.TabStop = false;
-            this.groupBox5.Text = "GRRÊµãËØïÊµÅÁ®ãËÆæÁΩÆ";
+            this.groupBox5.Text = "GRR≤‚ ‘¡˜≥Ã…Ë÷√";
             // 
             // nud_grrtudlcnt
             // 
-            this.nud_grrtudlcnt.Font = new System.Drawing.Font("ÂÆã‰Ωì", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.nud_grrtudlcnt.Font = new System.Drawing.Font("ÀŒÃÂ", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.nud_grrtudlcnt.Location = new System.Drawing.Point(108, 106);
             this.nud_grrtudlcnt.Maximum = new decimal(new int[] {
             1500,
@@ -3204,7 +3208,7 @@ namespace UI
             // 
             // nud_grrtestcnt
             // 
-            this.nud_grrtestcnt.Font = new System.Drawing.Font("ÂÆã‰Ωì", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.nud_grrtestcnt.Font = new System.Drawing.Font("ÀŒÃÂ", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.nud_grrtestcnt.Location = new System.Drawing.Point(108, 65);
             this.nud_grrtestcnt.Maximum = new decimal(new int[] {
             1500,
@@ -3229,32 +3233,32 @@ namespace UI
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Font = new System.Drawing.Font("ÂÆã‰Ωì", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.label2.Font = new System.Drawing.Font("ÀŒÃÂ", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.label2.Location = new System.Drawing.Point(23, 114);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(79, 16);
             this.label2.TabIndex = 3;
-            this.label2.Text = "ËΩÆÊç¢Ê¨°Êï∞:";
+            this.label2.Text = "¬÷ªª¥Œ ˝:";
             // 
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Font = new System.Drawing.Font("ÂÆã‰Ωì", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.label1.Font = new System.Drawing.Font("ÀŒÃÂ", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.label1.Location = new System.Drawing.Point(24, 72);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(79, 16);
             this.label1.TabIndex = 2;
-            this.label1.Text = "ÊµãËØïÊ¨°Êï∞:";
+            this.label1.Text = "≤‚ ‘¥Œ ˝:";
             // 
             // chk_grr
             // 
             this.chk_grr.AutoSize = true;
-            this.chk_grr.Font = new System.Drawing.Font("ÂÆã‰Ωì", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.chk_grr.Font = new System.Drawing.Font("ÀŒÃÂ", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.chk_grr.Location = new System.Drawing.Point(27, 31);
             this.chk_grr.Name = "chk_grr";
             this.chk_grr.Size = new System.Drawing.Size(114, 20);
             this.chk_grr.TabIndex = 1;
-            this.chk_grr.Text = "GRRÊµãËØïÂºÄÂêØ";
+            this.chk_grr.Text = "GRR≤‚ ‘ø™∆Ù";
             this.chk_grr.UseVisualStyleBackColor = true;
             // 
             // groupBox8
@@ -3268,18 +3272,18 @@ namespace UI
             this.groupBox8.Controls.Add(this.label12);
             this.groupBox8.Controls.Add(this.label9);
             this.groupBox8.Controls.Add(this.label7);
-            this.groupBox8.Font = new System.Drawing.Font("ÂÆã‰Ωì", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.groupBox8.Font = new System.Drawing.Font("ÀŒÃÂ", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.groupBox8.Location = new System.Drawing.Point(753, 20);
             this.groupBox8.Name = "groupBox8";
             this.groupBox8.Size = new System.Drawing.Size(280, 148);
             this.groupBox8.TabIndex = 31;
             this.groupBox8.TabStop = false;
-            this.groupBox8.Text = "Âê∏Â§¥‰∏ãÁõ∏Êú∫ÊãçÁÖßÂÅèÁßª";
+            this.groupBox8.Text = "Œ¸Õ∑œ¬œ‡ª˙≈ƒ’’∆´“∆";
             // 
             // nud_dwCam_xt4_ofs
             // 
             this.nud_dwCam_xt4_ofs.DecimalPlaces = 2;
-            this.nud_dwCam_xt4_ofs.Font = new System.Drawing.Font("ÂÆã‰Ωì", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.nud_dwCam_xt4_ofs.Font = new System.Drawing.Font("ÀŒÃÂ", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.nud_dwCam_xt4_ofs.Increment = new decimal(new int[] {
             1,
             0,
@@ -3304,7 +3308,7 @@ namespace UI
             // nud_dwCam_xt3_ofs
             // 
             this.nud_dwCam_xt3_ofs.DecimalPlaces = 2;
-            this.nud_dwCam_xt3_ofs.Font = new System.Drawing.Font("ÂÆã‰Ωì", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.nud_dwCam_xt3_ofs.Font = new System.Drawing.Font("ÀŒÃÂ", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.nud_dwCam_xt3_ofs.Increment = new decimal(new int[] {
             1,
             0,
@@ -3329,7 +3333,7 @@ namespace UI
             // nud_dwCam_xt2_ofs
             // 
             this.nud_dwCam_xt2_ofs.DecimalPlaces = 2;
-            this.nud_dwCam_xt2_ofs.Font = new System.Drawing.Font("ÂÆã‰Ωì", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.nud_dwCam_xt2_ofs.Font = new System.Drawing.Font("ÀŒÃÂ", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.nud_dwCam_xt2_ofs.Increment = new decimal(new int[] {
             1,
             0,
@@ -3354,7 +3358,7 @@ namespace UI
             // nud_dwCam_xt1_ofs
             // 
             this.nud_dwCam_xt1_ofs.DecimalPlaces = 2;
-            this.nud_dwCam_xt1_ofs.Font = new System.Drawing.Font("ÂÆã‰Ωì", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.nud_dwCam_xt1_ofs.Font = new System.Drawing.Font("ÀŒÃÂ", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.nud_dwCam_xt1_ofs.Increment = new decimal(new int[] {
             1,
             0,
@@ -3379,37 +3383,37 @@ namespace UI
             // label11
             // 
             this.label11.AutoSize = true;
-            this.label11.Font = new System.Drawing.Font("ÂÆã‰Ωì", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.label11.Font = new System.Drawing.Font("ÀŒÃÂ", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.label11.Location = new System.Drawing.Point(147, 86);
             this.label11.Name = "label11";
             this.label11.Size = new System.Drawing.Size(119, 16);
             this.label11.TabIndex = 8;
-            this.label11.Text = "Âê∏Â§¥4ÂÅèÁßª(mm):";
+            this.label11.Text = "Œ¸Õ∑4∆´“∆(mm):";
             // 
             // label8
             // 
             this.label8.AutoSize = true;
-            this.label8.Font = new System.Drawing.Font("ÂÆã‰Ωì", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.label8.Font = new System.Drawing.Font("ÀŒÃÂ", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.label8.Location = new System.Drawing.Point(6, 87);
             this.label8.Name = "label8";
             this.label8.Size = new System.Drawing.Size(119, 16);
             this.label8.TabIndex = 7;
-            this.label8.Text = "Âê∏Â§¥3ÂÅèÁßª(mm):";
+            this.label8.Text = "Œ¸Õ∑3∆´“∆(mm):";
             // 
             // label12
             // 
             this.label12.AutoSize = true;
-            this.label12.Font = new System.Drawing.Font("ÂÆã‰Ωì", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.label12.Font = new System.Drawing.Font("ÀŒÃÂ", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.label12.Location = new System.Drawing.Point(150, 27);
             this.label12.Name = "label12";
             this.label12.Size = new System.Drawing.Size(119, 16);
             this.label12.TabIndex = 6;
-            this.label12.Text = "Âê∏Â§¥2ÂÅèÁßª(mm):";
+            this.label12.Text = "Œ¸Õ∑2∆´“∆(mm):";
             // 
             // label9
             // 
             this.label9.AutoSize = true;
-            this.label9.Font = new System.Drawing.Font("ÂÆã‰Ωì", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.label9.Font = new System.Drawing.Font("ÀŒÃÂ", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.label9.Location = new System.Drawing.Point(155, 31);
             this.label9.Name = "label9";
             this.label9.Size = new System.Drawing.Size(0, 16);
@@ -3418,25 +3422,25 @@ namespace UI
             // label7
             // 
             this.label7.AutoSize = true;
-            this.label7.Font = new System.Drawing.Font("ÂÆã‰Ωì", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.label7.Font = new System.Drawing.Font("ÀŒÃÂ", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.label7.Location = new System.Drawing.Point(9, 27);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(119, 16);
             this.label7.TabIndex = 3;
-            this.label7.Text = "Âê∏Â§¥1ÂÅèÁßª(mm):";
+            this.label7.Text = "Œ¸Õ∑1∆´“∆(mm):";
             // 
             // grb_barcode
             // 
             this.grb_barcode.Controls.Add(this.rbtn_NoCap);
             this.grb_barcode.Controls.Add(this.rbtn_dwcode);
             this.grb_barcode.Controls.Add(this.rbtn_upcode);
-            this.grb_barcode.Font = new System.Drawing.Font("ÂÆã‰Ωì", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.grb_barcode.Font = new System.Drawing.Font("ÀŒÃÂ", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.grb_barcode.Location = new System.Drawing.Point(30, 356);
             this.grb_barcode.Name = "grb_barcode";
             this.grb_barcode.Size = new System.Drawing.Size(209, 110);
             this.grb_barcode.TabIndex = 0;
             this.grb_barcode.TabStop = false;
-            this.grb_barcode.Text = "‰∫åÁª¥Á†ÅÊâ´Á†ÅÊñπÂºè";
+            this.grb_barcode.Text = "∂˛Œ¨¬Î…®¬Î∑Ω Ω";
             // 
             // rbtn_NoCap
             // 
@@ -3451,7 +3455,7 @@ namespace UI
             this.rbtn_NoCap.Size = new System.Drawing.Size(66, 30);
             this.rbtn_NoCap.TabIndex = 126;
             this.rbtn_NoCap.TabStop = true;
-            this.rbtn_NoCap.Text = "‰∏çÊâ´Á†Å";
+            this.rbtn_NoCap.Text = "≤ª…®¬Î";
             this.rbtn_NoCap.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             this.rbtn_NoCap.UseVisualStyleBackColor = true;
             // 
@@ -3466,7 +3470,7 @@ namespace UI
             this.rbtn_dwcode.Name = "rbtn_dwcode";
             this.rbtn_dwcode.Size = new System.Drawing.Size(93, 30);
             this.rbtn_dwcode.TabIndex = 125;
-            this.rbtn_dwcode.Text = "‰∏ãÁõ∏Êú∫Êâ´Á†Å";
+            this.rbtn_dwcode.Text = "œ¬œ‡ª˙…®¬Î";
             this.rbtn_dwcode.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             this.rbtn_dwcode.UseVisualStyleBackColor = true;
             // 
@@ -3483,7 +3487,7 @@ namespace UI
             this.rbtn_upcode.Size = new System.Drawing.Size(94, 30);
             this.rbtn_upcode.TabIndex = 124;
             this.rbtn_upcode.TabStop = true;
-            this.rbtn_upcode.Text = "‰∏äÁõ∏Êú∫Êâ´Á†Å";
+            this.rbtn_upcode.Text = "…œœ‡ª˙…®¬Î";
             this.rbtn_upcode.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             this.rbtn_upcode.UseVisualStyleBackColor = true;
             // 
@@ -3492,13 +3496,13 @@ namespace UI
             this.grb_runmode.Controls.Add(this.rbtn_run_updw);
             this.grb_runmode.Controls.Add(this.rbtn_run_empty);
             this.grb_runmode.Controls.Add(this.rbtn_run_normal);
-            this.grb_runmode.Font = new System.Drawing.Font("ÂÆã‰Ωì", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.grb_runmode.Font = new System.Drawing.Font("ÀŒÃÂ", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.grb_runmode.Location = new System.Drawing.Point(30, 188);
             this.grb_runmode.Name = "grb_runmode";
             this.grb_runmode.Size = new System.Drawing.Size(209, 148);
             this.grb_runmode.TabIndex = 22;
             this.grb_runmode.TabStop = false;
-            this.grb_runmode.Text = "ËÆæÂ§áËøêË°åÊ®°ÂºèËÆæÁΩÆ";
+            this.grb_runmode.Text = "…Ë±∏‘À––ƒ£ Ω…Ë÷√";
             // 
             // rbtn_run_updw
             // 
@@ -3511,7 +3515,7 @@ namespace UI
             this.rbtn_run_updw.Name = "rbtn_run_updw";
             this.rbtn_run_updw.Size = new System.Drawing.Size(155, 30);
             this.rbtn_run_updw.TabIndex = 126;
-            this.rbtn_run_updw.Text = "ÊúâÊñôÁ©∫Ë∑ë";
+            this.rbtn_run_updw.Text = "”–¡œø’≈‹";
             this.rbtn_run_updw.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             this.rbtn_run_updw.UseVisualStyleBackColor = true;
             // 
@@ -3526,7 +3530,7 @@ namespace UI
             this.rbtn_run_empty.Name = "rbtn_run_empty";
             this.rbtn_run_empty.Size = new System.Drawing.Size(155, 30);
             this.rbtn_run_empty.TabIndex = 125;
-            this.rbtn_run_empty.Text = "Êó†ÊñôÁ©∫Ë∑ë";
+            this.rbtn_run_empty.Text = "Œﬁ¡œø’≈‹";
             this.rbtn_run_empty.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             this.rbtn_run_empty.UseVisualStyleBackColor = true;
             // 
@@ -3543,7 +3547,7 @@ namespace UI
             this.rbtn_run_normal.Size = new System.Drawing.Size(155, 30);
             this.rbtn_run_normal.TabIndex = 124;
             this.rbtn_run_normal.TabStop = true;
-            this.rbtn_run_normal.Text = "Áîü‰∫ßÊ®°Âºè";
+            this.rbtn_run_normal.Text = "…˙≤˙ƒ£ Ω";
             this.rbtn_run_normal.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             this.rbtn_run_normal.UseVisualStyleBackColor = true;
             // 
@@ -3552,13 +3556,13 @@ namespace UI
             this.grb_workmode.Controls.Add(this.rbtn_md2);
             this.grb_workmode.Controls.Add(this.rbtn_twomd);
             this.grb_workmode.Controls.Add(this.rbtn_md1);
-            this.grb_workmode.Font = new System.Drawing.Font("ÂÆã‰Ωì", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.grb_workmode.Font = new System.Drawing.Font("ÀŒÃÂ", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.grb_workmode.Location = new System.Drawing.Point(269, 188);
             this.grb_workmode.Name = "grb_workmode";
             this.grb_workmode.Size = new System.Drawing.Size(211, 148);
             this.grb_workmode.TabIndex = 1;
             this.grb_workmode.TabStop = false;
-            this.grb_workmode.Text = "‰∏ä‰∏ãÊñôËøêË°åÊñπÂºè";
+            this.grb_workmode.Text = "…œœ¬¡œ‘À––∑Ω Ω";
             // 
             // rbtn_md2
             // 
@@ -3571,7 +3575,7 @@ namespace UI
             this.rbtn_md2.Name = "rbtn_md2";
             this.rbtn_md2.Size = new System.Drawing.Size(155, 30);
             this.rbtn_md2.TabIndex = 126;
-            this.rbtn_md2.Text = "Ê®°Âùó2Â∑•‰Ωú";
+            this.rbtn_md2.Text = "ƒ£øÈ2π§◊˜";
             this.rbtn_md2.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             this.rbtn_md2.UseVisualStyleBackColor = true;
             // 
@@ -3586,7 +3590,7 @@ namespace UI
             this.rbtn_twomd.Name = "rbtn_twomd";
             this.rbtn_twomd.Size = new System.Drawing.Size(155, 30);
             this.rbtn_twomd.TabIndex = 125;
-            this.rbtn_twomd.Text = "‰∏§Ê®°ÂùóÂçèÂêåÂ∑•‰Ωú";
+            this.rbtn_twomd.Text = "¡Ωƒ£øÈ–≠Õ¨π§◊˜";
             this.rbtn_twomd.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             this.rbtn_twomd.UseVisualStyleBackColor = true;
             // 
@@ -3603,7 +3607,7 @@ namespace UI
             this.rbtn_md1.Size = new System.Drawing.Size(155, 30);
             this.rbtn_md1.TabIndex = 124;
             this.rbtn_md1.TabStop = true;
-            this.rbtn_md1.Text = "Ê®°Âùó1Â∑•‰Ωú";
+            this.rbtn_md1.Text = "ƒ£øÈ1π§◊˜";
             this.rbtn_md1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             this.rbtn_md1.UseVisualStyleBackColor = true;
             // 
@@ -3613,17 +3617,17 @@ namespace UI
             this.groupBox11.Controls.Add(this.nud_FixtrueMaintain);
             this.groupBox11.Controls.Add(this.label15);
             this.groupBox11.Controls.Add(this.label13);
-            this.groupBox11.Font = new System.Drawing.Font("ÂÆã‰Ωì", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.groupBox11.Font = new System.Drawing.Font("ÀŒÃÂ", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.groupBox11.Location = new System.Drawing.Point(753, 188);
             this.groupBox11.Name = "groupBox11";
             this.groupBox11.Size = new System.Drawing.Size(280, 94);
             this.groupBox11.TabIndex = 35;
             this.groupBox11.TabStop = false;
-            this.groupBox11.Text = "‰øùÂÖªÊèêÈÜí(Ê¨°)";
+            this.groupBox11.Text = "±£—¯Ã·–—(¥Œ)";
             // 
             // nud_EquipmentMaintain
             // 
-            this.nud_EquipmentMaintain.Font = new System.Drawing.Font("ÂÆã‰Ωì", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.nud_EquipmentMaintain.Font = new System.Drawing.Font("ÀŒÃÂ", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.nud_EquipmentMaintain.Increment = new decimal(new int[] {
             1,
             0,
@@ -3642,7 +3646,7 @@ namespace UI
             // 
             // nud_FixtrueMaintain
             // 
-            this.nud_FixtrueMaintain.Font = new System.Drawing.Font("ÂÆã‰Ωì", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.nud_FixtrueMaintain.Font = new System.Drawing.Font("ÀŒÃÂ", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.nud_FixtrueMaintain.Increment = new decimal(new int[] {
             1,
             0,
@@ -3662,40 +3666,40 @@ namespace UI
             // label15
             // 
             this.label15.AutoSize = true;
-            this.label15.Font = new System.Drawing.Font("ÂÆã‰Ωì", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.label15.Font = new System.Drawing.Font("ÀŒÃÂ", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.label15.Location = new System.Drawing.Point(13, 19);
             this.label15.Name = "label15";
             this.label15.Size = new System.Drawing.Size(111, 16);
             this.label15.TabIndex = 39;
-            this.label15.Text = "Â§πÂÖ∑‰øùÂÖªÈ¢ëÁéá:";
+            this.label15.Text = "º–æﬂ±£—¯∆µ¬ :";
             // 
             // label13
             // 
             this.label13.AutoSize = true;
-            this.label13.Font = new System.Drawing.Font("ÂÆã‰Ωì", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.label13.Font = new System.Drawing.Font("ÀŒÃÂ", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.label13.Location = new System.Drawing.Point(12, 58);
             this.label13.Name = "label13";
             this.label13.Size = new System.Drawing.Size(111, 16);
             this.label13.TabIndex = 2;
-            this.label13.Text = "ËÆæÂ§á‰øùÂÖªÈ¢ëÁéá:";
+            this.label13.Text = "…Ë±∏±£—¯∆µ¬ :";
             // 
             // groupBox10
             // 
             this.groupBox10.Controls.Add(this.nud_GTMOfs);
             this.groupBox10.Controls.Add(this.label14);
             this.groupBox10.Controls.Add(this.chk_GTMCheck);
-            this.groupBox10.Font = new System.Drawing.Font("ÂÆã‰Ωì", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.groupBox10.Font = new System.Drawing.Font("ÀŒÃÂ", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.groupBox10.Location = new System.Drawing.Point(512, 188);
             this.groupBox10.Name = "groupBox10";
             this.groupBox10.Size = new System.Drawing.Size(209, 148);
             this.groupBox10.TabIndex = 34;
             this.groupBox10.TabStop = false;
-            this.groupBox10.Text = "È´òÈÄèËÜúÂÅèÁßªÊ£ÄÊµãËÆæÁΩÆ(mm)";
+            this.groupBox10.Text = "∏ﬂÕ∏ƒ§∆´“∆ºÏ≤‚…Ë÷√(mm)";
             // 
             // nud_GTMOfs
             // 
             this.nud_GTMOfs.DecimalPlaces = 2;
-            this.nud_GTMOfs.Font = new System.Drawing.Font("ÂÆã‰Ωì", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.nud_GTMOfs.Font = new System.Drawing.Font("ÀŒÃÂ", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.nud_GTMOfs.Increment = new decimal(new int[] {
             1,
             0,
@@ -3725,22 +3729,22 @@ namespace UI
             // label14
             // 
             this.label14.AutoSize = true;
-            this.label14.Font = new System.Drawing.Font("ÂÆã‰Ωì", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.label14.Font = new System.Drawing.Font("ÀŒÃÂ", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.label14.Location = new System.Drawing.Point(23, 94);
             this.label14.Name = "label14";
             this.label14.Size = new System.Drawing.Size(79, 16);
             this.label14.TabIndex = 2;
-            this.label14.Text = "Êé•ÂèóË∑ùÁ¶ª:";
+            this.label14.Text = "Ω” ‹æ‡¿Î:";
             // 
             // chk_GTMCheck
             // 
             this.chk_GTMCheck.AutoSize = true;
-            this.chk_GTMCheck.Font = new System.Drawing.Font("ÂÆã‰Ωì", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.chk_GTMCheck.Font = new System.Drawing.Font("ÀŒÃÂ", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.chk_GTMCheck.Location = new System.Drawing.Point(24, 41);
             this.chk_GTMCheck.Name = "chk_GTMCheck";
             this.chk_GTMCheck.Size = new System.Drawing.Size(170, 20);
             this.chk_GTMCheck.TabIndex = 1;
-            this.chk_GTMCheck.Text = "È´òÈÄèÊ®°ÂÅèÁßªÊ£ÄÊµãÂºÄÂêØ";
+            this.chk_GTMCheck.Text = "∏ﬂÕ∏ƒ£∆´“∆ºÏ≤‚ø™∆Ù";
             this.chk_GTMCheck.UseVisualStyleBackColor = true;
             // 
             // tp_setparm_2
@@ -3780,7 +3784,7 @@ namespace UI
             this.tp_setparm_2.Padding = new System.Windows.Forms.Padding(3);
             this.tp_setparm_2.Size = new System.Drawing.Size(52, 44);
             this.tp_setparm_2.TabIndex = 1;
-            this.tp_setparm_2.Text = "ÂèÇÊï∞2          ";
+            this.tp_setparm_2.Text = "≤Œ ˝2          ";
             this.tp_setparm_2.UseVisualStyleBackColor = true;
             // 
             // groupBox68
@@ -3793,12 +3797,12 @@ namespace UI
             this.groupBox68.Size = new System.Drawing.Size(270, 97);
             this.groupBox68.TabIndex = 157;
             this.groupBox68.TabStop = false;
-            this.groupBox68.Text = "OTPÂÖ≥Ê∞îËÆæÁΩÆ";
+            this.groupBox68.Text = "OTPπÿ∆¯…Ë÷√";
             // 
             // numcloseair
             // 
             this.numcloseair.DecimalPlaces = 2;
-            this.numcloseair.Font = new System.Drawing.Font("ÂÆã‰Ωì", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.numcloseair.Font = new System.Drawing.Font("ÀŒÃÂ", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.numcloseair.Increment = new decimal(new int[] {
             1,
             0,
@@ -3818,12 +3822,12 @@ namespace UI
             // label89
             // 
             this.label89.AutoSize = true;
-            this.label89.Font = new System.Drawing.Font("ÂÆã‰Ωì", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.label89.Font = new System.Drawing.Font("ÀŒÃÂ", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.label89.Location = new System.Drawing.Point(6, 66);
             this.label89.Name = "label89";
             this.label89.Size = new System.Drawing.Size(142, 22);
             this.label89.TabIndex = 158;
-            this.label89.Text = "Êó∂ÈïøÔºàÁßíÔºâÔºö";
+            this.label89.Text = " ±≥§£®√Î£©£∫";
             // 
             // cbttpcloseair
             // 
@@ -3832,20 +3836,20 @@ namespace UI
             this.cbttpcloseair.Name = "cbttpcloseair";
             this.cbttpcloseair.Size = new System.Drawing.Size(150, 26);
             this.cbttpcloseair.TabIndex = 157;
-            this.cbttpcloseair.Text = "OTPÂÖ≥Èó≠ÂêπÊ∞î";
+            this.cbttpcloseair.Text = "OTPπÿ±’¥µ∆¯";
             this.cbttpcloseair.UseVisualStyleBackColor = true;
             // 
             // groupBox65
             // 
             this.groupBox65.Controls.Add(this.rbtn_AddCapQrcodeEnOnlyClose);
             this.groupBox65.Controls.Add(this.rbtn_AddCapQrcodeEnOnly);
-            this.groupBox65.Font = new System.Drawing.Font("ÂÆã‰Ωì", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.groupBox65.Font = new System.Drawing.Font("ÀŒÃÂ", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.groupBox65.Location = new System.Drawing.Point(796, 669);
             this.groupBox65.Name = "groupBox65";
             this.groupBox65.Size = new System.Drawing.Size(270, 65);
             this.groupBox65.TabIndex = 155;
             this.groupBox65.TabStop = false;
-            this.groupBox65.Text = "ÊòØÂê¶ÂçïÁã¨ËøõË°å‰∫åÁª¥Á†ÅÂõûÊ£Ä";
+            this.groupBox65.Text = " «∑Òµ•∂¿Ω¯––∂˛Œ¨¬ÎªÿºÏ";
             // 
             // rbtn_AddCapQrcodeEnOnlyClose
             // 
@@ -3858,7 +3862,7 @@ namespace UI
             this.rbtn_AddCapQrcodeEnOnlyClose.Name = "rbtn_AddCapQrcodeEnOnlyClose";
             this.rbtn_AddCapQrcodeEnOnlyClose.Size = new System.Drawing.Size(84, 30);
             this.rbtn_AddCapQrcodeEnOnlyClose.TabIndex = 126;
-            this.rbtn_AddCapQrcodeEnOnlyClose.Text = "ÂÖ≥Èó≠";
+            this.rbtn_AddCapQrcodeEnOnlyClose.Text = "πÿ±’";
             this.rbtn_AddCapQrcodeEnOnlyClose.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             this.rbtn_AddCapQrcodeEnOnlyClose.UseVisualStyleBackColor = true;
             // 
@@ -3875,7 +3879,7 @@ namespace UI
             this.rbtn_AddCapQrcodeEnOnly.Size = new System.Drawing.Size(84, 30);
             this.rbtn_AddCapQrcodeEnOnly.TabIndex = 124;
             this.rbtn_AddCapQrcodeEnOnly.TabStop = true;
-            this.rbtn_AddCapQrcodeEnOnly.Text = "ÂºÄÂêØ";
+            this.rbtn_AddCapQrcodeEnOnly.Text = "ø™∆Ù";
             this.rbtn_AddCapQrcodeEnOnly.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             this.rbtn_AddCapQrcodeEnOnly.UseVisualStyleBackColor = true;
             // 
@@ -3884,13 +3888,13 @@ namespace UI
             this.groupBox64.Controls.Add(this.rbtn_check2close);
             this.groupBox64.Controls.Add(this.rbtn_check2open);
             this.groupBox64.Controls.Add(this.tabControl3);
-            this.groupBox64.Font = new System.Drawing.Font("ÂÆã‰Ωì", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.groupBox64.Font = new System.Drawing.Font("ÀŒÃÂ", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.groupBox64.Location = new System.Drawing.Point(19, 692);
             this.groupBox64.Name = "groupBox64";
             this.groupBox64.Size = new System.Drawing.Size(760, 130);
             this.groupBox64.TabIndex = 154;
             this.groupBox64.TabStop = false;
-            this.groupBox64.Text = "ËøûÊé•Âô®ÂõûÊ£ÄÊåáÊ†á2ÔºàÈÄÇÁî®‰∫éÈïøÊ®°ÁªÑÔºåÂàÜ‰∏§Ê¨°ÂõûÊ£ÄÁöÑÊÉÖÂÜµÔºâ";
+            this.groupBox64.Text = "¡¨Ω”∆˜ªÿºÏ÷∏±Í2£®  ”√”⁄≥§ƒ£◊È£¨∑÷¡Ω¥ŒªÿºÏµƒ«Èøˆ£©";
             // 
             // rbtn_check2close
             // 
@@ -3903,7 +3907,7 @@ namespace UI
             this.rbtn_check2close.Name = "rbtn_check2close";
             this.rbtn_check2close.Size = new System.Drawing.Size(71, 30);
             this.rbtn_check2close.TabIndex = 128;
-            this.rbtn_check2close.Text = "ÂÖ≥Èó≠";
+            this.rbtn_check2close.Text = "πÿ±’";
             this.rbtn_check2close.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             this.rbtn_check2close.UseVisualStyleBackColor = true;
             // 
@@ -3920,7 +3924,7 @@ namespace UI
             this.rbtn_check2open.Size = new System.Drawing.Size(71, 30);
             this.rbtn_check2open.TabIndex = 127;
             this.rbtn_check2open.TabStop = true;
-            this.rbtn_check2open.Text = "ÂºÄÂêØ";
+            this.rbtn_check2open.Text = "ø™∆Ù";
             this.rbtn_check2open.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             this.rbtn_check2open.UseVisualStyleBackColor = true;
             // 
@@ -3952,13 +3956,13 @@ namespace UI
             this.tabPage6.Padding = new System.Windows.Forms.Padding(3);
             this.tabPage6.Size = new System.Drawing.Size(619, 69);
             this.tabPage6.TabIndex = 0;
-            this.tabPage6.Text = "1Âè∑‰∏ä‰∏ãÊñô";
+            this.tabPage6.Text = "1∫≈…œœ¬¡œ";
             this.tabPage6.UseVisualStyleBackColor = true;
             // 
             // nud_Areaofset3
             // 
             this.nud_Areaofset3.DecimalPlaces = 2;
-            this.nud_Areaofset3.Font = new System.Drawing.Font("ÂÆã‰Ωì", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.nud_Areaofset3.Font = new System.Drawing.Font("ÀŒÃÂ", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.nud_Areaofset3.Increment = new decimal(new int[] {
             1,
             0,
@@ -3983,17 +3987,17 @@ namespace UI
             // label56
             // 
             this.label56.AutoSize = true;
-            this.label56.Font = new System.Drawing.Font("ÂÆã‰Ωì", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.label56.Font = new System.Drawing.Font("ÀŒÃÂ", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.label56.Location = new System.Drawing.Point(460, 7);
             this.label56.Name = "label56";
             this.label56.Size = new System.Drawing.Size(55, 16);
             this.label56.TabIndex = 57;
-            this.label56.Text = "ÁÆ°ÊéßÔºö";
+            this.label56.Text = "π‹øÿ£∫";
             // 
             // nud_DownArea3
             // 
             this.nud_DownArea3.DecimalPlaces = 2;
-            this.nud_DownArea3.Font = new System.Drawing.Font("ÂÆã‰Ωì", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.nud_DownArea3.Font = new System.Drawing.Font("ÀŒÃÂ", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.nud_DownArea3.Increment = new decimal(new int[] {
             1,
             0,
@@ -4018,7 +4022,7 @@ namespace UI
             // nud_UpArea3
             // 
             this.nud_UpArea3.DecimalPlaces = 2;
-            this.nud_UpArea3.Font = new System.Drawing.Font("ÂÆã‰Ωì", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.nud_UpArea3.Font = new System.Drawing.Font("ÀŒÃÂ", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.nud_UpArea3.Increment = new decimal(new int[] {
             1,
             0,
@@ -4043,7 +4047,7 @@ namespace UI
             // nud_RightArea3
             // 
             this.nud_RightArea3.DecimalPlaces = 2;
-            this.nud_RightArea3.Font = new System.Drawing.Font("ÂÆã‰Ωì", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.nud_RightArea3.Font = new System.Drawing.Font("ÀŒÃÂ", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.nud_RightArea3.Increment = new decimal(new int[] {
             1,
             0,
@@ -4068,7 +4072,7 @@ namespace UI
             // nud_LeftArea3
             // 
             this.nud_LeftArea3.DecimalPlaces = 2;
-            this.nud_LeftArea3.Font = new System.Drawing.Font("ÂÆã‰Ωì", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.nud_LeftArea3.Font = new System.Drawing.Font("ÀŒÃÂ", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.nud_LeftArea3.Increment = new decimal(new int[] {
             1,
             0,
@@ -4093,37 +4097,37 @@ namespace UI
             // label66
             // 
             this.label66.AutoSize = true;
-            this.label66.Font = new System.Drawing.Font("ÂÆã‰Ωì", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.label66.Font = new System.Drawing.Font("ÀŒÃÂ", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.label66.Location = new System.Drawing.Point(341, 6);
             this.label66.Name = "label66";
             this.label66.Size = new System.Drawing.Size(71, 16);
             this.label66.TabIndex = 52;
-            this.label66.Text = "‰∏ãÈù¢ÁßØÔºö";
+            this.label66.Text = "œ¬√Êª˝£∫";
             // 
             // label67
             // 
             this.label67.AutoSize = true;
-            this.label67.Font = new System.Drawing.Font("ÂÆã‰Ωì", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.label67.Font = new System.Drawing.Font("ÀŒÃÂ", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.label67.Location = new System.Drawing.Point(228, 7);
             this.label67.Name = "label67";
             this.label67.Size = new System.Drawing.Size(71, 16);
             this.label67.TabIndex = 51;
-            this.label67.Text = "‰∏äÈù¢ÁßØÔºö";
+            this.label67.Text = "…œ√Êª˝£∫";
             // 
             // label68
             // 
             this.label68.AutoSize = true;
-            this.label68.Font = new System.Drawing.Font("ÂÆã‰Ωì", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.label68.Font = new System.Drawing.Font("ÀŒÃÂ", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.label68.Location = new System.Drawing.Point(118, 7);
             this.label68.Name = "label68";
             this.label68.Size = new System.Drawing.Size(71, 16);
             this.label68.TabIndex = 50;
-            this.label68.Text = "Âè≥Èù¢ÁßØÔºö";
+            this.label68.Text = "”“√Êª˝£∫";
             // 
             // label69
             // 
             this.label69.AutoSize = true;
-            this.label69.Font = new System.Drawing.Font("ÂÆã‰Ωì", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.label69.Font = new System.Drawing.Font("ÀŒÃÂ", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.label69.Location = new System.Drawing.Point(151, 29);
             this.label69.Name = "label69";
             this.label69.Size = new System.Drawing.Size(0, 16);
@@ -4132,12 +4136,12 @@ namespace UI
             // label70
             // 
             this.label70.AutoSize = true;
-            this.label70.Font = new System.Drawing.Font("ÂÆã‰Ωì", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.label70.Font = new System.Drawing.Font("ÀŒÃÂ", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.label70.Location = new System.Drawing.Point(5, 7);
             this.label70.Name = "label70";
             this.label70.Size = new System.Drawing.Size(71, 16);
             this.label70.TabIndex = 48;
-            this.label70.Text = "Â∑¶Èù¢ÁßØÔºö";
+            this.label70.Text = "◊Û√Êª˝£∫";
             // 
             // tabPage7
             // 
@@ -4156,13 +4160,13 @@ namespace UI
             this.tabPage7.Padding = new System.Windows.Forms.Padding(3);
             this.tabPage7.Size = new System.Drawing.Size(619, 69);
             this.tabPage7.TabIndex = 1;
-            this.tabPage7.Text = "2Âè∑‰∏ä‰∏ãÊñô";
+            this.tabPage7.Text = "2∫≈…œœ¬¡œ";
             this.tabPage7.UseVisualStyleBackColor = true;
             // 
             // nud_Areaofset4
             // 
             this.nud_Areaofset4.DecimalPlaces = 2;
-            this.nud_Areaofset4.Font = new System.Drawing.Font("ÂÆã‰Ωì", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.nud_Areaofset4.Font = new System.Drawing.Font("ÀŒÃÂ", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.nud_Areaofset4.Increment = new decimal(new int[] {
             1,
             0,
@@ -4187,17 +4191,17 @@ namespace UI
             // label71
             // 
             this.label71.AutoSize = true;
-            this.label71.Font = new System.Drawing.Font("ÂÆã‰Ωì", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.label71.Font = new System.Drawing.Font("ÀŒÃÂ", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.label71.Location = new System.Drawing.Point(457, 7);
             this.label71.Name = "label71";
             this.label71.Size = new System.Drawing.Size(55, 16);
             this.label71.TabIndex = 67;
-            this.label71.Text = "ÁÆ°ÊéßÔºö";
+            this.label71.Text = "π‹øÿ£∫";
             // 
             // nud_DownArea4
             // 
             this.nud_DownArea4.DecimalPlaces = 2;
-            this.nud_DownArea4.Font = new System.Drawing.Font("ÂÆã‰Ωì", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.nud_DownArea4.Font = new System.Drawing.Font("ÀŒÃÂ", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.nud_DownArea4.Increment = new decimal(new int[] {
             1,
             0,
@@ -4222,7 +4226,7 @@ namespace UI
             // nud_UpArea4
             // 
             this.nud_UpArea4.DecimalPlaces = 2;
-            this.nud_UpArea4.Font = new System.Drawing.Font("ÂÆã‰Ωì", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.nud_UpArea4.Font = new System.Drawing.Font("ÀŒÃÂ", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.nud_UpArea4.Increment = new decimal(new int[] {
             1,
             0,
@@ -4247,7 +4251,7 @@ namespace UI
             // nud_RightArea4
             // 
             this.nud_RightArea4.DecimalPlaces = 2;
-            this.nud_RightArea4.Font = new System.Drawing.Font("ÂÆã‰Ωì", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.nud_RightArea4.Font = new System.Drawing.Font("ÀŒÃÂ", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.nud_RightArea4.Increment = new decimal(new int[] {
             1,
             0,
@@ -4272,7 +4276,7 @@ namespace UI
             // nud_LeftArea4
             // 
             this.nud_LeftArea4.DecimalPlaces = 2;
-            this.nud_LeftArea4.Font = new System.Drawing.Font("ÂÆã‰Ωì", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.nud_LeftArea4.Font = new System.Drawing.Font("ÀŒÃÂ", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.nud_LeftArea4.Increment = new decimal(new int[] {
             1,
             0,
@@ -4297,42 +4301,42 @@ namespace UI
             // label72
             // 
             this.label72.AutoSize = true;
-            this.label72.Font = new System.Drawing.Font("ÂÆã‰Ωì", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.label72.Font = new System.Drawing.Font("ÀŒÃÂ", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.label72.Location = new System.Drawing.Point(341, 6);
             this.label72.Name = "label72";
             this.label72.Size = new System.Drawing.Size(71, 16);
             this.label72.TabIndex = 62;
-            this.label72.Text = "‰∏ãÈù¢ÁßØÔºö";
+            this.label72.Text = "œ¬√Êª˝£∫";
             // 
             // label73
             // 
             this.label73.AutoSize = true;
-            this.label73.Font = new System.Drawing.Font("ÂÆã‰Ωì", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.label73.Font = new System.Drawing.Font("ÀŒÃÂ", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.label73.Location = new System.Drawing.Point(228, 7);
             this.label73.Name = "label73";
             this.label73.Size = new System.Drawing.Size(71, 16);
             this.label73.TabIndex = 61;
-            this.label73.Text = "‰∏äÈù¢ÁßØÔºö";
+            this.label73.Text = "…œ√Êª˝£∫";
             // 
             // label74
             // 
             this.label74.AutoSize = true;
-            this.label74.Font = new System.Drawing.Font("ÂÆã‰Ωì", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.label74.Font = new System.Drawing.Font("ÀŒÃÂ", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.label74.Location = new System.Drawing.Point(118, 7);
             this.label74.Name = "label74";
             this.label74.Size = new System.Drawing.Size(71, 16);
             this.label74.TabIndex = 60;
-            this.label74.Text = "Âè≥Èù¢ÁßØÔºö";
+            this.label74.Text = "”“√Êª˝£∫";
             // 
             // label75
             // 
             this.label75.AutoSize = true;
-            this.label75.Font = new System.Drawing.Font("ÂÆã‰Ωì", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.label75.Font = new System.Drawing.Font("ÀŒÃÂ", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.label75.Location = new System.Drawing.Point(5, 7);
             this.label75.Name = "label75";
             this.label75.Size = new System.Drawing.Size(71, 16);
             this.label75.TabIndex = 59;
-            this.label75.Text = "Â∑¶Èù¢ÁßØÔºö";
+            this.label75.Text = "◊Û√Êª˝£∫";
             // 
             // groupBox62
             // 
@@ -4340,17 +4344,17 @@ namespace UI
             this.groupBox62.Controls.Add(this.labeldowndegree);
             this.groupBox62.Controls.Add(this.rbtn_closedown_degree);
             this.groupBox62.Controls.Add(this.rbtn_opendown_degree);
-            this.groupBox62.Font = new System.Drawing.Font("ÂÆã‰Ωì", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.groupBox62.Font = new System.Drawing.Font("ÀŒÃÂ", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.groupBox62.Location = new System.Drawing.Point(852, 6);
             this.groupBox62.Name = "groupBox62";
             this.groupBox62.Size = new System.Drawing.Size(209, 108);
             this.groupBox62.TabIndex = 154;
             this.groupBox62.TabStop = false;
-            this.groupBox62.Text = "Â∑•Á´ôÂèñÊñôËßíÂ∫¶ËÆæÁΩÆ";
+            this.groupBox62.Text = "π§’æ»°¡œΩ«∂»…Ë÷√";
             // 
             // nud_offsetdown_degree
             // 
-            this.nud_offsetdown_degree.Font = new System.Drawing.Font("ÂÆã‰Ωì", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.nud_offsetdown_degree.Font = new System.Drawing.Font("ÀŒÃÂ", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.nud_offsetdown_degree.Location = new System.Drawing.Point(113, 62);
             this.nud_offsetdown_degree.Maximum = new decimal(new int[] {
             360,
@@ -4375,12 +4379,12 @@ namespace UI
             // labeldowndegree
             // 
             this.labeldowndegree.AutoSize = true;
-            this.labeldowndegree.Font = new System.Drawing.Font("ÂÆã‰Ωì", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.labeldowndegree.Font = new System.Drawing.Font("ÀŒÃÂ", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.labeldowndegree.Location = new System.Drawing.Point(113, 31);
             this.labeldowndegree.Name = "labeldowndegree";
             this.labeldowndegree.Size = new System.Drawing.Size(47, 16);
             this.labeldowndegree.TabIndex = 129;
-            this.labeldowndegree.Text = "ËßíÂ∫¶:";
+            this.labeldowndegree.Text = "Ω«∂»:";
             // 
             // rbtn_closedown_degree
             // 
@@ -4393,7 +4397,7 @@ namespace UI
             this.rbtn_closedown_degree.Name = "rbtn_closedown_degree";
             this.rbtn_closedown_degree.Size = new System.Drawing.Size(77, 30);
             this.rbtn_closedown_degree.TabIndex = 126;
-            this.rbtn_closedown_degree.Text = "ÂÖ≥Èó≠";
+            this.rbtn_closedown_degree.Text = "πÿ±’";
             this.rbtn_closedown_degree.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             this.rbtn_closedown_degree.UseVisualStyleBackColor = true;
             // 
@@ -4410,7 +4414,7 @@ namespace UI
             this.rbtn_opendown_degree.Size = new System.Drawing.Size(77, 30);
             this.rbtn_opendown_degree.TabIndex = 124;
             this.rbtn_opendown_degree.TabStop = true;
-            this.rbtn_opendown_degree.Text = "ÂºÄÂêØ";
+            this.rbtn_opendown_degree.Text = "ø™∆Ù";
             this.rbtn_opendown_degree.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             this.rbtn_opendown_degree.UseVisualStyleBackColor = true;
             // 
@@ -4418,13 +4422,13 @@ namespace UI
             // 
             this.groupBox48.Controls.Add(this.cb_ConnectorCheck);
             this.groupBox48.Controls.Add(this.tabControl1);
-            this.groupBox48.Font = new System.Drawing.Font("ÂÆã‰Ωì", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.groupBox48.Font = new System.Drawing.Font("ÀŒÃÂ", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.groupBox48.Location = new System.Drawing.Point(19, 567);
             this.groupBox48.Name = "groupBox48";
             this.groupBox48.Size = new System.Drawing.Size(760, 122);
             this.groupBox48.TabIndex = 153;
             this.groupBox48.TabStop = false;
-            this.groupBox48.Text = "ËøûÊé•Âô®ÂõûÊ£ÄÊåáÊ†á";
+            this.groupBox48.Text = "¡¨Ω”∆˜ªÿºÏ÷∏±Í";
             // 
             // cb_ConnectorCheck
             // 
@@ -4433,7 +4437,7 @@ namespace UI
             this.cb_ConnectorCheck.Name = "cb_ConnectorCheck";
             this.cb_ConnectorCheck.Size = new System.Drawing.Size(110, 18);
             this.cb_ConnectorCheck.TabIndex = 48;
-            this.cb_ConnectorCheck.Text = "Â§öÈìæÊé•Âô®ÁÆ°Êéß";
+            this.cb_ConnectorCheck.Text = "∂‡¡¥Ω”∆˜π‹øÿ";
             this.cb_ConnectorCheck.UseVisualStyleBackColor = true;
             // 
             // tabControl1
@@ -4464,13 +4468,13 @@ namespace UI
             this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
             this.tabPage1.Size = new System.Drawing.Size(619, 69);
             this.tabPage1.TabIndex = 0;
-            this.tabPage1.Text = "1Âè∑‰∏ä‰∏ãÊñô";
+            this.tabPage1.Text = "1∫≈…œœ¬¡œ";
             this.tabPage1.UseVisualStyleBackColor = true;
             // 
             // nud_Areaofset
             // 
             this.nud_Areaofset.DecimalPlaces = 2;
-            this.nud_Areaofset.Font = new System.Drawing.Font("ÂÆã‰Ωì", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.nud_Areaofset.Font = new System.Drawing.Font("ÀŒÃÂ", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.nud_Areaofset.Increment = new decimal(new int[] {
             1,
             0,
@@ -4495,17 +4499,17 @@ namespace UI
             // label39
             // 
             this.label39.AutoSize = true;
-            this.label39.Font = new System.Drawing.Font("ÂÆã‰Ωì", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.label39.Font = new System.Drawing.Font("ÀŒÃÂ", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.label39.Location = new System.Drawing.Point(460, 7);
             this.label39.Name = "label39";
             this.label39.Size = new System.Drawing.Size(55, 16);
             this.label39.TabIndex = 57;
-            this.label39.Text = "ÁÆ°ÊéßÔºö";
+            this.label39.Text = "π‹øÿ£∫";
             // 
             // nud_DownArea
             // 
             this.nud_DownArea.DecimalPlaces = 2;
-            this.nud_DownArea.Font = new System.Drawing.Font("ÂÆã‰Ωì", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.nud_DownArea.Font = new System.Drawing.Font("ÀŒÃÂ", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.nud_DownArea.Increment = new decimal(new int[] {
             1,
             0,
@@ -4530,7 +4534,7 @@ namespace UI
             // nud_UpArea
             // 
             this.nud_UpArea.DecimalPlaces = 2;
-            this.nud_UpArea.Font = new System.Drawing.Font("ÂÆã‰Ωì", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.nud_UpArea.Font = new System.Drawing.Font("ÀŒÃÂ", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.nud_UpArea.Increment = new decimal(new int[] {
             1,
             0,
@@ -4555,7 +4559,7 @@ namespace UI
             // nud_RightArea
             // 
             this.nud_RightArea.DecimalPlaces = 2;
-            this.nud_RightArea.Font = new System.Drawing.Font("ÂÆã‰Ωì", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.nud_RightArea.Font = new System.Drawing.Font("ÀŒÃÂ", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.nud_RightArea.Increment = new decimal(new int[] {
             1,
             0,
@@ -4580,7 +4584,7 @@ namespace UI
             // nud_LeftArea
             // 
             this.nud_LeftArea.DecimalPlaces = 2;
-            this.nud_LeftArea.Font = new System.Drawing.Font("ÂÆã‰Ωì", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.nud_LeftArea.Font = new System.Drawing.Font("ÀŒÃÂ", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.nud_LeftArea.Increment = new decimal(new int[] {
             1,
             0,
@@ -4605,37 +4609,37 @@ namespace UI
             // label34
             // 
             this.label34.AutoSize = true;
-            this.label34.Font = new System.Drawing.Font("ÂÆã‰Ωì", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.label34.Font = new System.Drawing.Font("ÀŒÃÂ", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.label34.Location = new System.Drawing.Point(341, 6);
             this.label34.Name = "label34";
             this.label34.Size = new System.Drawing.Size(71, 16);
             this.label34.TabIndex = 52;
-            this.label34.Text = "‰∏ãÈù¢ÁßØÔºö";
+            this.label34.Text = "œ¬√Êª˝£∫";
             // 
             // label35
             // 
             this.label35.AutoSize = true;
-            this.label35.Font = new System.Drawing.Font("ÂÆã‰Ωì", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.label35.Font = new System.Drawing.Font("ÀŒÃÂ", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.label35.Location = new System.Drawing.Point(228, 7);
             this.label35.Name = "label35";
             this.label35.Size = new System.Drawing.Size(71, 16);
             this.label35.TabIndex = 51;
-            this.label35.Text = "‰∏äÈù¢ÁßØÔºö";
+            this.label35.Text = "…œ√Êª˝£∫";
             // 
             // label36
             // 
             this.label36.AutoSize = true;
-            this.label36.Font = new System.Drawing.Font("ÂÆã‰Ωì", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.label36.Font = new System.Drawing.Font("ÀŒÃÂ", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.label36.Location = new System.Drawing.Point(118, 7);
             this.label36.Name = "label36";
             this.label36.Size = new System.Drawing.Size(71, 16);
             this.label36.TabIndex = 50;
-            this.label36.Text = "Âè≥Èù¢ÁßØÔºö";
+            this.label36.Text = "”“√Êª˝£∫";
             // 
             // label37
             // 
             this.label37.AutoSize = true;
-            this.label37.Font = new System.Drawing.Font("ÂÆã‰Ωì", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.label37.Font = new System.Drawing.Font("ÀŒÃÂ", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.label37.Location = new System.Drawing.Point(151, 29);
             this.label37.Name = "label37";
             this.label37.Size = new System.Drawing.Size(0, 16);
@@ -4644,12 +4648,12 @@ namespace UI
             // label38
             // 
             this.label38.AutoSize = true;
-            this.label38.Font = new System.Drawing.Font("ÂÆã‰Ωì", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.label38.Font = new System.Drawing.Font("ÀŒÃÂ", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.label38.Location = new System.Drawing.Point(5, 7);
             this.label38.Name = "label38";
             this.label38.Size = new System.Drawing.Size(71, 16);
             this.label38.TabIndex = 48;
-            this.label38.Text = "Â∑¶Èù¢ÁßØÔºö";
+            this.label38.Text = "◊Û√Êª˝£∫";
             // 
             // tabPage2
             // 
@@ -4668,13 +4672,13 @@ namespace UI
             this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
             this.tabPage2.Size = new System.Drawing.Size(619, 69);
             this.tabPage2.TabIndex = 1;
-            this.tabPage2.Text = "2Âè∑‰∏ä‰∏ãÊñô";
+            this.tabPage2.Text = "2∫≈…œœ¬¡œ";
             this.tabPage2.UseVisualStyleBackColor = true;
             // 
             // nud_Areaofset2
             // 
             this.nud_Areaofset2.DecimalPlaces = 2;
-            this.nud_Areaofset2.Font = new System.Drawing.Font("ÂÆã‰Ωì", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.nud_Areaofset2.Font = new System.Drawing.Font("ÀŒÃÂ", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.nud_Areaofset2.Increment = new decimal(new int[] {
             1,
             0,
@@ -4699,17 +4703,17 @@ namespace UI
             // label40
             // 
             this.label40.AutoSize = true;
-            this.label40.Font = new System.Drawing.Font("ÂÆã‰Ωì", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.label40.Font = new System.Drawing.Font("ÀŒÃÂ", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.label40.Location = new System.Drawing.Point(457, 7);
             this.label40.Name = "label40";
             this.label40.Size = new System.Drawing.Size(55, 16);
             this.label40.TabIndex = 67;
-            this.label40.Text = "ÁÆ°ÊéßÔºö";
+            this.label40.Text = "π‹øÿ£∫";
             // 
             // nud_DownArea2
             // 
             this.nud_DownArea2.DecimalPlaces = 2;
-            this.nud_DownArea2.Font = new System.Drawing.Font("ÂÆã‰Ωì", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.nud_DownArea2.Font = new System.Drawing.Font("ÀŒÃÂ", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.nud_DownArea2.Increment = new decimal(new int[] {
             1,
             0,
@@ -4734,7 +4738,7 @@ namespace UI
             // nud_UpArea2
             // 
             this.nud_UpArea2.DecimalPlaces = 2;
-            this.nud_UpArea2.Font = new System.Drawing.Font("ÂÆã‰Ωì", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.nud_UpArea2.Font = new System.Drawing.Font("ÀŒÃÂ", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.nud_UpArea2.Increment = new decimal(new int[] {
             1,
             0,
@@ -4759,7 +4763,7 @@ namespace UI
             // nud_RightArea2
             // 
             this.nud_RightArea2.DecimalPlaces = 2;
-            this.nud_RightArea2.Font = new System.Drawing.Font("ÂÆã‰Ωì", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.nud_RightArea2.Font = new System.Drawing.Font("ÀŒÃÂ", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.nud_RightArea2.Increment = new decimal(new int[] {
             1,
             0,
@@ -4784,7 +4788,7 @@ namespace UI
             // nud_LeftArea2
             // 
             this.nud_LeftArea2.DecimalPlaces = 2;
-            this.nud_LeftArea2.Font = new System.Drawing.Font("ÂÆã‰Ωì", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.nud_LeftArea2.Font = new System.Drawing.Font("ÀŒÃÂ", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.nud_LeftArea2.Increment = new decimal(new int[] {
             1,
             0,
@@ -4809,54 +4813,54 @@ namespace UI
             // label41
             // 
             this.label41.AutoSize = true;
-            this.label41.Font = new System.Drawing.Font("ÂÆã‰Ωì", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.label41.Font = new System.Drawing.Font("ÀŒÃÂ", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.label41.Location = new System.Drawing.Point(341, 6);
             this.label41.Name = "label41";
             this.label41.Size = new System.Drawing.Size(71, 16);
             this.label41.TabIndex = 62;
-            this.label41.Text = "‰∏ãÈù¢ÁßØÔºö";
+            this.label41.Text = "œ¬√Êª˝£∫";
             // 
             // label42
             // 
             this.label42.AutoSize = true;
-            this.label42.Font = new System.Drawing.Font("ÂÆã‰Ωì", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.label42.Font = new System.Drawing.Font("ÀŒÃÂ", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.label42.Location = new System.Drawing.Point(228, 7);
             this.label42.Name = "label42";
             this.label42.Size = new System.Drawing.Size(71, 16);
             this.label42.TabIndex = 61;
-            this.label42.Text = "‰∏äÈù¢ÁßØÔºö";
+            this.label42.Text = "…œ√Êª˝£∫";
             // 
             // label43
             // 
             this.label43.AutoSize = true;
-            this.label43.Font = new System.Drawing.Font("ÂÆã‰Ωì", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.label43.Font = new System.Drawing.Font("ÀŒÃÂ", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.label43.Location = new System.Drawing.Point(118, 7);
             this.label43.Name = "label43";
             this.label43.Size = new System.Drawing.Size(71, 16);
             this.label43.TabIndex = 60;
-            this.label43.Text = "Âè≥Èù¢ÁßØÔºö";
+            this.label43.Text = "”“√Êª˝£∫";
             // 
             // label44
             // 
             this.label44.AutoSize = true;
-            this.label44.Font = new System.Drawing.Font("ÂÆã‰Ωì", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.label44.Font = new System.Drawing.Font("ÀŒÃÂ", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.label44.Location = new System.Drawing.Point(5, 7);
             this.label44.Name = "label44";
             this.label44.Size = new System.Drawing.Size(71, 16);
             this.label44.TabIndex = 59;
-            this.label44.Text = "Â∑¶Èù¢ÁßØÔºö";
+            this.label44.Text = "◊Û√Êª˝£∫";
             // 
             // groupBox3
             // 
             this.groupBox3.Controls.Add(this.rad_light_xsj);
             this.groupBox3.Controls.Add(this.rad_G4C);
-            this.groupBox3.Font = new System.Drawing.Font("ÂÆã‰Ωì", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.groupBox3.Font = new System.Drawing.Font("ÀŒÃÂ", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.groupBox3.Location = new System.Drawing.Point(326, 4);
             this.groupBox3.Name = "groupBox3";
             this.groupBox3.Size = new System.Drawing.Size(143, 110);
             this.groupBox3.TabIndex = 152;
             this.groupBox3.TabStop = false;
-            this.groupBox3.Text = "ÂÖâÊ∫êÂàáÊç¢";
+            this.groupBox3.Text = "π‚‘¥«–ªª";
             // 
             // rad_light_xsj
             // 
@@ -4869,7 +4873,7 @@ namespace UI
             this.rad_light_xsj.Name = "rad_light_xsj";
             this.rad_light_xsj.Size = new System.Drawing.Size(87, 30);
             this.rad_light_xsj.TabIndex = 126;
-            this.rad_light_xsj.Text = "ËΩ©‰ªï‰Ω≥";
+            this.rad_light_xsj.Text = "–˘ Àº—";
             this.rad_light_xsj.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             this.rad_light_xsj.UseVisualStyleBackColor = true;
             // 
@@ -4894,13 +4898,13 @@ namespace UI
             // 
             this.groupBox7.Controls.Add(this.rbtn_Y1dis);
             this.groupBox7.Controls.Add(this.rbtn_Y1en);
-            this.groupBox7.Font = new System.Drawing.Font("ÂÆã‰Ωì", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.groupBox7.Font = new System.Drawing.Font("ÀŒÃÂ", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.groupBox7.Location = new System.Drawing.Point(25, 4);
             this.groupBox7.Name = "groupBox7";
             this.groupBox7.Size = new System.Drawing.Size(146, 110);
             this.groupBox7.TabIndex = 151;
             this.groupBox7.TabStop = false;
-            this.groupBox7.Text = "Â¢ûË∑ùÈïúY1ÂºÄÂêØËÆæÁΩÆ(‰∏çËÉΩÂèòÊõ¥)";
+            this.groupBox7.Text = "‘ˆæ‡æµY1ø™∆Ù…Ë÷√(≤ªƒ‹±‰∏¸)";
             // 
             // rbtn_Y1dis
             // 
@@ -4913,7 +4917,7 @@ namespace UI
             this.rbtn_Y1dis.Name = "rbtn_Y1dis";
             this.rbtn_Y1dis.Size = new System.Drawing.Size(83, 30);
             this.rbtn_Y1dis.TabIndex = 126;
-            this.rbtn_Y1dis.Text = "ÂÖ≥Èó≠Y1";
+            this.rbtn_Y1dis.Text = "πÿ±’Y1";
             this.rbtn_Y1dis.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             this.rbtn_Y1dis.UseVisualStyleBackColor = true;
             // 
@@ -4930,7 +4934,7 @@ namespace UI
             this.rbtn_Y1en.Size = new System.Drawing.Size(83, 30);
             this.rbtn_Y1en.TabIndex = 124;
             this.rbtn_Y1en.TabStop = true;
-            this.rbtn_Y1en.Text = "ÂºÄÂêØY1";
+            this.rbtn_Y1en.Text = "ø™∆ÙY1";
             this.rbtn_Y1en.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             this.rbtn_Y1en.UseVisualStyleBackColor = true;
             // 
@@ -4938,13 +4942,13 @@ namespace UI
             // 
             this.groupBox47.Controls.Add(this.rbtn_safeoff);
             this.groupBox47.Controls.Add(this.rbtn_safeon);
-            this.groupBox47.Font = new System.Drawing.Font("ÂÆã‰Ωì", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.groupBox47.Font = new System.Drawing.Font("ÀŒÃÂ", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.groupBox47.Location = new System.Drawing.Point(177, 4);
             this.groupBox47.Name = "groupBox47";
             this.groupBox47.Size = new System.Drawing.Size(143, 110);
             this.groupBox47.TabIndex = 150;
             this.groupBox47.TabStop = false;
-            this.groupBox47.Text = "‰∏ä‰∏ãÊñôÁßªÂä®‰øùÊä§(ÈíàÂØπËΩ¨Áõò)";
+            this.groupBox47.Text = "…œœ¬¡œ“∆∂Ø±£ª§(’Î∂‘◊™≈Ã)";
             // 
             // rbtn_safeoff
             // 
@@ -4957,7 +4961,7 @@ namespace UI
             this.rbtn_safeoff.Name = "rbtn_safeoff";
             this.rbtn_safeoff.Size = new System.Drawing.Size(87, 30);
             this.rbtn_safeoff.TabIndex = 126;
-            this.rbtn_safeoff.Text = "ÂÖ≥Èó≠‰øùÊä§";
+            this.rbtn_safeoff.Text = "πÿ±’±£ª§";
             this.rbtn_safeoff.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             this.rbtn_safeoff.UseVisualStyleBackColor = true;
             // 
@@ -4974,7 +4978,7 @@ namespace UI
             this.rbtn_safeon.Size = new System.Drawing.Size(87, 30);
             this.rbtn_safeon.TabIndex = 124;
             this.rbtn_safeon.TabStop = true;
-            this.rbtn_safeon.Text = "ÂºÄÂêØ‰øùÊä§";
+            this.rbtn_safeon.Text = "ø™∆Ù±£ª§";
             this.rbtn_safeon.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             this.rbtn_safeon.UseVisualStyleBackColor = true;
             // 
@@ -4982,13 +4986,13 @@ namespace UI
             // 
             this.groupBox46.Controls.Add(this.rbtn_AddCapQrcodeDis);
             this.groupBox46.Controls.Add(this.rbtn_AddCapQrcodeEn);
-            this.groupBox46.Font = new System.Drawing.Font("ÂÆã‰Ωì", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.groupBox46.Font = new System.Drawing.Font("ÀŒÃÂ", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.groupBox46.Location = new System.Drawing.Point(944, 465);
             this.groupBox46.Name = "groupBox46";
             this.groupBox46.Size = new System.Drawing.Size(117, 142);
             this.groupBox46.TabIndex = 149;
             this.groupBox46.TabStop = false;
-            this.groupBox46.Text = "Êñ∞Â¢û‰∏äÊãçÊâ´‰∫åÁª¥Á†Å‰Ωç";
+            this.groupBox46.Text = "–¬‘ˆ…œ≈ƒ…®∂˛Œ¨¬ÎŒª";
             // 
             // rbtn_AddCapQrcodeDis
             // 
@@ -5001,7 +5005,7 @@ namespace UI
             this.rbtn_AddCapQrcodeDis.Name = "rbtn_AddCapQrcodeDis";
             this.rbtn_AddCapQrcodeDis.Size = new System.Drawing.Size(84, 30);
             this.rbtn_AddCapQrcodeDis.TabIndex = 126;
-            this.rbtn_AddCapQrcodeDis.Text = "ÂÖ≥Èó≠";
+            this.rbtn_AddCapQrcodeDis.Text = "πÿ±’";
             this.rbtn_AddCapQrcodeDis.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             this.rbtn_AddCapQrcodeDis.UseVisualStyleBackColor = true;
             // 
@@ -5018,7 +5022,7 @@ namespace UI
             this.rbtn_AddCapQrcodeEn.Size = new System.Drawing.Size(84, 30);
             this.rbtn_AddCapQrcodeEn.TabIndex = 124;
             this.rbtn_AddCapQrcodeEn.TabStop = true;
-            this.rbtn_AddCapQrcodeEn.Text = "ÂºÄÂêØ";
+            this.rbtn_AddCapQrcodeEn.Text = "ø™∆Ù";
             this.rbtn_AddCapQrcodeEn.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             this.rbtn_AddCapQrcodeEn.UseVisualStyleBackColor = true;
             // 
@@ -5026,13 +5030,13 @@ namespace UI
             // 
             this.groupBox37.Controls.Add(this.rbtn_MesRemote);
             this.groupBox37.Controls.Add(this.rbtn_MesLocal);
-            this.groupBox37.Font = new System.Drawing.Font("ÂÆã‰Ωì", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.groupBox37.Font = new System.Drawing.Font("ÀŒÃÂ", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.groupBox37.Location = new System.Drawing.Point(949, 234);
             this.groupBox37.Name = "groupBox37";
             this.groupBox37.Size = new System.Drawing.Size(114, 110);
             this.groupBox37.TabIndex = 148;
             this.groupBox37.TabStop = false;
-            this.groupBox37.Text = "MesÊ®°Âºè";
+            this.groupBox37.Text = "Mesƒ£ Ω";
             // 
             // rbtn_MesRemote
             // 
@@ -5071,19 +5075,19 @@ namespace UI
             this.groupBox36.Controls.Add(this.nud_okRate);
             this.groupBox36.Controls.Add(this.rbtn_NgWarningDis);
             this.groupBox36.Controls.Add(this.rbtn_NgWarningEn);
-            this.groupBox36.Font = new System.Drawing.Font("ÂÆã‰Ωì", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.groupBox36.Font = new System.Drawing.Font("ÀŒÃÂ", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.groupBox36.Location = new System.Drawing.Point(796, 459);
             this.groupBox36.Name = "groupBox36";
             this.groupBox36.Size = new System.Drawing.Size(139, 148);
             this.groupBox36.TabIndex = 147;
             this.groupBox36.TabStop = false;
-            this.groupBox36.Text = "ËâØÁéáÊä•Ë≠¶ËÆæÁΩÆ";
+            this.groupBox36.Text = "¡º¬ ±®æØ…Ë÷√";
             // 
             // nud_okRate
             // 
             this.nud_okRate.BackColor = System.Drawing.SystemColors.Window;
             this.nud_okRate.DecimalPlaces = 1;
-            this.nud_okRate.Font = new System.Drawing.Font("ÂÆã‰Ωì", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.nud_okRate.Font = new System.Drawing.Font("ÀŒÃÂ", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.nud_okRate.Increment = new decimal(new int[] {
             1,
             0,
@@ -5111,7 +5115,7 @@ namespace UI
             this.rbtn_NgWarningDis.Name = "rbtn_NgWarningDis";
             this.rbtn_NgWarningDis.Size = new System.Drawing.Size(71, 30);
             this.rbtn_NgWarningDis.TabIndex = 126;
-            this.rbtn_NgWarningDis.Text = "ÂÖ≥Èó≠";
+            this.rbtn_NgWarningDis.Text = "πÿ±’";
             this.rbtn_NgWarningDis.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             this.rbtn_NgWarningDis.UseVisualStyleBackColor = true;
             // 
@@ -5128,7 +5132,7 @@ namespace UI
             this.rbtn_NgWarningEn.Size = new System.Drawing.Size(71, 30);
             this.rbtn_NgWarningEn.TabIndex = 124;
             this.rbtn_NgWarningEn.TabStop = true;
-            this.rbtn_NgWarningEn.Text = "ÂºÄÂêØ";
+            this.rbtn_NgWarningEn.Text = "ø™∆Ù";
             this.rbtn_NgWarningEn.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             this.rbtn_NgWarningEn.UseVisualStyleBackColor = true;
             // 
@@ -5136,13 +5140,13 @@ namespace UI
             // 
             this.groupBox35.Controls.Add(this.rbtn_ContinuousAlarmDis);
             this.groupBox35.Controls.Add(this.rbtn_ContinuousAlarmEn);
-            this.groupBox35.Font = new System.Drawing.Font("ÂÆã‰Ωì", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.groupBox35.Font = new System.Drawing.Font("ÀŒÃÂ", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.groupBox35.Location = new System.Drawing.Point(948, 120);
             this.groupBox35.Name = "groupBox35";
             this.groupBox35.Size = new System.Drawing.Size(114, 110);
             this.groupBox35.TabIndex = 146;
             this.groupBox35.TabStop = false;
-            this.groupBox35.Text = "ÊåÅÁª≠Êä•Ë≠¶ËÆæÁΩÆ";
+            this.groupBox35.Text = "≥÷–¯±®æØ…Ë÷√";
             // 
             // rbtn_ContinuousAlarmDis
             // 
@@ -5155,7 +5159,7 @@ namespace UI
             this.rbtn_ContinuousAlarmDis.Name = "rbtn_ContinuousAlarmDis";
             this.rbtn_ContinuousAlarmDis.Size = new System.Drawing.Size(65, 30);
             this.rbtn_ContinuousAlarmDis.TabIndex = 126;
-            this.rbtn_ContinuousAlarmDis.Text = "ÂÖ≥Èó≠";
+            this.rbtn_ContinuousAlarmDis.Text = "πÿ±’";
             this.rbtn_ContinuousAlarmDis.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             this.rbtn_ContinuousAlarmDis.UseVisualStyleBackColor = true;
             // 
@@ -5172,7 +5176,7 @@ namespace UI
             this.rbtn_ContinuousAlarmEn.Size = new System.Drawing.Size(65, 30);
             this.rbtn_ContinuousAlarmEn.TabIndex = 124;
             this.rbtn_ContinuousAlarmEn.TabStop = true;
-            this.rbtn_ContinuousAlarmEn.Text = "ÂºÄÂêØ";
+            this.rbtn_ContinuousAlarmEn.Text = "ø™∆Ù";
             this.rbtn_ContinuousAlarmEn.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             this.rbtn_ContinuousAlarmEn.UseVisualStyleBackColor = true;
             // 
@@ -5180,13 +5184,13 @@ namespace UI
             // 
             this.groupBox33.Controls.Add(this.rbtn_delaytestdis);
             this.groupBox33.Controls.Add(this.rbtn_delaytesten);
-            this.groupBox33.Font = new System.Drawing.Font("ÂÆã‰Ωì", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.groupBox33.Font = new System.Drawing.Font("ÀŒÃÂ", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.groupBox33.Location = new System.Drawing.Point(639, 459);
             this.groupBox33.Name = "groupBox33";
             this.groupBox33.Size = new System.Drawing.Size(146, 102);
             this.groupBox33.TabIndex = 145;
             this.groupBox33.TabStop = false;
-            this.groupBox33.Text = "DCCÊï∞ÊçÆÂ§ÑÁêÜÁßªËá≥‰∏ä‰∏ãÊñô";
+            this.groupBox33.Text = "DCC ˝æ›¥¶¿Ì“∆÷¡…œœ¬¡œ";
             // 
             // rbtn_delaytestdis
             // 
@@ -5199,7 +5203,7 @@ namespace UI
             this.rbtn_delaytestdis.Name = "rbtn_delaytestdis";
             this.rbtn_delaytestdis.Size = new System.Drawing.Size(83, 30);
             this.rbtn_delaytestdis.TabIndex = 126;
-            this.rbtn_delaytestdis.Text = "ÂÖ≥Èó≠";
+            this.rbtn_delaytestdis.Text = "πÿ±’";
             this.rbtn_delaytestdis.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             this.rbtn_delaytestdis.UseVisualStyleBackColor = true;
             // 
@@ -5216,7 +5220,7 @@ namespace UI
             this.rbtn_delaytesten.Size = new System.Drawing.Size(83, 30);
             this.rbtn_delaytesten.TabIndex = 124;
             this.rbtn_delaytesten.TabStop = true;
-            this.rbtn_delaytesten.Text = "ÂºÄÂêØ";
+            this.rbtn_delaytesten.Text = "ø™∆Ù";
             this.rbtn_delaytesten.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             this.rbtn_delaytesten.UseVisualStyleBackColor = true;
             // 
@@ -5224,13 +5228,13 @@ namespace UI
             // 
             this.groupBox32.Controls.Add(this.rbtn_cooldis);
             this.groupBox32.Controls.Add(this.rbtn_coolen);
-            this.groupBox32.Font = new System.Drawing.Font("ÂÆã‰Ωì", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.groupBox32.Font = new System.Drawing.Font("ÀŒÃÂ", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.groupBox32.Location = new System.Drawing.Point(949, 349);
             this.groupBox32.Name = "groupBox32";
             this.groupBox32.Size = new System.Drawing.Size(117, 110);
             this.groupBox32.TabIndex = 144;
             this.groupBox32.TabStop = false;
-            this.groupBox32.Text = "ÈôçÊ∏©ËÆæÁΩÆ";
+            this.groupBox32.Text = "ΩµŒ¬…Ë÷√";
             // 
             // rbtn_cooldis
             // 
@@ -5243,7 +5247,7 @@ namespace UI
             this.rbtn_cooldis.Name = "rbtn_cooldis";
             this.rbtn_cooldis.Size = new System.Drawing.Size(75, 30);
             this.rbtn_cooldis.TabIndex = 126;
-            this.rbtn_cooldis.Text = "ÂÖ≥Èó≠";
+            this.rbtn_cooldis.Text = "πÿ±’";
             this.rbtn_cooldis.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             this.rbtn_cooldis.UseVisualStyleBackColor = true;
             // 
@@ -5260,7 +5264,7 @@ namespace UI
             this.rbtn_coolen.Size = new System.Drawing.Size(75, 30);
             this.rbtn_coolen.TabIndex = 124;
             this.rbtn_coolen.TabStop = true;
-            this.rbtn_coolen.Text = "ÂºÄÂêØ";
+            this.rbtn_coolen.Text = "ø™∆Ù";
             this.rbtn_coolen.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             this.rbtn_coolen.UseVisualStyleBackColor = true;
             // 
@@ -5268,13 +5272,13 @@ namespace UI
             // 
             this.groupBox31.Controls.Add(this.rbtn_CycleDis);
             this.groupBox31.Controls.Add(this.rbtn_CycleEn);
-            this.groupBox31.Font = new System.Drawing.Font("ÂÆã‰Ωì", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.groupBox31.Font = new System.Drawing.Font("ÀŒÃÂ", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.groupBox31.Location = new System.Drawing.Point(728, 349);
             this.groupBox31.Name = "groupBox31";
             this.groupBox31.Size = new System.Drawing.Size(209, 110);
             this.groupBox31.TabIndex = 143;
             this.groupBox31.TabStop = false;
-            this.groupBox31.Text = "‰∏ä‰∏ãÊñôÂë®ÊúüËÆ∞ÂΩï‰øùÂ≠òËÆæÁΩÆ";
+            this.groupBox31.Text = "…œœ¬¡œ÷‹∆⁄º«¬º±£¥Ê…Ë÷√";
             // 
             // rbtn_CycleDis
             // 
@@ -5287,7 +5291,7 @@ namespace UI
             this.rbtn_CycleDis.Name = "rbtn_CycleDis";
             this.rbtn_CycleDis.Size = new System.Drawing.Size(155, 30);
             this.rbtn_CycleDis.TabIndex = 126;
-            this.rbtn_CycleDis.Text = "ÂÖ≥Èó≠";
+            this.rbtn_CycleDis.Text = "πÿ±’";
             this.rbtn_CycleDis.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             this.rbtn_CycleDis.UseVisualStyleBackColor = true;
             // 
@@ -5304,7 +5308,7 @@ namespace UI
             this.rbtn_CycleEn.Size = new System.Drawing.Size(155, 30);
             this.rbtn_CycleEn.TabIndex = 124;
             this.rbtn_CycleEn.TabStop = true;
-            this.rbtn_CycleEn.Text = "ÂºÄÂêØ";
+            this.rbtn_CycleEn.Text = "ø™∆Ù";
             this.rbtn_CycleEn.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             this.rbtn_CycleEn.UseVisualStyleBackColor = true;
             // 
@@ -5314,13 +5318,13 @@ namespace UI
             this.groupBox30.Controls.Add(this.dateTimePicker1);
             this.groupBox30.Controls.Add(this.label28);
             this.groupBox30.Controls.Add(this.label29);
-            this.groupBox30.Font = new System.Drawing.Font("ÂÆã‰Ωì", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.groupBox30.Font = new System.Drawing.Font("ÀŒÃÂ", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.groupBox30.Location = new System.Drawing.Point(512, 328);
             this.groupBox30.Name = "groupBox30";
             this.groupBox30.Size = new System.Drawing.Size(209, 95);
             this.groupBox30.TabIndex = 142;
             this.groupBox30.TabStop = false;
-            this.groupBox30.Text = "ÁÇπÊ£ÄÊèêÁ§∫";
+            this.groupBox30.Text = "µ„ºÏÃ· æ";
             // 
             // dateTimePicker2
             // 
@@ -5345,22 +5349,22 @@ namespace UI
             // label28
             // 
             this.label28.AutoSize = true;
-            this.label28.Font = new System.Drawing.Font("ÂÆã‰Ωì", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.label28.Font = new System.Drawing.Font("ÀŒÃÂ", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.label28.Location = new System.Drawing.Point(19, 32);
             this.label28.Name = "label28";
             this.label28.Size = new System.Drawing.Size(47, 16);
             this.label28.TabIndex = 39;
-            this.label28.Text = "Êó©‰∏ä:";
+            this.label28.Text = "‘Á…œ:";
             // 
             // label29
             // 
             this.label29.AutoSize = true;
-            this.label29.Font = new System.Drawing.Font("ÂÆã‰Ωì", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.label29.Font = new System.Drawing.Font("ÀŒÃÂ", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.label29.Location = new System.Drawing.Point(19, 73);
             this.label29.Name = "label29";
             this.label29.Size = new System.Drawing.Size(47, 16);
             this.label29.TabIndex = 2;
-            this.label29.Text = "Êôö‰∏ä:";
+            this.label29.Text = "ÕÌ…œ:";
             // 
             // groupBox28
             // 
@@ -5393,19 +5397,19 @@ namespace UI
             this.groupBox28.Controls.Add(this.label21);
             this.groupBox28.Controls.Add(this.rbtn_camcfgsetdis);
             this.groupBox28.Controls.Add(this.rbtn_camcfgseten);
-            this.groupBox28.Font = new System.Drawing.Font("ÂÆã‰Ωì", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.groupBox28.Font = new System.Drawing.Font("ÀŒÃÂ", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.groupBox28.Location = new System.Drawing.Point(25, 422);
             this.groupBox28.Name = "groupBox28";
             this.groupBox28.Size = new System.Drawing.Size(607, 141);
             this.groupBox28.TabIndex = 141;
             this.groupBox28.TabStop = false;
-            this.groupBox28.Text = "Áõ∏Êú∫Â§öÁßçÂèÇÊï∞ËÆæÁΩÆ";
+            this.groupBox28.Text = "œ‡ª˙∂‡÷÷≤Œ ˝…Ë÷√";
             // 
             // nud_jig_exposure2
             // 
             this.nud_jig_exposure2.BackColor = System.Drawing.SystemColors.Window;
             this.nud_jig_exposure2.DecimalPlaces = 3;
-            this.nud_jig_exposure2.Font = new System.Drawing.Font("ÂÆã‰Ωì", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.nud_jig_exposure2.Font = new System.Drawing.Font("ÀŒÃÂ", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.nud_jig_exposure2.Increment = new decimal(new int[] {
             1,
             0,
@@ -5431,7 +5435,7 @@ namespace UI
             // 
             this.nud_jig_contrast2.BackColor = System.Drawing.SystemColors.Window;
             this.nud_jig_contrast2.DecimalPlaces = 3;
-            this.nud_jig_contrast2.Font = new System.Drawing.Font("ÂÆã‰Ωì", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.nud_jig_contrast2.Font = new System.Drawing.Font("ÀŒÃÂ", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.nud_jig_contrast2.Increment = new decimal(new int[] {
             1,
             0,
@@ -5457,7 +5461,7 @@ namespace UI
             // 
             this.nud_jig_brightness2.BackColor = System.Drawing.SystemColors.Window;
             this.nud_jig_brightness2.DecimalPlaces = 3;
-            this.nud_jig_brightness2.Font = new System.Drawing.Font("ÂÆã‰Ωì", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.nud_jig_brightness2.Font = new System.Drawing.Font("ÀŒÃÂ", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.nud_jig_brightness2.Increment = new decimal(new int[] {
             1,
             0,
@@ -5482,18 +5486,18 @@ namespace UI
             // label33
             // 
             this.label33.AutoSize = true;
-            this.label33.Font = new System.Drawing.Font("ÂÆã‰Ωì", 7.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.label33.Font = new System.Drawing.Font("ÀŒÃÂ", 7.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.label33.Location = new System.Drawing.Point(451, 19);
             this.label33.Name = "label33";
             this.label33.Size = new System.Drawing.Size(45, 10);
             this.label33.TabIndex = 153;
-            this.label33.Text = "Â§πÂÖ∑Êãç2:";
+            this.label33.Text = "º–æﬂ≈ƒ2:";
             // 
             // nud_jig_exposure1
             // 
             this.nud_jig_exposure1.BackColor = System.Drawing.SystemColors.Window;
             this.nud_jig_exposure1.DecimalPlaces = 3;
-            this.nud_jig_exposure1.Font = new System.Drawing.Font("ÂÆã‰Ωì", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.nud_jig_exposure1.Font = new System.Drawing.Font("ÀŒÃÂ", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.nud_jig_exposure1.Increment = new decimal(new int[] {
             1,
             0,
@@ -5519,7 +5523,7 @@ namespace UI
             // 
             this.nud_jig_contrast1.BackColor = System.Drawing.SystemColors.Window;
             this.nud_jig_contrast1.DecimalPlaces = 3;
-            this.nud_jig_contrast1.Font = new System.Drawing.Font("ÂÆã‰Ωì", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.nud_jig_contrast1.Font = new System.Drawing.Font("ÀŒÃÂ", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.nud_jig_contrast1.Increment = new decimal(new int[] {
             1,
             0,
@@ -5545,7 +5549,7 @@ namespace UI
             // 
             this.nud_jig_brightness1.BackColor = System.Drawing.SystemColors.Window;
             this.nud_jig_brightness1.DecimalPlaces = 3;
-            this.nud_jig_brightness1.Font = new System.Drawing.Font("ÂÆã‰Ωì", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.nud_jig_brightness1.Font = new System.Drawing.Font("ÀŒÃÂ", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.nud_jig_brightness1.Increment = new decimal(new int[] {
             1,
             0,
@@ -5570,18 +5574,18 @@ namespace UI
             // label31
             // 
             this.label31.AutoSize = true;
-            this.label31.Font = new System.Drawing.Font("ÂÆã‰Ωì", 7.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.label31.Font = new System.Drawing.Font("ÀŒÃÂ", 7.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.label31.Location = new System.Drawing.Point(241, 19);
             this.label31.Name = "label31";
             this.label31.Size = new System.Drawing.Size(45, 10);
             this.label31.TabIndex = 149;
-            this.label31.Text = "Â§πÂÖ∑Êãç1:";
+            this.label31.Text = "º–æﬂ≈ƒ1:";
             // 
             // nud_ws_exposure2
             // 
             this.nud_ws_exposure2.BackColor = System.Drawing.SystemColors.Window;
             this.nud_ws_exposure2.DecimalPlaces = 3;
-            this.nud_ws_exposure2.Font = new System.Drawing.Font("ÂÆã‰Ωì", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.nud_ws_exposure2.Font = new System.Drawing.Font("ÀŒÃÂ", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.nud_ws_exposure2.Increment = new decimal(new int[] {
             1,
             0,
@@ -5607,7 +5611,7 @@ namespace UI
             // 
             this.nud_tray_exposure2.BackColor = System.Drawing.SystemColors.Window;
             this.nud_tray_exposure2.DecimalPlaces = 3;
-            this.nud_tray_exposure2.Font = new System.Drawing.Font("ÂÆã‰Ωì", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.nud_tray_exposure2.Font = new System.Drawing.Font("ÀŒÃÂ", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.nud_tray_exposure2.Increment = new decimal(new int[] {
             1,
             0,
@@ -5633,7 +5637,7 @@ namespace UI
             // 
             this.nud_ws_contrast2.BackColor = System.Drawing.SystemColors.Window;
             this.nud_ws_contrast2.DecimalPlaces = 3;
-            this.nud_ws_contrast2.Font = new System.Drawing.Font("ÂÆã‰Ωì", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.nud_ws_contrast2.Font = new System.Drawing.Font("ÀŒÃÂ", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.nud_ws_contrast2.Increment = new decimal(new int[] {
             1,
             0,
@@ -5659,7 +5663,7 @@ namespace UI
             // 
             this.nud_ws_brightness2.BackColor = System.Drawing.SystemColors.Window;
             this.nud_ws_brightness2.DecimalPlaces = 3;
-            this.nud_ws_brightness2.Font = new System.Drawing.Font("ÂÆã‰Ωì", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.nud_ws_brightness2.Font = new System.Drawing.Font("ÀŒÃÂ", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.nud_ws_brightness2.Increment = new decimal(new int[] {
             1,
             0,
@@ -5685,7 +5689,7 @@ namespace UI
             // 
             this.nud_tray_contrast2.BackColor = System.Drawing.SystemColors.Window;
             this.nud_tray_contrast2.DecimalPlaces = 3;
-            this.nud_tray_contrast2.Font = new System.Drawing.Font("ÂÆã‰Ωì", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.nud_tray_contrast2.Font = new System.Drawing.Font("ÀŒÃÂ", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.nud_tray_contrast2.Increment = new decimal(new int[] {
             1,
             0,
@@ -5710,18 +5714,18 @@ namespace UI
             // label26
             // 
             this.label26.AutoSize = true;
-            this.label26.Font = new System.Drawing.Font("ÂÆã‰Ωì", 7.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.label26.Font = new System.Drawing.Font("ÀŒÃÂ", 7.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.label26.Location = new System.Drawing.Point(370, 19);
             this.label26.Name = "label26";
             this.label26.Size = new System.Drawing.Size(55, 10);
             this.label26.TabIndex = 143;
-            this.label26.Text = "Â∑•Á´ôÊãçÁÖß2:";
+            this.label26.Text = "π§’æ≈ƒ’’2:";
             // 
             // nud_tray_brightness2
             // 
             this.nud_tray_brightness2.BackColor = System.Drawing.SystemColors.Window;
             this.nud_tray_brightness2.DecimalPlaces = 3;
-            this.nud_tray_brightness2.Font = new System.Drawing.Font("ÂÆã‰Ωì", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.nud_tray_brightness2.Font = new System.Drawing.Font("ÀŒÃÂ", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.nud_tray_brightness2.Increment = new decimal(new int[] {
             1,
             0,
@@ -5746,18 +5750,18 @@ namespace UI
             // label27
             // 
             this.label27.AutoSize = true;
-            this.label27.Font = new System.Drawing.Font("ÂÆã‰Ωì", 7.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.label27.Font = new System.Drawing.Font("ÀŒÃÂ", 7.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.label27.Location = new System.Drawing.Point(302, 19);
             this.label27.Name = "label27";
             this.label27.Size = new System.Drawing.Size(55, 10);
             this.label27.TabIndex = 141;
-            this.label27.Text = "ÊñôÁõòÊãçÁÖß2:";
+            this.label27.Text = "¡œ≈Ã≈ƒ’’2:";
             // 
             // nud_ws_exposure1
             // 
             this.nud_ws_exposure1.BackColor = System.Drawing.SystemColors.Window;
             this.nud_ws_exposure1.DecimalPlaces = 3;
-            this.nud_ws_exposure1.Font = new System.Drawing.Font("ÂÆã‰Ωì", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.nud_ws_exposure1.Font = new System.Drawing.Font("ÀŒÃÂ", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.nud_ws_exposure1.Increment = new decimal(new int[] {
             1,
             0,
@@ -5783,7 +5787,7 @@ namespace UI
             // 
             this.nud_tray_exposure1.BackColor = System.Drawing.SystemColors.Window;
             this.nud_tray_exposure1.DecimalPlaces = 3;
-            this.nud_tray_exposure1.Font = new System.Drawing.Font("ÂÆã‰Ωì", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.nud_tray_exposure1.Font = new System.Drawing.Font("ÀŒÃÂ", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.nud_tray_exposure1.Increment = new decimal(new int[] {
             1,
             0,
@@ -5809,7 +5813,7 @@ namespace UI
             // 
             this.nud_ws_contrast1.BackColor = System.Drawing.SystemColors.Window;
             this.nud_ws_contrast1.DecimalPlaces = 3;
-            this.nud_ws_contrast1.Font = new System.Drawing.Font("ÂÆã‰Ωì", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.nud_ws_contrast1.Font = new System.Drawing.Font("ÀŒÃÂ", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.nud_ws_contrast1.Increment = new decimal(new int[] {
             1,
             0,
@@ -5835,7 +5839,7 @@ namespace UI
             // 
             this.nud_ws_brightness1.BackColor = System.Drawing.SystemColors.Window;
             this.nud_ws_brightness1.DecimalPlaces = 3;
-            this.nud_ws_brightness1.Font = new System.Drawing.Font("ÂÆã‰Ωì", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.nud_ws_brightness1.Font = new System.Drawing.Font("ÀŒÃÂ", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.nud_ws_brightness1.Increment = new decimal(new int[] {
             1,
             0,
@@ -5861,7 +5865,7 @@ namespace UI
             // 
             this.nud_tray_contrast1.BackColor = System.Drawing.SystemColors.Window;
             this.nud_tray_contrast1.DecimalPlaces = 3;
-            this.nud_tray_contrast1.Font = new System.Drawing.Font("ÂÆã‰Ωì", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.nud_tray_contrast1.Font = new System.Drawing.Font("ÀŒÃÂ", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.nud_tray_contrast1.Increment = new decimal(new int[] {
             1,
             0,
@@ -5886,48 +5890,48 @@ namespace UI
             // label25
             // 
             this.label25.AutoSize = true;
-            this.label25.Font = new System.Drawing.Font("ÂÆã‰Ωì", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.label25.Font = new System.Drawing.Font("ÀŒÃÂ", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.label25.Location = new System.Drawing.Point(6, 114);
             this.label25.Name = "label25";
             this.label25.Size = new System.Drawing.Size(103, 16);
             this.label25.TabIndex = 135;
-            this.label25.Text = "ÂØπÊØîÂ∫¶(0-1):";
+            this.label25.Text = "∂‘±»∂»(0-1):";
             // 
             // label24
             // 
             this.label24.AutoSize = true;
-            this.label24.Font = new System.Drawing.Font("ÂÆã‰Ωì", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.label24.Font = new System.Drawing.Font("ÀŒÃÂ", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.label24.Location = new System.Drawing.Point(6, 80);
             this.label24.Name = "label24";
             this.label24.Size = new System.Drawing.Size(87, 16);
             this.label24.TabIndex = 134;
-            this.label24.Text = "‰∫ÆÂ∫¶(0-1):";
+            this.label24.Text = "¡¡∂»(0-1):";
             // 
             // label23
             // 
             this.label23.AutoSize = true;
-            this.label23.Font = new System.Drawing.Font("ÂÆã‰Ωì", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.label23.Font = new System.Drawing.Font("ÀŒÃÂ", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.label23.Location = new System.Drawing.Point(6, 46);
             this.label23.Name = "label23";
             this.label23.Size = new System.Drawing.Size(79, 16);
             this.label23.TabIndex = 133;
-            this.label23.Text = "ÊõùÂÖâ(ms):";
+            this.label23.Text = "∆ÿπ‚(ms):";
             // 
             // label22
             // 
             this.label22.AutoSize = true;
-            this.label22.Font = new System.Drawing.Font("ÂÆã‰Ωì", 7.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.label22.Font = new System.Drawing.Font("ÀŒÃÂ", 7.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.label22.Location = new System.Drawing.Point(170, 19);
             this.label22.Name = "label22";
             this.label22.Size = new System.Drawing.Size(45, 10);
             this.label22.TabIndex = 132;
-            this.label22.Text = "Â∑•Á´ôÊãç1:";
+            this.label22.Text = "π§’æ≈ƒ1:";
             // 
             // nud_tray_brightness1
             // 
             this.nud_tray_brightness1.BackColor = System.Drawing.SystemColors.Window;
             this.nud_tray_brightness1.DecimalPlaces = 3;
-            this.nud_tray_brightness1.Font = new System.Drawing.Font("ÂÆã‰Ωì", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.nud_tray_brightness1.Font = new System.Drawing.Font("ÀŒÃÂ", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.nud_tray_brightness1.Increment = new decimal(new int[] {
             1,
             0,
@@ -5952,12 +5956,12 @@ namespace UI
             // label21
             // 
             this.label21.AutoSize = true;
-            this.label21.Font = new System.Drawing.Font("ÂÆã‰Ωì", 7.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.label21.Font = new System.Drawing.Font("ÀŒÃÂ", 7.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.label21.Location = new System.Drawing.Point(103, 19);
             this.label21.Name = "label21";
             this.label21.Size = new System.Drawing.Size(55, 10);
             this.label21.TabIndex = 130;
-            this.label21.Text = "ÊñôÁõòÊãçÁÖß1:";
+            this.label21.Text = "¡œ≈Ã≈ƒ’’1:";
             // 
             // rbtn_camcfgsetdis
             // 
@@ -5970,7 +5974,7 @@ namespace UI
             this.rbtn_camcfgsetdis.Name = "rbtn_camcfgsetdis";
             this.rbtn_camcfgsetdis.Size = new System.Drawing.Size(71, 30);
             this.rbtn_camcfgsetdis.TabIndex = 126;
-            this.rbtn_camcfgsetdis.Text = "ÂÖ≥Èó≠";
+            this.rbtn_camcfgsetdis.Text = "πÿ±’";
             this.rbtn_camcfgsetdis.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             this.rbtn_camcfgsetdis.UseVisualStyleBackColor = true;
             // 
@@ -5987,7 +5991,7 @@ namespace UI
             this.rbtn_camcfgseten.Size = new System.Drawing.Size(71, 30);
             this.rbtn_camcfgseten.TabIndex = 124;
             this.rbtn_camcfgseten.TabStop = true;
-            this.rbtn_camcfgseten.Text = "ÂºÄÂêØ";
+            this.rbtn_camcfgseten.Text = "ø™∆Ù";
             this.rbtn_camcfgseten.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             this.rbtn_camcfgseten.UseVisualStyleBackColor = true;
             // 
@@ -5997,18 +6001,18 @@ namespace UI
             this.groupBox25.Controls.Add(this.label20);
             this.groupBox25.Controls.Add(this.rbtn_cleandis);
             this.groupBox25.Controls.Add(this.rbtn_cleanen);
-            this.groupBox25.Font = new System.Drawing.Font("ÂÆã‰Ωì", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.groupBox25.Font = new System.Drawing.Font("ÀŒÃÂ", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.groupBox25.Location = new System.Drawing.Point(728, 234);
             this.groupBox25.Name = "groupBox25";
             this.groupBox25.Size = new System.Drawing.Size(209, 110);
             this.groupBox25.TabIndex = 140;
             this.groupBox25.TabStop = false;
-            this.groupBox25.Text = "Â§πÂÖ∑Ê∏ÖÊ¥óËÆæÁΩÆ";
+            this.groupBox25.Text = "º–æﬂ«Âœ¥…Ë÷√";
             // 
             // nud_cleaninterval
             // 
             this.nud_cleaninterval.BackColor = System.Drawing.SystemColors.Window;
-            this.nud_cleaninterval.Font = new System.Drawing.Font("ÂÆã‰Ωì", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.nud_cleaninterval.Font = new System.Drawing.Font("ÀŒÃÂ", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.nud_cleaninterval.Location = new System.Drawing.Point(108, 62);
             this.nud_cleaninterval.Maximum = new decimal(new int[] {
             9999,
@@ -6028,12 +6032,12 @@ namespace UI
             // label20
             // 
             this.label20.AutoSize = true;
-            this.label20.Font = new System.Drawing.Font("ÂÆã‰Ωì", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.label20.Font = new System.Drawing.Font("ÀŒÃÂ", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.label20.Location = new System.Drawing.Point(110, 30);
             this.label20.Name = "label20";
             this.label20.Size = new System.Drawing.Size(79, 16);
             this.label20.TabIndex = 130;
-            this.label20.Text = "Ê∏ÖÊ¥óÈó¥Èöî:";
+            this.label20.Text = "«Âœ¥º‰∏Ù:";
             // 
             // rbtn_cleandis
             // 
@@ -6046,7 +6050,7 @@ namespace UI
             this.rbtn_cleandis.Name = "rbtn_cleandis";
             this.rbtn_cleandis.Size = new System.Drawing.Size(71, 30);
             this.rbtn_cleandis.TabIndex = 126;
-            this.rbtn_cleandis.Text = "ÂÖ≥Èó≠";
+            this.rbtn_cleandis.Text = "πÿ±’";
             this.rbtn_cleandis.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             this.rbtn_cleandis.UseVisualStyleBackColor = true;
             // 
@@ -6063,7 +6067,7 @@ namespace UI
             this.rbtn_cleanen.Size = new System.Drawing.Size(71, 30);
             this.rbtn_cleanen.TabIndex = 124;
             this.rbtn_cleanen.TabStop = true;
-            this.rbtn_cleanen.Text = "ÂºÄÂêØ";
+            this.rbtn_cleanen.Text = "ø™∆Ù";
             this.rbtn_cleanen.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             this.rbtn_cleanen.UseVisualStyleBackColor = true;
             // 
@@ -6071,13 +6075,13 @@ namespace UI
             // 
             this.groupBox27.Controls.Add(this.rbtn_nonparalleldis);
             this.groupBox27.Controls.Add(this.rbtn_nonparallelen);
-            this.groupBox27.Font = new System.Drawing.Font("ÂÆã‰Ωì", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.groupBox27.Font = new System.Drawing.Font("ÀŒÃÂ", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.groupBox27.Location = new System.Drawing.Point(727, 120);
             this.groupBox27.Name = "groupBox27";
             this.groupBox27.Size = new System.Drawing.Size(209, 110);
             this.groupBox27.TabIndex = 139;
             this.groupBox27.TabStop = false;
-            this.groupBox27.Text = "Â§πÂÖ∑ÂèåÂ∑•‰ΩçÈùûÂπ≥Ë°åËÆæÁΩÆ";
+            this.groupBox27.Text = "º–æﬂÀ´π§Œª∑«∆Ω––…Ë÷√";
             // 
             // rbtn_nonparalleldis
             // 
@@ -6090,7 +6094,7 @@ namespace UI
             this.rbtn_nonparalleldis.Name = "rbtn_nonparalleldis";
             this.rbtn_nonparalleldis.Size = new System.Drawing.Size(155, 30);
             this.rbtn_nonparalleldis.TabIndex = 126;
-            this.rbtn_nonparalleldis.Text = "ÂÖ≥Èó≠";
+            this.rbtn_nonparalleldis.Text = "πÿ±’";
             this.rbtn_nonparalleldis.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             this.rbtn_nonparalleldis.UseVisualStyleBackColor = true;
             // 
@@ -6107,7 +6111,7 @@ namespace UI
             this.rbtn_nonparallelen.Size = new System.Drawing.Size(155, 30);
             this.rbtn_nonparallelen.TabIndex = 124;
             this.rbtn_nonparallelen.TabStop = true;
-            this.rbtn_nonparallelen.Text = "ÂºÄÂêØ";
+            this.rbtn_nonparallelen.Text = "ø™∆Ù";
             this.rbtn_nonparallelen.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             this.rbtn_nonparallelen.UseVisualStyleBackColor = true;
             // 
@@ -6115,13 +6119,13 @@ namespace UI
             // 
             this.groupBox26.Controls.Add(this.rbtn_backerrcontinuedis);
             this.groupBox26.Controls.Add(this.rbtn_backerrcontinueen);
-            this.groupBox26.Font = new System.Drawing.Font("ÂÆã‰Ωì", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.groupBox26.Font = new System.Drawing.Font("ÀŒÃÂ", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.groupBox26.Location = new System.Drawing.Point(270, 322);
             this.groupBox26.Name = "groupBox26";
             this.groupBox26.Size = new System.Drawing.Size(209, 102);
             this.groupBox26.TabIndex = 138;
             this.groupBox26.TabStop = false;
-            this.groupBox26.Text = "ÂõûÊ£ÄÂ§±Ë¥•ÁªßÁª≠ËøêË°åËÆæÁΩÆ";
+            this.groupBox26.Text = "ªÿºÏ ß∞‹ºÃ–¯‘À––…Ë÷√";
             // 
             // rbtn_backerrcontinuedis
             // 
@@ -6134,7 +6138,7 @@ namespace UI
             this.rbtn_backerrcontinuedis.Name = "rbtn_backerrcontinuedis";
             this.rbtn_backerrcontinuedis.Size = new System.Drawing.Size(155, 30);
             this.rbtn_backerrcontinuedis.TabIndex = 126;
-            this.rbtn_backerrcontinuedis.Text = "ÂÖ≥Èó≠";
+            this.rbtn_backerrcontinuedis.Text = "πÿ±’";
             this.rbtn_backerrcontinuedis.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             this.rbtn_backerrcontinuedis.UseVisualStyleBackColor = true;
             // 
@@ -6151,7 +6155,7 @@ namespace UI
             this.rbtn_backerrcontinueen.Size = new System.Drawing.Size(155, 30);
             this.rbtn_backerrcontinueen.TabIndex = 124;
             this.rbtn_backerrcontinueen.TabStop = true;
-            this.rbtn_backerrcontinueen.Text = "ÂºÄÂêØ";
+            this.rbtn_backerrcontinueen.Text = "ø™∆Ù";
             this.rbtn_backerrcontinueen.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             this.rbtn_backerrcontinueen.UseVisualStyleBackColor = true;
             // 
@@ -6159,13 +6163,13 @@ namespace UI
             // 
             this.groupBox24.Controls.Add(this.rbtn_RY1dis);
             this.groupBox24.Controls.Add(this.rbtn_RY1en);
-            this.groupBox24.Font = new System.Drawing.Font("ÂÆã‰Ωì", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.groupBox24.Font = new System.Drawing.Font("ÀŒÃÂ", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.groupBox24.Location = new System.Drawing.Point(27, 322);
             this.groupBox24.Name = "groupBox24";
             this.groupBox24.Size = new System.Drawing.Size(209, 102);
             this.groupBox24.TabIndex = 136;
             this.groupBox24.TabStop = false;
-            this.groupBox24.Text = "Âè≥ÂÖâÁÆ±Â¢ûË∑ùÈïúY1ÂºÄÂêØËÆæÁΩÆ";
+            this.groupBox24.Text = "”“π‚œ‰‘ˆæ‡æµY1ø™∆Ù…Ë÷√";
             // 
             // rbtn_RY1dis
             // 
@@ -6178,7 +6182,7 @@ namespace UI
             this.rbtn_RY1dis.Name = "rbtn_RY1dis";
             this.rbtn_RY1dis.Size = new System.Drawing.Size(155, 30);
             this.rbtn_RY1dis.TabIndex = 126;
-            this.rbtn_RY1dis.Text = "ÂÖ≥Èó≠";
+            this.rbtn_RY1dis.Text = "πÿ±’";
             this.rbtn_RY1dis.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             this.rbtn_RY1dis.UseVisualStyleBackColor = true;
             // 
@@ -6195,7 +6199,7 @@ namespace UI
             this.rbtn_RY1en.Size = new System.Drawing.Size(155, 30);
             this.rbtn_RY1en.TabIndex = 124;
             this.rbtn_RY1en.TabStop = true;
-            this.rbtn_RY1en.Text = "ÂºÄÂêØ";
+            this.rbtn_RY1en.Text = "ø™∆Ù";
             this.rbtn_RY1en.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             this.rbtn_RY1en.UseVisualStyleBackColor = true;
             // 
@@ -6203,13 +6207,13 @@ namespace UI
             // 
             this.groupBox23.Controls.Add(this.rbtn_xt1firstdis);
             this.groupBox23.Controls.Add(this.rbtn_xt1firsten);
-            this.groupBox23.Font = new System.Drawing.Font("ÂÆã‰Ωì", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.groupBox23.Font = new System.Drawing.Font("ÀŒÃÂ", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.groupBox23.Location = new System.Drawing.Point(512, 120);
             this.groupBox23.Name = "groupBox23";
             this.groupBox23.Size = new System.Drawing.Size(209, 94);
             this.groupBox23.TabIndex = 135;
             this.groupBox23.TabStop = false;
-            this.groupBox23.Text = "Âê∏Â§¥1ÂÖàËøêÂä®ËÆæÁΩÆ";
+            this.groupBox23.Text = "Œ¸Õ∑1œ»‘À∂Ø…Ë÷√";
             // 
             // rbtn_xt1firstdis
             // 
@@ -6222,7 +6226,7 @@ namespace UI
             this.rbtn_xt1firstdis.Name = "rbtn_xt1firstdis";
             this.rbtn_xt1firstdis.Size = new System.Drawing.Size(155, 30);
             this.rbtn_xt1firstdis.TabIndex = 126;
-            this.rbtn_xt1firstdis.Text = "ÂÖ≥Èó≠";
+            this.rbtn_xt1firstdis.Text = "πÿ±’";
             this.rbtn_xt1firstdis.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             this.rbtn_xt1firstdis.UseVisualStyleBackColor = true;
             // 
@@ -6239,7 +6243,7 @@ namespace UI
             this.rbtn_xt1firsten.Size = new System.Drawing.Size(155, 30);
             this.rbtn_xt1firsten.TabIndex = 124;
             this.rbtn_xt1firsten.TabStop = true;
-            this.rbtn_xt1firsten.Text = "ÂºÄÂêØ";
+            this.rbtn_xt1firsten.Text = "ø™∆Ù";
             this.rbtn_xt1firsten.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             this.rbtn_xt1firsten.UseVisualStyleBackColor = true;
             // 
@@ -6247,13 +6251,13 @@ namespace UI
             // 
             this.groupBox22.Controls.Add(this.rbtn_traybardis);
             this.groupBox22.Controls.Add(this.rbtn_traybaren);
-            this.groupBox22.Font = new System.Drawing.Font("ÂÆã‰Ωì", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.groupBox22.Font = new System.Drawing.Font("ÀŒÃÂ", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.groupBox22.Location = new System.Drawing.Point(512, 221);
             this.groupBox22.Name = "groupBox22";
             this.groupBox22.Size = new System.Drawing.Size(209, 98);
             this.groupBox22.TabIndex = 134;
             this.groupBox22.TabStop = false;
-            this.groupBox22.Text = "ÊñôÁõò‰∫åÁª¥Á†ÅÊãçÁÖßËÆæÁΩÆ";
+            this.groupBox22.Text = "¡œ≈Ã∂˛Œ¨¬Î≈ƒ’’…Ë÷√";
             // 
             // rbtn_traybardis
             // 
@@ -6266,7 +6270,7 @@ namespace UI
             this.rbtn_traybardis.Name = "rbtn_traybardis";
             this.rbtn_traybardis.Size = new System.Drawing.Size(155, 30);
             this.rbtn_traybardis.TabIndex = 126;
-            this.rbtn_traybardis.Text = "ÂÖ≥Èó≠";
+            this.rbtn_traybardis.Text = "πÿ±’";
             this.rbtn_traybardis.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             this.rbtn_traybardis.UseVisualStyleBackColor = true;
             // 
@@ -6283,7 +6287,7 @@ namespace UI
             this.rbtn_traybaren.Size = new System.Drawing.Size(155, 30);
             this.rbtn_traybaren.TabIndex = 124;
             this.rbtn_traybaren.TabStop = true;
-            this.rbtn_traybaren.Text = "ÂºÄÂêØ";
+            this.rbtn_traybaren.Text = "ø™∆Ù";
             this.rbtn_traybaren.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             this.rbtn_traybaren.UseVisualStyleBackColor = true;
             // 
@@ -6291,13 +6295,13 @@ namespace UI
             // 
             this.groupBox21.Controls.Add(this.rbtn_halldis);
             this.groupBox21.Controls.Add(this.rbtn_hallen);
-            this.groupBox21.Font = new System.Drawing.Font("ÂÆã‰Ωì", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.groupBox21.Font = new System.Drawing.Font("ÀŒÃÂ", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.groupBox21.Location = new System.Drawing.Point(27, 221);
             this.groupBox21.Name = "groupBox21";
             this.groupBox21.Size = new System.Drawing.Size(209, 98);
             this.groupBox21.TabIndex = 133;
             this.groupBox21.TabStop = false;
-            this.groupBox21.Text = "ÈúçÂ∞îÊµãËØï";
+            this.groupBox21.Text = "ªÙ∂˚≤‚ ‘";
             // 
             // rbtn_halldis
             // 
@@ -6310,7 +6314,7 @@ namespace UI
             this.rbtn_halldis.Name = "rbtn_halldis";
             this.rbtn_halldis.Size = new System.Drawing.Size(155, 30);
             this.rbtn_halldis.TabIndex = 126;
-            this.rbtn_halldis.Text = "ÂÖ≥Èó≠";
+            this.rbtn_halldis.Text = "πÿ±’";
             this.rbtn_halldis.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             this.rbtn_halldis.UseVisualStyleBackColor = true;
             // 
@@ -6327,7 +6331,7 @@ namespace UI
             this.rbtn_hallen.Size = new System.Drawing.Size(155, 30);
             this.rbtn_hallen.TabIndex = 124;
             this.rbtn_hallen.TabStop = true;
-            this.rbtn_hallen.Text = "ÂºÄÂêØ";
+            this.rbtn_hallen.Text = "ø™∆Ù";
             this.rbtn_hallen.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             this.rbtn_hallen.UseVisualStyleBackColor = true;
             // 
@@ -6338,7 +6342,7 @@ namespace UI
             this.btn_saveparm2.Name = "btn_saveparm2";
             this.btn_saveparm2.Size = new System.Drawing.Size(270, 51);
             this.btn_saveparm2.TabIndex = 130;
-            this.btn_saveparm2.Text = "‰øùÂ≠ò";
+            this.btn_saveparm2.Text = "±£¥Ê";
             this.btn_saveparm2.UseVisualStyleBackColor = false;
             this.btn_saveparm2.Click += new System.EventHandler(this.btn_ptset_save_Click);
             // 
@@ -6346,13 +6350,13 @@ namespace UI
             // 
             this.groupBox2.Controls.Add(this.rbtn_CloseVsTray);
             this.groupBox2.Controls.Add(this.rbtn_OpenVsTray);
-            this.groupBox2.Font = new System.Drawing.Font("ÂÆã‰Ωì", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.groupBox2.Font = new System.Drawing.Font("ÀŒÃÂ", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.groupBox2.Location = new System.Drawing.Point(475, 4);
             this.groupBox2.Name = "groupBox2";
             this.groupBox2.Size = new System.Drawing.Size(136, 110);
             this.groupBox2.TabIndex = 23;
             this.groupBox2.TabStop = false;
-            this.groupBox2.Text = "ËßÜËßâÊ£ÄÊµãÊñôÁõòËÆæÁΩÆ";
+            this.groupBox2.Text = " ”æıºÏ≤‚¡œ≈Ã…Ë÷√";
             // 
             // rbtn_CloseVsTray
             // 
@@ -6365,7 +6369,7 @@ namespace UI
             this.rbtn_CloseVsTray.Name = "rbtn_CloseVsTray";
             this.rbtn_CloseVsTray.Size = new System.Drawing.Size(99, 30);
             this.rbtn_CloseVsTray.TabIndex = 126;
-            this.rbtn_CloseVsTray.Text = "ÂÖ≥Èó≠";
+            this.rbtn_CloseVsTray.Text = "πÿ±’";
             this.rbtn_CloseVsTray.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             this.rbtn_CloseVsTray.UseVisualStyleBackColor = true;
             // 
@@ -6382,7 +6386,7 @@ namespace UI
             this.rbtn_OpenVsTray.Size = new System.Drawing.Size(96, 30);
             this.rbtn_OpenVsTray.TabIndex = 124;
             this.rbtn_OpenVsTray.TabStop = true;
-            this.rbtn_OpenVsTray.Text = "ÂºÄÂêØ";
+            this.rbtn_OpenVsTray.Text = "ø™∆Ù";
             this.rbtn_OpenVsTray.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             this.rbtn_OpenVsTray.UseVisualStyleBackColor = true;
             // 
@@ -6390,13 +6394,13 @@ namespace UI
             // 
             this.groupBox12.Controls.Add(this.rbtn_CloseWsPickAgain);
             this.groupBox12.Controls.Add(this.rbtn_OpenWsPickAgain);
-            this.groupBox12.Font = new System.Drawing.Font("ÂÆã‰Ωì", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.groupBox12.Font = new System.Drawing.Font("ÀŒÃÂ", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.groupBox12.Location = new System.Drawing.Point(270, 221);
             this.groupBox12.Name = "groupBox12";
             this.groupBox12.Size = new System.Drawing.Size(209, 98);
             this.groupBox12.TabIndex = 36;
             this.groupBox12.TabStop = false;
-            this.groupBox12.Text = "Â∑•Á´ô‰∫åÊ¨°ÂèñÊñôÂºÄÂêØËÆæÁΩÆ";
+            this.groupBox12.Text = "π§’æ∂˛¥Œ»°¡œø™∆Ù…Ë÷√";
             // 
             // rbtn_CloseWsPickAgain
             // 
@@ -6409,7 +6413,7 @@ namespace UI
             this.rbtn_CloseWsPickAgain.Name = "rbtn_CloseWsPickAgain";
             this.rbtn_CloseWsPickAgain.Size = new System.Drawing.Size(155, 30);
             this.rbtn_CloseWsPickAgain.TabIndex = 126;
-            this.rbtn_CloseWsPickAgain.Text = "ÂÖ≥Èó≠";
+            this.rbtn_CloseWsPickAgain.Text = "πÿ±’";
             this.rbtn_CloseWsPickAgain.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             this.rbtn_CloseWsPickAgain.UseVisualStyleBackColor = true;
             // 
@@ -6426,7 +6430,7 @@ namespace UI
             this.rbtn_OpenWsPickAgain.Size = new System.Drawing.Size(155, 30);
             this.rbtn_OpenWsPickAgain.TabIndex = 124;
             this.rbtn_OpenWsPickAgain.TabStop = true;
-            this.rbtn_OpenWsPickAgain.Text = "ÂºÄÂêØ";
+            this.rbtn_OpenWsPickAgain.Text = "ø™∆Ù";
             this.rbtn_OpenWsPickAgain.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             this.rbtn_OpenWsPickAgain.UseVisualStyleBackColor = true;
             // 
@@ -6436,17 +6440,17 @@ namespace UI
             this.groupBox17.Controls.Add(this.label17);
             this.groupBox17.Controls.Add(this.rbtn_close_degree);
             this.groupBox17.Controls.Add(this.rbtn_open_degree);
-            this.groupBox17.Font = new System.Drawing.Font("ÂÆã‰Ωì", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.groupBox17.Font = new System.Drawing.Font("ÀŒÃÂ", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.groupBox17.Location = new System.Drawing.Point(617, 6);
             this.groupBox17.Name = "groupBox17";
             this.groupBox17.Size = new System.Drawing.Size(209, 108);
             this.groupBox17.TabIndex = 129;
             this.groupBox17.TabStop = false;
-            this.groupBox17.Text = "ÂèñÊîæÊñôËßíÂ∫¶ËÆæÁΩÆ";
+            this.groupBox17.Text = "»°∑≈¡œΩ«∂»…Ë÷√";
             // 
             // nud_offset_degree
             // 
-            this.nud_offset_degree.Font = new System.Drawing.Font("ÂÆã‰Ωì", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.nud_offset_degree.Font = new System.Drawing.Font("ÀŒÃÂ", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.nud_offset_degree.Location = new System.Drawing.Point(113, 62);
             this.nud_offset_degree.Maximum = new decimal(new int[] {
             360,
@@ -6471,12 +6475,12 @@ namespace UI
             // label17
             // 
             this.label17.AutoSize = true;
-            this.label17.Font = new System.Drawing.Font("ÂÆã‰Ωì", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.label17.Font = new System.Drawing.Font("ÀŒÃÂ", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.label17.Location = new System.Drawing.Point(113, 31);
             this.label17.Name = "label17";
             this.label17.Size = new System.Drawing.Size(47, 16);
             this.label17.TabIndex = 129;
-            this.label17.Text = "ËßíÂ∫¶:";
+            this.label17.Text = "Ω«∂»:";
             // 
             // rbtn_close_degree
             // 
@@ -6489,7 +6493,7 @@ namespace UI
             this.rbtn_close_degree.Name = "rbtn_close_degree";
             this.rbtn_close_degree.Size = new System.Drawing.Size(77, 30);
             this.rbtn_close_degree.TabIndex = 126;
-            this.rbtn_close_degree.Text = "ÂÖ≥Èó≠";
+            this.rbtn_close_degree.Text = "πÿ±’";
             this.rbtn_close_degree.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             this.rbtn_close_degree.UseVisualStyleBackColor = true;
             // 
@@ -6506,7 +6510,7 @@ namespace UI
             this.rbtn_open_degree.Size = new System.Drawing.Size(77, 30);
             this.rbtn_open_degree.TabIndex = 124;
             this.rbtn_open_degree.TabStop = true;
-            this.rbtn_open_degree.Text = "ÂºÄÂêØ";
+            this.rbtn_open_degree.Text = "ø™∆Ù";
             this.rbtn_open_degree.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             this.rbtn_open_degree.UseVisualStyleBackColor = true;
             // 
@@ -6514,13 +6518,13 @@ namespace UI
             // 
             this.groupBox9.Controls.Add(this.rbtn_CloseWsVsAddCheck);
             this.groupBox9.Controls.Add(this.rbtn_OpenWsVsAddCheck);
-            this.groupBox9.Font = new System.Drawing.Font("ÂÆã‰Ωì", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.groupBox9.Font = new System.Drawing.Font("ÀŒÃÂ", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.groupBox9.Location = new System.Drawing.Point(26, 120);
             this.groupBox9.Name = "groupBox9";
             this.groupBox9.Size = new System.Drawing.Size(209, 98);
             this.groupBox9.TabIndex = 33;
             this.groupBox9.TabStop = false;
-            this.groupBox9.Text = "Â∑•Á´ôËßÜËßâÊ®°ÊùøÂ¢ûÂä†ÊúâÊó†Ê£ÄÊµã";
+            this.groupBox9.Text = "π§’æ ”æıƒ£∞Â‘ˆº””–ŒﬁºÏ≤‚";
             // 
             // rbtn_CloseWsVsAddCheck
             // 
@@ -6533,7 +6537,7 @@ namespace UI
             this.rbtn_CloseWsVsAddCheck.Name = "rbtn_CloseWsVsAddCheck";
             this.rbtn_CloseWsVsAddCheck.Size = new System.Drawing.Size(155, 30);
             this.rbtn_CloseWsVsAddCheck.TabIndex = 126;
-            this.rbtn_CloseWsVsAddCheck.Text = "ÂÖ≥Èó≠";
+            this.rbtn_CloseWsVsAddCheck.Text = "πÿ±’";
             this.rbtn_CloseWsVsAddCheck.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             this.rbtn_CloseWsVsAddCheck.UseVisualStyleBackColor = true;
             // 
@@ -6550,7 +6554,7 @@ namespace UI
             this.rbtn_OpenWsVsAddCheck.Size = new System.Drawing.Size(155, 30);
             this.rbtn_OpenWsVsAddCheck.TabIndex = 124;
             this.rbtn_OpenWsVsAddCheck.TabStop = true;
-            this.rbtn_OpenWsVsAddCheck.Text = "ÂºÄÂêØ";
+            this.rbtn_OpenWsVsAddCheck.Text = "ø™∆Ù";
             this.rbtn_OpenWsVsAddCheck.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             this.rbtn_OpenWsVsAddCheck.UseVisualStyleBackColor = true;
             // 
@@ -6558,13 +6562,13 @@ namespace UI
             // 
             this.groupBox13.Controls.Add(this.rbtn_lbdis);
             this.groupBox13.Controls.Add(this.rbtn_lben);
-            this.groupBox13.Font = new System.Drawing.Font("ÂÆã‰Ωì", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.groupBox13.Font = new System.Drawing.Font("ÀŒÃÂ", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.groupBox13.Location = new System.Drawing.Point(269, 120);
             this.groupBox13.Name = "groupBox13";
             this.groupBox13.Size = new System.Drawing.Size(209, 98);
             this.groupBox13.TabIndex = 38;
             this.groupBox13.TabStop = false;
-            this.groupBox13.Text = "Â∑¶Âè≥ÂÖâÁÆ±ÂºÄÂêØËÆæÁΩÆ";
+            this.groupBox13.Text = "◊Û”“π‚œ‰ø™∆Ù…Ë÷√";
             // 
             // rbtn_lbdis
             // 
@@ -6577,7 +6581,7 @@ namespace UI
             this.rbtn_lbdis.Name = "rbtn_lbdis";
             this.rbtn_lbdis.Size = new System.Drawing.Size(155, 30);
             this.rbtn_lbdis.TabIndex = 126;
-            this.rbtn_lbdis.Text = "ÂÖ≥Èó≠ÂÖâÁÆ±";
+            this.rbtn_lbdis.Text = "πÿ±’π‚œ‰";
             this.rbtn_lbdis.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             this.rbtn_lbdis.UseVisualStyleBackColor = true;
             // 
@@ -6594,7 +6598,7 @@ namespace UI
             this.rbtn_lben.Size = new System.Drawing.Size(155, 30);
             this.rbtn_lben.TabIndex = 124;
             this.rbtn_lben.TabStop = true;
-            this.rbtn_lben.Text = "ÂºÄÂêØÂÖâÁÆ±";
+            this.rbtn_lben.Text = "ø™∆Ùπ‚œ‰";
             this.rbtn_lben.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             this.rbtn_lben.UseVisualStyleBackColor = true;
             // 
@@ -6616,9 +6620,9 @@ namespace UI
             this.tabPage3.Location = new System.Drawing.Point(4, 44);
             this.tabPage3.Name = "tabPage3";
             this.tabPage3.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage3.Size = new System.Drawing.Size(1164, 818);
+            this.tabPage3.Size = new System.Drawing.Size(52, 44);
             this.tabPage3.TabIndex = 2;
-            this.tabPage3.Text = "ÂèÇÊï∞3";
+            this.tabPage3.Text = "≤Œ ˝3";
             this.tabPage3.UseVisualStyleBackColor = true;
             // 
             // button6
@@ -6627,7 +6631,7 @@ namespace UI
             this.button6.Name = "button6";
             this.button6.Size = new System.Drawing.Size(75, 30);
             this.button6.TabIndex = 172;
-            this.button6.Text = "Ëß£ÈîÅ";
+            this.button6.Text = "Ω‚À¯";
             this.button6.UseVisualStyleBackColor = true;
             this.button6.Click += new System.EventHandler(this.button6_Click_2);
             // 
@@ -6665,7 +6669,7 @@ namespace UI
             this.groupBox67.Size = new System.Drawing.Size(347, 235);
             this.groupBox67.TabIndex = 170;
             this.groupBox67.TabStop = false;
-            this.groupBox67.Text = "‰∏çËâØÊØî‰æãËÆæÁΩÆ";
+            this.groupBox67.Text = "≤ª¡º±»¿˝…Ë÷√";
             // 
             // checknumng5
             // 
@@ -6674,7 +6678,7 @@ namespace UI
             this.checknumng5.Name = "checknumng5";
             this.checknumng5.Size = new System.Drawing.Size(73, 26);
             this.checknumng5.TabIndex = 185;
-            this.checknumng5.Text = "ÂêØÁî®";
+            this.checknumng5.Text = "∆Ù”√";
             this.checknumng5.UseVisualStyleBackColor = true;
             // 
             // checknumng4
@@ -6684,7 +6688,7 @@ namespace UI
             this.checknumng4.Name = "checknumng4";
             this.checknumng4.Size = new System.Drawing.Size(73, 26);
             this.checknumng4.TabIndex = 184;
-            this.checknumng4.Text = "ÂêØÁî®";
+            this.checknumng4.Text = "∆Ù”√";
             this.checknumng4.UseVisualStyleBackColor = true;
             // 
             // checknumng3
@@ -6694,7 +6698,7 @@ namespace UI
             this.checknumng3.Name = "checknumng3";
             this.checknumng3.Size = new System.Drawing.Size(73, 26);
             this.checknumng3.TabIndex = 183;
-            this.checknumng3.Text = "ÂêØÁî®";
+            this.checknumng3.Text = "∆Ù”√";
             this.checknumng3.UseVisualStyleBackColor = true;
             // 
             // checknumng2
@@ -6704,7 +6708,7 @@ namespace UI
             this.checknumng2.Name = "checknumng2";
             this.checknumng2.Size = new System.Drawing.Size(73, 26);
             this.checknumng2.TabIndex = 182;
-            this.checknumng2.Text = "ÂêØÁî®";
+            this.checknumng2.Text = "∆Ù”√";
             this.checknumng2.UseVisualStyleBackColor = true;
             // 
             // checknumng1
@@ -6714,13 +6718,13 @@ namespace UI
             this.checknumng1.Name = "checknumng1";
             this.checknumng1.Size = new System.Drawing.Size(73, 26);
             this.checknumng1.TabIndex = 181;
-            this.checknumng1.Text = "ÂêØÁî®";
+            this.checknumng1.Text = "∆Ù”√";
             this.checknumng1.UseVisualStyleBackColor = true;
             // 
             // numngrate5
             // 
             this.numngrate5.DecimalPlaces = 1;
-            this.numngrate5.Font = new System.Drawing.Font("ÂÆã‰Ωì", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.numngrate5.Font = new System.Drawing.Font("ÀŒÃÂ", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.numngrate5.Increment = new decimal(new int[] {
             5,
             0,
@@ -6750,7 +6754,7 @@ namespace UI
             // numngrate4
             // 
             this.numngrate4.DecimalPlaces = 1;
-            this.numngrate4.Font = new System.Drawing.Font("ÂÆã‰Ωì", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.numngrate4.Font = new System.Drawing.Font("ÀŒÃÂ", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.numngrate4.Increment = new decimal(new int[] {
             5,
             0,
@@ -6780,7 +6784,7 @@ namespace UI
             // numngrate3
             // 
             this.numngrate3.DecimalPlaces = 1;
-            this.numngrate3.Font = new System.Drawing.Font("ÂÆã‰Ωì", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.numngrate3.Font = new System.Drawing.Font("ÀŒÃÂ", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.numngrate3.Increment = new decimal(new int[] {
             5,
             0,
@@ -6810,7 +6814,7 @@ namespace UI
             // numngrate2
             // 
             this.numngrate2.DecimalPlaces = 1;
-            this.numngrate2.Font = new System.Drawing.Font("ÂÆã‰Ωì", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.numngrate2.Font = new System.Drawing.Font("ÀŒÃÂ", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.numngrate2.Increment = new decimal(new int[] {
             5,
             0,
@@ -6840,17 +6844,17 @@ namespace UI
             // label88
             // 
             this.label88.AutoSize = true;
-            this.label88.Font = new System.Drawing.Font("ÂÆã‰Ωì", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.label88.Font = new System.Drawing.Font("ÀŒÃÂ", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.label88.Location = new System.Drawing.Point(138, 26);
             this.label88.Name = "label88";
             this.label88.Size = new System.Drawing.Size(111, 16);
             this.label88.TabIndex = 176;
-            this.label88.Text = "‰∏çËâØÊØî‰æãÔºà%Ôºâ";
+            this.label88.Text = "≤ª¡º±»¿˝£®%£©";
             // 
             // numngrate1
             // 
             this.numngrate1.DecimalPlaces = 1;
-            this.numngrate1.Font = new System.Drawing.Font("ÂÆã‰Ωì", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.numngrate1.Font = new System.Drawing.Font("ÀŒÃÂ", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.numngrate1.Increment = new decimal(new int[] {
             1,
             0,
@@ -6879,7 +6883,7 @@ namespace UI
             // 
             // numng5
             // 
-            this.numng5.Font = new System.Drawing.Font("ÂÆã‰Ωì", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.numng5.Font = new System.Drawing.Font("ÀŒÃÂ", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.numng5.Location = new System.Drawing.Point(11, 197);
             this.numng5.Maximum = new decimal(new int[] {
             1000000000,
@@ -6903,7 +6907,7 @@ namespace UI
             // 
             // numng4
             // 
-            this.numng4.Font = new System.Drawing.Font("ÂÆã‰Ωì", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.numng4.Font = new System.Drawing.Font("ÀŒÃÂ", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.numng4.Location = new System.Drawing.Point(11, 159);
             this.numng4.Maximum = new decimal(new int[] {
             1000000000,
@@ -6927,7 +6931,7 @@ namespace UI
             // 
             // numng3
             // 
-            this.numng3.Font = new System.Drawing.Font("ÂÆã‰Ωì", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.numng3.Font = new System.Drawing.Font("ÀŒÃÂ", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.numng3.Location = new System.Drawing.Point(11, 122);
             this.numng3.Maximum = new decimal(new int[] {
             1000000000,
@@ -6951,7 +6955,7 @@ namespace UI
             // 
             // numng2
             // 
-            this.numng2.Font = new System.Drawing.Font("ÂÆã‰Ωì", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.numng2.Font = new System.Drawing.Font("ÀŒÃÂ", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.numng2.Location = new System.Drawing.Point(11, 85);
             this.numng2.Maximum = new decimal(new int[] {
             1000000000,
@@ -6976,16 +6980,16 @@ namespace UI
             // label87
             // 
             this.label87.AutoSize = true;
-            this.label87.Font = new System.Drawing.Font("ÂÆã‰Ωì", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.label87.Font = new System.Drawing.Font("ÀŒÃÂ", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.label87.Location = new System.Drawing.Point(25, 26);
             this.label87.Name = "label87";
             this.label87.Size = new System.Drawing.Size(71, 16);
             this.label87.TabIndex = 170;
-            this.label87.Text = "‰∏çËâØ‰ª£Á†Å";
+            this.label87.Text = "≤ª¡º¥˙¬Î";
             // 
             // numng1
             // 
-            this.numng1.Font = new System.Drawing.Font("ÂÆã‰Ωì", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.numng1.Font = new System.Drawing.Font("ÀŒÃÂ", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.numng1.Location = new System.Drawing.Point(11, 48);
             this.numng1.Maximum = new decimal(new int[] {
             1000000000,
@@ -7019,27 +7023,27 @@ namespace UI
             this.groupBox66.Controls.Add(this.ckws3wait);
             this.groupBox66.Controls.Add(this.ckws2wait);
             this.groupBox66.Controls.Add(this.ckws1wait);
-            this.groupBox66.Font = new System.Drawing.Font("ÂÆã‰Ωì", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.groupBox66.Font = new System.Drawing.Font("ÀŒÃÂ", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.groupBox66.Location = new System.Drawing.Point(254, 722);
             this.groupBox66.Name = "groupBox66";
             this.groupBox66.Size = new System.Drawing.Size(481, 112);
             this.groupBox66.TabIndex = 169;
             this.groupBox66.TabStop = false;
-            this.groupBox66.Text = "Á≠âÂæÖÂ§πÂÖ∑ÊâìÂºÄÂêéÊâçÂºÄÂßãÊµãËØïÁõ∏ÂÖ≥ËÆæÁΩÆ";
+            this.groupBox66.Text = "µ»¥˝º–æﬂ¥Úø™∫Û≤≈ø™ º≤‚ ‘œ‡πÿ…Ë÷√";
             // 
             // label86
             // 
             this.label86.AutoSize = true;
-            this.label86.Font = new System.Drawing.Font("ÂÆã‰Ωì", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.label86.Font = new System.Drawing.Font("ÀŒÃÂ", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.label86.Location = new System.Drawing.Point(6, 69);
             this.label86.Name = "label86";
             this.label86.Size = new System.Drawing.Size(199, 16);
             this.label86.TabIndex = 135;
-            this.label86.Text = "Â§πÂÖ∑ÂÖ≥Èó≠Á≠âÂæÖÊó∂Èó¥ÔºàmsÔºâÔºö";
+            this.label86.Text = "º–æﬂπÿ±’µ»¥˝ ±º‰£®ms£©£∫";
             // 
             // nbclosewaittime
             // 
-            this.nbclosewaittime.Font = new System.Drawing.Font("ÂÆã‰Ωì", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.nbclosewaittime.Font = new System.Drawing.Font("ÀŒÃÂ", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.nbclosewaittime.Location = new System.Drawing.Point(199, 44);
             this.nbclosewaittime.Maximum = new decimal(new int[] {
             1000,
@@ -7063,22 +7067,22 @@ namespace UI
             this.ckclosewait.Name = "ckclosewait";
             this.ckclosewait.Size = new System.Drawing.Size(194, 18);
             this.ckclosewait.TabIndex = 133;
-            this.ckclosewait.Text = "Â§πÂÖ∑Èó≠ÂêàÁ≠âÂæÖÂºÄÂêØÂª∂Êó∂ÂäüËÉΩ";
+            this.ckclosewait.Text = "º–æﬂ±’∫œµ»¥˝ø™∆Ù—” ±π¶ƒ‹";
             this.ckclosewait.UseVisualStyleBackColor = true;
             // 
             // label85
             // 
             this.label85.AutoSize = true;
-            this.label85.Font = new System.Drawing.Font("ÂÆã‰Ωì", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.label85.Font = new System.Drawing.Font("ÀŒÃÂ", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.label85.Location = new System.Drawing.Point(6, 86);
             this.label85.Name = "label85";
             this.label85.Size = new System.Drawing.Size(199, 16);
             this.label85.TabIndex = 132;
-            this.label85.Text = "Â§πÂÖ∑ÊâìÂºÄÁ≠âÂæÖÊó∂Èó¥ÔºàmsÔºâÔºö";
+            this.label85.Text = "º–æﬂ¥Úø™µ»¥˝ ±º‰£®ms£©£∫";
             // 
             // nbwaittime
             // 
-            this.nbwaittime.Font = new System.Drawing.Font("ÂÆã‰Ωì", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.nbwaittime.Font = new System.Drawing.Font("ÀŒÃÂ", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.nbwaittime.Location = new System.Drawing.Point(199, 80);
             this.nbwaittime.Maximum = new decimal(new int[] {
             100000,
@@ -7102,7 +7106,7 @@ namespace UI
             this.ckws4wait.Name = "ckws4wait";
             this.ckws4wait.Size = new System.Drawing.Size(89, 18);
             this.ckws4wait.TabIndex = 3;
-            this.ckws4wait.Text = "Â∑•Á´ô4ÂºÄÂêØ";
+            this.ckws4wait.Text = "π§’æ4ø™∆Ù";
             this.ckws4wait.UseVisualStyleBackColor = true;
             // 
             // ckws3wait
@@ -7112,7 +7116,7 @@ namespace UI
             this.ckws3wait.Name = "ckws3wait";
             this.ckws3wait.Size = new System.Drawing.Size(89, 18);
             this.ckws3wait.TabIndex = 2;
-            this.ckws3wait.Text = "Â∑•Á´ô3ÂºÄÂêØ";
+            this.ckws3wait.Text = "π§’æ3ø™∆Ù";
             this.ckws3wait.UseVisualStyleBackColor = true;
             // 
             // ckws2wait
@@ -7122,7 +7126,7 @@ namespace UI
             this.ckws2wait.Name = "ckws2wait";
             this.ckws2wait.Size = new System.Drawing.Size(89, 18);
             this.ckws2wait.TabIndex = 1;
-            this.ckws2wait.Text = "Â∑•Á´ô2ÂºÄÂêØ";
+            this.ckws2wait.Text = "π§’æ2ø™∆Ù";
             this.ckws2wait.UseVisualStyleBackColor = true;
             // 
             // ckws1wait
@@ -7132,7 +7136,7 @@ namespace UI
             this.ckws1wait.Name = "ckws1wait";
             this.ckws1wait.Size = new System.Drawing.Size(89, 18);
             this.ckws1wait.TabIndex = 0;
-            this.ckws1wait.Text = "Â∑•Á´ô1ÂºÄÂêØ";
+            this.ckws1wait.Text = "π§’æ1ø™∆Ù";
             this.ckws1wait.UseVisualStyleBackColor = true;
             // 
             // groupBox61
@@ -7140,13 +7144,13 @@ namespace UI
             this.groupBox61.Controls.Add(this.rbtn_undownqrcode);
             this.groupBox61.Controls.Add(this.rbtn_opendownqrcode);
             this.groupBox61.Controls.Add(this.rbtn_openupdownqrcode);
-            this.groupBox61.Font = new System.Drawing.Font("ÂÆã‰Ωì", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.groupBox61.Font = new System.Drawing.Font("ÀŒÃÂ", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.groupBox61.Location = new System.Drawing.Point(17, 627);
             this.groupBox61.Name = "groupBox61";
             this.groupBox61.Size = new System.Drawing.Size(230, 110);
             this.groupBox61.TabIndex = 168;
             this.groupBox61.TabStop = false;
-            this.groupBox61.Text = "ÊòØÂê¶‰∏ãÊñôÂâçÂÜçÊ¨°Ê£ÄÊµã‰∫åÁª¥Á†Å";
+            this.groupBox61.Text = " «∑Òœ¬¡œ«∞‘Ÿ¥ŒºÏ≤‚∂˛Œ¨¬Î";
             // 
             // rbtn_undownqrcode
             // 
@@ -7161,7 +7165,7 @@ namespace UI
             this.rbtn_undownqrcode.Size = new System.Drawing.Size(66, 30);
             this.rbtn_undownqrcode.TabIndex = 126;
             this.rbtn_undownqrcode.TabStop = true;
-            this.rbtn_undownqrcode.Text = "‰∏çÂêØÁî®";
+            this.rbtn_undownqrcode.Text = "≤ª∆Ù”√";
             this.rbtn_undownqrcode.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             this.rbtn_undownqrcode.UseVisualStyleBackColor = true;
             this.rbtn_undownqrcode.Visible = false;
@@ -7177,7 +7181,7 @@ namespace UI
             this.rbtn_opendownqrcode.Name = "rbtn_opendownqrcode";
             this.rbtn_opendownqrcode.Size = new System.Drawing.Size(93, 30);
             this.rbtn_opendownqrcode.TabIndex = 125;
-            this.rbtn_opendownqrcode.Text = "‰∏ãÁõ∏Êú∫Êâ´Á†Å";
+            this.rbtn_opendownqrcode.Text = "œ¬œ‡ª˙…®¬Î";
             this.rbtn_opendownqrcode.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             this.rbtn_opendownqrcode.UseVisualStyleBackColor = true;
             // 
@@ -7194,7 +7198,7 @@ namespace UI
             this.rbtn_openupdownqrcode.Size = new System.Drawing.Size(94, 30);
             this.rbtn_openupdownqrcode.TabIndex = 124;
             this.rbtn_openupdownqrcode.TabStop = true;
-            this.rbtn_openupdownqrcode.Text = "‰∏äÁõ∏Êú∫Êâ´Á†Å";
+            this.rbtn_openupdownqrcode.Text = "…œœ‡ª˙…®¬Î";
             this.rbtn_openupdownqrcode.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             this.rbtn_openupdownqrcode.UseVisualStyleBackColor = true;
             // 
@@ -7202,13 +7206,13 @@ namespace UI
             // 
             this.groupBox57.Controls.Add(this.rbtUpDnAddTestOff);
             this.groupBox57.Controls.Add(this.rbtUpDnAddTestOn);
-            this.groupBox57.Font = new System.Drawing.Font("ÂÆã‰Ωì", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.groupBox57.Font = new System.Drawing.Font("ÀŒÃÂ", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.groupBox57.Location = new System.Drawing.Point(253, 627);
             this.groupBox57.Name = "groupBox57";
             this.groupBox57.Size = new System.Drawing.Size(293, 94);
             this.groupBox57.TabIndex = 167;
             this.groupBox57.TabStop = false;
-            this.groupBox57.Text = "‰∏ä‰∏ãÊñô‰ΩçÂ¢ûÂä†ÊµãËØï";
+            this.groupBox57.Text = "…œœ¬¡œŒª‘ˆº”≤‚ ‘";
             // 
             // rbtUpDnAddTestOff
             // 
@@ -7221,7 +7225,7 @@ namespace UI
             this.rbtUpDnAddTestOff.Name = "rbtUpDnAddTestOff";
             this.rbtUpDnAddTestOff.Size = new System.Drawing.Size(234, 30);
             this.rbtUpDnAddTestOff.TabIndex = 126;
-            this.rbtUpDnAddTestOff.Text = "ÂÖ≥Èó≠";
+            this.rbtUpDnAddTestOff.Text = "πÿ±’";
             this.rbtUpDnAddTestOff.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             this.rbtUpDnAddTestOff.UseVisualStyleBackColor = true;
             // 
@@ -7238,7 +7242,7 @@ namespace UI
             this.rbtUpDnAddTestOn.Size = new System.Drawing.Size(232, 30);
             this.rbtUpDnAddTestOn.TabIndex = 124;
             this.rbtUpDnAddTestOn.TabStop = true;
-            this.rbtUpDnAddTestOn.Text = "ÂºÄÂêØ";
+            this.rbtUpDnAddTestOn.Text = "ø™∆Ù";
             this.rbtUpDnAddTestOn.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             this.rbtUpDnAddTestOn.UseVisualStyleBackColor = true;
             // 
@@ -7261,45 +7265,45 @@ namespace UI
             // 
             // btnGetChkResult
             // 
-            this.btnGetChkResult.Font = new System.Drawing.Font("ÂÆã‰Ωì", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.btnGetChkResult.Font = new System.Drawing.Font("ÀŒÃÂ", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.btnGetChkResult.Location = new System.Drawing.Point(597, 158);
             this.btnGetChkResult.Name = "btnGetChkResult";
             this.btnGetChkResult.Size = new System.Drawing.Size(70, 52);
             this.btnGetChkResult.TabIndex = 171;
-            this.btnGetChkResult.Text = "Ëé∑ÂèñÁÇπÊ£ÄÁªìÊûú";
+            this.btnGetChkResult.Text = "ªÒ»°µ„ºÏΩ·π˚";
             this.btnGetChkResult.UseVisualStyleBackColor = true;
             this.btnGetChkResult.Click += new System.EventHandler(this.btnGetChkResult_Click);
             // 
             // btnChkInfoGet
             // 
-            this.btnChkInfoGet.Font = new System.Drawing.Font("ÂÆã‰Ωì", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.btnChkInfoGet.Font = new System.Drawing.Font("ÀŒÃÂ", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.btnChkInfoGet.Location = new System.Drawing.Point(289, 157);
             this.btnChkInfoGet.Name = "btnChkInfoGet";
             this.btnChkInfoGet.Size = new System.Drawing.Size(70, 52);
             this.btnChkInfoGet.TabIndex = 170;
-            this.btnChkInfoGet.Text = "Ëé∑ÂèñÁÇπÊ£ÄË¶ÅÊ±Ç";
+            this.btnChkInfoGet.Text = "ªÒ»°µ„ºÏ“™«Û";
             this.btnChkInfoGet.UseVisualStyleBackColor = true;
             this.btnChkInfoGet.Click += new System.EventHandler(this.btnChkInfoGet_Click);
             // 
             // btnChkSetProduct
             // 
-            this.btnChkSetProduct.Font = new System.Drawing.Font("ÂÆã‰Ωì", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.btnChkSetProduct.Font = new System.Drawing.Font("ÀŒÃÂ", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.btnChkSetProduct.Location = new System.Drawing.Point(518, 158);
             this.btnChkSetProduct.Name = "btnChkSetProduct";
             this.btnChkSetProduct.Size = new System.Drawing.Size(73, 51);
             this.btnChkSetProduct.TabIndex = 165;
-            this.btnChkSetProduct.Text = "ÊµãËØïÂàáÊç¢Áîü‰∫ß";
+            this.btnChkSetProduct.Text = "≤‚ ‘«–ªª…˙≤˙";
             this.btnChkSetProduct.UseVisualStyleBackColor = true;
             this.btnChkSetProduct.Click += new System.EventHandler(this.btnChkSetProduct_Click);
             // 
             // btnChkSetChk
             // 
-            this.btnChkSetChk.Font = new System.Drawing.Font("ÂÆã‰Ωì", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.btnChkSetChk.Font = new System.Drawing.Font("ÀŒÃÂ", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.btnChkSetChk.Location = new System.Drawing.Point(437, 158);
             this.btnChkSetChk.Name = "btnChkSetChk";
             this.btnChkSetChk.Size = new System.Drawing.Size(75, 51);
             this.btnChkSetChk.TabIndex = 166;
-            this.btnChkSetChk.Text = "ÊµãËØïÂàáÊç¢ÁÇπÊ£Ä";
+            this.btnChkSetChk.Text = "≤‚ ‘«–ªªµ„ºÏ";
             this.btnChkSetChk.UseVisualStyleBackColor = true;
             this.btnChkSetChk.Click += new System.EventHandler(this.btnChkSetChk_Click);
             // 
@@ -7337,7 +7341,7 @@ namespace UI
             this.label59.Name = "label59";
             this.label59.Size = new System.Drawing.Size(54, 22);
             this.label59.TabIndex = 41;
-            this.label59.Text = "ÂêØÁî®";
+            this.label59.Text = "∆Ù”√";
             // 
             // pnl_ut
             // 
@@ -7354,7 +7358,7 @@ namespace UI
             this.label60.Name = "label60";
             this.label60.Size = new System.Drawing.Size(54, 22);
             this.label60.TabIndex = 39;
-            this.label60.Text = "Â±èËîΩ";
+            this.label60.Text = "∆¡±Œ";
             // 
             // pnl_un
             // 
@@ -7368,7 +7372,7 @@ namespace UI
             // 
             this.btn16.BackColor = System.Drawing.Color.DarkGray;
             this.btn16.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btn16.Font = new System.Drawing.Font("ÂÆã‰Ωì", 18F, System.Drawing.FontStyle.Bold);
+            this.btn16.Font = new System.Drawing.Font("ÀŒÃÂ", 18F, System.Drawing.FontStyle.Bold);
             this.btn16.Location = new System.Drawing.Point(603, 19);
             this.btn16.Name = "btn16";
             this.btn16.Size = new System.Drawing.Size(50, 50);
@@ -7380,7 +7384,7 @@ namespace UI
             // 
             this.btn15.BackColor = System.Drawing.Color.DarkGray;
             this.btn15.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btn15.Font = new System.Drawing.Font("ÂÆã‰Ωì", 18F, System.Drawing.FontStyle.Bold);
+            this.btn15.Font = new System.Drawing.Font("ÀŒÃÂ", 18F, System.Drawing.FontStyle.Bold);
             this.btn15.Location = new System.Drawing.Point(533, 19);
             this.btn15.Name = "btn15";
             this.btn15.Size = new System.Drawing.Size(50, 50);
@@ -7392,7 +7396,7 @@ namespace UI
             // 
             this.btn14.BackColor = System.Drawing.Color.DarkGray;
             this.btn14.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btn14.Font = new System.Drawing.Font("ÂÆã‰Ωì", 18F, System.Drawing.FontStyle.Bold);
+            this.btn14.Font = new System.Drawing.Font("ÀŒÃÂ", 18F, System.Drawing.FontStyle.Bold);
             this.btn14.Location = new System.Drawing.Point(466, 19);
             this.btn14.Name = "btn14";
             this.btn14.Size = new System.Drawing.Size(50, 50);
@@ -7404,7 +7408,7 @@ namespace UI
             // 
             this.btn13.BackColor = System.Drawing.Color.DarkGray;
             this.btn13.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btn13.Font = new System.Drawing.Font("ÂÆã‰Ωì", 18F, System.Drawing.FontStyle.Bold);
+            this.btn13.Font = new System.Drawing.Font("ÀŒÃÂ", 18F, System.Drawing.FontStyle.Bold);
             this.btn13.Location = new System.Drawing.Point(394, 19);
             this.btn13.Name = "btn13";
             this.btn13.Size = new System.Drawing.Size(50, 50);
@@ -7416,7 +7420,7 @@ namespace UI
             // 
             this.btn12.BackColor = System.Drawing.Color.DarkGray;
             this.btn12.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btn12.Font = new System.Drawing.Font("ÂÆã‰Ωì", 18F, System.Drawing.FontStyle.Bold);
+            this.btn12.Font = new System.Drawing.Font("ÀŒÃÂ", 18F, System.Drawing.FontStyle.Bold);
             this.btn12.Location = new System.Drawing.Point(327, 19);
             this.btn12.Name = "btn12";
             this.btn12.Size = new System.Drawing.Size(50, 50);
@@ -7428,7 +7432,7 @@ namespace UI
             // 
             this.btn11.BackColor = System.Drawing.Color.DarkGray;
             this.btn11.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btn11.Font = new System.Drawing.Font("ÂÆã‰Ωì", 18F, System.Drawing.FontStyle.Bold);
+            this.btn11.Font = new System.Drawing.Font("ÀŒÃÂ", 18F, System.Drawing.FontStyle.Bold);
             this.btn11.Location = new System.Drawing.Point(259, 19);
             this.btn11.Name = "btn11";
             this.btn11.Size = new System.Drawing.Size(50, 50);
@@ -7440,7 +7444,7 @@ namespace UI
             // 
             this.btn10.BackColor = System.Drawing.Color.DarkGray;
             this.btn10.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btn10.Font = new System.Drawing.Font("ÂÆã‰Ωì", 18F, System.Drawing.FontStyle.Bold);
+            this.btn10.Font = new System.Drawing.Font("ÀŒÃÂ", 18F, System.Drawing.FontStyle.Bold);
             this.btn10.Location = new System.Drawing.Point(188, 19);
             this.btn10.Name = "btn10";
             this.btn10.Size = new System.Drawing.Size(50, 50);
@@ -7452,7 +7456,7 @@ namespace UI
             // 
             this.btn8.BackColor = System.Drawing.Color.DarkGray;
             this.btn8.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btn8.Font = new System.Drawing.Font("ÂÆã‰Ωì", 18F, System.Drawing.FontStyle.Bold);
+            this.btn8.Font = new System.Drawing.Font("ÀŒÃÂ", 18F, System.Drawing.FontStyle.Bold);
             this.btn8.Location = new System.Drawing.Point(603, 87);
             this.btn8.Name = "btn8";
             this.btn8.Size = new System.Drawing.Size(50, 50);
@@ -7464,7 +7468,7 @@ namespace UI
             // 
             this.btn7.BackColor = System.Drawing.Color.DarkGray;
             this.btn7.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btn7.Font = new System.Drawing.Font("ÂÆã‰Ωì", 18F, System.Drawing.FontStyle.Bold);
+            this.btn7.Font = new System.Drawing.Font("ÀŒÃÂ", 18F, System.Drawing.FontStyle.Bold);
             this.btn7.Location = new System.Drawing.Point(532, 87);
             this.btn7.Name = "btn7";
             this.btn7.Size = new System.Drawing.Size(50, 50);
@@ -7476,7 +7480,7 @@ namespace UI
             // 
             this.btn6.BackColor = System.Drawing.Color.DarkGray;
             this.btn6.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btn6.Font = new System.Drawing.Font("ÂÆã‰Ωì", 18F, System.Drawing.FontStyle.Bold);
+            this.btn6.Font = new System.Drawing.Font("ÀŒÃÂ", 18F, System.Drawing.FontStyle.Bold);
             this.btn6.Location = new System.Drawing.Point(466, 87);
             this.btn6.Name = "btn6";
             this.btn6.Size = new System.Drawing.Size(50, 50);
@@ -7488,7 +7492,7 @@ namespace UI
             // 
             this.btn5.BackColor = System.Drawing.Color.DarkGray;
             this.btn5.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btn5.Font = new System.Drawing.Font("ÂÆã‰Ωì", 18F, System.Drawing.FontStyle.Bold);
+            this.btn5.Font = new System.Drawing.Font("ÀŒÃÂ", 18F, System.Drawing.FontStyle.Bold);
             this.btn5.Location = new System.Drawing.Point(394, 87);
             this.btn5.Name = "btn5";
             this.btn5.Size = new System.Drawing.Size(50, 50);
@@ -7500,7 +7504,7 @@ namespace UI
             // 
             this.btn4.BackColor = System.Drawing.Color.DarkGray;
             this.btn4.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btn4.Font = new System.Drawing.Font("ÂÆã‰Ωì", 18F, System.Drawing.FontStyle.Bold);
+            this.btn4.Font = new System.Drawing.Font("ÀŒÃÂ", 18F, System.Drawing.FontStyle.Bold);
             this.btn4.Location = new System.Drawing.Point(327, 87);
             this.btn4.Name = "btn4";
             this.btn4.Size = new System.Drawing.Size(50, 50);
@@ -7512,7 +7516,7 @@ namespace UI
             // 
             this.btn3.BackColor = System.Drawing.Color.DarkGray;
             this.btn3.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btn3.Font = new System.Drawing.Font("ÂÆã‰Ωì", 18F, System.Drawing.FontStyle.Bold);
+            this.btn3.Font = new System.Drawing.Font("ÀŒÃÂ", 18F, System.Drawing.FontStyle.Bold);
             this.btn3.Location = new System.Drawing.Point(259, 87);
             this.btn3.Name = "btn3";
             this.btn3.Size = new System.Drawing.Size(50, 50);
@@ -7524,7 +7528,7 @@ namespace UI
             // 
             this.btn2.BackColor = System.Drawing.Color.DarkGray;
             this.btn2.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btn2.Font = new System.Drawing.Font("ÂÆã‰Ωì", 18F, System.Drawing.FontStyle.Bold);
+            this.btn2.Font = new System.Drawing.Font("ÀŒÃÂ", 18F, System.Drawing.FontStyle.Bold);
             this.btn2.Location = new System.Drawing.Point(188, 87);
             this.btn2.Name = "btn2";
             this.btn2.Size = new System.Drawing.Size(50, 50);
@@ -7536,7 +7540,7 @@ namespace UI
             // 
             this.btn1.BackColor = System.Drawing.Color.DarkGray;
             this.btn1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btn1.Font = new System.Drawing.Font("ÂÆã‰Ωì", 18F, System.Drawing.FontStyle.Bold);
+            this.btn1.Font = new System.Drawing.Font("ÀŒÃÂ", 18F, System.Drawing.FontStyle.Bold);
             this.btn1.Location = new System.Drawing.Point(119, 87);
             this.btn1.Name = "btn1";
             this.btn1.Size = new System.Drawing.Size(50, 50);
@@ -7548,7 +7552,7 @@ namespace UI
             // 
             this.btn9.BackColor = System.Drawing.Color.DarkGray;
             this.btn9.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btn9.Font = new System.Drawing.Font("ÂÆã‰Ωì", 18F, System.Drawing.FontStyle.Bold);
+            this.btn9.Font = new System.Drawing.Font("ÀŒÃÂ", 18F, System.Drawing.FontStyle.Bold);
             this.btn9.Location = new System.Drawing.Point(119, 19);
             this.btn9.Name = "btn9";
             this.btn9.Size = new System.Drawing.Size(50, 50);
@@ -7562,13 +7566,13 @@ namespace UI
             this.groupBox56.Controls.Add(this.rbt_ws4);
             this.groupBox56.Controls.Add(this.rbt_ws2);
             this.groupBox56.Controls.Add(this.rbt_ws1);
-            this.groupBox56.Font = new System.Drawing.Font("ÂÆã‰Ωì", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.groupBox56.Font = new System.Drawing.Font("ÀŒÃÂ", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.groupBox56.Location = new System.Drawing.Point(157, 3);
             this.groupBox56.Name = "groupBox56";
             this.groupBox56.Size = new System.Drawing.Size(402, 73);
             this.groupBox56.TabIndex = 156;
             this.groupBox56.TabStop = false;
-            this.groupBox56.Text = "ÁÇπÊ£ÄÂ∑•‰ΩçÈÄâÊã©";
+            this.groupBox56.Text = "µ„ºÏπ§Œª—°‘Ò";
             // 
             // rbt_ws3
             // 
@@ -7634,12 +7638,12 @@ namespace UI
             // 
             // btnChkGet
             // 
-            this.btnChkGet.Font = new System.Drawing.Font("ÂÆã‰Ωì", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.btnChkGet.Font = new System.Drawing.Font("ÀŒÃÂ", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.btnChkGet.Location = new System.Drawing.Point(361, 157);
             this.btnChkGet.Name = "btnChkGet";
             this.btnChkGet.Size = new System.Drawing.Size(70, 52);
             this.btnChkGet.TabIndex = 164;
-            this.btnChkGet.Text = "Ëé∑ÂèñÁä∂ÊÄÅÊµãËØï";
+            this.btnChkGet.Text = "ªÒ»°◊¥Ã¨≤‚ ‘";
             this.btnChkGet.UseVisualStyleBackColor = true;
             this.btnChkGet.Click += new System.EventHandler(this.btnChkGet_Click);
             // 
@@ -7651,13 +7655,13 @@ namespace UI
             this.groupBox58.Controls.Add(this.rbt_modeH);
             this.groupBox58.Controls.Add(this.rbt_modeO);
             this.groupBox58.Controls.Add(this.rbt_modeM);
-            this.groupBox58.Font = new System.Drawing.Font("ÂÆã‰Ωì", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.groupBox58.Font = new System.Drawing.Font("ÀŒÃÂ", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.groupBox58.Location = new System.Drawing.Point(157, 82);
             this.groupBox58.Name = "groupBox58";
             this.groupBox58.Size = new System.Drawing.Size(494, 73);
             this.groupBox58.TabIndex = 157;
             this.groupBox58.TabStop = false;
-            this.groupBox58.Text = "ÂÆ¢Êà∑Ê®°ÂºèÈÄâÊã©";
+            this.groupBox58.Text = "øÕªßƒ£ Ω—°‘Ò";
             // 
             // rbt_modeV
             // 
@@ -7760,25 +7764,25 @@ namespace UI
             // lbAutoChkShowMsg
             // 
             this.lbAutoChkShowMsg.AutoSize = true;
-            this.lbAutoChkShowMsg.Font = new System.Drawing.Font("ÂÆã‰Ωì", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.lbAutoChkShowMsg.Font = new System.Drawing.Font("ÀŒÃÂ", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.lbAutoChkShowMsg.ForeColor = System.Drawing.Color.DarkRed;
             this.lbAutoChkShowMsg.Location = new System.Drawing.Point(57, 183);
             this.lbAutoChkShowMsg.Name = "lbAutoChkShowMsg";
             this.lbAutoChkShowMsg.Size = new System.Drawing.Size(199, 19);
             this.lbAutoChkShowMsg.TabIndex = 159;
-            this.lbAutoChkShowMsg.Text = "ÊèêÁ§∫‰ø°ÊÅØÂÖ∑‰ΩìÊÄé‰πàÈÄâÊã©";
+            this.lbAutoChkShowMsg.Text = "Ã· æ–≈œ¢æﬂÃÂ‘ı√¥—°‘Ò";
             // 
             // groupBox59
             // 
             this.groupBox59.Controls.Add(this.rbt_autoChkOff);
             this.groupBox59.Controls.Add(this.rbt_autoChkOn);
-            this.groupBox59.Font = new System.Drawing.Font("ÂÆã‰Ωì", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.groupBox59.Font = new System.Drawing.Font("ÀŒÃÂ", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.groupBox59.Location = new System.Drawing.Point(23, 8);
             this.groupBox59.Name = "groupBox59";
             this.groupBox59.Size = new System.Drawing.Size(128, 147);
             this.groupBox59.TabIndex = 158;
             this.groupBox59.TabStop = false;
-            this.groupBox59.Text = "Ëá™Âä®ÁÇπÊ£ÄÊ®°Âºè";
+            this.groupBox59.Text = "◊‘∂Øµ„ºÏƒ£ Ω";
             // 
             // rbt_autoChkOff
             // 
@@ -7791,7 +7795,7 @@ namespace UI
             this.rbt_autoChkOff.Name = "rbt_autoChkOff";
             this.rbt_autoChkOff.Size = new System.Drawing.Size(87, 30);
             this.rbt_autoChkOff.TabIndex = 126;
-            this.rbt_autoChkOff.Text = "ÂÖ≥Èó≠";
+            this.rbt_autoChkOff.Text = "πÿ±’";
             this.rbt_autoChkOff.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             this.rbt_autoChkOff.UseVisualStyleBackColor = true;
             // 
@@ -7808,7 +7812,7 @@ namespace UI
             this.rbt_autoChkOn.Size = new System.Drawing.Size(87, 30);
             this.rbt_autoChkOn.TabIndex = 124;
             this.rbt_autoChkOn.TabStop = true;
-            this.rbt_autoChkOn.Text = "ÂºÄÂêØ";
+            this.rbt_autoChkOn.Text = "ø™∆Ù";
             this.rbt_autoChkOn.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             this.rbt_autoChkOn.UseVisualStyleBackColor = true;
             // 
@@ -7818,17 +7822,17 @@ namespace UI
             this.groupBox55.Controls.Add(this.label57);
             this.groupBox55.Controls.Add(this.radWsNgRateShowOff);
             this.groupBox55.Controls.Add(this.radWsNgRateShowEn);
-            this.groupBox55.Font = new System.Drawing.Font("ÂÆã‰Ωì", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.groupBox55.Font = new System.Drawing.Font("ÀŒÃÂ", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.groupBox55.Location = new System.Drawing.Point(17, 743);
             this.groupBox55.Name = "groupBox55";
             this.groupBox55.Size = new System.Drawing.Size(230, 86);
             this.groupBox55.TabIndex = 139;
             this.groupBox55.TabStop = false;
-            this.groupBox55.Text = "Â∑•‰ΩçNGÊØî‰æãÊä•Ë≠¶";
+            this.groupBox55.Text = "π§ŒªNG±»¿˝±®æØ";
             // 
             // NumWsNgCntPer20
             // 
-            this.NumWsNgCntPer20.Font = new System.Drawing.Font("ÂÆã‰Ωì", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.NumWsNgCntPer20.Font = new System.Drawing.Font("ÀŒÃÂ", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.NumWsNgCntPer20.Location = new System.Drawing.Point(119, 47);
             this.NumWsNgCntPer20.Maximum = new decimal(new int[] {
             20,
@@ -7853,12 +7857,12 @@ namespace UI
             // label57
             // 
             this.label57.AutoSize = true;
-            this.label57.Font = new System.Drawing.Font("ÂÆã‰Ωì", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.label57.Font = new System.Drawing.Font("ÀŒÃÂ", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.label57.Location = new System.Drawing.Point(110, 28);
             this.label57.Name = "label57";
             this.label57.Size = new System.Drawing.Size(89, 12);
             this.label57.TabIndex = 129;
-            this.label57.Text = "20‰∏™‰∏≠Âá∫Áé∞‰∏™Êï∞";
+            this.label57.Text = "20∏ˆ÷–≥ˆœ÷∏ˆ ˝";
             // 
             // radWsNgRateShowOff
             // 
@@ -7871,7 +7875,7 @@ namespace UI
             this.radWsNgRateShowOff.Name = "radWsNgRateShowOff";
             this.radWsNgRateShowOff.Size = new System.Drawing.Size(77, 30);
             this.radWsNgRateShowOff.TabIndex = 126;
-            this.radWsNgRateShowOff.Text = "ÂÖ≥Èó≠";
+            this.radWsNgRateShowOff.Text = "πÿ±’";
             this.radWsNgRateShowOff.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             this.radWsNgRateShowOff.UseVisualStyleBackColor = true;
             // 
@@ -7888,7 +7892,7 @@ namespace UI
             this.radWsNgRateShowEn.Size = new System.Drawing.Size(77, 30);
             this.radWsNgRateShowEn.TabIndex = 124;
             this.radWsNgRateShowEn.TabStop = true;
-            this.radWsNgRateShowEn.Text = "ÂºÄÂêØ";
+            this.radWsNgRateShowEn.Text = "ø™∆Ù";
             this.radWsNgRateShowEn.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             this.radWsNgRateShowEn.UseVisualStyleBackColor = true;
             // 
@@ -7936,13 +7940,13 @@ namespace UI
             this.groupBox54.Controls.Add(this.nud_MotorAngle1);
             this.groupBox54.Controls.Add(this.rbtn_motordis);
             this.groupBox54.Controls.Add(this.rbtn_motoren);
-            this.groupBox54.Font = new System.Drawing.Font("ÂÆã‰Ωì", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.groupBox54.Font = new System.Drawing.Font("ÀŒÃÂ", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.groupBox54.Location = new System.Drawing.Point(744, 6);
             this.groupBox54.Name = "groupBox54";
             this.groupBox54.Size = new System.Drawing.Size(340, 562);
             this.groupBox54.TabIndex = 138;
             this.groupBox54.TabStop = false;
-            this.groupBox54.Text = "È©¨ËææÊâ´Á†ÅËÆæÁΩÆ";
+            this.groupBox54.Text = "¬Ì¥Ô…®¬Î…Ë÷√";
             // 
             // checkBoxSunnyAlmTray
             // 
@@ -7951,7 +7955,7 @@ namespace UI
             this.checkBoxSunnyAlmTray.Name = "checkBoxSunnyAlmTray";
             this.checkBoxSunnyAlmTray.Size = new System.Drawing.Size(166, 18);
             this.checkBoxSunnyAlmTray.TabIndex = 171;
-            this.checkBoxSunnyAlmTray.Text = "Êâ´Á†ÅÂ§±Ë¥•ÊîæÂõûÂæÖ‰æßÊñôÁõò";
+            this.checkBoxSunnyAlmTray.Text = "…®¬Î ß∞‹∑≈ªÿ¥˝≤‡¡œ≈Ã";
             this.checkBoxSunnyAlmTray.UseVisualStyleBackColor = true;
             // 
             // checkBoxdownQr
@@ -7961,7 +7965,7 @@ namespace UI
             this.checkBoxdownQr.Name = "checkBoxdownQr";
             this.checkBoxdownQr.Size = new System.Drawing.Size(124, 18);
             this.checkBoxdownQr.TabIndex = 170;
-            this.checkBoxdownQr.Text = "‰∏ãÁõ∏Êú∫Êâ´È©¨ËææÁ†Å";
+            this.checkBoxdownQr.Text = "œ¬œ‡ª˙…®¬Ì¥Ô¬Î";
             this.checkBoxdownQr.UseVisualStyleBackColor = true;
             // 
             // label84
@@ -7971,11 +7975,11 @@ namespace UI
             this.label84.Name = "label84";
             this.label84.Size = new System.Drawing.Size(77, 14);
             this.label84.TabIndex = 169;
-            this.label84.Text = "Êâ´Á†ÅÊ¨°Êï∞Ôºö";
+            this.label84.Text = "…®¬Î¥Œ ˝£∫";
             // 
             // nud_Motornum
             // 
-            this.nud_Motornum.Font = new System.Drawing.Font("ÂÆã‰Ωì", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.nud_Motornum.Font = new System.Drawing.Font("ÀŒÃÂ", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.nud_Motornum.Location = new System.Drawing.Point(168, 422);
             this.nud_Motornum.Maximum = new decimal(new int[] {
             10,
@@ -7999,11 +8003,11 @@ namespace UI
             this.label83.Name = "label83";
             this.label83.Size = new System.Drawing.Size(140, 14);
             this.label83.TabIndex = 167;
-            this.label83.Text = "Êâ´Á†ÅËâØÁéáÁÆ°ÊéßÔºà%ÔºâÔºö";
+            this.label83.Text = "…®¬Î¡º¬ π‹øÿ£®%£©£∫";
             // 
             // numsunnyokrate
             // 
-            this.numsunnyokrate.Font = new System.Drawing.Font("ÂÆã‰Ωì", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.numsunnyokrate.Font = new System.Drawing.Font("ÀŒÃÂ", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.numsunnyokrate.Location = new System.Drawing.Point(168, 461);
             this.numsunnyokrate.Name = "numsunnyokrate";
             this.numsunnyokrate.Size = new System.Drawing.Size(116, 32);
@@ -8022,7 +8026,7 @@ namespace UI
             this.checksunnyleft.Name = "checksunnyleft";
             this.checksunnyleft.Size = new System.Drawing.Size(54, 18);
             this.checksunnyleft.TabIndex = 165;
-            this.checksunnyleft.Text = "ÂêØÁî®";
+            this.checksunnyleft.Text = "∆Ù”√";
             this.checksunnyleft.UseVisualStyleBackColor = true;
             // 
             // checksunnyright
@@ -8032,7 +8036,7 @@ namespace UI
             this.checksunnyright.Name = "checksunnyright";
             this.checksunnyright.Size = new System.Drawing.Size(54, 18);
             this.checksunnyright.TabIndex = 164;
-            this.checksunnyright.Text = "ÂêØÁî®";
+            this.checksunnyright.Text = "∆Ù”√";
             this.checksunnyright.UseVisualStyleBackColor = true;
             // 
             // button12
@@ -8041,7 +8045,7 @@ namespace UI
             this.button12.Name = "button12";
             this.button12.Size = new System.Drawing.Size(77, 58);
             this.button12.TabIndex = 163;
-            this.button12.Text = "Â∑¶‰æßËàúÂÆáÊâ´Á†ÅÊµãËØï";
+            this.button12.Text = "◊Û≤‡À¥”Ó…®¬Î≤‚ ‘";
             this.button12.UseVisualStyleBackColor = true;
             this.button12.Click += new System.EventHandler(this.button12_Click);
             // 
@@ -8060,11 +8064,11 @@ namespace UI
             this.label82.Name = "label82";
             this.label82.Size = new System.Drawing.Size(105, 14);
             this.label82.TabIndex = 161;
-            this.label82.Text = "Â∑¶‰æßÊâ´Á†ÅÊû™IPÔºö";
+            this.label82.Text = "◊Û≤‡…®¬Î«πIP£∫";
             // 
             // nud_MotorZ4
             // 
-            this.nud_MotorZ4.Font = new System.Drawing.Font("ÂÆã‰Ωì", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.nud_MotorZ4.Font = new System.Drawing.Font("ÀŒÃÂ", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.nud_MotorZ4.Increment = new decimal(new int[] {
             1,
             0,
@@ -8083,7 +8087,7 @@ namespace UI
             // 
             // nud_MotorZ3
             // 
-            this.nud_MotorZ3.Font = new System.Drawing.Font("ÂÆã‰Ωì", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.nud_MotorZ3.Font = new System.Drawing.Font("ÀŒÃÂ", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.nud_MotorZ3.Increment = new decimal(new int[] {
             1,
             0,
@@ -8120,7 +8124,7 @@ namespace UI
             // 
             // nud_MotorZ2
             // 
-            this.nud_MotorZ2.Font = new System.Drawing.Font("ÂÆã‰Ωì", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.nud_MotorZ2.Font = new System.Drawing.Font("ÀŒÃÂ", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.nud_MotorZ2.Increment = new decimal(new int[] {
             1,
             0,
@@ -8157,7 +8161,7 @@ namespace UI
             // 
             // nud_MotorZ1
             // 
-            this.nud_MotorZ1.Font = new System.Drawing.Font("ÂÆã‰Ωì", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.nud_MotorZ1.Font = new System.Drawing.Font("ÀŒÃÂ", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.nud_MotorZ1.Increment = new decimal(new int[] {
             1,
             0,
@@ -8181,7 +8185,7 @@ namespace UI
             this.checkBoxSunnyAlm.Name = "checkBoxSunnyAlm";
             this.checkBoxSunnyAlm.Size = new System.Drawing.Size(82, 18);
             this.checkBoxSunnyAlm.TabIndex = 152;
-            this.checkBoxSunnyAlm.Text = "Êä•Ë≠¶ÂêØÁî®";
+            this.checkBoxSunnyAlm.Text = "±®æØ∆Ù”√";
             this.checkBoxSunnyAlm.UseVisualStyleBackColor = true;
             // 
             // button11
@@ -8190,7 +8194,7 @@ namespace UI
             this.button11.Name = "button11";
             this.button11.Size = new System.Drawing.Size(77, 58);
             this.button11.TabIndex = 151;
-            this.button11.Text = "Âè≥‰æßËàúÂÆáÊâ´Á†ÅÊµãËØï";
+            this.button11.Text = "”“≤‡À¥”Ó…®¬Î≤‚ ‘";
             this.button11.UseVisualStyleBackColor = true;
             this.button11.Click += new System.EventHandler(this.button11_Click);
             // 
@@ -8209,7 +8213,7 @@ namespace UI
             this.label77.Name = "label77";
             this.label77.Size = new System.Drawing.Size(105, 14);
             this.label77.TabIndex = 149;
-            this.label77.Text = "Âè≥‰æßÊâ´Á†ÅÊû™IPÔºö";
+            this.label77.Text = "”“≤‡…®¬Î«πIP£∫";
             // 
             // checkBoxSunnyQr
             // 
@@ -8218,7 +8222,7 @@ namespace UI
             this.checkBoxSunnyQr.Name = "checkBoxSunnyQr";
             this.checkBoxSunnyQr.Size = new System.Drawing.Size(96, 18);
             this.checkBoxSunnyQr.TabIndex = 148;
-            this.checkBoxSunnyQr.Text = "ËàúÂÆáÊâ´Á†ÅÊû™";
+            this.checkBoxSunnyQr.Text = "À¥”Ó…®¬Î«π";
             this.checkBoxSunnyQr.UseVisualStyleBackColor = true;
             // 
             // btnMotoScan4
@@ -8227,7 +8231,7 @@ namespace UI
             this.btnMotoScan4.Name = "btnMotoScan4";
             this.btnMotoScan4.Size = new System.Drawing.Size(75, 36);
             this.btnMotoScan4.TabIndex = 147;
-            this.btnMotoScan4.Text = "Âê∏Â§¥4";
+            this.btnMotoScan4.Text = "Œ¸Õ∑4";
             this.btnMotoScan4.UseVisualStyleBackColor = true;
             this.btnMotoScan4.Click += new System.EventHandler(this.btnmotoScanClick);
             // 
@@ -8237,7 +8241,7 @@ namespace UI
             this.btnMotoScan2.Name = "btnMotoScan2";
             this.btnMotoScan2.Size = new System.Drawing.Size(75, 36);
             this.btnMotoScan2.TabIndex = 146;
-            this.btnMotoScan2.Text = "Âê∏Â§¥2";
+            this.btnMotoScan2.Text = "Œ¸Õ∑2";
             this.btnMotoScan2.UseVisualStyleBackColor = true;
             this.btnMotoScan2.Click += new System.EventHandler(this.btnmotoScanClick);
             // 
@@ -8267,13 +8271,13 @@ namespace UI
             this.btnMotoScan3.Name = "btnMotoScan3";
             this.btnMotoScan3.Size = new System.Drawing.Size(75, 36);
             this.btnMotoScan3.TabIndex = 140;
-            this.btnMotoScan3.Text = "Âê∏Â§¥3";
+            this.btnMotoScan3.Text = "Œ¸Õ∑3";
             this.btnMotoScan3.UseVisualStyleBackColor = true;
             this.btnMotoScan3.Click += new System.EventHandler(this.btnmotoScanClick);
             // 
             // nud_MotorbarcodeDigits
             // 
-            this.nud_MotorbarcodeDigits.Font = new System.Drawing.Font("ÂÆã‰Ωì", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.nud_MotorbarcodeDigits.Font = new System.Drawing.Font("ÀŒÃÂ", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.nud_MotorbarcodeDigits.Location = new System.Drawing.Point(171, 182);
             this.nud_MotorbarcodeDigits.Name = "nud_MotorbarcodeDigits";
             this.nud_MotorbarcodeDigits.Size = new System.Drawing.Size(82, 32);
@@ -8286,23 +8290,23 @@ namespace UI
             this.btnMotoScan1.Name = "btnMotoScan1";
             this.btnMotoScan1.Size = new System.Drawing.Size(75, 36);
             this.btnMotoScan1.TabIndex = 139;
-            this.btnMotoScan1.Text = "Âê∏Â§¥1";
+            this.btnMotoScan1.Text = "Œ¸Õ∑1";
             this.btnMotoScan1.UseVisualStyleBackColor = true;
             this.btnMotoScan1.Click += new System.EventHandler(this.btnmotoScanClick);
             // 
             // label52
             // 
             this.label52.AutoSize = true;
-            this.label52.Font = new System.Drawing.Font("ÂæÆËΩØÈõÖÈªë", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.label52.Font = new System.Drawing.Font("Œ¢»Ì—≈∫⁄", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.label52.Location = new System.Drawing.Point(25, 187);
             this.label52.Name = "label52";
             this.label52.Size = new System.Drawing.Size(110, 20);
             this.label52.TabIndex = 142;
-            this.label52.Text = "È©¨Ëææ‰∫åÁª¥Á†Å‰ΩçÊï∞:";
+            this.label52.Text = "¬Ì¥Ô∂˛Œ¨¬ÎŒª ˝:";
             // 
             // nud_MotorAngle4
             // 
-            this.nud_MotorAngle4.Font = new System.Drawing.Font("ÂÆã‰Ωì", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.nud_MotorAngle4.Font = new System.Drawing.Font("ÀŒÃÂ", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.nud_MotorAngle4.Location = new System.Drawing.Point(180, 65);
             this.nud_MotorAngle4.Maximum = new decimal(new int[] {
             5000,
@@ -8321,7 +8325,7 @@ namespace UI
             // 
             // nud_MotorAngle3
             // 
-            this.nud_MotorAngle3.Font = new System.Drawing.Font("ÂÆã‰Ωì", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.nud_MotorAngle3.Font = new System.Drawing.Font("ÀŒÃÂ", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.nud_MotorAngle3.Location = new System.Drawing.Point(51, 65);
             this.nud_MotorAngle3.Maximum = new decimal(new int[] {
             5000,
@@ -8358,7 +8362,7 @@ namespace UI
             // 
             // nud_MotorAngle2
             // 
-            this.nud_MotorAngle2.Font = new System.Drawing.Font("ÂÆã‰Ωì", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.nud_MotorAngle2.Font = new System.Drawing.Font("ÀŒÃÂ", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.nud_MotorAngle2.Location = new System.Drawing.Point(180, 24);
             this.nud_MotorAngle2.Maximum = new decimal(new int[] {
             5000,
@@ -8395,7 +8399,7 @@ namespace UI
             // 
             // nud_MotorAngle1
             // 
-            this.nud_MotorAngle1.Font = new System.Drawing.Font("ÂÆã‰Ωì", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.nud_MotorAngle1.Font = new System.Drawing.Font("ÀŒÃÂ", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.nud_MotorAngle1.Location = new System.Drawing.Point(51, 23);
             this.nud_MotorAngle1.Maximum = new decimal(new int[] {
             5000,
@@ -8423,7 +8427,7 @@ namespace UI
             this.rbtn_motordis.Name = "rbtn_motordis";
             this.rbtn_motordis.Size = new System.Drawing.Size(94, 30);
             this.rbtn_motordis.TabIndex = 126;
-            this.rbtn_motordis.Text = "ÂÖ≥Èó≠";
+            this.rbtn_motordis.Text = "πÿ±’";
             this.rbtn_motordis.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             this.rbtn_motordis.UseVisualStyleBackColor = true;
             // 
@@ -8440,7 +8444,7 @@ namespace UI
             this.rbtn_motoren.Size = new System.Drawing.Size(94, 30);
             this.rbtn_motoren.TabIndex = 124;
             this.rbtn_motoren.TabStop = true;
-            this.rbtn_motoren.Text = "ÂºÄÂêØ";
+            this.rbtn_motoren.Text = "ø™∆Ù";
             this.rbtn_motoren.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             this.rbtn_motoren.UseVisualStyleBackColor = true;
             this.rbtn_motoren.CheckedChanged += new System.EventHandler(this.rbtn_motoren_CheckedChanged);
@@ -8462,13 +8466,13 @@ namespace UI
             this.groupBox53.Controls.Add(this.label49);
             this.groupBox53.Controls.Add(this.label50);
             this.groupBox53.Controls.Add(this.label51);
-            this.groupBox53.Font = new System.Drawing.Font("ÂÆã‰Ωì", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.groupBox53.Font = new System.Drawing.Font("ÀŒÃÂ", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.groupBox53.Location = new System.Drawing.Point(741, 572);
             this.groupBox53.Name = "groupBox53";
             this.groupBox53.Size = new System.Drawing.Size(343, 302);
             this.groupBox53.TabIndex = 132;
             this.groupBox53.TabStop = false;
-            this.groupBox53.Text = "Âê∏Â§¥‰∏ãÁõ∏Êú∫Êãç‰∫åÁª¥Á†ÅÂÅèÁßª";
+            this.groupBox53.Text = "Œ¸Õ∑œ¬œ‡ª˙≈ƒ∂˛Œ¨¬Î∆´“∆";
             // 
             // button10
             // 
@@ -8476,7 +8480,7 @@ namespace UI
             this.button10.Name = "button10";
             this.button10.Size = new System.Drawing.Size(87, 27);
             this.button10.TabIndex = 132;
-            this.button10.Text = "ÂÆö‰Ωç";
+            this.button10.Text = "∂®Œª";
             this.button10.UseVisualStyleBackColor = true;
             this.button10.Click += new System.EventHandler(this.button10_Click);
             // 
@@ -8486,7 +8490,7 @@ namespace UI
             this.button9.Name = "button9";
             this.button9.Size = new System.Drawing.Size(87, 27);
             this.button9.TabIndex = 131;
-            this.button9.Text = "ÂÆö‰Ωç";
+            this.button9.Text = "∂®Œª";
             this.button9.UseVisualStyleBackColor = true;
             this.button9.Click += new System.EventHandler(this.button9_Click);
             // 
@@ -8496,7 +8500,7 @@ namespace UI
             this.button3.Name = "button3";
             this.button3.Size = new System.Drawing.Size(87, 27);
             this.button3.TabIndex = 130;
-            this.button3.Text = "ÂÆö‰Ωç";
+            this.button3.Text = "∂®Œª";
             this.button3.UseVisualStyleBackColor = true;
             this.button3.Click += new System.EventHandler(this.button3_Click_1);
             // 
@@ -8506,7 +8510,7 @@ namespace UI
             this.button2.Name = "button2";
             this.button2.Size = new System.Drawing.Size(87, 27);
             this.button2.TabIndex = 129;
-            this.button2.Text = "ÂÆö‰Ωç";
+            this.button2.Text = "∂®Œª";
             this.button2.UseVisualStyleBackColor = true;
             this.button2.Click += new System.EventHandler(this.button2_Click_1);
             // 
@@ -8521,7 +8525,7 @@ namespace UI
             this.rbtn_DwAddCapQrcodeOff.Name = "rbtn_DwAddCapQrcodeOff";
             this.rbtn_DwAddCapQrcodeOff.Size = new System.Drawing.Size(87, 30);
             this.rbtn_DwAddCapQrcodeOff.TabIndex = 128;
-            this.rbtn_DwAddCapQrcodeOff.Text = "ÂÖ≥Èó≠";
+            this.rbtn_DwAddCapQrcodeOff.Text = "πÿ±’";
             this.rbtn_DwAddCapQrcodeOff.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             this.rbtn_DwAddCapQrcodeOff.UseVisualStyleBackColor = true;
             // 
@@ -8538,14 +8542,14 @@ namespace UI
             this.rbtn_DwAddCapQrcodeEn.Size = new System.Drawing.Size(87, 30);
             this.rbtn_DwAddCapQrcodeEn.TabIndex = 127;
             this.rbtn_DwAddCapQrcodeEn.TabStop = true;
-            this.rbtn_DwAddCapQrcodeEn.Text = "ÂºÄÂêØ";
+            this.rbtn_DwAddCapQrcodeEn.Text = "ø™∆Ù";
             this.rbtn_DwAddCapQrcodeEn.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             this.rbtn_DwAddCapQrcodeEn.UseVisualStyleBackColor = true;
             // 
             // nud_dwCam_xt4_Qrofs
             // 
             this.nud_dwCam_xt4_Qrofs.DecimalPlaces = 2;
-            this.nud_dwCam_xt4_Qrofs.Font = new System.Drawing.Font("ÂÆã‰Ωì", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.nud_dwCam_xt4_Qrofs.Font = new System.Drawing.Font("ÀŒÃÂ", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.nud_dwCam_xt4_Qrofs.Increment = new decimal(new int[] {
             1,
             0,
@@ -8570,7 +8574,7 @@ namespace UI
             // nud_dwCam_xt3_Qrofs
             // 
             this.nud_dwCam_xt3_Qrofs.DecimalPlaces = 2;
-            this.nud_dwCam_xt3_Qrofs.Font = new System.Drawing.Font("ÂÆã‰Ωì", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.nud_dwCam_xt3_Qrofs.Font = new System.Drawing.Font("ÀŒÃÂ", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.nud_dwCam_xt3_Qrofs.Increment = new decimal(new int[] {
             1,
             0,
@@ -8595,7 +8599,7 @@ namespace UI
             // nud_dwCam_xt2_Qrofs
             // 
             this.nud_dwCam_xt2_Qrofs.DecimalPlaces = 2;
-            this.nud_dwCam_xt2_Qrofs.Font = new System.Drawing.Font("ÂÆã‰Ωì", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.nud_dwCam_xt2_Qrofs.Font = new System.Drawing.Font("ÀŒÃÂ", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.nud_dwCam_xt2_Qrofs.Increment = new decimal(new int[] {
             1,
             0,
@@ -8620,7 +8624,7 @@ namespace UI
             // nud_dwCam_xt1_Qrofs
             // 
             this.nud_dwCam_xt1_Qrofs.DecimalPlaces = 2;
-            this.nud_dwCam_xt1_Qrofs.Font = new System.Drawing.Font("ÂÆã‰Ωì", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.nud_dwCam_xt1_Qrofs.Font = new System.Drawing.Font("ÀŒÃÂ", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.nud_dwCam_xt1_Qrofs.Increment = new decimal(new int[] {
             1,
             0,
@@ -8645,37 +8649,37 @@ namespace UI
             // label47
             // 
             this.label47.AutoSize = true;
-            this.label47.Font = new System.Drawing.Font("ÂÆã‰Ωì", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.label47.Font = new System.Drawing.Font("ÀŒÃÂ", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.label47.Location = new System.Drawing.Point(153, 163);
             this.label47.Name = "label47";
             this.label47.Size = new System.Drawing.Size(119, 16);
             this.label47.TabIndex = 8;
-            this.label47.Text = "Âê∏Â§¥4ÂÅèÁßª(mm):";
+            this.label47.Text = "Œ¸Õ∑4∆´“∆(mm):";
             // 
             // label48
             // 
             this.label48.AutoSize = true;
-            this.label48.Font = new System.Drawing.Font("ÂÆã‰Ωì", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.label48.Font = new System.Drawing.Font("ÀŒÃÂ", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.label48.Location = new System.Drawing.Point(17, 163);
             this.label48.Name = "label48";
             this.label48.Size = new System.Drawing.Size(119, 16);
             this.label48.TabIndex = 7;
-            this.label48.Text = "Âê∏Â§¥3ÂÅèÁßª(mm):";
+            this.label48.Text = "Œ¸Õ∑3∆´“∆(mm):";
             // 
             // label49
             // 
             this.label49.AutoSize = true;
-            this.label49.Font = new System.Drawing.Font("ÂÆã‰Ωì", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.label49.Font = new System.Drawing.Font("ÀŒÃÂ", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.label49.Location = new System.Drawing.Point(158, 64);
             this.label49.Name = "label49";
             this.label49.Size = new System.Drawing.Size(119, 16);
             this.label49.TabIndex = 6;
-            this.label49.Text = "Âê∏Â§¥2ÂÅèÁßª(mm):";
+            this.label49.Text = "Œ¸Õ∑2∆´“∆(mm):";
             // 
             // label50
             // 
             this.label50.AutoSize = true;
-            this.label50.Font = new System.Drawing.Font("ÂÆã‰Ωì", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.label50.Font = new System.Drawing.Font("ÀŒÃÂ", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.label50.Location = new System.Drawing.Point(155, 31);
             this.label50.Name = "label50";
             this.label50.Size = new System.Drawing.Size(0, 16);
@@ -8684,12 +8688,12 @@ namespace UI
             // label51
             // 
             this.label51.AutoSize = true;
-            this.label51.Font = new System.Drawing.Font("ÂÆã‰Ωì", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.label51.Font = new System.Drawing.Font("ÀŒÃÂ", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.label51.Location = new System.Drawing.Point(17, 64);
             this.label51.Name = "label51";
             this.label51.Size = new System.Drawing.Size(119, 16);
             this.label51.TabIndex = 3;
-            this.label51.Text = "Âê∏Â§¥1ÂÅèÁßª(mm):";
+            this.label51.Text = "Œ¸Õ∑1∆´“∆(mm):";
             // 
             // groupBox52
             // 
@@ -8702,7 +8706,7 @@ namespace UI
             this.groupBox52.Size = new System.Drawing.Size(162, 233);
             this.groupBox52.TabIndex = 1;
             this.groupBox52.TabStop = false;
-            this.groupBox52.Text = "ËÆæÂ§á‰ø°ÊÅØ";
+            this.groupBox52.Text = "…Ë±∏–≈œ¢";
             // 
             // label46
             // 
@@ -8711,7 +8715,7 @@ namespace UI
             this.label46.Name = "label46";
             this.label46.Size = new System.Drawing.Size(373, 22);
             this.label46.TabIndex = 3;
-            this.label46.Text = "ÊâÄÂú®‰ΩçÁΩÆÔºàÂ¶ÇÊñ∞Âü∫Âú∞4Âè∑Ê•ºÊ†áÊùÜËΩ¶Èó¥Ôºâ";
+            this.label46.Text = "À˘‘⁄Œª÷√£®»Á–¬ª˘µÿ4∫≈¬•±Í∏À≥µº‰£©";
             // 
             // label45
             // 
@@ -8720,7 +8724,7 @@ namespace UI
             this.label45.Name = "label45";
             this.label45.Size = new System.Drawing.Size(142, 22);
             this.label45.TabIndex = 2;
-            this.label45.Text = "ËÆæÂ§áÈì≠ÁâåÁºñÂè∑";
+            this.label45.Text = "…Ë±∏√˙≈∆±‡∫≈";
             // 
             // tb_eqp_pos
             // 
@@ -8745,7 +8749,7 @@ namespace UI
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(183, 94);
             this.button1.TabIndex = 131;
-            this.button1.Text = "‰øùÂ≠ò";
+            this.button1.Text = "±£¥Ê";
             this.button1.UseVisualStyleBackColor = false;
             this.button1.Click += new System.EventHandler(this.btn_ptset_save_Click);
             // 
@@ -8757,7 +8761,7 @@ namespace UI
             this.groupBox49.Size = new System.Drawing.Size(192, 238);
             this.groupBox49.TabIndex = 0;
             this.groupBox49.TabStop = false;
-            this.groupBox49.Text = "NPI‰∏ìÁî®Âê∏Â§¥ÂêØÁî®";
+            this.groupBox49.Text = "NPI◊®”√Œ¸Õ∑∆Ù”√";
             // 
             // tabControl2
             // 
@@ -8777,20 +8781,20 @@ namespace UI
             this.tabPage4.Padding = new System.Windows.Forms.Padding(3);
             this.tabPage4.Size = new System.Drawing.Size(256, 154);
             this.tabPage4.TabIndex = 0;
-            this.tabPage4.Text = "‰∏ä‰∏ãÊñô1";
+            this.tabPage4.Text = "…œœ¬¡œ1";
             this.tabPage4.UseVisualStyleBackColor = true;
             // 
             // groupBox50
             // 
             this.groupBox50.Controls.Add(this.rbtUpDn1OneXtOff);
             this.groupBox50.Controls.Add(this.rbtUpDn1OneXtOn);
-            this.groupBox50.Font = new System.Drawing.Font("ÂÆã‰Ωì", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.groupBox50.Font = new System.Drawing.Font("ÀŒÃÂ", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.groupBox50.Location = new System.Drawing.Point(20, 15);
             this.groupBox50.Name = "groupBox50";
             this.groupBox50.Size = new System.Drawing.Size(183, 110);
             this.groupBox50.TabIndex = 154;
             this.groupBox50.TabStop = false;
-            this.groupBox50.Text = "Âè™Áî®‰∏Ä‰∏™Âê∏Â§¥";
+            this.groupBox50.Text = "÷ª”√“ª∏ˆŒ¸Õ∑";
             // 
             // rbtUpDn1OneXtOff
             // 
@@ -8803,7 +8807,7 @@ namespace UI
             this.rbtUpDn1OneXtOff.Name = "rbtUpDn1OneXtOff";
             this.rbtUpDn1OneXtOff.Size = new System.Drawing.Size(87, 30);
             this.rbtUpDn1OneXtOff.TabIndex = 126;
-            this.rbtUpDn1OneXtOff.Text = "ÂÖ≥Èó≠";
+            this.rbtUpDn1OneXtOff.Text = "πÿ±’";
             this.rbtUpDn1OneXtOff.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             this.rbtUpDn1OneXtOff.UseVisualStyleBackColor = true;
             // 
@@ -8820,7 +8824,7 @@ namespace UI
             this.rbtUpDn1OneXtOn.Size = new System.Drawing.Size(87, 30);
             this.rbtUpDn1OneXtOn.TabIndex = 124;
             this.rbtUpDn1OneXtOn.TabStop = true;
-            this.rbtUpDn1OneXtOn.Text = "ÂºÄÂêØ";
+            this.rbtUpDn1OneXtOn.Text = "ø™∆Ù";
             this.rbtUpDn1OneXtOn.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             this.rbtUpDn1OneXtOn.UseVisualStyleBackColor = true;
             // 
@@ -8832,20 +8836,20 @@ namespace UI
             this.tabPage5.Padding = new System.Windows.Forms.Padding(3);
             this.tabPage5.Size = new System.Drawing.Size(256, 154);
             this.tabPage5.TabIndex = 1;
-            this.tabPage5.Text = "‰∏ä‰∏ãÊñô2";
+            this.tabPage5.Text = "…œœ¬¡œ2";
             this.tabPage5.UseVisualStyleBackColor = true;
             // 
             // groupBox51
             // 
             this.groupBox51.Controls.Add(this.rbtUpDn2OneXtOff);
             this.groupBox51.Controls.Add(this.rbtUpDn2OneXtOn);
-            this.groupBox51.Font = new System.Drawing.Font("ÂÆã‰Ωì", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.groupBox51.Font = new System.Drawing.Font("ÀŒÃÂ", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.groupBox51.Location = new System.Drawing.Point(16, 17);
             this.groupBox51.Name = "groupBox51";
             this.groupBox51.Size = new System.Drawing.Size(195, 131);
             this.groupBox51.TabIndex = 155;
             this.groupBox51.TabStop = false;
-            this.groupBox51.Text = "Âè™Áî®‰∏Ä‰∏™Âê∏Â§¥";
+            this.groupBox51.Text = "÷ª”√“ª∏ˆŒ¸Õ∑";
             // 
             // rbtUpDn2OneXtOff
             // 
@@ -8858,7 +8862,7 @@ namespace UI
             this.rbtUpDn2OneXtOff.Name = "rbtUpDn2OneXtOff";
             this.rbtUpDn2OneXtOff.Size = new System.Drawing.Size(87, 30);
             this.rbtUpDn2OneXtOff.TabIndex = 126;
-            this.rbtUpDn2OneXtOff.Text = "ÂÖ≥Èó≠";
+            this.rbtUpDn2OneXtOff.Text = "πÿ±’";
             this.rbtUpDn2OneXtOff.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             this.rbtUpDn2OneXtOff.UseVisualStyleBackColor = true;
             // 
@@ -8875,7 +8879,7 @@ namespace UI
             this.rbtUpDn2OneXtOn.Size = new System.Drawing.Size(87, 30);
             this.rbtUpDn2OneXtOn.TabIndex = 124;
             this.rbtUpDn2OneXtOn.TabStop = true;
-            this.rbtUpDn2OneXtOn.Text = "ÂºÄÂêØ";
+            this.rbtUpDn2OneXtOn.Text = "ø™∆Ù";
             this.rbtUpDn2OneXtOn.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             this.rbtUpDn2OneXtOn.UseVisualStyleBackColor = true;
             // 
@@ -8885,9 +8889,9 @@ namespace UI
             this.tpPara4.Location = new System.Drawing.Point(4, 44);
             this.tpPara4.Name = "tpPara4";
             this.tpPara4.Padding = new System.Windows.Forms.Padding(3);
-            this.tpPara4.Size = new System.Drawing.Size(1164, 818);
+            this.tpPara4.Size = new System.Drawing.Size(52, 44);
             this.tpPara4.TabIndex = 3;
-            this.tpPara4.Text = "ÂèÇÊï∞4";
+            this.tpPara4.Text = "≤Œ ˝4";
             this.tpPara4.UseVisualStyleBackColor = true;
             // 
             // tableLayoutPanel2
@@ -8902,7 +8906,7 @@ namespace UI
             this.tableLayoutPanel2.Name = "tableLayoutPanel2";
             this.tableLayoutPanel2.RowCount = 1;
             this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel2.Size = new System.Drawing.Size(1158, 812);
+            this.tableLayoutPanel2.Size = new System.Drawing.Size(46, 38);
             this.tableLayoutPanel2.TabIndex = 1;
             // 
             // dataGrideSysInfo1
@@ -8911,7 +8915,7 @@ namespace UI
             this.dataGrideSysInfo1.Location = new System.Drawing.Point(6, 5);
             this.dataGrideSysInfo1.Margin = new System.Windows.Forms.Padding(6, 5, 6, 5);
             this.dataGrideSysInfo1.Name = "dataGrideSysInfo1";
-            this.dataGrideSysInfo1.Size = new System.Drawing.Size(1046, 802);
+            this.dataGrideSysInfo1.Size = new System.Drawing.Size(1, 28);
             this.dataGrideSysInfo1.TabIndex = 0;
             // 
             // panel1
@@ -8919,9 +8923,9 @@ namespace UI
             this.panel1.Controls.Add(this.button8);
             this.panel1.Controls.Add(this.button7);
             this.panel1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panel1.Location = new System.Drawing.Point(1061, 3);
+            this.panel1.Location = new System.Drawing.Point(-51, 3);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(94, 806);
+            this.panel1.Size = new System.Drawing.Size(94, 32);
             this.panel1.TabIndex = 1;
             // 
             // button8
@@ -8931,7 +8935,7 @@ namespace UI
             this.button8.Name = "button8";
             this.button8.Size = new System.Drawing.Size(88, 51);
             this.button8.TabIndex = 133;
-            this.button8.Text = "Âä†ËΩΩ";
+            this.button8.Text = "º”‘ÿ";
             this.button8.UseVisualStyleBackColor = false;
             // 
             // button7
@@ -8941,7 +8945,7 @@ namespace UI
             this.button7.Name = "button7";
             this.button7.Size = new System.Drawing.Size(88, 51);
             this.button7.TabIndex = 132;
-            this.button7.Text = "‰øùÂ≠ò";
+            this.button7.Text = "±£¥Ê";
             this.button7.UseVisualStyleBackColor = false;
             this.button7.Click += new System.EventHandler(this.btn_ptset_save_Click);
             // 
@@ -8961,18 +8965,18 @@ namespace UI
             this.tabPage8.Padding = new System.Windows.Forms.Padding(3);
             this.tabPage8.Size = new System.Drawing.Size(52, 44);
             this.tabPage8.TabIndex = 4;
-            this.tabPage8.Text = "ÂèÇÊï∞ËÆæÁΩÆ5";
+            this.tabPage8.Text = "≤Œ ˝…Ë÷√5";
             this.tabPage8.UseVisualStyleBackColor = true;
             // 
             // chk_downfliptest
             // 
             this.chk_downfliptest.AutoSize = true;
-            this.chk_downfliptest.Font = new System.Drawing.Font("ÂæÆËΩØÈõÖÈªë", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.chk_downfliptest.Font = new System.Drawing.Font("Œ¢»Ì—≈∫⁄", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.chk_downfliptest.Location = new System.Drawing.Point(342, 398);
             this.chk_downfliptest.Name = "chk_downfliptest";
             this.chk_downfliptest.Size = new System.Drawing.Size(145, 29);
             this.chk_downfliptest.TabIndex = 163;
-            this.chk_downfliptest.Text = "Âêë‰∏ãÁøªËΩ¨ÊµãËØï";
+            this.chk_downfliptest.Text = "œÚœ¬∑≠◊™≤‚ ‘";
             this.chk_downfliptest.UseVisualStyleBackColor = true;
             // 
             // AutoCheckParam
@@ -9015,7 +9019,7 @@ namespace UI
             this.AFC_param.Padding = new System.Windows.Forms.Padding(2);
             this.AFC_param.Size = new System.Drawing.Size(542, 355);
             this.AFC_param.TabIndex = 0;
-            this.AFC_param.Text = "AFCÂèÇÊï∞";
+            this.AFC_param.Text = "AFC≤Œ ˝";
             this.AFC_param.UseVisualStyleBackColor = true;
             // 
             // AFC_CPOS
@@ -9071,7 +9075,7 @@ namespace UI
             this.button21.Name = "button21";
             this.button21.Size = new System.Drawing.Size(76, 32);
             this.button21.TabIndex = 95;
-            this.button21.Text = "ÂÆö‰Ωç";
+            this.button21.Text = "∂®Œª";
             this.button21.UseVisualStyleBackColor = false;
             this.button21.Click += new System.EventHandler(this.button21_Click);
             // 
@@ -9083,7 +9087,7 @@ namespace UI
             this.button20.Name = "button20";
             this.button20.Size = new System.Drawing.Size(76, 32);
             this.button20.TabIndex = 94;
-            this.button20.Text = "Â≠¶‰π†";
+            this.button20.Text = "—ßœ∞";
             this.button20.UseVisualStyleBackColor = false;
             this.button20.Click += new System.EventHandler(this.button20_Click);
             // 
@@ -9095,7 +9099,7 @@ namespace UI
             this.button19.Name = "button19";
             this.button19.Size = new System.Drawing.Size(76, 32);
             this.button19.TabIndex = 93;
-            this.button19.Text = "ÂÆö‰Ωç";
+            this.button19.Text = "∂®Œª";
             this.button19.UseVisualStyleBackColor = false;
             this.button19.Click += new System.EventHandler(this.button19_Click);
             // 
@@ -9107,7 +9111,7 @@ namespace UI
             this.button18.Name = "button18";
             this.button18.Size = new System.Drawing.Size(76, 32);
             this.button18.TabIndex = 92;
-            this.button18.Text = "Â≠¶‰π†";
+            this.button18.Text = "—ßœ∞";
             this.button18.UseVisualStyleBackColor = false;
             this.button18.Click += new System.EventHandler(this.button18_Click);
             // 
@@ -9149,7 +9153,7 @@ namespace UI
             this.button16.Name = "button16";
             this.button16.Size = new System.Drawing.Size(76, 32);
             this.button16.TabIndex = 80;
-            this.button16.Text = "ÂÆö‰Ωç";
+            this.button16.Text = "∂®Œª";
             this.button16.UseVisualStyleBackColor = false;
             this.button16.Click += new System.EventHandler(this.button16_Click);
             // 
@@ -9161,7 +9165,7 @@ namespace UI
             this.button15.Name = "button15";
             this.button15.Size = new System.Drawing.Size(76, 32);
             this.button15.TabIndex = 79;
-            this.button15.Text = "Â≠¶‰π†";
+            this.button15.Text = "—ßœ∞";
             this.button15.UseVisualStyleBackColor = false;
             this.button15.Click += new System.EventHandler(this.button15_Click);
             // 
@@ -9173,7 +9177,7 @@ namespace UI
             this.label109.Name = "label109";
             this.label109.Size = new System.Drawing.Size(98, 22);
             this.label109.TabIndex = 76;
-            this.label109.Text = "‰∏âÁÇπ‰ΩçÁΩÆ";
+            this.label109.Text = "»˝µ„Œª÷√";
             // 
             // AFC_cctdraggableProgressBar
             // 
@@ -9201,7 +9205,7 @@ namespace UI
             this.label102.Name = "label102";
             this.label102.Size = new System.Drawing.Size(164, 22);
             this.label102.TabIndex = 19;
-            this.label102.Text = "Ëâ≤Ê∏©ÂùáÂ∫¶ÂÄºÂ§ß‰∫é";
+            this.label102.Text = "…´Œ¬æ˘∂»÷µ¥Û”⁄";
             // 
             // label101
             // 
@@ -9211,7 +9215,7 @@ namespace UI
             this.label101.Name = "label101";
             this.label101.Size = new System.Drawing.Size(164, 22);
             this.label101.TabIndex = 17;
-            this.label101.Text = "ÂÖâÊ∫êÂùáÂ∫¶ÂÄºÂ§ß‰∫é";
+            this.label101.Text = "π‚‘¥æ˘∂»÷µ¥Û”⁄";
             // 
             // AFC_luxcct_check_open
             // 
@@ -9221,7 +9225,7 @@ namespace UI
             this.AFC_luxcct_check_open.Name = "AFC_luxcct_check_open";
             this.AFC_luxcct_check_open.Size = new System.Drawing.Size(161, 26);
             this.AFC_luxcct_check_open.TabIndex = 11;
-            this.AFC_luxcct_check_open.Text = "ÂÖâÊ∫êËâ≤Ê∏©ÁÇπÊ£Ä";
+            this.AFC_luxcct_check_open.Text = "π‚‘¥…´Œ¬µ„ºÏ";
             this.AFC_luxcct_check_open.UseVisualStyleBackColor = true;
             // 
             // AFC_distance_check_open
@@ -9232,7 +9236,7 @@ namespace UI
             this.AFC_distance_check_open.Name = "AFC_distance_check_open";
             this.AFC_distance_check_open.Size = new System.Drawing.Size(117, 26);
             this.AFC_distance_check_open.TabIndex = 10;
-            this.AFC_distance_check_open.Text = "Ë∑ùÁ¶ªÁÇπÊ£Ä";
+            this.AFC_distance_check_open.Text = "æ‡¿Îµ„ºÏ";
             this.AFC_distance_check_open.UseVisualStyleBackColor = true;
             // 
             // DCC_Param
@@ -9262,7 +9266,7 @@ namespace UI
             this.DCC_Param.Padding = new System.Windows.Forms.Padding(2);
             this.DCC_Param.Size = new System.Drawing.Size(542, 355);
             this.DCC_Param.TabIndex = 1;
-            this.DCC_Param.Text = "DCCÂèÇÊï∞";
+            this.DCC_Param.Text = "DCC≤Œ ˝";
             this.DCC_Param.UseVisualStyleBackColor = true;
             // 
             // DCC_CPOS
@@ -9318,7 +9322,7 @@ namespace UI
             this.button25.Name = "button25";
             this.button25.Size = new System.Drawing.Size(76, 32);
             this.button25.TabIndex = 97;
-            this.button25.Text = "ÂÆö‰Ωç";
+            this.button25.Text = "∂®Œª";
             this.button25.UseVisualStyleBackColor = false;
             this.button25.Click += new System.EventHandler(this.button25_Click);
             // 
@@ -9330,7 +9334,7 @@ namespace UI
             this.button24.Name = "button24";
             this.button24.Size = new System.Drawing.Size(76, 32);
             this.button24.TabIndex = 96;
-            this.button24.Text = "Â≠¶‰π†";
+            this.button24.Text = "—ßœ∞";
             this.button24.UseVisualStyleBackColor = false;
             this.button24.Click += new System.EventHandler(this.button24_Click);
             // 
@@ -9342,7 +9346,7 @@ namespace UI
             this.button23.Name = "button23";
             this.button23.Size = new System.Drawing.Size(76, 32);
             this.button23.TabIndex = 95;
-            this.button23.Text = "ÂÆö‰Ωç";
+            this.button23.Text = "∂®Œª";
             this.button23.UseVisualStyleBackColor = false;
             this.button23.Click += new System.EventHandler(this.button23_Click);
             // 
@@ -9354,7 +9358,7 @@ namespace UI
             this.button22.Name = "button22";
             this.button22.Size = new System.Drawing.Size(76, 32);
             this.button22.TabIndex = 94;
-            this.button22.Text = "Â≠¶‰π†";
+            this.button22.Text = "—ßœ∞";
             this.button22.UseVisualStyleBackColor = false;
             this.button22.Click += new System.EventHandler(this.button22_Click);
             // 
@@ -9366,7 +9370,7 @@ namespace UI
             this.label110.Name = "label110";
             this.label110.Size = new System.Drawing.Size(98, 22);
             this.label110.TabIndex = 93;
-            this.label110.Text = "‰∏âÁÇπ‰ΩçÁΩÆ";
+            this.label110.Text = "»˝µ„Œª÷√";
             // 
             // label108
             // 
@@ -9406,7 +9410,7 @@ namespace UI
             this.button14.Name = "button14";
             this.button14.Size = new System.Drawing.Size(76, 32);
             this.button14.TabIndex = 74;
-            this.button14.Text = "ÂÆö‰Ωç";
+            this.button14.Text = "∂®Œª";
             this.button14.UseVisualStyleBackColor = false;
             this.button14.Click += new System.EventHandler(this.button14_Click);
             // 
@@ -9418,7 +9422,7 @@ namespace UI
             this.button13.Name = "button13";
             this.button13.Size = new System.Drawing.Size(76, 31);
             this.button13.TabIndex = 73;
-            this.button13.Text = "Â≠¶‰π†";
+            this.button13.Text = "—ßœ∞";
             this.button13.UseVisualStyleBackColor = false;
             this.button13.Click += new System.EventHandler(this.button13_Click);
             // 
@@ -9430,7 +9434,7 @@ namespace UI
             this.label100.Name = "label100";
             this.label100.Size = new System.Drawing.Size(164, 22);
             this.label100.TabIndex = 22;
-            this.label100.Text = "Ëâ≤Ê∏©ÂùáÂ∫¶ÂÄºÂ§ß‰∫é";
+            this.label100.Text = "…´Œ¬æ˘∂»÷µ¥Û”⁄";
             // 
             // label96
             // 
@@ -9440,7 +9444,7 @@ namespace UI
             this.label96.Name = "label96";
             this.label96.Size = new System.Drawing.Size(164, 22);
             this.label96.TabIndex = 21;
-            this.label96.Text = "ÂÖâÊ∫êÂùáÂ∫¶ÂÄºÂ§ß‰∫é";
+            this.label96.Text = "π‚‘¥æ˘∂»÷µ¥Û”⁄";
             // 
             // DCC_cctdraggableProgressBar
             // 
@@ -9468,7 +9472,7 @@ namespace UI
             this.DCC_luxcct_check_open.Name = "DCC_luxcct_check_open";
             this.DCC_luxcct_check_open.Size = new System.Drawing.Size(161, 26);
             this.DCC_luxcct_check_open.TabIndex = 14;
-            this.DCC_luxcct_check_open.Text = "ÂÖâÊ∫êËâ≤Ê∏©ÁÇπÊ£Ä";
+            this.DCC_luxcct_check_open.Text = "π‚‘¥…´Œ¬µ„ºÏ";
             this.DCC_luxcct_check_open.UseVisualStyleBackColor = true;
             // 
             // DCC_distance_check_open
@@ -9479,7 +9483,7 @@ namespace UI
             this.DCC_distance_check_open.Name = "DCC_distance_check_open";
             this.DCC_distance_check_open.Size = new System.Drawing.Size(117, 26);
             this.DCC_distance_check_open.TabIndex = 13;
-            this.DCC_distance_check_open.Text = "Ë∑ùÁ¶ªÁÇπÊ£Ä";
+            this.DCC_distance_check_open.Text = "æ‡¿Îµ„ºÏ";
             this.DCC_distance_check_open.UseVisualStyleBackColor = true;
             // 
             // OTP_Param
@@ -9508,7 +9512,7 @@ namespace UI
             this.OTP_Param.Name = "OTP_Param";
             this.OTP_Param.Size = new System.Drawing.Size(542, 355);
             this.OTP_Param.TabIndex = 2;
-            this.OTP_Param.Text = "OTPÂèÇÊï∞";
+            this.OTP_Param.Text = "OTP≤Œ ˝";
             this.OTP_Param.UseVisualStyleBackColor = true;
             // 
             // OTP_CPOS
@@ -9564,7 +9568,7 @@ namespace UI
             this.button29.Name = "button29";
             this.button29.Size = new System.Drawing.Size(76, 32);
             this.button29.TabIndex = 96;
-            this.button29.Text = "ÂÆö‰Ωç";
+            this.button29.Text = "∂®Œª";
             this.button29.UseVisualStyleBackColor = false;
             this.button29.Click += new System.EventHandler(this.button29_Click);
             // 
@@ -9576,7 +9580,7 @@ namespace UI
             this.button28.Name = "button28";
             this.button28.Size = new System.Drawing.Size(76, 32);
             this.button28.TabIndex = 95;
-            this.button28.Text = "Â≠¶‰π†";
+            this.button28.Text = "—ßœ∞";
             this.button28.UseVisualStyleBackColor = false;
             this.button28.Click += new System.EventHandler(this.button28_Click);
             // 
@@ -9588,7 +9592,7 @@ namespace UI
             this.button27.Name = "button27";
             this.button27.Size = new System.Drawing.Size(76, 32);
             this.button27.TabIndex = 94;
-            this.button27.Text = "ÂÆö‰Ωç";
+            this.button27.Text = "∂®Œª";
             this.button27.UseVisualStyleBackColor = false;
             this.button27.Click += new System.EventHandler(this.button27_Click);
             // 
@@ -9600,7 +9604,7 @@ namespace UI
             this.button26.Name = "button26";
             this.button26.Size = new System.Drawing.Size(76, 32);
             this.button26.TabIndex = 93;
-            this.button26.Text = "Â≠¶‰π†";
+            this.button26.Text = "—ßœ∞";
             this.button26.UseVisualStyleBackColor = false;
             this.button26.Click += new System.EventHandler(this.button26_Click);
             // 
@@ -9612,7 +9616,7 @@ namespace UI
             this.OTP_distance_check_open.Name = "OTP_distance_check_open";
             this.OTP_distance_check_open.Size = new System.Drawing.Size(117, 26);
             this.OTP_distance_check_open.TabIndex = 78;
-            this.OTP_distance_check_open.Text = "Ë∑ùÁ¶ªÁÇπÊ£Ä";
+            this.OTP_distance_check_open.Text = "æ‡¿Îµ„ºÏ";
             this.OTP_distance_check_open.UseVisualStyleBackColor = true;
             // 
             // lblCpoint
@@ -9653,7 +9657,7 @@ namespace UI
             this.label113.Name = "label113";
             this.label113.Size = new System.Drawing.Size(98, 22);
             this.label113.TabIndex = 71;
-            this.label113.Text = "‰∏âÁÇπ‰ΩçÁΩÆ";
+            this.label113.Text = "»˝µ„Œª÷√";
             // 
             // btn_lightgotopos
             // 
@@ -9663,7 +9667,7 @@ namespace UI
             this.btn_lightgotopos.Name = "btn_lightgotopos";
             this.btn_lightgotopos.Size = new System.Drawing.Size(76, 32);
             this.btn_lightgotopos.TabIndex = 68;
-            this.btn_lightgotopos.Text = "ÂÆö‰Ωç";
+            this.btn_lightgotopos.Text = "∂®Œª";
             this.btn_lightgotopos.UseVisualStyleBackColor = false;
             this.btn_lightgotopos.Click += new System.EventHandler(this.btn_lightgotopos_Click);
             // 
@@ -9675,7 +9679,7 @@ namespace UI
             this.btn_lightgetpos.Name = "btn_lightgetpos";
             this.btn_lightgetpos.Size = new System.Drawing.Size(76, 28);
             this.btn_lightgetpos.TabIndex = 67;
-            this.btn_lightgetpos.Text = "Â≠¶‰π†";
+            this.btn_lightgetpos.Text = "—ßœ∞";
             this.btn_lightgetpos.UseVisualStyleBackColor = false;
             this.btn_lightgetpos.Click += new System.EventHandler(this.btn_lightgetpos_Click);
             // 
@@ -9687,7 +9691,7 @@ namespace UI
             this.OTP_luxcct_check_open.Name = "OTP_luxcct_check_open";
             this.OTP_luxcct_check_open.Size = new System.Drawing.Size(161, 26);
             this.OTP_luxcct_check_open.TabIndex = 21;
-            this.OTP_luxcct_check_open.Text = "ÂÖâÊ∫êËâ≤Ê∏©ÁÇπÊ£Ä";
+            this.OTP_luxcct_check_open.Text = "π‚‘¥…´Œ¬µ„ºÏ";
             this.OTP_luxcct_check_open.UseVisualStyleBackColor = true;
             // 
             // OTP_cctdraggableProgressBar
@@ -9707,7 +9711,7 @@ namespace UI
             this.label111.Name = "label111";
             this.label111.Size = new System.Drawing.Size(164, 22);
             this.label111.TabIndex = 18;
-            this.label111.Text = "Ëâ≤Ê∏©ÂùáÂ∫¶ÂÄºÂ§ß‰∫é";
+            this.label111.Text = "…´Œ¬æ˘∂»÷µ¥Û”⁄";
             // 
             // OTP_luxdraggableProgressBar
             // 
@@ -9726,7 +9730,7 @@ namespace UI
             this.label106.Name = "label106";
             this.label106.Size = new System.Drawing.Size(164, 22);
             this.label106.TabIndex = 16;
-            this.label106.Text = "ÂÖâÊ∫êÂùáÂ∫¶ÂÄºÂ§ß‰∫é";
+            this.label106.Text = "π‚‘¥æ˘∂»÷µ¥Û”⁄";
             // 
             // AutoCheckParamSetting
             // 
@@ -9757,7 +9761,7 @@ namespace UI
             this.AutoCheckParamSetting.Name = "AutoCheckParamSetting";
             this.AutoCheckParamSetting.Size = new System.Drawing.Size(542, 355);
             this.AutoCheckParamSetting.TabIndex = 3;
-            this.AutoCheckParamSetting.Text = "Áõ∏ÂÖ≥ÂèÇÊï∞ËÆæÁΩÆ";
+            this.AutoCheckParamSetting.Text = "œ‡πÿ≤Œ ˝…Ë÷√";
             this.AutoCheckParamSetting.UseVisualStyleBackColor = true;
             // 
             // cmbStandardBoardDccCom
@@ -9791,7 +9795,7 @@ namespace UI
             this.labelStandardBoardDccCom.Name = "labelStandardBoardDccCom";
             this.labelStandardBoardDccCom.Size = new System.Drawing.Size(142, 22);
             this.labelStandardBoardDccCom.TabIndex = 175;
-            this.labelStandardBoardDccCom.Text = "DCCÊ†áÊùøCOMÂè£";
+            this.labelStandardBoardDccCom.Text = "DCC±Í∞ÂCOMø⁄";
             // 
             // cmbStandardBoardAfcCom
             // 
@@ -9825,7 +9829,7 @@ namespace UI
             this.chkStandardBoardRead.Name = "chkStandardBoardRead";
             this.chkStandardBoardRead.Size = new System.Drawing.Size(161, 26);
             this.chkStandardBoardRead.TabIndex = 173;
-            this.chkStandardBoardRead.Text = "ËØªÂèñÊ†áÊùø‰ø°ÊÅØ";
+            this.chkStandardBoardRead.Text = "∂¡»°±Í∞Â–≈œ¢";
             this.chkStandardBoardRead.UseVisualStyleBackColor = true;
             // 
             // labelStandardBoardAfcCom
@@ -9835,7 +9839,7 @@ namespace UI
             this.labelStandardBoardAfcCom.Name = "labelStandardBoardAfcCom";
             this.labelStandardBoardAfcCom.Size = new System.Drawing.Size(142, 22);
             this.labelStandardBoardAfcCom.TabIndex = 172;
-            this.labelStandardBoardAfcCom.Text = "AFCÊ†áÊùøCOMÂè£";
+            this.labelStandardBoardAfcCom.Text = "AFC±Í∞ÂCOMø⁄";
             // 
             // stanum
             // 
@@ -9895,12 +9899,12 @@ namespace UI
             this.label120.Name = "label120";
             this.label120.Size = new System.Drawing.Size(131, 22);
             this.label120.TabIndex = 170;
-            this.label120.Text = "Ê£ÄÊµãÈ¶ñÈ°πsta";
+            this.label120.Text = "ºÏ≤‚ ◊œÓsta";
             // 
             // distance_coefficient
             // 
             this.distance_coefficient.DecimalPlaces = 2;
-            this.distance_coefficient.Font = new System.Drawing.Font("ÂÆã‰Ωì", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.distance_coefficient.Font = new System.Drawing.Font("ÀŒÃÂ", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.distance_coefficient.Increment = new decimal(new int[] {
             1,
             0,
@@ -9924,27 +9928,27 @@ namespace UI
             this.label119.Name = "label119";
             this.label119.Size = new System.Drawing.Size(98, 22);
             this.label119.TabIndex = 168;
-            this.label119.Text = "Ë∑ùÁ¶ªÁ≥ªÊï∞";
+            this.label119.Text = "æ‡¿Îœµ ˝";
             // 
             // label112
             // 
             this.label112.AutoSize = true;
-            this.label112.Font = new System.Drawing.Font("ÂÆã‰Ωì", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.label112.Font = new System.Drawing.Font("ÀŒÃÂ", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.label112.Location = new System.Drawing.Point(336, 128);
             this.label112.Name = "label112";
             this.label112.Size = new System.Drawing.Size(47, 16);
             this.label112.TabIndex = 167;
-            this.label112.Text = "Êôö‰∏ä:";
+            this.label112.Text = "ÕÌ…œ:";
             // 
             // label104
             // 
             this.label104.AutoSize = true;
-            this.label104.Font = new System.Drawing.Font("ÂÆã‰Ωì", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.label104.Font = new System.Drawing.Font("ÀŒÃÂ", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.label104.Location = new System.Drawing.Point(165, 128);
             this.label104.Name = "label104";
             this.label104.Size = new System.Drawing.Size(47, 16);
             this.label104.TabIndex = 166;
-            this.label104.Text = "Êó©‰∏ä:";
+            this.label104.Text = "‘Á…œ:";
             // 
             // dateTimePicker4
             // 
@@ -9980,10 +9984,10 @@ namespace UI
             "COM9"});
             this.CheckWsCombox.FormattingEnabled = true;
             this.CheckWsCombox.Items.AddRange(new object[] {
-            "Â∑•Á´ô1",
-            "Â∑•Á´ô2",
-            "Â∑•Á´ô3",
-            "Â∑•Á´ô4"});
+            "π§’æ1",
+            "π§’æ2",
+            "π§’æ3",
+            "π§’æ4"});
             this.CheckWsCombox.Location = new System.Drawing.Point(199, 238);
             this.CheckWsCombox.Margin = new System.Windows.Forms.Padding(2);
             this.CheckWsCombox.Name = "CheckWsCombox";
@@ -9997,7 +10001,7 @@ namespace UI
             this.label103.Name = "label103";
             this.label103.Size = new System.Drawing.Size(98, 22);
             this.label103.TabIndex = 162;
-            this.label103.Text = "Â∑•Á´ôÈÄâÊã©";
+            this.label103.Text = "π§’æ—°‘Ò";
             // 
             // labeltime
             // 
@@ -10006,12 +10010,12 @@ namespace UI
             this.labeltime.Name = "labeltime";
             this.labeltime.Size = new System.Drawing.Size(98, 22);
             this.labeltime.TabIndex = 161;
-            this.labeltime.Text = "ËÆæÁΩÆÊó∂Èó¥";
+            this.labeltime.Text = "…Ë÷√ ±º‰";
             // 
             // AutoCheckTimer
             // 
             this.AutoCheckTimer.DecimalPlaces = 2;
-            this.AutoCheckTimer.Font = new System.Drawing.Font("ÂÆã‰Ωì", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.AutoCheckTimer.Font = new System.Drawing.Font("ÀŒÃÂ", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.AutoCheckTimer.Location = new System.Drawing.Point(58, 158);
             this.AutoCheckTimer.Maximum = new decimal(new int[] {
             500,
@@ -10032,7 +10036,7 @@ namespace UI
             this.label118.Name = "label118";
             this.label118.Size = new System.Drawing.Size(142, 22);
             this.label118.TabIndex = 79;
-            this.label118.Text = "ÂÖâÊ∫êËâ≤Ê∏©Áõ∏ÂÖ≥";
+            this.label118.Text = "π‚‘¥…´Œ¬œ‡πÿ";
             // 
             // label117
             // 
@@ -10042,7 +10046,7 @@ namespace UI
             this.label117.Name = "label117";
             this.label117.Size = new System.Drawing.Size(98, 22);
             this.label117.TabIndex = 78;
-            this.label117.Text = "Ë∑ùÁ¶ªÁõ∏ÂÖ≥";
+            this.label117.Text = "æ‡¿Îœ‡πÿ";
             // 
             // COM_3
             // 
@@ -10130,13 +10134,13 @@ namespace UI
             this.groupBox74.BackColor = System.Drawing.Color.Gainsboro;
             this.groupBox74.Controls.Add(this.rbtn_closecheckoven);
             this.groupBox74.Controls.Add(this.rbtn_opencheckoven);
-            this.groupBox74.Font = new System.Drawing.Font("ÂÆã‰Ωì", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.groupBox74.Font = new System.Drawing.Font("ÀŒÃÂ", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.groupBox74.Location = new System.Drawing.Point(16, 271);
             this.groupBox74.Name = "groupBox74";
             this.groupBox74.Size = new System.Drawing.Size(320, 80);
             this.groupBox74.TabIndex = 159;
             this.groupBox74.TabStop = false;
-            this.groupBox74.Text = "Â§πÂÖ∑Êé¢ÈíàÊ£ÄÊµãÈò≤ÂëÜËÆæÁΩÆ";
+            this.groupBox74.Text = "º–æﬂÃΩ’ÎºÏ≤‚∑¿¥Ù…Ë÷√";
             // 
             // rbtn_closecheckoven
             // 
@@ -10149,7 +10153,7 @@ namespace UI
             this.rbtn_closecheckoven.Name = "rbtn_closecheckoven";
             this.rbtn_closecheckoven.Size = new System.Drawing.Size(128, 49);
             this.rbtn_closecheckoven.TabIndex = 126;
-            this.rbtn_closecheckoven.Text = "ÂÖ≥Èó≠";
+            this.rbtn_closecheckoven.Text = "πÿ±’";
             this.rbtn_closecheckoven.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             this.rbtn_closecheckoven.UseVisualStyleBackColor = true;
             // 
@@ -10166,7 +10170,7 @@ namespace UI
             this.rbtn_opencheckoven.Size = new System.Drawing.Size(122, 49);
             this.rbtn_opencheckoven.TabIndex = 124;
             this.rbtn_opencheckoven.TabStop = true;
-            this.rbtn_opencheckoven.Text = "ÂºÄÂêØ";
+            this.rbtn_opencheckoven.Text = "ø™∆Ù";
             this.rbtn_opencheckoven.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             this.rbtn_opencheckoven.UseVisualStyleBackColor = true;
             // 
@@ -10180,12 +10184,12 @@ namespace UI
             this.groupBox73.Size = new System.Drawing.Size(270, 109);
             this.groupBox73.TabIndex = 158;
             this.groupBox73.TabStop = false;
-            this.groupBox73.Text = "AFCÂÖ≥Ê∞îËÆæÁΩÆ";
+            this.groupBox73.Text = "AFCπÿ∆¯…Ë÷√";
             // 
             // numafc
             // 
             this.numafc.DecimalPlaces = 2;
-            this.numafc.Font = new System.Drawing.Font("ÂÆã‰Ωì", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.numafc.Font = new System.Drawing.Font("ÀŒÃÂ", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.numafc.Increment = new decimal(new int[] {
             1,
             0,
@@ -10205,12 +10209,12 @@ namespace UI
             // label95
             // 
             this.label95.AutoSize = true;
-            this.label95.Font = new System.Drawing.Font("ÂÆã‰Ωì", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.label95.Font = new System.Drawing.Font("ÀŒÃÂ", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.label95.Location = new System.Drawing.Point(6, 66);
             this.label95.Name = "label95";
             this.label95.Size = new System.Drawing.Size(142, 22);
             this.label95.TabIndex = 158;
-            this.label95.Text = "Êó∂ÈïøÔºàÁßíÔºâÔºö";
+            this.label95.Text = " ±≥§£®√Î£©£∫";
             // 
             // cbafccloseair
             // 
@@ -10219,51 +10223,101 @@ namespace UI
             this.cbafccloseair.Name = "cbafccloseair";
             this.cbafccloseair.Size = new System.Drawing.Size(150, 26);
             this.cbafccloseair.TabIndex = 157;
-            this.cbafccloseair.Text = "AFCÂÖ≥Èó≠ÂêπÊ∞î";
+            this.cbafccloseair.Text = "AFCπÿ±’¥µ∆¯";
             this.cbafccloseair.UseVisualStyleBackColor = true;
             // 
             // groupBox75
             // 
+            this.groupBox75.Controls.Add(this.ckWsModShp2PhotoAfterCheck);
+            this.groupBox75.Controls.Add(this.nudJigDownPhotoIntervalHours);
+            this.groupBox75.Controls.Add(this.lblJigDownPhotoIntervalHours);
             this.groupBox75.Controls.Add(this.ckJigDownPhoto);
-            this.groupBox75.Font = new System.Drawing.Font("ÂÆã‰Ωì", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.groupBox75.Font = new System.Drawing.Font("ÀŒÃÂ", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.groupBox75.Location = new System.Drawing.Point(342, 301);
             this.groupBox75.Name = "groupBox75";
-            this.groupBox75.Size = new System.Drawing.Size(330, 80);
+            this.groupBox75.Size = new System.Drawing.Size(330, 175);
             this.groupBox75.TabIndex = 162;
             this.groupBox75.TabStop = false;
-            this.groupBox75.Text = "Â§πÂÖ∑‰∏ãÊãçÁÖßËÆæÁΩÆ";
+            // 
+            // ckWsModShp2PhotoAfterCheck
+            // 
+            this.ckWsModShp2PhotoAfterCheck.AutoSize = true;
+            this.ckWsModShp2PhotoAfterCheck.Font = new System.Drawing.Font("Œ¢»Ì—≈∫⁄", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.ckWsModShp2PhotoAfterCheck.Location = new System.Drawing.Point(20, 140);
+            this.ckWsModShp2PhotoAfterCheck.Name = "ckWsModShp2PhotoAfterCheck";
+            this.ckWsModShp2PhotoAfterCheck.Size = new System.Drawing.Size(263, 29);
+            this.ckWsModShp2PhotoAfterCheck.TabIndex = 150;
+            this.ckWsModShp2PhotoAfterCheck.Text = "ªÿºÏ∫Û◊∑º”WsMod_Shp2≈ƒ’’";
+            this.ckWsModShp2PhotoAfterCheck.UseVisualStyleBackColor = true;
+            // 
+            // 
+            // 
+            // 
+            // 
+            // 
+            this.groupBox75.Text = "º–æﬂœ¬≈ƒ’’…Ë÷√";
+            // 
+            // nudJigDownPhotoIntervalHours
+            // 
+            this.nudJigDownPhotoIntervalHours.DecimalPlaces = 1;
+            this.nudJigDownPhotoIntervalHours.Font = new System.Drawing.Font("Œ¢»Ì—≈∫⁄", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.nudJigDownPhotoIntervalHours.Increment = new decimal(new int[] {
+            1,
+            0,
+            0,
+            65536});
+            this.nudJigDownPhotoIntervalHours.Location = new System.Drawing.Point(165, 75);
+            this.nudJigDownPhotoIntervalHours.Maximum = new decimal(new int[] {
+            168,
+            0,
+            0,
+            0});
+            this.nudJigDownPhotoIntervalHours.Name = "nudJigDownPhotoIntervalHours";
+            this.nudJigDownPhotoIntervalHours.Size = new System.Drawing.Size(100, 32);
+            this.nudJigDownPhotoIntervalHours.TabIndex = 149;
+            this.nudJigDownPhotoIntervalHours.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            // 
+            // lblJigDownPhotoIntervalHours
+            // 
+            this.lblJigDownPhotoIntervalHours.AutoSize = true;
+            this.lblJigDownPhotoIntervalHours.Font = new System.Drawing.Font("Œ¢»Ì—≈∫⁄", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.lblJigDownPhotoIntervalHours.Location = new System.Drawing.Point(20, 78);
+            this.lblJigDownPhotoIntervalHours.Name = "lblJigDownPhotoIntervalHours";
+            this.lblJigDownPhotoIntervalHours.Size = new System.Drawing.Size(139, 25);
+            this.lblJigDownPhotoIntervalHours.TabIndex = 148;
+            this.lblJigDownPhotoIntervalHours.Text = "º‰∏Ù(–° ±)£∫";
             // 
             // ckJigDownPhoto
             // 
             this.ckJigDownPhoto.AutoSize = true;
-            this.ckJigDownPhoto.Font = new System.Drawing.Font("ÂæÆËΩØÈõÖÈªë", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.ckJigDownPhoto.Font = new System.Drawing.Font("Œ¢»Ì—≈∫⁄", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.ckJigDownPhoto.Location = new System.Drawing.Point(20, 34);
             this.ckJigDownPhoto.Name = "ckJigDownPhoto";
             this.ckJigDownPhoto.Size = new System.Drawing.Size(126, 29);
             this.ckJigDownPhoto.TabIndex = 147;
-            this.ckJigDownPhoto.Text = "Â§πÂÖ∑‰∏ãÊãçÁÖß";
+            this.ckJigDownPhoto.Text = "º–æﬂœ¬≈ƒ’’";
             this.ckJigDownPhoto.UseVisualStyleBackColor = true;
             // 
             // groupBox72
             // 
             this.groupBox72.Controls.Add(this.ckcloseazd);
-            this.groupBox72.Font = new System.Drawing.Font("ÂÆã‰Ωì", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.groupBox72.Font = new System.Drawing.Font("ÀŒÃÂ", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.groupBox72.Location = new System.Drawing.Point(342, 143);
             this.groupBox72.Name = "groupBox72";
             this.groupBox72.Size = new System.Drawing.Size(330, 122);
             this.groupBox72.TabIndex = 155;
             this.groupBox72.TabStop = false;
-            this.groupBox72.Text = "Â∑•Ë£ÖÊñ≠ÁîµËÆæÁΩÆ";
+            this.groupBox72.Text = "π§◊∞∂œµÁ…Ë÷√";
             // 
             // ckcloseazd
             // 
             this.ckcloseazd.AutoSize = true;
-            this.ckcloseazd.Font = new System.Drawing.Font("ÂæÆËΩØÈõÖÈªë", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.ckcloseazd.Font = new System.Drawing.Font("Œ¢»Ì—≈∫⁄", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.ckcloseazd.Location = new System.Drawing.Point(20, 48);
             this.ckcloseazd.Name = "ckcloseazd";
             this.ckcloseazd.Size = new System.Drawing.Size(107, 29);
             this.ckcloseazd.TabIndex = 146;
-            this.ckcloseazd.Text = "ÂºÄÂêØÊñ≠Áîµ";
+            this.ckcloseazd.Text = "ø™∆Ù∂œµÁ";
             this.ckcloseazd.UseVisualStyleBackColor = true;
             // 
             // groupBox71
@@ -10271,33 +10325,33 @@ namespace UI
             this.groupBox71.Controls.Add(this.ckupload);
             this.groupBox71.Controls.Add(this.cbcity);
             this.groupBox71.Controls.Add(this.label99);
-            this.groupBox71.Font = new System.Drawing.Font("ÂÆã‰Ωì", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.groupBox71.Font = new System.Drawing.Font("ÀŒÃÂ", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.groupBox71.Location = new System.Drawing.Point(342, 6);
             this.groupBox71.Name = "groupBox71";
             this.groupBox71.Size = new System.Drawing.Size(330, 122);
             this.groupBox71.TabIndex = 154;
             this.groupBox71.TabStop = false;
-            this.groupBox71.Text = "È£éÈô©Á≥ªÁªü‰∏ä‰º†ËÆæÁΩÆ";
+            this.groupBox71.Text = "∑Áœ’œµÕ≥…œ¥´…Ë÷√";
             // 
             // ckupload
             // 
             this.ckupload.AutoSize = true;
-            this.ckupload.Font = new System.Drawing.Font("ÂæÆËΩØÈõÖÈªë", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.ckupload.Font = new System.Drawing.Font("Œ¢»Ì—≈∫⁄", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.ckupload.Location = new System.Drawing.Point(20, 66);
             this.ckupload.Name = "ckupload";
             this.ckupload.Size = new System.Drawing.Size(107, 29);
             this.ckupload.TabIndex = 146;
-            this.ckupload.Text = "ÂºÄÂêØ‰∏ä‰º†";
+            this.ckupload.Text = "ø™∆Ù…œ¥´";
             this.ckupload.UseVisualStyleBackColor = true;
             // 
             // cbcity
             // 
             this.cbcity.FormattingEnabled = true;
             this.cbcity.Items.AddRange(new object[] {
-            "ÂõΩÂÜÖËΩ¶Èó¥",
-            "ÂõΩÂÜÖÂäûÂÖ¨ÂÆ§",
-            "Ë∂äÂçóÂäûÂÖ¨ÂÆ§",
-            "Ë∂äÂçóËΩ¶Èó¥"});
+            "π˙ƒ⁄≥µº‰",
+            "π˙ƒ⁄∞Ïπ´ “",
+            "‘Ωƒœ∞Ïπ´ “",
+            "‘Ωƒœ≥µº‰"});
             this.cbcity.Location = new System.Drawing.Point(179, 31);
             this.cbcity.Name = "cbcity";
             this.cbcity.Size = new System.Drawing.Size(121, 29);
@@ -10310,7 +10364,7 @@ namespace UI
             this.label99.Name = "label99";
             this.label99.Size = new System.Drawing.Size(142, 22);
             this.label99.TabIndex = 152;
-            this.label99.Text = "ËΩ¶Èó¥‰ΩçÁΩÆËÆæÁΩÆ";
+            this.label99.Text = "≥µº‰Œª÷√…Ë÷√";
             // 
             // button17
             // 
@@ -10319,7 +10373,7 @@ namespace UI
             this.button17.Name = "button17";
             this.button17.Size = new System.Drawing.Size(134, 148);
             this.button17.TabIndex = 151;
-            this.button17.Text = "‰øùÂ≠ò";
+            this.button17.Text = "±£¥Ê";
             this.button17.UseVisualStyleBackColor = false;
             this.button17.Click += new System.EventHandler(this.btn_ptset_save_Click);
             // 
@@ -10340,49 +10394,49 @@ namespace UI
             this.groupBox70.Controls.Add(this.numpicktrayx2);
             this.groupBox70.Controls.Add(this.numpicktrayy1);
             this.groupBox70.Controls.Add(this.numpicktrayx1);
-            this.groupBox70.Font = new System.Drawing.Font("ÂÆã‰Ωì", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.groupBox70.Font = new System.Drawing.Font("ÀŒÃÂ", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.groupBox70.Location = new System.Drawing.Point(6, 6);
             this.groupBox70.Name = "groupBox70";
             this.groupBox70.Size = new System.Drawing.Size(330, 259);
             this.groupBox70.TabIndex = 149;
             this.groupBox70.TabStop = false;
-            this.groupBox70.Text = "ÊñôÁõòÂèñÊñôÂÅèÁßªËÆæÁΩÆ";
+            this.groupBox70.Text = "¡œ≈Ã»°¡œ∆´“∆…Ë÷√";
             // 
             // checkpicktray
             // 
             this.checkpicktray.AutoSize = true;
-            this.checkpicktray.Font = new System.Drawing.Font("ÂæÆËΩØÈõÖÈªë", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.checkpicktray.Font = new System.Drawing.Font("Œ¢»Ì—≈∫⁄", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.checkpicktray.Location = new System.Drawing.Point(111, 34);
             this.checkpicktray.Name = "checkpicktray";
             this.checkpicktray.Size = new System.Drawing.Size(69, 29);
             this.checkpicktray.TabIndex = 146;
-            this.checkpicktray.Text = "ÂºÄÂêØ";
+            this.checkpicktray.Text = "ø™∆Ù";
             this.checkpicktray.UseVisualStyleBackColor = true;
             // 
             // label93
             // 
             this.label93.AutoSize = true;
-            this.label93.Font = new System.Drawing.Font("ÂæÆËΩØÈõÖÈªë", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.label93.Font = new System.Drawing.Font("Œ¢»Ì—≈∫⁄", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.label93.Location = new System.Drawing.Point(38, 207);
             this.label93.Name = "label93";
             this.label93.Size = new System.Drawing.Size(67, 21);
             this.label93.TabIndex = 145;
-            this.label93.Text = "Âê∏Â§¥4Ôºö";
+            this.label93.Text = "Œ¸Õ∑4£∫";
             // 
             // label94
             // 
             this.label94.AutoSize = true;
-            this.label94.Font = new System.Drawing.Font("ÂæÆËΩØÈõÖÈªë", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.label94.Font = new System.Drawing.Font("Œ¢»Ì—≈∫⁄", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.label94.Location = new System.Drawing.Point(38, 172);
             this.label94.Name = "label94";
             this.label94.Size = new System.Drawing.Size(67, 21);
             this.label94.TabIndex = 144;
-            this.label94.Text = "Âê∏Â§¥3Ôºö";
+            this.label94.Text = "Œ¸Õ∑3£∫";
             // 
             // numpicktrayy4
             // 
             this.numpicktrayy4.DecimalPlaces = 2;
-            this.numpicktrayy4.Font = new System.Drawing.Font("ÂÆã‰Ωì", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.numpicktrayy4.Font = new System.Drawing.Font("ÀŒÃÂ", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.numpicktrayy4.Increment = new decimal(new int[] {
             1,
             0,
@@ -10407,7 +10461,7 @@ namespace UI
             // numpicktrayx4
             // 
             this.numpicktrayx4.DecimalPlaces = 2;
-            this.numpicktrayx4.Font = new System.Drawing.Font("ÂÆã‰Ωì", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.numpicktrayx4.Font = new System.Drawing.Font("ÀŒÃÂ", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.numpicktrayx4.Increment = new decimal(new int[] {
             1,
             0,
@@ -10432,7 +10486,7 @@ namespace UI
             // numpicktrayy3
             // 
             this.numpicktrayy3.DecimalPlaces = 2;
-            this.numpicktrayy3.Font = new System.Drawing.Font("ÂÆã‰Ωì", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.numpicktrayy3.Font = new System.Drawing.Font("ÀŒÃÂ", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.numpicktrayy3.Increment = new decimal(new int[] {
             1,
             0,
@@ -10457,7 +10511,7 @@ namespace UI
             // numpicktrayx3
             // 
             this.numpicktrayx3.DecimalPlaces = 2;
-            this.numpicktrayx3.Font = new System.Drawing.Font("ÂÆã‰Ωì", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.numpicktrayx3.Font = new System.Drawing.Font("ÀŒÃÂ", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.numpicktrayx3.Increment = new decimal(new int[] {
             1,
             0,
@@ -10482,27 +10536,27 @@ namespace UI
             // label92
             // 
             this.label92.AutoSize = true;
-            this.label92.Font = new System.Drawing.Font("ÂæÆËΩØÈõÖÈªë", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.label92.Font = new System.Drawing.Font("Œ¢»Ì—≈∫⁄", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.label92.Location = new System.Drawing.Point(38, 130);
             this.label92.Name = "label92";
             this.label92.Size = new System.Drawing.Size(67, 21);
             this.label92.TabIndex = 137;
-            this.label92.Text = "Âê∏Â§¥2Ôºö";
+            this.label92.Text = "Œ¸Õ∑2£∫";
             // 
             // label91
             // 
             this.label91.AutoSize = true;
-            this.label91.Font = new System.Drawing.Font("ÂæÆËΩØÈõÖÈªë", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.label91.Font = new System.Drawing.Font("Œ¢»Ì—≈∫⁄", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.label91.Location = new System.Drawing.Point(38, 95);
             this.label91.Name = "label91";
             this.label91.Size = new System.Drawing.Size(67, 21);
             this.label91.TabIndex = 136;
-            this.label91.Text = "Âê∏Â§¥1Ôºö";
+            this.label91.Text = "Œ¸Õ∑1£∫";
             // 
             // label97
             // 
             this.label97.AutoSize = true;
-            this.label97.Font = new System.Drawing.Font("ÂÆã‰Ωì", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.label97.Font = new System.Drawing.Font("ÀŒÃÂ", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.label97.Location = new System.Drawing.Point(203, 66);
             this.label97.Name = "label97";
             this.label97.Size = new System.Drawing.Size(29, 19);
@@ -10512,7 +10566,7 @@ namespace UI
             // label98
             // 
             this.label98.AutoSize = true;
-            this.label98.Font = new System.Drawing.Font("ÂÆã‰Ωì", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.label98.Font = new System.Drawing.Font("ÀŒÃÂ", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.label98.Location = new System.Drawing.Point(126, 66);
             this.label98.Name = "label98";
             this.label98.Size = new System.Drawing.Size(29, 19);
@@ -10522,7 +10576,7 @@ namespace UI
             // numpicktrayy2
             // 
             this.numpicktrayy2.DecimalPlaces = 2;
-            this.numpicktrayy2.Font = new System.Drawing.Font("ÂÆã‰Ωì", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.numpicktrayy2.Font = new System.Drawing.Font("ÀŒÃÂ", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.numpicktrayy2.Increment = new decimal(new int[] {
             1,
             0,
@@ -10547,7 +10601,7 @@ namespace UI
             // numpicktrayx2
             // 
             this.numpicktrayx2.DecimalPlaces = 2;
-            this.numpicktrayx2.Font = new System.Drawing.Font("ÂÆã‰Ωì", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.numpicktrayx2.Font = new System.Drawing.Font("ÀŒÃÂ", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.numpicktrayx2.Increment = new decimal(new int[] {
             1,
             0,
@@ -10572,7 +10626,7 @@ namespace UI
             // numpicktrayy1
             // 
             this.numpicktrayy1.DecimalPlaces = 2;
-            this.numpicktrayy1.Font = new System.Drawing.Font("ÂÆã‰Ωì", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.numpicktrayy1.Font = new System.Drawing.Font("ÀŒÃÂ", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.numpicktrayy1.Increment = new decimal(new int[] {
             1,
             0,
@@ -10597,7 +10651,7 @@ namespace UI
             // numpicktrayx1
             // 
             this.numpicktrayx1.DecimalPlaces = 2;
-            this.numpicktrayx1.Font = new System.Drawing.Font("ÂÆã‰Ωì", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.numpicktrayx1.Font = new System.Drawing.Font("ÀŒÃÂ", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.numpicktrayx1.Increment = new decimal(new int[] {
             1,
             0,
@@ -10626,7 +10680,7 @@ namespace UI
             this.tp_calc.Name = "tp_calc";
             this.tp_calc.Size = new System.Drawing.Size(1172, 866);
             this.tp_calc.TabIndex = 5;
-            this.tp_calc.Text = "Á≥ªÁªüÊ†°ÂáÜ";
+            this.tp_calc.Text = "œµÕ≥–£◊º";
             this.tp_calc.UseVisualStyleBackColor = true;
             // 
             // tableLayoutPanel4
@@ -10657,7 +10711,7 @@ namespace UI
             this.ctb_cali.Controls.Add(this.tb_task_npoint);
             this.ctb_cali.Dock = System.Windows.Forms.DockStyle.Fill;
             this.ctb_cali.DrawMode = System.Windows.Forms.TabDrawMode.OwnerDrawFixed;
-            this.ctb_cali.Font = new System.Drawing.Font("ÂÆã‰Ωì", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.ctb_cali.Font = new System.Drawing.Font("ÀŒÃÂ", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.ctb_cali.HeaderBackColor = System.Drawing.SystemColors.ButtonFace;
             this.ctb_cali.HeadSelectedBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(43)))), ((int)(((byte)(144)))), ((int)(((byte)(217)))));
             this.ctb_cali.HeadSelectedBorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(217)))), ((int)(((byte)(225)))), ((int)(((byte)(232)))));
@@ -10680,7 +10734,7 @@ namespace UI
             this.tb_upcam1_npoint.Padding = new System.Windows.Forms.Padding(3);
             this.tb_upcam1_npoint.Size = new System.Drawing.Size(948, 289);
             this.tb_upcam1_npoint.TabIndex = 0;
-            this.tb_upcam1_npoint.Text = "‰∏äÁõ∏Êú∫1Ê†áÂÆö";
+            this.tb_upcam1_npoint.Text = "…œœ‡ª˙1±Í∂®";
             // 
             // npointCail1
             // 
@@ -10697,12 +10751,12 @@ namespace UI
             // 
             this.tb_dwcam1_to_upcam1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(217)))), ((int)(((byte)(225)))), ((int)(((byte)(232)))));
             this.tb_dwcam1_to_upcam1.Controls.Add(this.affineCail_Dw1ToUp1);
-            this.tb_dwcam1_to_upcam1.Font = new System.Drawing.Font("ÂÆã‰Ωì", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.tb_dwcam1_to_upcam1.Font = new System.Drawing.Font("ÀŒÃÂ", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.tb_dwcam1_to_upcam1.Location = new System.Drawing.Point(214, 4);
             this.tb_dwcam1_to_upcam1.Name = "tb_dwcam1_to_upcam1";
             this.tb_dwcam1_to_upcam1.Size = new System.Drawing.Size(0, 15);
             this.tb_dwcam1_to_upcam1.TabIndex = 4;
-            this.tb_dwcam1_to_upcam1.Text = "‰∏ãÁõ∏Êú∫1->‰∏äÁõ∏Êú∫1";
+            this.tb_dwcam1_to_upcam1.Text = "œ¬œ‡ª˙1->…œœ‡ª˙1";
             // 
             // affineCail_Dw1ToUp1
             // 
@@ -10718,12 +10772,12 @@ namespace UI
             // 
             this.tb_dwcam2_to_upcam2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(217)))), ((int)(((byte)(225)))), ((int)(((byte)(232)))));
             this.tb_dwcam2_to_upcam2.Controls.Add(this.affineCail_Dw2ToUp2);
-            this.tb_dwcam2_to_upcam2.Font = new System.Drawing.Font("ÂÆã‰Ωì", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.tb_dwcam2_to_upcam2.Font = new System.Drawing.Font("ÀŒÃÂ", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.tb_dwcam2_to_upcam2.Location = new System.Drawing.Point(214, 4);
             this.tb_dwcam2_to_upcam2.Name = "tb_dwcam2_to_upcam2";
             this.tb_dwcam2_to_upcam2.Size = new System.Drawing.Size(0, 15);
             this.tb_dwcam2_to_upcam2.TabIndex = 5;
-            this.tb_dwcam2_to_upcam2.Text = "‰∏ãÁõ∏Êú∫2->‰∏äÁõ∏Êú∫2";
+            this.tb_dwcam2_to_upcam2.Text = "œ¬œ‡ª˙2->…œœ‡ª˙2";
             // 
             // affineCail_Dw2ToUp2
             // 
@@ -10746,7 +10800,7 @@ namespace UI
             this.Tb_ComputeCenter.Padding = new System.Windows.Forms.Padding(3);
             this.Tb_ComputeCenter.Size = new System.Drawing.Size(0, 15);
             this.Tb_ComputeCenter.TabIndex = 1;
-            this.Tb_ComputeCenter.Text = "ÊóãËΩ¨‰∏≠ÂøÉËÆ°ÁÆó";
+            this.Tb_ComputeCenter.Text = "–˝◊™÷––ƒº∆À„";
             // 
             // rotAndFly1
             // 
@@ -10765,7 +10819,7 @@ namespace UI
             this.button32.Name = "button32";
             this.button32.Size = new System.Drawing.Size(160, 66);
             this.button32.TabIndex = 1;
-            this.button32.Text = "‰øùÂ≠ò";
+            this.button32.Text = "±£¥Ê";
             this.button32.UseVisualStyleBackColor = true;
             // 
             // tb_task_npoint
@@ -10775,14 +10829,14 @@ namespace UI
             this.tb_task_npoint.Name = "tb_task_npoint";
             this.tb_task_npoint.Size = new System.Drawing.Size(0, 15);
             this.tb_task_npoint.TabIndex = 6;
-            this.tb_task_npoint.Text = "‰ªªÂä°Ê†áÂÆö";
+            this.tb_task_npoint.Text = "»ŒŒÒ±Í∂®";
             this.tb_task_npoint.UseVisualStyleBackColor = true;
             // 
             // taskNpoint1
             // 
             this.taskNpoint1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(217)))), ((int)(((byte)(225)))), ((int)(((byte)(232)))));
             this.taskNpoint1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.taskNpoint1.Font = new System.Drawing.Font("ÂÆã‰Ωì", 9F);
+            this.taskNpoint1.Font = new System.Drawing.Font("ÀŒÃÂ", 9F);
             this.taskNpoint1.Location = new System.Drawing.Point(0, 0);
             this.taskNpoint1.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.taskNpoint1.Name = "taskNpoint1";
@@ -10819,7 +10873,7 @@ namespace UI
             this.tbpgVinfo.Padding = new System.Windows.Forms.Padding(3);
             this.tbpgVinfo.Size = new System.Drawing.Size(1172, 866);
             this.tbpgVinfo.TabIndex = 7;
-            this.tbpgVinfo.Text = "ÁâàÊú¨‰ø°ÊÅØ";
+            this.tbpgVinfo.Text = "∞Ê±æ–≈œ¢";
             this.tbpgVinfo.UseVisualStyleBackColor = true;
             // 
             // textBoVinfo
@@ -11184,6 +11238,7 @@ namespace UI
             this.groupBox73.ResumeLayout(false);
             this.groupBox73.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numafc)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.nudJigDownPhotoIntervalHours)).EndInit();
             this.groupBox75.ResumeLayout(false);
             this.groupBox75.PerformLayout();
             this.groupBox72.ResumeLayout(false);
@@ -11789,6 +11844,9 @@ namespace UI
         private System.Windows.Forms.CheckBox ckupload;
         private System.Windows.Forms.GroupBox groupBox72;
         private System.Windows.Forms.GroupBox groupBox75;
+        private System.Windows.Forms.CheckBox ckWsModShp2PhotoAfterCheck;
+        private System.Windows.Forms.NumericUpDown nudJigDownPhotoIntervalHours;
+        private System.Windows.Forms.Label lblJigDownPhotoIntervalHours;
         private System.Windows.Forms.CheckBox ckJigDownPhoto;
         private System.Windows.Forms.CheckBox ckcloseazd;
         private System.Windows.Forms.GroupBox groupBox73;

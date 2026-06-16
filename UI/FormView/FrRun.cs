@@ -57,6 +57,13 @@ namespace UI
             return traybox != null ? traybox.tray_cur : null;
         }
 
+        private bool IsChangingTrayBox()
+        {
+            return (COM.traybox_fd != null && COM.traybox_fd.ChgML) ||
+                   (COM.traybox_ok != null && COM.traybox_ok.ChgML) ||
+                   (COM.traybox_ng != null && COM.traybox_ng.ChgML);
+        }
+
         private void ApplyRunTrayUiMapping()
         {
             traybox_ok.box = GetRunTrayBoxForOkSlot();
@@ -306,9 +313,9 @@ namespace UI
                 if (!PT_SET.IsMesLocal)
                 {
                     MT.IsAllowStartUpdate = false;
-                    //Msg.secsManager.Send(new BaseInfo() { Id = 1, Value = Convert.ToInt32(DReport.EmStatus.Run).ToString() });
-                    //Msg.secsManager.Send(new BaseInfo() { Id = 1 }, 2);
-                    //Msg.secsManager.Send(new BaseInfo() { Id = 3 }, 2);
+                    Msg.secsManager.Send(new BaseInfo() { Id = 1, Value = Convert.ToInt32(DReport.EmStatus.Run).ToString() });
+                    Msg.secsManager.Send(new BaseInfo() { Id = 1 }, 2);
+                    Msg.secsManager.Send(new BaseInfo() { Id = 3 }, 2);
                     await Task.Run(() =>
                     {
                         VAR.msg.AddMsg(Msg.EM_MSGTYPE.SYS, "正在等待MES上位指令!");
@@ -1090,6 +1097,11 @@ namespace UI
 
         private void btn_pause_Click(object sender, EventArgs e)
         {
+            if (IsChangingTrayBox())
+            {
+                VAR.msg.AddMsg(Msg.EM_MSGTYPE.WAR, VAR.IsChinese ? "更换料盒中, 禁止暂停!" : "Changing tray box, pause is disabled!");
+                return;
+            }
 
             WS.bpause = true;
             UpDownLoad.bquit = true;
@@ -1707,6 +1719,7 @@ namespace UI
         bool show = false;
         private void timer4_Tick(object sender, EventArgs e)
         {
+            btn_pause.Enabled = !IsChangingTrayBox();
             double secondss = stopwatchnew.ElapsedMilliseconds / 1000;
 
             if (secondss >= 41400)
@@ -1745,7 +1758,7 @@ namespace UI
                 }
             }
 
-            if (VAR.gsys_set.status == EM_SYS_STA.STANDBY || COM.traybox_fd.ChgML || COM.traybox_ng.ChgML || COM.traybox_ok.ChgML)
+            if (VAR.gsys_set.status == EM_SYS_STA.STANDBY || IsChangingTrayBox())
             {
                 show = false;
                 stopwatch.Start();

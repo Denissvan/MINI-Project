@@ -912,24 +912,24 @@ namespace UI
                             TempCardList = MT.CardList1;
                         }
 
-                        //if (!PT_SET.IsMesLocal)
-                        //{
-                        //    Msg.secsManager.Send(new BaseInfo() { Id = 1, Value = Convert.ToInt32(DReport.EmStatus.Run).ToString() });
-                        //    Msg.secsManager.Send(new BaseInfo() { Id = 1 }, 2);
-                        //    Msg.secsManager.Send(new BaseInfo() { Id = 3 }, 2);
-                        //    await Task.Run(() =>
-                        //    {
-                        //        VAR.msg.AddMsg(Msg.EM_MSGTYPE.SYS, "正在等待MES上位指令!");
-                        //        SpinWait.SpinUntil(() => MT.IsAllowStartUpdate, 10000);
-                        //    });
-                        //    MT.IsAllowStartUpdate = false;
-                        //    //fr?.Close();
-                        //    if (!MT.IsAllowStart)
-                        //    {
-                        //        FrRun.Dialog(Color.Yellow, "警告", "被MES禁止启动！请联系相关人员。");
-                        //        return;
-                        //    }
-                        //}
+                        if (!PT_SET.IsMesLocal)
+                        {
+                            Msg.secsManager.Send(new BaseInfo() { Id = 1, Value = Convert.ToInt32(DReport.EmStatus.Run).ToString() });
+                            Msg.secsManager.Send(new BaseInfo() { Id = 1 }, 2);
+                            Msg.secsManager.Send(new BaseInfo() { Id = 3 }, 2);
+                            await Task.Run(() =>
+                            {
+                                VAR.msg.AddMsg(Msg.EM_MSGTYPE.SYS, "正在等待MES上位指令!");
+                                SpinWait.SpinUntil(() => MT.IsAllowStartUpdate, 10000);
+                            });
+                            MT.IsAllowStartUpdate = false;
+                            //fr?.Close();
+                            if (!MT.IsAllowStart)
+                            {
+                                FrRun.Dialog(Color.Yellow, "警告", "被MES禁止启动！请联系相关人员。");
+                                return;
+                            }
+                        }
                         //检测复位状态
                         foreach (CARD card in TempCardList)
                         {

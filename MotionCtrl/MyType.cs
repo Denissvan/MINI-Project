@@ -1267,6 +1267,8 @@ namespace MotionCtrl
         public static bool bDwAddCapQrcode;  //对于长模组的情况
         public static bool Check2open;  //对于长模组的情况
         public static bool bJigDownPhoto;  //夹具闭合后拍照
+        public static double JigDownPhotoIntervalHours;  //夹具闭合后拍照间隔时间，单位小时，0表示每次触发
+        public static bool bWsModShp2PhotoAfterCheck;  //回检后追加WsMod_Shp2拍照，仅用于调光和存图
 
         //回检针座管控
         public static double LeftArea;
@@ -1640,6 +1642,7 @@ namespace MotionCtrl
             CloseWait = inf.ReadBool("OTHER_SET", "CLOSEWAIT", false);
             CloseWaitTime = inf.ReadInteger("OTHER_SET", "WAITTIME", 1);
             bJigDownPhoto = inf.ReadBool("OTHER_SET", "BJIGDOWNPHOTO", false);
+            JigDownPhotoIntervalHours = inf.ReadDouble("OTHER_SET", "JIGDOWNPHOTO_INTERVAL_HOURS", 0);
             OpenDownQrde = inf.ReadBool("OTHER_SET", "OPENDOWNQRDE", false);
             otpclose = inf.ReadBool("OTHER_SET", "OTPCLOSE", false);
             otpclosetime = inf.ReadDouble("OTHER_SET", "OTPCLOSETIME", 0);
@@ -1681,6 +1684,7 @@ namespace MotionCtrl
             bAddCapQrcode = inf.ReadBool("OTHER_SET", "bAddCapQrcode", false);
             bDwAddCapQrcode = inf.ReadBool("OTHER_SET", "bDwAddCapQrcode", false);
             Check2open = inf.ReadBool("OTHER_SET", "Check2open", false);
+            bWsModShp2PhotoAfterCheck = inf.ReadBool("OTHER_SET", "BWSMOD_SHP2_AFTER_CHECK_PHOTO", false);
             //吸头个数设置
             bUpDn1XtOnlyOne = inf.ReadBool("OTHER_SET", "bUpDn1XtOnlyOne", false);
             bUpDn2XtOnlyOne = inf.ReadBool("OTHER_SET", "bUpDn2XtOnlyOne", false);
@@ -2041,7 +2045,9 @@ namespace MotionCtrl
             inf.WriteBool("OTHER_SET", "bAddCapQrcode", bAddCapQrcode, ref ischange, true, filename);
             inf.WriteBool("OTHER_SET", "bDwAddCapQrcode", bDwAddCapQrcode, ref ischange, true, filename);
             inf.WriteBool("OTHER_SET", "Check2open", Check2open, ref ischange, true, filename);
+            inf.WriteBool("OTHER_SET", "BWSMOD_SHP2_AFTER_CHECK_PHOTO", bWsModShp2PhotoAfterCheck, ref ischange, true, filename);
             inf.WriteBool("OTHER_SET", "BJIGDOWNPHOTO", bJigDownPhoto, ref ischange, true, filename);
+            inf.WriteDouble("OTHER_SET", "JIGDOWNPHOTO_INTERVAL_HOURS", JigDownPhotoIntervalHours, ref ischange, true, filename);
             inf.WriteBool("OTHER_SET", "bUpWsChkQrCodeEn", bUpWsChkQrCodeEn, ref ischange, true, filename);
         //    inf.WriteInteger("OTHER_SET", "UpWsChkQrCodeCnt", UpWsChkQrCodeCnt, ref ischange, true, filename);
             inf.WriteBool("OTHER_SET", "bWsNgRateShow", bWsNgRateShow, ref ischange, true, filename);

@@ -1,5 +1,6 @@
 using MotionCtrl;
 using System;
+using System.Collections.Generic;
 using System.IO.Ports;
 using System.Text;
 using System.Text.Json;
@@ -12,6 +13,7 @@ using static SerialCommander;
 public class SerialCommander : IDisposable
 {
     private SerialPort _serialPort;
+    private readonly string _portName;
 
     public void Dispose()
     {
@@ -31,6 +33,14 @@ public class SerialCommander : IDisposable
     private JitterThreshold jitterThreshold { set; get; }
     private readonly object _dataLock = new object();
 
+    public sealed class LightChannelData
+    {
+        public int Channel { get; set; }
+        public double Lux { get; set; }
+        public double Cct { get; set; }
+    }
+
+    public event Action<List<LightChannelData>> LightChannelsUpdated;
     public event Action<GyroscopeData> GyroUpdated;
     public event Action<JitterThreshold> JitterThresholdUpdated;
 
@@ -81,6 +91,7 @@ public class SerialCommander : IDisposable
         if (string.IsNullOrEmpty(portName))
             throw new ArgumentNullException(nameof(portName), "COM口名称不能为空");
 
+        _portName = portName;
         _serialPort = new SerialPort(portName, baudRate);
         _serialPort.DataReceived += SerialDataReceived;
         try
@@ -110,6 +121,7 @@ public class SerialCommander : IDisposable
                 using (JsonDocument doc = JsonDocument.Parse(json))
                 {
                     AutoInspectionParameter newData = new AutoInspectionParameter();
+                    List<LightChannelData> lightChannels = ParseLightChannels(doc.RootElement);
                     lock (_dataLock)
                     {
 
@@ -126,6 +138,25 @@ public class SerialCommander : IDisposable
                             newData.CCT = _currentCct;
                             VAR.msg.AddMsg(Msg.EM_MSGTYPE.DBG, "设备状态CCT: " + _currentCct.ToString("E3"));
                             CctUpdated?.Invoke(_currentCct);
+                        }
+                        if (lightChannels.Count > 0)
+                        {
+                            foreach (LightChannelData channel in lightChannels)
+                            {
+                                VAR.msg.AddMsg(Msg.EM_MSGTYPE.DBG, string.Format("{0}设备光源CH{1}: LUX={2:E3}, CCT={3:E3}", _portName, channel.Channel, channel.Lux, channel.Cct));
+                            }
+
+                            if (!doc.RootElement.TryGetProperty("lux", out _) && !doc.RootElement.TryGetProperty("cct", out _))
+                            {
+                                _currentLux = lightChannels[0].Lux;
+                                _currentCct = lightChannels[0].Cct;
+                                newData.LUX = _currentLux;
+                                newData.CCT = _currentCct;
+                                LuxUpdated?.Invoke(_currentLux);
+                                CctUpdated?.Invoke(_currentCct);
+                            }
+
+                            LightChannelsUpdated?.Invoke(lightChannels);
                         }
                         if (doc.RootElement.TryGetProperty("distance", out JsonElement distanceElem))
                         {
@@ -180,6 +211,26 @@ public class SerialCommander : IDisposable
                 VAR.msg.AddMsg(Msg.EM_MSGTYPE.DBG, "解析失败: " + ex.Message);
             }
         }
+    }
+
+    private static List<LightChannelData> ParseLightChannels(JsonElement root)
+    {
+        List<LightChannelData> channels = new List<LightChannelData>();
+        for (int i = 1; i <= 3; i++)
+        {
+            if (root.TryGetProperty("lux" + i, out JsonElement luxElem) &&
+                root.TryGetProperty("cct" + i, out JsonElement cctElem))
+            {
+                channels.Add(new LightChannelData
+                {
+                    Channel = i,
+                    Lux = Math.Floor(Math.Abs(luxElem.GetDouble())),
+                    Cct = Math.Floor(Math.Abs(cctElem.GetDouble()))
+                });
+            }
+        }
+
+        return channels;
     }
 
     // 通用发送函数
@@ -300,6 +351,48 @@ public class SerialCommander : IDisposable
         CctUpdated -= OnCct;
     }
         return (lux, cct);
+    }
+    public List<LightChannelData> ReadLightChannelsWithWait(int timeoutMs)
+    {
+        List<LightChannelData> result = null;
+        int readCount = 0;
+        using (ManualResetEvent wait = new ManualResetEvent(false))
+        {
+            void OnLightChannels(List<LightChannelData> channels)
+            {
+                if (channels != null && channels.Count > 0)
+                {
+                    result = channels;
+                    wait.Set();
+                }
+            }
+
+            LightChannelsUpdated += OnLightChannels;
+            try
+            {
+                VAR.msg.AddMsg(Msg.EM_MSGTYPE.DBG, $"{_portName}发送光源色温读取命令0x7002,等待三通道返回");
+                while (readCount < 30 && result == null)
+                {
+                    ReadLightCalibration();
+                    Thread.Sleep(500);
+                    readCount++;
+                }
+
+                if (result == null && !wait.WaitOne(timeoutMs))
+                {
+                    VAR.msg.AddMsg(Msg.EM_MSGTYPE.ERR, $"{_portName}光源色温三通道读取超时,timeout={timeoutMs}ms");
+                    throw new TimeoutException();
+                }
+
+                VAR.msg.AddMsg(Msg.EM_MSGTYPE.DBG, $"{_portName}光源色温三通道读取完成,通道数={result.Count}");
+            }
+            finally
+            {
+                LightChannelsUpdated -= OnLightChannels;
+            }
+        }
+
+        return result;
     }
     public GyroscopeData ReadGyroscopeWithWait(int timeoutMs)
     {
