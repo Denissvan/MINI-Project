@@ -68,6 +68,8 @@ namespace UI.Class
             public bool bCheckMotoCodeLength;
             [Description("上料后延迟开图时间(毫秒)")]
             public int  BeforeOpenImageWaitTime;
+            [Description("上料位开图后闭气时间(毫秒)")]
+            public int BeforeOpenImageWindOffTime;
 
 
         }

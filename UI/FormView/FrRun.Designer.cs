@@ -521,7 +521,7 @@ namespace UI
             this.tableLayoutPanel4.ColumnCount = 3;
             this.tableLayoutPanel4.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 44.54343F));
             this.tableLayoutPanel4.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 55.45657F));
-            this.tableLayoutPanel4.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 316F));
+            this.tableLayoutPanel4.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 320F));
             this.tableLayoutPanel4.Controls.Add(this.panel4, 2, 0);
             this.tableLayoutPanel4.Controls.Add(this.panel8, 2, 1);
             this.tableLayoutPanel4.Controls.Add(this.panel9, 2, 2);
@@ -545,9 +545,9 @@ namespace UI
             this.panel4.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.panel4.Controls.Add(this.UpLoad1);
             this.panel4.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panel4.Location = new System.Drawing.Point(327, 3);
+            this.panel4.Location = new System.Drawing.Point(323, 3);
             this.panel4.Name = "panel4";
-            this.panel4.Size = new System.Drawing.Size(311, 135);
+            this.panel4.Size = new System.Drawing.Size(315, 135);
             this.panel4.TabIndex = 9;
             // 
             // panel8
@@ -555,9 +555,9 @@ namespace UI
             this.panel8.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.panel8.Controls.Add(this.upLoad2);
             this.panel8.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panel8.Location = new System.Drawing.Point(327, 144);
+            this.panel8.Location = new System.Drawing.Point(323, 144);
             this.panel8.Name = "panel8";
-            this.panel8.Size = new System.Drawing.Size(311, 129);
+            this.panel8.Size = new System.Drawing.Size(315, 129);
             this.panel8.TabIndex = 10;
             // 
             // panel9
@@ -567,9 +567,9 @@ namespace UI
             this.panel9.Controls.Add(this.lb_tt_ct);
             this.panel9.Controls.Add(this.lb_tt_tmr);
             this.panel9.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panel9.Location = new System.Drawing.Point(327, 279);
+            this.panel9.Location = new System.Drawing.Point(323, 279);
             this.panel9.Name = "panel9";
-            this.panel9.Size = new System.Drawing.Size(311, 133);
+            this.panel9.Size = new System.Drawing.Size(315, 133);
             this.panel9.TabIndex = 11;
             // 
             // lb_tt_n
@@ -662,7 +662,7 @@ namespace UI
             this.UpLoad1.Location = new System.Drawing.Point(0, 0);
             this.UpLoad1.Margin = new System.Windows.Forms.Padding(4);
             this.UpLoad1.Name = "UpLoad1";
-            this.UpLoad1.Size = new System.Drawing.Size(309, 133);
+            this.UpLoad1.Size = new System.Drawing.Size(313, 133);
             this.UpLoad1.TabIndex = 0;
             // 
             // upLoad2
@@ -671,7 +671,7 @@ namespace UI
             this.upLoad2.Location = new System.Drawing.Point(0, 0);
             this.upLoad2.Margin = new System.Windows.Forms.Padding(4);
             this.upLoad2.Name = "upLoad2";
-            this.upLoad2.Size = new System.Drawing.Size(309, 127);
+            this.upLoad2.Size = new System.Drawing.Size(313, 127);
             this.upLoad2.TabIndex = 1;
             // 
             // tray_fd
@@ -679,11 +679,11 @@ namespace UI
             this.tray_fd.Bordercolor = System.Drawing.Color.DodgerBlue;
             this.tray_fd.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tray_fd.ERRcolor = System.Drawing.Color.Gold;
-            this.tray_fd.Location = new System.Drawing.Point(147, 3);
+            this.tray_fd.Location = new System.Drawing.Point(145, 3);
             this.tray_fd.Name = "tray_fd";
             this.tray_fd.NGcolor = System.Drawing.Color.Red;
             this.tray_fd.OKcolor = System.Drawing.Color.Lime;
-            this.tray_fd.Size = new System.Drawing.Size(174, 135);
+            this.tray_fd.Size = new System.Drawing.Size(172, 135);
             this.tray_fd.TabIndex = 12;
             this.tray_fd.TrayColor = System.Drawing.SystemColors.Control;
             this.tray_fd.TrayName = "DISC";
@@ -701,7 +701,7 @@ namespace UI
             this.traybox_fd.Location = new System.Drawing.Point(4, 4);
             this.traybox_fd.Margin = new System.Windows.Forms.Padding(4);
             this.traybox_fd.Name = "traybox_fd";
-            this.traybox_fd.Size = new System.Drawing.Size(136, 133);
+            this.traybox_fd.Size = new System.Drawing.Size(134, 133);
             this.traybox_fd.TabIndex = 13;
             this.traybox_fd.UNTESTcolor = System.Drawing.Color.SkyBlue;
             // 
@@ -716,7 +716,7 @@ namespace UI
             this.traybox_ok.Location = new System.Drawing.Point(4, 145);
             this.traybox_ok.Margin = new System.Windows.Forms.Padding(4);
             this.traybox_ok.Name = "traybox_ok";
-            this.traybox_ok.Size = new System.Drawing.Size(136, 127);
+            this.traybox_ok.Size = new System.Drawing.Size(134, 127);
             this.traybox_ok.TabIndex = 14;
             this.traybox_ok.UNTESTcolor = System.Drawing.Color.SkyBlue;
             // 
@@ -731,7 +731,7 @@ namespace UI
             this.traybox_ng.Location = new System.Drawing.Point(4, 280);
             this.traybox_ng.Margin = new System.Windows.Forms.Padding(4);
             this.traybox_ng.Name = "traybox_ng";
-            this.traybox_ng.Size = new System.Drawing.Size(136, 131);
+            this.traybox_ng.Size = new System.Drawing.Size(134, 131);
             this.traybox_ng.TabIndex = 15;
             this.traybox_ng.UNTESTcolor = System.Drawing.Color.SkyBlue;
             // 
@@ -740,11 +740,11 @@ namespace UI
             this.tray_ok.Bordercolor = System.Drawing.Color.DodgerBlue;
             this.tray_ok.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tray_ok.ERRcolor = System.Drawing.Color.Gold;
-            this.tray_ok.Location = new System.Drawing.Point(147, 144);
+            this.tray_ok.Location = new System.Drawing.Point(145, 144);
             this.tray_ok.Name = "tray_ok";
             this.tray_ok.NGcolor = System.Drawing.Color.Red;
             this.tray_ok.OKcolor = System.Drawing.Color.Lime;
-            this.tray_ok.Size = new System.Drawing.Size(174, 129);
+            this.tray_ok.Size = new System.Drawing.Size(172, 129);
             this.tray_ok.TabIndex = 16;
             this.tray_ok.TrayColor = System.Drawing.SystemColors.Control;
             this.tray_ok.TrayName = "DISC";
@@ -756,11 +756,11 @@ namespace UI
             this.tray_ng.Bordercolor = System.Drawing.Color.DodgerBlue;
             this.tray_ng.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tray_ng.ERRcolor = System.Drawing.Color.Gold;
-            this.tray_ng.Location = new System.Drawing.Point(147, 279);
+            this.tray_ng.Location = new System.Drawing.Point(145, 279);
             this.tray_ng.Name = "tray_ng";
             this.tray_ng.NGcolor = System.Drawing.Color.Red;
             this.tray_ng.OKcolor = System.Drawing.Color.Lime;
-            this.tray_ng.Size = new System.Drawing.Size(174, 133);
+            this.tray_ng.Size = new System.Drawing.Size(172, 133);
             this.tray_ng.TabIndex = 17;
             this.tray_ng.TrayColor = System.Drawing.SystemColors.Control;
             this.tray_ng.TrayName = "DISC";

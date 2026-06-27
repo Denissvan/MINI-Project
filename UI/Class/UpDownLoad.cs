@@ -120,6 +120,8 @@ namespace UI
         //第一次开机标志
         public bool IsFirst = true;
         private DateTime lastJigDownPhotoTime = DateTime.MinValue;
+        private bool jigDownPhotoRoundActive = false;
+        private readonly HashSet<string> jigDownPhotoCheckedKeys = new HashSet<string>();
         //第一次上料需回检
         //public bool isfirst = true;
         //错误信息
@@ -132,11 +134,28 @@ namespace UI
         {
             public WS.MdDat Md;
             public double X;
+            public int SourceUdId;
+            public string Key
+            {
+                get
+                {
+                    if (Md == null) return string.Empty;
+                    return string.Format("{0}:{1}", Md.WS_ID, Md.Num);
+                }
+            }
 
             public AfterCloseTarget(WS.MdDat md, double x)
             {
                 Md = md;
                 X = x;
+                SourceUdId = -1;
+            }
+
+            public AfterCloseTarget(WS.MdDat md, double x, int sourceUdId)
+            {
+                Md = md;
+                X = x;
+                SourceUdId = sourceUdId;
             }
         }
         private readonly List<AfterCloseTarget> afterCloseTargets = new List<AfterCloseTarget>();
@@ -1600,6 +1619,10 @@ namespace UI
             //检查结果 
             res = ChkCamRes(upcam, triPosCnt);
             if (res != EM_RES.OK) return res;
+            if (WsTriPos.Count > 0)
+            {
+                CaptureWsModShp2PhotoAfterFlyCheck(ref bquit);
+            }
 
 
 
@@ -2314,6 +2337,10 @@ RECAP:
                 //检查结果 
                 res = ChkCamRes(upcam, triPosCnt);
                 if (res != EM_RES.OK) return res;
+                if (WsTriPos.Count > 0)
+                {
+                    CaptureWsModShp2PhotoAfterFlyCheck(ref bquit);
+                }
                 //回拍结果判断
                 modupcam_task.Clear();
                 bool mtofs = false;
@@ -3020,6 +3047,7 @@ RECAP:
         {
             if (!PT_SET.bWsModShp2PhotoAfterCheck)
             {
+                VAR.msg.AddMsg(Msg.EM_MSGTYPE.DBG, string.Format("{0} WsMod_Shp2附加拍照跳过，参数未启用", xt == null ? disc : xt.disc));
                 return;
             }
 
@@ -3051,6 +3079,40 @@ RECAP:
             catch (Exception ex)
             {
                 VAR.msg.AddMsg(Msg.EM_MSGTYPE.ERR, string.Format("{0} WsMod_Shp2附加拍照异常:{1}", xt.disc, ex.Message));
+            }
+        }
+
+        private void CaptureWsModShp2PhotoAfterFlyCheck(ref bool bquit)
+        {
+            if (PT_SET.bDwAddCapQrcode)
+            {
+                return;
+            }
+
+            if (FeedBackWs == null || FeedBackWs.Count == 0)
+            {
+                return;
+            }
+
+            if (!PT_SET.bWsModShp2PhotoAfterCheck)
+            {
+                VAR.msg.AddMsg(Msg.EM_MSGTYPE.DBG, string.Format("{0} WsMod_Shp2飞拍后附加拍照跳过，参数未启用", disc));
+                return;
+            }
+
+            foreach (WS.MdDat md in FeedBackWs)
+            {
+                XT xt;
+                if (md.Num > 8)
+                {
+                    xt = list_xt[0];
+                }
+                else
+                {
+                    xt = list_xt[1];
+                }
+
+                CaptureWsModShp2PhotoOnly(ref bquit, xt, new ST_XY(FeedBackPos.x, md.st_pos[id].y));
             }
         }
 
@@ -3513,15 +3575,17 @@ RECHECK:
 
             foreach (WS.MdDat md in FeedBackWs)
             {
-                AfterCloseTarget target = afterCloseTargets.FirstOrDefault(t => t.Md.Num == md.Num);
+                string key = string.Format("{0}:{1}", md.WS_ID, md.Num);
+                AfterCloseTarget target = afterCloseTargets.FirstOrDefault(t => t.Key == key);
                 if (target == null)
                 {
-                    afterCloseTargets.Add(new AfterCloseTarget(md.Clone(), FeedBackPos.x));
+                    afterCloseTargets.Add(new AfterCloseTarget(md.Clone(), FeedBackPos.x, id));
                 }
                 else
                 {
                     target.Md = md.Clone();
                     target.X = FeedBackPos.x;
+                    target.SourceUdId = id;
                 }
             }
             VAR.msg.AddMsg(Msg.EM_MSGTYPE.DBG, string.Format("{0} JigDownPhoto cache targets: {1}, nums: {2}", disc, afterCloseTargets.Count, string.Join(",", afterCloseTargets.Select(t => t.Md.Num))));
@@ -3532,7 +3596,250 @@ RECHECK:
             afterCloseTargets.Clear();
         }
 
+        private void RemoveAfterCloseTarget(string key)
+        {
+            if (string.IsNullOrEmpty(key))
+            {
+                return;
+            }
+
+            afterCloseTargets.RemoveAll(t => t != null && t.Key == key);
+        }
+
+        private static void RemoveAfterCloseTargetFromAll(string key)
+        {
+            if (COM.UDLoad1 != null)
+            {
+                COM.UDLoad1.RemoveAfterCloseTarget(key);
+            }
+            if (COM.UDLoad2 != null)
+            {
+                COM.UDLoad2.RemoveAfterCloseTarget(key);
+            }
+        }
+
+        private AfterCloseTarget CloneAfterCloseTarget(AfterCloseTarget target)
+        {
+            if (target == null || target.Md == null)
+            {
+                return null;
+            }
+
+            return new AfterCloseTarget(target.Md.Clone(), target.X, target.SourceUdId);
+        }
+
+        private List<AfterCloseTarget> GetAfterCloseTargetsSnapshot()
+        {
+            if (afterCloseTargets.Count > 0)
+            {
+                return afterCloseTargets
+                    .Select(CloneAfterCloseTarget)
+                    .Where(t => t != null)
+                    .ToList();
+            }
+
+            if (FeedBackWs == null || FeedBackWs.Count == 0)
+            {
+                return new List<AfterCloseTarget>();
+            }
+
+            return FeedBackWs
+                .Where(md => md != null)
+                .Select(md => new AfterCloseTarget(md.Clone(), FeedBackPos.x, id))
+                .ToList();
+        }
+
+        private static void AddAfterCloseTargets(List<AfterCloseTarget> targets, IEnumerable<AfterCloseTarget> sourceTargets)
+        {
+            if (sourceTargets == null)
+            {
+                return;
+            }
+
+            foreach (AfterCloseTarget sourceTarget in sourceTargets)
+            {
+                if (sourceTarget == null || sourceTarget.Md == null)
+                {
+                    continue;
+                }
+
+                AfterCloseTarget target = targets.FirstOrDefault(t => t.Key == sourceTarget.Key);
+                if (target == null)
+                {
+                    targets.Add(sourceTarget);
+                }
+                else
+                {
+                    target.Md = sourceTarget.Md;
+                    target.X = sourceTarget.X;
+                    target.SourceUdId = sourceTarget.SourceUdId;
+                }
+            }
+        }
+
+        private bool HasAfterCloseVpp(XT xt)
+        {
+            return xt != null
+                && xt.upcam != null
+                && xt.upcam.List_vs_task != null
+                && xt.upcam.List_vs_task.Any(t => t != null && t.TaskName == CONST.WsModAfterCloseFw);
+        }
+
+        private bool HasAnyAfterCloseVpp()
+        {
+            return list_xt != null && list_xt.Any(HasAfterCloseVpp);
+        }
+
+        private XT GetAfterCloseXt(WS.MdDat md)
+        {
+            if (list_xt == null || list_xt.Count == 0)
+            {
+                return null;
+            }
+
+            XT preferred = null;
+            if (md != null)
+            {
+                if (md.Num > 8 && list_xt.Count > 0)
+                {
+                    preferred = list_xt[0];
+                }
+                else if (list_xt.Count > 1)
+                {
+                    preferred = list_xt[1];
+                }
+            }
+
+            if (HasAfterCloseVpp(preferred))
+            {
+                return preferred;
+            }
+
+            return list_xt.FirstOrDefault(HasAfterCloseVpp);
+        }
+
+        private ST_XY GetAfterCloseCheckPos(AfterCloseTarget target)
+        {
+            if (target != null && target.SourceUdId == id && Math.Abs(target.X) > 0.001)
+            {
+                return new ST_XY(target.X, target.Md.st_pos[id].y);
+            }
+
+            return new ST_XY(target.Md.st_pos[id].x, target.Md.st_pos[id].y);
+        }
+
+        private bool PrepareJigDownPhotoRound(double intervalHours)
+        {
+            if (intervalHours <= 0)
+            {
+                return true;
+            }
+
+            if (lastJigDownPhotoTime == DateTime.MinValue)
+            {
+                jigDownPhotoRoundActive = true;
+                jigDownPhotoCheckedKeys.Clear();
+                lastJigDownPhotoTime = DateTime.Now;
+                return true;
+            }
+
+            TimeSpan elapsed = DateTime.Now - lastJigDownPhotoTime;
+            if (elapsed.TotalHours >= intervalHours)
+            {
+                jigDownPhotoRoundActive = true;
+                jigDownPhotoCheckedKeys.Clear();
+                lastJigDownPhotoTime = DateTime.Now;
+                return true;
+            }
+
+            return jigDownPhotoRoundActive;
+        }
+
+        private static UpDownLoad SelectAfterCloseExecutor()
+        {
+            bool ud1HasVpp = COM.UDLoad1 != null && COM.UDLoad1.HasAnyAfterCloseVpp();
+            bool ud2HasVpp = COM.UDLoad2 != null && COM.UDLoad2.HasAnyAfterCloseVpp();
+
+            if (PT_SET.UpDownRunMode == (int)PT_SET.RUN_MD.MD2_WORK)
+            {
+                if (ud2HasVpp) return COM.UDLoad2;
+                if (ud1HasVpp) return COM.UDLoad1;
+                return null;
+            }
+
+            if (PT_SET.UpDownRunMode == (int)PT_SET.RUN_MD.MD1_WORK)
+            {
+                if (ud1HasVpp) return COM.UDLoad1;
+                if (ud2HasVpp) return COM.UDLoad2;
+                return null;
+            }
+
+            if (ud1HasVpp) return COM.UDLoad1;
+            if (ud2HasVpp) return COM.UDLoad2;
+            return null;
+        }
+
+        private static EM_RES UpCamAfterCloseCheckAll(ref bool bquit, ref WS ws)
+        {
+            List<AfterCloseTarget> checkTargets = new List<AfterCloseTarget>();
+            AddAfterCloseTargets(checkTargets, COM.UDLoad1 == null ? null : COM.UDLoad1.GetAfterCloseTargetsSnapshot());
+            AddAfterCloseTargets(checkTargets, COM.UDLoad2 == null ? null : COM.UDLoad2.GetAfterCloseTargetsSnapshot());
+            bool clearMergedTargets = false;
+
+            try
+            {
+                if (!PT_SET.bJigDownPhoto)
+                {
+                    VAR.msg.AddMsg(Msg.EM_MSGTYPE.DBG, "JigDownPhoto skip: disabled");
+                    clearMergedTargets = true;
+                    return EM_RES.OK;
+                }
+
+                if (checkTargets.Count == 0)
+                {
+                    VAR.msg.AddMsg(Msg.EM_MSGTYPE.DBG, "JigDownPhoto skip: no merged targets");
+                    return EM_RES.OK;
+                }
+
+                UpDownLoad executor = SelectAfterCloseExecutor();
+                if (executor == null)
+                {
+                    VAR.msg.AddMsg(Msg.EM_MSGTYPE.DBG, string.Format("JigDownPhoto skip: {0} not loaded in any up camera, targets: {1}, nums: {2}", CONST.WsModAfterCloseFw, checkTargets.Count, string.Join(",", checkTargets.Select(t => t.Md.Num))));
+                    clearMergedTargets = true;
+                    return EM_RES.OK;
+                }
+
+                VAR.msg.AddMsg(Msg.EM_MSGTYPE.DBG, string.Format("{0} JigDownPhoto unified executor, targets: {1}, nums: {2}", executor.disc, checkTargets.Count, string.Join(",", checkTargets.Select(t => t.Md.Num))));
+                EM_RES res = executor.UpCamAfterCloseCheck(ref bquit, ref ws, checkTargets, false);
+                clearMergedTargets = res == EM_RES.OK;
+                if (!clearMergedTargets)
+                {
+                    VAR.msg.AddMsg(Msg.EM_MSGTYPE.DBG, string.Format("{0} JigDownPhoto interrupted, keep pending targets, res={1}", executor.disc, res));
+                }
+                return res;
+            }
+            finally
+            {
+                if (clearMergedTargets)
+                {
+                    if (COM.UDLoad1 != null)
+                    {
+                        COM.UDLoad1.ClearAfterCloseTargets();
+                    }
+                    if (COM.UDLoad2 != null)
+                    {
+                        COM.UDLoad2.ClearAfterCloseTargets();
+                    }
+                }
+            }
+        }
+
         public EM_RES UpCamAfterCloseCheck(ref bool bquit, ref WS ws)
+        {
+            return UpCamAfterCloseCheck(ref bquit, ref ws, GetAfterCloseTargetsSnapshot(), true);
+        }
+
+        private EM_RES UpCamAfterCloseCheck(ref bool bquit, ref WS ws, List<AfterCloseTarget> checkTargets, bool clearTargets)
         {
             EM_RES res = EM_RES.OK;
             VisionOutPutData resData = new VisionOutPutData();
@@ -3545,16 +3852,7 @@ RECHECK:
                     return EM_RES.OK;
                 }
 
-                List<AfterCloseTarget> checkTargets;
-                if (FeedBackWs != null && FeedBackWs.Count > 0)
-                {
-                    checkTargets = FeedBackWs.Select(md => new AfterCloseTarget(md, FeedBackPos.x)).ToList();
-                }
-                else
-                {
-                    checkTargets = afterCloseTargets.ToList();
-                }
-
+                checkTargets = checkTargets == null ? new List<AfterCloseTarget>() : checkTargets.Where(t => t != null && t.Md != null).ToList();
                 if (checkTargets.Count == 0)
                 {
                     VAR.msg.AddMsg(Msg.EM_MSGTYPE.DBG, string.Format("{0} JigDownPhoto skip: no cached targets", disc));
@@ -3562,12 +3860,19 @@ RECHECK:
                 }
 
                 double intervalHours = Math.Max(0, PT_SET.JigDownPhotoIntervalHours);
-                if (intervalHours > 0 && lastJigDownPhotoTime != DateTime.MinValue)
+                if (!PrepareJigDownPhotoRound(intervalHours))
                 {
                     TimeSpan elapsed = DateTime.Now - lastJigDownPhotoTime;
-                    if (elapsed.TotalHours < intervalHours)
+                    VAR.msg.AddMsg(Msg.EM_MSGTYPE.DBG, string.Format("{0} JigDownPhoto skip: interval not reached, elapsed {1:F2}h, setting {2:F2}h, nums: {3}", disc, elapsed.TotalHours, intervalHours, string.Join(",", checkTargets.Select(t => t.Md.Num))));
+                    return EM_RES.OK;
+                }
+
+                if (intervalHours > 0 && jigDownPhotoRoundActive)
+                {
+                    checkTargets = checkTargets.Where(t => !jigDownPhotoCheckedKeys.Contains(t.Key)).ToList();
+                    if (checkTargets.Count == 0)
                     {
-                        VAR.msg.AddMsg(Msg.EM_MSGTYPE.DBG, string.Format("{0} JigDownPhoto skip: interval not reached, elapsed {1:F2}h, setting {2:F2}h, nums: {3}", disc, elapsed.TotalHours, intervalHours, string.Join(",", checkTargets.Select(t => t.Md.Num))));
+                        VAR.msg.AddMsg(Msg.EM_MSGTYPE.DBG, string.Format("{0} JigDownPhoto skip: current round targets already checked", disc));
                         return EM_RES.OK;
                     }
                 }
@@ -3576,33 +3881,37 @@ RECHECK:
                 foreach (AfterCloseTarget target in checkTargets)
                 {
                     WS.MdDat md = target.Md;
-                    XT xt;
-                    if (md.Num > 8)
+                    string targetKey = target.Key;
+                    XT xt = GetAfterCloseXt(md);
+
+                    if (!HasAfterCloseVpp(xt))
                     {
-                        xt = list_xt[0];
-                    }
-                    else
-                    {
-                        xt = list_xt[1];
+                        VAR.msg.AddMsg(Msg.EM_MSGTYPE.DBG, string.Format("{0} JigDownPhoto skip target: {1} not loaded in {2}, ws={3}, num={4}", disc, CONST.WsModAfterCloseFw, xt != null && xt.upcam != null ? xt.upcam.mName : "NULL", md.WS_ID, md.Num));
+                        RemoveAfterCloseTargetFromAll(targetKey);
+                        continue;
                     }
 
-                    res = UpCamAfterCloseCheck(ref bquit, ref ws, xt, id, new ST_XY(target.X, md.st_pos[id].y), ref resData);
+                    res = UpCamAfterCloseCheck(ref bquit, ref ws, xt, id, GetAfterCloseCheckPos(target), ref resData);
                     if (res != EM_RES.OK)
                     {
                         return res;
                     }
+                    RemoveAfterCloseTargetFromAll(targetKey);
+                    if (intervalHours > 0)
+                    {
+                        jigDownPhotoCheckedKeys.Add(targetKey);
+                    }
                 }
 
                 res = GoZero(ref bquit, false);
-                if (res == EM_RES.OK)
-                {
-                    lastJigDownPhotoTime = DateTime.Now;
-                }
                 return res;
             }
             finally
             {
-                ClearAfterCloseTargets();
+                if (clearTargets && res == EM_RES.OK)
+                {
+                    ClearAfterCloseTargets();
+                }
             }
         }
         #endregion
@@ -4528,6 +4837,78 @@ RECAP:
                         VAR.msg.AddMsg(Msg.EM_MSGTYPE.NOR, disc + xt.disc + $"马达二维码成功{xt.XtMd.motor_barcode}");
                         return EM_RES.OK;
                     }
+                }
+                else if (PT_SET.bkeyenceqr)
+                {
+                    string Code = "ERRORCODE";
+                REQKEYENCEACTION:
+                    var keyence = id == 0 ? COM.Keyence : COM.Keyence2;
+                    VAR.msg.AddMsg(Msg.EM_MSGTYPE.DBG, $"{disc}{xt.disc}基恩士马达扫码开始,IP:{keyence.m_reader.IpAddress}");
+                    string rawMsg = "";
+                    try
+                    {
+                        rawMsg = keyence.m_reader.ExecCommand("LON");
+                    }
+                    catch (Exception ex)
+                    {
+                        xt.XtMd.bhaveMotoScan = true;
+                        xt.XtMd.motor_barcode = Code;
+                        VAR.msg.AddMsg(Msg.EM_MSGTYPE.ERR, $"{disc}{xt.disc}基恩士马达扫码ExecCommand异常:{ex}");
+                        return EM_RES.OK;
+                    }
+
+                    VAR.msg.AddMsg(Msg.EM_MSGTYPE.DBG, $"{disc}{xt.disc}基恩士马达扫码返回,Raw:[{rawMsg ?? "NULL"}]");
+                    string msg = rawMsg == null ? null : rawMsg.Trim();
+                    xt.XtMd.bhaveMotoScan = true;
+                    if (string.IsNullOrWhiteSpace(msg))
+                    {
+                        if (PT_SET.bsunnyqralm)
+                        {
+                            VAR.msg.AddMsg(Msg.EM_MSGTYPE.ERR, disc + xt.disc + "马达二维码NG" + barcode);
+                            VAR.msg.AddMsg(Msg.EM_MSGTYPE.ERR, string.Format("扫码枪5秒没有返回有效结果! Raw:[{0}]", rawMsg ?? "NULL"));
+                            MT.ST_WARN warn = new MT.ST_WARN();
+                            warning fr_warn = new warning();
+                            warn.ok_txt = MultiLanguage.TxtSelct("重新扫码", "GoOn", "Đi tiếp");
+                            warn.abort_txt = MultiLanguage.TxtSelct("继续运行", "GoOn", "Đi tiếp");
+                            warn.cancle_txt = MultiLanguage.TxtSelct("停止运行", "Stop", "Ngừng lại");
+                            warn.title = MultiLanguage.TxtSelct("提示:扫码异常", "Tip: Fly Err Back Place Tray Error", "Mẹo: Fly Err Back Place Tray Error");
+                            VAR.sys_inf.Set(EM_ALM_STA.WAR_YELLOW_FLASH, VAR.IsChinese ? "扫码异常" : "Place Tray Error", 10, true);
+                            warn.msg = MultiLanguage.TxtSelct("侧边扫码异常!", "Place Tray Error", "Lỗi đặt khay");
+                            warn.lb_msg = MultiLanguage.TxtSelct($"当前侧边扫码异常\r\n" +
+                                "1、点击重新扫码，则重新进行扫码动作\r\n" +
+                                "2、点击继续运行，则不在扫码，二维码默认ErrorCode\r\n" +
+                                "3、点击停止运行，则不在扫码，设备停止\r\n");
+                            DialogResult logres = MT.Display_frwarn(fr_warn, warn, ERR_ALM.EmErrItem.MaterialPosErr);
+                            if (logres == DialogResult.OK)
+                            {
+                                VAR.sys_inf.Set(EM_ALM_STA.NOR_GREEN, VAR.IsChinese ? "运行" : "RUN", 0, true);
+                                goto REQKEYENCEACTION;
+                            }
+                            else if (logres == DialogResult.Abort)
+                            {
+                                VAR.sys_inf.Set(EM_ALM_STA.NOR_GREEN, VAR.IsChinese ? "运行" : "RUN", 0, true);
+                                msg = Code;
+                            }
+                            else if (logres == DialogResult.Cancel)
+                            {
+                                return EM_RES.QUIT;
+                            }
+                        }
+                        else
+                        {
+                            msg = Code;
+                        }
+                    }
+
+                    xt.XtMd.motor_barcode = msg;
+                    if ((msg.Length) != PT_SET.motorBarcodeDigits && NewSysInf.UserParams.bCheckMotoCodeLength)
+                    {
+                        VAR.msg.AddMsg(Msg.EM_MSGTYPE.NOR, disc + xt.disc + $"基恩士马达二维码位数校验失败，二维码:{msg},扫码长度:{msg.Length},设置长度:{PT_SET.motorBarcodeDigits}");
+                        return EM_RES.ERR;
+                    }
+
+                    VAR.msg.AddMsg(Msg.EM_MSGTYPE.NOR, disc + xt.disc + $"基恩士马达二维码成功{xt.XtMd.motor_barcode}");
+                    return EM_RES.OK;
                 }
                 else
                 {
@@ -6810,9 +7191,7 @@ RECHECKAGAIN:
                 {
                     res = ws.AllCyClose(ref VAR.gsys_set.bquit);
                     if (res != EM_RES.OK) break;
-                    res = COM.UDLoad1.UpCamAfterCloseCheck(ref bquit, ref ws);
-                    if (res != EM_RES.OK) break;
-                    res = COM.UDLoad2.UpCamAfterCloseCheck(ref bquit, ref ws);
+                    res = UpCamAfterCloseCheckAll(ref bquit, ref ws);
                     if (res != EM_RES.OK) break;
 
                 }
@@ -6821,9 +7200,7 @@ RECHECKAGAIN:
                     //上完闭合            
                     res = ws.SetupForTest(ref VAR.gsys_set.bquit);
                     if (res != EM_RES.OK) break;
-                    res = COM.UDLoad1.UpCamAfterCloseCheck(ref bquit, ref ws);
-                    if (res != EM_RES.OK) break;
-                    res = COM.UDLoad2.UpCamAfterCloseCheck(ref bquit, ref ws);
+                    res = UpCamAfterCloseCheckAll(ref bquit, ref ws);
                     if (res != EM_RES.OK) break;
 
                 }
@@ -6920,9 +7297,15 @@ RECHECKAGAIN:
                     if (PT_SET.turnon) //提前开图
                     {
                         //提前开图
+                        ws.LogUpDnOpenImage("UpDownLoad准备开图");
                         VAR.msg.AddMsg(Msg.EM_MSGTYPE.DBG, VAR.IsChinese ? string.Format("{0} 启动测试", ws.disc) : string.Format("{0} Start test!           ({0} 启动测试)", ws.disc));
                         res = ws.WaitBeforeOpenImage(ref bquit);
-                        if (res != EM_RES.OK) break;
+                        if (res != EM_RES.OK)
+                        {
+                            ws.LogUpDnOpenImage($"UpDownLoad开图前等待异常 res={res}");
+                            break;
+                        }
+                        ws.LogUpDnOpenImage("UpDownLoad调用StartTestFlow");
                         res = ws.StartTestFlow(0, WS.Demo);
                         if (res != EM_RES.OK)
                         {
@@ -6930,10 +7313,18 @@ RECHECKAGAIN:
                             res = ws.StartTestFlow();
                             if (res != EM_RES.OK)
                             {
+                                ws.LogUpDnOpenImage($"UpDownLoad重试StartTestFlow异常 res={res}");
                                 VAR.msg.AddMsg(Msg.EM_MSGTYPE.DBG, string.Format("{0} StartTestFlow err", ws.disc));
                                 ws.Status = WS.EM_STA.LINKERR;
                                 break;
                             }
+                        }
+                        ws.LogUpDnOpenImage("UpDownLoad启动测试成功");
+                        res = ws.WaitOpenDlyWithAxisStatic();
+                        if (res != EM_RES.OK)
+                        {
+                            ws.LogUpDnOpenImage($"UpDownLoad开图延时异常 res={res}");
+                            break;
                         }
                         if (PT_SET.HallEn && !WS.Demo)
                         {

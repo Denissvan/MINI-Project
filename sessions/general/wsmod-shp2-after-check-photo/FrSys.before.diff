@@ -1,0 +1,1548 @@
+diff --git a/UI/FormView/FrSys.cs b/UI/FormView/FrSys.cs
+index 5ae3ffc..c3ba5fe 100644
+--- a/UI/FormView/FrSys.cs
++++ b/UI/FormView/FrSys.cs
+@@ -58,16 +58,16 @@ namespace UI
+             rbtn_upcode.Enabled = en;
+             rbtn_dwcode.Enabled = en;
+             rbtn_NoCap.Enabled = en;
+-            //è¿è¡Œæ¨¡å¼
++            //ÔËĞĞÄ£Ê½
+             rbtn_twomd.Enabled = en;
+             rbtn_md1.Enabled = en;
+             rbtn_md2.Enabled = en;
+-            //è¿è¡Œæ–¹å¼
++            //ÔËĞĞ·½Ê½
+             rbtn_run_normal.Enabled = en;
+             rbtn_run_updw.Enabled = en;
+             rbtn_run_empty.Enabled = en;
+             btn_saveparm2.Enabled = en;
+-            //é—¨ç¦
++            //ÃÅ½û
+             //chk_leftlightbox.Enabled = en;
+             //chk_rightlightbox.Enabled = en;
+             //chk_tray.Enabled = en;
+@@ -76,135 +76,135 @@ namespace UI
+             chk_rightlightbox.Enabled = false;
+             chk_tray.Enabled = false;
+             chk_updown.Enabled = false;
+-            //è§†è§‰å›æ£€
++            //ÊÓ¾õ»Ø¼ì
+             Chk_OpenVs.Enabled = en;
+             nud_vschk_xyofs.Enabled = en;
+             nud_vschk_rofs.Enabled = en;
+             btn_ptset_save.Enabled = en;
+-            //æ–™ç›˜æ”¾æ–™æ£€æµ‹
++            //ÁÏÅÌ·ÅÁÏ¼ì²â
+             rbtn_OpenVsTray.Enabled = en;
+             rbtn_CloseVsTray.Enabled = en;
+-            //ä¸Šä¸‹æ–™ç§»åŠ¨ä¿æŠ¤(é’ˆå¯¹è½¬ç›˜)
++            //ÉÏÏÂÁÏÒÆ¶¯±£»¤(Õë¶Ô×ªÅÌ)
+             rbtn_safeoff.Enabled = en;
+             rbtn_safeon.Enabled = en;
+-            //GRRæµç¨‹
++            //GRRÁ÷³Ì
+             chk_grr.Enabled = en;
+             nud_grrtestcnt.Enabled = en;
+             nud_grrtudlcnt.Enabled = en;
+-            //ç›¸æœºå­˜å‚¨å›¾ç‰‡
++            //Ïà»ú´æ´¢Í¼Æ¬
+             chk_upcam1.Enabled = en;
+             chk_dwcam1.Enabled = en;
+             chk_upcam2.Enabled = en;
+             chk_dwcam2.Enabled = en;
+-            //æ¨¡ç»„å¸¦èµ·
++            //Ä£×é´øÆğ
+             Chk_ModPasteUp.Enabled = en;
+             nud_PlaceDly.Enabled = en;
+             nud_MovUpDly.Enabled = en;
+-            //Y1è®¾ç½®
++            //Y1ÉèÖÃ
+             rbtn_Y1en.Enabled = en;
+             rbtn_Y1dis.Enabled = en;
+-            //å³å…‰ç®±Y1è®¾ç½®
++            //ÓÒ¹âÏäY1ÉèÖÃ
+             rbtn_RY1en.Enabled = en;
+             rbtn_RY1dis.Enabled = en;
+-            //å…‰ç®±è®¾ç½®
++            //¹âÏäÉèÖÃ
+             rbtn_lben.Enabled = en;
+             rbtn_lbdis.Enabled = en;
+-            //å¼€å›¾é¡ºåºè®¾ç½®
++            //¿ªÍ¼Ë³ĞòÉèÖÃ
+             rbtn_pre_turnon.Enabled = en;
+             rbtn_next_turnon.Enabled = en;
+             nud_OpenDly.Enabled = en;
+-            //æ–™ç›˜äºŒç»´ç è®¾ç½®
++            //ÁÏÅÌ¶şÎ¬ÂëÉèÖÃ
+             rbtn_traybaren.Enabled = en;
+             rbtn_traybardis.Enabled = en;
+-            //æ¨¡ç»„å¤§å°è®¾ç½®
++            //Ä£×é´óĞ¡ÉèÖÃ
+             rbtn_small.Enabled = en;
+             rbtn_big.Enabled = en;
+-            //æ¨¡ç»„å•åŒå¼€è®¾ç½®
++            //Ä£×éµ¥Ë«¿ªÉèÖÃ
+             rbtn_single.Enabled = en;
+             rbtn_double.Enabled = en;
+             rbtn_Sml.Enabled = en;
+             rbtn_Lag.Enabled = en;
+-            //å¸å¤´1å…ˆè¿åŠ¨è®¾ç½®
++            //ÎüÍ·1ÏÈÔË¶¯ÉèÖÃ
+             rbtn_xt1firstdis.Enabled = en;
+             rbtn_xt1firsten.Enabled = en;
+-            //éœå°”æµ‹è¯•è®¾ç½®
++            //»ô¶û²âÊÔÉèÖÃ
+             rbtn_hallen.Enabled = en;
+             rbtn_halldis.Enabled = en;
+             chk_downfliptest.Enabled = en;
+-            //å–æ”¾æ–™è§’åº¦å¼€æ”¾è®¾ç½®
++            //È¡·ÅÁÏ½Ç¶È¿ª·ÅÉèÖÃ
+             rbtn_open_degree.Enabled = en;
+             rbtn_close_degree.Enabled = en;
+             nud_offset_degree.Enabled = en;
+-            //äºŒç»´ç å›æ£€è®¾å¤‡
++            //¶şÎ¬Âë»Ø¼ìÉè±¸
+             rbtn_OpenBarCamBack.Enabled = en;
+             rbtn_CloseBarCamBack.Enabled = en;
+-            //OKå“ä¸‹æ–™æ£€æµ‹
++            //OKÆ·ÏÂÁÏ¼ì²â
+             rbtn_OkCheckEn.Enabled = en;
+             rbtn_OkCheckDis.Enabled = en;
+-            //å·¥ç«™è§†è§‰æ¨¡æ¿å¢åŠ æœ‰æ— æ£€æµ‹
++            //¹¤Õ¾ÊÓ¾õÄ£°åÔö¼ÓÓĞÎŞ¼ì²â
+             rbtn_OpenWsVsAddCheck.Enabled = en;
+             rbtn_CloseWsVsAddCheck.Enabled = en;
+-            //å¸å¤´åå·®
++            //ÎüÍ·Æ«²î
+             nud_dwCam_xt1_ofs.Enabled = en;
+             nud_dwCam_xt2_ofs.Enabled = en;
+             nud_dwCam_xt3_ofs.Enabled = en;
+             nud_dwCam_xt4_ofs.Enabled = en;
+-            //é«˜é€æ¨¡åç§»æ£€æµ‹
++            //¸ßÍ¸Ä£Æ«ÒÆ¼ì²â
+             chk_GTMCheck.Enabled = en;
+             nud_GTMOfs.Enabled = en;
+-            //åŒå·¥ä½è¿ç»­åŒNGæç¤º
++            //Í¬¹¤Î»Á¬ĞøÍ¬NGÌáÊ¾
+             chk_SameNGTip.Enabled = en;
+             nud_SameNGTipCnt.Enabled = en;
+-            //åŒå·¥ä½è¿ç»­åŒNGæç¤º
++            //Í¬¹¤Î»Á¬ĞøÍ¬NGÌáÊ¾
+             chk_SameRowNGTip.Enabled = en;
+             nud_SameRowNGTipCnt.Enabled = en;
+-            //ä¿å…»
++            //±£Ñø
+             nud_FixtrueMaintain.Enabled = en;
+             nud_EquipmentMaintain.Enabled = en;
+-            //å·¥ç«™äºŒæ¬¡å–æ–™
++            //¹¤Õ¾¶ş´ÎÈ¡ÁÏ
+             rbtn_OpenWsPickAgain.Enabled = en;
+             rbtn_CloseWsPickAgain.Enabled = en;
+-            //æ•°æ®ä¸Šä¼ è®¾ç½®
++            //Êı¾İÉÏ´«ÉèÖÃ
+             chk_UpLoadData.Enabled = en;
+             chk_UpdateSoft.Enabled = en;
+-            //å›æ£€ç»§ç»­è¿è¡Œè®¾ç½®
++            //»Ø¼ì¼ÌĞøÔËĞĞÉèÖÃ
+             rbtn_backerrcontinueen.Enabled = en;
+             rbtn_backerrcontinuedis.Enabled = en;
+-            //å¤¹å…·å·¥ä½éæ°´å¹³è®¾ç½®
++            //¼Ğ¾ß¹¤Î»·ÇË®Æ½ÉèÖÃ
+             rbtn_nonparallelen.Enabled = en;
+             rbtn_nonparalleldis.Enabled = en;
+-            //æ¸…æ´—æ—¶é—´é—´éš”è®¾ç½®
++            //ÇåÏ´Ê±¼ä¼ä¸ôÉèÖÃ
+             rbtn_cleandis.Enabled = en;
+             rbtn_cleanen.Enabled = en;
+             nud_cleaninterval.Enabled = en;
+-            //ç‚¹æ£€æ—¶é—´
++            //µã¼ìÊ±¼ä
+             dateTimePicker1.Enabled = en;
+             dateTimePicker2.Enabled = en;
+-            //ä¸Šä¸‹æ–™å‘¨æœŸä¿å­˜è®¾ç½®
++            //ÉÏÏÂÁÏÖÜÆÚ±£´æÉèÖÃ
+             rbtn_CycleEn.Enabled = en;
+             rbtn_CycleDis.Enabled = en;
+-            //é™æ¸©è®¾ç½®
++            //½µÎÂÉèÖÃ
+             rbtn_coolen.Enabled = en;
+             rbtn_cooldis.Enabled = en;
+-            //DCCå†™å…¥ç§»è‡³ä¸Šä¸‹æ–™è®¾ç½®
++            //DCCĞ´ÈëÒÆÖÁÉÏÏÂÁÏÉèÖÃ
+             rbtn_delaytesten.Enabled = en;
+             rbtn_delaytestdis.Enabled = en;
+-            //NGç®¡æ§è®¾ç½®
++            //NG¹Ü¿ØÉèÖÃ
+             rbtn_ngcontroldis.Enabled = en;
+             rbtn_ngcontrolen.Enabled = en;
+             nud_ngcode.Enabled = en;
+             nud_ngscale.Enabled = en;
+-            //æŒç»­æŠ¥è­¦è®¾ç½®
++            //³ÖĞø±¨¾¯ÉèÖÃ
+             rbtn_ContinuousAlarmEn.Enabled = en;
+             rbtn_ContinuousAlarmDis.Enabled = en;
+-            ////æ•°æ®ä¸Šä¼ è®¾ç½®
++            ////Êı¾İÉÏ´«ÉèÖÃ
+             rbtn_NgWarningEn.Enabled = en;
+             rbtn_NgWarningDis.Enabled = en;
+             nud_okRate.Enabled = en;
+-            //Mesæ¨¡å¼
++            //MesÄ£Ê½
+             rbtn_MesLocal.Enabled = en;
+             rbtn_MesRemote.Enabled = en;
+-            //å¤¹å…·æ‰«ç 
++            //¼Ğ¾ßÉ¨Âë
+             btnStartJigSan1.Enabled = en;
+             btnStartJigSan2.Enabled = en;
+             btnStartJigSan3.Enabled = en;
+@@ -212,14 +212,14 @@ namespace UI
+             rabt_jigscan_ON.Enabled = en;
+             rabt_jigscan_OFF.Enabled = en;
+             nud_JigSendTime.Enabled = en;
+-            //æµ‹è¯•æ—¶é—´
++            //²âÊÔÊ±¼ä
+             nud_TestTime.Enabled = en;
+-            //æ–°å¢æ‹äºŒç»´ç ä½ç½®
++            //ĞÂÔöÅÄ¶şÎ¬ÂëÎ»ÖÃ
+             rbtn_AddCapQrcodeEn.Enabled = en;
+             rbtn_DwAddCapQrcodeEn.Enabled = en;
+             rbtn_DwAddCapQrcodeOff.Enabled = en;
+             rbtn_AddCapQrcodeDis.Enabled = en;
+-            //å…‰æºé€‰æ‹©
++            //¹âÔ´Ñ¡Ôñ
+             rad_G4C.Enabled = en;
+             rad_light_xsj.Enabled = en;
+         }
+@@ -239,8 +239,8 @@ namespace UI
+         private void FrSys_Load(object sender, EventArgs e)
+         {
+ 
+-            //å¦‚æœä¸åœ¨è®¾è®¡æ¨¡å¼æ‰æ‰§è¡Œè¿™å—ä»£ç 
+-            //åŠ è½½å¡åˆ—è¡¨CardTable
++            //Èç¹û²»ÔÚÉè¼ÆÄ£Ê½²ÅÖ´ĞĞÕâ¿é´úÂë
++            //¼ÓÔØ¿¨ÁĞ±íCardTable
+             FieldInfo[] pArray = typeof(MT).GetFields();
+             CARD card;
+             foreach (FieldInfo p in pArray)
+@@ -266,7 +266,7 @@ namespace UI
+             }
+             ioTable.ShowCfg(0);
+ 
+-            //è½´åˆ—è¡¨
++            //ÖáÁĞ±í
+             ctb_ax_sel_SelectedIndexChanged(ctb_ax_sel, null);
+             CogRecordDisplay_sys.list_cam.Clear();
+             CogRecordDisplay_sys.AddCam(COM.ListCam);
+@@ -319,14 +319,14 @@ namespace UI
+         private void btn_load_axis_cfg_Click(object sender, EventArgs e)
+         {
+             axisConfig.LoadFrFile();
+-            MessageBox.Show(VAR.IsChinese ? "è½´åˆ—è¡¨å‚æ•°åŠ è½½å®Œæˆ!" : "The axis list parameters are loaded!\r\nè½´åˆ—è¡¨å‚æ•°åŠ è½½å®Œæˆ!");
++            MessageBox.Show(VAR.IsChinese ? "ÖáÁĞ±í²ÎÊı¼ÓÔØÍê³É!" : "The axis list parameters are loaded!\r\nÖáÁĞ±í²ÎÊı¼ÓÔØÍê³É!");
+         }
+ 
+         private void btn_save_axis_cfg_Click(object sender, EventArgs e)
+         {
+             if (true == axisConfig.SaveToFile())
+             {
+-                MessageBox.Show(VAR.IsChinese ? "è½´åˆ—è¡¨å‚æ•°ä¿å­˜å®Œæˆ!" : "The axis list parameters are saved!\r\nè½´åˆ—è¡¨å‚æ•°ä¿å­˜å®Œæˆ!");
++                MessageBox.Show(VAR.IsChinese ? "ÖáÁĞ±í²ÎÊı±£´æÍê³É!" : "The axis list parameters are saved!\r\nÖáÁĞ±í²ÎÊı±£´æÍê³É!");
+             }
+         }
+ 
+@@ -353,12 +353,12 @@ namespace UI
+                 case 3:
+                     axisTable.AddAxis(MT.AxList_BOX_LEFT);
+                     axisConfig.AddAxis(MT.AxList_BOX_LEFT);
+-                    VAR.msg.AddMsg(Msg.EM_MSGTYPE.SYS, string.Format("å…‰ç®±è¿½è¸ª-è½´æ§åˆ¶é¡µ: é¡µç­¾=å·¦å…‰ç®±,è½´åˆ—è¡¨={0}", LightBox.FormatAxesForTrace(MT.AxList_BOX_LEFT)));
++                    VAR.msg.AddMsg(Msg.EM_MSGTYPE.SYS, string.Format("¹âÏä×·×Ù-Öá¿ØÖÆÒ³: Ò³Ç©=×ó¹âÏä,ÖáÁĞ±í={0}", LightBox.FormatAxesForTrace(MT.AxList_BOX_LEFT)));
+                     break;
+                 case 4:
+                     axisTable.AddAxis(MT.AxList_BOX_RIGHT);
+                     axisConfig.AddAxis(MT.AxList_BOX_RIGHT);
+-                    VAR.msg.AddMsg(Msg.EM_MSGTYPE.SYS, string.Format("å…‰ç®±è¿½è¸ª-è½´æ§åˆ¶é¡µ: é¡µç­¾=å³å…‰ç®±,è½´åˆ—è¡¨={0}", LightBox.FormatAxesForTrace(MT.AxList_BOX_RIGHT)));
++                    VAR.msg.AddMsg(Msg.EM_MSGTYPE.SYS, string.Format("¹âÏä×·×Ù-Öá¿ØÖÆÒ³: Ò³Ç©=ÓÒ¹âÏä,ÖáÁĞ±í={0}", LightBox.FormatAxesForTrace(MT.AxList_BOX_RIGHT)));
+ 
+                     break;
+                 case 5:
+@@ -430,13 +430,13 @@ namespace UI
+             {
+                 if (card.isReady)
+                 {
+-                    if (EM_RES.OK == card.DownLoadFile()) str = VAR.IsChinese ? (str + String.Format("{0}/id{1},æ›´æ–°é…ç½®æˆåŠŸï¼\r\n", card.disc, card.id)) : (str + String.Format("{0}/id{1},Update configuration succeeded! \r\n         ({0}/id{1},æ›´æ–°é…ç½®æˆåŠŸï¼\r\n)", card.disc, card.id));
+-                    else str = VAR.IsChinese ? (str + String.Format("{0}/id{1},æ›´æ–°é…ç½®å¤±è´¥ï¼\r\n", card.disc, card.id)) : (str + String.Format("{0}/id{1},Update configuration failed! \r\n         ({0}/id{1},æ›´æ–°é…ç½®å¤±è´¥ï¼\r\n)", card.disc, card.id));
++                    if (EM_RES.OK == card.DownLoadFile()) str = VAR.IsChinese ? (str + String.Format("{0}/id{1},¸üĞÂÅäÖÃ³É¹¦£¡\r\n", card.disc, card.id)) : (str + String.Format("{0}/id{1},Update configuration succeeded! \r\n         ({0}/id{1},¸üĞÂÅäÖÃ³É¹¦£¡\r\n)", card.disc, card.id));
++                    else str = VAR.IsChinese ? (str + String.Format("{0}/id{1},¸üĞÂÅäÖÃÊ§°Ü£¡\r\n", card.disc, card.id)) : (str + String.Format("{0}/id{1},Update configuration failed! \r\n         ({0}/id{1},¸üĞÂÅäÖÃÊ§°Ü£¡\r\n)", card.disc, card.id));
+                 }
+                 else
+                 {
+-                    VAR.msg.AddMsg(Msg.EM_MSGTYPE.ERR, VAR.IsChinese ? String.Format("{0}/id{1},æœªåˆå§‹åŒ–ï¼", card.disc, card.id) : String.Format("{0}/id{1},Uninitialized!        ({0}/id{1},æœªåˆå§‹åŒ–ï¼)", card.disc, card.id), DReport.EmErrCode.ToolError, (int)DReport.EmHareware.Card);
+-                    str = VAR.IsChinese ? (str + String.Format("{0}/id{1},æœªåˆå§‹åŒ–ï¼\r\n", card.disc, card.id)) : (str + String.Format("{0}/id{1},Uninitialized!            ({0}/id{1},æœªåˆå§‹åŒ–ï¼\r\n", card.disc, card.id));
++                    VAR.msg.AddMsg(Msg.EM_MSGTYPE.ERR, VAR.IsChinese ? String.Format("{0}/id{1},Î´³õÊ¼»¯£¡", card.disc, card.id) : String.Format("{0}/id{1},Uninitialized!        ({0}/id{1},Î´³õÊ¼»¯£¡)", card.disc, card.id), DReport.EmErrCode.ToolError, (int)DReport.EmHareware.Card);
++                    str = VAR.IsChinese ? (str + String.Format("{0}/id{1},Î´³õÊ¼»¯£¡\r\n", card.disc, card.id)) : (str + String.Format("{0}/id{1},Uninitialized!            ({0}/id{1},Î´³õÊ¼»¯£¡\r\n", card.disc, card.id));
+                 }
+             }
+             MessageBox.Show(str);
+@@ -486,7 +486,7 @@ namespace UI
+         public void ShowData()
+         {
+             dataGrideSysInfo1.ShowDataToGride();
+-            //å…‰æºé€‰æ‹©
++            //¹âÔ´Ñ¡Ôñ
+             rad_G4C.Checked = false;
+             rad_light_xsj.Checked = false;
+             rad_G4C.Checked = PT_SET.bG4C;
+@@ -509,7 +509,7 @@ namespace UI
+             numafc.Value = (decimal)PT_SET.afcclosetime;
+             rbtn_opencheckoven.Checked = PT_SET.OvenCheck;
+             rbtn_closecheckoven.Checked = !PT_SET.OvenCheck;
+-            //äºŒç»´ç æ‰«ç æ–¹å¼
++            //¶şÎ¬ÂëÉ¨Âë·½Ê½
+             rbtn_dwcode.Checked = false;
+             rbtn_upcode.Checked = false;
+             rbtn_NoCap.Checked = false;
+@@ -525,7 +525,7 @@ namespace UI
+             {
+                 cbisaloneset.Checked = false;
+             }
+-            //è¿è¡Œæ¨¡å¼
++            //ÔËĞĞÄ£Ê½
+             rbtn_md1.Checked = false;
+             rbtn_md2.Checked = false;
+             rbtn_twomd.Checked = false;
+@@ -533,7 +533,7 @@ namespace UI
+             else if (PT_SET.UpDownRunMode == (int)PT_SET.RUN_MD.MD1_WORK) rbtn_md1.Checked = true;
+             else if (PT_SET.UpDownRunMode == (int)PT_SET.RUN_MD.MD2_WORK) rbtn_md2.Checked = true;
+ 
+-            //è¿è¡Œæ–¹å¼
++            //ÔËĞĞ·½Ê½
+             rbtn_run_normal.Checked = false;
+             rbtn_run_updw.Checked = false;
+             rbtn_run_empty.Checked = false;
+@@ -547,7 +547,7 @@ namespace UI
+             }
+             else ckclosewait.Checked = false;
+             nbclosewaittime.Value = PT_SET.CloseWaitTime;
+-            //ä¸‹æ–™å‰äºŒç»´ç æ£€æµ‹
++            //ÏÂÁÏÇ°¶şÎ¬Âë¼ì²â
+             if (PT_SET.OpenDownQrde)
+             {
+                 if (PT_SET.UpDownQrde)
+@@ -570,49 +570,49 @@ namespace UI
+                 rbtn_opendownqrcode.Checked = false;
+             }
+ 
+-            //è§†è§‰å›æ£€
++            //ÊÓ¾õ»Ø¼ì
+             Chk_OpenVs.Checked = PT_SET.bEnVsFB;
+             nud_vschk_xyofs.Value = (decimal)PT_SET.Vs_XYofs;
+             nud_vschk_rofs.Value = (decimal)PT_SET.Vs_Rofs;
+ 
+-            //æ–™ç›˜ä½ç½®æ£€æµ‹
++            //ÁÏÅÌÎ»ÖÃ¼ì²â
+             rbtn_OpenVsTray.Checked = false;
+             rbtn_CloseVsTray.Checked = false;
+             if (PT_SET.bEnVsTray) rbtn_OpenVsTray.Checked = true;
+             else rbtn_CloseVsTray.Checked = true;
+ 
+-            //Y1è½´å¼€å¯è®¾ç½®
++            //Y1Öá¿ªÆôÉèÖÃ
+             rbtn_Y1dis.Checked = false;
+             rbtn_Y1en.Checked = false;
+             if (PT_SET.Y1En) rbtn_Y1en.Checked = true;
+             else rbtn_Y1dis.Checked = true;
+ 
+-            //å³å…‰ç®±Y1è½´å¼€å¯è®¾ç½®
++            //ÓÒ¹âÏäY1Öá¿ªÆôÉèÖÃ
+             rbtn_RY1dis.Checked = false;
+             rbtn_RY1en.Checked = false;
+             if (PT_SET.RY1En) rbtn_RY1en.Checked = true;
+             else rbtn_RY1dis.Checked = true;
+             safepos.Value = (decimal)PT_SET.safepos;
+-            //å·¦å³å…‰ç®±å¼€å¯è®¾ç½®
++            //×óÓÒ¹âÏä¿ªÆôÉèÖÃ
+             rbtn_lbdis.Checked = false;
+             rbtn_lben.Checked = false;
+             if (PT_SET.LbEn) rbtn_lben.Checked = true;
+             else rbtn_lbdis.Checked = true;
+ 
+-            //å¼€å›¾é¡ºåºè®¾ç½®
++            //¿ªÍ¼Ë³ĞòÉèÖÃ
+             rbtn_next_turnon.Checked = false;
+             rbtn_pre_turnon.Checked = false;
+             if (PT_SET.turnon) rbtn_pre_turnon.Checked = true;
+             else rbtn_next_turnon.Checked = true;
+             nud_OpenDly.Value = PT_SET.OpenDly;
+ 
+-            //æ–™ç›˜äºŒç»´ç æ‹ç…§è®¾ç½®
++            //ÁÏÅÌ¶şÎ¬ÂëÅÄÕÕÉèÖÃ
+             rbtn_traybaren.Checked = false;
+             rbtn_traybardis.Checked = false;
+             if (PT_SET.TrayBarcodeEn) rbtn_traybaren.Checked = true;
+             else rbtn_traybardis.Checked = true;
+ 
+-            //å¸å¤´1å…ˆè¿åŠ¨è®¾ç½®
++            //ÎüÍ·1ÏÈÔË¶¯ÉèÖÃ
+             rbtn_xt1firstdis.Checked = false;
+             rbtn_xt1firsten.Checked = false;
+             if (PT_SET.xt1firsten) rbtn_xt1firsten.Checked = true;
+@@ -621,13 +621,13 @@ namespace UI
+             rbtUpDnAddTestOn.Checked = PT_SET.bUpDnAddTest;
+             rbtUpDnAddTestOff.Checked = !PT_SET.bUpDnAddTest;
+ 
+-            //æ¨¡ç»„å¤§å°è®¾ç½®
++            //Ä£×é´óĞ¡ÉèÖÃ
+             rbtn_big.Checked = false;
+             rbtn_small.Checked = false;
+             if (PT_SET.issmall) rbtn_small.Checked = true;
+             else rbtn_big.Checked = true;
+ 
+-            //æ¨¡å¼å¼€å¯è®¾ç½®
++            //Ä£Ê½¿ªÆôÉèÖÃ
+             rbtn_double.Checked = false;
+             rbtn_single.Checked = false;
+             rbtn_Sml.Checked = false;
+@@ -636,14 +636,14 @@ namespace UI
+             else if (PT_SET.bitOpenMode == 2) rbtn_double.Checked = true;
+             else if (PT_SET.bitOpenMode == 3) rbtn_Lag.Checked = true;
+             else if (PT_SET.bitOpenMode == 4) rbtn_Sml.Checked = true;
+-            //éœå°”æµ‹è¯•è®¾ç½®
++            //»ô¶û²âÊÔÉèÖÃ
+             rbtn_hallen.Checked = false;
+             rbtn_halldis.Checked = false;
+             if (PT_SET.HallEn) rbtn_hallen.Checked = true;
+             else rbtn_halldis.Checked = true;
+             chk_downfliptest.Checked = PT_SET.bDownFlipTest;
+ 
+-            //å¼€å…³å–æ”¾æ–™è§’åº¦è®¾ç½®
++            //¿ª¹ØÈ¡·ÅÁÏ½Ç¶ÈÉèÖÃ
+             rbtn_open_degree.Checked = false;
+             rbtn_close_degree.Checked = false;
+             if (PT_SET.isopen_degree
+@@ -651,14 +651,14 @@ namespace UI
+             else rbtn_close_degree.Checked = true;
+             nud_offset_degree.Value = PT_SET.degree;
+ 
+-            //å¼€å…³å·¥ç«™ä¸‹æ–™å–æ”¾æ–™è§’åº¦è®¾ç½®
++            //¿ª¹Ø¹¤Õ¾ÏÂÁÏÈ¡·ÅÁÏ½Ç¶ÈÉèÖÃ
+             rbtn_opendown_degree.Checked = false;
+             rbtn_closedown_degree.Checked = false;
+             if (PT_SET.isopendown_degree) rbtn_opendown_degree.Checked = true;
+             else rbtn_closedown_degree.Checked = true;
+             nud_offsetdown_degree.Value = PT_SET.downdegree;
+ 
+-            //äºŒç»´ç å›æ£€è®¾å¤‡
++            //¶şÎ¬Âë»Ø¼ìÉè±¸
+             rbtn_OpenBarCamBack.Checked = false;
+             rbtn_CloseBarCamBack.Checked = false;
+             if (PT_SET.bBarcodeCamBackEn) rbtn_OpenBarCamBack.Checked = true;
+@@ -666,11 +666,11 @@ namespace UI
+ 
+             rbtn_AddCapQrcodeEnOnly.Checked = false;
+             rbtn_AddCapQrcodeEnOnlyClose.Checked = false;
+-            //å•ç‹¬è¿›è¡ŒäºŒç»´ç å›æ£€
++            //µ¥¶À½øĞĞ¶şÎ¬Âë»Ø¼ì
+             if (PT_SET.bBarcodeCamBackEnOnly) rbtn_AddCapQrcodeEnOnly.Checked = true;
+             else rbtn_AddCapQrcodeEnOnlyClose.Checked = true;
+ 
+-            //OKå“ä¸‹æ–™æ£€æµ‹
++            //OKÆ·ÏÂÁÏ¼ì²â
+             rbtn_OkCheckEn.Checked = false;
+             rbtn_OkCheckDis.Checked = false;
+             /*if (PT_SET.bOkCheck)*/
+@@ -694,7 +694,7 @@ namespace UI
+             boxChecksetpos4.Value = (decimal)PT_SET.boxsetpos4;
+ 
+ 
+-            ////å¸å¤´å±è”½
++            ////ÎüÍ·ÆÁ±Î
+             //rbtXt11EnableOff.Checked = false;
+             //rbtXt11EnableOn.Checked = false;
+             //rbtXt12EnableOff.Checked = false;
+@@ -715,36 +715,36 @@ namespace UI
+             if (PT_SET.bUpDn1XtOnlyOne) rbtUpDn1OneXtOn.Checked = true; else rbtUpDn1OneXtOff.Checked = true;
+             if (PT_SET.bUpDn2XtOnlyOne) rbtUpDn2OneXtOn.Checked = true; else rbtUpDn2OneXtOff.Checked = true;
+ 
+-            //å·¥ç«™è§†è§‰æ¨¡æ¿å¢åŠ æœ‰æ— æ£€æµ‹
++            //¹¤Õ¾ÊÓ¾õÄ£°åÔö¼ÓÓĞÎŞ¼ì²â
+             rbtn_OpenWsVsAddCheck.Checked = false;
+             rbtn_CloseWsVsAddCheck.Checked = false;
+             if (PT_SET.bWsVsAddCheckEn) rbtn_OpenWsVsAddCheck.Checked = true;
+             else rbtn_CloseWsVsAddCheck.Checked = true;
+ 
+-            //ä¸Šä¸‹æ–™ç§»åŠ¨ä¿æŠ¤(é’ˆå¯¹è½¬ç›˜)
++            //ÉÏÏÂÁÏÒÆ¶¯±£»¤(Õë¶Ô×ªÅÌ)
+             rbtn_safeoff.Checked = false;
+             rbtn_safeon.Checked = false;
+             if (PT_SET.bUdMovSafe) rbtn_safeon.Checked = true;
+             else rbtn_safeoff.Checked = true;
+ 
+-            //é—¨ç¦
++            //ÃÅ½û
+             chk_leftlightbox.Checked = PT_SET.bEnLBoxDr;
+             chk_rightlightbox.Checked = PT_SET.bEnRBoxDr;
+             chk_tray.Checked = PT_SET.bEnTrayDr;
+             chk_updown.Checked = PT_SET.bEnUpDownDr;
+ 
+-            //GRRæµç¨‹
++            //GRRÁ÷³Ì
+             chk_grr.Checked = PT_SET.bGrrFlow;
+             nud_grrtestcnt.Value = PT_SET.GRRTestCnt;
+             nud_grrtudlcnt.Value = PT_SET.GRRUdlCnt;
+ 
+-            //ç›¸æœºå­˜å‚¨å›¾ç‰‡
++            //Ïà»ú´æ´¢Í¼Æ¬
+             chk_upcam1.Checked = COM.CamUp1.bSaveImage;
+             chk_dwcam1.Checked = COM.CamDw1.bSaveImage;
+             chk_upcam2.Checked = COM.CamUp2.bSaveImage;
+             chk_dwcam2.Checked = COM.CamDw2.bSaveImage;
+ 
+-            //å¸å¤´åå·®
++            //ÎüÍ·Æ«²î
+             nud_dwCam_xt1_ofs.Value = (decimal)COM.xt1.cap_offset;
+             nud_dwCam_xt2_ofs.Value = (decimal)COM.xt2.cap_offset;
+             nud_dwCam_xt3_ofs.Value = (decimal)COM.xt3.cap_offset;
+@@ -755,52 +755,52 @@ namespace UI
+             nud_dwCam_xt3_Qrofs.Value = (decimal)COM.xt3.DwCapQrCodeoffset;
+             nud_dwCam_xt4_Qrofs.Value = (decimal)COM.xt4.DwCapQrCodeoffset;
+ 
+-            //æ¨¡ç»„å¸¦èµ·
++            //Ä£×é´øÆğ
+             Chk_ModPasteUp.Checked = PT_SET.bModPasteUp;
+             nud_PlaceDly.Value = PT_SET.PlaceDly;
+             nud_MovUpDly.Value = PT_SET.MovUpDly;
+ 
+-            //é«˜é€æ¨¡åç§»æ£€æµ‹
++            //¸ßÍ¸Ä£Æ«ÒÆ¼ì²â
+             chk_GTMCheck.Checked = PT_SET.bGTMCheck;
+             nud_GTMOfs.Value = (decimal)PT_SET.GTMOfs;
+-            //åŒå·¥ä½è¿ç»­åŒNGæç¤º
++            //Í¬¹¤Î»Á¬ĞøÍ¬NGÌáÊ¾
+             chk_SameNGTip.Checked = PT_SET.bSameNGTip;
+             PT_SET.SameNGTipCnt = Math.Max((int)nud_SameNGTipCnt.Minimum, Math.Min((int)nud_SameNGTipCnt.Maximum, PT_SET.SameNGTipCnt));
+             nud_SameNGTipCnt.Value = (decimal)PT_SET.SameNGTipCnt;
+-            //åŒå·¥ä½è¿ç»­åŒNGæç¤º
++            //Í¬¹¤Î»Á¬ĞøÍ¬NGÌáÊ¾
+             chk_SameRowNGTip.Checked = PT_SET.bSameRowNGTip;
+             nud_SameRowNGTipCnt.Value = (decimal)PT_SET.SameRowNGTipCnt;
+-            //ä¿å…»
++            //±£Ñø
+             nud_EquipmentMaintain.Value = PT_SET.EquipmentMT;
+             nud_FixtrueMaintain.Value = PT_SET.FixtrueMT;
+-            //æ•°æ®ä¸Šä¼ è®¾ç½®
++            //Êı¾İÉÏ´«ÉèÖÃ
+             chk_UpLoadData.Checked = PT_SET.bUploadData;
+             chk_UpdateSoft.Checked = PT_SET.bUpdateSoft;
+-            //å·¥ç«™äºŒæ¬¡å–æ–™
++            //¹¤Õ¾¶ş´ÎÈ¡ÁÏ
+             rbtn_OpenWsPickAgain.Checked = false;
+             rbtn_CloseWsPickAgain.Checked = false;
+             if (PT_SET.bWsPickAgain) rbtn_OpenWsPickAgain.Checked = true;
+             else rbtn_CloseWsPickAgain.Checked = true;
+ 
+ 
+-            //å›æ£€å¤±è´¥ç»§ç»­è¿è¡Œè®¾ç½®
++            //»Ø¼ìÊ§°Ü¼ÌĞøÔËĞĞÉèÖÃ
+             rbtn_backerrcontinueen.Checked = false;
+             rbtn_backerrcontinuedis.Checked = false;
+             if (PT_SET.bBackerrcontinue) rbtn_backerrcontinueen.Checked = true;
+             else rbtn_backerrcontinuedis.Checked = true;
+-            //å¤¹å…·åŒå·¥ä½éæ°´å¹³è®¾ç½®
++            //¼Ğ¾ßË«¹¤Î»·ÇË®Æ½ÉèÖÃ
+             rbtn_nonparallelen.Checked = false;
+             rbtn_nonparalleldis.Checked = false;
+             if (PT_SET.bNonparallel) rbtn_nonparallelen.Checked = true;
+             else rbtn_nonparalleldis.Checked = true;
+-            //å¤¹å…·æ¸…æ´—è®¾ç½®
++            //¼Ğ¾ßÇåÏ´ÉèÖÃ
+             rbtn_cleanen.Checked = false;
+             rbtn_cleandis.Checked = false;
+             if (PT_SET.bCleanen) rbtn_cleanen.Checked = true;
+             else rbtn_cleandis.Checked = true;
+             nud_cleaninterval.Value = (decimal)PT_SET.Cleaninterval;
+ 
+-            //ç›¸æœºå‚æ•°è®¾ç½®
++            //Ïà»ú²ÎÊıÉèÖÃ
+             rbtn_camcfgsetdis.Checked = false;
+             rbtn_camcfgseten.Checked = false;
+             if (PT_SET.BCamcfgset) rbtn_camcfgseten.Checked = true;
+@@ -828,31 +828,31 @@ namespace UI
+             nud_jig_contrast2.Value = (decimal)PT_SET.JigContrast[1];
+ 
+ 
+-            //ç‚¹æ£€æ—¶é—´è®¾ç½®
++            //µã¼ìÊ±¼äÉèÖÃ
+             dateTimePicker1.Value = Convert.ToDateTime(PT_SET.CheckTimeMorning);
+             dateTimePicker2.Value = Convert.ToDateTime(PT_SET.CheckTimeEvening);
+-            //æ‰§è¡Œç‚¹æ£€æ—¶é—´è®¾ç½®
++            //Ö´ĞĞµã¼ìÊ±¼äÉèÖÃ
+             dateTimePicker3.Value = Convert.ToDateTime(PT_SET.CheckTimeMorning1);
+             dateTimePicker4.Value = Convert.ToDateTime(PT_SET.CheckTimeEvening2);
+-            //ä¸Šä¸‹æ–™å‘¨æœŸä¿å­˜è®¾ç½®
++            //ÉÏÏÂÁÏÖÜÆÚ±£´æÉèÖÃ
+             rbtn_CycleEn.Checked = false;
+             rbtn_CycleDis.Checked = false;
+             if (PT_SET.bCycle) rbtn_CycleEn.Checked = true;
+             else rbtn_CycleDis.Checked = true;
+ 
+-            //é™æ¸©è®¾ç½®
++            //½µÎÂÉèÖÃ
+             rbtn_coolen.Checked = false;
+             rbtn_cooldis.Checked = false;
+             if (PT_SET.bCool) rbtn_coolen.Checked = true;
+             else rbtn_cooldis.Checked = true;
+ 
+-            //DCCæµ‹è¯•ç§»è‡³ä¸Šä¸‹æ–™
++            //DCC²âÊÔÒÆÖÁÉÏÏÂÁÏ
+             rbtn_delaytesten.Checked = false;
+             rbtn_delaytestdis.Checked = false;
+             if (PT_SET.bDelayTest) rbtn_delaytesten.Checked = true;
+             else rbtn_delaytestdis.Checked = true;
+ 
+-            //NGç®¡æ§è®¾ç½®
++            //NG¹Ü¿ØÉèÖÃ
+             rbtn_ngcontrolen.Checked = false;
+             rbtn_ngcontroldis.Checked = false;
+             if (PT_SET.bNgControl) rbtn_ngcontrolen.Checked = true;
+@@ -860,14 +860,14 @@ namespace UI
+             nud_ngscale.Value = (decimal)PT_SET.ngScale;
+             nud_ngcode.Value = (decimal)PT_SET.ngCode;
+ 
+-            //æŒç»­æŠ¥è­¦è®¾ç½®
++            //³ÖĞø±¨¾¯ÉèÖÃ
+             rbtn_ContinuousAlarmEn.Checked = false;
+             rbtn_ContinuousAlarmDis.Checked = false;
+             if (PT_SET.bContinuousAlarm) rbtn_ContinuousAlarmEn.Checked = true;
+             else rbtn_ContinuousAlarmDis.Checked = true;
+ 
+ 
+-            //è‰¯ç‡ç®¡æ§
++            //Á¼ÂÊ¹Ü¿Ø
+             rbtn_NgWarningEn.Checked = true;
+             rbtn_NgWarningDis.Checked = false;
+             //if (PT_SET.bNgWarn) rbtn_NgWarningEn.Checked = true;
+@@ -878,13 +878,13 @@ namespace UI
+             rbtn_MesRemote.Checked = false;
+             if (PT_SET.IsMesLocal) rbtn_MesLocal.Checked = true;
+             else rbtn_MesRemote.Checked = true;
+-            //gy0123å¤¹å…·ä¸Šä¼ æ•°æ®é—´éš”æ—¶é—´
++            //gy0123¼Ğ¾ßÉÏ´«Êı¾İ¼ä¸ôÊ±¼ä
+             nud_JigSendTime.Value = PT_SET.JigCntSend;
+ 
+-            //æœ€å¤§æµ‹è¯•æ—¶é—´
++            //×î´ó²âÊÔÊ±¼ä
+             nud_TestTime.Value = PT_SET.TestTime;
+ 
+-            //å¤¹å…·æ‰«ç gy0123
++            //¼Ğ¾ßÉ¨Âëgy0123
+             btnStartJigSan1.Checked = COM.ws1.bjigSan;
+             btnStartJigSan2.Checked = COM.ws2.bjigSan;
+             btnStartJigSan3.Checked = COM.ws3.bjigSan;
+@@ -892,7 +892,7 @@ namespace UI
+             rabt_jigscan_ON.Checked = PT_SET.bJigSan;
+             rabt_jigscan_OFF.Checked = !PT_SET.bJigSan;
+ 
+-            //æ–°å¢ä¸Šæ‹äºŒç»´ç 
++            //ĞÂÔöÉÏÅÄ¶şÎ¬Âë
+             rbtn_AddCapQrcodeDis.Checked = false;
+             rbtn_AddCapQrcodeEn.Checked = false;
+             if (PT_SET.bAddCapQrcode) rbtn_AddCapQrcodeEn.Checked = true;
+@@ -911,11 +911,12 @@ namespace UI
+             ckupload.Checked = PT_SET.upload;
+             ckcloseazd.Checked = PT_SET.closeazd;
+             ckJigDownPhoto.Checked = PT_SET.bJigDownPhoto;
++            nudJigDownPhotoIntervalHours.Value = (decimal)Math.Max(0, Math.Min((double)nudJigDownPhotoIntervalHours.Maximum, PT_SET.JigDownPhotoIntervalHours));
+             rbtn_DwAddCapQrcodeEn.Checked = PT_SET.bDwAddCapQrcode;
+             rbtn_DwAddCapQrcodeOff.Checked = !PT_SET.bDwAddCapQrcode;
+             rbtn_check2open.Checked = PT_SET.Check2open;
+             rbtn_check2close.Checked = !PT_SET.Check2open;
+-            //å›æ£€ç®¡æ§
++            //»Ø¼ì¹Ü¿Ø
+             nud_LeftArea.Value = (decimal)PT_SET.LeftArea;
+             nud_RightArea.Value = (decimal)PT_SET.RightArea;
+             nud_UpArea.Value = (decimal)PT_SET.UpArea;
+@@ -948,7 +949,7 @@ namespace UI
+                 tb_eqp_sn.Text = PT_SET.EqpSN;
+ 
+ 
+-            //é©¬è¾¾æ‰«ç è®¾ç½®
++            //Âí´ïÉ¨ÂëÉèÖÃ
+             rbtn_motoren.Checked = false;
+             rbtn_motordis.Checked = false;
+             if (PT_SET.bmotorphoto) rbtn_motoren.Checked = true;
+@@ -1002,7 +1003,7 @@ namespace UI
+             NumWsNgCntPer20.Value = (decimal)PT_SET.CntWsNgRateShow;
+ 
+ 
+-            //è‡ªåŠ¨ç‚¹æ£€
++            //×Ô¶¯µã¼ì
+             rbt_autoChkOff.Checked = !PT_SET.AutoChkEn;
+             rbt_autoChkOn.Checked = PT_SET.AutoChkEn;
+ 
+@@ -1019,7 +1020,7 @@ namespace UI
+             rbt_modeH.Checked = PT_SET.AutoChkMode == (int)PT_SET.AutoChkMod.Huawei;
+             rbt_modeL.Checked = PT_SET.AutoChkMode == (int)PT_SET.AutoChkMod.Lenov;
+ 
+-            ///è·ç¦»å…‰æºè‡ªåŠ¨ç‚¹æ£€
++            ///¾àÀë¹âÔ´×Ô¶¯µã¼ì
+             AFC_cctdraggableProgressBar.Percentage = PT_SET.afc_cct_uniformity_precent;
+             AFC_luxdraggableProgressBar.Percentage = PT_SET.afc_lux_uniformity_precent;
+             DCC_cctdraggableProgressBar.Percentage = PT_SET.dcc_cct_uniformity_precent;
+@@ -1027,7 +1028,7 @@ namespace UI
+             OTP_cctdraggableProgressBar.Percentage = PT_SET.otp_cct_uniformity_precent;
+             OTP_luxdraggableProgressBar.Percentage = PT_SET.otp_lux_uniformity_precent;
+ 
+-            ////å±è”½
++            ////ÆÁ±Î
+             AFC_APOS.Value = PT_SET.ApointposAFC;
+             AFC_BPOS.Value = PT_SET.BpointposAFC;
+             AFC_CPOS.Value = PT_SET.CpointposAFC;
+@@ -1071,10 +1072,10 @@ namespace UI
+             }
+             switch (PT_SET.CheckWs)
+             {
+-                case 1: CheckWsCombox.Text = "å·¥ç«™1"; break;
+-                case 2: CheckWsCombox.Text = "å·¥ç«™2"; break;
+-                case 3: CheckWsCombox.Text = "å·¥ç«™3"; break;
+-                case 4: CheckWsCombox.Text = "å·¥ç«™4"; break;
++                case 1: CheckWsCombox.Text = "¹¤Õ¾1"; break;
++                case 2: CheckWsCombox.Text = "¹¤Õ¾2"; break;
++                case 3: CheckWsCombox.Text = "¹¤Õ¾3"; break;
++                case 4: CheckWsCombox.Text = "¹¤Õ¾4"; break;
+ 
+             }
+             distance_coefficient.Value = (decimal)PT_SET.distance_coefficient;
+@@ -1100,9 +1101,9 @@ namespace UI
+             }
+             else poscnt = 1;
+             if (poscnt == 1)
+-                lbAutoChkShowMsg.Text = $"è¯·é€‰æ‹©1ä¸ªç‚¹æ£€æ¨¡ç»„çš„ä¸Šæ–™ä½ç½®";
++                lbAutoChkShowMsg.Text = $"ÇëÑ¡Ôñ1¸öµã¼ìÄ£×éµÄÉÏÁÏÎ»ÖÃ";
+             else
+-                lbAutoChkShowMsg.Text = $"å½“å‰æ¨¡å¼å›ºå®šäº†æ”¾ç½®ç‚¹æ£€æ¨¡ç»„çš„ä½ç½®";
++                lbAutoChkShowMsg.Text = $"µ±Ç°Ä£Ê½¹Ì¶¨ÁË·ÅÖÃµã¼ìÄ£×éµÄÎ»ÖÃ";
+             if (poscnt == 16)
+             {
+                 for (int Num = 1; Num <= 16; Num++)
+@@ -1184,11 +1185,11 @@ namespace UI
+             PT_SET.citynum = cbcity.SelectedIndex;
+             PT_SET.upload =ckupload.Checked;
+             PT_SET.closeazd = ckcloseazd.Checked;
+-            //çƒ˜çƒ¤æ£€æµ‹
++            //ºæ¿¾¼ì²â
+             PT_SET.OvenCheck = rbtn_opencheckoven.Checked;
+-            //å…‰æºé€‰æ‹©
++            //¹âÔ´Ñ¡Ôñ
+             PT_SET.bG4C = rad_G4C.Checked;
+-            //å¤¹å…·æ‰«ç gy0123
++            //¼Ğ¾ßÉ¨Âëgy0123
+             COM.ws1.bjigSan = btnStartJigSan1.Checked;
+             COM.ws2.bjigSan = btnStartJigSan2.Checked;
+             COM.ws3.bjigSan = btnStartJigSan3.Checked;
+@@ -1196,13 +1197,14 @@ namespace UI
+             PT_SET.bJigSan = rabt_jigscan_ON.Checked;
+             PT_SET.Check2open = rbtn_check2open.Checked;
+             PT_SET.bJigDownPhoto = ckJigDownPhoto.Checked;
++            PT_SET.JigDownPhotoIntervalHours = (double)nudJigDownPhotoIntervalHours.Value;
+             PT_SET.Isaloneset = cbisaloneset.Checked;
+             PT_SET.Ismagic = checkmagic.Checked;
+             PT_SET.magictimes = (int)nummagic.Value;
+             PT_SET.CloseWait = ckclosewait.Checked;
+             PT_SET.CloseWaitTime = (int)nbclosewaittime.Value;
+ 
+-            //ç­‰å¾…å¤¹å…·å®Œå…¨æ‰“å¼€æ‰è¿›è¡Œæµ‹è¯•
++            //µÈ´ı¼Ğ¾ßÍêÈ«´ò¿ª²Å½øĞĞ²âÊÔ
+             COM.ws1.waitopen = ckws1wait.Checked;
+             COM.ws2.waitopen = ckws2wait.Checked;
+             COM.ws3.waitopen = ckws3wait.Checked;
+@@ -1212,16 +1214,16 @@ namespace UI
+                 ws.waittime = (int)nbwaittime.Value;
+             }
+ 
+-            //äºŒç»´ç æ‰«ç æ–¹å¼
++            //¶şÎ¬ÂëÉ¨Âë·½Ê½
+             if (rbtn_upcode.Checked) PT_SET.BarcodeMode = (int)PT_SET.BAR_SCAN.UP_SCAN;
+             else if (rbtn_dwcode.Checked) PT_SET.BarcodeMode = (int)PT_SET.BAR_SCAN.DW_SCAN;
+             else PT_SET.BarcodeMode = (int)PT_SET.BAR_SCAN.NO_SCAN;
+             PT_SET.safepos = (double)safepos.Value;
+-            //è¿è¡Œæ¨¡å¼
++            //ÔËĞĞÄ£Ê½
+             if (rbtn_twomd.Checked) PT_SET.UpDownRunMode = (int)PT_SET.RUN_MD.BOTH_WORK;
+             else if (rbtn_md1.Checked) PT_SET.UpDownRunMode = (int)PT_SET.RUN_MD.MD1_WORK;
+             else if (rbtn_md2.Checked) PT_SET.UpDownRunMode = (int)PT_SET.RUN_MD.MD2_WORK;
+-            //ä¸‹æ–™å‰æ£€æµ‹äºŒç»´ç 
++            //ÏÂÁÏÇ°¼ì²â¶şÎ¬Âë
+             if (rbtn_openupdownqrcode.Checked)
+             {
+                 PT_SET.OpenDownQrde = true;
+@@ -1259,15 +1261,15 @@ namespace UI
+             }
+             PT_SET.afcclosetime = (double)numafc.Value;
+ 
+-            //è¿è¡Œæ–¹å¼
++            //ÔËĞĞ·½Ê½
+             if (rbtn_run_normal.Checked) PT_SET.RunPattern = (int)PT_SET.RUN_PATTERN.RUN_NORMAL;
+             else if (rbtn_run_updw.Checked) PT_SET.RunPattern = (int)PT_SET.RUN_PATTERN.RUN_UPDW;
+             else if (rbtn_run_empty.Checked) PT_SET.RunPattern = (int)PT_SET.RUN_PATTERN.RUN_EMPTY;
+-            //è§†è§‰å›æ£€
++            //ÊÓ¾õ»Ø¼ì
+             //PT_SET.bEnVsFB = Chk_OpenVs.Checked;
+             PT_SET.Vs_XYofs = (double)nud_vschk_xyofs.Value;
+             PT_SET.Vs_Rofs = (double)nud_vschk_rofs.Value;
+-            //å¸å¤´åå·®
++            //ÎüÍ·Æ«²î
+             COM.xt1.cap_offset = (double)nud_dwCam_xt1_ofs.Value;
+             COM.xt2.cap_offset = (double)nud_dwCam_xt2_ofs.Value;
+             COM.xt3.cap_offset = (double)nud_dwCam_xt3_ofs.Value;
+@@ -1277,51 +1279,51 @@ namespace UI
+             COM.xt2.DwCapQrCodeoffset = (double)nud_dwCam_xt2_Qrofs.Value;
+             COM.xt3.DwCapQrCodeoffset = (double)nud_dwCam_xt3_Qrofs.Value;
+             COM.xt4.DwCapQrCodeoffset = (double)nud_dwCam_xt4_Qrofs.Value;
+-            //æ–™ç›˜ä½ç½®æ£€æµ‹
++            //ÁÏÅÌÎ»ÖÃ¼ì²â
+             if (rbtn_OpenVsTray.Checked) PT_SET.bEnVsTray = true;
+             else if (rbtn_CloseVsTray.Checked) PT_SET.bEnVsTray = false;
+-            //Y1è½´å¼€å¯è®¾ç½®
++            //Y1Öá¿ªÆôÉèÖÃ
+             if (rbtn_Y1en.Checked) PT_SET.Y1En = true;
+             else if (rbtn_Y1dis.Checked) PT_SET.Y1En = false;
+-            //å³å…‰ç®±Y1è½´å¼€å¯è®¾ç½®
++            //ÓÒ¹âÏäY1Öá¿ªÆôÉèÖÃ
+             if (rbtn_RY1en.Checked) PT_SET.RY1En = true;
+             else if (rbtn_RY1dis.Checked) PT_SET.RY1En = false;
+-            //å·¦å³å…‰ç®±å¼€å¯è®¾ç½®
++            //×óÓÒ¹âÏä¿ªÆôÉèÖÃ
+             if (rbtn_lben.Checked) PT_SET.LbEn = true;
+             else if (rbtn_lbdis.Checked) PT_SET.LbEn = false;
+-            //å¼€å›¾é¡ºåºè®¾ç½®
++            //¿ªÍ¼Ë³ĞòÉèÖÃ
+             if (rbtn_pre_turnon.Checked) PT_SET.turnon = true;
+             else if (rbtn_next_turnon.Checked) PT_SET.turnon = false;
+             PT_SET.OpenDly = (int)nud_OpenDly.Value;
+-            //æ–™ç›˜äºŒç»´ç æ‹ç…§è®¾ç½®
++            //ÁÏÅÌ¶şÎ¬ÂëÅÄÕÕÉèÖÃ
+             if (rbtn_traybaren.Checked) PT_SET.TrayBarcodeEn = true;
+             else if (rbtn_traybardis.Checked) PT_SET.TrayBarcodeEn = false;
+-            //å¸å¤´1å…ˆè¿åŠ¨è®¾ç½®
++            //ÎüÍ·1ÏÈÔË¶¯ÉèÖÃ
+             if (rbtn_xt1firsten.Checked) PT_SET.xt1firsten = true;
+             else if (rbtn_xt1firstdis.Checked) PT_SET.xt1firsten = false;
+-            //æ¨¡ç»„å¤§å°è®¾ç½®
++            //Ä£×é´óĞ¡ÉèÖÃ
+             if (rbtn_small.Checked) PT_SET.issmall = true;
+             else if (rbtn_big.Checked) PT_SET.issmall = false;
+-            //å•åŒå¼€è®¾ç½®
++            //µ¥Ë«¿ªÉèÖÃ
+             if (rbtn_single.Checked) PT_SET.bitOpenMode = 1;
+             else if (rbtn_double.Checked) PT_SET.bitOpenMode = 2;
+             else if (rbtn_Lag.Checked) PT_SET.bitOpenMode = 3;
+             else if (rbtn_Sml.Checked) PT_SET.bitOpenMode = 4;
+-            //éœå°”æµ‹è¯•
++            //»ô¶û²âÊÔ
+             if (rbtn_hallen.Checked) PT_SET.HallEn = true;
+             else if (rbtn_halldis.Checked) PT_SET.HallEn = false;
+             PT_SET.bDownFlipTest = chk_downfliptest.Checked;
+-            //å–æ”¾æ–™å¼€æ”¾è§’åº¦è®¾ç½®
++            //È¡·ÅÁÏ¿ª·Å½Ç¶ÈÉèÖÃ
+             if (rbtn_open_degree.Checked) PT_SET.isopen_degree = true;
+             else if (rbtn_close_degree.Checked) PT_SET.isopen_degree = false;
+             PT_SET.degree = (int)nud_offset_degree.Value;
+ 
+-            //å·¥ç«™ä¸‹æ–™å¼€æ”¾è§’åº¦è®¾ç½®
++            //¹¤Õ¾ÏÂÁÏ¿ª·Å½Ç¶ÈÉèÖÃ
+             if (rbtn_opendown_degree.Checked) PT_SET.isopendown_degree = true;
+             else if (rbtn_closedown_degree.Checked) PT_SET.isopendown_degree = false;
+             PT_SET.downdegree = (int)nud_offsetdown_degree.Value;
+ 
+-            //äºŒç»´ç å›æ£€è®¾ç½®
++            //¶şÎ¬Âë»Ø¼ìÉèÖÃ
+             if (rbtn_OpenBarCamBack.Checked) PT_SET.bBarcodeCamBackEn = true;
+             else if (rbtn_CloseBarCamBack.Checked) PT_SET.bBarcodeCamBackEn = false;
+             if (PT_SET.BarcodeMode == (int)PT_SET.BAR_SCAN.UP_SCAN)
+@@ -1335,11 +1337,11 @@ namespace UI
+             //rbtn_CloseBarCamBack.Checked = false;
+             //if (!rbtn_CloseBarCamBack.Checked) rbtn_OpenBarCamBack.Checked = true; 
+             //PT_SET.bBarcodeCamBackEn = rbtn_OpenBarCamBack.Checked;
+-            //OKå“ä¸‹æ–™æ£€æµ‹è®¾ç½®
++            //OKÆ·ÏÂÁÏ¼ì²âÉèÖÃ
+             /*if (rbtn_OkCheckEn.Checked)*/
+             PT_SET.bOkCheck = true;
+             //**  else if (rbtn_OkCheckDis.Checked)*/ PT_SET.bOkCheck = false;*/
+-            //å¤¹å…·å®‰è£…é˜²å‘†æ£€æµ‹è®¾ç½®
++            //¼Ğ¾ß°²×°·À´ô¼ì²âÉèÖÃ
+             if (rbtn_boxCheckEn.Checked) PT_SET.bboxCheck = true;
+             else if (rbtn_boxCheckOff.Checked) PT_SET.bboxCheck = false;
+             PT_SET.boxpos1.x = (double)boxCheckpos1X.Value;
+@@ -1357,13 +1359,13 @@ namespace UI
+             PT_SET.boxsetpos4 = (double)boxChecksetpos4.Value;
+ 
+ 
+-            //å·¥ç«™è§†è§‰æ¨¡æ¿å¢åŠ æœ‰æ— æ£€æµ‹
++            //¹¤Õ¾ÊÓ¾õÄ£°åÔö¼ÓÓĞÎŞ¼ì²â
+             if (rbtn_OpenWsVsAddCheck.Checked) PT_SET.bWsVsAddCheckEn = true;
+             else if (rbtn_CloseWsVsAddCheck.Checked) PT_SET.bWsVsAddCheckEn = false;
+-            //ä¸Šä¸‹æ–™ç§»åŠ¨ä¿æŠ¤(é’ˆå¯¹è½¬ç›˜)
++            //ÉÏÏÂÁÏÒÆ¶¯±£»¤(Õë¶Ô×ªÅÌ)
+             if (rbtn_safeon.Checked) PT_SET.bUdMovSafe = true;
+             else if (rbtn_safeoff.Checked) PT_SET.bUdMovSafe = false;
+-            //é—¨ç¦
++            //ÃÅ½û
+             if (!chk_leftlightbox.Checked) chk_leftlightbox.Checked = true;
+             if (!chk_rightlightbox.Checked) chk_rightlightbox.Checked = true;
+             if (!chk_tray.Checked) chk_tray.Checked = true;
+@@ -1373,7 +1375,7 @@ namespace UI
+             PT_SET.bEnTrayDr = chk_tray.Checked;
+             PT_SET.bEnUpDownDr = chk_updown.Checked;
+ 
+-            ////å¸å¤´å±è”½
++            ////ÎüÍ·ÆÁ±Î
+             PT_SET.bUpDn1XtOnlyOne = rbtUpDn1OneXtOn.Checked;
+             PT_SET.bUpDn2XtOnlyOne = rbtUpDn2OneXtOn.Checked;
+ 
+@@ -1385,54 +1387,54 @@ namespace UI
+             //_ = rbtXt22EnableOn.Checked ? COM.xt4.Enable = true : COM.xt4.Enable = false;
+ 
+ 
+-            //GRRæµç¨‹
++            //GRRÁ÷³Ì
+             PT_SET.bGrrFlow = chk_grr.Checked;
+             PT_SET.GRRTestCnt = (int)nud_grrtestcnt.Value;
+             PT_SET.GRRUdlCnt = (int)nud_grrtudlcnt.Value;
+-            // ç›¸æœºå­˜å‚¨å›¾ç‰‡
++            // Ïà»ú´æ´¢Í¼Æ¬
+             COM.CamUp1.bSaveImage = chk_upcam1.Checked;
+             COM.CamDw1.bSaveImage = chk_dwcam1.Checked;
+             COM.CamUp2.bSaveImage = chk_upcam2.Checked;
+             COM.CamDw2.bSaveImage = chk_dwcam2.Checked;
+-            //æ¨¡ç»„å¸¦èµ·
++            //Ä£×é´øÆğ
+             PT_SET.bModPasteUp = Chk_ModPasteUp.Checked;
+             PT_SET.PlaceDly = (int)nud_PlaceDly.Value;
+             PT_SET.MovUpDly = (int)nud_MovUpDly.Value;
+-            //é«˜é€æ¨¡åç§»æ£€æµ‹
++            //¸ßÍ¸Ä£Æ«ÒÆ¼ì²â
+             PT_SET.bGTMCheck = chk_GTMCheck.Checked;
+             PT_SET.GTMOfs = (double)nud_GTMOfs.Value;
+-            //åŒå·¥ä½è¿ç»­åŒNGæç¤º
++            //Í¬¹¤Î»Á¬ĞøÍ¬NGÌáÊ¾
+             PT_SET.bSameNGTip = chk_SameNGTip.Checked;
+             PT_SET.SameNGTipCnt = Math.Max((int)nud_SameNGTipCnt.Minimum, Math.Min((int)nud_SameNGTipCnt.Maximum, (int)nud_SameNGTipCnt.Value));
+             nud_SameNGTipCnt.Value = PT_SET.SameNGTipCnt;
+ 
+-            //ä¸Šä¸‹æ–™ä½ç½®å¢åŠ æµ‹è¯•
++            //ÉÏÏÂÁÏÎ»ÖÃÔö¼Ó²âÊÔ
+             PT_SET.bUpDnAddTest = rbtUpDnAddTestOn.Checked;
+ 
+-            //åŒå·¥ä½è¿ç»­åŒNGæç¤º
++            //Í¬¹¤Î»Á¬ĞøÍ¬NGÌáÊ¾
+             PT_SET.bSameRowNGTip = chk_SameRowNGTip.Checked;
+             PT_SET.SameRowNGTipCnt = (int)nud_SameRowNGTipCnt.Value;
+-            //ä¿å…»
++            //±£Ñø
+             PT_SET.EquipmentMT = (int)nud_EquipmentMaintain.Value;
+             PT_SET.FixtrueMT = (int)nud_FixtrueMaintain.Value;
+-            //æ•°æ®ä¸Šä¼ è®¾ç½®
++            //Êı¾İÉÏ´«ÉèÖÃ
+             PT_SET.bUploadData = chk_UpLoadData.Checked;
+             PT_SET.bUpdateSoft = chk_UpdateSoft.Checked;
+-            //å·¥ç«™äºŒæ¬¡å–æ–™
++            //¹¤Õ¾¶ş´ÎÈ¡ÁÏ
+             if (rbtn_OpenWsPickAgain.Checked) PT_SET.bWsPickAgain = true;
+             else if (rbtn_CloseWsPickAgain.Checked) PT_SET.bWsPickAgain = false;
+ 
+-            //å›æ£€å¤±è´¥ç»§ç»­è¿è¡Œè®¾ç½®
++            //»Ø¼ìÊ§°Ü¼ÌĞøÔËĞĞÉèÖÃ
+             if (rbtn_backerrcontinueen.Checked) PT_SET.bBackerrcontinue = true;
+             else if (rbtn_backerrcontinuedis.Checked) PT_SET.bBackerrcontinue = false;
+-            //å¤¹å…·åŒå·¥ä½éæ°´å¹³è®¾ç½®
++            //¼Ğ¾ßË«¹¤Î»·ÇË®Æ½ÉèÖÃ
+             if (rbtn_nonparallelen.Checked) PT_SET.bNonparallel = true;
+             else if (rbtn_nonparalleldis.Checked) PT_SET.bNonparallel = false;
+-            //å¤¹å…·æ¸…æ´—è®¾ç½®
++            //¼Ğ¾ßÇåÏ´ÉèÖÃ
+             if (rbtn_cleanen.Checked) PT_SET.bCleanen = true;
+             else if (rbtn_cleandis.Checked) PT_SET.bCleanen = false;
+             PT_SET.Cleaninterval = (double)nud_cleaninterval.Value;
+-            //ç›¸æœºå‚æ•°è®¾ç½®
++            //Ïà»ú²ÎÊıÉèÖÃ
+ 
+             if (rbtn_camcfgseten.Checked) PT_SET.BCamcfgset = true;
+             else if (rbtn_camcfgsetdis.Checked) PT_SET.BCamcfgset = false;
+@@ -1457,48 +1459,48 @@ namespace UI
+ 
+             PT_SET.WsContrast[0] = (double)nud_ws_contrast1.Value;
+             PT_SET.WsContrast[1] = (double)nud_ws_contrast2.Value;
+-            //ç‚¹æ£€æ—¶é—´è®¾ç½®
++            //µã¼ìÊ±¼äÉèÖÃ
+             PT_SET.CheckTimeMorning = dateTimePicker1.Value.ToString("HH:mm:ss");
+             PT_SET.CheckTimeEvening = dateTimePicker2.Value.ToString("HH:mm:ss");
+-            //æ‰§è¡Œç‚¹æ£€æ—¶é—´è®¾ç½®
++            //Ö´ĞĞµã¼ìÊ±¼äÉèÖÃ
+             PT_SET.CheckTimeMorning1 = dateTimePicker3.Value.ToString("HH:mm:ss");
+             PT_SET.CheckTimeEvening2 = dateTimePicker4.Value.ToString("HH:mm:ss");
+-            //ä¸Šä¸‹æ–™å‘¨æœŸä¿å­˜è®¾ç½®
++            //ÉÏÏÂÁÏÖÜÆÚ±£´æÉèÖÃ
+             if (rbtn_CycleEn.Checked) PT_SET.bCycle = true;
+             else if (rbtn_CycleDis.Checked) PT_SET.bCycle = false;
+-            //é™æ¸©è®¾ç½®
++            //½µÎÂÉèÖÃ
+             if (rbtn_coolen.Checked) PT_SET.bCool = true;
+             else if (rbtn_cooldis.Checked) PT_SET.bCool = false;
+-            //DCCæµ‹è¯•ç§»è‡³ä¸Šä¸‹æ–™è®¾ç½®
++            //DCC²âÊÔÒÆÖÁÉÏÏÂÁÏÉèÖÃ
+             if (rbtn_delaytesten.Checked) PT_SET.bDelayTest = true;
+             else if (rbtn_delaytestdis.Checked) PT_SET.bDelayTest = false;
+-            //ngç®¡æ§è®¾ç½®
++            //ng¹Ü¿ØÉèÖÃ
+             if (rbtn_ngcontrolen.Checked) PT_SET.bNgControl = true;
+             else if (rbtn_ngcontroldis.Checked) PT_SET.bNgControl = false;
+             PT_SET.ngCode = (int)nud_ngcode.Value;
+             PT_SET.ngScale = (double)nud_ngscale.Value;
+-            //æŒç»­æŠ¥è­¦è®¾ç½®
++            //³ÖĞø±¨¾¯ÉèÖÃ
+             if (rbtn_ContinuousAlarmEn.Checked) PT_SET.bContinuousAlarm = true;
+             else if (rbtn_ContinuousAlarmDis.Checked) PT_SET.bContinuousAlarm = false;
+-            //è‰¯ç‡ç®¡æ§
++            //Á¼ÂÊ¹Ü¿Ø
+             PT_SET.bNgWarn = true;
+             //if (rbtn_NgWarningEn.Checked) PT_SET.bNgWarn = true;
+             //else if (rbtn_NgWarningDis.Checked) PT_SET.bNgWarn = false;
+             PT_SET.OkRate = (double)nud_okRate.Value;
+-            //Mesæ¨¡å¼
++            //MesÄ£Ê½
+             if (rbtn_MesLocal.Checked) PT_SET.IsMesLocal = true;
+             else if (rbtn_MesRemote.Checked) PT_SET.IsMesLocal = false;
+-            //å¤¹å…·ä¸ŠæŠ¥æ—¶é—´è®¾ç½®gy0123
++            //¼Ğ¾ßÉÏ±¨Ê±¼äÉèÖÃgy0123
+             PT_SET.JigCntSend = (int)nud_JigSendTime.Value;
+-            //æœ€å¤§æµ‹è¯•æ—¶é—´
++            //×î´ó²âÊÔÊ±¼ä
+             PT_SET.TestTime = (int)nud_TestTime.Value;
+ 
+-            //æ–°å¢ä¸Šæ‹äºŒç»´ç 
++            //ĞÂÔöÉÏÅÄ¶şÎ¬Âë
+             if (rbtn_AddCapQrcodeEn.Checked) PT_SET.bAddCapQrcode = true;
+             else if (rbtn_AddCapQrcodeDis.Checked) PT_SET.bAddCapQrcode = false;
+             PT_SET.bDwAddCapQrcode = rbtn_DwAddCapQrcodeEn.Checked;
+ 
+-            //å›æ£€ç®¡æ§
++            //»Ø¼ì¹Ü¿Ø
+             PT_SET.Area = (double)nud_Areaofset.Value;
+             PT_SET.LeftArea = (double)nud_LeftArea.Value;
+             PT_SET.RightArea = (double)nud_RightArea.Value;
+@@ -1525,12 +1527,12 @@ namespace UI
+             PT_SET.DownArea4 = (double)nud_DownArea4.Value;
+ 
+             PT_SET.bConnectorCheck = cb_ConnectorCheck.Checked;
+-            //è®¾å¤‡ä¿¡æ¯
++            //Éè±¸ĞÅÏ¢
+             if (tb_eqp_pos.Text.Length > 0)
+                 PT_SET.EqpPos = tb_eqp_pos.Text;
+             if (tb_eqp_sn.Text.Length > 0)
+                 PT_SET.EqpSN = tb_eqp_sn.Text;
+-            //é©¬è¾¾æ‰«ç è®¾ç½®
++            //Âí´ïÉ¨ÂëÉèÖÃ
+             if (rbtn_motoren.Checked) PT_SET.bmotorphoto = true;
+             else if (rbtn_motordis.Checked) PT_SET.bmotorphoto = false;
+             PT_SET.MotorZ1 = (double)nud_MotorZ1.Value;
+@@ -1609,7 +1611,7 @@ namespace UI
+                 }
+                 if (cnt != PosCnt)
+                 {
+-                    MessageBox.Show("å½“å‰è®¾ç½®ç‚¹æ£€ä½ç½®ä¸ç¬¦åˆè¦æ±‚,\r\n,/r/n,è¯·é‡æ–°æŒ‰è¦æ±‚é€‰æ‹©ä½ç½®");
++                    MessageBox.Show("µ±Ç°ÉèÖÃµã¼ìÎ»ÖÃ²»·ûºÏÒªÇó,\r\n,/r/n,ÇëÖØĞÂ°´ÒªÇóÑ¡ÔñÎ»ÖÃ");
+                 }
+                 else
+                 {
+@@ -1664,7 +1666,7 @@ namespace UI
+             PT_SET.otp_cct_uniformity_precent = OTP_cctdraggableProgressBar.Percentage;
+             PT_SET.otp_lux_uniformity_precent = OTP_luxdraggableProgressBar.Percentage;
+ 
+-            ////å±è”½
++            ////ÆÁ±Î
+             PT_SET.ApointposAFC = AFC_APOS.Value;
+             PT_SET.BpointposAFC = AFC_BPOS.Value;
+             PT_SET.CpointposAFC = AFC_CPOS.Value;
+@@ -1683,7 +1685,7 @@ namespace UI
+             bool c = uniquePorts.Add(COM_3.Text);
+             if (!(a && b && c))
+             {
+-                MessageBox.Show("è¾“å…¥çš„COMå£æœ‰é‡å¤,COMå£ä¿å­˜å¤±è´¥");
++                MessageBox.Show("ÊäÈëµÄCOM¿ÚÓĞÖØ¸´,COM¿Ú±£´æÊ§°Ü");
+             }
+             else
+             {
+@@ -1702,10 +1704,10 @@ namespace UI
+ 
+             switch (CheckWsCombox.Text)
+             {
+-                case "å·¥ç«™1":PT_SET.CheckWs = 1; break;
+-                case "å·¥ç«™2": PT_SET.CheckWs = 2; break;
+-                case "å·¥ç«™3": PT_SET.CheckWs = 3; break;
+-                case "å·¥ç«™4": PT_SET.CheckWs = 4; break;
++                case "¹¤Õ¾1":PT_SET.CheckWs = 1; break;
++                case "¹¤Õ¾2": PT_SET.CheckWs = 2; break;
++                case "¹¤Õ¾3": PT_SET.CheckWs = 3; break;
++                case "¹¤Õ¾4": PT_SET.CheckWs = 4; break;
+ 
+             }
+             PT_SET.distance_coefficient = (double)distance_coefficient.Value;
+@@ -1737,16 +1739,16 @@ namespace UI
+             bool res = true;
+             int bitOpenMode_temp = 1;
+ 
+-            VAR.msg.AddMsg(Msg.EM_MSGTYPE.DBG, "å½“å‰å‚æ•°ä¿å­˜è€…:" + FrMain.frsuser.user1.cur_user);
++            VAR.msg.AddMsg(Msg.EM_MSGTYPE.DBG, "µ±Ç°²ÎÊı±£´æÕß:" + FrMain.frsuser.user1.cur_user);
+             Type staticClassType = typeof(PT_SET);
+-            // è·å–æ‰€æœ‰å­—æ®µ
++            // »ñÈ¡ËùÓĞ×Ö¶Î
+             FieldInfo[] fields = staticClassType.GetFields(BindingFlags.Public | BindingFlags.Static);
+             foreach (FieldInfo field in fields)
+             {
+                 VAR.msg.AddMsg(Msg.EM_MSGTYPE.DBG, $"{field.Name}: {field.GetValue(null)}");
+             }
+ 
+-            // è·å–æ‰€æœ‰å±æ€§
++            // »ñÈ¡ËùÓĞÊôĞÔ
+             PropertyInfo[] properties = staticClassType.GetProperties(BindingFlags.Public | BindingFlags.Static);
+ 
+             Console.WriteLine("Properties:");
+@@ -1757,7 +1759,7 @@ namespace UI
+ 
+             try
+             {
+-                //åˆ¤æ–­æ˜¯å¦è¦é‡æ–°åŠ è½½ä»»åŠ¡
++                //ÅĞ¶ÏÊÇ·ñÒªÖØĞÂ¼ÓÔØÈÎÎñ
+                 btn_ptset_save.Enabled = false;
+                 if ((rbtn_upcode.Checked && PT_SET.BarcodeMode == (int)PT_SET.BAR_SCAN.DW_SCAN) ||
+                     (rbtn_dwcode.Checked && PT_SET.BarcodeMode == (int)PT_SET.BAR_SCAN.UP_SCAN) ||
+@@ -1769,7 +1771,7 @@ namespace UI
+                     res = ReloadUpcamTask(CONST.ModUpFw);
+                     if (!res)
+                     {
+-                        MessageBox.Show(VAR.IsChinese ? string.Format("ä¿å­˜å¤±è´¥,{0}åŠ è½½å¤±è´¥!", CONST.ModUpFw) : string.Format("Save failed, {0} failed to load!\r\nä¿å­˜å¤±è´¥,{0}åŠ è½½å¤±è´¥!", CONST.ModUpFw), VAR.IsChinese ? "è­¦å‘Š" : "Warning");
++                        MessageBox.Show(VAR.IsChinese ? string.Format("±£´æÊ§°Ü,{0}¼ÓÔØÊ§°Ü!", CONST.ModUpFw) : string.Format("Save failed, {0} failed to load!\r\n±£´æÊ§°Ü,{0}¼ÓÔØÊ§°Ü!", CONST.ModUpFw), VAR.IsChinese ? "¾¯¸æ" : "Warning");
+                         return;
+                     }
+                 }
+@@ -1780,7 +1782,7 @@ namespace UI
+                     res = ReloadUpcamTask(CONST.WsModUpFw);
+                     if (!res)
+                     {
+-                        MessageBox.Show(VAR.IsChinese ? string.Format("ä¿å­˜å¤±è´¥,{0}åŠ è½½å¤±è´¥!", CONST.WsModUpFw) : string.Format("Save failed, {0} failed to load!\r\nä¿å­˜å¤±è´¥,{0}åŠ è½½å¤±è´¥!", CONST.WsModUpFw), VAR.IsChinese ? "è­¦å‘Š" : "Warning");
++                        MessageBox.Show(VAR.IsChinese ? string.Format("±£´æÊ§°Ü,{0}¼ÓÔØÊ§°Ü!", CONST.WsModUpFw) : string.Format("Save failed, {0} failed to load!\r\n±£´æÊ§°Ü,{0}¼ÓÔØÊ§°Ü!", CONST.WsModUpFw), VAR.IsChinese ? "¾¯¸æ" : "Warning");
+                         return;
+                     }
+                 }
+@@ -1791,7 +1793,7 @@ namespace UI
+                     res = ReloadUpcamTask(CONST.WsUpFw);
+                     if (!res)
+                     {
+-                        MessageBox.Show(VAR.IsChinese ? string.Format("ä¿å­˜å¤±è´¥,{0}åŠ è½½å¤±è´¥!", CONST.WsUpFw) : string.Format("Save failed, {0} failed to load!\r\nä¿å­˜å¤±è´¥,{0}åŠ è½½å¤±è´¥!", CONST.WsUpFw), VAR.IsChinese ? "è­¦å‘Š" : "Warning");
++                        MessageBox.Show(VAR.IsChinese ? string.Format("±£´æÊ§°Ü,{0}¼ÓÔØÊ§°Ü!", CONST.WsUpFw) : string.Format("Save failed, {0} failed to load!\r\n±£´æÊ§°Ü,{0}¼ÓÔØÊ§°Ü!", CONST.WsUpFw), VAR.IsChinese ? "¾¯¸æ" : "Warning");
+                         return;
+                     }
+                 }
+@@ -1851,11 +1853,11 @@ namespace UI
+ 
+                 if (PT_SET.EqpSN == "123456")
+                 {
+-                    MessageBox.Show(VAR.IsChinese ? "è¯·åœ¨è®¾ç½®å‚æ•°3ç•Œé¢å¡«å†™è®¾å¤‡ç¼–å·å’Œå‚åŒº!" : "please write the information of eqpument on SefForm Set3\r\nè¯·åœ¨è®¾ç½®å‚æ•°3ç•Œé¢å¡«å†™è®¾å¤‡ç¼–å·å’Œå‚åŒº!",
+-                        VAR.IsChinese ? "æç¤º" : "Prompt");
++                    MessageBox.Show(VAR.IsChinese ? "ÇëÔÚÉèÖÃ²ÎÊı3½çÃæÌîĞ´Éè±¸±àºÅºÍ³§Çø!" : "please write the information of eqpument on SefForm Set3\r\nÇëÔÚÉèÖÃ²ÎÊı3½çÃæÌîĞ´Éè±¸±àºÅºÍ³§Çø!",
++                        VAR.IsChinese ? "ÌáÊ¾" : "Prompt");
+                     return;
+                 }
+-                MessageBox.Show(VAR.IsChinese ? "ä¿å­˜æˆåŠŸ!" : "Saved successfully!\r\nä¿å­˜æˆåŠŸ!", VAR.IsChinese ? "æç¤º" : "Prompt");
++                MessageBox.Show(VAR.IsChinese ? "±£´æ³É¹¦!" : "Saved successfully!\r\n±£´æ³É¹¦!", VAR.IsChinese ? "ÌáÊ¾" : "Prompt");
+             }
+             finally
+             {
+@@ -1866,7 +1868,7 @@ namespace UI
+ 
+         private void radioButton2_CheckedChanged(object sender, EventArgs e)
+         {
+-            //gy0123å¤¹å…·æ‰«ç è®¾ç½®
++            //gy0123¼Ğ¾ßÉ¨ÂëÉèÖÃ
+ 
+         }
+ 
+@@ -1895,17 +1897,17 @@ namespace UI
+             ng_miss_pix_rate = 0.66;
+             ng_OS_rate = 0.55;
+             ng_other_rate = 0.33;
+-            string ng_msg = string.Format("\r\n å¼€å›¾NGç‡:{0} \r\n IICè¯»å†™NGç‡:{1} \r\n æ›å…‰NGç‡:{2} \r\n å›¾åƒä¸¢å¸§ç‡:{3}\r\n OSå¼‚å¸¸ç‡:{4}\r\n å…¶ä»–NGç‡: {5}",
++            string ng_msg = string.Format("\r\n ¿ªÍ¼NGÂÊ:{0} \r\n IIC¶ÁĞ´NGÂÊ:{1} \r\n ÆØ¹âNGÂÊ:{2} \r\n Í¼Ïñ¶ªÖ¡ÂÊ:{3}\r\n OSÒì³£ÂÊ:{4}\r\n ÆäËûNGÂÊ: {5}",
+             ng_image_rate.ToString("P"), ng_iic_rate.ToString("P"), ng_exposure_rate.ToString("P"),
+             ng_miss_pix_rate.ToString("P"), ng_OS_rate.ToString("P"), ng_other_rate.ToString("P"));
+ 
+-            DialogResult dr = FrRun.Dialog(Color.Yellow, "è­¦å‘Š", "å½“å‰è‰¯ç‡ä½ï¼Œè¯·æ³¨æ„!å¯æ¸…é›¶ï¼" + ng_msg, "ç¡®å®š", "æ¸…é™¤");
++            DialogResult dr = FrRun.Dialog(Color.Yellow, "¾¯¸æ", "µ±Ç°Á¼ÂÊµÍ£¬Çë×¢Òâ!¿ÉÇåÁã£¡" + ng_msg, "È·¶¨", "Çå³ı");
+             if (dr == DialogResult.Cancel)
+             {
+-                DialogResult drq = FrRun.Dialog(Color.Yellow, "è­¦å‘Š", "æ¸…é™¤åä¸´æ—¶ç”Ÿäº§æ•°æ®å½’é›¶ã€‚", "ç¡®å®š", "å–æ¶ˆ");
++                DialogResult drq = FrRun.Dialog(Color.Yellow, "¾¯¸æ", "Çå³ıºóÁÙÊ±Éú²úÊı¾İ¹éÁã¡£", "È·¶¨", "È¡Ïû");
+                 if (dr == DialogResult.OK)
+                 {
+-                    DRpt.Report_Opration(1000, 0, "å½’ä½æŒ‰é”®æŒ‰ä¸‹!");
++                    DRpt.Report_Opration(1000, 0, "¹éÎ»°´¼ü°´ÏÂ!");
+ 
+                 }
+             }
+@@ -1922,7 +1924,7 @@ namespace UI
+             md.cnt_ng_other = 0;
+             md.cnt_ok = 0;
+             UpDownLoad mupd = new UpDownLoad();
+-            mupd.GetModJigData(1, md);//å‘é€æ›´æ–°ä¹‹åçš„æ•°æ®æ¸…é›¶
++            mupd.GetModJigData(1, md);//·¢ËÍ¸üĞÂÖ®ºóµÄÊı¾İÇåÁã
+         }
+ 
+         private async void btnmotoScanClick(object sender, EventArgs e)
+@@ -1937,7 +1939,7 @@ namespace UI
+                     UpDownLoad mupd = COM.UDLoad2;
+                     //if(PT_SET.bmotorphoto==false)
+                     //{
+-                    //    MessageBox.Show( "è¯·å¼€å¯æ‰«ç åŠŸèƒ½ï¼š");
++                    //    MessageBox.Show( "Çë¿ªÆôÉ¨Âë¹¦ÄÜ£º");
+                     //    return;
+                     //}
+                     if (mbtn.Name.Contains("1") || mbtn.Name.Contains("2"))
+@@ -1974,8 +1976,8 @@ namespace UI
+                     bool bquit = false;
+                     var res = mupd.MotoScan(ref bquit, xtid);
+                     if (xt.XtMd.motor_barcode != null && xt.XtMd.motor_barcode.Length > 3)
+-                        MessageBox.Show(xt.disc + "æ‰«ç æˆåŠŸï¼Œç»“æœæ˜¯ï¼š" + xt.XtMd.motor_barcode);
+-                    else MessageBox.Show(xt.disc + "æ‰«ç å¤±è´¥ï¼š");
++                        MessageBox.Show(xt.disc + "É¨Âë³É¹¦£¬½á¹ûÊÇ£º" + xt.XtMd.motor_barcode);
++                    else MessageBox.Show(xt.disc + "É¨ÂëÊ§°Ü£º");
+                 });
+                 mm.Start();
+                 await mm;
+@@ -1994,15 +1996,15 @@ namespace UI
+         private void button4_Click(object sender, EventArgs e)
+         {
+             MT.COM3.ReInit();
+-            if (MT.COM3.bComInitOK) MessageBox.Show("æ‰“å¼€æˆåŠŸ");
+-            else MessageBox.Show("æ‰“å¼€å¤±è´¥");
++            if (MT.COM3.bComInitOK) MessageBox.Show("´ò¿ª³É¹¦");
++            else MessageBox.Show("´ò¿ªÊ§°Ü");
+         }
+ 
+         private void button5_Click(object sender, EventArgs e)
+         {
+             MT.COM4.ReInit();
+-            if (MT.COM4.bComInitOK) MessageBox.Show("æ‰“å¼€æˆåŠŸ");
+-            else MessageBox.Show("æ‰“å¼€å¤±è´¥");
++            if (MT.COM4.bComInitOK) MessageBox.Show("´ò¿ª³É¹¦");
++            else MessageBox.Show("´ò¿ªÊ§°Ü");
+         }
+ 
+         private void button6_Click(object sender, EventArgs e)
+@@ -2033,7 +2035,7 @@ namespace UI
+                 }
+ 
+ 
+-                SQLData.NGRateShow("æµ‹è¯•ä½ç½®", ref cntNgRateFor20);
++                SQLData.NGRateShow("²âÊÔÎ»ÖÃ", ref cntNgRateFor20);
+                 i++;
+ 
+             }
+@@ -2042,7 +2044,7 @@ namespace UI
+         private async void btnChkInfoGet_Click(object sender, EventArgs e)
+         {
+             var oldstr = btnChkInfoGet.Text;
+-            btnChkInfoGet.Text = "æµ‹è¯•ä¸­";
++            btnChkInfoGet.Text = "²âÊÔÖĞ";
+             string errmsg = "";
+             string okmsg = "";
+             Task mm = new Task(() =>
+@@ -2074,18 +2076,18 @@ namespace UI
+ 
+             if (errmsg.Length > 1)
+             {
+-                MessageBox.Show($"è·å–å·¥ä½ç‚¹æ£€ä¿¡æ¯å¤±è´¥{errmsg}");
++                MessageBox.Show($"»ñÈ¡¹¤Î»µã¼ìĞÅÏ¢Ê§°Ü{errmsg}");
+             }
+             else
+             {
+-                MessageBox.Show($"è·å–å·¥ä½ç‚¹æ£€ä¿¡æ¯æˆåŠŸ:{okmsg}");
++                MessageBox.Show($"»ñÈ¡¹¤Î»µã¼ìĞÅÏ¢³É¹¦:{okmsg}");
+             }
+         }
+ 
+         private async void btnChkGet_Click(object sender, EventArgs e)
+         {
+             var oldstr = btnChkGet.Text;
+-            btnChkGet.Text = "æµ‹è¯•ä¸­";
++            btnChkGet.Text = "²âÊÔÖĞ";
+             string errmsg = "";
+             string okmsg = "";
+             Task mm = new Task(() =>
+@@ -2116,18 +2118,18 @@ namespace UI
+ 
+             if (errmsg.Length > 1)
+             {
+-                MessageBox.Show($"è·å–å·¥ä½ç‚¹æ£€çŠ¶æ€å¤±è´¥{errmsg}");
++                MessageBox.Show($"»ñÈ¡¹¤Î»µã¼ì×´Ì¬Ê§°Ü{errmsg}");
+             }
+             else
+             {
+-                MessageBox.Show($"è·å–å·¥ä½ç‚¹æ£€çŠ¶æ€æˆåŠŸ:{okmsg}");
++                MessageBox.Show($"»ñÈ¡¹¤Î»µã¼ì×´Ì¬³É¹¦:{okmsg}");
+             }
+         }
+ 
+         private async void btnChkSetChk_Click(object sender, EventArgs e)
+         {
+             var oldstr = btnChkSetChk.Text;
+-            btnChkSetChk.Text = "æµ‹è¯•ä¸­";
++            btnChkSetChk.Text = "²âÊÔÖĞ";
+             btnChkSetChk.Enabled = false;
+             string errmsg = "";
+             string okmsg = "";
+@@ -2142,12 +2144,12 @@ namespace UI
+                         if (res1)
+                         {
+                             okmsg += ws.disc + ",";
+-                            VAR.msg.AddMsg(Msg.EM_MSGTYPE.DBG, $"åˆ‡æ¢å·¥ä½{ws.disc}ç‚¹æ£€æ¨¡å¼æˆåŠŸ");
++                            VAR.msg.AddMsg(Msg.EM_MSGTYPE.DBG, $"ÇĞ»»¹¤Î»{ws.disc}µã¼ìÄ£Ê½³É¹¦");
+                         }
+                         else
+                         {
+                             errmsg += ws.disc + ",";
+-                            VAR.msg.AddMsg(Msg.EM_MSGTYPE.ERR, $"åˆ‡æ¢å·¥ä½{ws.disc}ç‚¹æ£€æ¨¡å¼å¤±è´¥");
++                            VAR.msg.AddMsg(Msg.EM_MSGTYPE.ERR, $"ÇĞ»»¹¤Î»{ws.disc}µã¼ìÄ£Ê½Ê§°Ü");
+                         }
+ 
+                     }
+@@ -2163,18 +2165,18 @@ namespace UI
+             await mm;
+             if (errmsg.Length > 1)
+             {
+-                MessageBox.Show($"åˆ‡æ¢å·¥ä½{errmsg}ç‚¹æ£€æ¨¡å¼å¤±è´¥");
++                MessageBox.Show($"ÇĞ»»¹¤Î»{errmsg}µã¼ìÄ£Ê½Ê§°Ü");
+             }
+             else
+             {
+-                MessageBox.Show($"åˆ‡æ¢å·¥ä½{okmsg}ç‚¹æ£€æ¨¡å¼æˆåŠŸ");
++                MessageBox.Show($"ÇĞ»»¹¤Î»{okmsg}µã¼ìÄ£Ê½³É¹¦");
+             }
+         }
+ 
+         private async void btnChkSetProduct_Click(object sender, EventArgs e)
+         {
+             var oldstr = btnChkSetProduct.Text;
+-            btnChkSetProduct.Text = "æµ‹è¯•ä¸­";
++            btnChkSetProduct.Text = "²âÊÔÖĞ";
+             btnChkSetProduct.Enabled = false;
+             string errmsg = "";
+             string okmsg = "";
+@@ -2188,12 +2190,12 @@ namespace UI
+                         if (res1)
+                         {
+                             okmsg += ws.disc + ",";
+-                            VAR.msg.AddMsg(Msg.EM_MSGTYPE.DBG, $"åˆ‡æ¢å·¥ä½{ws.disc}ç”Ÿäº§æ¨¡å¼æˆåŠŸ");
++                            VAR.msg.AddMsg(Msg.EM_MSGTYPE.DBG, $"ÇĞ»»¹¤Î»{ws.disc}Éú²úÄ£Ê½³É¹¦");
+                         }
+                         else
+                         {
+                             errmsg += ws.disc + ",";
+-                            VAR.msg.AddMsg(Msg.EM_MSGTYPE.ERR, $"åˆ‡æ¢å·¥ä½{ws.disc}ç”Ÿäº§æ¨¡å¼å¤±è´¥");
++                            VAR.msg.AddMsg(Msg.EM_MSGTYPE.ERR, $"ÇĞ»»¹¤Î»{ws.disc}Éú²úÄ£Ê½Ê§°Ü");
+                         }
+ 
+                     }
+@@ -2209,11 +2211,11 @@ namespace UI
+             await mm;
+             if (errmsg.Length > 1)
+             {
+-                MessageBox.Show($"åˆ‡æ¢å·¥ä½{errmsg}ç”Ÿäº§æ¨¡å¼å¤±è´¥");
++                MessageBox.Show($"ÇĞ»»¹¤Î»{errmsg}Éú²úÄ£Ê½Ê§°Ü");
+             }
+             else
+             {
+-                MessageBox.Show($"åˆ‡æ¢å·¥ä½{okmsg}ç”Ÿäº§æ¨¡å¼æˆåŠŸ");
++                MessageBox.Show($"ÇĞ»»¹¤Î»{okmsg}Éú²úÄ£Ê½³É¹¦");
+             }
+         }
+ 
+@@ -2221,7 +2223,7 @@ namespace UI
+         {
+             var curbtn = (Button)sender;
+             var oldstr = curbtn.Text;
+-            curbtn.Text = "æµ‹è¯•ä¸­";
++            curbtn.Text = "²âÊÔÖĞ";
+             string errmsg = "";
+             string okmsg = "";
+             Task mm = new Task(() =>
+@@ -2235,16 +2237,16 @@ namespace UI
+                         if (res1)
+                         {
+ 
+-                            string msg = "ç‚¹æ£€ç»“æœ1ï¼š" + temp1 + "ç‚¹æ£€ç»“æœ2ï¼š" + temp2;
++                            string msg = "µã¼ì½á¹û1£º" + temp1 + "µã¼ì½á¹û2£º" + temp2;
+ 
+-                            VAR.msg.AddMsg(Msg.EM_MSGTYPE.DBG, $"è·å–å·¥ä½{ws.disc}ç‚¹æ£€ç»“æœæˆåŠŸ");
+-                            VAR.msg.AddMsg(Msg.EM_MSGTYPE.DBG, $"è·å–å·¥ä½{ws.disc}+{msg}");
++                            VAR.msg.AddMsg(Msg.EM_MSGTYPE.DBG, $"»ñÈ¡¹¤Î»{ws.disc}µã¼ì½á¹û³É¹¦");
++                            VAR.msg.AddMsg(Msg.EM_MSGTYPE.DBG, $"»ñÈ¡¹¤Î»{ws.disc}+{msg}");
+ 
+                         }
+                         else
+                         {
+                             errmsg += ws.disc + ",";
+-                            VAR.msg.AddMsg(Msg.EM_MSGTYPE.ERR, $"è·å–å·¥ä½{ws.disc}ç‚¹æ£€ç»“æœå¤±è´¥");
++                            VAR.msg.AddMsg(Msg.EM_MSGTYPE.ERR, $"»ñÈ¡¹¤Î»{ws.disc}µã¼ì½á¹ûÊ§°Ü");
+                         }
+ 
+                     }
+@@ -2262,11 +2264,11 @@ namespace UI
+ 
+             if (errmsg.Length > 1)
+             {
+-                MessageBox.Show($"{oldstr}å¤±è´¥{errmsg}");
++                MessageBox.Show($"{oldstr}Ê§°Ü{errmsg}");
+             }
+             else
+             {
+-                MessageBox.Show($"{oldstr}æˆåŠŸ:{okmsg}");
++                MessageBox.Show($"{oldstr}³É¹¦:{okmsg}");
+             }
+         }
+ 
+@@ -2304,7 +2306,7 @@ namespace UI
+ 
+         private void buttonboxcheckmove_Click(object sender, EventArgs e)
+         {
+-            var res = MessageBox.Show("ç¡®å®šè¦è¿›è¡Œå®šä½ï¼Œ(ä¸Šä¸‹æ–™æ¨¡å—2)ç‚¹å‡»æ˜¯è¿›è¡Œä½ç½®1å®šä½ï¼Œç‚¹å‡»å¦è¿›è¡Œä½ç½®2å®šä½ï¼Œç‚¹å‡»å–æ¶ˆåˆ™é€€å‡º ï¼Ÿ", "è­¦å‘Š", MessageBoxButtons.YesNoCancel, MessageBoxIcon.Warning, MessageBoxDefaultButton.Button2);
++            var res = MessageBox.Show("È·¶¨Òª½øĞĞ¶¨Î»£¬(ÉÏÏÂÁÏÄ£¿é2)µã»÷ÊÇ½øĞĞÎ»ÖÃ1¶¨Î»£¬µã»÷·ñ½øĞĞÎ»ÖÃ2¶¨Î»£¬µã»÷È¡ÏûÔòÍË³ö £¿", "¾¯¸æ", MessageBoxButtons.YesNoCancel, MessageBoxIcon.Warning, MessageBoxDefaultButton.Button2);
+             PT_SET.boxpos1.x = (double)boxCheckpos1X.Value;
+             PT_SET.boxpos1.y = (double)boxCheckpos1Y.Value;
+             PT_SET.boxpos2.x = (double)boxCheckpos2X.Value;
+@@ -2331,7 +2333,7 @@ namespace UI
+ 
+         private void buttonboxchecklearn_Click(object sender, EventArgs e)
+         {
+-            var res = MessageBox.Show("ç¡®å®šè¦è¿›è¡Œå­¦ä¹ ï¼Œ(ä¸Šä¸‹æ–™æ¨¡å—2)ç‚¹å‡»æ˜¯è¿›è¡Œä½ç½®1å­¦ä¹ ï¼Œç‚¹å‡»å¦è¿›è¡Œä½ç½®2å­¦ä¹ ï¼Œç‚¹å‡»å–æ¶ˆåˆ™é€€å‡º ï¼Ÿ", "è­¦å‘Š", MessageBoxButtons.YesNoCancel, MessageBoxIcon.Warning, MessageBoxDefaultButton.Button2);
++            var res = MessageBox.Show("È·¶¨Òª½øĞĞÑ§Ï°£¬(ÉÏÏÂÁÏÄ£¿é2)µã»÷ÊÇ½øĞĞÎ»ÖÃ1Ñ§Ï°£¬µã»÷·ñ½øĞĞÎ»ÖÃ2Ñ§Ï°£¬µã»÷È¡ÏûÔòÍË³ö £¿", "¾¯¸æ", MessageBoxButtons.YesNoCancel, MessageBoxIcon.Warning, MessageBoxDefaultButton.Button2);
+ 
+             if (res == DialogResult.Yes)
+             {
+@@ -2347,7 +2349,7 @@ namespace UI
+ 
+         private void buttonboxcheckmove2_Click(object sender, EventArgs e)
+         {
+-            var res = MessageBox.Show("ç¡®å®šè¦è¿›è¡Œå®šä½ï¼Œ(ä¸Šä¸‹æ–™æ¨¡å—1)ç‚¹å‡»æ˜¯è¿›è¡Œä½ç½®3å®šä½ï¼Œç‚¹å‡»å¦è¿›è¡Œä½ç½®4å®šä½ï¼Œç‚¹å‡»å–æ¶ˆåˆ™é€€å‡º ï¼Ÿ", "è­¦å‘Š", MessageBoxButtons.YesNoCancel, MessageBoxIcon.Warning, MessageBoxDefaultButton.Button2);
++            var res = MessageBox.Show("È·¶¨Òª½øĞĞ¶¨Î»£¬(ÉÏÏÂÁÏÄ£¿é1)µã»÷ÊÇ½øĞĞÎ»ÖÃ3¶¨Î»£¬µã»÷·ñ½øĞĞÎ»ÖÃ4¶¨Î»£¬µã»÷È¡ÏûÔòÍË³ö £¿", "¾¯¸æ", MessageBoxButtons.YesNoCancel, MessageBoxIcon.Warning, MessageBoxDefaultButton.Button2);
+             PT_SET.boxpos3.x = (double)boxCheckpos3X.Value;
+             PT_SET.boxpos3.y = (double)boxCheckpos3Y.Value;
+             PT_SET.boxpos4.x = (double)boxCheckpos4X.Value;
+@@ -2374,7 +2376,7 @@ namespace UI
+ 
+         private void buttonboxchecklearn2_Click(object sender, EventArgs e)
+         {
+-            var res = MessageBox.Show("ç¡®å®šè¦è¿›è¡Œå­¦ä¹ ï¼Œ(ä¸Šä¸‹æ–™æ¨¡å—1)ç‚¹å‡»æ˜¯è¿›è¡Œä½ç½®3å­¦ä¹ ï¼Œç‚¹å‡»å¦è¿›è¡Œä½ç½®24å­¦ä¹ ï¼Œç‚¹å‡»å–æ¶ˆåˆ™é€€å‡º ï¼Ÿ", "è­¦å‘Š", MessageBoxButtons.YesNoCancel, MessageBoxIcon.Warning, MessageBoxDefaultButton.Button2);
++            var res = MessageBox.Show("È·¶¨Òª½øĞĞÑ§Ï°£¬(ÉÏÏÂÁÏÄ£¿é1)µã»÷ÊÇ½øĞĞÎ»ÖÃ3Ñ§Ï°£¬µã»÷·ñ½øĞĞÎ»ÖÃ24Ñ§Ï°£¬µã»÷È¡ÏûÔòÍË³ö £¿", "¾¯¸æ", MessageBoxButtons.YesNoCancel, MessageBoxIcon.Warning, MessageBoxDefaultButton.Button2);
+ 
+             if (res == DialogResult.Yes)
+             {
+@@ -2395,13 +2397,13 @@ namespace UI
+             var res = COM.Sunnnyqr0.QrAction(ref bq, out Code);
+             if (res != EM_RES.OK)
+             {
+-                MessageBox.Show("æ‰«ç å¤±è´¥");
++                MessageBox.Show("É¨ÂëÊ§°Ü");
+             }
+             else
+             {
+                 if ((Code.Length - 4) != PT_SET.motorBarcodeDigits && NewSysInf.UserParams.bCheckMotoCodeLength)
+                 {
+-                    VAR.msg.AddMsg(Msg.EM_MSGTYPE.NOR, $"é©¬è¾¾äºŒç»´ç ä½æ•°æ ¡éªŒå¤±è´¥ï¼Œæ‰«ç é•¿åº¦:{Code.Length},è®¾ç½®é•¿åº¦:{PT_SET.motorBarcodeDigits}");
++                    VAR.msg.AddMsg(Msg.EM_MSGTYPE.NOR, $"Âí´ï¶şÎ¬ÂëÎ»ÊıĞ£ÑéÊ§°Ü£¬É¨Âë³¤¶È:{Code.Length},ÉèÖÃ³¤¶È:{PT_SET.motorBarcodeDigits}");
+                 }
+             }
+ 
+@@ -2414,13 +2416,13 @@ namespace UI
+             var res = COM.Sunnnyqr1.QrAction(ref bq, out Code);
+             if (res != EM_RES.OK)
+             {
+-                MessageBox.Show("æ‰«ç å¤±è´¥");
++                MessageBox.Show("É¨ÂëÊ§°Ü");
+             }
+             else
+             {
+                 if ((Code.Length - 4) != PT_SET.motorBarcodeDigits && NewSysInf.UserParams.bCheckMotoCodeLength)
+                 {
+-                    VAR.msg.AddMsg(Msg.EM_MSGTYPE.NOR, $"é©¬è¾¾äºŒç»´ç ä½æ•°æ ¡éªŒå¤±è´¥ï¼Œæ‰«ç é•¿åº¦:{Code.Length},è®¾ç½®é•¿åº¦:{PT_SET.motorBarcodeDigits}");
++                    VAR.msg.AddMsg(Msg.EM_MSGTYPE.NOR, $"Âí´ï¶şÎ¬ÂëÎ»ÊıĞ£ÑéÊ§°Ü£¬É¨Âë³¤¶È:{Code.Length},ÉèÖÃ³¤¶È:{PT_SET.motorBarcodeDigits}");
+                 }
+             }
+         }
+@@ -2468,7 +2470,7 @@ namespace UI
+         {
+             bool isSelected = false;
+ 
+-            // æ ¹æ®Labelåç§°è·å–é€‰ä¸­çŠ¶æ€
++            // ¸ù¾İLabelÃû³Æ»ñÈ¡Ñ¡ÖĞ×´Ì¬
+             switch (label.Name)
+             {
+                 case "lblAPoint":
+@@ -2482,7 +2484,7 @@ namespace UI
+                     break;
+             }
+ 
+-            // æ›´æ–°å¤–è§‚
++            // ¸üĞÂÍâ¹Û
+             label.ForeColor = isSelected ? System.Drawing.Color.Red : System.Drawing.Color.Blue;
+             label.Font = new System.Drawing.Font(label.Font, isSelected ? System.Drawing.FontStyle.Bold : System.Drawing.FontStyle.Regular);
+         }
+@@ -2490,19 +2492,19 @@ namespace UI
+         {
+             label.Cursor = Cursors.Hand;
+             label.ForeColor = System.Drawing.Color.Blue;
+-            label.Text += " (ç‚¹å‡»é€‰æ‹©)";
++            label.Text += " (µã»÷Ñ¡Ôñ)";
+         }
+       
+         private void button13_Click(object sender, EventArgs e)
+         {
+-            //å±è”½
++            //ÆÁ±Î
+             DCC_APOS.X = MT.AXIS_BOX_R_X1.fenc_pos;
+             DCC_APOS.Z = MT.AXIS_BOX_R_Z2.fenc_pos;
+         }
+ 
+         private void button15_Click(object sender, EventArgs e)
+         {
+-            //å±è”½
++            //ÆÁ±Î
+             AFC_APOS.X = MT.AXIS_BOX_L_X1.fenc_pos;
+             AFC_APOS.Z = MT.AXIS_BOX_L_Z2.fenc_pos;
+         }
+@@ -2528,7 +2530,7 @@ namespace UI
+             LightBox.PosDef PosDef = new LightBox.PosDef();
+             PosDef.X1 = AFC_APOS.X;
+             PosDef.Z2= AFC_APOS.Z;
+-            //å±è”½
++            //ÆÁ±Î
+             EM_RES res;
+             bool bquit = false;
+             MT.SetAllAxToManualSpd();
+@@ -2538,14 +2540,14 @@ namespace UI
+ 
+         private void button18_Click(object sender, EventArgs e)
+         {
+-            //å±è”½
++            //ÆÁ±Î
+             AFC_BPOS.X = MT.AXIS_BOX_L_X1.fenc_pos;
+             AFC_BPOS.Z = MT.AXIS_BOX_L_Z2.fenc_pos;
+         }
+ 
+         private void button20_Click(object sender, EventArgs e)
+         {
+-            //å±è”½
++            //ÆÁ±Î
+             AFC_CPOS.X = MT.AXIS_BOX_L_X1.fenc_pos;
+             AFC_CPOS.Z = MT.AXIS_BOX_L_Z2.fenc_pos;
+         }

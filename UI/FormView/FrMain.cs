@@ -640,7 +640,12 @@ namespace UI
                 if (PT_SET.bsunnyqrright)
                 {
                     COM.Sunnnyqr0.Init(PT_SET.sunnyqrip0);
-                }                            
+                }
+            }
+            if (PT_SET.bkeyenceqr)
+            {
+                COM.Keyence.Init(PT_SET.keyenceIP);
+                COM.Keyence2.Init(PT_SET.keyenceIP2);
             }
             ///
             

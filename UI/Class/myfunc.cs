@@ -16,6 +16,7 @@ using MesUIWpf.Models;
 using ControlzEx.Standard;
 using static SerialCommander;
 using static UI.WS;
+using SunnyPrjTemplate.Controls;
 
 namespace UI
 {
@@ -40,6 +41,8 @@ namespace UI
         public static bool Cannottest = false;
         public static SunnyQr Sunnnyqr0 = new SunnyQr(0);
         public static SunnyQr Sunnnyqr1 = new SunnyQr(1);
+        public static ScanCode Keyence = new ScanCode();
+        public static ScanCode Keyence2 = new ScanCode();
         public static Product.Tray tray_fd, tray_ok, tray_ng;
         public static MesWaitWarning mesWaitWarning = new MesWaitWarning(MesProductType.MINI);
 

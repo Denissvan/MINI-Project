@@ -6,7 +6,7 @@ using System.Runtime.InteropServices;
 // 控制。更改这些特性值可修改
 // 与程序集关联的信息。
 [assembly: AssemblyTitle("WLTmini")]
-[assembly: AssemblyDescription("3.0.0.5测试版")]
+[assembly: AssemblyDescription("3.0.0.7测试版")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("Sunny")]
 [assembly: AssemblyProduct("WLTmini")]
@@ -70,7 +70,9 @@ using System.Runtime.InteropServices;
 // 2446 增加自动点检，增加放料盘吸嘴顺序
 //2447 霍尔测试提前翻转
 //2448 增加开图延时时间
+//3006 增加基恩士扫码相机、开图后轴静止和闭气功能
+//3007 修复401追加测试最终结果未消费导致下一轮读取上一轮结果
 
 //[assembly: AssemblyVersion("1.0.*")]
-[assembly: AssemblyVersion("3.0.0.5")]
-[assembly: AssemblyFileVersion("3.0.0.5")]
+[assembly: AssemblyVersion("3.0.0.7")]
+[assembly: AssemblyFileVersion("3.0.0.7")]

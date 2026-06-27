@@ -1,0 +1,28 @@
+diff --git a/MotionCtrl/MyType.cs b/MotionCtrl/MyType.cs
+index a57e57e..9955248 100644
+--- a/MotionCtrl/MyType.cs
++++ b/MotionCtrl/MyType.cs
+@@ -1267,6 +1267,7 @@ namespace MotionCtrl
+         public static bool bDwAddCapQrcode;  //对于长模组的情况
+         public static bool Check2open;  //对于长模组的情况
+         public static bool bJigDownPhoto;  //夹具闭合后拍照
++        public static double JigDownPhotoIntervalHours;  //夹具闭合后拍照间隔时间，单位小时，0表示每次触发
+ 
+         //回检针座管控
+         public static double LeftArea;
+@@ -1640,6 +1641,7 @@ namespace MotionCtrl
+             CloseWait = inf.ReadBool("OTHER_SET", "CLOSEWAIT", false);
+             CloseWaitTime = inf.ReadInteger("OTHER_SET", "WAITTIME", 1);
+             bJigDownPhoto = inf.ReadBool("OTHER_SET", "BJIGDOWNPHOTO", false);
++            JigDownPhotoIntervalHours = inf.ReadDouble("OTHER_SET", "JIGDOWNPHOTO_INTERVAL_HOURS", 0);
+             OpenDownQrde = inf.ReadBool("OTHER_SET", "OPENDOWNQRDE", false);
+             otpclose = inf.ReadBool("OTHER_SET", "OTPCLOSE", false);
+             otpclosetime = inf.ReadDouble("OTHER_SET", "OTPCLOSETIME", 0);
+@@ -2042,6 +2044,7 @@ namespace MotionCtrl
+             inf.WriteBool("OTHER_SET", "bDwAddCapQrcode", bDwAddCapQrcode, ref ischange, true, filename);
+             inf.WriteBool("OTHER_SET", "Check2open", Check2open, ref ischange, true, filename);
+             inf.WriteBool("OTHER_SET", "BJIGDOWNPHOTO", bJigDownPhoto, ref ischange, true, filename);
++            inf.WriteDouble("OTHER_SET", "JIGDOWNPHOTO_INTERVAL_HOURS", JigDownPhotoIntervalHours, ref ischange, true, filename);
+             inf.WriteBool("OTHER_SET", "bUpWsChkQrCodeEn", bUpWsChkQrCodeEn, ref ischange, true, filename);
+         //    inf.WriteInteger("OTHER_SET", "UpWsChkQrCodeCnt", UpWsChkQrCodeCnt, ref ischange, true, filename);
+             inf.WriteBool("OTHER_SET", "bWsNgRateShow", bWsNgRateShow, ref ischange, true, filename);

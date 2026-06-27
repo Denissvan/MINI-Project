@@ -478,6 +478,11 @@ namespace UI
             this.radWsNgRateShowEn = new System.Windows.Forms.RadioButton();
             this.groupBox54 = new System.Windows.Forms.GroupBox();
             this.checkBoxSunnyAlmTray = new System.Windows.Forms.CheckBox();
+            this.checkBoxkeyenceqr = new System.Windows.Forms.CheckBox();
+            this.textBoxkenyence = new System.Windows.Forms.TextBox();
+            this.textBoxkenyence2 = new System.Windows.Forms.TextBox();
+            this.keyenceqr = new System.Windows.Forms.Button();
+            this.keyenceqr2 = new System.Windows.Forms.Button();
             this.checkBoxdownQr = new System.Windows.Forms.CheckBox();
             this.label84 = new System.Windows.Forms.Label();
             this.nud_Motornum = new System.Windows.Forms.NumericUpDown();
@@ -7898,6 +7903,11 @@ namespace UI
             // 
             // groupBox54
             // 
+            this.groupBox54.Controls.Add(this.checkBoxkeyenceqr);
+            this.groupBox54.Controls.Add(this.textBoxkenyence);
+            this.groupBox54.Controls.Add(this.textBoxkenyence2);
+            this.groupBox54.Controls.Add(this.keyenceqr);
+            this.groupBox54.Controls.Add(this.keyenceqr2);
             this.groupBox54.Controls.Add(this.checkBoxSunnyAlmTray);
             this.groupBox54.Controls.Add(this.checkBoxdownQr);
             this.groupBox54.Controls.Add(this.label84);
@@ -7943,10 +7953,56 @@ namespace UI
             this.groupBox54.Font = new System.Drawing.Font("宋体", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.groupBox54.Location = new System.Drawing.Point(744, 6);
             this.groupBox54.Name = "groupBox54";
-            this.groupBox54.Size = new System.Drawing.Size(340, 562);
+            this.groupBox54.Size = new System.Drawing.Size(340, 650);
             this.groupBox54.TabIndex = 138;
             this.groupBox54.TabStop = false;
             this.groupBox54.Text = "马达扫码设置";
+            // 
+            // checkBoxkeyenceqr
+            // 
+            this.checkBoxkeyenceqr.AutoSize = true;
+            this.checkBoxkeyenceqr.Location = new System.Drawing.Point(13, 565);
+            this.checkBoxkeyenceqr.Name = "checkBoxkeyenceqr";
+            this.checkBoxkeyenceqr.Size = new System.Drawing.Size(72, 18);
+            this.checkBoxkeyenceqr.TabIndex = 172;
+            this.checkBoxkeyenceqr.Text = "Keyence";
+            this.checkBoxkeyenceqr.UseVisualStyleBackColor = true;
+            // 
+            // textBoxkenyence
+            // 
+            this.textBoxkenyence.Location = new System.Drawing.Point(106, 588);
+            this.textBoxkenyence.Name = "textBoxkenyence";
+            this.textBoxkenyence.Size = new System.Drawing.Size(122, 23);
+            this.textBoxkenyence.TabIndex = 173;
+            this.textBoxkenyence.Text = "192.168.72.82";
+            // 
+            // textBoxkenyence2
+            // 
+            this.textBoxkenyence2.Location = new System.Drawing.Point(106, 618);
+            this.textBoxkenyence2.Name = "textBoxkenyence2";
+            this.textBoxkenyence2.Size = new System.Drawing.Size(122, 23);
+            this.textBoxkenyence2.TabIndex = 174;
+            this.textBoxkenyence2.Text = "192.168.72.83";
+            // 
+            // keyenceqr
+            // 
+            this.keyenceqr.Location = new System.Drawing.Point(234, 586);
+            this.keyenceqr.Name = "keyenceqr";
+            this.keyenceqr.Size = new System.Drawing.Size(90, 26);
+            this.keyenceqr.TabIndex = 175;
+            this.keyenceqr.Text = "Keyence1";
+            this.keyenceqr.UseVisualStyleBackColor = true;
+            this.keyenceqr.Click += new System.EventHandler(this.keyenceqr_Click);
+            // 
+            // keyenceqr2
+            // 
+            this.keyenceqr2.Location = new System.Drawing.Point(234, 616);
+            this.keyenceqr2.Name = "keyenceqr2";
+            this.keyenceqr2.Size = new System.Drawing.Size(90, 26);
+            this.keyenceqr2.TabIndex = 176;
+            this.keyenceqr2.Text = "Keyence2";
+            this.keyenceqr2.UseVisualStyleBackColor = true;
+            this.keyenceqr2.Click += new System.EventHandler(this.keyenceqr2_Click);
             // 
             // checkBoxSunnyAlmTray
             // 
@@ -11755,6 +11811,11 @@ namespace UI
         private System.Windows.Forms.NumericUpDown boxChecksetvalue;
         private System.Windows.Forms.RadioButton rbtn_check2close;
         private System.Windows.Forms.RadioButton rbtn_check2open;
+        private System.Windows.Forms.TextBox textBoxkenyence;
+        private System.Windows.Forms.TextBox textBoxkenyence2;
+        private System.Windows.Forms.CheckBox checkBoxkeyenceqr;
+        private System.Windows.Forms.Button keyenceqr;
+        private System.Windows.Forms.Button keyenceqr2;
         private System.Windows.Forms.TextBox textBoxSunnyIp;
         private System.Windows.Forms.Label label77;
         private System.Windows.Forms.CheckBox checkBoxSunnyQr;

@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Diagnostics;
@@ -2223,24 +2223,62 @@ namespace UI
 
         public EM_RES WaitBeforeOpenImage(ref bool bquit)
         {
-            int waitMs = Math.Max(0, NewSysInf.UserParams.BeforeOpenImageWaitTime);
-            bool stopOtherAxes = NewSysInf.UserParams.bBeforeOpenImageStopAxis;
-            bool restoreWindAfterDelay = false;
+            return EM_RES.OK;
+        }
 
-            if (!stopOtherAxes && waitMs <= 0)
+        public void LogUpDnOpenImage(string stage)
+        {
+            string windState = gpio_out_gz_wind == null ? "NULL" : (gpio_out_gz_wind.isON ? "ON" : "OFF");
+            Turntable.EM_STA pos = Turntable.GetWSSta(num);
+            VAR.msg.AddMsg(Msg.EM_MSGTYPE.DBG,
+                $"{disc} 上料位开图[{stage}] pos={pos}, turnon={PT_SET.turnon}, HallEn={PT_SET.HallEn}, " +
+                $"TestStatus={TestStatus}, FeedStatus={FeedStatus}, Status={Status}, " +
+                $"FrDown={isFrDown}, BkDown={isBkDown}, Wind={windState}, " +
+                $"OpenDly={PT_SET.OpenDly}, 轴静止={NewSysInf.UserParams.BeforeOpenImageWaitTime}, 闭气={NewSysInf.UserParams.BeforeOpenImageWindOffTime}");
+        }
+
+        public EM_RES WaitOpenDlyWithAxisStatic()
+        {
+            int openDelayMs = Math.Max(0, PT_SET.OpenDly);
+            int axisStaticMs = Math.Max(0, NewSysInf.UserParams.BeforeOpenImageWaitTime);
+            int windOffMs = Math.Max(0, NewSysInf.UserParams.BeforeOpenImageWindOffTime);
+            int waitMs = Math.Max(openDelayMs, Math.Max(axisStaticMs, windOffMs));
+            LogUpDnOpenImage($"OpenDly开始 wait={waitMs}");
+            if (waitMs <= 0)
             {
+                LogUpDnOpenImage("OpenDly跳过");
                 return EM_RES.OK;
             }
 
-            if (stopOtherAxes)
+            if (axisStaticMs <= 0 && windOffMs <= 0)
             {
-                VAR.msg.AddMsg(Msg.EM_MSGTYPE.DBG, $"{disc} 上料位提前开图前停止其他轴");
-                VAR.bBeforeOpenImageAxisStatic = true;
-                VAR.BeforeOpenImageAxisStopTick = Environment.TickCount;
-                MT.AllAxStop();
-                if (gpio_out_gz_wind != null && gpio_out_gz_wind.isON)
+                Thread.Sleep(waitMs);
+                LogUpDnOpenImage("OpenDly结束-普通延时");
+                return EM_RES.OK;
+            }
+
+            bool restoreWindAfterDelay = false;
+            bool axisStatic = false;
+
+            try
+            {
+                if (axisStaticMs > 0)
                 {
-                    VAR.msg.AddMsg(Msg.EM_MSGTYPE.DBG, $"{disc} 轴静止等待期间关闭吹气");
+                    VAR.msg.AddMsg(Msg.EM_MSGTYPE.DBG, $"{disc} 开图后轴静止{axisStaticMs}");
+                    VAR.bBeforeOpenImageAxisStatic = true;
+                    VAR.BeforeOpenImageAxisStopTick = Environment.TickCount;
+                    axisStatic = true;
+                    MT.AllAxStop(MT.AxList_WS
+                        .Concat(MT.Axlist_UDL1)
+                        .Concat(MT.Axlist_UDL2)
+                        .Concat(MT.Axlist_UDL_LC)
+                        .Distinct()
+                        .ToList());
+                }
+
+                if (windOffMs > 0 && gpio_out_gz_wind != null && gpio_out_gz_wind.isON)
+                {
+                    VAR.msg.AddMsg(Msg.EM_MSGTYPE.DBG, $"{disc} 开图后闭气{windOffMs}");
                     gpio_out_gz_wind.SetOff();
                     if (gpio_out_gz_wind.res != EM_RES.OK)
                     {
@@ -2248,16 +2286,8 @@ namespace UI
                     }
                     restoreWindAfterDelay = true;
                 }
-            }
 
-            try
-            {
-                if (waitMs <= 0)
-                {
-                    return EM_RES.OK;
-                }
-
-                VAR.msg.AddMsg(Msg.EM_MSGTYPE.DBG, $"{disc} 上料后延迟开图时间{waitMs}");
+                VAR.msg.AddMsg(Msg.EM_MSGTYPE.DBG, $"{disc} 开图后延时等待{waitMs}");
                 int elapsed = 0;
                 while (elapsed < waitMs)
                 {
@@ -2268,24 +2298,39 @@ namespace UI
 
                     Thread.Sleep(50);
                     elapsed += 50;
+
+                    if (axisStatic && elapsed >= axisStaticMs)
+                    {
+                        VAR.msg.AddMsg(Msg.EM_MSGTYPE.DBG, $"{disc} 轴静止结束");
+                        VAR.bBeforeOpenImageAxisStatic = false;
+                        axisStatic = false;
+                    }
+
+                    if (restoreWindAfterDelay && elapsed >= windOffMs)
+                    {
+                        VAR.msg.AddMsg(Msg.EM_MSGTYPE.DBG, $"{disc} 闭气结束，恢复吹气");
+                        gpio_out_gz_wind.SetOn();
+                        restoreWindAfterDelay = false;
+                    }
                 }
 
+                LogUpDnOpenImage("OpenDly结束-闭气轴静止");
                 return EM_RES.OK;
             }
             finally
             {
                 if (restoreWindAfterDelay && !bquit && !VAR.gsys_set.bquit)
                 {
-                    VAR.msg.AddMsg(Msg.EM_MSGTYPE.DBG, $"{disc} 轴静止等待结束，恢复吹气");
+                    VAR.msg.AddMsg(Msg.EM_MSGTYPE.DBG, $"{disc} 闭气异常结束，恢复吹气");
                     gpio_out_gz_wind.SetOn();
                 }
-                if (stopOtherAxes)
+
+                if (axisStatic)
                 {
                     VAR.bBeforeOpenImageAxisStatic = false;
                 }
             }
         }
-
         private bool IsBeforeOpenImageAxisStopWindow()
         {
             if (VAR.bBeforeOpenImageAxisStatic)
@@ -3384,7 +3429,19 @@ namespace UI
                         break;
                     }
 
-                    Thread.Sleep(PT_SET.OpenDly);// 开图延时等待
+                    if (bOnUpDnPos)
+                    {
+                        res = WaitOpenDlyWithAxisStatic();// 上料位开图延时等待
+                        if (res != EM_RES.OK)
+                        {
+                            Status = EM_STA.LINKERR;
+                            break;
+                        }
+                    }
+                    else
+                    {
+                        Thread.Sleep(Math.Max(0, PT_SET.OpenDly));// 非上料位只做普通开图延时
+                    }
                     if (bUpDnStart && !PT_SET.turnon)//后开图且已经上料停止启动测试
                     {
                         res = EM_RES.OK;
@@ -3609,6 +3666,13 @@ namespace UI
 
                         if (sta == 0 && bUpDnPosGoOnTest)
                         {
+                            GyroscopeMonitor.SetState(GyroCheckState.Running);
+                            res = NextTest(sta, Demo);
+                            if (res != EM_RES.OK)
+                            {
+                                TestStatus = EM_TEST_STA.ERROR;
+                                break;
+                            }
                             Status = EM_STA.REDAY;
                             TestStatus = EM_TEST_STA.COMPLETED;
                             bUpDnPosGoOnTest = false;

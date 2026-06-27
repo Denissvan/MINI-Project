@@ -997,8 +997,11 @@ namespace UI
             else checkBoxSunnyAlm.Checked = false;
             if (PT_SET.bsunnyqralmtray) checkBoxSunnyAlmTray.Checked = true;
             else checkBoxSunnyAlmTray.Checked = false;
+            checkBoxkeyenceqr.Checked = PT_SET.bkeyenceqr;
             textBoxSunnyIp.Text = PT_SET.sunnyqrip0;
             textBoxSunnyIp2.Text = PT_SET.sunnyqrip1;
+            textBoxkenyence.Text = PT_SET.keyenceIP;
+            textBoxkenyence2.Text = PT_SET.keyenceIP2;
             radWsNgRateShowEn.Checked = PT_SET.bWsNgRateShow;
             radWsNgRateShowOff.Checked = !PT_SET.bWsNgRateShow;
             NumWsNgCntPer20.Value = (decimal)PT_SET.CntWsNgRateShow;
@@ -1574,6 +1577,9 @@ namespace UI
             PT_SET.bsunnyqralmtray = checkBoxSunnyAlmTray.Checked;
             PT_SET.sunnyqrip0 = textBoxSunnyIp.Text;
             PT_SET.sunnyqrip1 = textBoxSunnyIp2.Text;
+            PT_SET.bkeyenceqr = checkBoxkeyenceqr.Checked;
+            PT_SET.keyenceIP = textBoxkenyence.Text.Trim();
+            PT_SET.keyenceIP2 = textBoxkenyence2.Text.Trim();
             PT_SET.bWsNgRateShow = radWsNgRateShowEn.Checked;
             PT_SET.CntWsNgRateShow = (int)NumWsNgCntPer20.Value;
 
@@ -2429,6 +2435,52 @@ namespace UI
             }
         }
 
+        private void keyenceqr_Click(object sender, EventArgs e)
+        {
+            KeyenceQrTest(textBoxkenyence.Text.Trim(), COM.Keyence, "1");
+        }
+
+        private void keyenceqr2_Click(object sender, EventArgs e)
+        {
+            KeyenceQrTest(textBoxkenyence2.Text.Trim(), COM.Keyence2, "2");
+        }
+
+        private void KeyenceQrTest(string ip, SunnyPrjTemplate.Controls.ScanCode keyence, string name)
+        {
+            VAR.msg.AddMsg(Msg.EM_MSGTYPE.DBG, $"基恩士扫码{name}测试开始,启用:{checkBoxkeyenceqr.Checked},配置IP:{ip},当前连接IP:{keyence.m_reader.IpAddress}");
+
+            if (string.IsNullOrWhiteSpace(ip))
+            {
+                VAR.msg.AddMsg(Msg.EM_MSGTYPE.ERR, $"基恩士扫码{name}测试失败:IP为空");
+                MessageBox.Show("扫码失败:IP为空");
+                return;
+            }
+
+            if (keyence.m_reader.IpAddress != ip)
+            {
+                VAR.msg.AddMsg(Msg.EM_MSGTYPE.DBG, $"基恩士扫码{name}测试重新初始化,旧IP:{keyence.m_reader.IpAddress},新IP:{ip}");
+                keyence.Init(ip);
+            }
+
+            string rawMsg = keyence.m_reader.ExecCommand("LON");
+            string msg = rawMsg == null ? null : rawMsg.Trim();
+            VAR.msg.AddMsg(Msg.EM_MSGTYPE.DBG, $"基恩士扫码{name}测试返回,Raw:[{rawMsg ?? "NULL"}],Trim:[{msg ?? "NULL"}],RawLen:{(rawMsg == null ? -1 : rawMsg.Length)},TrimLen:{(msg == null ? -1 : msg.Length)}");
+
+            if (string.IsNullOrWhiteSpace(msg))
+            {
+                VAR.msg.AddMsg(Msg.EM_MSGTYPE.ERR, $"基恩士扫码{name}测试失败:扫码枪无有效二维码返回,IP:{ip},Raw:[{rawMsg ?? "NULL"}]");
+                MessageBox.Show("扫码失败:扫码枪无有效二维码返回");
+                return;
+            }
+
+            if ((msg.Length - 4) != PT_SET.motorBarcodeDigits && NewSysInf.UserParams.bCheckMotoCodeLength)
+            {
+                VAR.msg.AddMsg(Msg.EM_MSGTYPE.NOR, $"基恩士扫码{name}测试位数校验失败,二维码:{msg},扫码长度:{msg.Length},有效长度:{msg.Length - 4},设置长度:{PT_SET.motorBarcodeDigits}");
+            }
+
+            VAR.msg.AddMsg(Msg.EM_MSGTYPE.NOR, $"基恩士扫码{name}测试成功,IP:{ip},二维码:{msg},长度:{msg.Length}");
+            MessageBox.Show($"扫码结果为{msg}");
+        }
         private void button6_Click_2(object sender, EventArgs e)
         {
             if (textBoxpassword.Text == "hyq20231102000!")

@@ -1050,6 +1050,11 @@ namespace MotionCtrl
         public static string sunnyqrip0;
         public static string sunnyqrip1;
 
+        //基恩士扫码相机
+        public static bool bkeyenceqr = false;
+        public static string keyenceIP;
+        public static string keyenceIP2;
+
         //马达扫二维码U1角度
         public static int MotorAngle1 = 0;
 
@@ -1591,6 +1596,7 @@ namespace MotionCtrl
 
             bmotorphoto = inf.ReadBool("OTHER_SET", "BMOTORPHOTO", false);
             bsunnyqr = inf.ReadBool("OTHER_SET", "bsunnyqr", false);
+            bkeyenceqr = inf.ReadBool("OTHER_SET", "bkeyenceqr", inf.ReadBool("OTHER_SET", " bkeyenceqr", false));
             bdownqr = inf.ReadBool("OTHER_SET", "bdownqr", false);
             bsunnyqrleft = inf.ReadBool("OTHER_SET", "bsunnyqrleft", false);
             bsunnyqrright = inf.ReadBool("OTHER_SET", "bsunnyqrright", false);
@@ -1598,6 +1604,8 @@ namespace MotionCtrl
             bsunnyqralmtray = inf.ReadBool("OTHER_SET", "bsunnyqralmtray", false);
             sunnyqrip0 = inf.ReadString("OTHER_SET", "sunnyqrip0", "192.168.72.80");
             sunnyqrip1 = inf.ReadString("OTHER_SET", "sunnyqrip1", "192.168.72.81");
+            keyenceIP = inf.ReadString("OTHER_SET", "keyenceIP", inf.ReadString("OTHER_SET", " keyenceIP", "192.168.72.82"));
+            keyenceIP2 = inf.ReadString("OTHER_SET", "keyenceIP2", inf.ReadString("OTHER_SET", " keyenceIP2", "192.168.72.83"));
             Motornum = inf.ReadInteger("OTHER_SET", "MOTORNUM", 0);
             MotorAngle1 = inf.ReadInteger("OTHER_SET", "MOTORANGLE1", 0);
             MotorAngle2 = inf.ReadInteger("OTHER_SET", "MOTORANGLE2", 0);
@@ -1685,6 +1693,7 @@ namespace MotionCtrl
             bDwAddCapQrcode = inf.ReadBool("OTHER_SET", "bDwAddCapQrcode", false);
             Check2open = inf.ReadBool("OTHER_SET", "Check2open", false);
             bWsModShp2PhotoAfterCheck = inf.ReadBool("OTHER_SET", "BWSMOD_SHP2_AFTER_CHECK_PHOTO", false);
+            VAR.msg.AddMsg(Msg.EM_MSGTYPE.DBG, string.Format("ReadPtCfg BWSMOD_SHP2_AFTER_CHECK_PHOTO={0}", bWsModShp2PhotoAfterCheck));
             //吸头个数设置
             bUpDn1XtOnlyOne = inf.ReadBool("OTHER_SET", "bUpDn1XtOnlyOne", false);
             bUpDn2XtOnlyOne = inf.ReadBool("OTHER_SET", "bUpDn2XtOnlyOne", false);
@@ -1878,6 +1887,7 @@ namespace MotionCtrl
             inf.WriteBool("OTHER_SET", "DOWNDOWNQRDE", DownDownQrde, ref ischange, true, filename);
             inf.WriteBool("OTHER_SET", "BMOTORPHOTO", bmotorphoto, ref ischange, true, filename);
             inf.WriteBool("OTHER_SET", " bsunnyqr", bsunnyqr, ref ischange, true, filename);
+            inf.WriteBool("OTHER_SET", "bkeyenceqr", bkeyenceqr, ref ischange, true, filename);
             inf.WriteBool("OTHER_SET", " bdownqr", bdownqr, ref ischange, true, filename);
             inf.WriteBool("OTHER_SET", " bsunnyqrleft", bsunnyqrleft, ref ischange, true, filename);
             inf.WriteBool("OTHER_SET", " bsunnyqrright", bsunnyqrright, ref ischange, true, filename);
@@ -1885,6 +1895,8 @@ namespace MotionCtrl
             inf.WriteBool("OTHER_SET", " bsunnyqralmtray", bsunnyqralmtray, ref ischange, true, filename);
             inf.WriteString("OTHER_SET", " sunnyqrip0", sunnyqrip0, ref ischange, true, filename);
             inf.WriteString("OTHER_SET", " sunnyqrip1", sunnyqrip1, ref ischange, true, filename);
+            inf.WriteString("OTHER_SET", "keyenceIP", keyenceIP, ref ischange, true, filename);
+            inf.WriteString("OTHER_SET", "keyenceIP2", keyenceIP2, ref ischange, true, filename);
             inf.WriteDouble("OTHER_SET", "MOTOZ1", MotorZ1, ref ischange, true, filename);
             inf.WriteDouble("OTHER_SET", "MOTOZ2", MotorZ2, ref ischange, true, filename);
             inf.WriteDouble("OTHER_SET", "MOTOZ3", MotorZ3, ref ischange, true, filename);
@@ -2046,6 +2058,7 @@ namespace MotionCtrl
             inf.WriteBool("OTHER_SET", "bDwAddCapQrcode", bDwAddCapQrcode, ref ischange, true, filename);
             inf.WriteBool("OTHER_SET", "Check2open", Check2open, ref ischange, true, filename);
             inf.WriteBool("OTHER_SET", "BWSMOD_SHP2_AFTER_CHECK_PHOTO", bWsModShp2PhotoAfterCheck, ref ischange, true, filename);
+            VAR.msg.AddMsg(Msg.EM_MSGTYPE.DBG, string.Format("SavePtCfg BWSMOD_SHP2_AFTER_CHECK_PHOTO={0}, file={1}", bWsModShp2PhotoAfterCheck, filename));
             inf.WriteBool("OTHER_SET", "BJIGDOWNPHOTO", bJigDownPhoto, ref ischange, true, filename);
             inf.WriteDouble("OTHER_SET", "JIGDOWNPHOTO_INTERVAL_HOURS", JigDownPhotoIntervalHours, ref ischange, true, filename);
             inf.WriteBool("OTHER_SET", "bUpWsChkQrCodeEn", bUpWsChkQrCodeEn, ref ischange, true, filename);
