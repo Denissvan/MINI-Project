@@ -27,6 +27,10 @@ namespace UI
             ERR_TIMEOUT = -4,
             [Description("失联")]
             ERR_LINK = -5,
+            [Description("会话丢失")]
+            ERR_SESSION_LOST = -7,
+            [Description("通信停滞")]
+            ERR_LINK_LOST = -8,
         }
         public struct InfoData
         {

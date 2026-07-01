@@ -365,6 +365,9 @@ namespace UI
             //循环数
             public int temp;
             public int cnt;
+            public bool bLinkErrLogged;
+            public int lastGetStatusRet;
+            public int lastGetStatusSta;
         };
         public List<PCDat> list_pc_dat = new List<PCDat>();
 
@@ -2226,6 +2229,12 @@ namespace UI
             return EM_RES.OK;
         }
 
+        private void SetStatusAfterLocalWaitError(EM_RES res, string stage)
+        {
+            VAR.msg.AddMsg(Msg.EM_MSGTYPE.ERR, string.Format("{0} {1} err,res={2}", disc, stage, Utility.GetDescription(res, VAR.IsChinese)));
+            Status = res == EM_RES.QUIT || VAR.gsys_set.bquit ? EM_STA.QUIT : EM_STA.ERR;
+        }
+
         public void LogUpDnOpenImage(string stage)
         {
             string windState = gpio_out_gz_wind == null ? "NULL" : (gpio_out_gz_wind.isON ? "ON" : "OFF");
@@ -2899,6 +2908,8 @@ namespace UI
                         {
                             int sta = -1;
                             int ret = TestPC.GetStatus(pc.ID, ref sta);
+                            pc.lastGetStatusRet = ret;
+                            pc.lastGetStatusSta = sta;
                             if (ret == (int)TestPC.EM_RES.OK)
                             {
                                 //检查联机
@@ -2915,7 +2926,20 @@ namespace UI
                             }
                             else pc.cnt++;
 
-                            if (pc.cnt > 5) pc.status = EM_PC_STA.LINK_ERR;
+                            if (pc.cnt > 5)
+                            {
+                                pc.status = EM_PC_STA.LINK_ERR;
+                                if (!pc.bLinkErrLogged)
+                                {
+                                    VAR.msg.AddMsg(Msg.EM_MSGTYPE.ERR, string.Format("{0} GetStatus联机错误,ID={1},ret={2},sta={3},cnt={4},last_tick={5}", disc, pc.ID, Utility.GetDescription((TestPC.EM_RES)ret, VAR.IsChinese), sta, pc.cnt, pc.temp));
+                                    pc.bLinkErrLogged = true;
+                                }
+                            }
+                            else if (pc.bLinkErrLogged && pc.status != EM_PC_STA.LINK_ERR)
+                            {
+                                VAR.msg.AddMsg(Msg.EM_MSGTYPE.NOR, string.Format("{0} GetStatus联机恢复,ID={1},ret={2},sta={3},cnt={4},last_tick={5}", disc, pc.ID, Utility.GetDescription((TestPC.EM_RES)ret, VAR.IsChinese), sta, pc.cnt, pc.temp));
+                                pc.bLinkErrLogged = false;
+                            }
                         }
                         catch (Exception ex)
                         {
@@ -3385,7 +3409,7 @@ namespace UI
                                 res = WaitBeforeOpenImage(ref VAR.gsys_set.bquit);
                                 if (res != EM_RES.OK)
                                 {
-                                    Status = EM_STA.LINKERR;
+                                    SetStatusAfterLocalWaitError(res, "WaitBeforeOpenImage");
                                     break;
                                 }
                             }
@@ -3434,7 +3458,7 @@ namespace UI
                         res = WaitOpenDlyWithAxisStatic();// 上料位开图延时等待
                         if (res != EM_RES.OK)
                         {
-                            Status = EM_STA.LINKERR;
+                            SetStatusAfterLocalWaitError(res, "WaitOpenDlyWithAxisStatic");
                             break;
                         }
                     }

@@ -3588,6 +3588,7 @@ RECHECK:
                     target.SourceUdId = id;
                 }
             }
+            SortAfterCloseTargetsInPlace(afterCloseTargets);
             VAR.msg.AddMsg(Msg.EM_MSGTYPE.DBG, string.Format("{0} JigDownPhoto cache targets: {1}, nums: {2}", disc, afterCloseTargets.Count, string.Join(",", afterCloseTargets.Select(t => t.Md.Num))));
         }
 
@@ -3628,14 +3629,51 @@ RECHECK:
             return new AfterCloseTarget(target.Md.Clone(), target.X, target.SourceUdId);
         }
 
+        private static int GetAfterCloseFixtureColumn(AfterCloseTarget target)
+        {
+            if (target == null || target.Md == null)
+            {
+                return int.MaxValue;
+            }
+
+            return (Math.Max(1, target.Md.Num) - 1) % 8;
+        }
+
+        private static List<AfterCloseTarget> SortAfterCloseTargets(IEnumerable<AfterCloseTarget> targets)
+        {
+            if (targets == null)
+            {
+                return new List<AfterCloseTarget>();
+            }
+
+            return targets
+                .Where(t => t != null && t.Md != null)
+                .OrderBy(t => t.Md.WS_ID)
+                .ThenBy(GetAfterCloseFixtureColumn)
+                .ThenBy(t => t.Md.Num > 8 ? 1 : 0)
+                .ThenBy(t => t.Md.Num)
+                .ToList();
+        }
+
+        private static void SortAfterCloseTargetsInPlace(List<AfterCloseTarget> targets)
+        {
+            if (targets == null || targets.Count <= 1)
+            {
+                return;
+            }
+
+            List<AfterCloseTarget> sortedTargets = SortAfterCloseTargets(targets);
+            targets.Clear();
+            targets.AddRange(sortedTargets);
+        }
+
         private List<AfterCloseTarget> GetAfterCloseTargetsSnapshot()
         {
             if (afterCloseTargets.Count > 0)
             {
-                return afterCloseTargets
+                return SortAfterCloseTargets(afterCloseTargets
                     .Select(CloneAfterCloseTarget)
-                    .Where(t => t != null)
-                    .ToList();
+                    .Where(t => t != null));
             }
 
             if (FeedBackWs == null || FeedBackWs.Count == 0)
@@ -3643,10 +3681,9 @@ RECHECK:
                 return new List<AfterCloseTarget>();
             }
 
-            return FeedBackWs
+            return SortAfterCloseTargets(FeedBackWs
                 .Where(md => md != null)
-                .Select(md => new AfterCloseTarget(md.Clone(), FeedBackPos.x, id))
-                .ToList();
+                .Select(md => new AfterCloseTarget(md.Clone(), FeedBackPos.x, id)));
         }
 
         private static void AddAfterCloseTargets(List<AfterCloseTarget> targets, IEnumerable<AfterCloseTarget> sourceTargets)
@@ -3784,6 +3821,7 @@ RECHECK:
             List<AfterCloseTarget> checkTargets = new List<AfterCloseTarget>();
             AddAfterCloseTargets(checkTargets, COM.UDLoad1 == null ? null : COM.UDLoad1.GetAfterCloseTargetsSnapshot());
             AddAfterCloseTargets(checkTargets, COM.UDLoad2 == null ? null : COM.UDLoad2.GetAfterCloseTargetsSnapshot());
+            checkTargets = SortAfterCloseTargets(checkTargets);
             bool clearMergedTargets = false;
 
             try
@@ -3852,7 +3890,7 @@ RECHECK:
                     return EM_RES.OK;
                 }
 
-                checkTargets = checkTargets == null ? new List<AfterCloseTarget>() : checkTargets.Where(t => t != null && t.Md != null).ToList();
+                checkTargets = SortAfterCloseTargets(checkTargets);
                 if (checkTargets.Count == 0)
                 {
                     VAR.msg.AddMsg(Msg.EM_MSGTYPE.DBG, string.Format("{0} JigDownPhoto skip: no cached targets", disc));
