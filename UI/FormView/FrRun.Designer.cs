@@ -55,27 +55,20 @@ namespace UI
             this.panel7 = new System.Windows.Forms.Panel();
             this.tableLayoutPanel4 = new System.Windows.Forms.TableLayoutPanel();
             this.panel4 = new System.Windows.Forms.Panel();
+            this.UpLoad1 = new UI.UpLoad();
             this.panel8 = new System.Windows.Forms.Panel();
+            this.upLoad2 = new UI.UpLoad();
             this.panel9 = new System.Windows.Forms.Panel();
             this.lb_tt_n = new System.Windows.Forms.Label();
             this.lb_tt_ct = new System.Windows.Forms.Label();
             this.lb_tt_tmr = new System.Windows.Forms.Label();
-            this.panel6 = new System.Windows.Forms.Panel();
-            this.panel3 = new System.Windows.Forms.Panel();
-            this.timer_500ms = new System.Windows.Forms.Timer(this.components);
-            this.timer_key = new System.Windows.Forms.Timer(this.components);
-            this.timer1 = new System.Windows.Forms.Timer(this.components);
-            this.timer2 = new System.Windows.Forms.Timer(this.components);
-            this.timer3 = new System.Windows.Forms.Timer(this.components);
-            this.timer4 = new System.Windows.Forms.Timer(this.components);
-            this.UpLoad1 = new UI.UpLoad();
-            this.upLoad2 = new UI.UpLoad();
             this.tray_fd = new UI.tray();
             this.traybox_fd = new UI.traybox();
             this.traybox_ok = new UI.traybox();
             this.traybox_ng = new UI.traybox();
             this.tray_ok = new UI.tray();
             this.tray_ng = new UI.tray();
+            this.panel6 = new System.Windows.Forms.Panel();
             this.cogDisplayer_run = new UI.CogDisplayer();
             this.cTabControl1 = new CTabControl();
             this.tp_ws_status = new System.Windows.Forms.TabPage();
@@ -172,6 +165,13 @@ namespace UI
             this.labelclosenum = new System.Windows.Forms.Label();
             this.label31 = new System.Windows.Forms.Label();
             this.labelopennum = new System.Windows.Forms.Label();
+            this.panel3 = new System.Windows.Forms.Panel();
+            this.timer_500ms = new System.Windows.Forms.Timer(this.components);
+            this.timer_key = new System.Windows.Forms.Timer(this.components);
+            this.timer1 = new System.Windows.Forms.Timer(this.components);
+            this.timer2 = new System.Windows.Forms.Timer(this.components);
+            this.timer3 = new System.Windows.Forms.Timer(this.components);
+            this.timer4 = new System.Windows.Forms.Timer(this.components);
             this.tableLayoutPanel1.SuspendLayout();
             this.panel2.SuspendLayout();
             this.tableLayoutPanel2.SuspendLayout();
@@ -521,7 +521,7 @@ namespace UI
             this.tableLayoutPanel4.ColumnCount = 3;
             this.tableLayoutPanel4.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 44.54343F));
             this.tableLayoutPanel4.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 55.45657F));
-            this.tableLayoutPanel4.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 320F));
+            this.tableLayoutPanel4.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 321F));
             this.tableLayoutPanel4.Controls.Add(this.panel4, 2, 0);
             this.tableLayoutPanel4.Controls.Add(this.panel8, 2, 1);
             this.tableLayoutPanel4.Controls.Add(this.panel9, 2, 2);
@@ -545,20 +545,38 @@ namespace UI
             this.panel4.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.panel4.Controls.Add(this.UpLoad1);
             this.panel4.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panel4.Location = new System.Drawing.Point(323, 3);
+            this.panel4.Location = new System.Drawing.Point(322, 3);
             this.panel4.Name = "panel4";
-            this.panel4.Size = new System.Drawing.Size(315, 135);
+            this.panel4.Size = new System.Drawing.Size(316, 135);
             this.panel4.TabIndex = 9;
+            // 
+            // UpLoad1
+            // 
+            this.UpLoad1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.UpLoad1.Location = new System.Drawing.Point(0, 0);
+            this.UpLoad1.Margin = new System.Windows.Forms.Padding(4);
+            this.UpLoad1.Name = "UpLoad1";
+            this.UpLoad1.Size = new System.Drawing.Size(314, 133);
+            this.UpLoad1.TabIndex = 0;
             // 
             // panel8
             // 
             this.panel8.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.panel8.Controls.Add(this.upLoad2);
             this.panel8.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panel8.Location = new System.Drawing.Point(323, 144);
+            this.panel8.Location = new System.Drawing.Point(322, 144);
             this.panel8.Name = "panel8";
-            this.panel8.Size = new System.Drawing.Size(315, 129);
+            this.panel8.Size = new System.Drawing.Size(316, 129);
             this.panel8.TabIndex = 10;
+            // 
+            // upLoad2
+            // 
+            this.upLoad2.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.upLoad2.Location = new System.Drawing.Point(0, 0);
+            this.upLoad2.Margin = new System.Windows.Forms.Padding(4);
+            this.upLoad2.Name = "upLoad2";
+            this.upLoad2.Size = new System.Drawing.Size(314, 127);
+            this.upLoad2.TabIndex = 1;
             // 
             // panel9
             // 
@@ -567,9 +585,9 @@ namespace UI
             this.panel9.Controls.Add(this.lb_tt_ct);
             this.panel9.Controls.Add(this.lb_tt_tmr);
             this.panel9.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panel9.Location = new System.Drawing.Point(323, 279);
+            this.panel9.Location = new System.Drawing.Point(322, 279);
             this.panel9.Name = "panel9";
-            this.panel9.Size = new System.Drawing.Size(315, 133);
+            this.panel9.Size = new System.Drawing.Size(316, 133);
             this.panel9.TabIndex = 11;
             // 
             // lb_tt_n
@@ -605,75 +623,6 @@ namespace UI
             this.lb_tt_tmr.TabIndex = 0;
             this.lb_tt_tmr.Text = "000.0s";
             // 
-            // panel6
-            // 
-            this.panel6.BackColor = System.Drawing.SystemColors.ControlDarkDark;
-            this.panel6.Controls.Add(this.cogDisplayer_run);
-            this.panel6.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panel6.Location = new System.Drawing.Point(3, 3);
-            this.panel6.Name = "panel6";
-            this.panel6.Size = new System.Drawing.Size(656, 428);
-            this.panel6.TabIndex = 1;
-            // 
-            // panel3
-            // 
-            this.panel3.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
-            this.panel3.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.panel3.Location = new System.Drawing.Point(-10, 1);
-            this.panel3.Name = "panel3";
-            this.panel3.Size = new System.Drawing.Size(1298, 2);
-            this.panel3.TabIndex = 1;
-            // 
-            // timer_500ms
-            // 
-            this.timer_500ms.Interval = 501;
-            this.timer_500ms.Tick += new System.EventHandler(this.timer_500ms_Tick);
-            // 
-            // timer_key
-            // 
-            this.timer_key.Tick += new System.EventHandler(this.timer_key_Tick);
-            // 
-            // timer1
-            // 
-            this.timer1.Enabled = true;
-            this.timer1.Interval = 60000;
-            this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
-            // 
-            // timer2
-            // 
-            this.timer2.Enabled = true;
-            this.timer2.Interval = 7200000;
-            this.timer2.Tick += new System.EventHandler(this.timer2_Tick);
-            // 
-            // timer3
-            // 
-            this.timer3.Enabled = true;
-            this.timer3.Interval = 180000;
-            this.timer3.Tick += new System.EventHandler(this.timer3_Tick);
-            // 
-            // timer4
-            // 
-            this.timer4.Enabled = true;
-            this.timer4.Tick += new System.EventHandler(this.timer4_Tick);
-            // 
-            // UpLoad1
-            // 
-            this.UpLoad1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.UpLoad1.Location = new System.Drawing.Point(0, 0);
-            this.UpLoad1.Margin = new System.Windows.Forms.Padding(4);
-            this.UpLoad1.Name = "UpLoad1";
-            this.UpLoad1.Size = new System.Drawing.Size(313, 133);
-            this.UpLoad1.TabIndex = 0;
-            // 
-            // upLoad2
-            // 
-            this.upLoad2.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.upLoad2.Location = new System.Drawing.Point(0, 0);
-            this.upLoad2.Margin = new System.Windows.Forms.Padding(4);
-            this.upLoad2.Name = "upLoad2";
-            this.upLoad2.Size = new System.Drawing.Size(313, 127);
-            this.upLoad2.TabIndex = 1;
-            // 
             // tray_fd
             // 
             this.tray_fd.Bordercolor = System.Drawing.Color.DodgerBlue;
@@ -683,7 +632,7 @@ namespace UI
             this.tray_fd.Name = "tray_fd";
             this.tray_fd.NGcolor = System.Drawing.Color.Red;
             this.tray_fd.OKcolor = System.Drawing.Color.Lime;
-            this.tray_fd.Size = new System.Drawing.Size(172, 135);
+            this.tray_fd.Size = new System.Drawing.Size(171, 135);
             this.tray_fd.TabIndex = 12;
             this.tray_fd.TrayColor = System.Drawing.SystemColors.Control;
             this.tray_fd.TrayName = "DISC";
@@ -744,7 +693,7 @@ namespace UI
             this.tray_ok.Name = "tray_ok";
             this.tray_ok.NGcolor = System.Drawing.Color.Red;
             this.tray_ok.OKcolor = System.Drawing.Color.Lime;
-            this.tray_ok.Size = new System.Drawing.Size(172, 129);
+            this.tray_ok.Size = new System.Drawing.Size(171, 129);
             this.tray_ok.TabIndex = 16;
             this.tray_ok.TrayColor = System.Drawing.SystemColors.Control;
             this.tray_ok.TrayName = "DISC";
@@ -760,12 +709,22 @@ namespace UI
             this.tray_ng.Name = "tray_ng";
             this.tray_ng.NGcolor = System.Drawing.Color.Red;
             this.tray_ng.OKcolor = System.Drawing.Color.Lime;
-            this.tray_ng.Size = new System.Drawing.Size(172, 133);
+            this.tray_ng.Size = new System.Drawing.Size(171, 133);
             this.tray_ng.TabIndex = 17;
             this.tray_ng.TrayColor = System.Drawing.SystemColors.Control;
             this.tray_ng.TrayName = "DISC";
             this.tray_ng.UNcolor = System.Drawing.Color.Silver;
             this.tray_ng.UTcolor = System.Drawing.Color.SkyBlue;
+            // 
+            // panel6
+            // 
+            this.panel6.BackColor = System.Drawing.SystemColors.ControlDarkDark;
+            this.panel6.Controls.Add(this.cogDisplayer_run);
+            this.panel6.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.panel6.Location = new System.Drawing.Point(3, 3);
+            this.panel6.Name = "panel6";
+            this.panel6.Size = new System.Drawing.Size(656, 428);
+            this.panel6.TabIndex = 1;
             // 
             // cogDisplayer_run
             // 
@@ -1250,7 +1209,7 @@ namespace UI
             this.dgv_vs.Name = "dgv_vs";
             this.dgv_vs.RowHeadersWidth = 51;
             this.dgv_vs.RowTemplate.Height = 23;
-            this.dgv_vs.Size = new System.Drawing.Size(192, 70);
+            this.dgv_vs.Size = new System.Drawing.Size(410, 398);
             this.dgv_vs.TabIndex = 7;
             // 
             // tp_count
@@ -1778,7 +1737,7 @@ namespace UI
             this.tableLayoutPanel9.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 16.66667F));
             this.tableLayoutPanel9.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 16.66667F));
             this.tableLayoutPanel9.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 16.66667F));
-            this.tableLayoutPanel9.Size = new System.Drawing.Size(186, 64);
+            this.tableLayoutPanel9.Size = new System.Drawing.Size(404, 396);
             this.tableLayoutPanel9.TabIndex = 0;
             // 
             // labnumrate5
@@ -1786,9 +1745,9 @@ namespace UI
             this.labnumrate5.AutoSize = true;
             this.labnumrate5.Dock = System.Windows.Forms.DockStyle.Fill;
             this.labnumrate5.Font = new System.Drawing.Font("微软雅黑", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.labnumrate5.Location = new System.Drawing.Point(97, 52);
+            this.labnumrate5.Location = new System.Drawing.Point(206, 327);
             this.labnumrate5.Name = "labnumrate5";
-            this.labnumrate5.Size = new System.Drawing.Size(84, 10);
+            this.labnumrate5.Size = new System.Drawing.Size(193, 67);
             this.labnumrate5.TabIndex = 11;
             this.labnumrate5.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
@@ -1797,9 +1756,9 @@ namespace UI
             this.labnum5.AutoSize = true;
             this.labnum5.Dock = System.Windows.Forms.DockStyle.Fill;
             this.labnum5.Font = new System.Drawing.Font("微软雅黑", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.labnum5.Location = new System.Drawing.Point(5, 52);
+            this.labnum5.Location = new System.Drawing.Point(5, 327);
             this.labnum5.Name = "labnum5";
-            this.labnum5.Size = new System.Drawing.Size(84, 10);
+            this.labnum5.Size = new System.Drawing.Size(193, 67);
             this.labnum5.TabIndex = 10;
             this.labnum5.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
@@ -1808,9 +1767,9 @@ namespace UI
             this.labnumrate4.AutoSize = true;
             this.labnumrate4.Dock = System.Windows.Forms.DockStyle.Fill;
             this.labnumrate4.Font = new System.Drawing.Font("微软雅黑", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.labnumrate4.Location = new System.Drawing.Point(97, 42);
+            this.labnumrate4.Location = new System.Drawing.Point(206, 262);
             this.labnumrate4.Name = "labnumrate4";
-            this.labnumrate4.Size = new System.Drawing.Size(84, 8);
+            this.labnumrate4.Size = new System.Drawing.Size(193, 63);
             this.labnumrate4.TabIndex = 9;
             this.labnumrate4.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
@@ -1819,9 +1778,9 @@ namespace UI
             this.labnum4.AutoSize = true;
             this.labnum4.Dock = System.Windows.Forms.DockStyle.Fill;
             this.labnum4.Font = new System.Drawing.Font("微软雅黑", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.labnum4.Location = new System.Drawing.Point(5, 42);
+            this.labnum4.Location = new System.Drawing.Point(5, 262);
             this.labnum4.Name = "labnum4";
-            this.labnum4.Size = new System.Drawing.Size(84, 8);
+            this.labnum4.Size = new System.Drawing.Size(193, 63);
             this.labnum4.TabIndex = 8;
             this.labnum4.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
@@ -1830,9 +1789,9 @@ namespace UI
             this.labnumrate3.AutoSize = true;
             this.labnumrate3.Dock = System.Windows.Forms.DockStyle.Fill;
             this.labnumrate3.Font = new System.Drawing.Font("微软雅黑", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.labnumrate3.Location = new System.Drawing.Point(97, 32);
+            this.labnumrate3.Location = new System.Drawing.Point(206, 197);
             this.labnumrate3.Name = "labnumrate3";
-            this.labnumrate3.Size = new System.Drawing.Size(84, 8);
+            this.labnumrate3.Size = new System.Drawing.Size(193, 63);
             this.labnumrate3.TabIndex = 7;
             this.labnumrate3.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
@@ -1841,9 +1800,9 @@ namespace UI
             this.labnum3.AutoSize = true;
             this.labnum3.Dock = System.Windows.Forms.DockStyle.Fill;
             this.labnum3.Font = new System.Drawing.Font("微软雅黑", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.labnum3.Location = new System.Drawing.Point(5, 32);
+            this.labnum3.Location = new System.Drawing.Point(5, 197);
             this.labnum3.Name = "labnum3";
-            this.labnum3.Size = new System.Drawing.Size(84, 8);
+            this.labnum3.Size = new System.Drawing.Size(193, 63);
             this.labnum3.TabIndex = 6;
             this.labnum3.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
@@ -1852,9 +1811,9 @@ namespace UI
             this.labnumrate2.AutoSize = true;
             this.labnumrate2.Dock = System.Windows.Forms.DockStyle.Fill;
             this.labnumrate2.Font = new System.Drawing.Font("微软雅黑", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.labnumrate2.Location = new System.Drawing.Point(97, 22);
+            this.labnumrate2.Location = new System.Drawing.Point(206, 132);
             this.labnumrate2.Name = "labnumrate2";
-            this.labnumrate2.Size = new System.Drawing.Size(84, 8);
+            this.labnumrate2.Size = new System.Drawing.Size(193, 63);
             this.labnumrate2.TabIndex = 5;
             this.labnumrate2.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
@@ -1863,9 +1822,9 @@ namespace UI
             this.labnum2.AutoSize = true;
             this.labnum2.Dock = System.Windows.Forms.DockStyle.Fill;
             this.labnum2.Font = new System.Drawing.Font("微软雅黑", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.labnum2.Location = new System.Drawing.Point(5, 22);
+            this.labnum2.Location = new System.Drawing.Point(5, 132);
             this.labnum2.Name = "labnum2";
-            this.labnum2.Size = new System.Drawing.Size(84, 8);
+            this.labnum2.Size = new System.Drawing.Size(193, 63);
             this.labnum2.TabIndex = 4;
             this.labnum2.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
@@ -1874,9 +1833,9 @@ namespace UI
             this.labnumrate1.AutoSize = true;
             this.labnumrate1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.labnumrate1.Font = new System.Drawing.Font("微软雅黑", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.labnumrate1.Location = new System.Drawing.Point(97, 12);
+            this.labnumrate1.Location = new System.Drawing.Point(206, 67);
             this.labnumrate1.Name = "labnumrate1";
-            this.labnumrate1.Size = new System.Drawing.Size(84, 8);
+            this.labnumrate1.Size = new System.Drawing.Size(193, 63);
             this.labnumrate1.TabIndex = 3;
             this.labnumrate1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
@@ -1885,9 +1844,9 @@ namespace UI
             this.labnum1.AutoSize = true;
             this.labnum1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.labnum1.Font = new System.Drawing.Font("微软雅黑", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.labnum1.Location = new System.Drawing.Point(5, 12);
+            this.labnum1.Location = new System.Drawing.Point(5, 67);
             this.labnum1.Name = "labnum1";
-            this.labnum1.Size = new System.Drawing.Size(84, 8);
+            this.labnum1.Size = new System.Drawing.Size(193, 63);
             this.labnum1.TabIndex = 2;
             this.labnum1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
@@ -1898,7 +1857,7 @@ namespace UI
             this.label14.Font = new System.Drawing.Font("微软雅黑", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.label14.Location = new System.Drawing.Point(5, 2);
             this.label14.Name = "label14";
-            this.label14.Size = new System.Drawing.Size(84, 8);
+            this.label14.Size = new System.Drawing.Size(193, 63);
             this.label14.TabIndex = 0;
             this.label14.Text = "不良代码";
             this.label14.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -1908,9 +1867,9 @@ namespace UI
             this.label16.AutoSize = true;
             this.label16.Dock = System.Windows.Forms.DockStyle.Fill;
             this.label16.Font = new System.Drawing.Font("微软雅黑", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.label16.Location = new System.Drawing.Point(97, 2);
+            this.label16.Location = new System.Drawing.Point(206, 2);
             this.label16.Name = "label16";
-            this.label16.Size = new System.Drawing.Size(84, 8);
+            this.label16.Size = new System.Drawing.Size(193, 63);
             this.label16.TabIndex = 1;
             this.label16.Text = "当天累计不良率";
             this.label16.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -1942,7 +1901,7 @@ namespace UI
             this.tableLayoutPanel10.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
             this.tableLayoutPanel10.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
             this.tableLayoutPanel10.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
-            this.tableLayoutPanel10.Size = new System.Drawing.Size(192, 70);
+            this.tableLayoutPanel10.Size = new System.Drawing.Size(410, 402);
             this.tableLayoutPanel10.TabIndex = 1;
             // 
             // label33
@@ -1950,9 +1909,9 @@ namespace UI
             this.label33.AutoSize = true;
             this.label33.Dock = System.Windows.Forms.DockStyle.Fill;
             this.label33.Font = new System.Drawing.Font("微软雅黑", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.label33.Location = new System.Drawing.Point(5, 36);
+            this.label33.Location = new System.Drawing.Point(5, 202);
             this.label33.Name = "label33";
-            this.label33.Size = new System.Drawing.Size(87, 32);
+            this.label33.Size = new System.Drawing.Size(196, 198);
             this.label33.TabIndex = 12;
             this.label33.Text = "工位关闭数量";
             this.label33.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -1962,9 +1921,9 @@ namespace UI
             this.labelclosenum.AutoSize = true;
             this.labelclosenum.Dock = System.Windows.Forms.DockStyle.Fill;
             this.labelclosenum.Font = new System.Drawing.Font("微软雅黑", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.labelclosenum.Location = new System.Drawing.Point(100, 36);
+            this.labelclosenum.Location = new System.Drawing.Point(209, 202);
             this.labelclosenum.Name = "labelclosenum";
-            this.labelclosenum.Size = new System.Drawing.Size(87, 32);
+            this.labelclosenum.Size = new System.Drawing.Size(196, 198);
             this.labelclosenum.TabIndex = 2;
             this.labelclosenum.Text = "0";
             this.labelclosenum.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -1976,7 +1935,7 @@ namespace UI
             this.label31.Font = new System.Drawing.Font("微软雅黑", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.label31.Location = new System.Drawing.Point(5, 2);
             this.label31.Name = "label31";
-            this.label31.Size = new System.Drawing.Size(87, 32);
+            this.label31.Size = new System.Drawing.Size(196, 198);
             this.label31.TabIndex = 0;
             this.label31.Text = "工位开启数量";
             this.label31.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -1986,12 +1945,53 @@ namespace UI
             this.labelopennum.AutoSize = true;
             this.labelopennum.Dock = System.Windows.Forms.DockStyle.Fill;
             this.labelopennum.Font = new System.Drawing.Font("微软雅黑", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.labelopennum.Location = new System.Drawing.Point(100, 2);
+            this.labelopennum.Location = new System.Drawing.Point(209, 2);
             this.labelopennum.Name = "labelopennum";
-            this.labelopennum.Size = new System.Drawing.Size(87, 32);
+            this.labelopennum.Size = new System.Drawing.Size(196, 198);
             this.labelopennum.TabIndex = 13;
             this.labelopennum.Text = "0";
             this.labelopennum.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // panel3
+            // 
+            this.panel3.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
+            this.panel3.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.panel3.Location = new System.Drawing.Point(-10, 1);
+            this.panel3.Name = "panel3";
+            this.panel3.Size = new System.Drawing.Size(1298, 2);
+            this.panel3.TabIndex = 1;
+            // 
+            // timer_500ms
+            // 
+            this.timer_500ms.Interval = 501;
+            this.timer_500ms.Tick += new System.EventHandler(this.timer_500ms_Tick);
+            // 
+            // timer_key
+            // 
+            this.timer_key.Tick += new System.EventHandler(this.timer_key_Tick);
+            // 
+            // timer1
+            // 
+            this.timer1.Enabled = true;
+            this.timer1.Interval = 60000;
+            this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
+            // 
+            // timer2
+            // 
+            this.timer2.Enabled = true;
+            this.timer2.Interval = 7200000;
+            this.timer2.Tick += new System.EventHandler(this.timer2_Tick);
+            // 
+            // timer3
+            // 
+            this.timer3.Enabled = true;
+            this.timer3.Interval = 180000;
+            this.timer3.Tick += new System.EventHandler(this.timer3_Tick);
+            // 
+            // timer4
+            // 
+            this.timer4.Enabled = true;
+            this.timer4.Tick += new System.EventHandler(this.timer4_Tick);
             // 
             // FrRun
             // 

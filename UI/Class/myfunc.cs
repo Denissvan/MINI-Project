@@ -1098,6 +1098,30 @@ namespace UI
             }
         }
 
+        private static EM_RES RecoverUpDownLoadBeforeRun(ref bool bquit)
+        {
+            bool needRecover = UpDownLoad.status == UpDownLoad.EM_STA.ERR
+                || UpDownLoad.status == UpDownLoad.EM_STA.QUIT
+                || COM.List_UDLoad.Any(ud => ud.status_ud == UpDownLoad.EM_STA.ERR || ud.status_ud == UpDownLoad.EM_STA.QUIT);
+
+            if (!needRecover) return EM_RES.OK;
+
+            VAR.msg.AddMsg(Msg.EM_MSGTYPE.SYS, VAR.IsChinese ? "上下料异常退出后，启动前回安全位" : "Recover updownload arms before run");
+            UpDownLoad.StopAllUpDownLoadMotion();
+            UpDownLoad.bquit = false;
+            WS.bquit = false;
+
+            foreach (UpDownLoad ud in COM.List_UDLoad)
+            {
+                EM_RES res = ud.GoZero(ref bquit);
+                if (res != EM_RES.OK) return res;
+                ud.status_ud = UpDownLoad.EM_STA.READY;
+            }
+
+            UpDownLoad.status = UpDownLoad.EM_STA.READY;
+            return EM_RES.OK;
+        }
+
         public static void LightBoxSendMes(LightBox light, int secsId, int PosId)
         {
             var mpos = light.ListPos.Find(s => s.ID == PosId);
@@ -1447,12 +1471,8 @@ namespace UI
                 VAR.SysErrAlm.ErrStr = string.Empty;
                 MT.DoorAlarmMsg = string.Empty;
                 MT.DoorAlarmMsgTemp = string.Empty;
-                ////归位
-                //  foreach (UpDownLoad ud in COM.List_UDLoad)
-                //  {
-                //      res = ud.GoZero(ref VAR.gsys_set.bquit);
-                //      if (res != EM_RES.OK) return;
-                //  }
+                res = RecoverUpDownLoadBeforeRun(ref VAR.gsys_set.bquit);
+                if (res != EM_RES.OK) return;
                 if (PT_SET.AutoChkEn && VAR.isAutoChkMode && !VAR.ClearMt)
                 {
                     var ws = COM.list_ws.Find(s => s.num == (int)PT_SET.AutoChkSelectWs);

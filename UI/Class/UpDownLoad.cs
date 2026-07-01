@@ -6823,9 +6823,8 @@ RECHECKAGAIN:
                 {
                     if (res == EM_RES.QUIT) status_ud = EM_STA.QUIT;
                     else status_ud = EM_STA.ERR;
-                    MT.BeQuitEn(true);
-                    if (res == EM_RES.MOVE_ERR || res == EM_RES.MOVE_TIMEOUT || res == EM_RES.MOVE_PARA_ERR)
-                        MT.BeQuitEn(true, true);
+                    MT.BeQuitEn(true, true);
+                    StopAllUpDownLoadMotion();
 
                 }
                 else
@@ -6875,6 +6874,13 @@ RECHECKAGAIN:
                 ax.bhomequit = true;
                 ax.Stop();
             }
+        }
+
+        public static void StopAllUpDownLoadMotion()
+        {
+            UD1Stop();
+            UD2Stop();
+            LCStop();
         }
         #endregion
 

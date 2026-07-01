@@ -477,12 +477,12 @@ namespace UI
             this.radWsNgRateShowOff = new System.Windows.Forms.RadioButton();
             this.radWsNgRateShowEn = new System.Windows.Forms.RadioButton();
             this.groupBox54 = new System.Windows.Forms.GroupBox();
-            this.checkBoxSunnyAlmTray = new System.Windows.Forms.CheckBox();
             this.checkBoxkeyenceqr = new System.Windows.Forms.CheckBox();
             this.textBoxkenyence = new System.Windows.Forms.TextBox();
             this.textBoxkenyence2 = new System.Windows.Forms.TextBox();
             this.keyenceqr = new System.Windows.Forms.Button();
             this.keyenceqr2 = new System.Windows.Forms.Button();
+            this.checkBoxSunnyAlmTray = new System.Windows.Forms.CheckBox();
             this.checkBoxdownQr = new System.Windows.Forms.CheckBox();
             this.label84 = new System.Windows.Forms.Label();
             this.nud_Motornum = new System.Windows.Forms.NumericUpDown();
@@ -7963,7 +7963,7 @@ namespace UI
             this.checkBoxkeyenceqr.AutoSize = true;
             this.checkBoxkeyenceqr.Location = new System.Drawing.Point(13, 565);
             this.checkBoxkeyenceqr.Name = "checkBoxkeyenceqr";
-            this.checkBoxkeyenceqr.Size = new System.Drawing.Size(72, 18);
+            this.checkBoxkeyenceqr.Size = new System.Drawing.Size(75, 18);
             this.checkBoxkeyenceqr.TabIndex = 172;
             this.checkBoxkeyenceqr.Text = "Keyence";
             this.checkBoxkeyenceqr.UseVisualStyleBackColor = true;
@@ -10294,6 +10294,7 @@ namespace UI
             this.groupBox75.Size = new System.Drawing.Size(330, 175);
             this.groupBox75.TabIndex = 162;
             this.groupBox75.TabStop = false;
+            this.groupBox75.Text = "º–æﬂœ¬≈ƒ’’…Ë÷√";
             // 
             // ckWsModShp2PhotoAfterCheck
             // 
@@ -10301,17 +10302,10 @@ namespace UI
             this.ckWsModShp2PhotoAfterCheck.Font = new System.Drawing.Font("Œ¢»Ì—≈∫⁄", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.ckWsModShp2PhotoAfterCheck.Location = new System.Drawing.Point(20, 140);
             this.ckWsModShp2PhotoAfterCheck.Name = "ckWsModShp2PhotoAfterCheck";
-            this.ckWsModShp2PhotoAfterCheck.Size = new System.Drawing.Size(263, 29);
+            this.ckWsModShp2PhotoAfterCheck.Size = new System.Drawing.Size(290, 29);
             this.ckWsModShp2PhotoAfterCheck.TabIndex = 150;
             this.ckWsModShp2PhotoAfterCheck.Text = "ªÿºÏ∫Û◊∑º”WsMod_Shp2≈ƒ’’";
             this.ckWsModShp2PhotoAfterCheck.UseVisualStyleBackColor = true;
-            // 
-            // 
-            // 
-            // 
-            // 
-            // 
-            this.groupBox75.Text = "º–æﬂœ¬≈ƒ’’…Ë÷√";
             // 
             // nudJigDownPhotoIntervalHours
             // 
@@ -10339,7 +10333,7 @@ namespace UI
             this.lblJigDownPhotoIntervalHours.Font = new System.Drawing.Font("Œ¢»Ì—≈∫⁄", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.lblJigDownPhotoIntervalHours.Location = new System.Drawing.Point(20, 78);
             this.lblJigDownPhotoIntervalHours.Name = "lblJigDownPhotoIntervalHours";
-            this.lblJigDownPhotoIntervalHours.Size = new System.Drawing.Size(139, 25);
+            this.lblJigDownPhotoIntervalHours.Size = new System.Drawing.Size(119, 25);
             this.lblJigDownPhotoIntervalHours.TabIndex = 148;
             this.lblJigDownPhotoIntervalHours.Text = "º‰∏Ù(–° ±)£∫";
             // 
@@ -11294,9 +11288,9 @@ namespace UI
             this.groupBox73.ResumeLayout(false);
             this.groupBox73.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numafc)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.nudJigDownPhotoIntervalHours)).EndInit();
             this.groupBox75.ResumeLayout(false);
             this.groupBox75.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.nudJigDownPhotoIntervalHours)).EndInit();
             this.groupBox72.ResumeLayout(false);
             this.groupBox72.PerformLayout();
             this.groupBox71.ResumeLayout(false);
