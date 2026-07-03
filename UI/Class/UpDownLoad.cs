@@ -7543,6 +7543,16 @@ RECHECKAGAIN:
 
         }
 
+        private void RestoreRunSignalAfterWarning()
+        {
+            VAR.IsErrAlm = false;
+            VAR.sys_inf.Set(EM_ALM_STA.NOR_GREEN, VAR.IsChinese ? "运行" : "RUN", 0, true);
+            MT.GPIO_OUT_ALM_GREEN.SetOn();
+            MT.GPIO_OUT_ALM_RED.SetOff();
+            MT.GPIO_OUT_ALM_YELLOW.SetOff();
+            MT.GPIO_OUT_ALM_BEEPER.SetOff();
+        }
+
         //夹具安装防呆检测
         public EM_RES OnlyCheckcode(ref bool bquit, int id, ref WS wstemp)      //单独检测 二维码
         {
@@ -7600,6 +7610,7 @@ RECHECKAGAIN:
                         }
                         else if (DialogResult.Abort == logres)
                         {
+                            RestoreRunSignalAfterWarning();
                             return EM_RES.OK;
                         }
                         else if (DialogResult.Cancel == logres)
@@ -7627,6 +7638,7 @@ RECHECKAGAIN:
                         {
                             return EM_RES.ERR;
                         }
+                        RestoreRunSignalAfterWarning();
                     }
 
                 }
@@ -7704,6 +7716,7 @@ RECHECKAGAIN:
                         }
                         else if (DialogResult.Abort == logres)
                         {
+                            RestoreRunSignalAfterWarning();
                             return EM_RES.OK;
                         }
                         else if (DialogResult.Cancel == logres)
@@ -7731,6 +7744,7 @@ RECHECKAGAIN:
                         {
                             return EM_RES.ERR;
                         }
+                        RestoreRunSignalAfterWarning();
                     }
                     num++;
                 }

@@ -19,6 +19,7 @@ namespace UI.Compment
 {
     public partial class LightBoxDef : UserControl
     {
+        private const int CmpTableHeight = 150;
 
         public LightBox lightbox = null;
         public SerialPort serialPort1 = new SerialPort();
@@ -33,7 +34,16 @@ namespace UI.Compment
         public LightBoxDef()
         {
             InitializeComponent();
+            NormalizeGridLayout();
+        }
 
+        private void NormalizeGridLayout()
+        {
+            tableLayoutPanel1.Dock = DockStyle.Fill;
+            tp_dgv.Dock = DockStyle.Fill;
+            dgv.Dock = DockStyle.Fill;
+            dgvcmp.Dock = DockStyle.Fill;
+            tp_dgv.RowStyles[1] = new RowStyle(SizeType.Absolute, CmpTableHeight);
         }
 
         public void PmsEn(User.PERMISSION pms)
@@ -100,7 +110,7 @@ namespace UI.Compment
                 if (idx >= 0 && (idx + 1) < lightbox.ListPos.Count)
                     lightbox.ListPos.Insert(idx + 1, PosDef);
                 else lightbox.ListPos.Add(PosDef);
-                UpdateShow(distance: PT_SET.AFC_distance_check_open, lux: PT_SET.AFC_luxcct_check_open);
+                UpdateShowForCurrentLightBox();
 
                 //select add row
                 if (idx > 0 && dgv.Rows != null && (idx + 1) < dgv.Rows.Count)
@@ -117,7 +127,7 @@ namespace UI.Compment
             if (idx >= 0 && idx < lightbox.ListPos.Count)
             {
                 lightbox.ListPos.RemoveAt(idx);
-                UpdateShow(distance: PT_SET.AFC_distance_check_open, lux: PT_SET.AFC_luxcct_check_open);
+                UpdateShowForCurrentLightBox();
                 if (idx > 0 && dgv.Rows != null && idx < dgv.Rows.Count)
                     dgv.Rows[idx].Selected = true;
             }
@@ -357,6 +367,28 @@ namespace UI.Compment
             dgv.Update();
         }
 
+        private void UpdateShowForCurrentLightBox(bool bdgvupdate = true)
+        {
+            if (lightbox == null)
+            {
+                UpdateShow(bdgvupdate);
+                return;
+            }
+
+            switch (lightbox.disc)
+            {
+                case "右光箱":
+                    UpdateShow(bdgvupdate, distance: PT_SET.DCC_distance_check_open, lux: PT_SET.DCC_luxcct_check_open);
+                    break;
+                case "OTP光箱":
+                    UpdateShow(bdgvupdate, distance: PT_SET.OTP_distance_check_open, lux: PT_SET.OTP_luxcct_check_open);
+                    break;
+                default:
+                    UpdateShow(bdgvupdate, distance: PT_SET.AFC_distance_check_open, lux: PT_SET.AFC_luxcct_check_open);
+                    break;
+            }
+        }
+
         private void btn_del_Click(object sender, EventArgs e)
         {
             Del();
@@ -393,7 +425,7 @@ namespace UI.Compment
                 return;
             }
 
-            UpdateShow(distance: PT_SET.AFC_distance_check_open, lux: PT_SET.AFC_luxcct_check_open);
+            UpdateShowForCurrentLightBox();
             ShowTrayBoxData(lightbox);
             MessageBox.Show(VAR.IsChinese ? "加载成功!" : "Loaded successfully!", VAR.IsChinese ? "提示" : "Prompt", MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
@@ -430,18 +462,7 @@ namespace UI.Compment
                 MessageBox.Show(VAR.IsChinese ? "保存后加载失败!" : "Load failed after saving!\r\n保存后加载失败!", VAR.IsChinese ? "提示" : "Prompt", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
-            switch (lightbox.disc)
-            {
-                case "左光箱":
-                    UpdateShow(false, distance: PT_SET.AFC_distance_check_open, lux: PT_SET.AFC_luxcct_check_open);
-                    break;
-                case "OTP光箱":
-                    UpdateShow(false, distance: PT_SET.OTP_distance_check_open, lux: PT_SET.OTP_luxcct_check_open);
-                    break;
-                case "右光箱":
-                    UpdateShow(false, distance: PT_SET.AFC_distance_check_open, lux: PT_SET.DCC_luxcct_check_open);
-                    break;
-            }
+            UpdateShowForCurrentLightBox(false);
             //UpdateShow(distance: PT_SET.AFC_distance_check_open, lux: PT_SET.AFC_luxcct_check_open);
             MessageBox.Show(VAR.IsChinese ? "保存成功!" : "Saved successfully!\r\n保存成功!", VAR.IsChinese ? "提示" : "Prompt", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
@@ -543,23 +564,12 @@ namespace UI.Compment
 
         private void btn_cmp_Click(object sender, EventArgs e)
         {
-            tp_dgv.RowStyles[1] = new RowStyle(SizeType.Absolute, tableLayoutPanel1.Width / 2);
+            NormalizeGridLayout();
         }
 
         private void dgv_CellClick(object sender, DataGridViewCellEventArgs e)
         {
-            switch (lightbox.disc)
-            {
-                case "左光箱":
-                    UpdateShow(false,distance: PT_SET.AFC_distance_check_open, lux: PT_SET.AFC_luxcct_check_open);
-                    break;
-                case "OTP光箱":
-                    UpdateShow(false,distance: PT_SET.OTP_distance_check_open, lux: PT_SET.OTP_luxcct_check_open);
-                    break;
-                case "右光箱":
-                    UpdateShow(false,distance: PT_SET.AFC_distance_check_open, lux: PT_SET.DCC_luxcct_check_open);
-                    break;
-            }
+            UpdateShowForCurrentLightBox(false);
             //switch (_ctb_lightbox.SelectedTab.Name)
             //{
             //    default:
@@ -591,6 +601,7 @@ namespace UI.Compment
 
         private void LightBoxDef_Load(object sender, EventArgs e)
         {
+            NormalizeGridLayout();
             this.dgv.ShowCellToolTips = true;
         }
 

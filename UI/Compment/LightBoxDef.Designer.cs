@@ -151,6 +151,7 @@ namespace UI.Compment
             this.tableLayoutPanel1.Controls.Add(this.flowLayoutPanel2, 0, 2);
             this.tableLayoutPanel1.Controls.Add(this.tp_dgv, 0, 0);
             this.tableLayoutPanel1.Controls.Add(this.flowLayoutPanel1, 0, 1);
+            this.tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayoutPanel1.Font = new System.Drawing.Font("宋体", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.tableLayoutPanel1.Location = new System.Drawing.Point(0, 0);
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
@@ -159,7 +160,7 @@ namespace UI.Compment
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 180F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 63F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
-            this.tableLayoutPanel1.Size = new System.Drawing.Size(1507, 595);
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(1143, 480);
             this.tableLayoutPanel1.TabIndex = 0;
             // 
             // flowLayoutPanel2
@@ -169,8 +170,9 @@ namespace UI.Compment
             this.flowLayoutPanel2.Controls.Add(this.light_btn_load);
             this.flowLayoutPanel2.Controls.Add(this.light_btn_add);
             this.flowLayoutPanel2.Controls.Add(this.light_btn_del);
+            this.flowLayoutPanel2.Dock = System.Windows.Forms.DockStyle.Fill;
             this.flowLayoutPanel2.FlowDirection = System.Windows.Forms.FlowDirection.RightToLeft;
-            this.flowLayoutPanel2.Location = new System.Drawing.Point(3, 535);
+            this.flowLayoutPanel2.Location = new System.Drawing.Point(3, 420);
             this.flowLayoutPanel2.Name = "flowLayoutPanel2";
             this.flowLayoutPanel2.Size = new System.Drawing.Size(1137, 57);
             this.flowLayoutPanel2.TabIndex = 7;
@@ -236,12 +238,13 @@ namespace UI.Compment
             this.tp_dgv.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.tp_dgv.Controls.Add(this.dgvcmp, 0, 1);
             this.tp_dgv.Controls.Add(this.dgv, 0, 0);
+            this.tp_dgv.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tp_dgv.Location = new System.Drawing.Point(3, 3);
             this.tp_dgv.Name = "tp_dgv";
             this.tp_dgv.RowCount = 2;
             this.tp_dgv.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tp_dgv.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 113F));
-            this.tp_dgv.Size = new System.Drawing.Size(1482, 346);
+            this.tp_dgv.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 150F));
+            this.tp_dgv.Size = new System.Drawing.Size(1137, 231);
             this.tp_dgv.TabIndex = 6;
             // 
             // dgvcmp
@@ -315,9 +318,10 @@ namespace UI.Compment
             this.dgvcmp.RowTemplate.DefaultCellStyle.SelectionForeColor = System.Drawing.Color.White;
             this.dgvcmp.RowTemplate.Height = 32;
             this.dgvcmp.RowTemplate.Resizable = System.Windows.Forms.DataGridViewTriState.False;
+            this.dgvcmp.ScrollBars = System.Windows.Forms.ScrollBars.Both;
             this.dgvcmp.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dgvcmp.ShowEditingIcon = false;
-            this.dgvcmp.Size = new System.Drawing.Size(1476, 105);
+            this.dgvcmp.Size = new System.Drawing.Size(1131, 105);
             this.dgvcmp.TabIndex = 5;
             this.dgvcmp.CellPainting += new System.Windows.Forms.DataGridViewCellPaintingEventHandler(this.dgvcmp_CellPainting);
             // 
@@ -430,6 +434,7 @@ namespace UI.Compment
             dataGridViewCellStyle41.SelectionForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(43)))), ((int)(((byte)(144)))), ((int)(((byte)(217)))));
             dataGridViewCellStyle41.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
             this.dgv.DefaultCellStyle = dataGridViewCellStyle41;
+            this.dgv.Dock = System.Windows.Forms.DockStyle.Fill;
             this.dgv.EnableHeadersVisualStyles = false;
             this.dgv.GridColor = System.Drawing.Color.Gray;
             this.dgv.Location = new System.Drawing.Point(3, 4);
@@ -461,9 +466,10 @@ namespace UI.Compment
             this.dgv.RowTemplate.DefaultCellStyle.SelectionForeColor = System.Drawing.Color.White;
             this.dgv.RowTemplate.Height = 32;
             this.dgv.RowTemplate.Resizable = System.Windows.Forms.DataGridViewTriState.False;
+            this.dgv.ScrollBars = System.Windows.Forms.ScrollBars.Both;
             this.dgv.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dgv.ShowEditingIcon = false;
-            this.dgv.Size = new System.Drawing.Size(1456, 213);
+            this.dgv.Size = new System.Drawing.Size(1131, 110);
             this.dgv.TabIndex = 4;
             this.dgv.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgv_CellClick);
             this.dgv.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgv_CellContentClick);
@@ -651,9 +657,9 @@ namespace UI.Compment
             // 
             this.flowLayoutPanel1.Controls.Add(this.panel1);
             this.flowLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.flowLayoutPanel1.Location = new System.Drawing.Point(3, 355);
+            this.flowLayoutPanel1.Location = new System.Drawing.Point(3, 240);
             this.flowLayoutPanel1.Name = "flowLayoutPanel1";
-            this.flowLayoutPanel1.Size = new System.Drawing.Size(1501, 174);
+            this.flowLayoutPanel1.Size = new System.Drawing.Size(1137, 174);
             this.flowLayoutPanel1.TabIndex = 8;
             // 
             // panel1
@@ -1245,7 +1251,7 @@ namespace UI.Compment
             this.Controls.Add(this.tableLayoutPanel1);
             this.DoubleBuffered = true;
             this.Name = "LightBoxDef";
-            this.Size = new System.Drawing.Size(1485, 604);
+            this.Size = new System.Drawing.Size(1143, 480);
             this.Load += new System.EventHandler(this.LightBoxDef_Load);
             this.tableLayoutPanel1.ResumeLayout(false);
             this.flowLayoutPanel2.ResumeLayout(false);

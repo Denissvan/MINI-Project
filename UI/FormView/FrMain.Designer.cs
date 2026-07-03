@@ -120,12 +120,13 @@ namespace UI
             this.tbl_main.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.tbl_main.Controls.Add(this.pnl_top_menu, 0, 0);
             this.tbl_main.Controls.Add(this.pnl_sub, 0, 1);
-            this.tbl_main.Location = new System.Drawing.Point(0, 3);
+            this.tbl_main.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tbl_main.Location = new System.Drawing.Point(0, 0);
             this.tbl_main.Name = "tbl_main";
             this.tbl_main.RowCount = 2;
-            this.tbl_main.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 84F));
+            this.tbl_main.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 80F));
             this.tbl_main.RowStyles.Add(new System.Windows.Forms.RowStyle());
-            this.tbl_main.Size = new System.Drawing.Size(1672, 1026);
+            this.tbl_main.Size = new System.Drawing.Size(1320, 1094);
             this.tbl_main.TabIndex = 0;
             // 
             // pnl_top_menu
@@ -148,7 +149,7 @@ namespace UI
             this.pnl_top_menu.Dock = System.Windows.Forms.DockStyle.Fill;
             this.pnl_top_menu.Location = new System.Drawing.Point(3, 3);
             this.pnl_top_menu.Name = "pnl_top_menu";
-            this.pnl_top_menu.Size = new System.Drawing.Size(1666, 78);
+            this.pnl_top_menu.Size = new System.Drawing.Size(1314, 74);
             this.pnl_top_menu.TabIndex = 0;
             // 
             // lbl_update
@@ -440,9 +441,10 @@ namespace UI
             this.pnl_sub.BackColor = System.Drawing.SystemColors.Control;
             this.pnl_sub.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("pnl_sub.BackgroundImage")));
             this.pnl_sub.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
-            this.pnl_sub.Location = new System.Drawing.Point(3, 87);
+            this.pnl_sub.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.pnl_sub.Location = new System.Drawing.Point(3, 83);
             this.pnl_sub.Name = "pnl_sub";
-            this.pnl_sub.Size = new System.Drawing.Size(1666, 938);
+            this.pnl_sub.Size = new System.Drawing.Size(1314, 938);
             this.pnl_sub.TabIndex = 1;
             // 
             // timer_update
@@ -1075,7 +1077,7 @@ namespace UI
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1675, 1000);
+            this.ClientSize = new System.Drawing.Size(1320, 1094);
             this.Controls.Add(this.ts_manual);
             this.Controls.Add(this.ts_manual2);
             this.Controls.Add(this.tbl_main);
@@ -1184,4 +1186,3 @@ namespace UI
         private System.Windows.Forms.Timer timer_sysTimeCnt;
     }
 }
-

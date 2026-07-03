@@ -40,6 +40,7 @@ namespace UI
         public FrSys()
         {
             InitializeComponent();
+            InitOkCheckPasswordSwitch();
 
    
 
@@ -139,6 +140,7 @@ namespace UI
             rbtn_OpenBarCamBack.Enabled = en;
             rbtn_CloseBarCamBack.Enabled = en;
             //OK品下料检测
+            groupBox29.Enabled = en;
             rbtn_OkCheckEn.Enabled = en;
             rbtn_OkCheckDis.Enabled = en;
             //工站视觉模板增加有无检测
@@ -671,11 +673,7 @@ namespace UI
             else rbtn_AddCapQrcodeEnOnlyClose.Checked = true;
 
             //OK品下料检测
-            rbtn_OkCheckEn.Checked = false;
-            rbtn_OkCheckDis.Checked = false;
-            /*if (PT_SET.bOkCheck)*/
-            rbtn_OkCheckEn.Checked = true;
-            //else rbtn_OkCheckDis.Checked = true;
+            SetOkCheckButtonState(PT_SET.bOkCheck);
 
             if (PT_SET.bboxCheck) rbtn_boxCheckEn.Checked = true;
             else rbtn_boxCheckOff.Checked = true;
@@ -1343,9 +1341,7 @@ namespace UI
             //if (!rbtn_CloseBarCamBack.Checked) rbtn_OpenBarCamBack.Checked = true; 
             //PT_SET.bBarcodeCamBackEn = rbtn_OpenBarCamBack.Checked;
             //OK品下料检测设置
-            /*if (rbtn_OkCheckEn.Checked)*/
-            PT_SET.bOkCheck = true;
-            //**  else if (rbtn_OkCheckDis.Checked)*/ PT_SET.bOkCheck = false;*/
+            PT_SET.bOkCheck = rbtn_OkCheckEn.Checked;
             //夹具安装防呆检测设置
             if (rbtn_boxCheckEn.Checked) PT_SET.bboxCheck = true;
             else if (rbtn_boxCheckOff.Checked) PT_SET.bboxCheck = false;
@@ -2696,5 +2692,80 @@ namespace UI
             res = MT.AXIS_BOX_OTP_Z.MoveTo(ref bquit, pos, 25000, true);
         }
 
+        private void InitOkCheckPasswordSwitch()
+        {
+            rbtn_OkCheckEn.AutoCheck = false;
+            rbtn_OkCheckDis.AutoCheck = false;
+            groupBox29.Click += groupBox29_Click;
+            rbtn_OkCheckEn.Click += groupBox29_Click;
+            rbtn_OkCheckDis.Click += groupBox29_Click;
+        }
+
+        private void groupBox29_Click(object sender, EventArgs e)
+        {
+            bool currentState = rbtn_OkCheckEn.Checked;
+            if (!ConfirmOkCheckPassword())
+            {
+                SetOkCheckButtonState(currentState);
+                return;
+            }
+
+            SetOkCheckButtonState(!currentState);
+        }
+
+        private void SetOkCheckButtonState(bool enable)
+        {
+            rbtn_OkCheckEn.Checked = enable;
+            rbtn_OkCheckDis.Checked = !enable;
+        }
+
+        private bool ConfirmOkCheckPassword()
+        {
+            using (Form form = new Form())
+            using (Label label = new Label())
+            using (TextBox textBox = new TextBox())
+            using (Button okButton = new Button())
+            using (Button cancelButton = new Button())
+            {
+                form.Text = "\u4e0b\u6599OK\u54c1\u68c0\u6d4b\u8bbe\u7f6e";
+                form.FormBorderStyle = FormBorderStyle.FixedDialog;
+                form.StartPosition = FormStartPosition.CenterParent;
+                form.MinimizeBox = false;
+                form.MaximizeBox = false;
+                form.ClientSize = new Size(300, 120);
+
+                label.AutoSize = true;
+                label.Location = new Point(20, 20);
+                label.Text = "\u8bf7\u8f93\u5165\u5bc6\u7801:";
+
+                textBox.Location = new Point(20, 45);
+                textBox.Width = 260;
+                textBox.UseSystemPasswordChar = true;
+
+                okButton.Text = "OK";
+                okButton.DialogResult = DialogResult.OK;
+                okButton.Location = new Point(120, 82);
+
+                cancelButton.Text = "Cancel";
+                cancelButton.DialogResult = DialogResult.Cancel;
+                cancelButton.Location = new Point(205, 82);
+
+                form.Controls.Add(label);
+                form.Controls.Add(textBox);
+                form.Controls.Add(okButton);
+                form.Controls.Add(cancelButton);
+                form.AcceptButton = okButton;
+                form.CancelButton = cancelButton;
+
+                if (form.ShowDialog(this) != DialogResult.OK)
+                    return false;
+
+                if (textBox.Text == "123456")
+                    return true;
+
+                MessageBox.Show("\u5bc6\u7801\u9519\u8bef", "\u63d0\u793a", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return false;
+            }
+        }
     }
 }

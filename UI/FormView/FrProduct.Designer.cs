@@ -340,7 +340,7 @@ namespace UI
             this.ctb_product.Multiline = true;
             this.ctb_product.Name = "ctb_product";
             this.ctb_product.SelectedIndex = 0;
-            this.ctb_product.Size = new System.Drawing.Size(1261, 880);
+            this.ctb_product.Size = new System.Drawing.Size(1320, 896);
             this.ctb_product.TabIndex = 2;
             this.ctb_product.SelectedIndexChanged += new System.EventHandler(this.ctb_product_SelectedIndexChanged);
             // 
@@ -358,7 +358,7 @@ namespace UI
             this.tp_file.Controls.Add(this.ltb_product);
             this.tp_file.Location = new System.Drawing.Point(204, 4);
             this.tp_file.Name = "tp_file";
-            this.tp_file.Size = new System.Drawing.Size(1053, 872);
+            this.tp_file.Size = new System.Drawing.Size(1112, 888);
             this.tp_file.TabIndex = 3;
             this.tp_file.Text = "产品    ";
             this.tp_file.UseVisualStyleBackColor = true;
@@ -469,17 +469,18 @@ namespace UI
             this.tp_light_box.Location = new System.Drawing.Point(204, 4);
             this.tp_light_box.Name = "tp_light_box";
             this.tp_light_box.Padding = new System.Windows.Forms.Padding(3);
-            this.tp_light_box.Size = new System.Drawing.Size(1053, 872);
+            this.tp_light_box.Size = new System.Drawing.Size(1112, 888);
             this.tp_light_box.TabIndex = 1;
             this.tp_light_box.Text = "光箱    ";
             this.tp_light_box.UseVisualStyleBackColor = true;
             // 
             // lightBoxDef
             // 
-            this.lightBoxDef.Location = new System.Drawing.Point(3, 71);
+            this.lightBoxDef.Font = new System.Drawing.Font("宋体", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.lightBoxDef.Location = new System.Drawing.Point(6, 68);
             this.lightBoxDef.Name = "lightBoxDef";
-            this.lightBoxDef.Size = new System.Drawing.Size(1485, 604);
-            this.lightBoxDef.TabIndex = 60;
+            this.lightBoxDef.Size = new System.Drawing.Size(1098, 843);
+            this.lightBoxDef.TabIndex = 0;
             // 
             // lb_cur_pos
             // 
@@ -488,9 +489,9 @@ namespace UI
             this.lb_cur_pos.ForeColor = System.Drawing.Color.Gray;
             this.lb_cur_pos.Location = new System.Drawing.Point(757, 22);
             this.lb_cur_pos.Name = "lb_cur_pos";
-            this.lb_cur_pos.Size = new System.Drawing.Size(269, 19);
+            this.lb_cur_pos.Size = new System.Drawing.Size(219, 38);
             this.lb_cur_pos.TabIndex = 59;
-            this.lb_cur_pos.Text = "vvvvvvvvvvvvvvvvvvvvvvvvvv";
+            this.lb_cur_pos.Text = "X1:000.000 X2:000.000\r\nZ1:000.000 Z2:000.000";
             // 
             // lb_cur_pos_idx
             // 
@@ -552,7 +553,7 @@ namespace UI
             this.tp_vision.Controls.Add(this.tableLayoutPanel2);
             this.tp_vision.Location = new System.Drawing.Point(204, 4);
             this.tp_vision.Name = "tp_vision";
-            this.tp_vision.Size = new System.Drawing.Size(1053, 872);
+            this.tp_vision.Size = new System.Drawing.Size(1112, 888);
             this.tp_vision.TabIndex = 4;
             this.tp_vision.Text = "视觉    ";
             this.tp_vision.UseVisualStyleBackColor = true;
@@ -570,7 +571,7 @@ namespace UI
             this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 63.74134F));
             this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 36.25866F));
             this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
-            this.tableLayoutPanel2.Size = new System.Drawing.Size(1053, 872);
+            this.tableLayoutPanel2.Size = new System.Drawing.Size(1112, 888);
             this.tableLayoutPanel2.TabIndex = 1;
             // 
             // ctb_cali
@@ -887,7 +888,7 @@ namespace UI
             this.tp_tray.Controls.Add(this.pic_pallet);
             this.tp_tray.Location = new System.Drawing.Point(204, 4);
             this.tp_tray.Name = "tp_tray";
-            this.tp_tray.Size = new System.Drawing.Size(1053, 872);
+            this.tp_tray.Size = new System.Drawing.Size(1112, 888);
             this.tp_tray.TabIndex = 2;
             this.tp_tray.Text = "料盘    ";
             this.tp_tray.UseVisualStyleBackColor = true;
@@ -2520,7 +2521,7 @@ namespace UI
             this.tp_ws.Controls.Add(this.ws_status);
             this.tp_ws.Location = new System.Drawing.Point(204, 4);
             this.tp_ws.Name = "tp_ws";
-            this.tp_ws.Size = new System.Drawing.Size(1053, 872);
+            this.tp_ws.Size = new System.Drawing.Size(1112, 888);
             this.tp_ws.TabIndex = 5;
             this.tp_ws.Text = "工装    ";
             this.tp_ws.UseVisualStyleBackColor = true;
@@ -2970,7 +2971,7 @@ namespace UI
             this.tp_Adj.Controls.Add(this.groupBox12);
             this.tp_Adj.Location = new System.Drawing.Point(204, 4);
             this.tp_Adj.Name = "tp_Adj";
-            this.tp_Adj.Size = new System.Drawing.Size(1053, 872);
+            this.tp_Adj.Size = new System.Drawing.Size(1112, 888);
             this.tp_Adj.TabIndex = 6;
             this.tp_Adj.Text = "调试    ";
             this.tp_Adj.UseVisualStyleBackColor = true;
@@ -3159,7 +3160,7 @@ namespace UI
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1261, 880);
+            this.ClientSize = new System.Drawing.Size(1320, 896);
             this.Controls.Add(this.ctb_product);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Name = "FrProduct";
