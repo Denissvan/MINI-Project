@@ -59,7 +59,8 @@ namespace UI
 
         private bool IsChangingTrayBox()
         {
-            return (COM.traybox_fd != null && COM.traybox_fd.ChgML) ||
+            return UploadModle.bWaitforUpload ||
+                   (COM.traybox_fd != null && COM.traybox_fd.ChgML) ||
                    (COM.traybox_ok != null && COM.traybox_ok.ChgML) ||
                    (COM.traybox_ng != null && COM.traybox_ng.ChgML);
         }
