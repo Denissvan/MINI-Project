@@ -35,6 +35,7 @@ namespace UI
         System.Timers.Timer timer;
 
         private static readonly object _Locker = new object();
+        private int trayStopPending = 0;
         private TrayBox GetRunTrayBoxForOkSlot()
         {
             return COM.traybox_ok;
@@ -57,12 +58,32 @@ namespace UI
             return traybox != null ? traybox.tray_cur : null;
         }
 
+        private bool IsTrayActionRunning()
+        {
+            return (COM.traybox_fd != null && COM.traybox_fd.trayActionRunning) ||
+                   (COM.traybox_ok != null && COM.traybox_ok.trayActionRunning) ||
+                   (COM.traybox_ng != null && COM.traybox_ng.trayActionRunning);
+        }
+
         private bool IsChangingTrayBox()
         {
-            return UploadModle.bWaitforUpload ||
+            return IsTrayActionRunning() ||
+                   UploadModle.bWaitforUpload ||
                    (COM.traybox_fd != null && COM.traybox_fd.ChgML) ||
                    (COM.traybox_ok != null && COM.traybox_ok.ChgML) ||
                    (COM.traybox_ng != null && COM.traybox_ng.ChgML);
+        }
+
+        private string GetChangingTrayBoxTrace()
+        {
+            return string.Format("TrayChangeTrace bWaitforUpload={0}, fdChgML={1}, okChgML={2}, ngChgML={3}, fdAction={4}, okAction={5}, ngAction={6}",
+                UploadModle.bWaitforUpload,
+                COM.traybox_fd != null && COM.traybox_fd.ChgML,
+                COM.traybox_ok != null && COM.traybox_ok.ChgML,
+                COM.traybox_ng != null && COM.traybox_ng.ChgML,
+                COM.traybox_fd != null && COM.traybox_fd.trayActionRunning,
+                COM.traybox_ok != null && COM.traybox_ok.trayActionRunning,
+                COM.traybox_ng != null && COM.traybox_ng.trayActionRunning);
         }
 
         private void ApplyRunTrayUiMapping()
@@ -447,10 +468,56 @@ namespace UI
         int i = 0;
         public void btn_stop_Click(object sender, EventArgs e)
         {
-            //for (int n = 0; n < 10; n++)
-            //{
-            //VAR.gsys_set.bquit = true;
+            if (IsTrayActionRunning())
+            {
+                RequestStopAfterTrayAction();
+                return;
+            }
 
+            ExecuteStop();
+        }
+
+        private void RequestStopAfterTrayAction()
+        {
+            if (Interlocked.Exchange(ref trayStopPending, 1) != 0) return;
+
+            VAR.msg.AddMsg(Msg.EM_MSGTYPE.WAR, VAR.IsChinese ? "料盘拉取中,当前动作完成后停止!" : "Tray action is running; stop after it completes.");
+            VAR.msg.AddMsg(Msg.EM_MSGTYPE.WAR, GetChangingTrayBoxTrace());
+            Task.Run(() =>
+            {
+                while (IsTrayActionRunning())
+                {
+                    Thread.Sleep(20);
+                }
+
+                if (IsDisposed || Disposing)
+                {
+                    Interlocked.Exchange(ref trayStopPending, 0);
+                    return;
+                }
+
+                try
+                {
+                    BeginInvoke(new Action(() =>
+                    {
+                        Interlocked.Exchange(ref trayStopPending, 0);
+                        if (IsTrayActionRunning())
+                        {
+                            RequestStopAfterTrayAction();
+                            return;
+                        }
+                        ExecuteStop();
+                    }));
+                }
+                catch (InvalidOperationException)
+                {
+                    Interlocked.Exchange(ref trayStopPending, 0);
+                }
+            });
+        }
+
+        private void ExecuteStop()
+        {
             WS.bquit = true;
             UpDownLoad.bquit = true;
             MT.GPIO_OUT_ALM_BEEPER.SetOff();
@@ -459,8 +526,6 @@ namespace UI
             VAR.gsys_set.status = EM_SYS_STA.STANDBY;
             if (VAR.gsys_set.status != EM_SYS_STA.RUN)
             {
-
-                //VAR.gsys_set.bquit = true;
                 if (VAR.gsys_set.status != EM_SYS_STA.RESET)
                 {
                     COM.LeftLightBox.Stop();
@@ -478,12 +543,7 @@ namespace UI
                     MT.AllAxStop();
                 }
             }
-
-            //}
-            //VAR.gsys_set.status = EM_SYS_STA.STANDBY;
-            //VAR.sys_inf.Set(EM_ALM_STA.NOR_BLUE, "就绪", 0, true);
         }
-
         delegate void UpdateCallback();
         void UpdateDisplay()
         {
@@ -757,28 +817,24 @@ namespace UI
             COM.RightLightBox.ax_x2.SetToWorkSpd();
             COM.RightLightBox.ax_z1.SetToWorkSpd();
             COM.RightLightBox.ax_z2.SetToWorkSpd();
-            COM.RightLightBox.TraceMapping("运行页定位", "按钮=右光箱远焦,目标=X1=保持/X2=300/Z1=0/Z2=0");
             COM.RightLightBox.MoveTo(ref VAR.gsys_set.bquit, double.MaxValue, 300, 0, 0);
         }
 
         private void btn_naf_Click(object sender, EventArgs e)
         {
             if (COM.RightLightBox.status == LightBox.EM_STA.UNKNOW || COM.RightLightBox.status == LightBox.EM_STA.ERR) return;
-            COM.RightLightBox.TraceMapping("运行页定位", "按钮=右光箱近焦,目标=X1=100/X2=保持/Z1=-500/Z2=0");
             COM.RightLightBox.MoveTo(ref VAR.gsys_set.bquit, 100, double.MaxValue, -500, 0);
         }
 
         private void btn_dust_Click(object sender, EventArgs e)
         {
             if (COM.RightLightBox.status == LightBox.EM_STA.UNKNOW || COM.RightLightBox.status == LightBox.EM_STA.ERR) return;
-            COM.RightLightBox.TraceMapping("运行页定位", string.Format("按钮=右光箱污坏点,目标=X1={0}/X2=保持/Z1=0/Z2=-500", COM.RightLightBox.ax_x1.slp));
             COM.RightLightBox.MoveTo(ref VAR.gsys_set.bquit, COM.RightLightBox.ax_x1.slp, double.MaxValue, 0, -500);
         }
 
         private void btn_ready_Click(object sender, EventArgs e)
         {
             if (COM.RightLightBox.status == LightBox.EM_STA.UNKNOW || COM.RightLightBox.status == LightBox.EM_STA.ERR) return;
-            COM.RightLightBox.TraceMapping("运行页定位", "按钮=右光箱暗态/准备位,目标=X1=0/X2=0/Z1=0/Z2=0");
             COM.RightLightBox.MoveTo(ref VAR.gsys_set.bquit, 0, 0, 0, 0);
         }
 
@@ -790,28 +846,24 @@ namespace UI
             COM.LeftLightBox.ax_x2.SetToWorkSpd();
             COM.LeftLightBox.ax_z1.SetToWorkSpd();
             COM.LeftLightBox.ax_z2.SetToWorkSpd();
-            COM.LeftLightBox.TraceMapping("运行页定位", "按钮=左光箱远焦,目标=X1=保持/X2=300/Z1=0/Z2=0");
             COM.LeftLightBox.MoveTo(ref VAR.gsys_set.bquit, double.MaxValue, 300, 0, 0);
         }
 
         private void btn_l_naf_Click(object sender, EventArgs e)
         {
             if (COM.LeftLightBox.status == LightBox.EM_STA.UNKNOW || COM.LeftLightBox.status == LightBox.EM_STA.ERR) return;
-            COM.LeftLightBox.TraceMapping("运行页定位", "按钮=左光箱近焦,目标=X1=100/X2=保持/Z1=-500/Z2=0");
             COM.LeftLightBox.MoveTo(ref VAR.gsys_set.bquit, 100, double.MaxValue, -500, 0);
         }
 
         private void btn_l_dust_Click(object sender, EventArgs e)
         {
             if (COM.LeftLightBox.status == LightBox.EM_STA.UNKNOW || COM.LeftLightBox.status == LightBox.EM_STA.ERR) return;
-            COM.LeftLightBox.TraceMapping("运行页定位", string.Format("按钮=左光箱污坏点,目标=X1={0}/X2=保持/Z1=0/Z2=-500", COM.LeftLightBox.ax_x1.slp));
             COM.LeftLightBox.MoveTo(ref VAR.gsys_set.bquit, COM.LeftLightBox.ax_x1.slp, double.MaxValue, 0, -500);
         }
 
         private void btn_l_ready_Click(object sender, EventArgs e)
         {
             if (COM.LeftLightBox.status == LightBox.EM_STA.UNKNOW || COM.LeftLightBox.status == LightBox.EM_STA.ERR) return;
-            COM.LeftLightBox.TraceMapping("运行页定位", "按钮=左光箱暗态/准备位,目标=X1=0/X2=0/Z1=0/Z2=0");
             COM.LeftLightBox.MoveTo(ref VAR.gsys_set.bquit, 0, 0, 0, 0);
         }
 
@@ -1100,10 +1152,14 @@ namespace UI
         {
             if (IsChangingTrayBox())
             {
-                VAR.msg.AddMsg(Msg.EM_MSGTYPE.WAR, VAR.IsChinese ? "更换料盒中, 禁止暂停!" : "Changing tray box, pause is disabled!");
+                VAR.msg.AddMsg(Msg.EM_MSGTYPE.WAR, IsTrayActionRunning()
+                    ? (VAR.IsChinese ? "料盘拉取中,禁止暂停!" : "Tray action is running; pause is disabled!")
+                    : (VAR.IsChinese ? "更换料盒中,禁止暂停!" : "Changing tray box, pause is disabled!"));
+                VAR.msg.AddMsg(Msg.EM_MSGTYPE.WAR, GetChangingTrayBoxTrace());
                 return;
             }
 
+            VAR.msg.AddMsg(Msg.EM_MSGTYPE.DBG, GetChangingTrayBoxTrace());
             WS.bpause = true;
             UpDownLoad.bquit = true;
             MT.GPIO_OUT_ALM_BEEPER.SetOff();

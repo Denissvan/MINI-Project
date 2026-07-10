@@ -6,7 +6,7 @@ using System.Runtime.InteropServices;
 // 控制。更改这些特性值可修改
 // 与程序集关联的信息。
 [assembly: AssemblyTitle("WLTmini")]
-[assembly: AssemblyDescription("3.0.0.7测试版")]
+[assembly: AssemblyDescription("3.0.0.8测试版")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("Sunny")]
 [assembly: AssemblyProduct("WLTmini")]
@@ -74,5 +74,5 @@ using System.Runtime.InteropServices;
 //3007 修复401追加测试最终结果未消费导致下一轮读取上一轮结果
 
 //[assembly: AssemblyVersion("1.0.*")]
-[assembly: AssemblyVersion("3.0.0.7")]
-[assembly: AssemblyFileVersion("3.0.0.7")]
+[assembly: AssemblyVersion("3.0.0.8")]
+[assembly: AssemblyFileVersion("3.0.0.8")]

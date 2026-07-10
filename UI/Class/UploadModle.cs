@@ -1285,11 +1285,13 @@ namespace UI
                     {
                        
                         bWaitforUpload = true;
+                        VAR.msg.AddMsg(Msg.EM_MSGTYPE.DBG, string.Format("TrayChangeTrace enter upload tray wait, bWaitforUpload={0}, ChangTray={1}, bquit={2}", bWaitforUpload, ChangTray, bquit));
                         VAR.msg.AddMsg(Msg.EM_MSGTYPE.DBG, string.Format("请更换上料盘======================="));
                         while (bWaitforUpload == true && !bquit)
                         {
                             Thread.Sleep(100);
                         }
+                        VAR.msg.AddMsg(Msg.EM_MSGTYPE.DBG, string.Format("TrayChangeTrace exit upload tray wait, bWaitforUpload={0}, ChangTray={1}, bquit={2}", bWaitforUpload, ChangTray, bquit));
                         ChangTray = false;
                         if (traybox_fd.IsReady)
                         {
@@ -1758,10 +1760,12 @@ namespace UI
                 VAR.msg.AddMsg(Msg.EM_MSGTYPE.DBG, "上料线程，exit wait");
 
                 bWaitforUpload = true;
+                VAR.msg.AddMsg(Msg.EM_MSGTYPE.DBG, string.Format("TrayChangeTrace enter upload thread wait, bWaitforUpload={0}, bquit={1}", bWaitforUpload, bquit));
                 while (bWaitforUpload == true && !bquit)
                 {
                     Thread.Sleep(100);
                 }
+                VAR.msg.AddMsg(Msg.EM_MSGTYPE.DBG, string.Format("TrayChangeTrace exit upload thread wait, bWaitforUpload={0}, bquit={1}", bWaitforUpload, bquit));
                 VAR.msg.AddMsg(Msg.EM_MSGTYPE.DBG, "bWaitforUpload");
                 foreach (Cylinder cy in ws.list_cld_fr)
                 {

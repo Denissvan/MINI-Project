@@ -506,11 +506,13 @@ namespace UI
                 if (res == EM_RES.PARA_OUTOFRANG || res == EM_RES.END)
                 {
                     UploadModle.bWaitforUpload = true;
+                    VAR.msg.AddMsg(Msg.EM_MSGTYPE.DBG, string.Format("TrayChangeTrace enter download tray wait, bWaitforUpload={0}, bquit={1}", UploadModle.bWaitforUpload, bquit));
                     VAR.msg.AddMsg(Msg.EM_MSGTYPE.ERR, string.Format("请更换下料盘======================="));
                     while (UploadModle.bWaitforUpload == true && !bquit)
                     {
                         Thread.Sleep(100);
-                    }   
+                    }
+                    VAR.msg.AddMsg(Msg.EM_MSGTYPE.DBG, string.Format("TrayChangeTrace exit download tray wait, bWaitforUpload={0}, bquit={1}", UploadModle.bWaitforUpload, bquit));
 
                     if (traybox_ng.IsReady)
                     {

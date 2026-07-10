@@ -591,11 +591,11 @@ namespace UI
             this.ctb_cali.HeadSelectedBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(43)))), ((int)(((byte)(144)))), ((int)(((byte)(217)))));
             this.ctb_cali.HeadSelectedBorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(217)))), ((int)(((byte)(225)))), ((int)(((byte)(232)))));
             this.ctb_cali.ItemSize = new System.Drawing.Size(60, 210);
-            this.ctb_cali.Location = new System.Drawing.Point(3, 558);
+            this.ctb_cali.Location = new System.Drawing.Point(3, 569);
             this.ctb_cali.Multiline = true;
             this.ctb_cali.Name = "ctb_cali";
             this.ctb_cali.SelectedIndex = 0;
-            this.ctb_cali.Size = new System.Drawing.Size(1047, 311);
+            this.ctb_cali.Size = new System.Drawing.Size(1106, 316);
             this.ctb_cali.SizeMode = System.Windows.Forms.TabSizeMode.Fixed;
             this.ctb_cali.TabIndex = 131;
             // 
@@ -607,7 +607,7 @@ namespace UI
             this.Tb_ComputeCenter.Location = new System.Drawing.Point(214, 4);
             this.Tb_ComputeCenter.Name = "Tb_ComputeCenter";
             this.Tb_ComputeCenter.Padding = new System.Windows.Forms.Padding(3);
-            this.Tb_ComputeCenter.Size = new System.Drawing.Size(829, 303);
+            this.Tb_ComputeCenter.Size = new System.Drawing.Size(888, 308);
             this.Tb_ComputeCenter.TabIndex = 1;
             this.Tb_ComputeCenter.Text = "放置检查";
             // 
@@ -619,7 +619,7 @@ namespace UI
             this.xtOfsAdj1.Location = new System.Drawing.Point(3, 3);
             this.xtOfsAdj1.Margin = new System.Windows.Forms.Padding(5);
             this.xtOfsAdj1.Name = "xtOfsAdj1";
-            this.xtOfsAdj1.Size = new System.Drawing.Size(823, 297);
+            this.xtOfsAdj1.Size = new System.Drawing.Size(882, 302);
             this.xtOfsAdj1.TabIndex = 2;
             // 
             // Tb_CameraCheckboard
@@ -850,7 +850,7 @@ namespace UI
             this.panel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel1.Location = new System.Drawing.Point(3, 3);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(1047, 549);
+            this.panel1.Size = new System.Drawing.Size(1106, 560);
             this.panel1.TabIndex = 132;
             // 
             // cogDisplayer_product
@@ -859,7 +859,7 @@ namespace UI
             this.cogDisplayer_product.Dock = System.Windows.Forms.DockStyle.Fill;
             this.cogDisplayer_product.Location = new System.Drawing.Point(0, 0);
             this.cogDisplayer_product.Name = "cogDisplayer_product";
-            this.cogDisplayer_product.Size = new System.Drawing.Size(1047, 549);
+            this.cogDisplayer_product.Size = new System.Drawing.Size(1106, 560);
             this.cogDisplayer_product.TabIndex = 134;
             // 
             // maskDisplay1
@@ -867,7 +867,7 @@ namespace UI
             this.maskDisplay1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.maskDisplay1.Location = new System.Drawing.Point(0, 0);
             this.maskDisplay1.Name = "maskDisplay1";
-            this.maskDisplay1.Size = new System.Drawing.Size(1047, 549);
+            this.maskDisplay1.Size = new System.Drawing.Size(1106, 560);
             this.maskDisplay1.TabIndex = 0;
             // 
             // tp_tray

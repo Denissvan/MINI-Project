@@ -1938,8 +1938,17 @@ namespace UI
         public EM_RES SetupForTest(ref bool bquit, bool IfDelay = true)
         {
             EM_RES res = EM_RES.OK;
+            VAR.msg.AddMsg(Msg.EM_MSGTYPE.DBG, string.Format(
+                "TestTrace Ws={0} Step=SetupForTest Phase=Start PosIdx={1} IsInTestPos={2} IfDelay={3}",
+                disc, pos_idx, isInTestPos, IfDelay));
             //已经在测试位置
-            if (isInTestPos) return EM_RES.OK;
+            if (isInTestPos)
+            {
+                VAR.msg.AddMsg(Msg.EM_MSGTYPE.DBG, string.Format(
+                    "TestTrace Ws={0} Step=SetupForTest Phase=End Res={1} Skip=AlreadyInTestPos",
+                    disc, EM_RES.OK));
+                return EM_RES.OK;
+            }
             if (pos_idx == (int)Turntable.EM_STA.POS0 && ((!COM.UDLoad1.ax_x.isORG && COM.UDLoad1.ax_x.fenc_pos > 3) || (!COM.UDLoad2.ax_x.isORG && COM.UDLoad2.ax_x.fenc_pos < -3) || COM.UDLoad1.ax_y.fenc_pos > (COM.UDLoad1.list_xt[1].st_cap_pos.y + 3) || COM.UDLoad2.ax_y.fenc_pos > (COM.UDLoad2.list_xt[1].st_cap_pos.y + 3)))
             {
                 Thread.Sleep(300);
@@ -1947,6 +1956,9 @@ namespace UI
                 {
                     VAR.msg.AddMsg(Msg.EM_MSGTYPE.DBG, string.Format("目前上下料1X的位置：{0}，上下料2X的位置：{1}，上下料1Y的位置：{2}，上下料2Y的位置：{3}", COM.UDLoad1.ax_x.fenc_pos, COM.UDLoad2.ax_x.fenc_pos, COM.UDLoad1.ax_y.fenc_pos, COM.UDLoad2.ax_y.fenc_pos));
                     VAR.msg.AddMsg(Msg.EM_MSGTYPE.DBG, VAR.IsChinese ? string.Format("上下料未回安全位置,{0}禁止合盖与翻转", disc) : string.Format("Updownload is not in the safe pos,{0} is forbidden to close and flip!         (上下料未回安全位置,{0}禁止合盖与翻转)", disc));
+                    VAR.msg.AddMsg(Msg.EM_MSGTYPE.DBG, string.Format(
+                        "TestTrace Ws={0} Step=SetupForTest Phase=End Res={1} Reason=UpDownLoadNotSafe Ud1X={2:F3} Ud2X={3:F3} Ud1Y={4:F3} Ud2Y={5:F3}",
+                        disc, EM_RES.ERR, COM.UDLoad1.ax_x.fenc_pos, COM.UDLoad2.ax_x.fenc_pos, COM.UDLoad1.ax_y.fenc_pos, COM.UDLoad2.ax_y.fenc_pos));
                     return EM_RES.ERR;
                 }
             }
@@ -1973,8 +1985,20 @@ namespace UI
             //if (res != EM_RES.OK) return res;
             //res = BkCyDown(ref VAR.gsys_set.bquit);
             //if (res != EM_RES.OK) return res;
+            VAR.msg.AddMsg(Msg.EM_MSGTYPE.DBG, string.Format(
+                "TestTrace Ws={0} Step=合夹具 Phase=Start FrUp={1} FrDown={2} BkUp={3} BkDown={4}",
+                disc, isFrUp, isFrDown, isBkUp, isBkDown));
             res = AllCyDown(ref VAR.gsys_set.bquit);
-            if (res != EM_RES.OK) return res;
+            VAR.msg.AddMsg(Msg.EM_MSGTYPE.DBG, string.Format(
+                "TestTrace Ws={0} Step=合夹具 Phase=End Res={1} FrUp={2} FrDown={3} BkUp={4} BkDown={5}",
+                disc, res, isFrUp, isFrDown, isBkUp, isBkDown));
+            if (res != EM_RES.OK)
+            {
+                VAR.msg.AddMsg(Msg.EM_MSGTYPE.DBG, string.Format(
+                    "TestTrace Ws={0} Step=SetupForTest Phase=End Res={1} Reason=AllCyDown",
+                    disc, res));
+                return res;
+            }
             //res = ZKOn(ref VAR.gsys_set.bquit);
             //if (res != EM_RES.OK) return res;
             //foreach (GPIO gpio in MT.List_GPIO_OUT_WS_ZK_IN)
@@ -1985,6 +2009,9 @@ namespace UI
             if (isFrUp || !isFrDown || isBkUp || !isBkDown)
             {
                 res = EM_RES.ERR;
+                VAR.msg.AddMsg(Msg.EM_MSGTYPE.DBG, string.Format(
+                    "TestTrace Ws={0} Step=SetupForTest Phase=End Res={1} Reason=CyState FrUp={2} FrDown={3} BkUp={4} BkDown={5}",
+                    disc, res, isFrUp, isFrDown, isBkUp, isBkDown));
                 return res;
             }
 
@@ -1993,10 +2020,25 @@ namespace UI
                 Thread.Sleep(400);
 
             //测试位
+            VAR.msg.AddMsg(Msg.EM_MSGTYPE.DBG, string.Format(
+                "TestTrace Ws={0} Step=翻转测试位 Phase=Start PosIdx={1}",
+                disc, pos_idx));
             res = TurnToTest(ref bquit);
             //res = ax_u.JOG_Step(ref VAR.gsys_set.bquit, AXIS.AX_DIR.N);
-            if (res != EM_RES.OK) return res;
+            VAR.msg.AddMsg(Msg.EM_MSGTYPE.DBG, string.Format(
+                "TestTrace Ws={0} Step=翻转测试位 Phase=End Res={1} PosIdx={2}",
+                disc, res, pos_idx));
+            if (res != EM_RES.OK)
+            {
+                VAR.msg.AddMsg(Msg.EM_MSGTYPE.DBG, string.Format(
+                    "TestTrace Ws={0} Step=SetupForTest Phase=End Res={1} Reason=TurnToTest",
+                    disc, res));
+                return res;
+            }
 
+            VAR.msg.AddMsg(Msg.EM_MSGTYPE.DBG, string.Format(
+                "TestTrace Ws={0} Step=SetupForTest Phase=End Res={1} PosIdx={2}",
+                disc, EM_RES.OK, pos_idx));
             return EM_RES.OK;
         }
 

@@ -122,6 +122,7 @@ namespace UI
         private DateTime lastJigDownPhotoTime = DateTime.MinValue;
         private bool jigDownPhotoRoundActive = false;
         private readonly HashSet<string> jigDownPhotoCheckedKeys = new HashSet<string>();
+        private int lastWaitFeedTrayLogTick = 0;
         //第一次上料需回检
         //public bool isfirst = true;
         //错误信息
@@ -501,6 +502,10 @@ namespace UI
                     //isfirst = true;
                 }
             }
+            VAR.msg.AddMsg(Msg.EM_MSGTYPE.DBG, string.Format(
+                "UpDnPathTrace ChkNextProc ud={0}, ws={1}, FindMod={2}, ClearMt={3}, empty=[{4}], testOk=[{5}], nextProc={6}, MdNum={7}, MdNum_1={8}",
+                COM.List_UDLoad[ud_id].disc, ws == null ? "NULL" : ws.disc, COM.List_UDLoad[ud_id].FindMod, VAR.ClearMt,
+                FormatMdList(pos_empty), FormatMdList(pos_testok), proc_temp, MdNum, MdNum_1));
             return proc_temp;
         }
 
@@ -515,7 +520,18 @@ namespace UI
                 proc_temp = EM_STA.GRRTEST;
             else
                 proc_temp = EM_STA.UPDOWNLOADEND;
+            VAR.msg.AddMsg(Msg.EM_MSGTYPE.DBG, string.Format(
+                "UpDnPathTrace ChkGrrNextProc ud={0}, ws={1}, FindMod={2}, empty=[{3}], testOk=[{4}], nextProc={5}",
+                COM.List_UDLoad[ud_id].disc, ws == null ? "NULL" : ws.disc, COM.List_UDLoad[ud_id].FindMod,
+                FormatMdList(pos_empty), FormatMdList(pos_testok), proc_temp));
             return proc_temp;
+        }
+
+        private string FormatMdList(List<WS.MdDat> list)
+        {
+            if (list == null || list.Count == 0) return "NONE";
+            return string.Join("|", list.Select(md => string.Format("{0}:res={1},en={2},bc={3}",
+                md.Num, md.res, md.benable, string.IsNullOrWhiteSpace(md.bardcode) ? "EMPTY" : md.bardcode)));
         }
         /// <summary>
         /// 吸头上的物料放回待测料盘
@@ -1621,7 +1637,8 @@ namespace UI
             if (res != EM_RES.OK) return res;
             if (WsTriPos.Count > 0)
             {
-                CaptureWsModShp2PhotoAfterFlyCheck(ref bquit);
+                res = CaptureWsModShp2PhotoAfterFlyCheck(ref bquit);
+                if (res != EM_RES.OK) return res;
             }
 
 
@@ -2339,7 +2356,8 @@ RECAP:
                 if (res != EM_RES.OK) return res;
                 if (WsTriPos.Count > 0)
                 {
-                    CaptureWsModShp2PhotoAfterFlyCheck(ref bquit);
+                    res = CaptureWsModShp2PhotoAfterFlyCheck(ref bquit);
+                    if (res != EM_RES.OK) return res;
                 }
                 //回拍结果判断
                 modupcam_task.Clear();
@@ -3057,6 +3075,16 @@ RECAP:
                 return;
             }
 
+            List<Cam.VisionTask> savedCurTasks = null;
+            List<VisionOutPutData> savedResultTemp = null;
+            int savedInputImageCnt = 0;
+            if (xt.upcam.List_vs_task_cur != null && xt.upcam.List_vs_task_cur.Count > 0)
+            {
+                savedCurTasks = new List<Cam.VisionTask>(xt.upcam.List_vs_task_cur);
+                savedResultTemp = new List<VisionOutPutData>(xt.upcam.ListResultTemp);
+                savedInputImageCnt = xt.upcam.inputImageCnt;
+            }
+
             try
             {
                 VisionOutPutData resData = new VisionOutPutData();
@@ -3080,24 +3108,36 @@ RECAP:
             {
                 VAR.msg.AddMsg(Msg.EM_MSGTYPE.ERR, string.Format("{0} WsMod_Shp2附加拍照异常:{1}", xt.disc, ex.Message));
             }
+            finally
+            {
+                if (savedCurTasks != null)
+                {
+                    xt.upcam.List_vs_task_cur.Clear();
+                    xt.upcam.List_vs_task_cur.AddRange(savedCurTasks);
+                    xt.upcam.ListResultTemp.Clear();
+                    xt.upcam.ListResultTemp.AddRange(savedResultTemp);
+                    xt.upcam.inputImageCnt = savedInputImageCnt;
+                    VAR.msg.AddMsg(Msg.EM_MSGTYPE.DBG, string.Format("{0} WsMod_Shp2附加拍照后恢复相机任务列表, count:{1}", xt.disc, savedCurTasks.Count));
+                }
+            }
         }
 
-        private void CaptureWsModShp2PhotoAfterFlyCheck(ref bool bquit)
+        private EM_RES CaptureWsModShp2PhotoAfterFlyCheck(ref bool bquit)
         {
             if (PT_SET.bDwAddCapQrcode)
             {
-                return;
+                return EM_RES.OK;
             }
 
             if (FeedBackWs == null || FeedBackWs.Count == 0)
             {
-                return;
+                return EM_RES.OK;
             }
 
             if (!PT_SET.bWsModShp2PhotoAfterCheck)
             {
                 VAR.msg.AddMsg(Msg.EM_MSGTYPE.DBG, string.Format("{0} WsMod_Shp2飞拍后附加拍照跳过，参数未启用", disc));
-                return;
+                return EM_RES.OK;
             }
 
             foreach (WS.MdDat md in FeedBackWs)
@@ -3114,6 +3154,16 @@ RECAP:
 
                 CaptureWsModShp2PhotoOnly(ref bquit, xt, new ST_XY(FeedBackPos.x, md.st_pos[id].y));
             }
+
+            EM_RES res = GoZero(ref bquit, false);
+            if (res != EM_RES.OK)
+            {
+                VAR.msg.AddMsg(Msg.EM_MSGTYPE.ERR, string.Format("{0} WsMod_Shp2附加拍照后回安全位失败:{1}", disc, res));
+                return res;
+            }
+
+            VAR.msg.AddMsg(Msg.EM_MSGTYPE.DBG, string.Format("{0} WsMod_Shp2附加拍照后已回安全位", disc));
+            return EM_RES.OK;
         }
 
         public EM_RES UpCamBackCheck(ref bool bquit, ref WS ws, XT xt,int udid, ST_XY pos_mod_upcam, ref VisionOutPutData ResData)
@@ -4032,6 +4082,8 @@ RECAP:
             bool bAlm = false;
             // if (WsPickPos.Count > 0) WsPickPos.Clear();
             GetWsPosTeam(ref WsPickPos, ws, Product.EM_CM_RES.OK, FindMod);
+            VAR.msg.AddMsg(Msg.EM_MSGTYPE.DBG, string.Format("UpDnPathTrace PickWsMod enter ud={0}, ws={1}, FindMod={2}, targets=[{3}]",
+                disc, ws == null ? "NULL" : ws.disc, FindMod, FormatMdList(WsPickPos)));
             while (!bquit)
             {
                 bool HaveMd = HaveWsPickMd(WsPickPos);
@@ -4082,6 +4134,8 @@ RECAP:
                         //    }
                         //}
                         VAR.msg.AddMsg(Msg.EM_MSGTYPE.DBG, "Pick_Move_End_Cap->md:" + md.Num.ToString());
+                        VAR.msg.AddMsg(Msg.EM_MSGTYPE.DBG, string.Format("UpDnPathTrace PickWsMod backcheck ud={0}, ws={1}, md={2}, x={3:F3}, y={4:F3}",
+                            disc, ws.disc, md.Num, md.st_pos[id].x, md.st_pos[id].y));
                         res = upcam.FindTaskTriAndWait(CONST.WsModUpFw, Demo);
                         //下料前进行二维码防呆
                         if (PT_SET.OpenDownQrde && PT_SET.BarcodeMode != (int)PT_SET.BAR_SCAN.NO_SCAN)
@@ -4255,6 +4309,11 @@ RECAP:
                     pickpos.z = xtid == 0 ? pickpos.z : -pickpos.z;
                     pickpos.a = PT_SET.isopendown_degree ? PT_SET.downdegree : 0;
                 PICK:
+                    VAR.msg.AddMsg(Msg.EM_MSGTYPE.DBG, string.Format(
+                        "UpDnTrace Ws={0} Ud={1} Step=夹具取料 Phase=Start ClearMt={2} Md={3} Xt={4} WsRes={5}",
+                        ws.disc, disc, VAR.ClearMt, md.Num, list_xt[xtid].disc, md.res));
+                    VAR.msg.AddMsg(Msg.EM_MSGTYPE.DBG, string.Format("UpDnPathTrace PickWsMod pick ud={0}, ws={1}, md={2}, xt={3}, pickX={4:F3}, pickY={5:F3}, pickZ={6:F3}, resBefore={7}",
+                        disc, ws.disc, md.Num, list_xt[xtid].disc, pickpos.x, pickpos.y, pickpos.z, md.res));
                     VAR.msg.AddMsg(Msg.EM_MSGTYPE.DBG, VAR.IsChinese ? string.Format("{0}工站取料: X:{1} Y:{2}", disc, pickpos.x, pickpos.y) : string.Format("{0}WS pickmod: X:{2} Y:{3}            ({1}工站取料: X:{2} Y:{3})", englishdisc, disc, pickpos.x, pickpos.y));
                     for (int i = 0; i < 2; i++)
                     {
@@ -4278,9 +4337,17 @@ RECAP:
                         md.res = -2;
                         md.bardcode = null;
                         VAR.msg.AddMsg(Msg.EM_MSGTYPE.DBG, string.Format("{0}工站下料完成,模组={1},吸头={2},原结果={3},条码={4}", ws.disc, pXtMd.Num, list_xt[xtid].disc, oldRes, string.IsNullOrWhiteSpace(oldBarcode) ? "EMPTY" : oldBarcode));
+                        VAR.msg.AddMsg(Msg.EM_MSGTYPE.DBG, string.Format("UpDnPathTrace PickWsMod pick ok ud={0}, ws={1}, md={2}, xt={3}, oldRes={4}",
+                            disc, ws.disc, pXtMd.Num, list_xt[xtid].disc, oldRes));
+                        VAR.msg.AddMsg(Msg.EM_MSGTYPE.DBG, string.Format(
+                            "UpDnTrace Ws={0} Ud={1} Step=夹具取料 Phase=End ClearMt={2} Md={3} Xt={4} Res={5} XtHas={6} WsRes={7} Action=Picked",
+                            ws.disc, disc, VAR.ClearMt, pXtMd.Num, list_xt[xtid].disc, res, list_xt[xtid].cy_zk.isONByChkSen, md.res));
                     }
                     else if (res == EM_RES.PICK_ERR)
                     {
+                        VAR.msg.AddMsg(Msg.EM_MSGTYPE.DBG, string.Format(
+                            "UpDnTrace Ws={0} Ud={1} Step=夹具取料 Phase=PickErr ClearMt={2} Md={3} Xt={4} Res={5} XtHas={6} WsRes={7}",
+                            ws.disc, disc, VAR.ClearMt, md.Num, list_xt[xtid].disc, res, list_xt[xtid].cy_zk.isONByChkSen, md.res));
                         VAR.sys_inf.Set(EM_ALM_STA.WAR_YELLOW_FLASH, VAR.IsChinese ? "吸料异常!" : "Draw ERR", 20, true);
                         VAR.msg.AddMsg(Msg.EM_MSGTYPE.ERR, "工站吸料异常", DReport.EmErrCode.PickFailed, (int)DReport.EmHareware.UpDownLoad + id);
                         MT.ST_WARN st_warn = new MT.ST_WARN();
@@ -4315,6 +4382,9 @@ RECAP:
                             VAR.msg.AddMsg(Msg.EM_MSGTYPE.WAR, string.Format("{0}工站下料放弃吸取,模组={1},吸头={2},原结果={3},条码={4}", ws.disc, md.Num, list_xt[xtid].disc, md.res, string.IsNullOrWhiteSpace(md.bardcode) ? "EMPTY" : md.bardcode));
                             md.res = -2;
                             md.bardcode = null;
+                            VAR.msg.AddMsg(Msg.EM_MSGTYPE.DBG, string.Format(
+                                "UpDnTrace Ws={0} Ud={1} Step=夹具取料 Phase=End ClearMt={2} Md={3} Xt={4} Res={5} XtHas={6} WsRes={7} Action=GiveUp",
+                                ws.disc, disc, VAR.ClearMt, md.Num, list_xt[xtid].disc, res, list_xt[xtid].cy_zk.isONByChkSen, md.res));
                         }
                         else if (DialogResult.Abort == logres)
                         {
@@ -4330,7 +4400,13 @@ RECAP:
                     }
                     else
                     {
-                        if (res != EM_RES.ABORT) return res;
+                        if (res != EM_RES.ABORT)
+                        {
+                            VAR.msg.AddMsg(Msg.EM_MSGTYPE.DBG, string.Format(
+                                "UpDnTrace Ws={0} Ud={1} Step=夹具取料 Phase=End ClearMt={2} Md={3} Xt={4} Res={5} XtHas={6} WsRes={7} Action=Error",
+                                ws.disc, disc, VAR.ClearMt, md.Num, list_xt[xtid].disc, res, list_xt[xtid].cy_zk.isONByChkSen, md.res));
+                            return res;
+                        }
                     }
                 }
                 if (tryagain)
@@ -5261,6 +5337,10 @@ RECAP:
                                 bool bdismove = NewSysInf.UserParams.bPlaceWsDis;
                                 bool bq = false;
 
+                                string placeMd = list_xt[xtnum].XtMd == null ? "NULL" : list_xt[xtnum].XtMd.Num.ToString();
+                                VAR.msg.AddMsg(Msg.EM_MSGTYPE.DBG, string.Format(
+                                    "UpDnTrace Ws={0} Ud={1} Step=工站放料 Phase=Start Mode=Fly Xt={2} TargetMd={3} XtMd={4} PosX={5:F3} PosY={6:F3}",
+                                    ws.disc, disc, list_xt[xtnum].disc, WsTriPos[j].Num, placeMd, WsTriPos[j].st_pos[id].x, WsTriPos[j].st_pos[id].y));
                                 res = list_xt[xtnum].XtPickOrPlaceMod(ref bq/*bquit*/, Pos_Upcam, up_task.ResData.PosMM, dw_task.ResData.PosMM, WsTriPos[j].st_pos[id].z, Demo, XT.EM_XTFLOW.PLACEMOD, false, PT_SET.bModPasteUp, bdismove);
                                 if (res == EM_RES.OK)
                                 {
@@ -5310,8 +5390,17 @@ RECAP:
                                     COUNT_DATA.allcnt[ws.num]++;
                                     if (PT_SET.bNgControl) COUNT_DATA.ngctrlallcnt++;
                                     if (PT_SET.EquipmentMT != 0) COUNT_DATA.CurEquipmentMT++;
+                                    VAR.msg.AddMsg(Msg.EM_MSGTYPE.DBG, string.Format(
+                                        "UpDnTrace Ws={0} Ud={1} Step=工站放料 Phase=End Mode=Fly Xt={2} TargetMd={3} XtMd={4} Res={5} XtHas={6} WsRes={7}",
+                                        ws.disc, disc, list_xt[xtnum].disc, WsTriPos[j].Num, placeMd, res, list_xt[xtnum].XtMd != null, WsTriPos[j].res));
                                 }
-                                else return res;
+                                else
+                                {
+                                    VAR.msg.AddMsg(Msg.EM_MSGTYPE.DBG, string.Format(
+                                        "UpDnTrace Ws={0} Ud={1} Step=工站放料 Phase=End Mode=Fly Xt={2} TargetMd={3} XtMd={4} Res={5} XtHas={6} WsRes={7}",
+                                        ws.disc, disc, list_xt[xtnum].disc, WsTriPos[j].Num, placeMd, res, list_xt[xtnum].XtMd != null, WsTriPos[j].res));
+                                    return res;
+                                }
                                 up_task.ResData.bUpdate = false;
                                 dw_task.ResData.bUpdate = false;
                                 break;
@@ -5555,6 +5644,10 @@ RECAP:
                     VAR.msg.AddMsg(Msg.EM_MSGTYPE.NOR, "J：" + j + "Datanum:" + DataNum + "xtnum:" + xtnum);
                     bool bdismove = NewSysInf.UserParams.bPlaceWsDis;
                     VAR.msg.AddMsg(Msg.EM_MSGTYPE.NOR, "上相机数据："+up_task.ResData.PosMM + "下相机数据" + DownCamdata[DataNum].PosMM);
+                    string placeMd = list_xt[xtnum].XtMd == null ? "NULL" : list_xt[xtnum].XtMd.Num.ToString();
+                    VAR.msg.AddMsg(Msg.EM_MSGTYPE.DBG, string.Format(
+                        "UpDnTrace Ws={0} Ud={1} Step=工站放料 Phase=Start Mode=NotFly Xt={2} TargetMd={3} XtMd={4} PosX={5:F3} PosY={6:F3}",
+                        ws.disc, disc, list_xt[xtnum].disc, WsTriPos[j].Num, placeMd, WsTriPos[j].st_pos[id].x, WsTriPos[j].st_pos[id].y));
                     res = list_xt[xtnum].XtPickOrPlaceMod(ref bquit, Pos_Upcam, up_task.ResData.PosMM, DownCamdata[DataNum].PosMM, WsTriPos[j].st_pos[id].z, Demo, XT.EM_XTFLOW.PLACEMOD, false, PT_SET.bModPasteUp, bdismove);
                     if (res == EM_RES.OK)
                     {
@@ -5604,8 +5697,17 @@ RECAP:
                         COUNT_DATA.allcnt[ws.num]++;
                         if (PT_SET.bNgControl) COUNT_DATA.ngctrlallcnt++;
                         if (PT_SET.EquipmentMT != 0) COUNT_DATA.CurEquipmentMT++;
+                        VAR.msg.AddMsg(Msg.EM_MSGTYPE.DBG, string.Format(
+                            "UpDnTrace Ws={0} Ud={1} Step=工站放料 Phase=End Mode=NotFly Xt={2} TargetMd={3} XtMd={4} Res={5} XtHas={6} WsRes={7}",
+                            ws.disc, disc, list_xt[xtnum].disc, WsTriPos[j].Num, placeMd, res, list_xt[xtnum].XtMd != null, WsTriPos[j].res));
                     }
-                    else return res;
+                    else
+                    {
+                        VAR.msg.AddMsg(Msg.EM_MSGTYPE.DBG, string.Format(
+                            "UpDnTrace Ws={0} Ud={1} Step=工站放料 Phase=End Mode=NotFly Xt={2} TargetMd={3} XtMd={4} Res={5} XtHas={6} WsRes={7}",
+                            ws.disc, disc, list_xt[xtnum].disc, WsTriPos[j].Num, placeMd, res, list_xt[xtnum].XtMd != null, WsTriPos[j].res));
+                        return res;
+                    }
                     up_task.ResData.bUpdate = false;
                     //break;
                 }
@@ -5666,6 +5768,8 @@ RECAP:
         public EM_RES FlyTrayPickMod(ref bool bquit, WS ws)
         {
             VAR.msg.AddMsg(Msg.EM_MSGTYPE.SYS, $"{disc} 飞拍取料");
+            VAR.msg.AddMsg(Msg.EM_MSGTYPE.DBG, string.Format("UpDnPathTrace FlyTrayPickMod enter ud={0}, ws={1}, FindMod={2}, Ischeckcode={3}, ClearMt={4}",
+                disc, ws == null ? "NULL" : ws.disc, FindMod, Ischeckcode, VAR.ClearMt));
             ST_XY Pos_Upcam = new ST_XY();
             ST_XYZA endpos = new ST_XYZA();
             ST_XYA xt_vs_dat = new ST_XYA(-10000, -10000, 0);
@@ -5690,6 +5794,8 @@ RECAP:
             try
             {
                 res = FlyCamToTray(ref bquit, ws, traybox_fd, Finnalcheck, ref endpos);
+                VAR.msg.AddMsg(Msg.EM_MSGTYPE.DBG, string.Format("UpDnPathTrace FlyTrayPickMod FlyCamToTray exit ud={0}, ws={1}, res={2}, endX={3:F3}, endY={4:F3}",
+                    disc, ws == null ? "NULL" : ws.disc, res, endpos.x, endpos.y));
                 if (res != EM_RES.OK && res != EM_RES.NEXT)
                 {
                     VAR.msg.AddMsg(Msg.EM_MSGTYPE.SYS, $"飞拍取料返回值{res.ToString()} ");
@@ -5909,7 +6015,6 @@ RECAP:
         /// <returns></returns>
         public EM_RES TrayPickMod(ref bool bquit, ref bool IsFly, WS ws)
         {
-            VAR.msg.AddMsg(Msg.EM_MSGTYPE.SYS, $"{disc} 料盘取料");
             EM_RES res = EM_RES.OK;
             EM_RES ret = EM_RES.OK;
             string str = "";
@@ -5919,7 +6024,21 @@ RECAP:
             int TryPickCnt = 0, TryCnt = 0;
             bool pickone = false;
             List<Product.Tray.PosInf> ListPickMod = new List<Product.Tray.PosInf>();
-            if (!traybox_fd.IsReady) return EM_RES.ABORT;
+            if (!traybox_fd.IsReady)
+            {
+                int nowTick = Environment.TickCount;
+                if (lastWaitFeedTrayLogTick == 0 || nowTick - lastWaitFeedTrayLogTick >= 1000)
+                {
+                    VAR.msg.AddMsg(Msg.EM_MSGTYPE.DBG, string.Format(
+                        "UpDnTrace Ws={0} Ud={1} Step=料盘取料 Phase=WaitFeedTray ClearMt={2} Tray={3} Ready={4} Res={5}",
+                        ws == null ? "NULL" : ws.disc, disc, VAR.ClearMt, traybox_fd.disc, traybox_fd.IsReady, EM_RES.ABORT));
+                    lastWaitFeedTrayLogTick = nowTick;
+                }
+                return EM_RES.ABORT;
+            }
+
+            lastWaitFeedTrayLogTick = 0;
+            VAR.msg.AddMsg(Msg.EM_MSGTYPE.SYS, $"{disc} 料盘取料");
             if (!Demo && list_xt[0].cy_zk.isONByChkSen && list_xt[0].XtMd != null && list_xt[1].cy_zk.isONByChkSen && list_xt[1].XtMd != null) return EM_RES.OK;
             //判断料盘状态
             if (traybox_fd.tray_cur == null) return EM_RES.PARA_OUTOFRANG;
@@ -5937,6 +6056,13 @@ RECAP:
                 if (CurPlaceMod.Count == xtzkcnt) return EM_RES.OK;
             }
             if (CurPlaceMod.Count == 1) pickone = true;
+            VAR.msg.AddMsg(Msg.EM_MSGTYPE.DBG, string.Format(
+                "UpDnPathTrace TrayPickMod enter ud={0}, ws={1}, FindMod={2}, feedCnt={3}, firstFeedIdx={4}, firstFeedMd={5}, emptyTargets=[{6}], xtzkcnt={7}, pickone={8}, IsFly={9}",
+                disc, ws == null ? "NULL" : ws.disc, FindMod,
+                ListPickMod == null ? 0 : ListPickMod.Count,
+                ListPickMod != null && ListPickMod.Count > 0 ? ListPickMod[0].idx.ToString() : "NONE",
+                ListPickMod != null && ListPickMod.Count > 0 && ListPickMod[0].md != null ? ListPickMod[0].md.Num.ToString() : "NULL",
+                FormatMdList(CurPlaceMod), xtzkcnt, pickone, IsFly));
             if (traybox_fd.ischangetray && PT_SET.TrayBarcodeEn)
             {
                 traybox_fd.ischangetray = false;
@@ -6273,9 +6399,9 @@ RECAP:
                 {
                     // flycam = false;
                     res = TrayPickMod(ref bquit, ref flycam, ws);
-                    VAR.msg.AddMsg(Msg.EM_MSGTYPE.SYS, $"{disc} 料盘取料流程最终结果{res.ToString()}");
                     if (res != EM_RES.ABORT)
                     {
+                        VAR.msg.AddMsg(Msg.EM_MSGTYPE.SYS, $"{disc} 料盘取料流程最终结果{res.ToString()}");
                         VAR.msg.AddMsg(Msg.EM_MSGTYPE.DBG, VAR.IsChinese ? string.Format("上料线程取料结束,{0}", res.ToString()) : string.Format("Upload thread end,{0}       (上料线程取料结束,{0})", res.ToString()));
                     }
 
@@ -6377,6 +6503,10 @@ RECAP:
             traybox_fd.MoveToLastPos[id] = true;
             traybox_ng.MoveToLastPos[id] = true;
             traybox_ok.MoveToLastPos[id] = true;
+            VAR.msg.AddMsg(Msg.EM_MSGTYPE.DBG, string.Format(
+                "UpDnPathTrace Act enter ud={0}, ws={1}, FindMod={2}, ClearMt={3}, initialProc={4}, bfinal={5}, axXHome={6}, axXAlm={7}, axXPos={8:F3}, axYPos={9:F3}",
+                disc, ws == null ? "NULL" : ws.disc, FindMod, VAR.ClearMt, Proc, bfinal,
+                ax_x.home_status, ax_x.isALM, ax_x.fenc_pos, ax_y.fenc_pos));
             //取料
             double tick = Environment.TickCount;
             while (!bquit && !bfinal)
@@ -6402,6 +6532,9 @@ RECHECKAGAIN:
                         if (!PT_SET.bGrrFlow || (PT_SET.bGrrFlow && (ws.GrrUDLcnt == 0 || VAR.ClearMt)))
                         {
                             Proc = ChkNextProc(ref num, ref num_3, ws, id);
+                            VAR.msg.AddMsg(Msg.EM_MSGTYPE.DBG, string.Format(
+                                "UpDnPathTrace Act check ud={0}, ws={1}, FindMod={2}, Proc={3}, Num_C={4}, Num_O={5}, otherProc={6}",
+                                disc, ws.disc, FindMod, Proc, num, num_3, Proc1));
                             if (FindMod == EM_FIN_MOD.LOW && id == COM.UDLoad2.id)
                             {
                                 Proc1 = ChkNextProc(ref num_1, ref num_4, ws, 0);
@@ -6432,6 +6565,12 @@ RECHECKAGAIN:
                                     //((!VAR.ClearMt && num_1 == num && Proc >= COM.UDLoad1.Proc )||(VAR.ClearMt && num_1 == num) || num_1 < num || ((!VAR.ClearMt || (VAR.ClearMt && !PT_SET.issmall)) && num - num_2 > 1) || bChkWait))
                                     ((!VAR.ClearMt && num_1 == num && Proc >= COM.UDLoad1.Proc) || (VAR.ClearMt && num_1 == num) || num_1 < num || num - num_2 > 1 || bChkWait || (Proc1 == EM_STA.UPDOWNLOADEND && !COM.UDLoad1.bfinal)))
                                 {
+                                    if (msg_outcnt == 0)
+                                    {
+                                        VAR.msg.AddMsg(Msg.EM_MSGTYPE.DBG, string.Format(
+                                            "UpDnPathTrace Act wait ud={0}, ws={1}, reason=module2_wait, Proc={2}, Num_C={3}, Num_O={4}, ud1Proc={5}, ud1Num={6}, ud1NumO={7}, feedbackNum={8}, bChkWait={9}, ud1Final={10}",
+                                            disc, ws.disc, Proc, num, num_3, Proc1, num_1, num_4, num_2, bChkWait, COM.UDLoad1.bfinal));
+                                    }
                                     msg_outcnt++;
                                     if (msg_outcnt > 600)
                                     {
@@ -6462,8 +6601,12 @@ RECHECKAGAIN:
                         if (FindMod != EM_FIN_MOD.NONE)
                         {
                             ST_XYZA enpos = new ST_XYZA();
+                            VAR.msg.AddMsg(Msg.EM_MSGTYPE.DBG, string.Format("UpDnPathTrace LastBackCheck enter ud={0}, ws={1}, FindMod={2}, FeedBackWs=[{3}], bfinal={4}",
+                                disc, ws.disc, FindMod, FormatMdList(FeedBackWs), bfinal));
                             res = FlyCamToLastPos(ref bquit, ws,true ,ref enpos);
-                            VAR.msg.AddMsg(Msg.EM_MSGTYPE.ERR, string.Format("{0}最后一个位置回检完成，res为{1}", disc,res.ToString()));
+                            VAR.msg.AddMsg(Msg.EM_MSGTYPE.ERR, string.Format("{0}最后一个位置回检返回，res为{1}", disc,res.ToString()));
+                            VAR.msg.AddMsg(Msg.EM_MSGTYPE.DBG, string.Format("UpDnPathTrace LastBackCheck exit ud={0}, ws={1}, res={2}, endX={3:F3}, endY={4:F3}, axX={5:F3}, axY={6:F3}",
+                                disc, ws.disc, res, enpos.x, enpos.y, ax_x.fenc_pos, ax_y.fenc_pos));
                             if (res != EM_RES.OK && res != EM_RES.NEXT && res != EM_RES.RETRY)
                             {
                                 return res;
@@ -6516,17 +6659,29 @@ RECHECKAGAIN:
                     {
                             Camcfgset();
                         //VAR.msg.AddMsg(Msg.EM_MSGTYPE.ERR, string.Format("{0}工站取料进入!", disc));
+                        VAR.msg.AddMsg(Msg.EM_MSGTYPE.DBG, string.Format("UpDnPathTrace PICKWS enter ud={0}, ws={1}, FindMod={2}", disc, ws.disc, FindMod));
                         res = PickWsMod(ref bquit, ref ws);
+                        VAR.msg.AddMsg(Msg.EM_MSGTYPE.DBG, string.Format("UpDnPathTrace PICKWS exit ud={0}, ws={1}, res={2}, xt1Has={3}, xt2Has={4}",
+                            disc, ws.disc, res, list_xt[0].cy_zk.isONByChkSen, list_xt[1].cy_zk.isONByChkSen));
                         // if (res == EM_RES.ERR||res==EM_RES.SAFE_PROTECT)return res;
                         if (res != EM_RES.OK && res != EM_RES.END) return res;
                         else
                         {
                             if (((list_xt[0].cy_zk.isONByChkSen || list_xt[1].cy_zk.isONByChkSen) && !Demo) || Demo)
                             {
+                                VAR.msg.AddMsg(Msg.EM_MSGTYPE.DBG, string.Format(
+                                    "UpDnTrace Ws={0} Ud={1} Step=夹具取料 Phase=NextProc ClearMt={2} Res={3} Xt1Has={4} Xt2Has={5} NextProc={6}",
+                                    ws.disc, disc, VAR.ClearMt, res, list_xt[0].cy_zk.isONByChkSen, list_xt[1].cy_zk.isONByChkSen, EM_STA.PLACETRAY));
                                 VAR.msg.AddMsg(Msg.EM_MSGTYPE.SYS, $"{disc} 工站取料完成,流程变为料盘放料");
                                 Proc = EM_STA.PLACETRAY;
                             }
-                            else Proc = EM_STA.CHECK;
+                            else
+                            {
+                                VAR.msg.AddMsg(Msg.EM_MSGTYPE.DBG, string.Format(
+                                    "UpDnTrace Ws={0} Ud={1} Step=夹具取料 Phase=NextProc ClearMt={2} Res={3} Xt1Has={4} Xt2Has={5} NextProc={6}",
+                                    ws.disc, disc, VAR.ClearMt, res, list_xt[0].cy_zk.isONByChkSen, list_xt[1].cy_zk.isONByChkSen, EM_STA.CHECK));
+                                Proc = EM_STA.CHECK;
+                            }
                         }
                         //VAR.msg.AddMsg(Msg.EM_MSGTYPE.ERR, string.Format("{0}工站取料退出!", disc));
                     }
@@ -6539,9 +6694,14 @@ RECHECKAGAIN:
                     if (Proc == EM_STA.PLACETRAY && !bquit)
                     {
                             Camcfgset();
-                        
+
                         //VAR.msg.AddMsg(Msg.EM_MSGTYPE.ERR, string.Format("{0}料盘放料进入!", disc));
+                        VAR.msg.AddMsg(Msg.EM_MSGTYPE.DBG, string.Format("UpDnPathTrace PLACETRAY enter ud={0}, ws={1}, FindMod={2}, xt1Md={3}, xt2Md={4}",
+                            disc, ws.disc, FindMod,
+                            list_xt[0].XtMd == null ? "NULL" : list_xt[0].XtMd.Num.ToString(),
+                            list_xt[1].XtMd == null ? "NULL" : list_xt[1].XtMd.Num.ToString()));
                         res = PlaceMdToTray(ref bquit, ws);
+                        VAR.msg.AddMsg(Msg.EM_MSGTYPE.DBG, string.Format("UpDnPathTrace PLACETRAY exit ud={0}, ws={1}, res={2}", disc, ws.disc, res));
                         if (res != EM_RES.OK) return res;
                         else
                         {
@@ -6661,11 +6821,14 @@ RECHECKAGAIN:
                             Camcfgset(TrayLightSet);
                         //VAR.msg.AddMsg(Msg.EM_MSGTYPE.ERR, string.Format("{0}料盘取料进入!", disc));
                         GetWsPosTeam(ref CurPlaceMod, ws, Product.EM_CM_RES.EMPTY, FindMod);
+                        VAR.msg.AddMsg(Msg.EM_MSGTYPE.DBG, string.Format("UpDnPathTrace PICKTRAY enter ud={0}, ws={1}, FindMod={2}, emptyTargets=[{3}], bflycam={4}, ClearMt={5}",
+                            disc, ws.disc, FindMod, FormatMdList(CurPlaceMod), bflycam, VAR.ClearMt));
                         if (CurPlaceMod.Count != 0 && !VAR.ClearMt)
                         {
                             //bflycam = false;
                             res = PickMdToTray(ref bquit, ref bflycam, ws);
                             VAR.msg.AddMsg(Msg.EM_MSGTYPE.SYS, $"{disc} 料盘取料进入最终结果{res.ToString()}");
+                            VAR.msg.AddMsg(Msg.EM_MSGTYPE.DBG, string.Format("UpDnPathTrace PICKTRAY pick exit ud={0}, ws={1}, res={2}, bflycam={3}", disc, ws.disc, res, bflycam));
                             if (res != EM_RES.OK && res != EM_RES.RETRY)
                             {
                                 return res;
@@ -6681,6 +6844,8 @@ RECHECKAGAIN:
 
                         if (((list_xt[0].cy_zk.isONByChkSen || list_xt[1].cy_zk.isONByChkSen) && !Demo) || Demo) Proc = EM_STA.PLACEWS;
                         else Proc = EM_STA.CHECK;
+                        VAR.msg.AddMsg(Msg.EM_MSGTYPE.DBG, string.Format("UpDnPathTrace PICKTRAY exit ud={0}, ws={1}, nextProc={2}, xt1Has={3}, xt2Has={4}",
+                            disc, ws.disc, Proc, list_xt[0].cy_zk.isONByChkSen, list_xt[1].cy_zk.isONByChkSen));
                         Task tsk_fd = new Task(() =>
                         {
                             EM_RES res_fd = MoveNextTrayX1Pos(ref UpDownLoad.bquit, traybox_fd, ws, FindMod == EM_FIN_MOD.ALL ? this : COM.List_UDLoad[(id + 1) % 2]);
@@ -6706,9 +6871,14 @@ RECHECKAGAIN:
                             Camcfgset();
                         // VAR.msg.AddMsg(Msg.EM_MSGTYPE.ERR, string.Format("{0}工站放料进入!", disc));
                         GetWsPosTeam(ref CurPlaceMod, ws, Product.EM_CM_RES.EMPTY, FindMod);
+                        VAR.msg.AddMsg(Msg.EM_MSGTYPE.DBG, string.Format("UpDnPathTrace PLACEWS enter ud={0}, ws={1}, FindMod={2}, emptyTargets=[{3}], xt1Md={4}, xt2Md={5}",
+                            disc, ws.disc, FindMod, FormatMdList(CurPlaceMod),
+                            list_xt[0].XtMd == null ? "NULL" : list_xt[0].XtMd.Num.ToString(),
+                            list_xt[1].XtMd == null ? "NULL" : list_xt[1].XtMd.Num.ToString()));
                         if (CurPlaceMod.Count != 0)
                         {
                             res = PlaceMdToWs(ref bquit, CurPlaceMod, ws);
+                            VAR.msg.AddMsg(Msg.EM_MSGTYPE.DBG, string.Format("UpDnPathTrace PLACEWS exit ud={0}, ws={1}, res={2}", disc, ws.disc, res));
                             if (res == EM_RES.OK)
                             {
                                 Proc = EM_STA.CHECK;
@@ -6818,7 +6988,11 @@ RECHECKAGAIN:
             {
                 VAR.msg.AddMsg(Msg.EM_MSGTYPE.NOR, VAR.IsChinese ? string.Format("{0}线程开始!", disc) : string.Format("{0} thread start!       ({1}线程开始!)", englishdisc, disc));
                 WS ws = Turntable.GetWSOnFeedPos;
+                VAR.msg.AddMsg(Msg.EM_MSGTYPE.DBG, string.Format("UpDnPathTrace RunUdTask start ud={0}, ws={1}, FindMod={2}, ClearMt={3}, bquit={4}, axXHome={5}, axXAlm={6}, axXPos={7:F3}, axYPos={8:F3}",
+                    disc, ws == null ? "NULL" : ws.disc, FindMod, VAR.ClearMt, bquit, ax_x.home_status, ax_x.isALM, ax_x.fenc_pos, ax_y.fenc_pos));
                 res = UpDownLoadModleAct(ref bquit, ws);
+                VAR.msg.AddMsg(Msg.EM_MSGTYPE.DBG, string.Format("UpDnPathTrace RunUdTask exit ud={0}, ws={1}, res={2}, status_ud={3}, bquit={4}, axXHome={5}, axXAlm={6}, axXPos={7:F3}, axYPos={8:F3}",
+                    disc, ws == null ? "NULL" : ws.disc, res, status_ud, bquit, ax_x.home_status, ax_x.isALM, ax_x.fenc_pos, ax_y.fenc_pos));
                 if (res != EM_RES.OK)
                 {
                     if (res == EM_RES.QUIT) status_ud = EM_STA.QUIT;
@@ -7242,6 +7416,9 @@ RECHECKAGAIN:
                 else
                 {
                     //上完闭合            
+                    VAR.msg.AddMsg(Msg.EM_MSGTYPE.DBG, string.Format(
+                        "FlowLink Ws={0} From=UpDownLoad To=SetupForTest Reason=上下料完成准备合夹具 Res1={1} Res2={2} Ud1Proc={3} Ud2Proc={4}",
+                        ws.disc, res1, res2, COM.UDLoad1.Proc, COM.UDLoad2.Proc));
                     res = ws.SetupForTest(ref VAR.gsys_set.bquit);
                     if (res != EM_RES.OK) break;
                     res = UpCamAfterCloseCheckAll(ref bquit, ref ws);

@@ -155,6 +155,8 @@ namespace UI
         public EM_STA status;
         //是否运动
         public bool runin = false;
+        //料盘进出动作进行中，暂停/停止应等待该动作完成
+        public volatile bool trayActionRunning = false;
         //位置更新
         public bool runUpdate = false;
         //空运行
@@ -502,6 +504,7 @@ namespace UI
                 res = MT.Move(ref bquit, ref ax_z, 0);
                 if (res != EM_RES.OK) return res;
                 ChgML = true;
+                VAR.msg.AddMsg(Msg.EM_MSGTYPE.DBG, string.Format("TrayChangeTrace enter TrayBoxFull, traybox={0}, ChgML={1}, bquit={2}", disc, ChgML, bquit));
                 ShowErrMsg Code;
                 Code = disc.Contains("供") ? ShowErrMsg.ChangeFedBox : disc.Contains("OK") ? ShowErrMsg.ChangeOKBox : ShowErrMsg.ChangeSenNGBox;
                 //界面提示
@@ -541,7 +544,9 @@ namespace UI
             }
             finally
             {
+                VAR.msg.AddMsg(Msg.EM_MSGTYPE.DBG, string.Format("TrayChangeTrace exit TrayBoxFull begin, traybox={0}, ChgML={1}", disc, ChgML));
                 ChgML = false;
+                VAR.msg.AddMsg(Msg.EM_MSGTYPE.DBG, string.Format("TrayChangeTrace exit TrayBoxFull end, traybox={0}, ChgML={1}", disc, ChgML));
             }
 
         }
@@ -612,7 +617,9 @@ namespace UI
             }
             finally
             {
+                VAR.msg.AddMsg(Msg.EM_MSGTYPE.DBG, string.Format("TrayChangeTrace exit TrayBoxFullCallAgv begin, traybox={0}, ChgML={1}", disc, ChgML));
                 ChgML = false;
+                VAR.msg.AddMsg(Msg.EM_MSGTYPE.DBG, string.Format("TrayChangeTrace exit TrayBoxFullCallAgv end, traybox={0}, ChgML={1}", disc, ChgML));
             }
 
         }
@@ -635,6 +642,8 @@ namespace UI
         public EM_RES Tray_Action(bool Demo, EM_DIR _dir = EM_DIR.IN_OUT)
         {
             EM_RES res = EM_RES.OK;
+            bool actionCompleted = false;
+            trayActionRunning = true;
             try
             {
                 IsReady = false;
@@ -679,6 +688,7 @@ namespace UI
                     //});
                     //Zhome.Start();
                     if (_dir != EM_DIR.ONLY_IN) ischangetray = true;
+                    actionCompleted = true;
                 }
                 else
                 {
@@ -699,8 +709,11 @@ namespace UI
             }
             finally
             {
-                //if(res== EM_RES.OK)
-                IsReady = true;
+                IsReady = actionCompleted;
+                trayActionRunning = false;
+                VAR.msg.AddMsg(Msg.EM_MSGTYPE.DBG, string.Format(
+                    "TrayChangeTrace Tray_Action exit, traybox={0}, res={1}, completed={2}, IsReady={3}, trayCur={4}",
+                    disc, res, actionCompleted, IsReady, tray_cur == null ? "NULL" : tray_cur.barcode));
             }
         }
 
