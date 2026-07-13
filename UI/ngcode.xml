@@ -1,0 +1,715 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<!--DataTable: Table1-->
+<DataTable TableName="Table1" CountOfRows="709" CountOfColumns="9">
+  <ClomunName Column0="编号" Column1="代码" Column2="名称" Column3="分区放置" Column4="复测" Column5="工装" Column6="夹具" Column7="光箱" Column8="软件" />
+  <ColType ColType0="System.Int32" ColType1="System.Int32" ColType2="System.String" ColType3="System.String" ColType4="System.Boolean" ColType5="System.Boolean" ColType6="System.Boolean" ColType7="System.Boolean" ColType8="System.Boolean" />
+  <Row0 编号="0" 代码="0" 名称="OK" 分区放置="分区0" 复测="False" 工装="False" 夹具="False" 光箱="False" 软件="False" />
+  <Row1 编号="1" 代码="256" 名称="内存异常" 分区放置="分区0" 复测="False" 工装="False" 夹具="False" 光箱="False" 软件="False" />
+  <Row2 编号="2" 代码="257" 名称="内存申请失败" 分区放置="分区0" 复测="False" 工装="False" 夹具="False" 光箱="False" 软件="False" />
+  <Row3 编号="3" 代码="258" 名称="开图NG" 分区放置="分区0" 复测="False" 工装="False" 夹具="False" 光箱="False" 软件="False" />
+  <Row4 编号="4" 代码="259" 名称="DLL异常" 分区放置="分区0" 复测="False" 工装="False" 夹具="False" 光箱="False" 软件="False" />
+  <Row5 编号="5" 代码="260" 名称="保存失败" 分区放置="分区0" 复测="False" 工装="False" 夹具="False" 光箱="False" 软件="False" />
+  <Row6 编号="6" 代码="261" 名称="算法执行失败" 分区放置="分区0" 复测="False" 工装="False" 夹具="False" 光箱="False" 软件="False" />
+  <Row7 编号="7" 代码="262" 名称="参数异常" 分区放置="分区0" 复测="False" 工装="False" 夹具="False" 光箱="False" 软件="False" />
+  <Row8 编号="8" 代码="263" 名称="网络异常" 分区放置="" 复测="False" 工装="False" 夹具="False" 光箱="False" 软件="False" />
+  <Row9 编号="9" 代码="264" 名称="超时" 分区放置="" 复测="False" 工装="False" 夹具="False" 光箱="False" 软件="False" />
+  <Row10 编号="10" 代码="265" 名称="工装打开失败" 分区放置="" 复测="False" 工装="False" 夹具="False" 光箱="False" 软件="False" />
+  <Row11 编号="11" 代码="266" 名称="开图NG" 分区放置="分区0" 复测="False" 工装="False" 夹具="False" 光箱="False" 软件="False" />
+  <Row12 编号="12" 代码="267" 名称="马达运动失败" 分区放置="" 复测="False" 工装="False" 夹具="False" 光箱="False" 软件="False" />
+  <Row13 编号="13" 代码="268" 名称="工作电流异常" 分区放置="" 复测="False" 工装="False" 夹具="False" 光箱="False" 软件="False" />
+  <Row14 编号="14" 代码="269" 名称="待机电流异常" 分区放置="" 复测="False" 工装="False" 夹具="False" 光箱="False" 软件="False" />
+  <Row15 编号="15" 代码="270" 名称="OS异常" 分区放置="" 复测="False" 工装="False" 夹具="False" 光箱="False" 软件="False" />
+  <Row16 编号="16" 代码="271" 名称="IIC读写NG" 分区放置="分区0" 复测="False" 工装="False" 夹具="False" 光箱="False" 软件="False" />
+  <Row17 编号="17" 代码="272" 名称="尺寸切换失败" 分区放置="分区0" 复测="False" 工装="False" 夹具="False" 光箱="False" 软件="False" />
+  <Row18 编号="18" 代码="273" 名称="DLL异常" 分区放置="" 复测="False" 工装="False" 夹具="False" 光箱="False" 软件="False" />
+  <Row19 编号="19" 代码="274" 名称="图像丢帧" 分区放置="分区0" 复测="False" 工装="False" 夹具="False" 光箱="False" 软件="False" />
+  <Row20 编号="20" 代码="275" 名称="图像异常" 分区放置="" 复测="False" 工装="False" 夹具="False" 光箱="False" 软件="False" />
+  <Row21 编号="21" 代码="276" 名称="光源点检异常" 分区放置="" 复测="False" 工装="False" 夹具="False" 光箱="False" 软件="False" />
+  <Row22 编号="22" 代码="277" 名称="GPIO操作失败" 分区放置="" 复测="False" 工装="False" 夹具="False" 光箱="False" 软件="False" />
+  <Row23 编号="23" 代码="278" 名称="复位异常" 分区放置="" 复测="False" 工装="False" 夹具="False" 光箱="False" 软件="False" />
+  <Row24 编号="24" 代码="279" 名称="设备点检超时" 分区放置="" 复测="False" 工装="False" 夹具="False" 光箱="False" 软件="False" />
+  <Row25 编号="25" 代码="280" 名称="点检模组不能生产" 分区放置="" 复测="False" 工装="False" 夹具="False" 光箱="False" 软件="False" />
+  <Row26 编号="26" 代码="281" 名称="设备点检失败" 分区放置="" 复测="False" 工装="False" 夹具="False" 光箱="False" 软件="False" />
+  <Row27 编号="27" 代码="282" 名称="TiltNG" 分区放置="" 复测="False" 工装="False" 夹具="False" 光箱="False" 软件="False" />
+  <Row28 编号="28" 代码="283" 名称="场曲NG" 分区放置="" 复测="False" 工装="False" 夹具="False" 光箱="False" 软件="False" />
+  <Row29 编号="29" 代码="512" 名称="曝光NG" 分区放置="" 复测="False" 工装="False" 夹具="False" 光箱="False" 软件="False" />
+  <Row30 编号="30" 代码="513" 名称="FPGA曝光NG" 分区放置="" 复测="False" 工装="False" 夹具="False" 光箱="False" 软件="False" />
+  <Row31 编号="31" 代码="768" 名称="污点NG" 分区放置="" 复测="False" 工装="False" 夹具="False" 光箱="False" 软件="False" />
+  <Row32 编号="32" 代码="1024" 名称="坏点NG" 分区放置="" 复测="False" 工装="False" 夹具="False" 光箱="False" 软件="False" />
+  <Row33 编号="33" 代码="1280" 名称="水平远焦SFR虚高" 分区放置="" 复测="False" 工装="False" 夹具="False" 光箱="False" 软件="False" />
+  <Row34 编号="34" 代码="1281" 名称="水平远焦CodeNG" 分区放置="" 复测="False" 工装="False" 夹具="False" 光箱="False" 软件="False" />
+  <Row35 编号="35" 代码="1282" 名称="水平远焦对焦NG" 分区放置="" 复测="False" 工装="False" 夹具="False" 光箱="False" 软件="False" />
+  <Row36 编号="36" 代码="1283" 名称="水平远焦温度NG" 分区放置="" 复测="False" 工装="False" 夹具="False" 光箱="False" 软件="False" />
+  <Row37 编号="37" 代码="1284" 名称="水平远焦电流NG" 分区放置="" 复测="False" 工装="False" 夹具="False" 光箱="False" 软件="False" />
+  <Row38 编号="38" 代码="1290" 名称="垂直向上远焦SFR虚高" 分区放置="" 复测="False" 工装="False" 夹具="False" 光箱="False" 软件="False" />
+  <Row39 编号="39" 代码="1291" 名称="垂直向上远焦CodeNG" 分区放置="" 复测="False" 工装="False" 夹具="False" 光箱="False" 软件="False" />
+  <Row40 编号="40" 代码="1292" 名称="垂直向上远焦对焦NG" 分区放置="" 复测="False" 工装="False" 夹具="False" 光箱="False" 软件="False" />
+  <Row41 编号="41" 代码="1293" 名称="垂直向上远焦温度NG" 分区放置="" 复测="False" 工装="False" 夹具="False" 光箱="False" 软件="False" />
+  <Row42 编号="42" 代码="1294" 名称="垂直向上远焦电流NG" 分区放置="" 复测="False" 工装="False" 夹具="False" 光箱="False" 软件="False" />
+  <Row43 编号="43" 代码="1300" 名称="垂直向下远焦SFR虚高" 分区放置="" 复测="False" 工装="False" 夹具="False" 光箱="False" 软件="False" />
+  <Row44 编号="44" 代码="1301" 名称="垂直向下远焦CodeNG" 分区放置="" 复测="False" 工装="False" 夹具="False" 光箱="False" 软件="False" />
+  <Row45 编号="45" 代码="1302" 名称="垂直向下远焦对焦NG" 分区放置="" 复测="False" 工装="False" 夹具="False" 光箱="False" 软件="False" />
+  <Row46 编号="46" 代码="1303" 名称="垂直向下远焦温度NG" 分区放置="" 复测="False" 工装="False" 夹具="False" 光箱="False" 软件="False" />
+  <Row47 编号="47" 代码="1304" 名称="垂直向下远焦电流NG" 分区放置="" 复测="False" 工装="False" 夹具="False" 光箱="False" 软件="False" />
+  <Row48 编号="48" 代码="1310" 名称="水平近焦SFR虚高" 分区放置="" 复测="False" 工装="False" 夹具="False" 光箱="False" 软件="False" />
+  <Row49 编号="49" 代码="1311" 名称="水平近焦CodeNG" 分区放置="" 复测="False" 工装="False" 夹具="False" 光箱="False" 软件="False" />
+  <Row50 编号="50" 代码="1312" 名称="水平近焦对焦NG" 分区放置="" 复测="False" 工装="False" 夹具="False" 光箱="False" 软件="False" />
+  <Row51 编号="51" 代码="1313" 名称="水平近焦温度NG" 分区放置="" 复测="False" 工装="False" 夹具="False" 光箱="False" 软件="False" />
+  <Row52 编号="52" 代码="1314" 名称="水平近焦电流NG" 分区放置="" 复测="False" 工装="False" 夹具="False" 光箱="False" 软件="False" />
+  <Row53 编号="53" 代码="1320" 名称="垂直向上近焦SFR虚高" 分区放置="" 复测="False" 工装="False" 夹具="False" 光箱="False" 软件="False" />
+  <Row54 编号="54" 代码="1321" 名称="垂直向上近焦CodeNG" 分区放置="" 复测="False" 工装="False" 夹具="False" 光箱="False" 软件="False" />
+  <Row55 编号="55" 代码="1322" 名称="垂直向上近焦对焦NG" 分区放置="" 复测="False" 工装="False" 夹具="False" 光箱="False" 软件="False" />
+  <Row56 编号="56" 代码="1323" 名称="垂直向上近焦温度NG" 分区放置="" 复测="False" 工装="False" 夹具="False" 光箱="False" 软件="False" />
+  <Row57 编号="57" 代码="1324" 名称="垂直向上近焦电流NG" 分区放置="" 复测="False" 工装="False" 夹具="False" 光箱="False" 软件="False" />
+  <Row58 编号="58" 代码="1330" 名称="垂直向下近焦SFR虚高" 分区放置="" 复测="False" 工装="False" 夹具="False" 光箱="False" 软件="False" />
+  <Row59 编号="59" 代码="1331" 名称="垂直向下近焦CodeNG" 分区放置="" 复测="False" 工装="False" 夹具="False" 光箱="False" 软件="False" />
+  <Row60 编号="60" 代码="1332" 名称="垂直向下近焦对焦NG" 分区放置="" 复测="False" 工装="False" 夹具="False" 光箱="False" 软件="False" />
+  <Row61 编号="61" 代码="1333" 名称="垂直向下近焦温度NG" 分区放置="" 复测="False" 工装="False" 夹具="False" 光箱="False" 软件="False" />
+  <Row62 编号="62" 代码="1334" 名称="垂直向下近焦电流NG" 分区放置="" 复测="False" 工装="False" 夹具="False" 光箱="False" 软件="False" />
+  <Row63 编号="63" 代码="1340" 名称="水平中距1SFR虚高" 分区放置="" 复测="False" 工装="False" 夹具="False" 光箱="False" 软件="False" />
+  <Row64 编号="64" 代码="1341" 名称="水平中距1CodeNG" 分区放置="" 复测="False" 工装="False" 夹具="False" 光箱="False" 软件="False" />
+  <Row65 编号="65" 代码="1342" 名称="水平中距1对焦NG" 分区放置="" 复测="False" 工装="False" 夹具="False" 光箱="False" 软件="False" />
+  <Row66 编号="66" 代码="1343" 名称="水平中距1温度NG" 分区放置="" 复测="False" 工装="False" 夹具="False" 光箱="False" 软件="False" />
+  <Row67 编号="67" 代码="1344" 名称="水平中距1电流NG" 分区放置="" 复测="False" 工装="False" 夹具="False" 光箱="False" 软件="False" />
+  <Row68 编号="68" 代码="1350" 名称="垂直向上中距1SFR虚高" 分区放置="" 复测="False" 工装="False" 夹具="False" 光箱="False" 软件="False" />
+  <Row69 编号="69" 代码="1351" 名称="垂直向上中距1CodeNG" 分区放置="" 复测="False" 工装="False" 夹具="False" 光箱="False" 软件="False" />
+  <Row70 编号="70" 代码="1352" 名称="垂直向上中距1对焦NG" 分区放置="" 复测="False" 工装="False" 夹具="False" 光箱="False" 软件="False" />
+  <Row71 编号="71" 代码="1353" 名称="垂直向上中距1温度NG" 分区放置="" 复测="False" 工装="False" 夹具="False" 光箱="False" 软件="False" />
+  <Row72 编号="72" 代码="1354" 名称="垂直向上中距1电流NG" 分区放置="" 复测="False" 工装="False" 夹具="False" 光箱="False" 软件="False" />
+  <Row73 编号="73" 代码="1360" 名称="垂直向下中距1SFR虚高" 分区放置="" 复测="False" 工装="False" 夹具="False" 光箱="False" 软件="False" />
+  <Row74 编号="74" 代码="1361" 名称="垂直向下中距1CodeNG" 分区放置="" 复测="False" 工装="False" 夹具="False" 光箱="False" 软件="False" />
+  <Row75 编号="75" 代码="1362" 名称="垂直向下中距1对焦NG" 分区放置="" 复测="False" 工装="False" 夹具="False" 光箱="False" 软件="False" />
+  <Row76 编号="76" 代码="1363" 名称="垂直向下中距1温度NG" 分区放置="" 复测="False" 工装="False" 夹具="False" 光箱="False" 软件="False" />
+  <Row77 编号="77" 代码="1364" 名称="垂直向下中距1电流NG" 分区放置="" 复测="False" 工装="False" 夹具="False" 光箱="False" 软件="False" />
+  <Row78 编号="78" 代码="1370" 名称="水平中距2SFR虚高" 分区放置="" 复测="False" 工装="False" 夹具="False" 光箱="False" 软件="False" />
+  <Row79 编号="79" 代码="1371" 名称="水平中距2CodeNG" 分区放置="" 复测="False" 工装="False" 夹具="False" 光箱="False" 软件="False" />
+  <Row80 编号="80" 代码="1372" 名称="水平中距2对焦NG" 分区放置="" 复测="False" 工装="False" 夹具="False" 光箱="False" 软件="False" />
+  <Row81 编号="81" 代码="1373" 名称="水平中距2温度NG" 分区放置="" 复测="False" 工装="False" 夹具="False" 光箱="False" 软件="False" />
+  <Row82 编号="82" 代码="1374" 名称="水平中距2电流NG" 分区放置="" 复测="False" 工装="False" 夹具="False" 光箱="False" 软件="False" />
+  <Row83 编号="83" 代码="1380" 名称="垂直向上中距2SFR虚高" 分区放置="" 复测="False" 工装="False" 夹具="False" 光箱="False" 软件="False" />
+  <Row84 编号="84" 代码="1381" 名称="垂直向上中距2CodeNG" 分区放置="" 复测="False" 工装="False" 夹具="False" 光箱="False" 软件="False" />
+  <Row85 编号="85" 代码="1382" 名称="垂直向上中距2对焦NG" 分区放置="" 复测="False" 工装="False" 夹具="False" 光箱="False" 软件="False" />
+  <Row86 编号="86" 代码="1383" 名称="垂直向上中距2温度NG" 分区放置="" 复测="False" 工装="False" 夹具="False" 光箱="False" 软件="False" />
+  <Row87 编号="87" 代码="1384" 名称="垂直向上中距2电流NG" 分区放置="" 复测="False" 工装="False" 夹具="False" 光箱="False" 软件="False" />
+  <Row88 编号="88" 代码="1390" 名称="垂直向下中距2SFR虚高" 分区放置="" 复测="False" 工装="False" 夹具="False" 光箱="False" 软件="False" />
+  <Row89 编号="89" 代码="1391" 名称="垂直向下中距2CodeNG" 分区放置="" 复测="False" 工装="False" 夹具="False" 光箱="False" 软件="False" />
+  <Row90 编号="90" 代码="1392" 名称="垂直向下中距2对焦NG" 分区放置="" 复测="False" 工装="False" 夹具="False" 光箱="False" 软件="False" />
+  <Row91 编号="91" 代码="1393" 名称="垂直向下中距2温度NG" 分区放置="" 复测="False" 工装="False" 夹具="False" 光箱="False" 软件="False" />
+  <Row92 编号="92" 代码="1394" 名称="垂直向下中距2电流NG" 分区放置="" 复测="False" 工装="False" 夹具="False" 光箱="False" 软件="False" />
+  <Row93 编号="93" 代码="1400" 名称="水平对焦SFR虚高" 分区放置="" 复测="False" 工装="False" 夹具="False" 光箱="False" 软件="False" />
+  <Row94 编号="94" 代码="1401" 名称="水平对焦CodeNG" 分区放置="" 复测="False" 工装="False" 夹具="False" 光箱="False" 软件="False" />
+  <Row95 编号="95" 代码="1402" 名称="水平对焦对焦NG" 分区放置="" 复测="False" 工装="False" 夹具="False" 光箱="False" 软件="False" />
+  <Row96 编号="96" 代码="1403" 名称="水平对焦温度NG" 分区放置="" 复测="False" 工装="False" 夹具="False" 光箱="False" 软件="False" />
+  <Row97 编号="97" 代码="1404" 名称="水平对焦电流NG" 分区放置="" 复测="False" 工装="False" 夹具="False" 光箱="False" 软件="False" />
+  <Row98 编号="98" 代码="1410" 名称="垂直向上对焦SFR虚高" 分区放置="" 复测="False" 工装="False" 夹具="False" 光箱="False" 软件="False" />
+  <Row99 编号="99" 代码="1411" 名称="垂直向上对焦CodeNG" 分区放置="" 复测="False" 工装="False" 夹具="False" 光箱="False" 软件="False" />
+  <Row100 编号="100" 代码="1412" 名称="垂直向上对焦对焦NG" 分区放置="" 复测="False" 工装="False" 夹具="False" 光箱="False" 软件="False" />
+  <Row101 编号="101" 代码="1413" 名称="垂直向上对焦温度NG" 分区放置="" 复测="False" 工装="False" 夹具="False" 光箱="False" 软件="False" />
+  <Row102 编号="102" 代码="1414" 名称="垂直向上对焦电流NG" 分区放置="" 复测="False" 工装="False" 夹具="False" 光箱="False" 软件="False" />
+  <Row103 编号="103" 代码="1420" 名称="垂直向下对焦SFR虚高" 分区放置="" 复测="False" 工装="False" 夹具="False" 光箱="False" 软件="False" />
+  <Row104 编号="104" 代码="1421" 名称="垂直向下对焦CodeNG" 分区放置="" 复测="False" 工装="False" 夹具="False" 光箱="False" 软件="False" />
+  <Row105 编号="105" 代码="1422" 名称="垂直向下对焦对焦NG" 分区放置="" 复测="False" 工装="False" 夹具="False" 光箱="False" 软件="False" />
+  <Row106 编号="106" 代码="1423" 名称="垂直向下对焦温度NG" 分区放置="" 复测="False" 工装="False" 夹具="False" 光箱="False" 软件="False" />
+  <Row107 编号="107" 代码="1424" 名称="垂直向下对焦电流NG" 分区放置="" 复测="False" 工装="False" 夹具="False" 光箱="False" 软件="False" />
+  <Row108 编号="108" 代码="1430" 名称="水平2.5SFR虚高" 分区放置="" 复测="False" 工装="False" 夹具="False" 光箱="False" 软件="False" />
+  <Row109 编号="109" 代码="1431" 名称="水平2.5CodeNG" 分区放置="" 复测="False" 工装="False" 夹具="False" 光箱="False" 软件="False" />
+  <Row110 编号="110" 代码="1432" 名称="水平2.5对焦NG" 分区放置="" 复测="False" 工装="False" 夹具="False" 光箱="False" 软件="False" />
+  <Row111 编号="111" 代码="1433" 名称="水平2.5温度NG" 分区放置="" 复测="False" 工装="False" 夹具="False" 光箱="False" 软件="False" />
+  <Row112 编号="112" 代码="1434" 名称="水平2.5电流NG" 分区放置="" 复测="False" 工装="False" 夹具="False" 光箱="False" 软件="False" />
+  <Row113 编号="113" 代码="1440" 名称="垂直向上2.5SFR虚高" 分区放置="" 复测="False" 工装="False" 夹具="False" 光箱="False" 软件="False" />
+  <Row114 编号="114" 代码="1441" 名称="垂直向上2.5CodeNG" 分区放置="" 复测="False" 工装="False" 夹具="False" 光箱="False" 软件="False" />
+  <Row115 编号="115" 代码="1442" 名称="垂直向上2.5对焦NG" 分区放置="" 复测="False" 工装="False" 夹具="False" 光箱="False" 软件="False" />
+  <Row116 编号="116" 代码="1443" 名称="垂直向上2.5温度NG" 分区放置="" 复测="False" 工装="False" 夹具="False" 光箱="False" 软件="False" />
+  <Row117 编号="117" 代码="1444" 名称="垂直向上2.5电流NG" 分区放置="" 复测="False" 工装="False" 夹具="False" 光箱="False" 软件="False" />
+  <Row118 编号="118" 代码="1450" 名称="垂直向下2.5SFR虚高" 分区放置="" 复测="False" 工装="False" 夹具="False" 光箱="False" 软件="False" />
+  <Row119 编号="119" 代码="1451" 名称="垂直向下2.5CodeNG" 分区放置="" 复测="False" 工装="False" 夹具="False" 光箱="False" 软件="False" />
+  <Row120 编号="120" 代码="1452" 名称="垂直向下2.5对焦NG" 分区放置="" 复测="False" 工装="False" 夹具="False" 光箱="False" 软件="False" />
+  <Row121 编号="121" 代码="1453" 名称="垂直向下2.5温度NG" 分区放置="" 复测="False" 工装="False" 夹具="False" 光箱="False" 软件="False" />
+  <Row122 编号="122" 代码="1454" 名称="垂直向下2.5电流NG" 分区放置="" 复测="False" 工装="False" 夹具="False" 光箱="False" 软件="False" />
+  <Row123 编号="123" 代码="1460" 名称="水平7.0SFR虚高" 分区放置="" 复测="False" 工装="False" 夹具="False" 光箱="False" 软件="False" />
+  <Row124 编号="124" 代码="1461" 名称="水平7.0CodeNG" 分区放置="" 复测="False" 工装="False" 夹具="False" 光箱="False" 软件="False" />
+  <Row125 编号="125" 代码="1462" 名称="水平7.0对焦NG" 分区放置="" 复测="False" 工装="False" 夹具="False" 光箱="False" 软件="False" />
+  <Row126 编号="126" 代码="1463" 名称="水平7.0温度NG" 分区放置="" 复测="False" 工装="False" 夹具="False" 光箱="False" 软件="False" />
+  <Row127 编号="127" 代码="1464" 名称="水平7.0电流NG" 分区放置="" 复测="False" 工装="False" 夹具="False" 光箱="False" 软件="False" />
+  <Row128 编号="128" 代码="1470" 名称="垂直向上7.0SFR虚高" 分区放置="" 复测="False" 工装="False" 夹具="False" 光箱="False" 软件="False" />
+  <Row129 编号="129" 代码="1471" 名称="垂直向上7.0CodeNG" 分区放置="" 复测="False" 工装="False" 夹具="False" 光箱="False" 软件="False" />
+  <Row130 编号="130" 代码="1472" 名称="垂直向上7.0对焦NG" 分区放置="" 复测="False" 工装="False" 夹具="False" 光箱="False" 软件="False" />
+  <Row131 编号="131" 代码="1473" 名称="垂直向上7.0温度NG" 分区放置="" 复测="False" 工装="False" 夹具="False" 光箱="False" 软件="False" />
+  <Row132 编号="132" 代码="1474" 名称="垂直向上7.0电流NG" 分区放置="" 复测="False" 工装="False" 夹具="False" 光箱="False" 软件="False" />
+  <Row133 编号="133" 代码="1480" 名称="垂直向下7.0SFR虚高" 分区放置="" 复测="False" 工装="False" 夹具="False" 光箱="False" 软件="False" />
+  <Row134 编号="134" 代码="1481" 名称="垂直向下7.0CodeNG" 分区放置="" 复测="False" 工装="False" 夹具="False" 光箱="False" 软件="False" />
+  <Row135 编号="135" 代码="1482" 名称="垂直向下7.0对焦NG" 分区放置="" 复测="False" 工装="False" 夹具="False" 光箱="False" 软件="False" />
+  <Row136 编号="136" 代码="1483" 名称="垂直向下7.0温度NG" 分区放置="" 复测="False" 工装="False" 夹具="False" 光箱="False" 软件="False" />
+  <Row137 编号="137" 代码="1484" 名称="垂直向下7.0电流NG" 分区放置="" 复测="False" 工装="False" 夹具="False" 光箱="False" 软件="False" />
+  <Row138 编号="138" 代码="1490" 名称="水平9.0SFR虚高" 分区放置="" 复测="False" 工装="False" 夹具="False" 光箱="False" 软件="False" />
+  <Row139 编号="139" 代码="1491" 名称="水平9.0CodeNG" 分区放置="" 复测="False" 工装="False" 夹具="False" 光箱="False" 软件="False" />
+  <Row140 编号="140" 代码="1492" 名称="水平9.0对焦NG" 分区放置="" 复测="False" 工装="False" 夹具="False" 光箱="False" 软件="False" />
+  <Row141 编号="141" 代码="1493" 名称="水平9.0温度NG" 分区放置="" 复测="False" 工装="False" 夹具="False" 光箱="False" 软件="False" />
+  <Row142 编号="142" 代码="1494" 名称="水平9.0电流NG" 分区放置="" 复测="False" 工装="False" 夹具="False" 光箱="False" 软件="False" />
+  <Row143 编号="143" 代码="1500" 名称="垂直向上9.0SFR虚高" 分区放置="" 复测="False" 工装="False" 夹具="False" 光箱="False" 软件="False" />
+  <Row144 编号="144" 代码="1501" 名称="垂直向上9.0CodeNG" 分区放置="" 复测="False" 工装="False" 夹具="False" 光箱="False" 软件="False" />
+  <Row145 编号="145" 代码="1502" 名称="垂直向上9.0对焦NG" 分区放置="" 复测="False" 工装="False" 夹具="False" 光箱="False" 软件="False" />
+  <Row146 编号="146" 代码="1503" 名称="垂直向上9.0温度NG" 分区放置="" 复测="False" 工装="False" 夹具="False" 光箱="False" 软件="False" />
+  <Row147 编号="147" 代码="1504" 名称="垂直向上9.0电流NG" 分区放置="" 复测="False" 工装="False" 夹具="False" 光箱="False" 软件="False" />
+  <Row148 编号="148" 代码="1510" 名称="垂直向下9.0SFR虚高" 分区放置="" 复测="False" 工装="False" 夹具="False" 光箱="False" 软件="False" />
+  <Row149 编号="149" 代码="1511" 名称="垂直向下9.0CodeNG" 分区放置="" 复测="False" 工装="False" 夹具="False" 光箱="False" 软件="False" />
+  <Row150 编号="150" 代码="1512" 名称="垂直向下9.0对焦NG" 分区放置="" 复测="False" 工装="False" 夹具="False" 光箱="False" 软件="False" />
+  <Row151 编号="151" 代码="1513" 名称="垂直向下9.0温度NG" 分区放置="" 复测="False" 工装="False" 夹具="False" 光箱="False" 软件="False" />
+  <Row152 编号="152" 代码="1514" 名称="垂直向下9.0电流NG" 分区放置="" 复测="False" 工装="False" 夹具="False" 光箱="False" 软件="False" />
+  <Row153 编号="153" 代码="1520" 名称="水平15.0SFR虚高" 分区放置="" 复测="False" 工装="False" 夹具="False" 光箱="False" 软件="False" />
+  <Row154 编号="154" 代码="1521" 名称="水平15.0CodeNG" 分区放置="" 复测="False" 工装="False" 夹具="False" 光箱="False" 软件="False" />
+  <Row155 编号="155" 代码="1522" 名称="水平15.0对焦NG" 分区放置="" 复测="False" 工装="False" 夹具="False" 光箱="False" 软件="False" />
+  <Row156 编号="156" 代码="1523" 名称="水平15.0温度NG" 分区放置="" 复测="False" 工装="False" 夹具="False" 光箱="False" 软件="False" />
+  <Row157 编号="157" 代码="1524" 名称="水平15.0电流NG" 分区放置="" 复测="False" 工装="False" 夹具="False" 光箱="False" 软件="False" />
+  <Row158 编号="158" 代码="1530" 名称="垂直向上15.0SFR虚高" 分区放置="" 复测="False" 工装="False" 夹具="False" 光箱="False" 软件="False" />
+  <Row159 编号="159" 代码="1531" 名称="垂直向上15.0CodeNG" 分区放置="" 复测="False" 工装="False" 夹具="False" 光箱="False" 软件="False" />
+  <Row160 编号="160" 代码="1532" 名称="垂直向上15.0对焦NG" 分区放置="" 复测="False" 工装="False" 夹具="False" 光箱="False" 软件="False" />
+  <Row161 编号="161" 代码="1533" 名称="垂直向上15.0温度NG" 分区放置="" 复测="False" 工装="False" 夹具="False" 光箱="False" 软件="False" />
+  <Row162 编号="162" 代码="1534" 名称="垂直向上15.0电流NG" 分区放置="" 复测="False" 工装="False" 夹具="False" 光箱="False" 软件="False" />
+  <Row163 编号="163" 代码="1540" 名称="垂直向下15.0SFR虚高" 分区放置="" 复测="False" 工装="False" 夹具="False" 光箱="False" 软件="False" />
+  <Row164 编号="164" 代码="1541" 名称="垂直向下15.0CodeNG" 分区放置="" 复测="False" 工装="False" 夹具="False" 光箱="False" 软件="False" />
+  <Row165 编号="165" 代码="1542" 名称="垂直向下15.0对焦NG" 分区放置="" 复测="False" 工装="False" 夹具="False" 光箱="False" 软件="False" />
+  <Row166 编号="166" 代码="1543" 名称="垂直向下15.0温度NG" 分区放置="" 复测="False" 工装="False" 夹具="False" 光箱="False" 软件="False" />
+  <Row167 编号="167" 代码="1544" 名称="垂直向下15.0电流NG" 分区放置="" 复测="False" 工装="False" 夹具="False" 光箱="False" 软件="False" />
+  <Row168 编号="168" 代码="1550" 名称="水平20.0SFR虚高" 分区放置="" 复测="False" 工装="False" 夹具="False" 光箱="False" 软件="False" />
+  <Row169 编号="169" 代码="1551" 名称="水平20.0CodeNG" 分区放置="" 复测="False" 工装="False" 夹具="False" 光箱="False" 软件="False" />
+  <Row170 编号="170" 代码="1552" 名称="水平20.0对焦NG" 分区放置="" 复测="False" 工装="False" 夹具="False" 光箱="False" 软件="False" />
+  <Row171 编号="171" 代码="1553" 名称="水平20.0温度NG" 分区放置="" 复测="False" 工装="False" 夹具="False" 光箱="False" 软件="False" />
+  <Row172 编号="172" 代码="1554" 名称="水平20.0电流NG" 分区放置="" 复测="False" 工装="False" 夹具="False" 光箱="False" 软件="False" />
+  <Row173 编号="173" 代码="1560" 名称="垂直向上20.0SFR虚高" 分区放置="" 复测="False" 工装="False" 夹具="False" 光箱="False" 软件="False" />
+  <Row174 编号="174" 代码="1561" 名称="垂直向上20.0CodeNG" 分区放置="" 复测="False" 工装="False" 夹具="False" 光箱="False" 软件="False" />
+  <Row175 编号="175" 代码="1562" 名称="垂直向上20.0对焦NG" 分区放置="" 复测="False" 工装="False" 夹具="False" 光箱="False" 软件="False" />
+  <Row176 编号="176" 代码="1563" 名称="垂直向上20.0温度NG" 分区放置="" 复测="False" 工装="False" 夹具="False" 光箱="False" 软件="False" />
+  <Row177 编号="177" 代码="1564" 名称="垂直向上20.0电流NG" 分区放置="" 复测="False" 工装="False" 夹具="False" 光箱="False" 软件="False" />
+  <Row178 编号="178" 代码="1570" 名称="垂直向下20.0SFR虚高" 分区放置="" 复测="False" 工装="False" 夹具="False" 光箱="False" 软件="False" />
+  <Row179 编号="179" 代码="1571" 名称="垂直向下20.0CodeNG" 分区放置="" 复测="False" 工装="False" 夹具="False" 光箱="False" 软件="False" />
+  <Row180 编号="180" 代码="1572" 名称="垂直向下20.0对焦NG" 分区放置="" 复测="False" 工装="False" 夹具="False" 光箱="False" 软件="False" />
+  <Row181 编号="181" 代码="1573" 名称="垂直向下20.0温度NG" 分区放置="" 复测="False" 工装="False" 夹具="False" 光箱="False" 软件="False" />
+  <Row182 编号="182" 代码="1574" 名称="垂直向下20.0电流NG" 分区放置="" 复测="False" 工装="False" 夹具="False" 光箱="False" 软件="False" />
+  <Row183 编号="183" 代码="1580" 名称="水平30.0SFR虚高" 分区放置="" 复测="False" 工装="False" 夹具="False" 光箱="False" 软件="False" />
+  <Row184 编号="184" 代码="1581" 名称="水平30.0CodeNG" 分区放置="" 复测="False" 工装="False" 夹具="False" 光箱="False" 软件="False" />
+  <Row185 编号="185" 代码="1582" 名称="水平30.0对焦NG" 分区放置="" 复测="False" 工装="False" 夹具="False" 光箱="False" 软件="False" />
+  <Row186 编号="186" 代码="1583" 名称="水平30.0温度NG" 分区放置="" 复测="False" 工装="False" 夹具="False" 光箱="False" 软件="False" />
+  <Row187 编号="187" 代码="1584" 名称="水平30.0电流NG" 分区放置="" 复测="False" 工装="False" 夹具="False" 光箱="False" 软件="False" />
+  <Row188 编号="188" 代码="1590" 名称="垂直向上30.0SFR虚高" 分区放置="" 复测="False" 工装="False" 夹具="False" 光箱="False" 软件="False" />
+  <Row189 编号="189" 代码="1591" 名称="垂直向上30.0CodeNG" 分区放置="" 复测="False" 工装="False" 夹具="False" 光箱="False" 软件="False" />
+  <Row190 编号="190" 代码="1592" 名称="垂直向上30.0对焦NG" 分区放置="" 复测="False" 工装="False" 夹具="False" 光箱="False" 软件="False" />
+  <Row191 编号="191" 代码="1593" 名称="垂直向上30.0温度NG" 分区放置="" 复测="False" 工装="False" 夹具="False" 光箱="False" 软件="False" />
+  <Row192 编号="192" 代码="1594" 名称="垂直向上30.0电流NG" 分区放置="" 复测="False" 工装="False" 夹具="False" 光箱="False" 软件="False" />
+  <Row193 编号="193" 代码="1600" 名称="垂直向下30.0SFR虚高" 分区放置="" 复测="False" 工装="False" 夹具="False" 光箱="False" 软件="False" />
+  <Row194 编号="194" 代码="1601" 名称="垂直向下30.0CodeNG" 分区放置="" 复测="False" 工装="False" 夹具="False" 光箱="False" 软件="False" />
+  <Row195 编号="195" 代码="1602" 名称="垂直向下30.0对焦NG" 分区放置="" 复测="False" 工装="False" 夹具="False" 光箱="False" 软件="False" />
+  <Row196 编号="196" 代码="1603" 名称="垂直向下30.0温度NG" 分区放置="" 复测="False" 工装="False" 夹具="False" 光箱="False" 软件="False" />
+  <Row197 编号="197" 代码="1604" 名称="垂直向下30.0电流NG" 分区放置="" 复测="False" 工装="False" 夹具="False" 光箱="False" 软件="False" />
+  <Row198 编号="198" 代码="1610" 名称="水平35.0SFR虚高" 分区放置="" 复测="False" 工装="False" 夹具="False" 光箱="False" 软件="False" />
+  <Row199 编号="199" 代码="1611" 名称="水平35.0CodeNG" 分区放置="" 复测="False" 工装="False" 夹具="False" 光箱="False" 软件="False" />
+  <Row200 编号="200" 代码="1612" 名称="水平35.0对焦NG" 分区放置="" 复测="False" 工装="False" 夹具="False" 光箱="False" 软件="False" />
+  <Row201 编号="201" 代码="1613" 名称="水平35.0温度NG" 分区放置="" 复测="False" 工装="False" 夹具="False" 光箱="False" 软件="False" />
+  <Row202 编号="202" 代码="1614" 名称="水平35.0电流NG" 分区放置="" 复测="False" 工装="False" 夹具="False" 光箱="False" 软件="False" />
+  <Row203 编号="203" 代码="1620" 名称="垂直向上35.0SFR虚高" 分区放置="" 复测="False" 工装="False" 夹具="False" 光箱="False" 软件="False" />
+  <Row204 编号="204" 代码="1621" 名称="垂直向上35.0CodeNG" 分区放置="" 复测="False" 工装="False" 夹具="False" 光箱="False" 软件="False" />
+  <Row205 编号="205" 代码="1622" 名称="垂直向上35.0对焦NG" 分区放置="" 复测="False" 工装="False" 夹具="False" 光箱="False" 软件="False" />
+  <Row206 编号="206" 代码="1623" 名称="垂直向上35.0温度NG" 分区放置="" 复测="False" 工装="False" 夹具="False" 光箱="False" 软件="False" />
+  <Row207 编号="207" 代码="1624" 名称="垂直向上35.0电流NG" 分区放置="" 复测="False" 工装="False" 夹具="False" 光箱="False" 软件="False" />
+  <Row208 编号="208" 代码="1630" 名称="垂直向下35.0SFR虚高" 分区放置="" 复测="False" 工装="False" 夹具="False" 光箱="False" 软件="False" />
+  <Row209 编号="209" 代码="1631" 名称="垂直向下35.0CodeNG" 分区放置="" 复测="False" 工装="False" 夹具="False" 光箱="False" 软件="False" />
+  <Row210 编号="210" 代码="1632" 名称="垂直向下35.0对焦NG" 分区放置="" 复测="False" 工装="False" 夹具="False" 光箱="False" 软件="False" />
+  <Row211 编号="211" 代码="1633" 名称="垂直向下35.0温度NG" 分区放置="" 复测="False" 工装="False" 夹具="False" 光箱="False" 软件="False" />
+  <Row212 编号="212" 代码="1634" 名称="垂直向下35.0电流NG" 分区放置="" 复测="False" 工装="False" 夹具="False" 光箱="False" 软件="False" />
+  <Row213 编号="213" 代码="1640" 名称="水平40.0SFR虚高" 分区放置="" 复测="False" 工装="False" 夹具="False" 光箱="False" 软件="False" />
+  <Row214 编号="214" 代码="1641" 名称="水平40.0CodeNG" 分区放置="" 复测="False" 工装="False" 夹具="False" 光箱="False" 软件="False" />
+  <Row215 编号="215" 代码="1642" 名称="水平40.0对焦NG" 分区放置="" 复测="False" 工装="False" 夹具="False" 光箱="False" 软件="False" />
+  <Row216 编号="216" 代码="1643" 名称="水平40.0温度NG" 分区放置="" 复测="False" 工装="False" 夹具="False" 光箱="False" 软件="False" />
+  <Row217 编号="217" 代码="1644" 名称="水平40.0电流NG" 分区放置="" 复测="False" 工装="False" 夹具="False" 光箱="False" 软件="False" />
+  <Row218 编号="218" 代码="1650" 名称="垂直向上40.0SFR虚高" 分区放置="" 复测="False" 工装="False" 夹具="False" 光箱="False" 软件="False" />
+  <Row219 编号="219" 代码="1651" 名称="垂直向上40.0CodeNG" 分区放置="" 复测="False" 工装="False" 夹具="False" 光箱="False" 软件="False" />
+  <Row220 编号="220" 代码="1652" 名称="垂直向上40.0对焦NG" 分区放置="" 复测="False" 工装="False" 夹具="False" 光箱="False" 软件="False" />
+  <Row221 编号="221" 代码="1653" 名称="垂直向上40.0温度NG" 分区放置="" 复测="False" 工装="False" 夹具="False" 光箱="False" 软件="False" />
+  <Row222 编号="222" 代码="1654" 名称="垂直向上40.0电流NG" 分区放置="" 复测="False" 工装="False" 夹具="False" 光箱="False" 软件="False" />
+  <Row223 编号="223" 代码="1660" 名称="垂直向下40.0SFR虚高" 分区放置="" 复测="False" 工装="False" 夹具="False" 光箱="False" 软件="False" />
+  <Row224 编号="224" 代码="1661" 名称="垂直向下40.0CodeNG" 分区放置="" 复测="False" 工装="False" 夹具="False" 光箱="False" 软件="False" />
+  <Row225 编号="225" 代码="1662" 名称="垂直向下40.0对焦NG" 分区放置="" 复测="False" 工装="False" 夹具="False" 光箱="False" 软件="False" />
+  <Row226 编号="226" 代码="1663" 名称="垂直向下40.0温度NG" 分区放置="" 复测="False" 工装="False" 夹具="False" 光箱="False" 软件="False" />
+  <Row227 编号="227" 代码="1664" 名称="垂直向下40.0电流NG" 分区放置="" 复测="False" 工装="False" 夹具="False" 光箱="False" 软件="False" />
+  <Row228 编号="228" 代码="1670" 名称="水平50.0SFR虚高" 分区放置="" 复测="False" 工装="False" 夹具="False" 光箱="False" 软件="False" />
+  <Row229 编号="229" 代码="1671" 名称="水平50.0CodeNG" 分区放置="" 复测="False" 工装="False" 夹具="False" 光箱="False" 软件="False" />
+  <Row230 编号="230" 代码="1672" 名称="水平50.0对焦NG" 分区放置="" 复测="False" 工装="False" 夹具="False" 光箱="False" 软件="False" />
+  <Row231 编号="231" 代码="1673" 名称="水平50.0温度NG" 分区放置="" 复测="False" 工装="False" 夹具="False" 光箱="False" 软件="False" />
+  <Row232 编号="232" 代码="1674" 名称="水平50.0电流NG" 分区放置="" 复测="False" 工装="False" 夹具="False" 光箱="False" 软件="False" />
+  <Row233 编号="233" 代码="1680" 名称="垂直向上50.0SFR虚高" 分区放置="" 复测="False" 工装="False" 夹具="False" 光箱="False" 软件="False" />
+  <Row234 编号="234" 代码="1681" 名称="垂直向上50.0CodeNG" 分区放置="" 复测="False" 工装="False" 夹具="False" 光箱="False" 软件="False" />
+  <Row235 编号="235" 代码="1682" 名称="垂直向上50.0对焦NG" 分区放置="" 复测="False" 工装="False" 夹具="False" 光箱="False" 软件="False" />
+  <Row236 编号="236" 代码="1683" 名称="垂直向上50.0温度NG" 分区放置="" 复测="False" 工装="False" 夹具="False" 光箱="False" 软件="False" />
+  <Row237 编号="237" 代码="1684" 名称="垂直向上50.0电流NG" 分区放置="" 复测="False" 工装="False" 夹具="False" 光箱="False" 软件="False" />
+  <Row238 编号="238" 代码="1690" 名称="垂直向下50.0SFR虚高" 分区放置="" 复测="False" 工装="False" 夹具="False" 光箱="False" 软件="False" />
+  <Row239 编号="239" 代码="1691" 名称="垂直向下50.0CodeNG" 分区放置="" 复测="False" 工装="False" 夹具="False" 光箱="False" 软件="False" />
+  <Row240 编号="240" 代码="1692" 名称="垂直向下50.0对焦NG" 分区放置="" 复测="False" 工装="False" 夹具="False" 光箱="False" 软件="False" />
+  <Row241 编号="241" 代码="1693" 名称="垂直向下50.0温度NG" 分区放置="" 复测="False" 工装="False" 夹具="False" 光箱="False" 软件="False" />
+  <Row242 编号="242" 代码="1694" 名称="垂直向下50.0电流NG" 分区放置="" 复测="False" 工装="False" 夹具="False" 光箱="False" 软件="False" />
+  <Row243 编号="243" 代码="1700" 名称="水平500.0SFR虚高" 分区放置="" 复测="False" 工装="False" 夹具="False" 光箱="False" 软件="False" />
+  <Row244 编号="244" 代码="1701" 名称="水平500.0CodeNG" 分区放置="" 复测="False" 工装="False" 夹具="False" 光箱="False" 软件="False" />
+  <Row245 编号="245" 代码="1702" 名称="水平500.0对焦NG" 分区放置="" 复测="False" 工装="False" 夹具="False" 光箱="False" 软件="False" />
+  <Row246 编号="246" 代码="1703" 名称="水平500.0温度NG" 分区放置="" 复测="False" 工装="False" 夹具="False" 光箱="False" 软件="False" />
+  <Row247 编号="247" 代码="1704" 名称="水平500.0电流NG" 分区放置="" 复测="False" 工装="False" 夹具="False" 光箱="False" 软件="False" />
+  <Row248 编号="248" 代码="1710" 名称="垂直向上500.0SFR虚高" 分区放置="" 复测="False" 工装="False" 夹具="False" 光箱="False" 软件="False" />
+  <Row249 编号="249" 代码="1711" 名称="垂直向上500.0CodeNG" 分区放置="" 复测="False" 工装="False" 夹具="False" 光箱="False" 软件="False" />
+  <Row250 编号="250" 代码="1712" 名称="垂直向上500.0对焦NG" 分区放置="" 复测="False" 工装="False" 夹具="False" 光箱="False" 软件="False" />
+  <Row251 编号="251" 代码="1713" 名称="垂直向上500.0温度NG" 分区放置="" 复测="False" 工装="False" 夹具="False" 光箱="False" 软件="False" />
+  <Row252 编号="252" 代码="1714" 名称="垂直向上500.0电流NG" 分区放置="" 复测="False" 工装="False" 夹具="False" 光箱="False" 软件="False" />
+  <Row253 编号="253" 代码="1720" 名称="垂直向下500.0SFR虚高" 分区放置="" 复测="False" 工装="False" 夹具="False" 光箱="False" 软件="False" />
+  <Row254 编号="254" 代码="1721" 名称="垂直向下500.0CodeNG" 分区放置="" 复测="False" 工装="False" 夹具="False" 光箱="False" 软件="False" />
+  <Row255 编号="255" 代码="1722" 名称="垂直向下500.0对焦NG" 分区放置="" 复测="False" 工装="False" 夹具="False" 光箱="False" 软件="False" />
+  <Row256 编号="256" 代码="1723" 名称="垂直向下500.0温度NG" 分区放置="" 复测="False" 工装="False" 夹具="False" 光箱="False" 软件="False" />
+  <Row257 编号="257" 代码="1724" 名称="垂直向下500.0电流NG" 分区放置="" 复测="False" 工装="False" 夹具="False" 光箱="False" 软件="False" />
+  <Row258 编号="258" 代码="1792" 名称="OS异常" 分区放置="" 复测="False" 工装="False" 夹具="False" 光箱="False" 软件="False" />
+  <Row259 编号="259" 代码="1793" 名称="OS NG" 分区放置="" 复测="False" 工装="False" 夹具="False" 光箱="False" 软件="False" />
+  <Row260 编号="260" 代码="2048" 名称="待机电流异常" 分区放置="" 复测="False" 工装="False" 夹具="False" 光箱="False" 软件="False" />
+  <Row261 编号="261" 代码="2049" 名称="待机AVDD NG" 分区放置="" 复测="False" 工装="False" 夹具="False" 光箱="False" 软件="False" />
+  <Row262 编号="262" 代码="2050" 名称="待机DVDD NG" 分区放置="" 复测="False" 工装="False" 夹具="False" 光箱="False" 软件="False" />
+  <Row263 编号="263" 代码="2051" 名称="待机DOVDD NG" 分区放置="" 复测="False" 工装="False" 夹具="False" 光箱="False" 软件="False" />
+  <Row264 编号="264" 代码="2052" 名称="待机AF NG" 分区放置="" 复测="False" 工装="False" 夹具="False" 光箱="False" 软件="False" />
+  <Row265 编号="265" 代码="2053" 名称="待机VFuse NG" 分区放置="" 复测="False" 工装="False" 夹具="False" 光箱="False" 软件="False" />
+  <Row266 编号="266" 代码="2054" 名称="待机POW NG" 分区放置="" 复测="False" 工装="False" 夹具="False" 光箱="False" 软件="False" />
+  <Row267 编号="267" 代码="2304" 名称="工作电流异常" 分区放置="" 复测="False" 工装="False" 夹具="False" 光箱="False" 软件="False" />
+  <Row268 编号="268" 代码="2305" 名称="工作AVDD NG" 分区放置="" 复测="False" 工装="False" 夹具="False" 光箱="False" 软件="False" />
+  <Row269 编号="269" 代码="2306" 名称="工作DVDD NG" 分区放置="" 复测="False" 工装="False" 夹具="False" 光箱="False" 软件="False" />
+  <Row270 编号="270" 代码="2307" 名称="工作DOVDD NG" 分区放置="" 复测="False" 工装="False" 夹具="False" 光箱="False" 软件="False" />
+  <Row271 编号="271" 代码="2308" 名称="工作AF NG" 分区放置="" 复测="False" 工装="False" 夹具="False" 光箱="False" 软件="False" />
+  <Row272 编号="272" 代码="2309" 名称="工作VFuse NG" 分区放置="" 复测="False" 工装="False" 夹具="False" 光箱="False" 软件="False" />
+  <Row273 编号="273" 代码="2310" 名称="工作POW NG" 分区放置="" 复测="False" 工装="False" 夹具="False" 光箱="False" 软件="False" />
+  <Row274 编号="274" 代码="2560" 名称="水平远焦SFR NG" 分区放置="" 复测="False" 工装="False" 夹具="False" 光箱="False" 软件="False" />
+  <Row275 编号="275" 代码="2561" 名称="水平远焦SFR高规NG" 分区放置="" 复测="False" 工装="False" 夹具="False" 光箱="False" 软件="False" />
+  <Row276 编号="276" 代码="2562" 名称="水平远焦四角差NG" 分区放置="" 复测="False" 工装="False" 夹具="False" 光箱="False" 软件="False" />
+  <Row277 编号="277" 代码="2563" 名称="水平远焦SFR点检NG" 分区放置="" 复测="False" 工装="False" 夹具="False" 光箱="False" 软件="False" />
+  <Row278 编号="278" 代码="2569" 名称="垂直向上远焦SFR NG" 分区放置="" 复测="False" 工装="False" 夹具="False" 光箱="False" 软件="False" />
+  <Row279 编号="279" 代码="2570" 名称="垂直向上远焦SFR高规NG" 分区放置="" 复测="False" 工装="False" 夹具="False" 光箱="False" 软件="False" />
+  <Row280 编号="280" 代码="2571" 名称="垂直向上远焦四角差NG" 分区放置="" 复测="False" 工装="False" 夹具="False" 光箱="False" 软件="False" />
+  <Row281 编号="281" 代码="2572" 名称="垂直向上远焦SFR点检NG" 分区放置="" 复测="False" 工装="False" 夹具="False" 光箱="False" 软件="False" />
+  <Row282 编号="282" 代码="2578" 名称="垂直向下远焦SFR NG" 分区放置="" 复测="False" 工装="False" 夹具="False" 光箱="False" 软件="False" />
+  <Row283 编号="283" 代码="2579" 名称="垂直向下远焦SFR高规NG" 分区放置="" 复测="False" 工装="False" 夹具="False" 光箱="False" 软件="False" />
+  <Row284 编号="284" 代码="2580" 名称="垂直向下远焦四角差NG" 分区放置="" 复测="False" 工装="False" 夹具="False" 光箱="False" 软件="False" />
+  <Row285 编号="285" 代码="2581" 名称="垂直向下远焦SFR点检NG" 分区放置="" 复测="False" 工装="False" 夹具="False" 光箱="False" 软件="False" />
+  <Row286 编号="286" 代码="2587" 名称="水平近焦SFR NG" 分区放置="" 复测="False" 工装="False" 夹具="False" 光箱="False" 软件="False" />
+  <Row287 编号="287" 代码="2588" 名称="水平近焦SFR高规NG" 分区放置="" 复测="False" 工装="False" 夹具="False" 光箱="False" 软件="False" />
+  <Row288 编号="288" 代码="2589" 名称="水平近焦四角差NG" 分区放置="" 复测="False" 工装="False" 夹具="False" 光箱="False" 软件="False" />
+  <Row289 编号="289" 代码="2590" 名称="水平近焦SFR点检NG" 分区放置="" 复测="False" 工装="False" 夹具="False" 光箱="False" 软件="False" />
+  <Row290 编号="290" 代码="2596" 名称="垂直向上近焦SFR NG" 分区放置="" 复测="False" 工装="False" 夹具="False" 光箱="False" 软件="False" />
+  <Row291 编号="291" 代码="2597" 名称="垂直向上近焦SFR高规NG" 分区放置="" 复测="False" 工装="False" 夹具="False" 光箱="False" 软件="False" />
+  <Row292 编号="292" 代码="2598" 名称="垂直向上近焦四角差NG" 分区放置="" 复测="False" 工装="False" 夹具="False" 光箱="False" 软件="False" />
+  <Row293 编号="293" 代码="2599" 名称="垂直向上近焦SFR点检NG" 分区放置="" 复测="False" 工装="False" 夹具="False" 光箱="False" 软件="False" />
+  <Row294 编号="294" 代码="2605" 名称="垂直向下近焦SFR NG" 分区放置="" 复测="False" 工装="False" 夹具="False" 光箱="False" 软件="False" />
+  <Row295 编号="295" 代码="2606" 名称="垂直向下近焦SFR高规NG" 分区放置="" 复测="False" 工装="False" 夹具="False" 光箱="False" 软件="False" />
+  <Row296 编号="296" 代码="2607" 名称="垂直向下近焦四角差NG" 分区放置="" 复测="False" 工装="False" 夹具="False" 光箱="False" 软件="False" />
+  <Row297 编号="297" 代码="2608" 名称="垂直向下近焦SFR点检NG" 分区放置="" 复测="False" 工装="False" 夹具="False" 光箱="False" 软件="False" />
+  <Row298 编号="298" 代码="2614" 名称="水平中距1SFR NG" 分区放置="" 复测="False" 工装="False" 夹具="False" 光箱="False" 软件="False" />
+  <Row299 编号="299" 代码="2615" 名称="水平中距1SFR高规NG" 分区放置="" 复测="False" 工装="False" 夹具="False" 光箱="False" 软件="False" />
+  <Row300 编号="300" 代码="2616" 名称="水平中距1四角差NG" 分区放置="" 复测="False" 工装="False" 夹具="False" 光箱="False" 软件="False" />
+  <Row301 编号="301" 代码="2617" 名称="水平中距1SFR点检NG" 分区放置="" 复测="False" 工装="False" 夹具="False" 光箱="False" 软件="False" />
+  <Row302 编号="302" 代码="2623" 名称="垂直向上中距1SFR NG" 分区放置="" 复测="False" 工装="False" 夹具="False" 光箱="False" 软件="False" />
+  <Row303 编号="303" 代码="2624" 名称="垂直向上中距1SFR高规NG" 分区放置="" 复测="False" 工装="False" 夹具="False" 光箱="False" 软件="False" />
+  <Row304 编号="304" 代码="2625" 名称="垂直向上中距1四角差NG" 分区放置="" 复测="False" 工装="False" 夹具="False" 光箱="False" 软件="False" />
+  <Row305 编号="305" 代码="2626" 名称="垂直向上中距1SFR点检NG" 分区放置="" 复测="False" 工装="False" 夹具="False" 光箱="False" 软件="False" />
+  <Row306 编号="306" 代码="2632" 名称="垂直向下中距1SFR NG" 分区放置="" 复测="False" 工装="False" 夹具="False" 光箱="False" 软件="False" />
+  <Row307 编号="307" 代码="2633" 名称="垂直向下中距1SFR高规NG" 分区放置="" 复测="False" 工装="False" 夹具="False" 光箱="False" 软件="False" />
+  <Row308 编号="308" 代码="2634" 名称="垂直向下中距1四角差NG" 分区放置="" 复测="False" 工装="False" 夹具="False" 光箱="False" 软件="False" />
+  <Row309 编号="309" 代码="2635" 名称="垂直向下中距1SFR点检NG" 分区放置="" 复测="False" 工装="False" 夹具="False" 光箱="False" 软件="False" />
+  <Row310 编号="310" 代码="2641" 名称="水平中距2SFR NG" 分区放置="" 复测="False" 工装="False" 夹具="False" 光箱="False" 软件="False" />
+  <Row311 编号="311" 代码="2642" 名称="水平中距2SFR高规NG" 分区放置="" 复测="False" 工装="False" 夹具="False" 光箱="False" 软件="False" />
+  <Row312 编号="312" 代码="2643" 名称="水平中距2四角差NG" 分区放置="" 复测="False" 工装="False" 夹具="False" 光箱="False" 软件="False" />
+  <Row313 编号="313" 代码="2644" 名称="水平中距2SFR点检NG" 分区放置="" 复测="False" 工装="False" 夹具="False" 光箱="False" 软件="False" />
+  <Row314 编号="314" 代码="2650" 名称="垂直向上中距2SFR NG" 分区放置="" 复测="False" 工装="False" 夹具="False" 光箱="False" 软件="False" />
+  <Row315 编号="315" 代码="2651" 名称="垂直向上中距2SFR高规NG" 分区放置="" 复测="False" 工装="False" 夹具="False" 光箱="False" 软件="False" />
+  <Row316 编号="316" 代码="2652" 名称="垂直向上中距2四角差NG" 分区放置="" 复测="False" 工装="False" 夹具="False" 光箱="False" 软件="False" />
+  <Row317 编号="317" 代码="2653" 名称="垂直向上中距2SFR点检NG" 分区放置="" 复测="False" 工装="False" 夹具="False" 光箱="False" 软件="False" />
+  <Row318 编号="318" 代码="2659" 名称="垂直向下中距2SFR NG" 分区放置="" 复测="False" 工装="False" 夹具="False" 光箱="False" 软件="False" />
+  <Row319 编号="319" 代码="2660" 名称="垂直向下中距2SFR高规NG" 分区放置="" 复测="False" 工装="False" 夹具="False" 光箱="False" 软件="False" />
+  <Row320 编号="320" 代码="2661" 名称="垂直向下中距2四角差NG" 分区放置="" 复测="False" 工装="False" 夹具="False" 光箱="False" 软件="False" />
+  <Row321 编号="321" 代码="2662" 名称="垂直向下中距2SFR点检NG" 分区放置="" 复测="False" 工装="False" 夹具="False" 光箱="False" 软件="False" />
+  <Row322 编号="322" 代码="2668" 名称="水平对焦SFR NG" 分区放置="" 复测="False" 工装="False" 夹具="False" 光箱="False" 软件="False" />
+  <Row323 编号="323" 代码="2669" 名称="水平对焦SFR高规NG" 分区放置="" 复测="False" 工装="False" 夹具="False" 光箱="False" 软件="False" />
+  <Row324 编号="324" 代码="2670" 名称="水平对焦四角差NG" 分区放置="" 复测="False" 工装="False" 夹具="False" 光箱="False" 软件="False" />
+  <Row325 编号="325" 代码="2671" 名称="水平对焦SFR点检NG" 分区放置="" 复测="False" 工装="False" 夹具="False" 光箱="False" 软件="False" />
+  <Row326 编号="326" 代码="2677" 名称="垂直向上对焦SFR NG" 分区放置="" 复测="False" 工装="False" 夹具="False" 光箱="False" 软件="False" />
+  <Row327 编号="327" 代码="2678" 名称="垂直向上对焦SFR高规NG" 分区放置="" 复测="False" 工装="False" 夹具="False" 光箱="False" 软件="False" />
+  <Row328 编号="328" 代码="2679" 名称="垂直向上对焦四角差NG" 分区放置="" 复测="False" 工装="False" 夹具="False" 光箱="False" 软件="False" />
+  <Row329 编号="329" 代码="2680" 名称="垂直向上对焦SFR点检NG" 分区放置="" 复测="False" 工装="False" 夹具="False" 光箱="False" 软件="False" />
+  <Row330 编号="330" 代码="2686" 名称="垂直向下对焦SFR NG" 分区放置="" 复测="False" 工装="False" 夹具="False" 光箱="False" 软件="False" />
+  <Row331 编号="331" 代码="2687" 名称="垂直向下对焦SFR高规NG" 分区放置="" 复测="False" 工装="False" 夹具="False" 光箱="False" 软件="False" />
+  <Row332 编号="332" 代码="2688" 名称="垂直向下对焦四角差NG" 分区放置="" 复测="False" 工装="False" 夹具="False" 光箱="False" 软件="False" />
+  <Row333 编号="333" 代码="2689" 名称="垂直向下对焦SFR点检NG" 分区放置="" 复测="False" 工装="False" 夹具="False" 光箱="False" 软件="False" />
+  <Row334 编号="334" 代码="2695" 名称="水平2.5SFR NG" 分区放置="" 复测="False" 工装="False" 夹具="False" 光箱="False" 软件="False" />
+  <Row335 编号="335" 代码="2696" 名称="水平2.5SFR高规NG" 分区放置="" 复测="False" 工装="False" 夹具="False" 光箱="False" 软件="False" />
+  <Row336 编号="336" 代码="2697" 名称="水平2.5四角差NG" 分区放置="" 复测="False" 工装="False" 夹具="False" 光箱="False" 软件="False" />
+  <Row337 编号="337" 代码="2698" 名称="水平2.5SFR点检NG" 分区放置="" 复测="False" 工装="False" 夹具="False" 光箱="False" 软件="False" />
+  <Row338 编号="338" 代码="2704" 名称="垂直向上2.5SFR NG" 分区放置="" 复测="False" 工装="False" 夹具="False" 光箱="False" 软件="False" />
+  <Row339 编号="339" 代码="2705" 名称="垂直向上2.5SFR高规NG" 分区放置="" 复测="False" 工装="False" 夹具="False" 光箱="False" 软件="False" />
+  <Row340 编号="340" 代码="2706" 名称="垂直向上2.5四角差NG" 分区放置="" 复测="False" 工装="False" 夹具="False" 光箱="False" 软件="False" />
+  <Row341 编号="341" 代码="2707" 名称="垂直向上2.5SFR点检NG" 分区放置="" 复测="False" 工装="False" 夹具="False" 光箱="False" 软件="False" />
+  <Row342 编号="342" 代码="2713" 名称="垂直向下2.5SFR NG" 分区放置="" 复测="False" 工装="False" 夹具="False" 光箱="False" 软件="False" />
+  <Row343 编号="343" 代码="2714" 名称="垂直向下2.5SFR高规NG" 分区放置="" 复测="False" 工装="False" 夹具="False" 光箱="False" 软件="False" />
+  <Row344 编号="344" 代码="2715" 名称="垂直向下2.5四角差NG" 分区放置="" 复测="False" 工装="False" 夹具="False" 光箱="False" 软件="False" />
+  <Row345 编号="345" 代码="2716" 名称="垂直向下2.5SFR点检NG" 分区放置="" 复测="False" 工装="False" 夹具="False" 光箱="False" 软件="False" />
+  <Row346 编号="346" 代码="2722" 名称="水平7.0SFR NG" 分区放置="" 复测="False" 工装="False" 夹具="False" 光箱="False" 软件="False" />
+  <Row347 编号="347" 代码="2723" 名称="水平7.0SFR高规NG" 分区放置="" 复测="False" 工装="False" 夹具="False" 光箱="False" 软件="False" />
+  <Row348 编号="348" 代码="2724" 名称="水平7.0四角差NG" 分区放置="" 复测="False" 工装="False" 夹具="False" 光箱="False" 软件="False" />
+  <Row349 编号="349" 代码="2725" 名称="水平7.0SFR点检NG" 分区放置="" 复测="False" 工装="False" 夹具="False" 光箱="False" 软件="False" />
+  <Row350 编号="350" 代码="2731" 名称="垂直向上7.0SFR NG" 分区放置="" 复测="False" 工装="False" 夹具="False" 光箱="False" 软件="False" />
+  <Row351 编号="351" 代码="2732" 名称="垂直向上7.0SFR高规NG" 分区放置="" 复测="False" 工装="False" 夹具="False" 光箱="False" 软件="False" />
+  <Row352 编号="352" 代码="2733" 名称="垂直向上7.0四角差NG" 分区放置="" 复测="False" 工装="False" 夹具="False" 光箱="False" 软件="False" />
+  <Row353 编号="353" 代码="2734" 名称="垂直向上7.0SFR点检NG" 分区放置="" 复测="False" 工装="False" 夹具="False" 光箱="False" 软件="False" />
+  <Row354 编号="354" 代码="2740" 名称="垂直向下7.0SFR NG" 分区放置="" 复测="False" 工装="False" 夹具="False" 光箱="False" 软件="False" />
+  <Row355 编号="355" 代码="2741" 名称="垂直向下7.0SFR高规NG" 分区放置="" 复测="False" 工装="False" 夹具="False" 光箱="False" 软件="False" />
+  <Row356 编号="356" 代码="2742" 名称="垂直向下7.0四角差NG" 分区放置="" 复测="False" 工装="False" 夹具="False" 光箱="False" 软件="False" />
+  <Row357 编号="357" 代码="2743" 名称="垂直向下7.0SFR点检NG" 分区放置="" 复测="False" 工装="False" 夹具="False" 光箱="False" 软件="False" />
+  <Row358 编号="358" 代码="2749" 名称="水平9.0SFR NG" 分区放置="" 复测="False" 工装="False" 夹具="False" 光箱="False" 软件="False" />
+  <Row359 编号="359" 代码="2750" 名称="水平9.0SFR高规NG" 分区放置="" 复测="False" 工装="False" 夹具="False" 光箱="False" 软件="False" />
+  <Row360 编号="360" 代码="2751" 名称="水平9.0四角差NG" 分区放置="" 复测="False" 工装="False" 夹具="False" 光箱="False" 软件="False" />
+  <Row361 编号="361" 代码="2752" 名称="水平9.0SFR点检NG" 分区放置="" 复测="False" 工装="False" 夹具="False" 光箱="False" 软件="False" />
+  <Row362 编号="362" 代码="2758" 名称="垂直向上9.0SFR NG" 分区放置="" 复测="False" 工装="False" 夹具="False" 光箱="False" 软件="False" />
+  <Row363 编号="363" 代码="2759" 名称="垂直向上9.0SFR高规NG" 分区放置="" 复测="False" 工装="False" 夹具="False" 光箱="False" 软件="False" />
+  <Row364 编号="364" 代码="2760" 名称="垂直向上9.0四角差NG" 分区放置="" 复测="False" 工装="False" 夹具="False" 光箱="False" 软件="False" />
+  <Row365 编号="365" 代码="2761" 名称="垂直向上9.0SFR点检NG" 分区放置="" 复测="False" 工装="False" 夹具="False" 光箱="False" 软件="False" />
+  <Row366 编号="366" 代码="2767" 名称="垂直向下9.0SFR NG" 分区放置="" 复测="False" 工装="False" 夹具="False" 光箱="False" 软件="False" />
+  <Row367 编号="367" 代码="2768" 名称="垂直向下9.0SFR高规NG" 分区放置="" 复测="False" 工装="False" 夹具="False" 光箱="False" 软件="False" />
+  <Row368 编号="368" 代码="2769" 名称="垂直向下9.0四角差NG" 分区放置="" 复测="False" 工装="False" 夹具="False" 光箱="False" 软件="False" />
+  <Row369 编号="369" 代码="2770" 名称="垂直向下9.0SFR点检NG" 分区放置="" 复测="False" 工装="False" 夹具="False" 光箱="False" 软件="False" />
+  <Row370 编号="370" 代码="2776" 名称="水平15.0SFR NG" 分区放置="" 复测="False" 工装="False" 夹具="False" 光箱="False" 软件="False" />
+  <Row371 编号="371" 代码="2777" 名称="水平15.0SFR高规NG" 分区放置="" 复测="False" 工装="False" 夹具="False" 光箱="False" 软件="False" />
+  <Row372 编号="372" 代码="2778" 名称="水平15.0四角差NG" 分区放置="" 复测="False" 工装="False" 夹具="False" 光箱="False" 软件="False" />
+  <Row373 编号="373" 代码="2779" 名称="水平15.0SFR点检NG" 分区放置="" 复测="False" 工装="False" 夹具="False" 光箱="False" 软件="False" />
+  <Row374 编号="374" 代码="2785" 名称="垂直向上15.0SFR NG" 分区放置="" 复测="False" 工装="False" 夹具="False" 光箱="False" 软件="False" />
+  <Row375 编号="375" 代码="2786" 名称="垂直向上15.0SFR高规NG" 分区放置="" 复测="False" 工装="False" 夹具="False" 光箱="False" 软件="False" />
+  <Row376 编号="376" 代码="2787" 名称="垂直向上15.0四角差NG" 分区放置="" 复测="False" 工装="False" 夹具="False" 光箱="False" 软件="False" />
+  <Row377 编号="377" 代码="2788" 名称="垂直向上15.0SFR点检NG" 分区放置="" 复测="False" 工装="False" 夹具="False" 光箱="False" 软件="False" />
+  <Row378 编号="378" 代码="2794" 名称="垂直向下15.0SFR NG" 分区放置="" 复测="False" 工装="False" 夹具="False" 光箱="False" 软件="False" />
+  <Row379 编号="379" 代码="2795" 名称="垂直向下15.0SFR高规NG" 分区放置="" 复测="False" 工装="False" 夹具="False" 光箱="False" 软件="False" />
+  <Row380 编号="380" 代码="2796" 名称="垂直向下15.0四角差NG" 分区放置="" 复测="False" 工装="False" 夹具="False" 光箱="False" 软件="False" />
+  <Row381 编号="381" 代码="2797" 名称="垂直向下15.0SFR点检NG" 分区放置="" 复测="False" 工装="False" 夹具="False" 光箱="False" 软件="False" />
+  <Row382 编号="382" 代码="2803" 名称="水平20.0SFR NG" 分区放置="" 复测="False" 工装="False" 夹具="False" 光箱="False" 软件="False" />
+  <Row383 编号="383" 代码="2804" 名称="水平20.0SFR高规NG" 分区放置="" 复测="False" 工装="False" 夹具="False" 光箱="False" 软件="False" />
+  <Row384 编号="384" 代码="2805" 名称="水平20.0四角差NG" 分区放置="" 复测="False" 工装="False" 夹具="False" 光箱="False" 软件="False" />
+  <Row385 编号="385" 代码="2806" 名称="水平20.0SFR点检NG" 分区放置="" 复测="False" 工装="False" 夹具="False" 光箱="False" 软件="False" />
+  <Row386 编号="386" 代码="2812" 名称="垂直向上20.0SFR NG" 分区放置="" 复测="False" 工装="False" 夹具="False" 光箱="False" 软件="False" />
+  <Row387 编号="387" 代码="2813" 名称="垂直向上20.0SFR高规NG" 分区放置="" 复测="False" 工装="False" 夹具="False" 光箱="False" 软件="False" />
+  <Row388 编号="388" 代码="2814" 名称="垂直向上20.0四角差NG" 分区放置="" 复测="False" 工装="False" 夹具="False" 光箱="False" 软件="False" />
+  <Row389 编号="389" 代码="2815" 名称="垂直向上20.0SFR点检NG" 分区放置="" 复测="False" 工装="False" 夹具="False" 光箱="False" 软件="False" />
+  <Row390 编号="390" 代码="2821" 名称="垂直向下20.0SFR NG" 分区放置="" 复测="False" 工装="False" 夹具="False" 光箱="False" 软件="False" />
+  <Row391 编号="391" 代码="2822" 名称="垂直向下20.0SFR高规NG" 分区放置="" 复测="False" 工装="False" 夹具="False" 光箱="False" 软件="False" />
+  <Row392 编号="392" 代码="2823" 名称="垂直向下20.0四角差NG" 分区放置="" 复测="False" 工装="False" 夹具="False" 光箱="False" 软件="False" />
+  <Row393 编号="393" 代码="2824" 名称="垂直向下20.0SFR点检NG" 分区放置="" 复测="False" 工装="False" 夹具="False" 光箱="False" 软件="False" />
+  <Row394 编号="394" 代码="2830" 名称="水平30.0SFR NG" 分区放置="" 复测="False" 工装="False" 夹具="False" 光箱="False" 软件="False" />
+  <Row395 编号="395" 代码="2831" 名称="水平30.0SFR高规NG" 分区放置="" 复测="False" 工装="False" 夹具="False" 光箱="False" 软件="False" />
+  <Row396 编号="396" 代码="2832" 名称="水平30.0四角差NG" 分区放置="" 复测="False" 工装="False" 夹具="False" 光箱="False" 软件="False" />
+  <Row397 编号="397" 代码="2833" 名称="水平30.0SFR点检NG" 分区放置="" 复测="False" 工装="False" 夹具="False" 光箱="False" 软件="False" />
+  <Row398 编号="398" 代码="2839" 名称="垂直向上30.0SFR NG" 分区放置="" 复测="False" 工装="False" 夹具="False" 光箱="False" 软件="False" />
+  <Row399 编号="399" 代码="2840" 名称="垂直向上30.0SFR高规NG" 分区放置="" 复测="False" 工装="False" 夹具="False" 光箱="False" 软件="False" />
+  <Row400 编号="400" 代码="2841" 名称="垂直向上30.0四角差NG" 分区放置="" 复测="False" 工装="False" 夹具="False" 光箱="False" 软件="False" />
+  <Row401 编号="401" 代码="2842" 名称="垂直向上30.0SFR点检NG" 分区放置="" 复测="False" 工装="False" 夹具="False" 光箱="False" 软件="False" />
+  <Row402 编号="402" 代码="2848" 名称="垂直向下30.0SFR NG" 分区放置="" 复测="False" 工装="False" 夹具="False" 光箱="False" 软件="False" />
+  <Row403 编号="403" 代码="2849" 名称="垂直向下30.0SFR高规NG" 分区放置="" 复测="False" 工装="False" 夹具="False" 光箱="False" 软件="False" />
+  <Row404 编号="404" 代码="2850" 名称="垂直向下30.0四角差NG" 分区放置="" 复测="False" 工装="False" 夹具="False" 光箱="False" 软件="False" />
+  <Row405 编号="405" 代码="2851" 名称="垂直向下30.0SFR点检NG" 分区放置="" 复测="False" 工装="False" 夹具="False" 光箱="False" 软件="False" />
+  <Row406 编号="406" 代码="2857" 名称="水平35.0SFR NG" 分区放置="" 复测="False" 工装="False" 夹具="False" 光箱="False" 软件="False" />
+  <Row407 编号="407" 代码="2858" 名称="水平35.0SFR高规NG" 分区放置="" 复测="False" 工装="False" 夹具="False" 光箱="False" 软件="False" />
+  <Row408 编号="408" 代码="2859" 名称="水平35.0四角差NG" 分区放置="" 复测="False" 工装="False" 夹具="False" 光箱="False" 软件="False" />
+  <Row409 编号="409" 代码="2860" 名称="水平35.0SFR点检NG" 分区放置="" 复测="False" 工装="False" 夹具="False" 光箱="False" 软件="False" />
+  <Row410 编号="410" 代码="2866" 名称="垂直向上35.0SFR NG" 分区放置="" 复测="False" 工装="False" 夹具="False" 光箱="False" 软件="False" />
+  <Row411 编号="411" 代码="2867" 名称="垂直向上35.0SFR高规NG" 分区放置="" 复测="False" 工装="False" 夹具="False" 光箱="False" 软件="False" />
+  <Row412 编号="412" 代码="2868" 名称="垂直向上35.0四角差NG" 分区放置="" 复测="False" 工装="False" 夹具="False" 光箱="False" 软件="False" />
+  <Row413 编号="413" 代码="2869" 名称="垂直向上35.0SFR点检NG" 分区放置="" 复测="False" 工装="False" 夹具="False" 光箱="False" 软件="False" />
+  <Row414 编号="414" 代码="2875" 名称="垂直向下35.0SFR NG" 分区放置="" 复测="False" 工装="False" 夹具="False" 光箱="False" 软件="False" />
+  <Row415 编号="415" 代码="2876" 名称="垂直向下35.0SFR高规NG" 分区放置="" 复测="False" 工装="False" 夹具="False" 光箱="False" 软件="False" />
+  <Row416 编号="416" 代码="2877" 名称="垂直向下35.0四角差NG" 分区放置="" 复测="False" 工装="False" 夹具="False" 光箱="False" 软件="False" />
+  <Row417 编号="417" 代码="2878" 名称="垂直向下35.0SFR点检NG" 分区放置="" 复测="False" 工装="False" 夹具="False" 光箱="False" 软件="False" />
+  <Row418 编号="418" 代码="2884" 名称="水平40.0SFR NG" 分区放置="" 复测="False" 工装="False" 夹具="False" 光箱="False" 软件="False" />
+  <Row419 编号="419" 代码="2885" 名称="水平40.0SFR高规NG" 分区放置="" 复测="False" 工装="False" 夹具="False" 光箱="False" 软件="False" />
+  <Row420 编号="420" 代码="2886" 名称="水平40.0四角差NG" 分区放置="" 复测="False" 工装="False" 夹具="False" 光箱="False" 软件="False" />
+  <Row421 编号="421" 代码="2887" 名称="水平40.0SFR点检NG" 分区放置="" 复测="False" 工装="False" 夹具="False" 光箱="False" 软件="False" />
+  <Row422 编号="422" 代码="2893" 名称="垂直向上40.0SFR NG" 分区放置="" 复测="False" 工装="False" 夹具="False" 光箱="False" 软件="False" />
+  <Row423 编号="423" 代码="2894" 名称="垂直向上40.0SFR高规NG" 分区放置="" 复测="False" 工装="False" 夹具="False" 光箱="False" 软件="False" />
+  <Row424 编号="424" 代码="2895" 名称="垂直向上40.0四角差NG" 分区放置="" 复测="False" 工装="False" 夹具="False" 光箱="False" 软件="False" />
+  <Row425 编号="425" 代码="2896" 名称="垂直向上40.0SFR点检NG" 分区放置="" 复测="False" 工装="False" 夹具="False" 光箱="False" 软件="False" />
+  <Row426 编号="426" 代码="2902" 名称="垂直向下40.0SFR NG" 分区放置="" 复测="False" 工装="False" 夹具="False" 光箱="False" 软件="False" />
+  <Row427 编号="427" 代码="2903" 名称="垂直向下40.0SFR高规NG" 分区放置="" 复测="False" 工装="False" 夹具="False" 光箱="False" 软件="False" />
+  <Row428 编号="428" 代码="2904" 名称="垂直向下40.0四角差NG" 分区放置="" 复测="False" 工装="False" 夹具="False" 光箱="False" 软件="False" />
+  <Row429 编号="429" 代码="2905" 名称="垂直向下40.0SFR点检NG" 分区放置="" 复测="False" 工装="False" 夹具="False" 光箱="False" 软件="False" />
+  <Row430 编号="430" 代码="2911" 名称="水平50.0SFR NG" 分区放置="" 复测="False" 工装="False" 夹具="False" 光箱="False" 软件="False" />
+  <Row431 编号="431" 代码="2912" 名称="水平50.0SFR高规NG" 分区放置="" 复测="False" 工装="False" 夹具="False" 光箱="False" 软件="False" />
+  <Row432 编号="432" 代码="2913" 名称="水平50.0四角差NG" 分区放置="" 复测="False" 工装="False" 夹具="False" 光箱="False" 软件="False" />
+  <Row433 编号="433" 代码="2914" 名称="水平50.0SFR点检NG" 分区放置="" 复测="False" 工装="False" 夹具="False" 光箱="False" 软件="False" />
+  <Row434 编号="434" 代码="2920" 名称="垂直向上50.0SFR NG" 分区放置="" 复测="False" 工装="False" 夹具="False" 光箱="False" 软件="False" />
+  <Row435 编号="435" 代码="2921" 名称="垂直向上50.0SFR高规NG" 分区放置="" 复测="False" 工装="False" 夹具="False" 光箱="False" 软件="False" />
+  <Row436 编号="436" 代码="2922" 名称="垂直向上50.0四角差NG" 分区放置="" 复测="False" 工装="False" 夹具="False" 光箱="False" 软件="False" />
+  <Row437 编号="437" 代码="2923" 名称="垂直向上50.0SFR点检NG" 分区放置="" 复测="False" 工装="False" 夹具="False" 光箱="False" 软件="False" />
+  <Row438 编号="438" 代码="2929" 名称="垂直向下50.0SFR NG" 分区放置="" 复测="False" 工装="False" 夹具="False" 光箱="False" 软件="False" />
+  <Row439 编号="439" 代码="2930" 名称="垂直向下50.0SFR高规NG" 分区放置="" 复测="False" 工装="False" 夹具="False" 光箱="False" 软件="False" />
+  <Row440 编号="440" 代码="2931" 名称="垂直向下50.0四角差NG" 分区放置="" 复测="False" 工装="False" 夹具="False" 光箱="False" 软件="False" />
+  <Row441 编号="441" 代码="2932" 名称="垂直向下50.0SFR点检NG" 分区放置="" 复测="False" 工装="False" 夹具="False" 光箱="False" 软件="False" />
+  <Row442 编号="442" 代码="2938" 名称="水平500.0SFR NG" 分区放置="" 复测="False" 工装="False" 夹具="False" 光箱="False" 软件="False" />
+  <Row443 编号="443" 代码="2939" 名称="水平500.0SFR高规NG" 分区放置="" 复测="False" 工装="False" 夹具="False" 光箱="False" 软件="False" />
+  <Row444 编号="444" 代码="2940" 名称="水平500.0四角差NG" 分区放置="" 复测="False" 工装="False" 夹具="False" 光箱="False" 软件="False" />
+  <Row445 编号="445" 代码="2941" 名称="水平500.0SFR点检NG" 分区放置="" 复测="False" 工装="False" 夹具="False" 光箱="False" 软件="False" />
+  <Row446 编号="446" 代码="2947" 名称="垂直向上500.0SFR NG" 分区放置="" 复测="False" 工装="False" 夹具="False" 光箱="False" 软件="False" />
+  <Row447 编号="447" 代码="2948" 名称="垂直向上500.0SFR高规NG" 分区放置="" 复测="False" 工装="False" 夹具="False" 光箱="False" 软件="False" />
+  <Row448 编号="448" 代码="2949" 名称="垂直向上500.0四角差NG" 分区放置="" 复测="False" 工装="False" 夹具="False" 光箱="False" 软件="False" />
+  <Row449 编号="449" 代码="2950" 名称="垂直向上500.0SFR点检NG" 分区放置="" 复测="False" 工装="False" 夹具="False" 光箱="False" 软件="False" />
+  <Row450 编号="450" 代码="2956" 名称="垂直向下500.0SFR NG" 分区放置="" 复测="False" 工装="False" 夹具="False" 光箱="False" 软件="False" />
+  <Row451 编号="451" 代码="2957" 名称="垂直向下500.0SFR高规NG" 分区放置="" 复测="False" 工装="False" 夹具="False" 光箱="False" 软件="False" />
+  <Row452 编号="452" 代码="2958" 名称="垂直向下500.0四角差NG" 分区放置="" 复测="False" 工装="False" 夹具="False" 光箱="False" 软件="False" />
+  <Row453 编号="453" 代码="2959" 名称="垂直向下500.0SFR点检NG" 分区放置="" 复测="False" 工装="False" 夹具="False" 光箱="False" 软件="False" />
+  <Row454 编号="454" 代码="3072" 名称="DLL异常" 分区放置="" 复测="False" 工装="False" 夹具="False" 光箱="False" 软件="False" />
+  <Row455 编号="455" 代码="3073" 名称="工序异常" 分区放置="" 复测="False" 工装="False" 夹具="False" 光箱="False" 软件="False" />
+  <Row456 编号="456" 代码="3074" 名称="工序为空" 分区放置="" 复测="False" 工装="False" 夹具="False" 光箱="False" 软件="False" />
+  <Row457 编号="457" 代码="3075" 名称="获取前道工序名失败" 分区放置="" 复测="False" 工装="False" 夹具="False" 光箱="False" 软件="False" />
+  <Row458 编号="458" 代码="3076" 名称="数据库连接异常" 分区放置="" 复测="False" 工装="False" 夹具="False" 光箱="False" 软件="False" />
+  <Row459 编号="459" 代码="3077" 名称="SQL语句执行异常" 分区放置="" 复测="False" 工装="False" 夹具="False" 光箱="False" 软件="False" />
+  <Row460 编号="460" 代码="3078" 名称="前道NG" 分区放置="" 复测="False" 工装="False" 夹具="False" 光箱="False" 软件="False" />
+  <Row461 编号="461" 代码="3079" 名称="拼版规格信息异常" 分区放置="" 复测="False" 工装="False" 夹具="False" 光箱="False" 软件="False" />
+  <Row462 编号="462" 代码="3080" 名称="拼版坐标位置异常" 分区放置="" 复测="False" 工装="False" 夹具="False" 光箱="False" 软件="False" />
+  <Row463 编号="463" 代码="3081" 名称="前道NG" 分区放置="" 复测="False" 工装="False" 夹具="False" 光箱="False" 软件="False" />
+  <Row464 编号="464" 代码="3082" 名称="参数异常" 分区放置="" 复测="False" 工装="False" 夹具="False" 光箱="False" 软件="False" />
+  <Row465 编号="465" 代码="3083" 名称="MODULE设置错误" 分区放置="" 复测="False" 工装="False" 夹具="False" 光箱="False" 软件="False" />
+  <Row466 编号="466" 代码="3084" 名称="加载工序名失败" 分区放置="" 复测="False" 工装="False" 夹具="False" 光箱="False" 软件="False" />
+  <Row467 编号="467" 代码="3085" 名称="当前工序名为空" 分区放置="" 复测="False" 工装="False" 夹具="False" 光箱="False" 软件="False" />
+  <Row468 编号="468" 代码="3086" 名称="获取前道工序名失败" 分区放置="" 复测="False" 工装="False" 夹具="False" 光箱="False" 软件="False" />
+  <Row469 编号="469" 代码="3087" 名称="查询天数为0或超过10" 分区放置="" 复测="False" 工装="False" 夹具="False" 光箱="False" 软件="False" />
+  <Row470 编号="470" 代码="3088" 名称="数据库连接失败" 分区放置="" 复测="False" 工装="False" 夹具="False" 光箱="False" 软件="False" />
+  <Row471 编号="471" 代码="3089" 名称="查询系统表失败" 分区放置="" 复测="False" 工装="False" 夹具="False" 光箱="False" 软件="False" />
+  <Row472 编号="472" 代码="3090" 名称="查询前道数据失败" 分区放置="" 复测="False" 工装="False" 夹具="False" 光箱="False" 软件="False" />
+  <Row473 编号="473" 代码="3091" 名称="检测前道工序失败" 分区放置="" 复测="False" 工装="False" 夹具="False" 光箱="False" 软件="False" />
+  <Row474 编号="474" 代码="3092" 名称="前道NG" 分区放置="" 复测="False" 工装="False" 夹具="False" 光箱="False" 软件="False" />
+  <Row475 编号="475" 代码="3093" 名称="前道NG" 分区放置="" 复测="False" 工装="False" 夹具="False" 光箱="False" 软件="False" />
+  <Row476 编号="476" 代码="3094" 名称="Fuseid不匹配" 分区放置="" 复测="False" 工装="False" 夹具="False" 光箱="False" 软件="False" />
+  <Row477 编号="477" 代码="3328" 名称="DLL异常" 分区放置="" 复测="False" 工装="False" 夹具="False" 光箱="False" 软件="False" />
+  <Row478 编号="478" 代码="3329" 名称="参数为空" 分区放置="" 复测="False" 工装="False" 夹具="False" 光箱="False" 软件="False" />
+  <Row479 编号="479" 代码="3330" 名称="PIN二维码为空" 分区放置="" 复测="False" 工装="False" 夹具="False" 光箱="False" 软件="False" />
+  <Row480 编号="480" 代码="3331" 名称="型号为空" 分区放置="" 复测="False" 工装="False" 夹具="False" 光箱="False" 软件="False" />
+  <Row481 编号="481" 代码="3332" 名称="数据库连接失败" 分区放置="" 复测="False" 工装="False" 夹具="False" 光箱="False" 软件="False" />
+  <Row482 编号="482" 代码="3333" 名称="存在更新失败的模组" 分区放置="" 复测="False" 工装="False" 夹具="False" 光箱="False" 软件="False" />
+  <Row483 编号="483" 代码="3334" 名称="追溯上传未知异常" 分区放置="" 复测="False" 工装="False" 夹具="False" 光箱="False" 软件="False" />
+  <Row484 编号="484" 代码="3335" 名称="参数为空" 分区放置="" 复测="False" 工装="False" 夹具="False" 光箱="False" 软件="False" />
+  <Row485 编号="485" 代码="3336" 名称="数据库连接失败" 分区放置="" 复测="False" 工装="False" 夹具="False" 光箱="False" 软件="False" />
+  <Row486 编号="486" 代码="3337" 名称="sql语句执行失败" 分区放置="" 复测="False" 工装="False" 夹具="False" 光箱="False" 软件="False" />
+  <Row487 编号="487" 代码="3338" 名称="追溯上传失败" 分区放置="" 复测="False" 工装="False" 夹具="False" 光箱="False" 软件="False" />
+  <Row488 编号="488" 代码="3339" 名称="模组二维码为空" 分区放置="" 复测="False" 工装="False" 夹具="False" 光箱="False" 软件="False" />
+  <Row489 编号="489" 代码="3340" 名称="无模组" 分区放置="" 复测="False" 工装="False" 夹具="False" 光箱="False" 软件="False" />
+  <Row490 编号="490" 代码="3341" 名称="订单号异常" 分区放置="" 复测="False" 工装="False" 夹具="False" 光箱="False" 软件="False" />
+  <Row491 编号="491" 代码="3584" 名称="内存异常" 分区放置="" 复测="False" 工装="False" 夹具="False" 光箱="False" 软件="False" />
+  <Row492 编号="492" 代码="3585" 名称="内存申请失败" 分区放置="" 复测="False" 工装="False" 夹具="False" 光箱="False" 软件="False" />
+  <Row493 编号="493" 代码="3586" 名称="未知异常" 分区放置="" 复测="False" 工装="False" 夹具="False" 光箱="False" 软件="False" />
+  <Row494 编号="494" 代码="3587" 名称="设备定位失败" 分区放置="" 复测="False" 工装="False" 夹具="False" 光箱="False" 软件="False" />
+  <Row495 编号="495" 代码="3588" 名称="工装未匹配" 分区放置="" 复测="False" 工装="False" 夹具="False" 光箱="False" 软件="False" />
+  <Row496 编号="496" 代码="3589" 名称="其他通道NG" 分区放置="" 复测="False" 工装="False" 夹具="False" 光箱="False" 软件="False" />
+  <Row497 编号="497" 代码="3840" 名称="参数异常" 分区放置="" 复测="False" 工装="False" 夹具="False" 光箱="False" 软件="False" />
+  <Row498 编号="498" 代码="3841" 名称="曲线异常" 分区放置="" 复测="False" 工装="False" 夹具="False" 光箱="False" 软件="False" />
+  <Row499 编号="499" 代码="4096" 名称="Sobel异常" 分区放置="" 复测="False" 工装="False" 夹具="False" 光箱="False" 软件="False" />
+  <Row500 编号="500" 代码="4352" 名称="OIS NG" 分区放置="" 复测="False" 工装="False" 夹具="False" 光箱="False" 软件="False" />
+  <Row501 编号="501" 代码="4353" 名称="OIS驱动类型错误" 分区放置="" 复测="False" 工装="False" 夹具="False" 光箱="False" 软件="False" />
+  <Row502 编号="502" 代码="4354" 名称="OIS OCS NG" 分区放置="" 复测="False" 工装="False" 夹具="False" 光箱="False" 软件="False" />
+  <Row503 编号="503" 代码="4355" 名称="OIS 下载固件失败" 分区放置="" 复测="False" 工装="False" 夹具="False" 光箱="False" 软件="False" />
+  <Row504 编号="504" 代码="4356" 名称="OIS Hall矫正是白" 分区放置="" 复测="False" 工装="False" 夹具="False" 光箱="False" 软件="False" />
+  <Row505 编号="505" 代码="4357" 名称="OIS 驱动Flash Checksum错误" 分区放置="" 复测="False" 工装="False" 夹具="False" 光箱="False" 软件="False" />
+  <Row506 编号="506" 代码="4358" 名称="OIS 驱动Flash写入失败" 分区放置="" 复测="False" 工装="False" 夹具="False" 光箱="False" 软件="False" />
+  <Row507 编号="507" 代码="4359" 名称="OIS Gyrooffset矫正失败" 分区放置="" 复测="False" 工装="False" 夹具="False" 光箱="False" 软件="False" />
+  <Row508 编号="508" 代码="4360" 名称="OIS Gyro初始化失败" 分区放置="" 复测="False" 工装="False" 夹具="False" 光箱="False" 软件="False" />
+  <Row509 编号="509" 代码="4361" 名称="OIS GyroOffset写入EEPROM失败" 分区放置="" 复测="False" 工装="False" 夹具="False" 光箱="False" 软件="False" />
+  <Row510 编号="510" 代码="4362" 名称="OIS GyroOffset EEPROM读取失败" 分区放置="" 复测="False" 工装="False" 夹具="False" 光箱="False" 软件="False" />
+  <Row511 编号="511" 代码="4363" 名称="OIS GyroOffset EEPROM CheckSum NG" 分区放置="" 复测="False" 工装="False" 夹具="False" 光箱="False" 软件="False" />
+  <Row512 编号="512" 代码="4364" 名称="OIS 图像计算错误" 分区放置="" 复测="False" 工装="False" 夹具="False" 光箱="False" 软件="False" />
+  <Row513 编号="513" 代码="4365" 名称="OIS 图像亮度超标" 分区放置="" 复测="False" 工装="False" 夹具="False" 光箱="False" 软件="False" />
+  <Row514 编号="514" 代码="4366" 名称="OIS 静态像素NG" 分区放置="" 复测="False" 工装="False" 夹具="False" 光箱="False" 软件="False" />
+  <Row515 编号="515" 代码="4367" 名称="OIS 其他NG" 分区放置="" 复测="False" 工装="False" 夹具="False" 光箱="False" 软件="False" />
+  <Row516 编号="516" 代码="4368" 名称="OIS HALL精度NG" 分区放置="" 复测="False" 工装="False" 夹具="False" 光箱="False" 软件="False" />
+  <Row517 编号="517" 代码="4369" 名称="OIS HALL线性NG" 分区放置="" 复测="False" 工装="False" 夹具="False" 光箱="False" 软件="False" />
+  <Row518 编号="518" 代码="4370" 名称="DB不达标" 分区放置="" 复测="False" 工装="False" 夹具="False" 光箱="False" 软件="False" />
+  <Row519 编号="519" 代码="4608" 名称="马达异常" 分区放置="" 复测="False" 工装="False" 夹具="False" 光箱="False" 软件="False" />
+  <Row520 编号="520" 代码="4609" 名称="双摄NG" 分区放置="" 复测="False" 工装="False" 夹具="False" 光箱="False" 软件="False" />
+  <Row521 编号="521" 代码="4864" 名称="OS 异常" 分区放置="" 复测="False" 工装="False" 夹具="False" 光箱="False" 软件="False" />
+  <Row522 编号="522" 代码="4865" 名称="待机电流异常" 分区放置="" 复测="False" 工装="False" 夹具="False" 光箱="False" 软件="False" />
+  <Row523 编号="523" 代码="5120" 名称="WB空间已满" 分区放置="" 复测="False" 工装="False" 夹具="False" 光箱="False" 软件="False" />
+  <Row524 编号="524" 代码="5121" 名称="AF数据异常" 分区放置="" 复测="False" 工装="False" 夹具="False" 光箱="False" 软件="False" />
+  <Row525 编号="525" 代码="5122" 名称="获取AWB Gain失败" 分区放置="" 复测="False" 工装="False" 夹具="False" 光箱="False" 软件="False" />
+  <Row526 编号="526" 代码="5123" 名称="色温1原始AWB不良" 分区放置="" 复测="False" 工装="False" 夹具="False" 光箱="False" 软件="False" />
+  <Row527 编号="527" 代码="5124" 名称="色温2原始AWB不良" 分区放置="" 复测="False" 工装="False" 夹具="False" 光箱="False" 软件="False" />
+  <Row528 编号="528" 代码="5125" 名称="色温3原始AWB不良" 分区放置="" 复测="False" 工装="False" 夹具="False" 光箱="False" 软件="False" />
+  <Row529 编号="529" 代码="5126" 名称="色温4原始AWB不良" 分区放置="" 复测="False" 工装="False" 夹具="False" 光箱="False" 软件="False" />
+  <Row530 编号="530" 代码="5127" 名称="色温1AWB不良" 分区放置="" 复测="False" 工装="False" 夹具="False" 光箱="False" 软件="False" />
+  <Row531 编号="531" 代码="5128" 名称="色温2AWB不良" 分区放置="" 复测="False" 工装="False" 夹具="False" 光箱="False" 软件="False" />
+  <Row532 编号="532" 代码="5129" 名称="色温3AWB不良" 分区放置="" 复测="False" 工装="False" 夹具="False" 光箱="False" 软件="False" />
+  <Row533 编号="533" 代码="5130" 名称="色温4AWB不良" 分区放置="" 复测="False" 工装="False" 夹具="False" 光箱="False" 软件="False" />
+  <Row534 编号="534" 代码="5376" 名称="LSC不良" 分区放置="" 复测="False" 工装="False" 夹具="False" 光箱="False" 软件="False" />
+  <Row535 编号="535" 代码="5377" 名称="CSC不良" 分区放置="" 复测="False" 工装="False" 夹具="False" 光箱="False" 软件="False" />
+  <Row536 编号="536" 代码="5378" 名称="原始LSC不良" 分区放置="" 复测="False" 工装="False" 夹具="False" 光箱="False" 软件="False" />
+  <Row537 编号="537" 代码="5379" 名称="原始CSC不良" 分区放置="" 复测="False" 工装="False" 夹具="False" 光箱="False" 软件="False" />
+  <Row538 编号="538" 代码="5380" 名称="Shading空间已满" 分区放置="" 复测="False" 工装="False" 夹具="False" 光箱="False" 软件="False" />
+  <Row539 编号="539" 代码="5381" 名称="AF数据异常" 分区放置="" 复测="False" 工装="False" 夹具="False" 光箱="False" 软件="False" />
+  <Row540 编号="540" 代码="5382" 名称="工具文档运行失败" 分区放置="" 复测="False" 工装="False" 夹具="False" 光箱="False" 软件="False" />
+  <Row541 编号="541" 代码="5383" 名称="LSC/CSC校准失败" 分区放置="" 复测="False" 工装="False" 夹具="False" 光箱="False" 软件="False" />
+  <Row542 编号="542" 代码="5384" 名称="LSC/CSC检测失败" 分区放置="" 复测="False" 工装="False" 夹具="False" 光箱="False" 软件="False" />
+  <Row543 编号="543" 代码="5632" 名称="数据读写异常" 分区放置="" 复测="False" 工装="False" 夹具="False" 光箱="False" 软件="False" />
+  <Row544 编号="544" 代码="5633" 名称="数据写入异常" 分区放置="" 复测="False" 工装="False" 夹具="False" 光箱="False" 软件="False" />
+  <Row545 编号="545" 代码="5634" 名称="数据读取异常" 分区放置="" 复测="False" 工装="False" 夹具="False" 光箱="False" 软件="False" />
+  <Row546 编号="546" 代码="5888" 名称="PDAF异常" 分区放置="" 复测="False" 工装="False" 夹具="False" 光箱="False" 软件="False" />
+  <Row547 编号="547" 代码="5889" 名称="PDAF矫正NG" 分区放置="" 复测="False" 工装="False" 夹具="False" 光箱="False" 软件="False" />
+  <Row548 编号="548" 代码="5890" 名称="PDAF检验NG" 分区放置="" 复测="False" 工装="False" 夹具="False" 光箱="False" 软件="False" />
+  <Row549 编号="549" 代码="5891" 名称="PD异常" 分区放置="" 复测="False" 工装="False" 夹具="False" 光箱="False" 软件="False" />
+  <Row550 编号="550" 代码="5892" 名称="SPC异常" 分区放置="" 复测="False" 工装="False" 夹具="False" 光箱="False" 软件="False" />
+  <Row551 编号="551" 代码="6400" 名称="条纹NG" 分区放置="" 复测="False" 工装="False" 夹具="False" 光箱="False" 软件="False" />
+  <Row552 编号="552" 代码="6656" 名称="噪点NG" 分区放置="" 复测="False" 工装="False" 夹具="False" 光箱="False" 软件="False" />
+  <Row553 编号="553" 代码="6912" 名称="偏色NG" 分区放置="" 复测="False" 工装="False" 夹具="False" 光箱="False" 软件="False" />
+  <Row554 编号="554" 代码="6913" 名称="图像偏红" 分区放置="" 复测="False" 工装="False" 夹具="False" 光箱="False" 软件="False" />
+  <Row555 编号="555" 代码="6914" 名称="图像偏绿" 分区放置="" 复测="False" 工装="False" 夹具="False" 光箱="False" 软件="False" />
+  <Row556 编号="556" 代码="7168" 名称="图像尺寸切换" 分区放置="" 复测="False" 工装="False" 夹具="False" 光箱="False" 软件="False" />
+  <Row557 编号="557" 代码="7424" 名称="CROSSTALK检测失败" 分区放置="" 复测="False" 工装="False" 夹具="False" 光箱="False" 软件="False" />
+  <Row558 编号="558" 代码="7425" 名称="CROSSTALK校准失败" 分区放置="" 复测="False" 工装="False" 夹具="False" 光箱="False" 软件="False" />
+  <Row559 编号="559" 代码="7426" 名称="CROSSTALK AFCODE异常" 分区放置="" 复测="False" 工装="False" 夹具="False" 光箱="False" 软件="False" />
+  <Row560 编号="560" 代码="7680" 名称="黑边暗角NG" 分区放置="" 复测="False" 工装="False" 夹具="False" 光箱="False" 软件="False" />
+  <Row561 编号="561" 代码="7936" 名称="光源点检NG" 分区放置="" 复测="False" 工装="False" 夹具="False" 光箱="False" 软件="False" />
+  <Row562 编号="562" 代码="8192" 名称="AA信息异常" 分区放置="" 复测="False" 工装="False" 夹具="False" 光箱="False" 软件="False" />
+  <Row563 编号="563" 代码="8448" 名称="光心NG" 分区放置="" 复测="False" 工装="False" 夹具="False" 光箱="False" 软件="False" />
+  <Row564 编号="564" 代码="8704" 名称="RUCU异常" 分区放置="" 复测="False" 工装="False" 夹具="False" 光箱="False" 软件="False" />
+  <Row565 编号="565" 代码="8960" 名称="数据防呆NG" 分区放置="" 复测="False" 工装="False" 夹具="False" 光箱="False" 软件="False" />
+  <Row566 编号="566" 代码="8961" 名称="左摄向下 30CM CODE" 分区放置="" 复测="False" 工装="False" 夹具="False" 光箱="False" 软件="False" />
+  <Row567 编号="567" 代码="8962" 名称="右摄向下 30CM CODE" 分区放置="" 复测="False" 工装="False" 夹具="False" 光箱="False" 软件="False" />
+  <Row568 编号="568" 代码="8963" 名称="左摄向下 50CM CODE" 分区放置="" 复测="False" 工装="False" 夹具="False" 光箱="False" 软件="False" />
+  <Row569 编号="569" 代码="8964" 名称="右摄向下 50CM CODE" 分区放置="" 复测="False" 工装="False" 夹具="False" 光箱="False" 软件="False" />
+  <Row570 编号="570" 代码="8965" 名称="左摄水平 30CM CODE" 分区放置="" 复测="False" 工装="False" 夹具="False" 光箱="False" 软件="False" />
+  <Row571 编号="571" 代码="8966" 名称="右摄水平 30CM CODE" 分区放置="" 复测="False" 工装="False" 夹具="False" 光箱="False" 软件="False" />
+  <Row572 编号="572" 代码="8967" 名称="左摄水平 50CM CODE" 分区放置="" 复测="False" 工装="False" 夹具="False" 光箱="False" 软件="False" />
+  <Row573 编号="573" 代码="8968" 名称="右摄水平 50CM CODE" 分区放置="" 复测="False" 工装="False" 夹具="False" 光箱="False" 软件="False" />
+  <Row574 编号="574" 代码="8969" 名称="左摄向上 30CM CODE" 分区放置="" 复测="False" 工装="False" 夹具="False" 光箱="False" 软件="False" />
+  <Row575 编号="575" 代码="8970" 名称="右摄向上 30CM CODE" 分区放置="" 复测="False" 工装="False" 夹具="False" 光箱="False" 软件="False" />
+  <Row576 编号="576" 代码="8971" 名称="左摄向上 50CM CODE" 分区放置="" 复测="False" 工装="False" 夹具="False" 光箱="False" 软件="False" />
+  <Row577 编号="577" 代码="8972" 名称="右摄向上 50CM CODE" 分区放置="" 复测="False" 工装="False" 夹具="False" 光箱="False" 软件="False" />
+  <Row578 编号="578" 代码="9216" 名称="HALL精度NG" 分区放置="" 复测="False" 工装="False" 夹具="False" 光箱="False" 软件="False" />
+  <Row579 编号="579" 代码="9217" 名称="HALL矫正NG" 分区放置="" 复测="False" 工装="False" 夹具="False" 光箱="False" 软件="False" />
+  <Row580 编号="580" 代码="9218" 名称="磁干扰NG" 分区放置="" 复测="False" 工装="False" 夹具="False" 光箱="False" 软件="False" />
+  <Row581 编号="581" 代码="9472" 名称="偏角NG" 分区放置="" 复测="False" 工装="False" 夹具="False" 光箱="False" 软件="False" />
+  <Row582 编号="582" 代码="9728" 名称="畸变矫正失败" 分区放置="" 复测="False" 工装="False" 夹具="False" 光箱="False" 软件="False" />
+  <Row583 编号="583" 代码="9729" 名称="畸变矫正失败" 分区放置="" 复测="False" 工装="False" 夹具="False" 光箱="False" 软件="False" />
+  <Row584 编号="584" 代码="9730" 名称="畸变检测失败" 分区放置="" 复测="False" 工装="False" 夹具="False" 光箱="False" 软件="False" />
+  <Row585 编号="585" 代码="9731" 名称="畸变拍图失败" 分区放置="" 复测="False" 工装="False" 夹具="False" 光箱="False" 软件="False" />
+  <Row586 编号="586" 代码="9732" 名称="畸变标版角度异常" 分区放置="" 复测="False" 工装="False" 夹具="False" 光箱="False" 软件="False" />
+  <Row587 编号="587" 代码="9984" 名称="标定取图NG" 分区放置="" 复测="False" 工装="False" 夹具="False" 光箱="False" 软件="False" />
+  <Row588 编号="588" 代码="9985" 名称="标定取图NG" 分区放置="" 复测="False" 工装="False" 夹具="False" 光箱="False" 软件="False" />
+  <Row589 编号="589" 代码="10240" 名称="标定NG" 分区放置="" 复测="False" 工装="False" 夹具="False" 光箱="False" 软件="False" />
+  <Row590 编号="590" 代码="10241" 名称="标定烧录NG" 分区放置="" 复测="False" 工装="False" 夹具="False" 光箱="False" 软件="False" />
+  <Row591 编号="591" 代码="10242" 名称="标定检验NG" 分区放置="" 复测="False" 工装="False" 夹具="False" 光箱="False" 软件="False" />
+  <Row592 编号="592" 代码="10243" 名称="HDT Dis1 NG" 分区放置="" 复测="False" 工装="False" 夹具="False" 光箱="False" 软件="False" />
+  <Row593 编号="593" 代码="10244" 名称="HDT Dis2 NG" 分区放置="" 复测="False" 工装="False" 夹具="False" 光箱="False" 软件="False" />
+  <Row594 编号="594" 代码="10245" 名称="D1_BEGIN" 分区放置="" 复测="False" 工装="False" 夹具="False" 光箱="False" 软件="False" />
+  <Row595 编号="595" 代码="10246" 名称="D1_FOV" 分区放置="" 复测="False" 工装="False" 夹具="False" 光箱="False" 软件="False" />
+  <Row596 编号="596" 代码="10247" 名称="D1_LEFT_OC_X" 分区放置="" 复测="False" 工装="False" 夹具="False" 光箱="False" 软件="False" />
+  <Row597 编号="597" 代码="10248" 名称="D1_LEFT_OC_Y" 分区放置="" 复测="False" 工装="False" 夹具="False" 光箱="False" 软件="False" />
+  <Row598 编号="598" 代码="10249" 名称="D1_RIGHT_OC_X" 分区放置="" 复测="False" 工装="False" 夹具="False" 光箱="False" 软件="False" />
+  <Row599 编号="599" 代码="10250" 名称="D1_RIGHT_OC_Y" 分区放置="" 复测="False" 工装="False" 夹具="False" 光箱="False" 软件="False" />
+  <Row600 编号="600" 代码="10251" 名称="D1_OC_X" 分区放置="" 复测="False" 工装="False" 夹具="False" 光箱="False" 软件="False" />
+  <Row601 编号="601" 代码="10252" 名称="D1_OC_Y" 分区放置="" 复测="False" 工装="False" 夹具="False" 光箱="False" 软件="False" />
+  <Row602 编号="602" 代码="10253" 名称="D1_R_X" 分区放置="" 复测="False" 工装="False" 夹具="False" 光箱="False" 软件="False" />
+  <Row603 编号="603" 代码="10254" 名称="D1_R_Y" 分区放置="" 复测="False" 工装="False" 夹具="False" 光箱="False" 软件="False" />
+  <Row604 编号="604" 代码="10255" 名称="D1_R_Z" 分区放置="" 复测="False" 工装="False" 夹具="False" 光箱="False" 软件="False" />
+  <Row605 编号="605" 代码="10256" 名称="D1_T_X" 分区放置="" 复测="False" 工装="False" 夹具="False" 光箱="False" 软件="False" />
+  <Row606 编号="606" 代码="10257" 名称="D1_T_Y" 分区放置="" 复测="False" 工装="False" 夹具="False" 光箱="False" 软件="False" />
+  <Row607 编号="607" 代码="10258" 名称="D1_T_Z" 分区放置="" 复测="False" 工装="False" 夹具="False" 光箱="False" 软件="False" />
+  <Row608 编号="608" 代码="10259" 名称="D1_DEPTH_1" 分区放置="" 复测="False" 工装="False" 夹具="False" 光箱="False" 软件="False" />
+  <Row609 编号="609" 代码="10260" 名称="D1_DEPTH_2" 分区放置="" 复测="False" 工装="False" 夹具="False" 光箱="False" 软件="False" />
+  <Row610 编号="610" 代码="10261" 名称="D1_DEPTH_3" 分区放置="" 复测="False" 工装="False" 夹具="False" 光箱="False" 软件="False" />
+  <Row611 编号="611" 代码="10262" 名称="D1_END" 分区放置="" 复测="False" 工装="False" 夹具="False" 光箱="False" 软件="False" />
+  <Row612 编号="612" 代码="10263" 名称="D2_BEGIN" 分区放置="" 复测="False" 工装="False" 夹具="False" 光箱="False" 软件="False" />
+  <Row613 编号="613" 代码="10264" 名称="D2_FOV" 分区放置="" 复测="False" 工装="False" 夹具="False" 光箱="False" 软件="False" />
+  <Row614 编号="614" 代码="10265" 名称="D2_LEFT_OC_X" 分区放置="" 复测="False" 工装="False" 夹具="False" 光箱="False" 软件="False" />
+  <Row615 编号="615" 代码="10266" 名称="D2_LEFT_OC_Y" 分区放置="" 复测="False" 工装="False" 夹具="False" 光箱="False" 软件="False" />
+  <Row616 编号="616" 代码="10267" 名称="D2_RIGHT_OC_X" 分区放置="" 复测="False" 工装="False" 夹具="False" 光箱="False" 软件="False" />
+  <Row617 编号="617" 代码="10268" 名称="D2_RIGHT_OC_Y" 分区放置="" 复测="False" 工装="False" 夹具="False" 光箱="False" 软件="False" />
+  <Row618 编号="618" 代码="10269" 名称="D2_OC_X" 分区放置="" 复测="False" 工装="False" 夹具="False" 光箱="False" 软件="False" />
+  <Row619 编号="619" 代码="10270" 名称="D2_OC_Y" 分区放置="" 复测="False" 工装="False" 夹具="False" 光箱="False" 软件="False" />
+  <Row620 编号="620" 代码="10271" 名称="D2_R_X" 分区放置="" 复测="False" 工装="False" 夹具="False" 光箱="False" 软件="False" />
+  <Row621 编号="621" 代码="10272" 名称="D2_R_Y" 分区放置="" 复测="False" 工装="False" 夹具="False" 光箱="False" 软件="False" />
+  <Row622 编号="622" 代码="10273" 名称="D2_R_Z" 分区放置="" 复测="False" 工装="False" 夹具="False" 光箱="False" 软件="False" />
+  <Row623 编号="623" 代码="10274" 名称="D2_T_X" 分区放置="" 复测="False" 工装="False" 夹具="False" 光箱="False" 软件="False" />
+  <Row624 编号="624" 代码="10275" 名称="D2_T_Y" 分区放置="" 复测="False" 工装="False" 夹具="False" 光箱="False" 软件="False" />
+  <Row625 编号="625" 代码="10276" 名称="D2_T_Z" 分区放置="" 复测="False" 工装="False" 夹具="False" 光箱="False" 软件="False" />
+  <Row626 编号="626" 代码="10277" 名称="D2_DEPTH_1" 分区放置="" 复测="False" 工装="False" 夹具="False" 光箱="False" 软件="False" />
+  <Row627 编号="627" 代码="10278" 名称="D2_DEPTH_2" 分区放置="" 复测="False" 工装="False" 夹具="False" 光箱="False" 软件="False" />
+  <Row628 编号="628" 代码="10279" 名称="D2_DEPTH_3" 分区放置="" 复测="False" 工装="False" 夹具="False" 光箱="False" 软件="False" />
+  <Row629 编号="629" 代码="10280" 名称="D2_END" 分区放置="" 复测="False" 工装="False" 夹具="False" 光箱="False" 软件="False" />
+  <Row630 编号="630" 代码="10281" 名称="D3_BEGIN" 分区放置="" 复测="False" 工装="False" 夹具="False" 光箱="False" 软件="False" />
+  <Row631 编号="631" 代码="10282" 名称="D3_FOV" 分区放置="" 复测="False" 工装="False" 夹具="False" 光箱="False" 软件="False" />
+  <Row632 编号="632" 代码="10283" 名称="D3_LEFT_OC_X" 分区放置="" 复测="False" 工装="False" 夹具="False" 光箱="False" 软件="False" />
+  <Row633 编号="633" 代码="10284" 名称="D3_LEFT_OC_Y" 分区放置="" 复测="False" 工装="False" 夹具="False" 光箱="False" 软件="False" />
+  <Row634 编号="634" 代码="10285" 名称="D3_RIGHT_OC_X" 分区放置="" 复测="False" 工装="False" 夹具="False" 光箱="False" 软件="False" />
+  <Row635 编号="635" 代码="10286" 名称="D3_RIGHT_OC_Y" 分区放置="" 复测="False" 工装="False" 夹具="False" 光箱="False" 软件="False" />
+  <Row636 编号="636" 代码="10287" 名称="D3_OC_X" 分区放置="" 复测="False" 工装="False" 夹具="False" 光箱="False" 软件="False" />
+  <Row637 编号="637" 代码="10288" 名称="D3_OC_Y" 分区放置="" 复测="False" 工装="False" 夹具="False" 光箱="False" 软件="False" />
+  <Row638 编号="638" 代码="10289" 名称="D3_R_X" 分区放置="" 复测="False" 工装="False" 夹具="False" 光箱="False" 软件="False" />
+  <Row639 编号="639" 代码="10290" 名称="D3_R_Y" 分区放置="" 复测="False" 工装="False" 夹具="False" 光箱="False" 软件="False" />
+  <Row640 编号="640" 代码="10291" 名称="D3_R_Z" 分区放置="" 复测="False" 工装="False" 夹具="False" 光箱="False" 软件="False" />
+  <Row641 编号="641" 代码="10292" 名称="D3_T_X" 分区放置="" 复测="False" 工装="False" 夹具="False" 光箱="False" 软件="False" />
+  <Row642 编号="642" 代码="10293" 名称="D3_T_Y" 分区放置="" 复测="False" 工装="False" 夹具="False" 光箱="False" 软件="False" />
+  <Row643 编号="643" 代码="10294" 名称="D3_T_Z" 分区放置="" 复测="False" 工装="False" 夹具="False" 光箱="False" 软件="False" />
+  <Row644 编号="644" 代码="10295" 名称="D3_DEPTH_1" 分区放置="" 复测="False" 工装="False" 夹具="False" 光箱="False" 软件="False" />
+  <Row645 编号="645" 代码="10296" 名称="D3_DEPTH_2" 分区放置="" 复测="False" 工装="False" 夹具="False" 光箱="False" 软件="False" />
+  <Row646 编号="646" 代码="10297" 名称="D3_DEPTH_3" 分区放置="" 复测="False" 工装="False" 夹具="False" 光箱="False" 软件="False" />
+  <Row647 编号="647" 代码="10298" 名称="D3_END" 分区放置="" 复测="False" 工装="False" 夹具="False" 光箱="False" 软件="False" />
+  <Row648 编号="648" 代码="10299" 名称="D4_BEGIN" 分区放置="" 复测="False" 工装="False" 夹具="False" 光箱="False" 软件="False" />
+  <Row649 编号="649" 代码="10300" 名称="D4_FOV" 分区放置="" 复测="False" 工装="False" 夹具="False" 光箱="False" 软件="False" />
+  <Row650 编号="650" 代码="10301" 名称="D4_LEFT_OC_X" 分区放置="" 复测="False" 工装="False" 夹具="False" 光箱="False" 软件="False" />
+  <Row651 编号="651" 代码="10302" 名称="D4_LEFT_OC_Y" 分区放置="" 复测="False" 工装="False" 夹具="False" 光箱="False" 软件="False" />
+  <Row652 编号="652" 代码="10303" 名称="D4_RIGHT_OC_X" 分区放置="" 复测="False" 工装="False" 夹具="False" 光箱="False" 软件="False" />
+  <Row653 编号="653" 代码="10304" 名称="D4_RIGHT_OC_Y" 分区放置="" 复测="False" 工装="False" 夹具="False" 光箱="False" 软件="False" />
+  <Row654 编号="654" 代码="10305" 名称="D4_OC_X" 分区放置="" 复测="False" 工装="False" 夹具="False" 光箱="False" 软件="False" />
+  <Row655 编号="655" 代码="10306" 名称="D4_OC_Y" 分区放置="" 复测="False" 工装="False" 夹具="False" 光箱="False" 软件="False" />
+  <Row656 编号="656" 代码="10307" 名称="D4_R_X" 分区放置="" 复测="False" 工装="False" 夹具="False" 光箱="False" 软件="False" />
+  <Row657 编号="657" 代码="10308" 名称="D4_R_Y" 分区放置="" 复测="False" 工装="False" 夹具="False" 光箱="False" 软件="False" />
+  <Row658 编号="658" 代码="10309" 名称="D4_R_Z" 分区放置="" 复测="False" 工装="False" 夹具="False" 光箱="False" 软件="False" />
+  <Row659 编号="659" 代码="10310" 名称="D4_T_X" 分区放置="" 复测="False" 工装="False" 夹具="False" 光箱="False" 软件="False" />
+  <Row660 编号="660" 代码="10311" 名称="D4_T_Y" 分区放置="" 复测="False" 工装="False" 夹具="False" 光箱="False" 软件="False" />
+  <Row661 编号="661" 代码="10312" 名称="D4_T_Z" 分区放置="" 复测="False" 工装="False" 夹具="False" 光箱="False" 软件="False" />
+  <Row662 编号="662" 代码="10313" 名称="D4_DEPTH_1" 分区放置="" 复测="False" 工装="False" 夹具="False" 光箱="False" 软件="False" />
+  <Row663 编号="663" 代码="10314" 名称="D4_DEPTH_2" 分区放置="" 复测="False" 工装="False" 夹具="False" 光箱="False" 软件="False" />
+  <Row664 编号="664" 代码="10315" 名称="D4_DEPTH_3" 分区放置="" 复测="False" 工装="False" 夹具="False" 光箱="False" 软件="False" />
+  <Row665 编号="665" 代码="10316" 名称="D4_END" 分区放置="" 复测="False" 工装="False" 夹具="False" 光箱="False" 软件="False" />
+  <Row666 编号="666" 代码="10317" 名称="AveErr" 分区放置="" 复测="False" 工装="False" 夹具="False" 光箱="False" 软件="False" />
+  <Row667 编号="667" 代码="10318" 名称="MaxErr" 分区放置="" 复测="False" 工装="False" 夹具="False" 光箱="False" 软件="False" />
+  <Row668 编号="668" 代码="10319" 名称="ErrRange" 分区放置="" 复测="False" 工装="False" 夹具="False" 光箱="False" 软件="False" />
+  <Row669 编号="669" 代码="10496" 名称="TOF标定失败" 分区放置="" 复测="False" 工装="False" 夹具="False" 光箱="False" 软件="False" />
+  <Row670 编号="670" 代码="10497" 名称="TOF检失败" 分区放置="" 复测="False" 工装="False" 夹具="False" 光箱="False" 软件="False" />
+  <Row671 编号="671" 代码="10752" 名称="AEC SetUp失败" 分区放置="" 复测="False" 工装="False" 夹具="False" 光箱="False" 软件="False" />
+  <Row672 编号="672" 代码="10753" 名称="AEC Calib失败" 分区放置="" 复测="False" 工装="False" 夹具="False" 光箱="False" 软件="False" />
+  <Row673 编号="673" 代码="11008" 名称="向上机械顶部管控失败" 分区放置="" 复测="False" 工装="False" 夹具="False" 光箱="False" 软件="False" />
+  <Row674 编号="674" 代码="11009" 名称="向上镭射值管控失败" 分区放置="" 复测="False" 工装="False" 夹具="False" 光箱="False" 软件="False" />
+  <Row675 编号="675" 代码="11010" 名称="向上转姿势0位置管控失败" 分区放置="" 复测="False" 工装="False" 夹具="False" 光箱="False" 软件="False" />
+  <Row676 编号="676" 代码="11011" 名称="向上远焦到底部管控失败" 分区放置="" 复测="False" 工装="False" 夹具="False" 光箱="False" 软件="False" />
+  <Row677 编号="677" 代码="11012" 名称="向上近焦到顶部管控失败" 分区放置="" 复测="False" 工装="False" 夹具="False" 光箱="False" 软件="False" />
+  <Row678 编号="678" 代码="11013" 名称="向上远近焦差值管控失败" 分区放置="" 复测="False" 工装="False" 夹具="False" 光箱="False" 软件="False" />
+  <Row679 编号="679" 代码="11014" 名称="向上获取Laser值失败" 分区放置="" 复测="False" 工装="False" 夹具="False" 光箱="False" 软件="False" />
+  <Row680 编号="680" 代码="11015" 名称="向上AA精度管控失败" 分区放置="" 复测="False" 工装="False" 夹具="False" 光箱="False" 软件="False" />
+  <Row681 编号="681" 代码="11016" 名称="向上线性度管控失败" 分区放置="" 复测="False" 工装="False" 夹具="False" 光箱="False" 软件="False" />
+  <Row682 编号="682" 代码="11017" 名称="向上姿势差管控失败" 分区放置="" 复测="False" 工装="False" 夹具="False" 光箱="False" 软件="False" />
+  <Row683 编号="683" 代码="11018" 名称="向上斜率管控失败" 分区放置="" 复测="False" 工装="False" 夹具="False" 光箱="False" 软件="False" />
+  <Row684 编号="684" 代码="11019" 名称="向上清零失败" 分区放置="" 复测="False" 工装="False" 夹具="False" 光箱="False" 软件="False" />
+  <Row685 编号="685" 代码="11020" 名称="水平机械顶部管控失败" 分区放置="" 复测="False" 工装="False" 夹具="False" 光箱="False" 软件="False" />
+  <Row686 编号="686" 代码="11021" 名称="水平镭射值管控失败" 分区放置="" 复测="False" 工装="False" 夹具="False" 光箱="False" 软件="False" />
+  <Row687 编号="687" 代码="11022" 名称="水平转姿势0位置管控失败" 分区放置="" 复测="False" 工装="False" 夹具="False" 光箱="False" 软件="False" />
+  <Row688 编号="688" 代码="11023" 名称="水平远焦到底部管控失败" 分区放置="" 复测="False" 工装="False" 夹具="False" 光箱="False" 软件="False" />
+  <Row689 编号="689" 代码="11024" 名称="水平近焦到顶部管控失败" 分区放置="" 复测="False" 工装="False" 夹具="False" 光箱="False" 软件="False" />
+  <Row690 编号="690" 代码="11025" 名称="水平远近焦差值管控失败" 分区放置="" 复测="False" 工装="False" 夹具="False" 光箱="False" 软件="False" />
+  <Row691 编号="691" 代码="11026" 名称="水平获取Laser值失败" 分区放置="" 复测="False" 工装="False" 夹具="False" 光箱="False" 软件="False" />
+  <Row692 编号="692" 代码="11027" 名称="水平AA精度管控失败" 分区放置="" 复测="False" 工装="False" 夹具="False" 光箱="False" 软件="False" />
+  <Row693 编号="693" 代码="11028" 名称="水平线性度管控失败" 分区放置="" 复测="False" 工装="False" 夹具="False" 光箱="False" 软件="False" />
+  <Row694 编号="694" 代码="11029" 名称="水平姿势差管控失败" 分区放置="" 复测="False" 工装="False" 夹具="False" 光箱="False" 软件="False" />
+  <Row695 编号="695" 代码="11030" 名称="水平斜率管控失败" 分区放置="" 复测="False" 工装="False" 夹具="False" 光箱="False" 软件="False" />
+  <Row696 编号="696" 代码="11031" 名称="水平清零失败" 分区放置="" 复测="False" 工装="False" 夹具="False" 光箱="False" 软件="False" />
+  <Row697 编号="697" 代码="11032" 名称="向下机械顶部管控失败" 分区放置="" 复测="False" 工装="False" 夹具="False" 光箱="False" 软件="False" />
+  <Row698 编号="698" 代码="11033" 名称="向下镭射值管控失败" 分区放置="" 复测="False" 工装="False" 夹具="False" 光箱="False" 软件="False" />
+  <Row699 编号="699" 代码="11034" 名称="向下转姿势0位置管控失败" 分区放置="" 复测="False" 工装="False" 夹具="False" 光箱="False" 软件="False" />
+  <Row700 编号="700" 代码="11035" 名称="向下远焦到底部管控失败" 分区放置="" 复测="False" 工装="False" 夹具="False" 光箱="False" 软件="False" />
+  <Row701 编号="701" 代码="11036" 名称="向下近焦到顶部管控失败" 分区放置="" 复测="False" 工装="False" 夹具="False" 光箱="False" 软件="False" />
+  <Row702 编号="702" 代码="11037" 名称="向下远近焦差值管控失败" 分区放置="" 复测="False" 工装="False" 夹具="False" 光箱="False" 软件="False" />
+  <Row703 编号="703" 代码="11038" 名称="向下获取Laser值失败" 分区放置="" 复测="False" 工装="False" 夹具="False" 光箱="False" 软件="False" />
+  <Row704 编号="704" 代码="11039" 名称="向下AA精度管控失败" 分区放置="" 复测="False" 工装="False" 夹具="False" 光箱="False" 软件="False" />
+  <Row705 编号="705" 代码="11040" 名称="向下线性度管控失败" 分区放置="" 复测="False" 工装="False" 夹具="False" 光箱="False" 软件="False" />
+  <Row706 编号="706" 代码="11041" 名称="向下姿势差管控失败" 分区放置="" 复测="False" 工装="False" 夹具="False" 光箱="False" 软件="False" />
+  <Row707 编号="707" 代码="11042" 名称="向下斜率管控失败" 分区放置="" 复测="False" 工装="False" 夹具="False" 光箱="False" 软件="False" />
+  <Row708 编号="708" 代码="11043" 名称="向下清零失败" 分区放置="" 复测="False" 工装="False" 夹具="False" 光箱="False" 软件="False" />
+</DataTable>
