@@ -217,6 +217,7 @@ _pkginfo.txt
 ClientBin/
 ~$*
 *~
+dllforcomv8.zip
 *.dbmdl
 *.dbproj.schemaview
 *.jfm
